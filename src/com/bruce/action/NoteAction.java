@@ -1,0 +1,348 @@
+
+package com.bruce.action;
+/*
+*@author bruce
+*
+**/
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.bruce.manager.LyricsManager;
+import com.bruce.manager.NoteManager;
+import com.bruce.manager.UserFollowManager;
+import com.bruce.manager.UserManager;
+import com.bruce.model.Lyrics;
+import com.bruce.model.Note;
+import com.bruce.model.User;
+import com.bruce.query.NoteQuery;
+import com.bruce.query.condition.NoteQueryCondition;
+import com.bruce.utils.MyConstant;
+import com.bruce.utils.PageView;
+import com.bruce.utils.QueryResult;
+import com.bruce.utils.Timers;
+
+@Controller
+@RequestMapping("/note")
+@SessionAttributes({ "list", "note" })
+public class NoteAction {
+
+ private final String LIST_ACTION = "redirect:/note/findAll";
+ @Autowired	
+ private NoteManager noteManager;
+ @Autowired	
+ private UserManager userManager;
+ @Autowired	
+ private NoteQuery noteQuery;
+ @Autowired	
+ private LyricsManager lyricsManager;
+ @Autowired	
+ private UserFollowManager userfollowManager;
+ 
+
+	
+	@RequestMapping("/toAdd")
+	public String toAdd(ModelMap map) {
+		//List<Note> Pidlist = noteManager.findAll();
+		//map.addAttribute("Pidlist",Pidlist);
+		return "admin/note/noteAdd";
+	}
+	
+	@RequestMapping("/toEdit")
+	public String toEdit(HttpServletRequest request, @RequestParam("id") String id,ModelMap map) {
+		//String id = request.getParameter("id");
+		//List<Note> Pidlist = noteManager.findAll();
+		//map.addAttribute("Pidlist",Pidlist);
+		if(!StringUtils.isEmpty(id)){
+			Note model = noteManager.findNote(id);
+			map.put("model", model);
+		}
+		return "admin/note/noteEdit";
+	}
+	
+	@RequestMapping("/remove")
+	public String remove(@RequestParam("id") String id,String userid) {
+		this.noteManager.delNote(id);
+		return LIST_ACTION+"?userid="+userid;
+	}
+	
+	@RequestMapping("/removes")
+	public String removes(@RequestParam("ids") String ids) {
+		String[] str = ids.split(",");
+		for(String s :str){
+			this.noteManager.delNote(s);
+		}
+		return LIST_ACTION;
+	}
+	
+	@RequestMapping("/update")
+	public String update(Note model) {
+		this.noteManager.updateNote(model);
+		return LIST_ACTION;
+	}
+	
+
+	@RequestMapping("/addNote")
+	public String addNote(Note note) {
+		String rs= LIST_ACTION;
+		if(StringUtils.isNotEmpty(note.getUserid())){
+		if(StringUtils.isEmpty(note.getOpened())){
+			note.setOpened("yes");
+		}
+		note.setCreatetime(Timers.nowTime());
+		this.noteManager.addNote(note);
+		rs +="?userid="+ note.getUserid();
+		}else{
+			rs = "login";
+		}
+		return rs;
+	}
+
+	@RequestMapping("/findNote")
+	private String findNote(@RequestParam("id") String id, ModelMap map) {
+		Note note = this.noteManager.findNote(id);
+		map.addAttribute("note", note);
+		return "note";
+	}
+
+	@RequestMapping("/delNote")
+	public String delNote(@RequestParam("id") String id) {
+		this.noteManager.delNote(id);
+		return LIST_ACTION;
+	}
+
+	@RequestMapping("/updateNote")
+	public String updateNote(@RequestParam("id") String id) {
+		Note note = this.noteManager.findNote(id);
+		this.noteManager.updateNote(note);
+		return LIST_ACTION;
+	}
+	
+	
+	@RequestMapping(value="/viewNotes/{userid}")
+	public String viewNotes(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session, @PathVariable String userid) {
+		//condition.setOpened("yes");
+		String result="spacenote";
+		if(StringUtils.isNotEmpty(userid)){
+			condition.setUserid(userid);
+			map.addAttribute("userid",userid);
+			User user = userManager.findUser(userid);
+			//处理图片路径
+			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
+			if(!StringUtils.isEmpty(imgpath)){
+			String[] str = imgpath.split("/heads/");
+			if(str.length>1){
+			String imgp = "heads/"+str[1];
+			user.setHeadpath(imgp);
+			}
+			}
+			//处理图片路径
+			map.put("MyInfo", user);
+		}else{
+			condition.setUserid("空");
+			map.addAttribute("userid","");
+		}
+		String whereSql = noteQuery.getSql(condition);
+		
+		PageView<Note> pageView = getPageView(request, whereSql);
+		
+
+		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+		order.put("createtime", "desc");
+
+		QueryResult<Note> qrs = this.noteManager.findByCondition(pageView,
+				whereSql, order);
+		List<Note> list = qrs.getResultlist();
+		for (int i = 0; i < list.size(); i++) {
+			if(list.get(i).getCreatetime().contains("-")){
+				String t = list.get(i).getCreatetime().substring(0, 10);
+				list.get(i).setCreatetime(t);
+			}
+		}
+		map.addAttribute("pageView", pageView);
+		map.put("condition", condition);
+		map.addAttribute("list", list);
+		map.addAttribute("actionUrl","note/findAll" );
+		
+		//取得当前用户对作者的关注状态
+        User lo_user = (User) request.getSession().getAttribute("user");
+        if(lo_user!=null){
+       	 String follow_id = lo_user.getId();
+       	 String author_id = userid;
+       	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
+       		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
+       		 if(nums>0){
+       			 map.put("gz", "ygz");
+       		 }
+       	 }
+       	 
+        }
+
+		return result;
+	}
+
+	@RequestMapping(value="/findAll")
+	public String findAll(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,String userid) {
+		//condition.setOpened("yes");
+		String result="note";
+		if(StringUtils.isNotEmpty(userid)){
+			condition.setUserid(userid);
+			map.addAttribute("userid",userid);
+			User user = userManager.findUser(userid);
+			//处理图片路径
+			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
+			if(!StringUtils.isEmpty(imgpath)){
+			String[] str = imgpath.split("/heads/");
+			if(str.length>1){
+			String imgp = "heads/"+str[1];
+			user.setHeadpath(imgp);
+			}
+			}
+			//处理图片路径
+			map.put("MyInfo", user);
+		}else{
+			condition.setUserid("空");
+			map.addAttribute("userid","");
+		}
+		String whereSql = noteQuery.getSql(condition);
+		
+		PageView<Note> pageView = getPageView(request, whereSql);
+		
+
+		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+		order.put("createtime", "desc");
+
+		QueryResult<Note> qrs = this.noteManager.findByCondition(pageView,
+				whereSql, order);
+		List<Note> list = qrs.getResultlist();
+		for (int i = 0; i < list.size(); i++) {
+			if(list.get(i).getCreatetime().contains("-")){
+				String t = list.get(i).getCreatetime().substring(0, 10);
+				list.get(i).setCreatetime(t);
+			}
+		}
+		map.addAttribute("pageView", pageView);
+		map.put("condition", condition);
+		map.addAttribute("list", list);
+		map.addAttribute("actionUrl","note/findAll" );
+
+		return result;
+	}
+	
+	@RequestMapping(value="/list")
+	public String list(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws IOException {
+		
+		session.removeAttribute("tabs");
+		session.setAttribute("tabs","note");
+		condition.setOpened("yes");
+		String result="story";
+		String whereSql = noteQuery.getSql(condition);
+		
+		PageView<Note> pageView = getPageView(request, whereSql);
+		
+
+		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+		order.put("createtime", "desc");
+
+		QueryResult<Note> qrs = this.noteManager.findByCondition(pageView,
+				whereSql, order);
+		List<Note> list = qrs.getResultlist();
+		for (int i = 0; i < list.size(); i++) {
+			//处理时间
+				list.get(i).setCreatetime(Timers.getHalfDate(list.get(i).getCreatetime()));
+			//处理时间
+			//处理笔记
+//			String note = list.get(i).getNote().replaceAll("\\pP|\\pS", ",");
+//			String [] str = note.split(",");
+//			ArrayList Strlist = new ArrayList(); 
+//			for (int j = 0; j < str.length; j++) {
+//				if(!StringUtils.isEmpty(str[j])){
+//					Strlist.add(str[j]);
+//				}
+//			}
+			
+			//处理笔记
+		}
+		map.addAttribute("pageView", pageView);
+		map.put("condition", condition);
+		map.addAttribute("list", list);
+		map.addAttribute("actionUrl","note/list" );
+		
+		List<User> UList = userManager.findAll();
+		for (int i = 0; i < UList.size(); i++) {//批量处理图片的路径
+			String imgpath = UList.get(i).getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
+			if(!StringUtils.isEmpty(imgpath)){
+			String[] str = imgpath.split("/heads/");
+			if(str.length>1){
+			String imgp = "heads/"+str[1];
+			UList.get(i).setHeadpath(imgp);
+			}
+			}
+		}
+		map.addAttribute("UList", UList);
+		List<Lyrics> LList = lyricsManager.findAll();
+		map.addAttribute("LList", LList);
+
+		return result;
+	}
+
+	private PageView<Note> getPageView(HttpServletRequest request,
+			String whereSql) {
+		PageView<Note> pageView = new PageView<Note>();
+		int currentpage = 0; //当前页码
+		int pages = 0; //总页数
+		int n = this.noteManager.findByCondition(whereSql).getResultlist().size();
+		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
+        if(n % maxresult==0)
+       {
+          pages = n / maxresult ;
+       }else{
+          pages = n / maxresult + 1;
+       }
+        if(StringUtils.isEmpty(request.getParameter("currentpage"))){
+           currentpage = 0;
+        }else{
+           currentpage = Integer.parseInt(request.getParameter("currentpage"));
+           
+           if(currentpage<0)
+           {
+              currentpage = 0;
+           }
+           if(currentpage>=pages)
+           {
+              currentpage = pages - 1;
+           }
+        }
+		int startindex = currentpage*maxresult;
+		int endindex = startindex+maxresult-1;
+		pageView.setStartindex(startindex);
+		pageView.setEndindex(endindex);
+		pageView.setTotalrecord(n);
+		pageView.setCurrentpage(currentpage);
+		pageView.setTotalpage(pages);
+		return pageView;
+	}
+
+}

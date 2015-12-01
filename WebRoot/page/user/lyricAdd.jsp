@@ -1,0 +1,331 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"  import="org.springframework.web.util.UrlPathHelper"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Language" content="zh-CN">
+<meta name="description" content="添加我的最爱:布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
+<meta name="keywords" content="最爱,回忆,生活">
+<meta name="author" content="www.qinco.net">
+<meta name="robots" content="index,follow,archive">
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<base href="<%=basePath%>">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="page" content="<%=request.getServletPath()%>">
+<meta name="action" content="<%=new UrlPathHelper().getOriginatingRequestUri(request)%>">
+<link rel="shortcut icon" href="img/favicon.png">
+<link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.css">
+	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
+	<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
+<title>添加我的布.图</title>
+<style type="text/css">
+#preview{width:200px;height:200px;border:1px solid #000;overflow:hidden;top: 25%;position: relative;}
+#imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
+body {background:#f4f3f1;}
+</style>
+</head>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254650304'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254650304%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+<body >
+<%@ include file="/page/common/navigation.jsp"%>
+
+
+
+
+
+	<div class="clearfix maincontent">
+		<div class="container">
+			<div class="mainbody" style="margin-top: 5em;">
+				<div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
+					<form method="POST" action="lyrics/addLyrics.action" accept-charset="UTF-8" role="form" id="addItemForm" style="color: #444;" class="form margin-t20"  enctype="multipart/form-data">
+						<input type="hidden" name="userid" value="${userid }"/>
+						<input name="_token" value="MChH1y1oDE5jrLx0uyI0LemGA6OThZIQ6sYcVOuT" type="hidden">
+						<div class="clearfix">
+							<h4>
+								<span class="glyphicon glyphicon-plus"></span> 添加我的歌词
+							</h4>
+							<hr>
+						</div>
+
+						<div class="form-group ">
+							<input id="artist" placeholder="艺术家 比如：周杰伦"
+								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
+								name="artist" type="text">
+						</div>
+						<div class="form-group ">
+							<input id="album" placeholder="专辑 比如：依然范特西"
+								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
+								name="album" type="text">
+						</div>
+						<div class="form-group ">
+							<input id="title" placeholder="歌曲名 比如：夜的第七章"
+								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
+								name="title" type="text">
+						</div>
+						<div class="form-group ">
+							<input id="medialength" placeholder="媒体长度 比如：00:04:25"
+								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
+								name="medialength" type="text">
+						</div>
+						<span style="color: #999; opacity: 1;">专辑图片</span>
+					            <input placeholder="专辑图片 选择一个你喜欢的图片" name="file" id="file1" type="file" onchange="previewImage(this)" accept=".jpg,.gif,.png,.ico,.bmp" class=" border-light-1 bg-lyellow grid98 radius-0"/>  
+						<span style="color: #999; opacity: 1;">歌词文件</span>
+						 		<input  placeholder="选择一个你喜欢的歌词" name="file" id="lrcid" type="file"  accept=".lrc"  class="border-light-1 bg-lyellow grid98 radius-0" />  
+						<div class="clearfix hidden" id="searchResult"></div>
+
+						<div class="form-group">
+							<input disabled="disabled" id="formSubmit" data-activetext="添加 ››"
+								class="btn btn-hero btn-xlg margin-t10 grid50" value="添加"
+								type="submit">
+						</div>
+						 <div id="preview" class="align-center bg-white radius-5 padding10 max-width-400 min-width-300" style="padding-left: 50px;border: 0">
+							<img id="imghead" border=0 src="img/head_180.jpg" width="200" height="200" />
+				</div>
+					</form>
+				</div>
+				
+				<br>
+				<br>
+
+			</div>
+
+
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	<%@ include file="/page/common/container.jsp"%>
+
+<script src="/js/analytics.js" async=""></script><script src="/js/jquery-1.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/main2.js"></script>
+
+    
+
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+
+	var ajax_url='/ajax';
+	var _aj = {user_id: '50777'};
+	_aj['user_agent']='7B11B78D295C';
+	_aj['timestamp']='1400558489';
+	_aj['user_keychain']='076F3E876EA5';
+
+	
+	
+  $('#formSubmit').attr('disabled',true);
+  $('#addItemForm').on('keyup', '#artist', function(event) {
+	    if($('#artist').val().length>=1&&$('#album').val().length>=1&&$('#title').val().length>=1&&$('#medialength').val().length>=1&&$('#lrcid').val().length>=1)
+	    {
+	      $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
+
+	    }
+	    else
+	      $('#formSubmit').attr('disabled',true);
+	  
+    });
+  
+  $('#addItemForm').on('keyup', '#album', function(event) {
+	    if($('#artist').val().length>=1&&$('#album').val().length>=1&&$('#title').val().length>=1&&$('#medialength').val().length>=1&&$('#lrcid').val().length>=1)
+	    {
+	      $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
+
+	    }
+	    else
+	      $('#formSubmit').attr('disabled',true);
+	  
+  });
+  
+  $('#addItemForm').on('keyup', '#title', function(event) {
+	    if($('#artist').val().length>=1&&$('#album').val().length>=1&&$('#title').val().length>=1&&$('#medialength').val().length>=1&&$('#lrcid').val().length>=1)
+	    {
+	      $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
+
+	    }
+	    else
+	      $('#formSubmit').attr('disabled',true);
+	  
+  });
+  
+  $('#addItemForm').on('keyup', '#medialength', function(event) {
+	    if($('#artist').val().length>=1&&$('#album').val().length>=1&&$('#title').val().length>=1&&$('#medialength').val().length>=1&&$('#lrcid').val().length>=1)
+	    {
+	      $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
+
+	    }
+	    else{
+	      $('#formSubmit').attr('disabled',true);
+	    }
+	  
+  });
+  
+  
+  $('#addItemForm').on('change', '#lrcid', function(event) {
+	    if($('#artist').val().length>=1&&$('#album').val().length>=1&&$('#title').val().length>=1&&$('#medialength').val().length>=1&&$('#lrcid').val().length>=1)
+	    {
+	      $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
+
+	    }
+	    else{
+	      $('#formSubmit').attr('disabled',true);
+	    }
+	  
+  });
+
+ 
+
+  function searchItemDone(returndata)
+  {
+    ajaxDone(returndata);
+    data=jQuery.parseJSON(returndata);
+    if(data.response=='YES')
+    {
+      if(data.match && data.match.length>0)
+      {
+        var html="<h5>可能类似的条目：</h5><ul>";
+        for(var i=0, len=data.match.length; len>i; i++)
+        {
+          //html=html+"<div class='thumbnail border-0 col-xs-2'><a href='/love/"+data.match[i][0]+"'><img src='"+data.match[i][2]+"' /></a></div>";
+          html=html+"<li><a href='/love/"+data.match[i][0]+"'>"+data.match[i][1]+"</a></li>";
+        }
+        html=html+"</ul>";
+
+        $('#searchResult').html(html).removeClass('hidden');
+      }
+      else
+        $('#searchResult').html(html).addClass('hidden');
+    } 
+    
+  }
+
+
+});
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-199262-13', 'buci.cc');
+  ga('send', 'pageview');
+
+</script>
+	<script type="text/javascript">
+	$(function() {
+		var albumpath = $("#albumpath").val();
+		if (albumpath != "" && albumpath != null && albumpath != '' && albumpath != 'Failure...') {
+			window.parent.showtip2("成功！");
+		}
+		if(albumpath=='Failure...'){
+			window.parent.showtip2("添加失败！");
+		}
+	});
+			function openIt() {
+
+				// SUCCESS AJAX CALL, replace "success: false," by:     success : function() { callSuccessFunction() }, 
+				$("[class^=validate]")
+						.validationEngine(
+								{
+									success : function() {
+										var ness = $("#lrcid").val();
+										if(ness==""){
+											art.dialog.alert('请选择您要上传的歌词文件！');
+											return false;
+										}
+
+										$("#f1")
+												.attr("action",
+														"lyrics/addLyrics.action")
+												.submit();
+
+									},
+									failure : function() {
+										return false;
+									}
+								});
+			}
+			
+	  
+			
+			
+			
+			
+			//图片上传预览    IE是用了滤镜。
+			function previewImage(file)
+			{
+			  var MAXWIDTH  = 260; 
+			  var MAXHEIGHT = 180;
+			  var div = document.getElementById('preview');
+			  if (file.files && file.files[0])
+			  {
+			      div.innerHTML ='<img id=imghead>';
+			      var img = document.getElementById('imghead');
+			      img.onload = function(){
+			        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+			        img.width  =  rect.width;
+			        img.height =  rect.height;
+//			         img.style.marginLeft = rect.left+'px';
+			        img.style.marginTop = rect.top+'px';
+			      }
+			      var reader = new FileReader();
+			      reader.onload = function(evt){img.src = evt.target.result;}
+			      reader.readAsDataURL(file.files[0]);
+			  }
+			  else //兼容IE
+			  {
+			    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+			    file.select();
+			    var src = document.selection.createRange().text;
+			    div.innerHTML = '<img id=imghead>';
+			    var img = document.getElementById('imghead');
+			    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+			    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+			    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+			    div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+			  }
+			}
+
+
+			function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+			    var param = {top:0, left:0, width:width, height:height};
+			    if( width>maxWidth || height>maxHeight )
+			    {
+			        rateWidth = width / maxWidth;
+			        rateHeight = height / maxHeight;
+			        
+			        if( rateWidth > rateHeight )
+			        {
+			            param.width =  maxWidth;
+			            param.height = Math.round(height / rateWidth);
+			        }else
+			        {
+			            param.width = Math.round(width / rateHeight);
+			            param.height = maxHeight;
+			        }
+			    }
+			    
+			    param.left = Math.round((maxWidth - param.width) / 2);
+			    param.top = Math.round((maxHeight - param.height) / 2);
+			    return param;
+			}
+	</script>
+</body>
+</html>
