@@ -42,7 +42,7 @@ import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
 import com.bruce.utils.ScriptTools;
-import com.bruce.utils.Timers;
+import com.bruce.utils.TimeUtils;
 
 @Controller
 @RequestMapping("/lyrics")
@@ -51,6 +51,7 @@ public class LyricsAction {
 
  private final String LIST_ACTION = "redirect:/lyrics/findAll";
  private final String LIST_ACTION2 = "redirect:/cm/pcentral";
+ private final String LOGIN_ACTION = "redirect:/cm/toLogin";
  @Autowired	
  private LyricsManager lyricsManager;
  @Autowired	
@@ -65,15 +66,15 @@ public class LyricsAction {
  @Autowired	
  private UserFollowManager userfollowManager;
 	
-	@RequestMapping("/toAdd")
-	public String toAdd(ModelMap map,String userid) {
-		//List<Lyrics> Pidlist = lyricsManager.findAll();
-		//map.addAttribute("Pidlist",Pidlist);
+	@RequestMapping("/add")
+	public String toAdd(ModelMap map,String userid,HttpServletRequest request,HttpServletResponse response) {
 		String result = "page/user/lyricAdd";
-		if(StringUtils.isEmpty(userid)){
-			result ="login";
-		}
-		map.put("userid", userid);
+		 User u = (User) request.getSession().getAttribute("user");
+		 if(u!=null){
+			 
+		 }else{
+			 result = LOGIN_ACTION;
+		 }
 		return result;
 	}
 	
@@ -227,8 +228,10 @@ public class LyricsAction {
 	        System.out.println(albumpath+"\n\t"+"---->"+lrcpath);
 	        if(albumpath.contains(".")){
 	        	model.setAlbumImg(albumpath);
+	        }else{
+	        	model.setAlbumImg(oldpath);
 	        }
-	        model.setUpdatedate(Timers.nowTime());
+	        model.setUpdatedate(TimeUtils.nowTime());
 	        map.addAttribute("albumpath", albumpath);
 	        System.out.println("-------------------------------------->结束");  
 		this.lyricsManager.updateLyrics(model);
@@ -241,6 +244,11 @@ public class LyricsAction {
 	@RequestMapping("/addLyrics")
 	public String addLyrics(Lyrics lyrics,String userid,HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile[] file,ModelMap map) {
 		
+		 User u = (User) request.getSession().getAttribute("user");
+		 if(u!=null){
+			 
+			 userid = u.getId();
+		 }
 		if(StringUtils.isNotEmpty(userid)){
 			 System.out.println("-------------------------------------->开始");  
 			    Properties prop = System.getProperties();
@@ -286,7 +294,7 @@ public class LyricsAction {
 //		        String imgpath = path+"/"+newName;
 //		        System.out.println(imgpath);
 		        map.addAttribute("albumpath", albumpath);
-		        lyrics.setUpdatedate(Timers.nowTime());
+		        lyrics.setUpdatedate(TimeUtils.nowTime());
 		        lyrics.setType("lrc");
 		        lyrics.setAlbumImg(albumpath);
 		        lyrics.setPath(lrcpath);
@@ -299,7 +307,7 @@ public class LyricsAction {
 			}else{//添加失败了
 				map.addAttribute("albumpath", "Failure...");  
 			}
-		return LIST_ACTION2+"?userid="+userid;
+		return LIST_ACTION2;
 	}
 	
 	
@@ -355,7 +363,7 @@ public class LyricsAction {
  			}
  			
  			//批量处理时间
- 			plList.get(i).put("create_time",Timers.formatToNear((String) plList.get(i).get("create_time")));
+ 			plList.get(i).put("create_time",TimeUtils.formatToNear((String) plList.get(i).get("create_time")));
 		 }
          
         

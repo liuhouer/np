@@ -3,8 +3,8 @@
 <div class="container">
 	<div class="mainfoot center">
 		<p style="color: #999">	
-			©2014 布.词 &nbsp; &nbsp; <a href="http://liuhouer.github.io"
-				title="关于布.词">关于布.词</a> &nbsp; &nbsp; 联系布.词：654714226@qq.com &nbsp; &nbsp; 
+			©2014 布.词 &nbsp; &nbsp; <a href="http://northpark.cn"
+				title="博客">博客blog</a> &nbsp; &nbsp; 联系布.词：654714226@qq.com &nbsp; &nbsp; 
 				<a href="/cm/xbjt" title="小布静听">小布静听</a> &nbsp; &nbsp; 
 				<!-- <span id="qqLoginBtn"></span>
 				<script type="text/javascript">
@@ -16,11 +16,11 @@
 	</div>
 </div>
 
-<script async="" src="/js/analytics.js"></script><script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/main2.js"></script>
     
-    <script>
+   <!--  <script>
 $(function(){
 	$("#J_tabs").find('li').click(function(){
 		var tabs = "${tabs}";
@@ -38,4 +38,4 @@ $(function(){
 
 
 
-</script>
+</script> -->

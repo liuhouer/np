@@ -3,6 +3,7 @@ package com.bruce.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -26,10 +27,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bruce.constant.BC_Constant;
 import com.bruce.manager.LyricsCommentManager;
 import com.bruce.manager.LyricsManager;
 import com.bruce.manager.LyricsZanManager;
+import com.bruce.manager.ResetManager;
 import com.bruce.manager.UserFollowManager;
 import com.bruce.manager.UserLyricsManager;
 import com.bruce.manager.UserManager;
@@ -37,6 +38,7 @@ import com.bruce.manager.UserprofileManager;
 import com.bruce.model.Lyrics;
 import com.bruce.model.LyricsZan;
 import com.bruce.model.QQinfo;
+import com.bruce.model.Reset;
 import com.bruce.model.User;
 import com.bruce.model.UserFollow;
 import com.bruce.model.UserLyrics;
@@ -45,9 +47,10 @@ import com.bruce.query.UserLyricsQuery;
 import com.bruce.query.UserQuery;
 import com.bruce.query.condition.UserLyricsQueryCondition;
 import com.bruce.utils.Base64Util;
+import com.bruce.utils.EmailUtils;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
-import com.bruce.utils.Timers;
+import com.bruce.utils.TimeUtils;
 import com.bruce.utils.json.JsonUtil;
 
 @Controller
@@ -58,6 +61,7 @@ public class UserAction {
 	 private final String LIST_ACTION = "redirect:/cm/list";
 	 private final String COMMON_PIC = "redirect:/cm/pic";
 	 private final String DOMAIN = "lonelyrobots.cn";
+	 private final String LOGIN_ACTION = "redirect:/cm/toLogin";
 	 @Autowired	
 	 private UserManager userManager;
 	 @Autowired	
@@ -76,7 +80,8 @@ public class UserAction {
 	 private LyricsCommentManager lyricsCommentManager;
 	 @Autowired	
 	 private UserFollowManager userfollowManager;
-	 
+	 @Autowired	
+	 private ResetManager resetManager;
 
 	 	/**
 	 	 * @ 页面对有关于用户的操作，先异步进行判断，假如有用户，返回1.没有用户直接跳转到登陆界面，并且传入需要return的url。
@@ -102,24 +107,122 @@ public class UserAction {
 		}
 	 	
 	 	/**
-	 	 * @ 页面对有关于用户的操作，跳转到登陆界面，并且传入需要return的url。
+	 	 * @ 判断email的存在性
 	 	 * @param request
 	 	 * @param response
 	 	 * @param map
 	 	 * @param url
 	 	 * @return 0、1 【0：没有 | 1：有】
 	 	 */
-	 	@RequestMapping("/loginTT")
-		public void loginTT(HttpServletRequest request, HttpServletResponse response,ModelMap map,String url) {
-	        try {
-				response.sendRedirect("/cm/toLogin?redirectURI="+url);
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
+	 	@RequestMapping("/emailFlag")
+	 	@ResponseBody
+		public String emailFlag(HttpServletRequest request, HttpServletResponse response,ModelMap map,String email) {
+	 		int num = userManager.findByCondition(" where email = '"+email+"' ").getResultlist().size();
+	 		String msg = "exist";//存在；
+			if(num<=0){
+				msg = "notexist";//不存在	     
 			}
+	 	   return msg ; 
 	         
 		}
-		
+	 	
+	 	/**
+		 * 发送”修改密码“邮件
+		 */
+		@RequestMapping("/resetEmail")
+		@ResponseBody
+		public String resetEmail(HttpServletRequest request,
+				HttpServletResponse response, ModelMap map, String email)
+				throws ParseException {
+			    String userid = "";
+			    List<User> list = userManager.findByCondition(" where email = '"+email+"' ").getResultlist();
+			    if(list!=null){
+			    	if(list.size()>0){
+			    		userid = list.get(0).getId();
+			    	}
+			    }
+				Reset reset = new Reset();
+				reset.setCreated_time(TimeUtils.nowTime());
+				String code = com.bruce.utils.UUIDUtils.geneInt();
+				reset.setAuth_code(code);
+				reset.setInvalid_time(TimeUtils.getDayAfter(TimeUtils.nowTime()));
+				reset.setIs_email_authed(0);
+				
+				reset.setUser_id(userid);
+				resetManager.addReset(reset);
+				String result = "";
+				try {
+					EmailUtils.emailUtil.changePwd(email, userid, code, request);
+				} catch (Exception e) {
+					result = "exception";
+				}
+			    result = "success";
+			return result;
+		}
+		/**
+		 * 重置密码
+		 */
+		@RequestMapping("/reset")
+		public String reset(HttpServletRequest request,
+				HttpServletResponse response, ModelMap map, String userid,
+				String auth_code) throws ParseException {
+
+			String result = "false";
+			List<com.bruce.model.Reset> gtList = resetManager.findByCondition(" where user_id='"+userid+"' and auth_code='"+auth_code+"' order by created_time desc").getResultlist();
+			try {
+				if (gtList != null) {
+				 if(gtList.size()>0){
+					 Reset gtmodel = gtList.get(0);
+					if (gtmodel.getAuth_code().equals(auth_code)) {// Email认证通过
+						if (StringUtils.isNotEmpty(gtmodel.getInvalid_time())) {// 设置了失效时间
+							if (TimeUtils.isInvalid(TimeUtils.nowTime(),
+									gtmodel.getInvalid_time())&& (0==gtmodel.getIs_email_authed() )) {// 时间未过期
+								User user = userManager.findUser(userid);
+								if (user != null) {
+									user.setPassword(Base64Util.JIAMI(auth_code));
+									userManager.updateUser(user);
+									
+									request.getSession().setAttribute("user", user);
+									//更新数据
+									gtmodel.setIs_email_authed(1);
+									resetManager.updateReset(gtmodel);
+									result = "success";
+								}
+							} else {
+								result = "isolded";
+							}
+						} else {// 没有设置失效时间
+							if(0==gtmodel.getIs_email_authed()){
+								User user = userManager.findUser(userid);
+								if (user != null) {
+									user.setPassword(Base64Util.JIAMI(auth_code));
+									userManager.updateUser(user);
+									request.getSession().setAttribute("user", user);
+									//更新数据
+									gtmodel.setIs_email_authed(1);
+									resetManager.updateReset(gtmodel);
+									result = "success";
+								}
+							}else{
+								result = "isolded";
+							}
+						}
+					}
+				 }
+				} else {// 已失效，重新获取验证码
+					result = "invalid";
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				result = "exception";
+			} finally {
+				map.addAttribute("msg", result);
+			}
+			return "forget";
+		}
+
+	 	
+	 
 	 
 	   /* //一键修改密码
 	    @RequestMapping("/pwddd")
@@ -151,7 +254,7 @@ public class UserAction {
 			 		uf.setAuthor_id(author_id);
 			 		uf.setFollow_id(follow_id);
 			 		uf.setStatus(1);
-			 		uf.setCreate_time(Timers.nowTime());
+			 		uf.setCreate_time(TimeUtils.nowTime());
 			 		if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
 			 			userfollowManager.addUserFollow(uf);
 			 		}
@@ -205,16 +308,18 @@ public class UserAction {
 		
 		@RequestMapping("/pcentral")
 		public String pcentral(ModelMap map,String userid,HttpServletRequest request) {
-			
-
+			String rs = "myself";
+			User user   = null;
 			request.getSession().removeAttribute("tabs");
 			request.getSession().setAttribute("tabs","pcenter");
 			if(StringUtils.isEmpty(userid)){
 				User u = (User) request.getSession().getAttribute("user");
-				userid = u.getId();
+				if(u!=null){
+					userid = u.getId();
+					user = u;
+				}
 			}
-				
-			User user = userManager.findUser(userid);
+			if(user!=null){	
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
@@ -244,12 +349,15 @@ public class UserAction {
 				}
 				
 				//--批量处理时间
-				LyricsList.get(i).setUpdatedate(Timers.formatToNear(LyricsList.get(i).getUpdatedate()));
+				LyricsList.get(i).setUpdatedate(TimeUtils.formatToNear(LyricsList.get(i).getUpdatedate()));
 				
 			}
 			map.addAttribute("LyricsList", LyricsList);
 			map.addAttribute("Lovelist", Lovelist);
-			return "myself";
+			}else{
+				rs =LOGIN_ACTION;
+			}
+			return rs;
 		}
 		
 		@RequestMapping("/myfans")
@@ -294,7 +402,7 @@ public class UserAction {
 	 						
 	 						UserFollow ff = fan_list.get(i);
 	 						//处理时间格式
-	 						ff.setCreate_time(Timers.formatToNear(ff.getCreate_time()));
+	 						ff.setCreate_time(TimeUtils.formatToNear(ff.getCreate_time()));
 	 						map_.put("user", uu);
 	 						map_.put("follow", ff);
 	 						fanlist.add(map_);
@@ -347,7 +455,7 @@ public class UserAction {
 						
 						UserFollow ff = fan_list.get(i);
 						//处理时间格式
-						ff.setCreate_time(Timers.formatToNear(ff.getCreate_time()));
+						ff.setCreate_time(TimeUtils.formatToNear(ff.getCreate_time()));
 						map_.put("user", uu);
 						map_.put("follow", ff);
 						fanlist.add(map_);
@@ -404,7 +512,7 @@ public class UserAction {
 				}
 				
 				//--批量处理时间
-			    LyricsList.get(i).setUpdatedate(Timers.formatToNear(LyricsList.get(i).getUpdatedate()));
+			    LyricsList.get(i).setUpdatedate(TimeUtils.formatToNear(LyricsList.get(i).getUpdatedate()));
 				
 			}
 			map.addAttribute("LyricsList", LyricsList);
@@ -517,12 +625,14 @@ public class UserAction {
 		        //lrcpath = path +"/"+lrcpath;
 		        if(headpath.contains(".")){
 		        	model.setHeadpath(headpath);
+		        }else{
+		        	model.setHeadpath(oldpath);//以前的头像
 		        }
 		        System.out.println("-------------------------------------->结束");  
 		        
 		        //处理密码信息
 		        if(!StringUtils.isEmpty(new_password)&&!StringUtils.isEmpty(new_password_confirmation)&&new_password.equals(new_password_confirmation)){
-		        	model.setPassword(new_password);
+		        	model.setPassword(Base64Util.JIAMI(new_password));
 		        }
 		        //处理密码信息
 			   this.userManager.updateUser(model);
@@ -549,14 +659,29 @@ public class UserAction {
 		}
 		
 		@RequestMapping("/toLogin")
-		public String toLogin(ModelMap map,String redirectURI) {
-			//List<User> Pidlist = userManager.findAll();
-			//map.addAttribute("Pidlist",Pidlist);
+		public String toLogin(ModelMap map,HttpServletRequest request) {
+			//redirect URI的设置
+			String redirectURI = request.getParameter("redirectURI");
 			if(StringUtils.isNotEmpty(redirectURI)){
+				if(redirectURI.equals("/cm/toLogin")){
+					redirectURI = "/cm/pic";
+				}
 				map.put("redirectURI", redirectURI);
 			}
 			
 			return "login";
+		}
+		
+		/**
+		 * @function 忘记密码
+		 * @param map
+		 * @param request
+		 * @return
+		 */
+		@RequestMapping("/forget")
+		public String forget(ModelMap map,HttpServletRequest request) {
+			
+			return "forget";
 		}
 		
 		@RequestMapping("/toEdit")
@@ -643,7 +768,7 @@ public class UserAction {
 				return "reg";
 			}else{
 				
-				user.setDate_joined(Timers.nowTime());
+				user.setDate_joined(TimeUtils.nowTime());
 				String username ="";
 				String str = user.getEmail();
 				if(str.contains("@")){
@@ -955,11 +1080,11 @@ public class UserAction {
 					QQinfo qqinfom = JsonUtil.jsonToModel(qqinfo, QQinfo.class);
 					//添加user
 					User userm = new User();
-					userm.setDate_joined(Timers.nowTime());
+					userm.setDate_joined(TimeUtils.nowTime());
 					userm.setHeadpath(qqinfom.getFigureurl_qq_2());
 					userm.setIs_active(1);
 					userm.setIs_del(0);
-					userm.setLast_login(Timers.nowTime());
+					userm.setLast_login(TimeUtils.nowTime());
 					userm.setQq_info(qqinfo);
 					userm.setQq_openid(openId);
 					userm.setUsername("qq_"+qqinfom.getNickname());

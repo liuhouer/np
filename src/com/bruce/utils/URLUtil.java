@@ -2,6 +2,8 @@ package com.bruce.utils;
 
 import java.security.MessageDigest;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
 时间工具类
 @import test Long url To short url
@@ -87,6 +89,34 @@ public class URLUtil {
 	    return ShortStr; 
 	} 
 
+	
+	/**
+	 * 获取项目的纯粹域名地址
+	 * @param req
+	 * @param dm
+	 * @param str
+	 */
+	@SuppressWarnings("unused")
+	public static String getDomain(HttpServletRequest req) {
+		String dm ="";
+		String str = req.getRequestURL().toString();
+		String strs[] = str.split("http://");
+
+		if (strs != null) {
+			if (strs.length >= 1) {
+				String step2 = strs[1];
+				String s[] = step2.split("/");
+				if (s != null) {
+					if (s.length >= 1) {
+						dm = s[0];
+						req.getSession().setAttribute("dm", dm);
+					}
+				}
+			}
+		}
+		return dm;
+	}
+	
 	public static void print(Object messagr){ 
 	    System.out.println(messagr);
 	} 

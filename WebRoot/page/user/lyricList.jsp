@@ -10,7 +10,7 @@
 <title>布.图列表</title>
 
 </head>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254650304'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254650304%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+
 <body>
 
 	<form  id="form" action="lyrics/addMenu.action" method="post">
@@ -90,7 +90,7 @@
 	
 	function adds(){ 
 		var userid=$("#userid").val();
-		art.dialog.open('lyrics/toAdd?userid='+userid, {
+		art.dialog.open('lyrics/add?userid='+userid, {
 	        id: 'pg123',
 	        title: '添加',width:'600px',height:'450px',lock:true,resize: false,
 	        ok: function () {

@@ -17,8 +17,8 @@
 <meta name="keywords" content="最爱,回忆,生活">
 <%@ include file="page/common/common.jsp"%>
 
-<style id="holderjs-style" type="text/css"></style><script type="text/javascript" src="chrome-extension://bfbmjmiodbnnpllbbbfblcplfjjepjdn/js/injected.js"></script><script id="superfish-script" type="text/javascript" src="http://www.superfish.com/ws/sf_main.jsp?dlsource=qomciru&userId=uvjkFMeIQial1G3Cxpa1l0&CTID=SF"></script></head>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254650304'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254650304%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+</head>
+
 <body style="" >
     <form action="" id="f1" method="post">
     <input type="hidden" name="userid" id="userid" value="${user.id }"/>

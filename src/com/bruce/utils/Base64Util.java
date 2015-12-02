@@ -39,7 +39,7 @@ public class Base64Util{
 	 //解密机制  base64解密 除去000000
 	 public static void main(String[] args) throws UnsupportedEncodingException {
 		 Base64Util bs = new Base64Util();
-		    String s = "18828384033848948";
+		    String s = "yang521xiao1314";
 	        System.out.println("加密前：" + s);
 	        System.out.println("加密后：" + JIAMI(s));
 	        System.out.println("解密后：" + JIEMI(JIAMI(s)));

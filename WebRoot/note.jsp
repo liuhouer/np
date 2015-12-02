@@ -13,15 +13,16 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.png">
+<script src="/js/markdown.js"></script>
+<script src="/js/markdown-editor.js"></script>
 <title>${user.username}的碎碎词::布.词档案</title>
 <meta name="description" content="${user.username}的碎碎词: 布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">
 <%@ include file="page/common/common.jsp"%>
 
+</head>
 
-<style id="holderjs-style" type="text/css"></style><script type="text/javascript" src="chrome-extension://bfbmjmiodbnnpllbbbfblcplfjjepjdn/js/injected.js"></script><script id="superfish-script" type="text/javascript" src="http://www.superfish.com/ws/sf_main.jsp?dlsource=qomciru&userId=E4d6muq0W3kmpCSOhmYerE&CTID=SF"></script></head>
 
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254650304'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254650304%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 <body style="">
 
 <%@ include file="/page/common/navigation.jsp"%>
@@ -48,14 +49,17 @@
 			<div class="col-sm-1">
 				<a href="cm/pcentral" title="${user.username}的最爱"><img src="/img/davatar.jpg" class="img-responsive  img-circle max-width-50" alt="654714226的最爱"></a>			</div>
 			<div class="col-sm-11">
-				<form method="POST" action="note/addNote" accept-charset="UTF-8" role="form" class="form"><input name="_token" type="hidden" value="UbnQeCcixF5pWNvwd42LhdrAMbif51AXuWIiYbtf">	              
+				<form method="POST" action="note/addNote" accept-charset="UTF-8" role="form" class="form">
               	<input name="userid" type="hidden" value="${user.id }"/>
+              	
               	<div class="form-group">
-              		<textarea class="form-control" name="note" rows="5"></textarea>
+              		<textarea id="J_md_text" class="form-control" name="note" rows="5"></textarea>
               	</div>
+              	
                 <div class="form-group">
                     <button type="submit" class="btn btn-inverse btn-md"><span class="glyphicon glyphicon-music"></span> 添加碎碎词</button>
-                    &nbsp; &nbsp; <span class="bg-lyellow"><input name="opened" type="checkbox" value="no"> <small>仅供自己看到，不对外公布</small></span>
+                    &nbsp; &nbsp; 
+                    <span class="bg-lyellow"><input name="opened" type="checkbox" value="no"> <small>仅供自己看到，不对外公布</small></span>
                 </div>
 				</form>
 			</div>
@@ -93,16 +97,9 @@
 
 
 <script type="text/javascript">
-
-$(document).ready(function() {
-
-	var ajax_url='/ajax';
-	var _aj = {user_id: '50777'};
-	_aj['user_agent']='68A697E775AE';
-	_aj['timestamp']='1400644032';
-	_aj['user_keychain']='926F5505C670';
- 
-});
+ $(function() {
+    $('#J_md_text').markdown();
+  });
 
 function removes(obj){
 	      var id=$(obj).attr('rel');
@@ -120,16 +117,6 @@ function toEditInfo(){
 }
 </script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-199262-13', 'buci.cc');
-  ga('send', 'pageview');
-
-</script>
  
 
-<script type="text/javascript" charset="utf-8" id="ABD75F83F0359849_Analytics" src="http://tajs.qq.com/stats?sId=26628622"></script></body></html>
+</body></html>

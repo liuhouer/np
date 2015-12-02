@@ -24,8 +24,11 @@
     <style type="text/css">
     	body {background:#f4f3f1;}
 	</style>
-<style id="holderjs-style" type="text/css"></style><script type="text/javascript" src="chrome-extension://bfbmjmiodbnnpllbbbfblcplfjjepjdn/js/injected.js"></script></head>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254650304'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254650304%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+
+
+
+</head>
+
 <body style="">
 
 <div class="navbar navbar-default navbar-fixed-top mainhead-navbox" role="navigation">
@@ -61,27 +64,40 @@
                     
             <div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
 
-              <form method="POST" action="cm/login" accept-charset="UTF-8" role="form" id="loginForm" style="color:#444;" class="form margin-t20"><input name="_token" type="hidden" value="n0voxGSrjci1FPlEPUKLrlWAnvzs2kCMfWJYDZjO">
+              <form method="POST" action="cm/login" accept-charset="UTF-8" role="form" id="loginForm" style="color:#444;" class="form margin-t20">
                 <div class="clearfix">
                   <h4>登录我的布.词</h4>
                   <hr>
                 </div>
-                
-                <div class="form-group ">
-                  <label for="loginAccount" class="control-label">您的Email：</label>                    <input id="loginAccount" placeholder="example@gmail.com" class="form-control  input-lg  border-light-1 bg-lyellow   radius-0" name="email" type="text">                                    </div>
 
-                <div class="form-group ">
-                  <label for="loginPassword" class="control-label">您的密码：</label>                  <a class="pull-right" href="javascript:void(0)"><span class="glyphicon glyphicon-question-sign"></span> 忘记密码了</a>
-                  <input id="loginPassword" class="form-control  input-lg  border-light-1 bg-lyellow    radius-0" name="password" type="password" value="">
-                                  </div>
+						<div class="form-group ">
+							<label for="loginAccount" class="control-label">您的Email：</label>
+							<input id="loginAccount" placeholder="example@gmail.com"
+								class="form-control  input-lg  border-light-1 bg-lyellow   radius-0"
+								name="email" type="text">
+						</div>
 
-                <div class="checkbox">
-                  <input name="loginRemember" type="checkbox" value="yes"> 在这台电脑上记住我的登录
-                </div>
-				  <input id="redirectURI" name="redirectURI" type="hidden" value="${redirectURI} ">
-                <div class="form-group">
-                    <input id="formSubmit" data-activetext="登录 ››" class="btn btn-success btn-lg margin-t10 grid50" type="button" value="登录" disabled="disabled">                </div>
-              </form>
+						<div class="form-group ">
+							<label for="loginPassword" class="control-label">您的密码：</label> <a
+								class="pull-right" href="/cm/forget"><span
+								class="glyphicon glyphicon-question-sign"></span> 忘记密码了</a> <input
+								id="loginPassword"
+								class="form-control  input-lg  border-light-1 bg-lyellow    radius-0"
+								name="password" type="password" value="">
+						</div>
+
+						<div class="checkbox">
+							<input name="loginRemember" type="checkbox" value="yes">
+							在这台电脑上记住我的登录
+						</div>
+						<input id="redirectURI" name="redirectURI" type="hidden"
+							value="${redirectURI} ">
+						<div class="form-group">
+							<input id="formSubmit" data-activetext="登录 ››"
+								class="btn btn-success btn-lg margin-t10 grid50" type="button"
+								value="登录" disabled="disabled">
+						</div>
+					</form>
             </div>
             <br><br>
             
@@ -145,16 +161,4 @@ $(document).ready(function() {
 
 </script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-199262-13', 'buci.cc');
-  ga('send', 'pageview');
-
-</script>
- 
-
-<script type="text/javascript" charset="utf-8" id="ABD75F83F0359849_Analytics" src="http://tajs.qq.com/stats?sId=26628622"></script></body></html>
+</body></html>

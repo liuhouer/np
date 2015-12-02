@@ -186,7 +186,7 @@ import sun.misc.BASE64Encoder;
 				String str = null;
 				while ((str = reader.readLine()) != null) {
 					long lo = Long.valueOf(str.trim());
-					String time = Timers.longToString(lo);
+					String time = TimeUtils.longToString(lo);
 					System.out.println(str+"------->"+time);
 				}
 			} catch (FileNotFoundException e) {

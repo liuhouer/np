@@ -25,7 +25,7 @@
 	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
 	<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
 </head>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254650304'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254650304%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+
 <body style="overflow: hidden;">
 <%@ include file="/page/common/navigation.jsp"%>
 

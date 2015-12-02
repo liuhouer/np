@@ -11,11 +11,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta property="qc:admins" content="61073355176476541272743636" />
+<!-- <meta property="qc:admins" content="61073355176476541272743636" /> -->
 <meta name="page" content="<%=request.getServletPath()%>">
 <meta name="action" content="<%=new UrlPathHelper().getOriginatingRequestUri(request)%>">
 
-<script type="text/javascript" data-callback="true"  src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101204466" data-redirecturi="http://www.lonelyrobots.cn/cm/pic" charset="utf-8"></script>
+<!-- <script type="text/javascript" data-callback="true"  src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101204466" data-redirecturi="http://www.lonelyrobots.cn/cm/pic" charset="utf-8"></script> -->
 <script src="js/artDialog/artDialog.js?skin=blue"></script> 
 <script src="js/artDialog/jquery.artDialog.js?skin=blue"></script>
 <script src="js/artDialog/plugins/iframeTools.js"></script>
@@ -23,13 +23,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="js/jquery.validationEngine.js"></script>
 <script src="<%=basePath%>js/My97DatePicker/WdatePicker.js"></script>
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/bootstrapValidator.min.css">
 	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
 	<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
     <style type="text/css">
     	body {background:#f4f3f1;}
 	</style>
 <script>
-
+/* 
 //调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中  
 QC.Login({  
   //btnId：插入按钮的节点id，必选  
@@ -90,7 +91,7 @@ QC.Login({
 	art.dialog.tips('qq注销');
     window.location.href = "/cm/logout?flag=qq";
 }  
-); 
+);  */
 
 
 //3.设置全局对话框

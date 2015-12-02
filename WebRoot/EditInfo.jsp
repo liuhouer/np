@@ -23,8 +23,8 @@
         #imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);width: 100%;width: 100%;position: relative;}
 	</style>
 
-<style id="holderjs-style" type="text/css"></style><script type="text/javascript" src="chrome-extension://bfbmjmiodbnnpllbbbfblcplfjjepjdn/js/injected.js"></script><script id="superfish-script" type="text/javascript" src="http://www.superfish.com/ws/sf_main.jsp?dlsource=qomciru&userId=q51jj2BpjDQKRgfLcV09RH&CTID=SF"></script></head>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254650304'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254650304%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+</head>
+
 <body style="">
 
 	<%@ include file="/page/common/navigation.jsp"%>
@@ -40,7 +40,7 @@
     <div clas="row">
     
     <div class="col-lg-6 col-lg-offset-3 bg-white radius-5  min-width-300">
-      <form method="POST" action="cm/saveEditInfo" enctype="multipart/form-data" accept-charset="UTF-8" role="form" style="color:#444;" id="f1" class="form-horizontal margin-t20"><input name="_token" type="hidden" value="UbnQeCcixF5pWNvwd42LhdrAMbif51AXuWIiYbtf">      
+      <form method="POST" action="cm/saveEditInfo" enctype="multipart/form-data" accept-charset="UTF-8" role="form" style="color:#444;" id="f1" class="form-horizontal margin-t20">     
       <div class="form-group">
         <div class="col-md-9 col-md-offset-3 text-left">
           <h3>编辑我的档案</h3>
@@ -149,7 +149,7 @@
           <input class="btn btn-hero btn-lg margin-t10 " type="button" onclick="saves()" value="更新档案">        </div>
       </div>
 
-      <input name="user_id" type="hidden" value="50777">      <input name="legalCheck" type="hidden" value="33DF46299863">      </form>    </div>
+       </form>    </div>
     <br><br>
     
   </div>
@@ -198,16 +198,6 @@ function saves(){
 }
 </script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-199262-13', 'buci.cc');
-  ga('send', 'pageview');
-
-</script>
  
 
-<script type="text/javascript" charset="utf-8" id="ABD75F83F0359849_Analytics" src="http://tajs.qq.com/stats?sId=26628622"></script></body></html>   
+</body></html>   

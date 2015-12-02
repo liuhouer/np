@@ -26,7 +26,7 @@ import com.bruce.query.condition.LyricsZanQueryCondition;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
-import com.bruce.utils.Timers;
+import com.bruce.utils.TimeUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -92,7 +92,7 @@ public class LyricsZanAction {
 				model.setComment(comment);
 				model.setUserid(userid);
 				model.setLyricsid(lyricsid);
-				model.setCreate_time(Timers.nowTime());
+				model.setCreate_time(TimeUtils.nowTime());
 
 				plManager.addLyricsComment(model);
 				msg = "success";

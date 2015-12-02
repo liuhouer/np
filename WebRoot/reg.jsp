@@ -30,8 +30,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	body {background:#f4f3f1;}
 	</style>
 
-<style id="holderjs-style" type="text/css"></style><script type="text/javascript" src="chrome-extension://bfbmjmiodbnnpllbbbfblcplfjjepjdn/js/injected.js"></script><script id="superfish-script" type="text/javascript" src="http://www.superfish.com/ws/sf_main.jsp?dlsource=qomciru&userId=L9OD9kcvVcx3CQr6mR4c70&CTID=SF"></script></head>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254650304'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254650304%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+</head>
+
 <body style="">
 
 	<div class="navbar navbar-default navbar-fixed-top mainhead-navbox" role="navigation">
@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     
             <div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
 
-              <form method="POST" action="cm/addUser" accept-charset="UTF-8" role="form" id="signupForm" style="color:#444;" class="form margin-t20"><input name="_token" type="hidden" value="n0voxGSrjci1FPlEPUKLrlWAnvzs2kCMfWJYDZjO">
+              <form method="POST" action="cm/addUser" accept-charset="UTF-8" role="form" id="signupForm" style="color:#444;" class="form margin-t20">
                 <div class="clearfix">
                   <h4>加入布.词，记住每一个美好</h4>
                   <hr>
@@ -126,16 +126,6 @@ $(document).ready(function() {
 });
 </script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-199262-13', 'buci.cc');
-  ga('send', 'pageview');
-
-</script>
  
 
-<script type="text/javascript" charset="utf-8" id="ABD75F83F0359849_Analytics" src="http://tajs.qq.com/stats?sId=26628622"></script></body></html>
+</body></html>

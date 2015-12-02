@@ -39,7 +39,7 @@ import com.bruce.query.condition.NoteQueryCondition;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
-import com.bruce.utils.Timers;
+import com.bruce.utils.TimeUtils;
 
 @Controller
 @RequestMapping("/note")
@@ -47,6 +47,7 @@ import com.bruce.utils.Timers;
 public class NoteAction {
 
  private final String LIST_ACTION = "redirect:/note/findAll";
+ private final String LOGIN_ACTION = "redirect:/cm/toLogin";
  @Autowired	
  private NoteManager noteManager;
  @Autowired	
@@ -105,14 +106,13 @@ public class NoteAction {
 	public String addNote(Note note) {
 		String rs= LIST_ACTION;
 		if(StringUtils.isNotEmpty(note.getUserid())){
-		if(StringUtils.isEmpty(note.getOpened())){
-			note.setOpened("yes");
-		}
-		note.setCreatetime(Timers.nowTime());
-		this.noteManager.addNote(note);
-		rs +="?userid="+ note.getUserid();
+			if(StringUtils.isEmpty(note.getOpened())){
+				note.setOpened("yes");
+			}
+			note.setCreatetime(TimeUtils.nowTime());
+			this.noteManager.addNote(note);
 		}else{
-			rs = "login";
+			rs = LOGIN_ACTION;
 		}
 		return rs;
 	}
@@ -205,11 +205,16 @@ public class NoteAction {
 	public String findAll(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,String userid) {
 		//condition.setOpened("yes");
+		
+		 //取得当前用户
+        User user = (User) request.getSession().getAttribute("user");
+        if(user!=null){
+        	userid = user.getId();
+        }
 		String result="note";
 		if(StringUtils.isNotEmpty(userid)){
 			condition.setUserid(userid);
 			map.addAttribute("userid",userid);
-			User user = userManager.findUser(userid);
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
@@ -271,7 +276,7 @@ public class NoteAction {
 		List<Note> list = qrs.getResultlist();
 		for (int i = 0; i < list.size(); i++) {
 			//处理时间
-				list.get(i).setCreatetime(Timers.getHalfDate(list.get(i).getCreatetime()));
+				list.get(i).setCreatetime(TimeUtils.getHalfDate(list.get(i).getCreatetime()));
 			//处理时间
 			//处理笔记
 //			String note = list.get(i).getNote().replaceAll("\\pP|\\pS", ",");

@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 body {background:#f4f3f1;}
 </style>
 </head>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254650304'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254650304%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+
 <body >
 <%@ include file="/page/common/navigation.jsp"%>
 
@@ -46,8 +46,6 @@ body {background:#f4f3f1;}
 			<div class="mainbody" style="margin-top: 5em;">
 				<div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
 					<form method="POST" action="lyrics/addLyrics.action" accept-charset="UTF-8" role="form" id="addItemForm" style="color: #444;" class="form margin-t20"  enctype="multipart/form-data">
-						<input type="hidden" name="userid" value="${userid }"/>
-						<input name="_token" value="MChH1y1oDE5jrLx0uyI0LemGA6OThZIQ6sYcVOuT" type="hidden">
 						<div class="clearfix">
 							<h4>
 								<span class="glyphicon glyphicon-plus"></span> 添加我的歌词
@@ -107,7 +105,7 @@ body {background:#f4f3f1;}
 	
 	<%@ include file="/page/common/container.jsp"%>
 
-<script src="/js/analytics.js" async=""></script><script src="/js/jquery-1.js"></script>
+<script src="/js/jquery-1.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/main2.js"></script>
 
@@ -121,11 +119,6 @@ body {background:#f4f3f1;}
 $(document).ready(function() {
 	
 
-	var ajax_url='/ajax';
-	var _aj = {user_id: '50777'};
-	_aj['user_agent']='7B11B78D295C';
-	_aj['timestamp']='1400558489';
-	_aj['user_keychain']='076F3E876EA5';
 
 	
 	
@@ -190,44 +183,10 @@ $(document).ready(function() {
 
  
 
-  function searchItemDone(returndata)
-  {
-    ajaxDone(returndata);
-    data=jQuery.parseJSON(returndata);
-    if(data.response=='YES')
-    {
-      if(data.match && data.match.length>0)
-      {
-        var html="<h5>可能类似的条目：</h5><ul>";
-        for(var i=0, len=data.match.length; len>i; i++)
-        {
-          //html=html+"<div class='thumbnail border-0 col-xs-2'><a href='/love/"+data.match[i][0]+"'><img src='"+data.match[i][2]+"' /></a></div>";
-          html=html+"<li><a href='/love/"+data.match[i][0]+"'>"+data.match[i][1]+"</a></li>";
-        }
-        html=html+"</ul>";
-
-        $('#searchResult').html(html).removeClass('hidden');
-      }
-      else
-        $('#searchResult').html(html).addClass('hidden');
-    } 
-    
-  }
-
 
 });
 </script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-199262-13', 'buci.cc');
-  ga('send', 'pageview');
-
-</script>
 	<script type="text/javascript">
 	$(function() {
 		var albumpath = $("#albumpath").val();
