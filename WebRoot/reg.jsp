@@ -52,8 +52,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<ul class="nav mainhead-nav">
 				<li><a href="cm/list" title="一张图片，爱满满的">布.图</a></li>
 				<li><a href="note/list" title="一段歌词，一段回忆">布.词</a></li>
-													<li><a href="cm/toLogin" title="登录布.词">登录</a></li>
-							</ul>
+				<li class="active"><a href="cm/toLogin" title="已有账号，去登录布.词">注册</a></li>
+			</ul>
 		</div>
 	</div>
 </div>

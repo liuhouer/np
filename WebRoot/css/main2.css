@@ -110,11 +110,10 @@ a.btn {text-decoration: none;}
   text-shadow: none;
   border-bottom: 3px solid transparent;
 }
-.mainhead-nav > li > a:hover,
+.mainhead-nav > li > a:hover, 
 .mainhead-nav > li > a:focus,
 .mainhead-nav > .active > a,
-.mainhead-nav > .active > a:hover,
-.mainhead-nav > .active > a:focus {
+.mainhead-nav > .active > a:active{
   color: #fff;
   background:#333;
   text-shadow: none;

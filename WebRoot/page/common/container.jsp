@@ -20,9 +20,9 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/main2.js"></script>
     
-   <!--  <script>
+<script>
 $(function(){
-	$("#J_tabs").find('li').click(function(){
+	
 		var tabs = "${tabs}";
 		//set样式
 		$("#J_tabs").find('li').each(function(){
@@ -33,9 +33,8 @@ $(function(){
 			}
 			
 		});
-	});
 });
 
 
 
-</script> -->
+</script>
