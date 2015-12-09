@@ -307,18 +307,17 @@ public class UserAction {
 		
 		
 		@RequestMapping("/pcentral")
-		public String pcentral(ModelMap map,String userid,HttpServletRequest request) {
+		public String pcentral(ModelMap map,HttpServletRequest request) {
 			String rs = "myself";
 			User user   = null;
+			String userid = "";
 			request.getSession().removeAttribute("tabs");
 			request.getSession().setAttribute("tabs","pcenter");
-			if(StringUtils.isEmpty(userid)){
 				User u = (User) request.getSession().getAttribute("user");
 				if(u!=null){
 					userid = u.getId();
 					user = u;
 				}
-			}
 			if(user!=null){	
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
