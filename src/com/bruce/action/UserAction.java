@@ -559,7 +559,7 @@ public class UserAction {
 		}
 		
 		@RequestMapping("/saveEditInfo")
-		public String saveEditInfo(User model,ModelMap map,String oldpath, @RequestParam(value = "file", required = false) MultipartFile[] file,String new_password,String new_password_confirmation,String courseware,String year_of_birth,String user_slug) {
+		public String saveEditInfo(HttpSession session,User model,ModelMap map,String oldpath, @RequestParam(value = "file", required = false) MultipartFile[] file,String new_password,String new_password_confirmation,String courseware,String year_of_birth,String user_slug) {
 			//保存User表信息
 			// 执行删除图片缓存
 			if(file.length>=1){
@@ -635,6 +635,7 @@ public class UserAction {
 		        }
 		        //处理密码信息
 			   this.userManager.updateUser(model);
+			   session.setAttribute("user",model);
 			  //保存User表信息-------结束
 			   
 			 //保存User明细表信息-------start
