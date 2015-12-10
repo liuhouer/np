@@ -47,7 +47,7 @@ public class EmailUtils {
 			// 注意，发送内容时，后面这段会让中文正常显示，否则乱码
 			email.setCharset("utf-8");
 			email.setHtmlMsg("<html><body><p style=\"margin-left: 30px;\"><font size=\"5\" color=\"rgb(216,206,178)\" >忘记密码？</font></p>"
-					+ "<p style=\"background-color:rgb(163,210,202);margin-left: 30px;\">" + "【布@词】在"
+					+ "<p style=\"background-color:rgb(163,210,202);margin-left: 30px;\">" + "【布.词】在"
 					+ TimeUtils.nowTime()
 					+ "收到了您的 帐号重置密码的请求。<br/><br/>"
 					+ "如果要重置密码，请单击下面的链接： <br/><br/> "
