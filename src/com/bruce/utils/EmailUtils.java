@@ -28,10 +28,10 @@ public class EmailUtils {
 	public static void changePwd(String toEmail, String usrId, String authCode,HttpServletRequest request) {
 		try {
 
-			String host = "smtp.qq.com";
-			String myEmail = "bruceleeof1991@qq.com";
+			String host = "smtp.163.com";
+			String myEmail = "qhdsoftware@163.com";
 			String myName = "小布";
-			String myPassword = Base64Util.JIEMI("eWFuZzUyMXhpYW8xMzE0MDAwMDAw");
+			String myPassword = Base64Util.JIEMI("MTM0ODM3MjQwNTEwMDAwMDA=");
 			// 接收者邮箱
 			String to = toEmail;
 			String subject = "找回密码";
@@ -72,6 +72,7 @@ public class EmailUtils {
 			System.err.println("邮件发送成功");
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			System.err.println("邮件发送失败");
 		}
 

@@ -143,6 +143,7 @@ public class Base64Util{
 	 //解密机制  base64解密 除去000000
 	 public static void main(String[] args) throws UnsupportedEncodingException {
 		 Base64Util bs = new Base64Util();
+		 System.out.println(bs.JIAMI("13483724051"));
 //		    String s = "yang521xiao1314";
 //	        System.out.println("加密前：" + s);
 //	        System.out.println("加密后：" + JIAMI(s));
@@ -177,21 +178,21 @@ public class Base64Util{
 //			e.printStackTrace();
 //		}
 		 
-		 try {
-			
-			 byte b1[] = intToBytes(168515078);
-			 byte b2[] = gzip(b1);
-			 String result = Base64.encode(b2);
-			 System.out.println(result);
-			 
-			 byte b3[] = Base64.decode("H4sIAAAAAAAAAOPiDmMDAH6PLkcEAAAA");
-			 byte b4[] = unGzip(b3);
-			 int i5 =  bytesToInt2(b4, 4);
-			 System.out.println(i5);
-		} catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
-		}
+//		 try {
+//			
+//			 byte b1[] = intToBytes(168515078);
+//			 byte b2[] = gzip(b1);
+//			 String result = Base64.encode(b2);
+//			 System.out.println(result);
+//			 
+//			 byte b3[] = Base64.decode("H4sIAAAAAAAAAOPiDmMDAH6PLkcEAAAA");
+//			 byte b4[] = unGzip(b3);
+//			 int i5 =  bytesToInt2(b4, 4);
+//			 System.out.println(i5);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			// TODO: handle exception
+//		}
 		 
 
 	 }
