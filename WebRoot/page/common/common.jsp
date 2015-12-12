@@ -16,10 +16,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="action" content="<%=new UrlPathHelper().getOriginatingRequestUri(request)%>">
 
 <!-- <script type="text/javascript" data-callback="true"  src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101204466" data-redirecturi="http://www.lonelyrobots.cn/cm/pic" charset="utf-8"></script> -->
+<script src="/js/jquery-1.7.2.js"></script>  
 <script src="js/artDialog/artDialog.js?skin=blue"></script> 
 <script src="js/artDialog/jquery.artDialog.js?skin=blue"></script>
 <script src="js/artDialog/plugins/iframeTools.js"></script>
-<script src="js/jquery.js"></script>
+<script src="js/jquery.hotkeys.js"></script>
 <script src="js/jquery.validationEngine.js"></script>
 <script src="<%=basePath%>js/My97DatePicker/WdatePicker.js"></script>
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">

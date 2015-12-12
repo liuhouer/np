@@ -54,13 +54,15 @@
 									
 									<div class="col-sm-9">
 										<p><small class="label label-gray">${s.createtime }</small> &nbsp; <a href="/cm/detail/${u.id }" title="${u.username}的最爱">${u.username}</a> 写到：</p>
-										<p id="brief_0">
-										<c:out value="${s.note }"/>
-		
-										<button class="clearfix btn btn-gray btn-xs click2show" data-dismiss="#brief_0" data-target="#text_0"> &nbsp; <span class="glyphicon glyphicon-chevron-down"></span> &nbsp; </button>
+										<p id="brief_${ss.index}">
+										
+										${s.brief }
+										<c:if test="${s.brief!=s.note }">
+											<button class="clearfix btn btn-gray btn-xs click2show"  data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}"> &nbsp; <span class="glyphicon glyphicon-chevron-down"></span> &nbsp; </button>
+										</c:if>
 										</p>
-												<div class="clearfix hidden" id="text_0">
-													<c:out value="${s.note }"/>
+												<div class="clearfix hidden" id="text_${ss.index}">
+													${s.note }
 												</div>
 
 									</div>
@@ -92,25 +94,12 @@
 	 
 
 	<%@ include file="/page/common/container.jsp"%>
-
-
-
-<script type="text/javascript">
-
-$(document).ready(function() {
-
-	var ajax_url='/ajax';
-	var _aj = {user_id: '50777'};
-	_aj['user_agent']='68A697E775AE';
-	_aj['timestamp']='1400553738';
-	_aj['user_keychain']='CBBDECB98732';
-
-	
+	<script type="text/javascript">
+	$("body").on('click', '.click2show', function() {
+			$(this).hide();
 	});
-</script>
+	</script>
 
-
- 
 
 
 </body></html>

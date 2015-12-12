@@ -110,11 +110,72 @@ public class NoteAction {
 				note.setOpened("yes");
 			}
 			note.setCreatetime(TimeUtils.nowTime());
+			
+			//处理笔记和介绍
+			String note_ = note.getNote();
+			StringBuilder sb = handleNotes(note_);
+			note.setBrief(sb.toString());
+			//end-------------------
 			this.noteManager.addNote(note);
 		}else{
 			rs = LOGIN_ACTION;
 		}
 		return rs;
+	}
+
+	/**
+	 * 处理笔记
+	 * @param note_
+	 * @return
+	 */
+	private StringBuilder handleNotes(String note_) {
+		StringBuilder sb = new StringBuilder();
+		String str[] = note_.split("</p>");
+		if(str.length>=3){
+			sb.append(str[0]).append("</p>");
+			sb.append(str[1]).append("</p>");
+			sb.append(str[2]).append("</p>");
+			sb.append(str[3]).append("</p>");
+		}else{
+			String rp_ = note_.replaceAll("<p>", "").replaceAll("</p>", "");
+			String br[] = rp_.split("<br>");
+			if(br.length>=3){
+				sb.append(br[0]).append("<br>");
+				sb.append(br[1]).append("<br>");
+				sb.append(br[2]).append("<br>");
+				sb.append(br[3]).append("<br>");
+			}else{
+				String space[] = rp_.split(" ");
+				for (int i = 0; i < space.length; i++) {
+					if(i!=space.length-1){
+					    space[i] += "<br>";
+					}
+					sb.append(space[i]);
+				}
+			}
+		}
+		return sb;
+	}
+	
+	@RequestMapping("/Bief")
+	public String updateBief() {
+		
+		List<Note> list = this.noteManager.findAll();
+		
+		for(Note n:list){
+			//处理笔记和介绍
+			String note_ = n.getNote();
+			StringBuilder sb = handleNotes(note_);
+			System.out.println(sb.toString());
+			n.setBrief(sb.toString());
+			
+			noteManager.updateNote(n);
+			//end-------------------
+			
+			
+		}
+			
+		return "111";
 	}
 
 	@RequestMapping("/findNote")

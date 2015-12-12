@@ -50,6 +50,7 @@ import com.bruce.utils.Base64Util;
 import com.bruce.utils.EmailUtils;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
+import com.bruce.utils.PinyinUtil;
 import com.bruce.utils.TimeUtils;
 import com.bruce.utils.json.JsonUtil;
 
@@ -82,6 +83,41 @@ public class UserAction {
 	 private UserFollowManager userfollowManager;
 	 @Autowired	
 	 private ResetManager resetManager;
+	 
+	 /**
+	  * 生成一切东西
+	 * @param user
+	 * @param map
+	 * @param session
+	 */
+	@RequestMapping("/everything")
+		public void everything( ModelMap map,HttpSession session) {
+		try {
+			    for (int i = 0; i < 200; i++) {
+					
+			    	//添加用户
+			    	User user = new User();
+			    	//假设为一年以后的注册用户
+			    	user.setDate_joined(TimeUtils.N_YearTime(1));
+			    	String username =PinyinUtil.get4Hanzi();
+			    	String email = PinyinUtil.getFanyiEmail();
+			    	user.setEmail(email);
+			    	user.setUsername(username);
+			    	user.setPassword(Base64Util.JIAMI("123456"));
+			    	this.userManager.addUser(user);
+			    	
+			    	//添加用户的日记
+				}
+				
+				//添加用户
+				
+				
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+			   
+		}
 
 	 	/**
 	 	 * @ 页面对有关于用户的操作，先异步进行判断，假如有用户，返回1.没有用户直接跳转到登陆界面，并且传入需要return的url。

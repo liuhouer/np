@@ -342,4 +342,11 @@ a.btn {text-decoration: none;}
 .dropup .btn-large .caret {
   border-bottom-width: 5px;
 }
+
+/* 文本截断 */
+.cut {
+overflow:hidden;
+text-overflow:ellipsis;
+white-space: nowrap; 
+}
  

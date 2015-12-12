@@ -16,13 +16,21 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "bc_note")
 public class Note implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8794166567111470371L;
+
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	@Column(length = 255)	
 	private String id;
+	
+	@Column()
+	private String brief;
 
-	@Column(length = 4000)
+	@Column()
 	private String note;
 
 	@Column(length = 255)
@@ -74,5 +82,13 @@ public class Note implements Serializable{
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public String getBrief() {
+		return brief;
+	}
+
+	public void setBrief(String brief) {
+		this.brief = brief;
 	}
 }

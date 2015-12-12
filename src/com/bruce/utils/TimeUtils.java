@@ -167,7 +167,25 @@ public class TimeUtils {
 			c.add(c.MONTH, n);
 			return "" + c.get(c.YEAR) + "-" + (c.get(c.MONTH) + 1) + "-" + c.get(c.DATE);
 		}
+		
+		/**
+		 * @author bruce 取得N年以后的日期
+		 */
+		public static String N_YearDate(int n) {
+			Calendar c = Calendar.getInstance();
+			c.add(c.YEAR, n);
+			return "" + c.get(c.YEAR) + "-" + (c.get(c.MONTH) + 1) + "-" + c.get(c.DATE);
+		}
 
+		
+		/**
+		 * @author bruce 取得N年以后的日期
+		 */
+		public static String N_YearTime(int n) {
+			Calendar c = Calendar.getInstance();
+			c.add(c.YEAR, n);
+			return "" + c.get(c.YEAR) + "-" + (c.get(c.MONTH) + 1) + "-" + c.get(c.DATE)+" "+c.get(c.HOUR)+":"+c.get(c.MINUTE)+":"+c.get(c.SECOND);
+		}
 		/**
 		 * @author bruce
 		 * @function 取得标准时间 2014-05-23从格式yyyy-MM-dd hh:mm:ss

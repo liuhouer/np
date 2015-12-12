@@ -28,6 +28,7 @@
     <mvc:resources location="/resource/" mapping="/resource/**"/> 
     <mvc:resources location="/img/" mapping="/img/**"/> 
     <mvc:resources location="/ace/" mapping="/ace/**"/> 
+    <mvc:resources location="/wangEditor/" mapping="/wangEditor/**"/> 
     <!-- 定义拦截器 --> 
     <!-- <mvc:interceptors>
         <mvc:interceptor>

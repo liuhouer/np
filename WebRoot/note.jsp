@@ -13,12 +13,15 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.png">
-<script src="/js/markdown.js"></script>
-<script src="/js/markdown-editor.js"></script>
 <title>${user.username}的碎碎词::布.词档案</title>
 <meta name="description" content="${user.username}的碎碎词: 布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">
+
 <%@ include file="page/common/common.jsp"%>
+<script src="/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<link href="/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet" />
+<script src="/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
+
 
 </head>
 
@@ -53,10 +56,19 @@
               	<input name="userid" type="hidden" value="${user.id }"/>
               	
               	<div class="form-group">
-              		<textarea id="J_md_text" class="form-control" name="note" rows="5"></textarea>
+              		<textarea id="J_md_text" style="height:200px; max-height:400px; width:100%;" name="note" rows="5"></textarea>
               	</div>
-              	
-                <div class="form-group">
+				<!-- <h3>wangEditor test</h3>
+				<textarea id='textarea1' style='height:200px; max-height:400px; width:100%;'>
+					<p>最简单的demo</p>
+					<p>最简单的demo</p>
+					<blockquote style="color:#999; display:block; border-left: 5px solid #d0e5f2; padding:0 0 0 10px; margin:0; line-height:1.4; font-size: 100%;">
+						默认高度 200px，最大高度 400px
+					</blockquote>
+					<p><br></p>
+				</textarea>
+ -->
+				<div class="form-group">
                     <button type="submit" class="btn btn-inverse btn-md"><span class="glyphicon glyphicon-music"></span> 添加碎碎词</button>
                     &nbsp; &nbsp; 
                     <span class="bg-lyellow"><input name="opened" type="checkbox" value="no"> <small>仅供自己看到，不对外公布</small></span>
@@ -97,9 +109,6 @@
 
 
 <script type="text/javascript">
- $(function() {
-    $('#J_md_text').markdown();
-  });
 
 function removes(obj){
 	      var id=$(obj).attr('rel');
@@ -117,6 +126,17 @@ function toEditInfo(){
 }
 </script>
 
- 
+ <script type="text/javascript">
+$(function(){
+	var editor = $('#J_md_text').wangEditor({
+		'menuConfig': [
+		                ['viewSourceCode'],
+						['fontFamily','fontSize','bold','setHead'],
+						['list','justify','blockquote'],
+						['createLink','insertHr','undo']
+					]
+	});
+});
+</script>
 
 </body></html>
