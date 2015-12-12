@@ -1,8 +1,10 @@
 
 package com.bruce.manager;
-import java.util.List;
-import com.bruce.model.Note;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.bruce.model.Note;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
 
@@ -23,6 +25,12 @@ public interface NoteManager {
 
 	public QueryResult<Note> findByCondition(
 			String wheresql);
+	
+	
+	public PageView<List<Map<String, Object>>> findmixByCondition(String currentpage,String wheresql) ;
+
+	public int findmixCount(String whereSql);
+
 	
 }
 

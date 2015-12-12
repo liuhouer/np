@@ -27,16 +27,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bruce.manager.GetImgManager;
+import com.bruce.manager.GetNoteManager;
 import com.bruce.manager.LyricsCommentManager;
 import com.bruce.manager.LyricsManager;
 import com.bruce.manager.LyricsZanManager;
+import com.bruce.manager.NoteManager;
 import com.bruce.manager.ResetManager;
 import com.bruce.manager.UserFollowManager;
 import com.bruce.manager.UserLyricsManager;
 import com.bruce.manager.UserManager;
 import com.bruce.manager.UserprofileManager;
+import com.bruce.model.GetImg;
+import com.bruce.model.GetNote;
 import com.bruce.model.Lyrics;
 import com.bruce.model.LyricsZan;
+import com.bruce.model.Note;
 import com.bruce.model.QQinfo;
 import com.bruce.model.Reset;
 import com.bruce.model.User;
@@ -84,6 +90,16 @@ public class UserAction {
 	 @Autowired	
 	 private ResetManager resetManager;
 	 
+	 @Autowired	
+	 private GetNoteManager getnoteManager;
+	 @Autowired	
+	 private GetImgManager getimgManager;
+	 @Autowired	
+	 private NoteManager noteManager;
+	 
+	 
+	 
+	 
 	 /**
 	  * 生成一切东西
 	 * @param user
@@ -91,9 +107,13 @@ public class UserAction {
 	 * @param session
 	 */
 	@RequestMapping("/everything")
-		public void everything( ModelMap map,HttpSession session) {
+		public void everything( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
 		try {
-			    for (int i = 0; i < 200; i++) {
+			
+			    //获取用户头像抓取路径
+				List<GetImg> headlist = getimgManager.findAll();
+				List<GetNote> notelist = getnoteManager.findAll();
+			    for (int i = 0; i < 1000; i++) {
 					
 			    	//添加用户
 			    	User user = new User();
@@ -101,12 +121,40 @@ public class UserAction {
 			    	user.setDate_joined(TimeUtils.N_YearTime(1));
 			    	String username =PinyinUtil.get4Hanzi();
 			    	String email = PinyinUtil.getFanyiEmail();
+			    	//唯一性递归-----------
+			    	int num = userManager.findByCondition(" where email = '"+email+"' ").getResultlist().size();
+					if(num>0){
+						email = PinyinUtil.getFanyiEmail();
+					}
+					int num2 = userManager.findByCondition(" where username = '"+username+"' ").getResultlist().size();
+					if(num2>0){
+						username = PinyinUtil.get4Hanzi();
+					}
+					//唯一性递归-----------end
 			    	user.setEmail(email);
+			    	String head = headlist.get(i)==null?"":headlist.get(i).getPath();
+			    	head = "/mnt/apk/heads/"+head;
 			    	user.setUsername(username);
+			    	user.setHeadpath(head);
 			    	user.setPassword(Base64Util.JIAMI("123456"));
 			    	this.userManager.addUser(user);
 			    	
 			    	//添加用户的日记
+			    	Note note = new Note();
+			    	String note_ = notelist.get(i)==null?"":notelist.get(i).getNotes();
+			    	String brief_ = notelist.get(i)==null?"":notelist.get(i).getBrief();
+			    	note.setBrief(brief_);
+			    	note.setCreatetime(TimeUtils.N_YearTime(1));
+			    	note.setNote(note_);
+			    	note.setOpened("yes");
+			    	note.setUserid(user.getId());
+			    	noteManager.addNote(note);
+			    	//更新生成状态位
+			    	notelist.get(i).setIsGened("1");
+			    	getnoteManager.updateGetNote(notelist.get(i));
+			    	headlist.get(i).setIsGened("1");
+			    	getimgManager.updateGetImg(headlist.get(i));
+			    	
 				}
 				
 				//添加用户
@@ -842,6 +890,88 @@ public class UserAction {
 			return LIST_ACTION;
 		}
 
+		
+		@RequestMapping(value="/pic/page{page}")
+		public String pic(ModelMap map,UserLyricsQueryCondition condition,@PathVariable String page,HttpServletRequest request,
+				HttpServletResponse response, HttpSession session) {
+			
+			session.removeAttribute("tabs");
+			session.setAttribute("tabs","pic");
+			String currentpage = page;
+			
+			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage);
+			
+			List<Map<String, Object>> list = pageView.getMapRecords();
+			if(list!=null){
+				if(list.size()>0){
+					for (int i = 0; i < list.size(); i++) {
+						
+						//批量处理图片的路径
+						String imgpath = (String) list.get(i).get("albumImg"); //e:/yunlu/upload/1399976848969.jpg
+						if(!StringUtils.isEmpty(imgpath)){
+						String[] str = imgpath.split("/album/");
+						if(str.length>1){
+						String imgp = "album/"+str[1];
+						list.get(i).put("albumImg",imgp);
+						}
+						}
+						
+						//批量处理赞和评论的个数
+						String lyricsid = (String) list.get(i).get("id");
+						int zan =  lyricsZanManager.getZanNumByLRC(lyricsid);
+						int pl  =  lyricsZanManager.getCommentNumByLRC(lyricsid);
+						list.get(i).put("zan",zan);
+						list.get(i).put("pl",pl);
+						
+						//批量处理当前用户对这个pic/歌词的赞状态
+						User c_user = (User) session.getAttribute("user");
+						boolean yizan =  false;
+						if(c_user!=null){
+							List<LyricsZan> lz = lyricsZanManager.findByCondition(" where lyricsid= '"+lyricsid+"' ").getResultlist();
+							if(lz!=null){
+								if(lz.size()>0){
+									for (int j = 0; j < lz.size(); j++) {
+										String u_id = lz.get(j).getUserid();
+										if(u_id.equals(c_user.getId())){
+											yizan = true ; 
+										}
+									}
+								}
+							}
+						}
+						if(yizan == true){
+							list.get(i).put("yizan","yizan");
+						}
+						
+						
+						
+					}
+				}
+			}
+			
+			map.addAttribute("pageView", pageView);
+			int pages = 0;
+			try {
+				 pages = Integer.parseInt(page)+1;
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				pages = 1;
+			}
+			map.put("page", pages);
+			map.put("condition", condition);
+			map.addAttribute("list", pageView.getMapRecords()==null?"":list);
+			map.addAttribute("actionUrl","cm/pic");
+			
+			String signoutflag = (String) request.getParameter("signout");
+			if(StringUtils.isNotEmpty(signoutflag)){
+				if(signoutflag.equals("true")){
+					map.addAttribute("signout", "true");
+				}
+			}
+			
+			return "welcome";
+		}
 		@RequestMapping(value="/list")
 		public String findAll(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session,String userid) {

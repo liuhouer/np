@@ -1,21 +1,17 @@
 
 package com.bruce.manager.impl;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import com.bruce.model.Note;
-import com.bruce.manager.NoteManager;
-import com.bruce.dao.NoteDao;
-
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bruce.dao.NoteDao;
+import com.bruce.manager.NoteManager;
+import com.bruce.model.Note;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
@@ -70,6 +66,62 @@ public class NoteManagerImpl implements NoteManager {
 		QueryResult qrs = noteDao.findByCondition(
 				 wheresql);
 		return qrs;
+	}
+
+	@Override
+	public PageView<List<Map<String, Object>>> findmixByCondition(String currentpage,String wheresql) {
+		// TODO Auto-generated method stub
+		
+		String sql = wheresql;
+		
+		//设置pageview参数
+		PageView<List<Map<String, Object>>> pageview=new PageView<List<Map<String, Object>>>();
+		int pages = 0; // 总页数
+		int n =  noteDao.querySql(sql).size();
+		int maxresult = pageview.getMaxresult();
+		/** 每页显示记录数 **/
+		if (n % maxresult == 0) {
+			pages = n / maxresult;
+		} else {
+			pages = n / maxresult + 1;
+		}
+		if (StringUtils.isEmpty(currentpage)) {
+			currentpage = "0";
+		} else {
+            try {//胡乱把currentpage写成英文，捕捉异常
+            	if (Integer.parseInt(currentpage) >= pages) {
+    				currentpage = pages - 1 +"";
+    			}
+    			if (Integer.parseInt(currentpage) < 0) {
+    				currentpage = "0";
+    			}
+			} catch (Exception e) {
+				// TODO: handle exception
+				currentpage = "0";
+			}
+			
+		}
+		int startindex = Integer.parseInt(currentpage) * maxresult;
+		int endindex = startindex + maxresult - 1;
+		pageview.setStartindex(startindex);
+		pageview.setEndindex(endindex);
+		pageview.setTotalrecord(n);
+		pageview.setCurrentpage(Integer.parseInt(currentpage));
+		pageview.setTotalpage(pages);
+		pageview.setMaxresult(maxresult);
+		//设置pageview参数 end
+		
+		
+		pageview = noteDao.QuerySQLForMapList(sql, pageview);
+		
+		return pageview;
+		
+	}
+
+	@Override
+	public int findmixCount(String whereSql) {
+		// TODO Auto-generated method stub
+		return noteDao.querySql(whereSql).size();
 	}
 }
 

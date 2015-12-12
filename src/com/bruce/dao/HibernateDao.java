@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.transform.Transformers;
 
+import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
 
 @SuppressWarnings("hiding")
@@ -64,4 +65,7 @@ public interface HibernateDao<T, PK extends Serializable> {
 	public <T extends Serializable> List<T> querySql(String sql, Class<T> clazz, Object... obj);
 	
 	public com.bruce.utils.PageView<List<Map<String, Object>>> QuerySQLForMapList(String sql, com.bruce.utils.PageView<List<Map<String, Object>>> pageView) ;
+	
+	
+	public <T extends Serializable> List<T> QuerySQLForVOList(String sql, PageView<T> pageView,LinkedHashMap<String, String> orderBy) ;
 }

@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 /**
  * <p>
  * Title: Neeu.com
@@ -183,16 +188,196 @@ public class HTMLParserUtil
 		}
 	}
 
-	public static void main(String args[])
-	{
-		HTMLParserUtil parserUtil = new HTMLParserUtil();
-		String str = "<span>asfdasdfasdfadsfa" + "sdfasdfasdfadsfasdfasdfasdf</span>";
-//		String strResult = subStringHTML(str, str.length(), "....");
-		String strResult = parserUtil.replaceHtmAndTrim(str);
-		// System.out.println(strResult);
-		
-		parserUtil.splitByTag("<img src='sfd'/> sdfsdf<img src='sf'/> sdfsf<p>ffff</p>");
-		
-		
-	}
+	
+	 public static String GetNoteContent(String html) {  
+	        //String html = "<ul><li>1.hehe</li><li>2.hi</li><li>3.hei</li></ul>";  
+	        String ss = ">[^<]+<";  
+	        String temp = null;  
+	        Pattern pa = Pattern.compile(ss);  
+	        Matcher ma = null;  
+	        ma = pa.matcher(html);  
+	        String result = null;  
+	        while(ma.find()){  
+	            temp = ma.group();  
+	            if(temp!=null){  
+	            	System.out.println(temp);
+	                if(temp.startsWith(">")){  
+	                    temp = temp.substring(1);  
+	                }  
+	                if(temp.endsWith("<")){  
+	                    temp = temp.substring(0, temp.length()-1);  
+	                }  
+	                if(!temp.equalsIgnoreCase("")){  
+	                    if(result==null){  
+	                        result = temp;  
+	                    }  
+	                    else{  
+	                        result+="____"+temp;  
+	                    }  
+	                }  
+	            }  
+	        }  
+	        return result;  
+	    }  
+      
+    public static String GetContent(String html) {  
+        //String html = "<ul><li>1.hehe</li><li>2.hi</li><li>3.hei</li></ul>";  
+        String ss = ">[^<]+<";  
+        String temp = null;  
+        Pattern pa = Pattern.compile(ss);  
+        Matcher ma = null;  
+        ma = pa.matcher(html);  
+        String result = null;  
+        while(ma.find()){  
+            temp = ma.group();  
+            if(temp!=null){  
+                if(temp.startsWith(">")){  
+                    temp = temp.substring(1);  
+                }  
+                if(temp.endsWith("<")){  
+                    temp = temp.substring(0, temp.length()-1);  
+                }  
+                if(!temp.equalsIgnoreCase("")){  
+                    if(result==null){  
+                        result = temp;  
+                    }  
+                    else{  
+                        result+="____"+temp;  
+                    }  
+                }  
+            }  
+        }  
+        return result;  
+    }  
+      
+    public static String GetLabel(String html) {  
+        //String html = "<ul><li>1.hehe</li><li>2.hi</li><li>3.hei</li></ul>";  
+        String ss = "<[^>]+>";  
+        String temp = null;  
+        Pattern pa = Pattern.compile(ss);  
+        Matcher ma = null;  
+        ma = pa.matcher(html);  
+        String result = null;  
+        while(ma.find()){  
+            temp = ma.group();  
+            if(temp!=null){  
+                if(temp.startsWith(">")){  
+                    temp = temp.substring(1);  
+                }  
+                if(temp.endsWith("<")){  
+                    temp = temp.substring(0, temp.length()-1);  
+                }  
+                if(!temp.equalsIgnoreCase("")){  
+                    if(result==null){  
+                        result = temp;  
+                    }  
+                    else{  
+                        result+="____"+temp;  
+                    }  
+                }  
+            }  
+        }  
+        return result;  
+    }  
+    
+    
+    
+    /**
+     * 
+     * 获取class元素内容
+     * "div[class=clearfix hidden]"
+     * http://www.caimai.cc/story/page7/
+     * @param url
+     * @param classname
+     * @return List<String>
+     */
+    public static List<String> getClassCont(String url,String classname){
+    	List<String> list = new ArrayList<String>();
+    	try {
+    		Document doc = Jsoup.connect(url).get();
+    		
+    		String title = doc.title();
+    		System.out.println(title);
+    		Elements notes   = doc.select(classname);
+    		
+    		for(Element p : notes){
+
+    				   String note = p.html();
+    				   list.add(note);
+    				   //String note2 = p.text();
+    				   System.out.println(note);
+//    				   System.out.println(note2);
+
+    		}
+    		
+    	} catch (Exception e) {
+    		// TODO: handle exception
+    		e.printStackTrace();
+    	}
+		return list;
+
+    }
+    
+    /**
+     * 
+     * 获取图片地址的集合
+     * "div[class=clearfix hidden]"
+     * http://www.caimai.cc/story/page7/
+     * @param url
+     * @param classname
+     * @return List<String>
+     */
+    public static List<String> getImgUrl(String url){
+    	List<String> list = new ArrayList<String>();
+    	try {
+    		Document doc = Jsoup.connect(url).get();
+    		
+    		String title = doc.title();
+    		System.out.println(title);
+    		Elements notes   = doc.select("img");
+    		
+    		for(Element p : notes){
+
+    			String uri = p.absUrl("src");
+    			System.out.println(uri);
+    			list.add(uri);
+
+    		}
+    		
+    	} catch (Exception e) {
+    		// TODO: handle exception
+    		e.printStackTrace();
+    	}
+		return list;
+
+    }
+    
+   
+    public static void main(String args[]){
+    	try {
+
+    		Document doc = Jsoup.connect("http://www.caimai.cc/story/page7/").get();
+
+    		String title = doc.title();
+    		System.out.println(title);
+    		Elements notes   = doc.select("p[id$=brief]");
+
+    		for(Element p : notes){
+
+    			String note = p.html();
+    			//String note2 = p.text();
+    			System.out.println(note);
+    			//			   System.out.println(note2);
+
+    		}
+
+    	} catch (Exception e) {
+    		// TODO: handle exception
+    	}
+
+
+    	
+    	        
+    }
 }
+

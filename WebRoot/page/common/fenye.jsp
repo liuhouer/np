@@ -26,7 +26,6 @@
 
 	 	String actionUrl = (String) request.getAttribute("actionUrl");
 	 	
-	 	String userid = (String) request.getAttribute("userid");
 
 	 	int sumstart = MyConstant.MAXRESULT * currentpage;
 	 	session.setAttribute("sumstart", sumstart);
@@ -34,26 +33,26 @@
 	     
 	 <form id="pageForm" action="">
 		<ul class="qinco-pagination pagination-lg">
-			<li><a href="<%=actionUrl%>?userid=<%=userid %>&currentpage=0">‹‹</a></li>
-			<li><a href="<%=actionUrl%>?userid=<%=userid %>&currentpage=<%=currentpage - 1%>">‹</a>
+			<li><a href="<%=actionUrl%>/page0">‹‹</a></li>
+			<li><a href="<%=actionUrl%>/page<%=currentpage - 1%>">‹</a>
 			</li>
 			<%
 				//<显示分页码
 				for (int i = listbegin; i < listend; i++) {
 					if (i != currentpage + 1) {//如果i不等于当前页
 			%>
-			<li><a href="<%=actionUrl%>?userid=<%=userid %>&currentpage=<%=i - 1%>"><%=i%></a></li>
+			<li><a href="<%=actionUrl%>/page<%=i - 1%>"><%=i%></a></li>
 			<%
 				} else {
 			%>
 			<li class="active"><a
-				href="<%=actionUrl%>?userid=<%=userid %>&currentpage=<%=i - 1%>"><%=i%></a></li>
+				href="<%=actionUrl%>/page<%=i - 1%>"><%=i%></a></li>
 			<%
 				}
 				}//显示分页码>
 			%>
-			<li><a href="<%=actionUrl%>?userid=<%=userid %>&currentpage=<%=currentpage + 1%>">›</a></li>
-			<li><a href="<%=actionUrl%>?userid=<%=userid %>&currentpage=<%=totalpage - 1%>">››</a> 
+			<li><a href="<%=actionUrl%>/page<%=currentpage + 1%>">›</a></li>
+			<li><a href="<%=actionUrl%>/page<%=totalpage - 1%>">››</a> 
 			</li>
 		</ul>
 

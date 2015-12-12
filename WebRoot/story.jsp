@@ -13,7 +13,7 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.png">
-<title>布.词故事::</title>
+<title>布.词故事::第{page}页</title>
 <meta name="description" content="布.词故事::第1页::布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">
 <%@ include file="/page/common/common.jsp"%>
@@ -30,47 +30,43 @@
 			<div class="row">
 				
 					<c:forEach items="${list }" var="s" varStatus="ss">
-						<c:forEach items="${UList }" var="u" varStatus="uu">
-								 <c:if test="${u.id==s.userid }">
 					<div class="col-sm-6 ">
 					<div class="clearfix bg-white margin-t10 margin-b10 padding20">
 								<div class="row">
 									<div class="col-sm-3">
 										<div class="thumbnail border-0 center">
-											<a href="/cm/detail/${u.id }" title="${u.username}:我的最爱">
-											<c:if test="${u.headpath ==null}"><img src="/img/davatar.jpg" alt="${u.username}"></c:if>
-											<c:if test="${u.headpath !=null}"><img 
+											<a href="/cm/detail/${s.get('id') }" title="${s.get('username')}:我的最爱">
+											<c:if test="${s.get('headpath') ==null}"><img src="/img/davatar.jpg" alt="${s.get('username')}"></c:if>
+											<c:if test="${s.get('headpath') !=null}"><img 
 											 <c:choose>
-   												<c:when test="${fn:contains(u.headpath ,'http://') }">src="${u.headpath }"</c:when>
-                                  				<c:otherwise>src="bruce/${u.headpath }"</c:otherwise>
+   												<c:when test="${fn:contains(s.get('headpath') ,'http://') }">src="${s.get('headpath') }"</c:when>
+                                  				<c:otherwise>src="bruce/${s.get('headpath') }"</c:otherwise>
                                 			</c:choose> 
 											
-											 alt="${u.username}"></c:if>
+											 alt="${s.get('username')}"></c:if>
 											</a>
-											<p><small class="gray-text">${u.username}</small></p>
+											<p><small class="gray-text">${s.get('username')}</small></p>
 											<div class="clearfix visible-xs"><hr></div>
 										</div>
 									</div>
 									
 									<div class="col-sm-9">
-										<p><small class="label label-gray">${s.createtime }</small> &nbsp; <a href="/cm/detail/${u.id }" title="${u.username}的最爱">${u.username}</a> 写到：</p>
+										<p><small class="label label-gray">${s.get('createtime') }</small> &nbsp; <a href="/cm/detail/${s.get('id') }" title="${s.get('username')}的最爱">${s.get('username')}</a> 写到：</p>
 										<p id="brief_${ss.index}">
 										
-										${s.brief }
-										<c:if test="${s.brief!=s.note }">
+										${s.get('brief') }
+										<c:if test="${s.get('brief')!=s.get('note') }">
 											<button class="clearfix btn btn-gray btn-xs click2show"  data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}"> &nbsp; <span class="glyphicon glyphicon-chevron-down"></span> &nbsp; </button>
 										</c:if>
 										</p>
 												<div class="clearfix hidden" id="text_${ss.index}">
-													${s.note }
+													${s.get('note') }
 												</div>
 
 									</div>
 								</div>
 							</div>
 					</div>
-					</c:if>
-					 </c:forEach>
 					</c:forEach>
 					
 						 
