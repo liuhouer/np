@@ -35,7 +35,7 @@
 								<div class="row">
 									<div class="col-sm-3">
 										<div class="thumbnail border-0 center">
-											<a href="/cm/detail/${s.get('id') }" title="${s.get('username')}:我的最爱">
+											<a href="/cm/detail/${s.get('userid')}" title="${s.get('username')}:我的最爱">
 											<c:if test="${s.get('headpath') ==null}"><img src="/img/davatar.jpg" alt="${s.get('username')}"></c:if>
 											<c:if test="${s.get('headpath') !=null}"><img 
 											 <c:choose>
@@ -51,7 +51,7 @@
 									</div>
 									
 									<div class="col-sm-9">
-										<p><small class="label label-gray">${s.get('createtime') }</small> &nbsp; <a href="/cm/detail/${s.get('id') }" title="${s.get('username')}的最爱">${s.get('username')}</a> 写到：</p>
+										<p><small class="label label-gray">${s.get('createtime') }</small> &nbsp; <a href="/cm/detail/${s.get('userid')}" title="${s.get('username')}的最爱">${s.get('username')}</a> 写到：</p>
 										<p id="brief_${ss.index}">
 										
 										${s.get('brief') }
