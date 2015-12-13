@@ -73,14 +73,14 @@ public class NoteAction {
  
  
  /**
-  * 爬虫生成200页的图片【头像】内容
+  * 爬虫生成100页的图片【头像】内容
   * @param map
   */
  @RequestMapping("/geneImg")
 	public void geneImg(ModelMap map) {
  	List<String> list = new ArrayList<String>();
- 	for (int i = 0; i < 160; i++) {
-			String url = "http://www.caimai.cc/story/page"+i;
+ 	for (int i = 0; i < 100; i++) {
+			String url = "http://www.caimai.cc/love/page"+i;
  		List<String> list_ = HTMLParserUtil.getImgUrl(url);
  		
 
@@ -98,7 +98,7 @@ public class NoteAction {
 	 		    gg.setCreatetime(TimeUtils.N_YearTime(1));
 	 		    gg.setIsGened("0");
 	 		    gg.setPath(headpath);
-	 		    gg.setType("head");
+	 		    gg.setType("lrc");
 	 		    
 	 		   getimgManager.addGetImg(gg);
 	 		    
@@ -134,9 +134,9 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
 	String fileName=list.get(i);
 	String newName="";
 	if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
-		path = "e:/bruce/heads";
+		path = "e:/bruce/album";
 	}else{
-		path = "/mnt/apk/heads";
+		path = "/mnt/apk/album";
 	}
 	String headpath = "";
 	System.out.println(path); 
@@ -380,7 +380,70 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
 		map.addAttribute("pageView", pageView);
 		map.put("condition", condition);
 		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","note/findAll" );
+		map.addAttribute("actionUrl","note/viewNotes/"+userid );
+		
+		//取得当前用户对作者的关注状态
+        User lo_user = (User) request.getSession().getAttribute("user");
+        if(lo_user!=null){
+       	 String follow_id = lo_user.getId();
+       	 String author_id = userid;
+       	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
+       		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
+       		 if(nums>0){
+       			 map.put("gz", "ygz");
+       		 }
+       	 }
+       	 
+        }
+
+		return result;
+	}
+	
+	@RequestMapping(value="/viewNotes/{userid}/page{page}")
+	public String viewNotesPages(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session, @PathVariable String userid, @PathVariable String page) {
+		//condition.setOpened("yes");
+		String result="spacenote";
+		if(StringUtils.isNotEmpty(userid)){
+			condition.setUserid(userid);
+			map.addAttribute("userid",userid);
+			User user = userManager.findUser(userid);
+			//处理图片路径
+			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
+			if(!StringUtils.isEmpty(imgpath)){
+			String[] str = imgpath.split("/heads/");
+			if(str.length>1){
+			String imgp = "heads/"+str[1];
+			user.setHeadpath(imgp);
+			}
+			}
+			//处理图片路径
+			map.put("MyInfo", user);
+		}else{
+			condition.setUserid("空");
+			map.addAttribute("userid","");
+		}
+		String whereSql = noteQuery.getSql(condition);
+		
+		PageView<Note> pageView = getPageView(request, whereSql);
+		
+		request.setAttribute("page", page);
+		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+		order.put("createtime", "desc");
+
+		QueryResult<Note> qrs = this.noteManager.findByCondition(pageView,
+				whereSql, order);
+		List<Note> list = qrs.getResultlist();
+		for (int i = 0; i < list.size(); i++) {
+			if(list.get(i).getCreatetime().contains("-")){
+				String t = list.get(i).getCreatetime().substring(0, 10);
+				list.get(i).setCreatetime(t);
+			}
+		}
+		map.addAttribute("pageView", pageView);
+		map.put("condition", condition);
+		map.addAttribute("list", list);
+		map.addAttribute("actionUrl","note/viewNotes/"+userid );
 		
 		//取得当前用户对作者的关注状态
         User lo_user = (User) request.getSession().getAttribute("user");

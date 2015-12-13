@@ -51,5 +51,13 @@ public class GetImgManagerImpl implements GetImgManager {
 		return false;
 	}
 
+	@Override
+	public QueryResult<GetImg> findByCondition(String wheresql) {
+		// TODO Auto-generated method stub
+		QueryResult qrs = imgDao.findByCondition(
+				 wheresql);
+		return qrs;
+	}
+
 }
 

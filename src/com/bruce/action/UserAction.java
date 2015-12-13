@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -98,7 +99,64 @@ public class UserAction {
 	 private NoteManager noteManager;
 	 
 	 
+	 /**
+	  * 生成图片lrc
+	 * @param user
+	 * @param map
+	 * @param session
+	 */
+	@RequestMapping("/geneLrc")
+		public void geneLrc( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+		try {
+			
+			 //获取lrc图像抓取路径
+			List<GetImg> lrclist = getimgManager.findByCondition(" where type = 'lrc' and isGened = '0'").getResultlist();
+			    for (int i = 0; i < lrclist.size(); i++) {
+					
+			    	//茶找用户
+			    	List<User> ulist = userManager.findByCondition(" where date_joined >'2015-12-12 22:54:35'  ").getResultlist();
+
+			    	//随机分配给一个用户
+			    	User u = ulist.get(getRandomOne(ulist));
+			    	
+			    	//添加用户的歌词
+			    	Lyrics lyrics = new Lyrics();
+			    	//主
+				     lyrics.setType("lrc");
+				     lyrics.setAlbumImg("/mnt/apk/album/"+lrclist.get(i).getPath());
+				     lyrics.setPath("/mnt/apk/album/1449720831653.lrc");
+				     lyrics.setAlbum("Fantasty");
+				     lyrics.setArtist("Jay");
+				     lyrics.setMedialength("00:05:20");
+				     lyrics.setRating("5星");
+				     lyrics.setTitle("Sunny Day");
+				     lyrics.setType("lrc");
+				     lyrics.setUpdatedate(TimeUtils.N_YearDate(-1));
+				     
+				     this.lyricsManager.addLyrics(lyrics);
+				     //副
+				     UserLyrics ul = new UserLyrics();
+				     ul.setLyricsid(lyrics.getId());
+				     ul.setUserid(u.getId());
+				     this.userlyricsManager.addUserLyrics(ul);
+
+
+			    	//更新生成状态位
+			    	lrclist.get(i).setIsGened("1");
+			    	getimgManager.updateGetImg(lrclist.get(i));
+			    	
+				}
+				
+				
+				
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+			   
+		}
 	 
+	
 	 
 	 /**
 	  * 生成一切东西
@@ -1295,6 +1353,22 @@ public class UserAction {
 	}
 	
 
+	/**
+	 * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
+	 * @return
+	 */
+	public static Integer getRandomOne(List<?> list){
+		
+		
+		Random ramdom =  new Random();
+		int number = -1;
+		int max = list.size();
+		
+		//size 为  10 ，取得类似0-9的区间数
+		number = Math.abs(ramdom.nextInt() % max  );
+		
+		return number;
     
+	}
 
 }

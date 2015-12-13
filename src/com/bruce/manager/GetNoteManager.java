@@ -3,6 +3,8 @@ package com.bruce.manager;
 import java.util.List;
 
 import com.bruce.model.GetNote;
+import com.bruce.model.Lyrics;
+import com.bruce.utils.QueryResult;
 
 public interface GetNoteManager {
 	
@@ -15,6 +17,12 @@ public interface GetNoteManager {
 	public boolean delGetNote(String id);
 
 	public boolean updateGetNote(GetNote note);
+	
+
+	public QueryResult<GetNote> findByCondition(
+			String wheresql);
+	
+	
 	
 	
 }

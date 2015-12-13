@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.bruce.dao.GetNoteDao;
 import com.bruce.manager.GetNoteManager;
 import com.bruce.model.GetNote;
+import com.bruce.utils.QueryResult;
 
 @Service("GetNoteManager")
 public class GetNoteManagerImpl implements GetNoteManager {
@@ -46,6 +47,12 @@ public class GetNoteManagerImpl implements GetNoteManager {
 		// TODO Auto-generated method stub
 		noteDao.update(note);
 		return false;
+	}
+
+	@Override
+	public QueryResult<GetNote> findByCondition(String wheresql) {
+		// TODO Auto-generated method stub
+		return noteDao.findByCondition(wheresql);
 	}
 
 

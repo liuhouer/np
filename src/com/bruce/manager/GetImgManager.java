@@ -3,6 +3,8 @@ package com.bruce.manager;
 import java.util.List;
 
 import com.bruce.model.GetImg;
+import com.bruce.model.GetNote;
+import com.bruce.utils.QueryResult;
 
 public interface GetImgManager {
 	
@@ -15,6 +17,9 @@ public interface GetImgManager {
 	public boolean delGetImg(String id);
 
 	public boolean updateGetImg(GetImg note);
+	
+	public QueryResult<GetImg> findByCondition(
+			String wheresql);
 	
 	
 }
