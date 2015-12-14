@@ -17,6 +17,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +40,7 @@ import com.bruce.manager.UserFollowManager;
 import com.bruce.manager.UserManager;
 import com.bruce.model.GetImg;
 import com.bruce.model.GetNote;
+import com.bruce.model.Lyrics;
 import com.bruce.model.Note;
 import com.bruce.model.User;
 import com.bruce.query.NoteQuery;
@@ -72,118 +74,8 @@ public class NoteAction {
  private GetImgManager getimgManager;
  
  
- /**
-  * 爬虫生成100页的图片【头像】内容
-  * @param map
-  */
- @RequestMapping("/geneImg")
-	public void geneImg(ModelMap map) {
- 	List<String> list = new ArrayList<String>();
- 	for (int i = 0; i < 100; i++) {
-			String url = "http://www.caimai.cc/love/page"+i;
- 		List<String> list_ = HTMLParserUtil.getImgUrl(url);
- 		
-
- 			list.addAll(list_);
- 		
-		}
-	 	for (int i = 0; i < list.size(); i++) {
-	
-	
-	 		//保存  
-	 		try {  
-	
-	 			String  headpath =  uploadHead(list, i);
-	 		    GetImg gg = new GetImg();
-	 		    gg.setCreatetime(TimeUtils.N_YearTime(1));
-	 		    gg.setIsGened("0");
-	 		    gg.setPath(headpath);
-	 		    gg.setType("lrc");
-	 		    
-	 		   getimgManager.addGetImg(gg);
-	 		    
-	 			
-	 		} catch (Exception e) {  
-	 			e.printStackTrace();  
-	 		}  
-	
-	 	}
-	}
-
-/**
- * 上传头像并且返回最后的路径
- * @param list
- * @param i
- * @throws MalformedURLException
- * @throws IOException
- * @throws FileNotFoundException
- */
-private String uploadHead(List<String> list, int i) throws MalformedURLException,
-		IOException, FileNotFoundException {
-	URL   url   =   new   URL(list.get(i)); 
-	URLConnection   uc   =   url.openConnection(); 
-	InputStream   is   =   uc.getInputStream(); 
-
-	//执行上传头像	
-	System.out.println("-------------------------------------->开始");  
-	Properties prop = System.getProperties();
-
-	String os = prop.getProperty("os.name");
-	System.out.println(os);
-	String path = "e:/bruce/album";
-	String fileName=list.get(i);
-	String newName="";
-	if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
-		path = "e:/bruce/album";
-	}else{
-		path = "/mnt/apk/album";
-	}
-	String headpath = "";
-	System.out.println(path); 
-	if(!StringUtils.isEmpty(fileName)){
-		String ext = fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()); 
-		newName = String.valueOf(System.currentTimeMillis())+"."+ext;
-		File targetFile = new File(path, newName);  
-
-		FileOutputStream   out   =   new   FileOutputStream(targetFile); 
-		int   i1=0; 
-		while   ((i1=is.read())!=-1)   { 
-			out.write(i1); 
-		} 
-		is.close();
-	}
-	headpath = newName;
-	return headpath;
-}
+ 
     
-    /**
-     * 爬虫生成100页的笔记内容
-     * @param map
-     */
-    @RequestMapping("/geneNote")
-	public void geneNote(ModelMap map) {
-    	List<String> listnote = new ArrayList<String>();
-//    	List<String> listbrief = new ArrayList<String>();
-    	for (int i = 100; i < 200; i++) {
-			String url = "http://www.caimai.cc/story/page"+i;
-    		List<String> list_note = HTMLParserUtil.getClassCont(url, "div[class=clearfix hidden]");
-    		listnote.addAll(list_note);
-    		
-    		//[attr^=value], [attr$=value], [attr*=value]	这三个语法分别代表，属性以 value 开头、结尾以及包含
-//    		List<String> list_brief = HTMLParserUtil.getClassCont(url, "p[id$=brief_]");
-//    		listbrief.addAll(list_brief);
-		}
-    	for (int i = 0; i < listnote.size(); i++) {
-					
-					String note = listnote.get(i);
-					GetNote gg = new GetNote();
-					gg.setIsGened("0");
-					gg.setNotes(note);
-					gg.setCreatetime(TimeUtils.N_YearTime(1));
-					
-					getnoteManager.addGetNote(gg);
-				}
-	}
 	
 	@RequestMapping("/toAdd")
 	public String toAdd(ModelMap map) {
@@ -279,41 +171,6 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
 		return sb;
 	}
 	
-	@RequestMapping("/Bief")
-	public String updateBief() {
-		
-//		List<Note> list = this.noteManager.findAll();
-//		
-//		for(Note n:list){
-//			//处理笔记和介绍
-//			String note_ = n.getNote();
-//			StringBuilder sb = handleNotes(note_);
-//			System.out.println(sb.toString());
-//			n.setBrief(sb.toString());
-//			
-//			noteManager.updateNote(n);
-//			//end-------------------
-//			
-//			
-//		}
-		
-		List<GetNote> list = this.getnoteManager.findAll();
-		
-		for(GetNote n:list){
-			//处理笔记和介绍
-			String note_ = n.getNotes();
-			StringBuilder sb = handleNotes(note_);
-			System.out.println(sb.toString());
-			n.setBrief(sb.toString());
-			
-			getnoteManager.updateGetNote(n);
-			//end-------------------
-			
-			
-		}
-			
-		return "111";
-	}
 
 	@RequestMapping("/findNote")
 	private String findNote(@RequestParam("id") String id, ModelMap map) {
@@ -710,6 +567,5 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
 		pageView.setTotalpage(pages);
 		return pageView;
 	}
-
 	
 }

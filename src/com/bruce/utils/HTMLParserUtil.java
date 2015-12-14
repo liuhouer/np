@@ -1,7 +1,12 @@
 package com.bruce.utils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -304,9 +309,9 @@ public class HTMLParserUtil
 
     				   String note = p.html();
     				   list.add(note);
-    				   //String note2 = p.text();
+    				   String note2 = p.text();
     				   System.out.println(note);
-//    				   System.out.println(note2);
+    				   System.out.println(note2);
 
     		}
     		
@@ -356,28 +361,65 @@ public class HTMLParserUtil
     public static void main(String args[]){
     	try {
 
-    		Document doc = Jsoup.connect("http://www.caimai.cc/story/page7/").get();
-
-    		String title = doc.title();
-    		System.out.println(title);
-    		Elements notes   = doc.select("p[id$=brief]");
-
-    		for(Element p : notes){
-
-    			String note = p.html();
-    			//String note2 = p.text();
-    			System.out.println(note);
-    			//			   System.out.println(note2);
-
-    		}
+//    		Document doc = Jsoup.connect("http://www.caimai.cc/story/page7/").get();
+//
+//    		String title = doc.title();
+//    		System.out.println(title);
+//    		Elements notes   = doc.select("p[id$=brief]");
+//
+//    		for(Element p : notes){
+//
+//    			String note = p.html();
+//    			//String note2 = p.text();
+//    			System.out.println(note);
+//    			//			   System.out.println(note2);
+//
+//    		}
+    		readsong();
 
     	} catch (Exception e) {
     		// TODO: handle exception
+
     	}
 
 
     	
     	        
     }
+
+	/**
+	 * @throws IOException
+	 */
+	public static List<String> readsong() throws IOException {
+		File in = new File("/Users/zhangyang/Downloads/1.html");
+
+		Document doc = Jsoup.parse(in, "UTF-8", ""); 
+		String title = doc.title();
+		System.out.println(title);
+		Elements notes   = doc.select("a");
+		List<String> list_1 = new ArrayList<String>();
+		for(Element p : notes){
+
+				   String note = p.html();
+				   list_1.add(note);
+				   String note2 = p.text();
+				   System.out.println(note);
+				   System.out.println(note2);
+
+		}
+			HashSet<String> v = new HashSet<String>();
+			v.addAll(list_1);
+			List<String> list = new ArrayList<String>();
+			list.addAll(v);
+			for (String s:list) {
+				System.out.println(s);
+			}
+			return list;
+			
+			
+
+	}
+    
+    
 }
 
