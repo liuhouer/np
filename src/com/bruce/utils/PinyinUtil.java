@@ -15,10 +15,6 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
  * @author zhangyang
  *
  */
-/**
- * @author zhangyang
- *
- */
 public class PinyinUtil {
 	/**
 	 * 获得汉语拼音的输出格式
@@ -66,7 +62,7 @@ public class PinyinUtil {
 	 * @param str
 	 * @return
 	 */
-	public String paraseStringToPinyin(String str) {
+	public static String paraseStringToPinyin(String str) {
 		if(null==str||str.trim().length()==0)
 		{
 			return str;

@@ -399,4 +399,51 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
     
 	}
 	
+	
+	@RequestMapping("/upup")
+	public void updateeE() {
+		
+		List<User> ulist = userManager.findByCondition(" where date_joined >'"+"2015-12-14 18:49:19"+"' ").getResultlist();
+			
+			for (int i = 0; i < ulist.size(); i++) {
+				User u  = ulist.get(i);
+				String email = u.getEmail();
+				email.replaceAll("", "_");
+                u.setEmail(email.toLowerCase());
+				userManager.updateUser(u);
+			}
+	}
+	
+	
+	public static void main(String[] args) {
+		List<String> list   =  new ArrayList<String>();
+		for (int i = 0; i < 165; i++) {
+			
+			List<String> list2 = HTMLParserUtil.getClassCont("http://www.caimai.cc/story/page"+i, "small[class=gray-text]");
+			list.addAll(list2);
+		}
+		list = listRM(list);
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
+		
+		System.out.println(list.size());
+	}
+	
+	
+	
+	/**
+	 * list去重
+	 * @return
+	 */
+	public static  List<String> listRM(List<String> list) {  
+	    List<String> tempList= new ArrayList<String>();  
+	    for(String i:list){  
+	        if(!tempList.contains(i)&&!"采麦故事".equals(i)){  
+	            tempList.add(i);  
+	        }  
+	    }  
+	    
+	    return tempList;
+	}     
 }
