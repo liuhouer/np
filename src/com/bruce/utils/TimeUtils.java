@@ -32,7 +32,12 @@ public class TimeUtils {
 		public static String formatToNear(String str){
 			
 				try {
-					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:m:s");  
+					SimpleDateFormat format  = null;
+					if(str.length()>10){
+					  format = new SimpleDateFormat("yyyy-MM-dd HH:m:s");  
+					}else{
+					  format = new SimpleDateFormat("yyyy-MM-dd");  
+					}
 			        Date date;
 					date = format.parse(str);
 					str = TimeUtils.format(date);

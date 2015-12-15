@@ -35,7 +35,15 @@
 	 
 		    <div class="clearfix margin-b20">
 	         <ul class="nav nav-tabs">
-		        <li class="active"><a href="/cm/detail/${MyInfo.id}">布.图</a></li>
+		        <li class="active"><a 
+		        <c:if test="${MyInfo.tail_slug==null || MyInfo.tail_slug==''}">
+				href="/cm/detail/${MyInfo.id}"
+				</c:if>
+				<c:if test="${MyInfo.tail_slug!=null }">
+				href="/people/${MyInfo.tail_slug}"
+				</c:if>
+		        
+				>布.图</a></li>
 		        <li><a href="/note/viewNotes/${MyInfo.id}">碎碎词</a></li>
 		        <li><a href="/cm/fans/${MyInfo.id}">Fans</a></li>
 

@@ -30,7 +30,7 @@ public class NoteQueryImpl implements NoteQuery {
 	@Override
 	public String getMixSql(NoteQueryCondition condition) {
 		// TODO Auto-generated method stub
-		StringBuilder sql = new StringBuilder("SELECT a.id as noteid,a.brief as brief ,a.note as note,a.opened as openid,a.createtime as createtime,a.userid as userid,b.username as username,b.headpath as headpath ,b.email as email "
+		StringBuilder sql = new StringBuilder("SELECT a.id as noteid,a.brief as brief ,a.note as note,a.opened as openid,a.createtime as createtime,a.userid as userid,b.username as username,b.tail_slug as tail_slug,b.headpath as headpath ,b.email as email "
 					+" FROM                                   	"
 					+" bc_note a                              	"
 					+" inner JOIN bc_user  b on a.userid = b.id where 1=1 ");

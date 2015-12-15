@@ -59,15 +59,15 @@ import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.PinyinUtil;
 import com.bruce.utils.TimeUtils;
+import com.bruce.utils.URLUtil;
 import com.bruce.utils.json.JsonUtil;
 
 @Controller
-@RequestMapping("/cm")
+@RequestMapping("")
 @SessionAttributes({ "list", "User" })
 public class UserAction {
 
 	 private final String LIST_ACTION = "redirect:/cm/list";
-	 private final String COMMON_PIC = "redirect:/cm/pic";
 	 private final String DOMAIN = "lonelyrobots.cn";
 	 private final String LOGIN_ACTION = "redirect:/cm/toLogin";
 	 @Autowired	
@@ -109,7 +109,7 @@ public class UserAction {
 	 	 * @param url
 	 	 * @return 0、1 【0：没有 | 1：有】
 	 	 */
-	 	@RequestMapping("/loginFlag")
+	 	@RequestMapping("/cm/loginFlag")
 	 	@ResponseBody
 		public String loginFlag(HttpServletRequest request, HttpServletResponse response,ModelMap map,String url) {
 	         System.out.println(">>>: " + url);
@@ -132,7 +132,7 @@ public class UserAction {
 	 	 * @param url
 	 	 * @return 0、1 【0：没有 | 1：有】
 	 	 */
-	 	@RequestMapping("/emailFlag")
+	 	@RequestMapping("/cm/emailFlag")
 	 	@ResponseBody
 		public String emailFlag(HttpServletRequest request, HttpServletResponse response,ModelMap map,String email) {
 	 		int num = userManager.findByCondition(" where email = '"+email+"' ").getResultlist().size();
@@ -145,9 +145,29 @@ public class UserAction {
 		}
 	 	
 	 	/**
+	 	 * @ 判断tail_slug的存在性
+	 	 * @param request
+	 	 * @param response
+	 	 * @param map
+	 	 * @param url
+	 	 * @return 0、1 【0：没有 | 1：有】
+	 	 */
+	 	@RequestMapping("/cm/tailFlag")
+	 	@ResponseBody
+		public String tailFlag(HttpServletRequest request, HttpServletResponse response,ModelMap map,String tail) {
+	 		int num = userManager.findByCondition(" where tail_slug = '"+tail+"' ").getResultlist().size();
+	 		String msg = "exist";//存在；
+			if(num<=0){
+				msg = "notexist";//不存在	     
+			}
+	 	   return msg ; 
+	         
+		}
+	 	
+	 	/**
 		 * 发送”修改密码“邮件
 		 */
-		@RequestMapping("/resetEmail")
+		@RequestMapping("/cm/resetEmail")
 		@ResponseBody
 		public String resetEmail(HttpServletRequest request,
 				HttpServletResponse response, ModelMap map, String email)
@@ -180,7 +200,7 @@ public class UserAction {
 		/**
 		 * 重置密码
 		 */
-		@RequestMapping("/reset")
+		@RequestMapping("/cm/reset")
 		public String reset(HttpServletRequest request,
 				HttpServletResponse response, ModelMap map, String userid,
 				String auth_code) throws ParseException {
@@ -243,7 +263,7 @@ public class UserAction {
 	 
 	 
 	   /* //一键修改密码
-	    @RequestMapping("/pwddd")
+	    @RequestMapping("/cm/pwddd")
 	 	@ResponseBody
 		public String pwddd() {
 	 		String msg = "success";
@@ -260,7 +280,7 @@ public class UserAction {
 		}*/
 	 
 	 //成为粉丝
-	 	@RequestMapping("/follow")
+	 	@RequestMapping("/cm/follow")
 	 	@ResponseBody
 		public String follow(ModelMap map,String author_id,String follow_id) {
 	 		String msg = "success";
@@ -288,7 +308,7 @@ public class UserAction {
 		}
 	 
 	 	//移除某个粉丝
-	 	@RequestMapping("/rmfollow")
+	 	@RequestMapping("/cm/rmfollow")
 	 	@ResponseBody
 		public String rmfollow(ModelMap map,String id) {
 	 		String msg = "success";
@@ -311,12 +331,12 @@ public class UserAction {
 	 
 	 
 	 
-	 	@RequestMapping("/xbjt")
+	 	@RequestMapping("/cm/xbjt")
 		public String xbjt(ModelMap map) {
 			return "bruce-quiet-listen";
 		}
 		
-		@RequestMapping("/toAdd")
+		@RequestMapping("/cm/toAdd")
 		public String toAdd(ModelMap map) {
 			//List<User> Pidlist = userManager.findAll();
 			//map.addAttribute("Pidlist",Pidlist);
@@ -324,9 +344,12 @@ public class UserAction {
 		}
 		
 		
-		@RequestMapping("/pcentral")
+		@RequestMapping("/cm/pcentral")
 		public String pcentral(ModelMap map,HttpServletRequest request) {
-			String rs = "myself";
+			//获取域名
+			 URLUtil.getDomain(request);
+
+			 String rs = "myself";
 			User user   = null;
 			String userid = "";
 			request.getSession().removeAttribute("tabs");
@@ -377,7 +400,7 @@ public class UserAction {
 			return rs;
 		}
 		
-		@RequestMapping("/myfans")
+		@RequestMapping("/cm/myfans")
 		public String myfans(ModelMap map, HttpServletRequest request) {
 
 			 //取得当前用户
@@ -433,7 +456,7 @@ public class UserAction {
 			return "fans";
 		}
 		
-		@RequestMapping("/fans/{userid}")
+		@RequestMapping("/cm/fans/{userid}")
 		public String fans(ModelMap map, @PathVariable String userid ,HttpServletRequest request) {
 			User user = userManager.findUser(userid);
 			//处理图片路径
@@ -497,8 +520,10 @@ public class UserAction {
 			return "spacefans";
 		}
 		
-		@RequestMapping("/detail/{userid}")
+		@RequestMapping("/cm/detail/{userid}")
 		public String detail(ModelMap map, @PathVariable String userid ,HttpServletRequest request) {
+			//获取域名
+			 URLUtil.getDomain(request);
 			User user = userManager.findUser(userid);
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
@@ -552,7 +577,70 @@ public class UserAction {
 			return "space";
 		}
 		
-		@RequestMapping("/toEditInfo")
+		@RequestMapping("/people/{tail_slug}")
+		public String people(ModelMap map, @PathVariable String tail_slug ,HttpServletRequest request) {
+			//获取域名
+			 URLUtil.getDomain(request);
+			User user = null;
+			List<User> ul = userManager.findByCondition(" where tail_slug = '"+tail_slug+"' ").getResultlist();
+			if(ul!=null){
+				if(ul.size()>0){
+					user = ul.get(0);
+				}
+			}
+			//处理图片路径
+			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
+			if(!StringUtils.isEmpty(imgpath)){
+			String[] str = imgpath.split("/heads/");
+			if(str.length>1){
+			String imgp = "heads/"+str[1];
+			user.setHeadpath(imgp);
+			}
+			}
+			//处理图片路径
+			map.put("MyInfo", user);
+			
+			//查询个人歌词最爱历史
+			List<UserLyrics> Lovelist = userlyricsManager.findByCondition(" where 1=1 ").getResultlist();
+			
+			//查询歌词列表
+			List<Lyrics> LyricsList = lyricsManager.findAll();
+			for (int i = 0; i < LyricsList.size(); i++) {
+				//批量处理图片的路径
+				String imgpath2 = LyricsList.get(i).getAlbumImg(); //e:/yunlu/upload/1399976848969.jpg
+				if(!StringUtils.isEmpty(imgpath2)){
+				String[] str = imgpath2.split("/album/");
+				if(str.length>1){
+				String imgp = "album/"+str[1];
+				LyricsList.get(i).setAlbumImg(imgp);
+				}
+				}
+				
+				//--批量处理时间
+			    LyricsList.get(i).setUpdatedate(TimeUtils.formatToNear(LyricsList.get(i).getUpdatedate()));
+				
+			}
+			map.addAttribute("LyricsList", LyricsList);
+			map.addAttribute("Lovelist", Lovelist);
+			
+			
+			 //取得当前用户对作者的关注状态
+	         User lo_user = (User) request.getSession().getAttribute("user");
+	         if(lo_user!=null){
+	        	 String follow_id = lo_user.getId();
+	        	 String author_id = user.getId();
+	        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
+	        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
+	        		 if(nums>0){
+	        			 map.put("gz", "ygz");
+	        		 }
+	        	 }
+	        	 
+	         }
+			return "space";
+		}
+		
+		@RequestMapping("/cm/toEditInfo")
 		public String toEditInfo(ModelMap map,String userid,HttpServletRequest request) {
 			if(StringUtils.isEmpty(userid)){
 	              User u = (User) request.getSession().getAttribute("user");
@@ -576,7 +664,7 @@ public class UserAction {
 			return "EditInfo";
 		}
 		
-		@RequestMapping("/saveEditInfo")
+		@RequestMapping("/cm/saveEditInfo")
 		public String saveEditInfo(HttpSession session,User model,ModelMap map,String oldpath, @RequestParam(value = "file", required = false) MultipartFile[] file,String new_password,String new_password_confirmation,String courseware,String year_of_birth,String user_slug) {
 			//保存User表信息
 			// 执行删除图片缓存
@@ -676,7 +764,7 @@ public class UserAction {
 			return "redirect:pcentral?userid="+userid;
 		}
 		
-		@RequestMapping("/toLogin")
+		@RequestMapping("/cm/toLogin")
 		public String toLogin(ModelMap map,HttpServletRequest request) {
 			//redirect URI的设置
 			String redirectURI = request.getParameter("redirectURI");
@@ -696,13 +784,13 @@ public class UserAction {
 		 * @param request
 		 * @return
 		 */
-		@RequestMapping("/forget")
+		@RequestMapping("/cm/forget")
 		public String forget(ModelMap map,HttpServletRequest request) {
 			
 			return "forget";
 		}
 		
-		@RequestMapping("/toEdit")
+		@RequestMapping("/cm/toEdit")
 		public String toEdit(HttpServletRequest request, String id,ModelMap map) {
 			if(StringUtils.isEmpty(id)){
                 User u = (User) request.getSession().getAttribute("user");
@@ -715,13 +803,13 @@ public class UserAction {
 			return "user/userEdit";
 		}
 		
-		@RequestMapping("/remove")
+		@RequestMapping("/cm/remove")
 		public String remove(@RequestParam("id") String id) {
 			this.userManager.delUser(id);
 			return LIST_ACTION;
 		}
 		
-		@RequestMapping("/removes")
+		@RequestMapping("/cm/removes")
 		public String removes(@RequestParam("ids") String ids) {
 			String[] str = ids.split(",");
 			for(String s :str){
@@ -730,13 +818,13 @@ public class UserAction {
 			return LIST_ACTION;
 		}
 		
-		@RequestMapping("/update")
+		@RequestMapping("/cm/update")
 		public String update(User model) {
 			this.userManager.updateUser(model);
 			return LIST_ACTION;
 		}
 		
-		@RequestMapping("/logout")
+		@RequestMapping("/cm/logout")
 		public String logout(HttpServletRequest request, HttpSession session,HttpServletResponse response) {
 
 			Enumeration e = session.getAttributeNames();
@@ -778,7 +866,7 @@ public class UserAction {
 
 		}
 
-		@RequestMapping("/addUser")
+		@RequestMapping("/cm/addUser")
 		public String addUser(User user, ModelMap map,HttpSession session) {
 			int num = userManager.findByCondition(" where email = '"+user.getEmail()+"' ").getResultlist().size();
 			if(num>0){
@@ -804,20 +892,20 @@ public class UserAction {
 			}
 		}
 
-		@RequestMapping("/findUser")
+		@RequestMapping("/cm/findUser")
 		private String findUser(@RequestParam("id") String id, ModelMap map) {
 			User user = this.userManager.findUser(id);
 			map.addAttribute("user", user);
 			return "findresult";
 		}
 
-		@RequestMapping("/delUser")
+		@RequestMapping("/cm/delUser")
 		public String delUser(@RequestParam("id") String id) {
 			this.userManager.delUser(id);
 			return LIST_ACTION;
 		}
 
-		@RequestMapping("/updateUser")
+		@RequestMapping("/cm/updateUser")
 		public String updateUser(@RequestParam("id") String id) {
 			User user = this.userManager.findUser(id);
 			this.userManager.updateUser(user);
@@ -825,7 +913,7 @@ public class UserAction {
 		}
 
 		
-		@RequestMapping(value="/pic/page{page}")
+		@RequestMapping(value="/cm/pic/page{page}")
 		public String pic(ModelMap map,UserLyricsQueryCondition condition,@PathVariable String page,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session) {
 			
@@ -906,7 +994,7 @@ public class UserAction {
 			
 			return "welcome";
 		}
-		@RequestMapping(value="/list")
+		@RequestMapping(value="/cm/list")
 		public String findAll(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session,String userid) {
 			if(!StringUtils.isEmpty(userid)){
@@ -960,7 +1048,7 @@ public class UserAction {
 			return "welcome";
 		}
 		
-		@RequestMapping(value="/pic")
+		@RequestMapping(value="/cm/pic")
 		public String commonPic(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session) {
 			
@@ -1071,7 +1159,7 @@ public class UserAction {
 		}
 		
 		
-	@RequestMapping("/login")
+	@RequestMapping("/cm/login")
 	@ResponseBody
 	public String login(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session, String email,
@@ -1163,7 +1251,7 @@ public class UserAction {
 	/**
 	 * 绑定注册/登录用户信息
 	 */
-	@RequestMapping(value = "/qq/add" )
+	@RequestMapping(value = "/cm/qq/add" )
 	@ResponseBody
 	public String qqAdd(HttpServletRequest request, HttpServletResponse response, HttpSession session, String openId,String qqinfo) {
 		String result = "success";
@@ -1211,7 +1299,7 @@ public class UserAction {
 	/**
 	 * 判断登录用户信息【存在登陆成功，取出用户信息】【不存在，存放qqopenid，等待绑定信息】
 	 */
-	@RequestMapping(value = "/qq/flag" )
+	@RequestMapping(value = "/cm/qq/flag" )
 	@ResponseBody
 	public String qqFlag(HttpServletRequest request, HttpServletResponse response, HttpSession session, String openId) {
 		String result = "0";

@@ -24,11 +24,11 @@
 						</div>
 						<div class="col-xs-8">
 							<h1 class="margin0">${MyInfo.username } </h1>
-							<h4 class="margin0"><small>http://buci.cc/${MyInfo.username }</small></h4>
+							<h4 class="margin0"><small>http://${dm}/${MyInfo.tail_slug }</small></h4>
 							<p class="white-line"></p>
 
 							
-							
+							<h3 class="margin0"><small>${MyInfo.email }</small></h3>
 							<h3 class="margin0"><small>加入时间：${MyInfo.date_joined }</small></h3>
 						 
 						 	<h2><a href="lyrics/add" class="btn btn-hero btn-lg">+ 添加我的最爱</a></h2>

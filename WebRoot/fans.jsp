@@ -54,8 +54,18 @@
 									rel='${s.follow.id }' onclick="removes(this)"><span
 									class='ace-icon glyphicon glyphicon-trash'></span></label>
 								
-								
-									<a href="/cm/detail/${s.user.id}" title="${s.user.username }"
+								    
+									<a 
+									
+									<c:if test="${s.user.tail_slug==null || s.user.tail_slug==''}">
+								    href="/cm/detail/${s.user.id}"
+								    </c:if>
+								    <c:if test="${s.user.tail_slug!=null }">
+								    href="/people/${s.user.tail_slug}"
+								    </c:if>
+									
+									
+									title="${s.user.username }"
 										class="thumbnail border-0"> <img class=" img-circle"
 										 <c:choose>
 											<c:when test="${fn:contains(s.user.headpath  ,'http://') }">src="${s.user.headpath  }"</c:when>

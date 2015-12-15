@@ -104,9 +104,9 @@
       <hr>
       
       <div class="form-group ">
-        <label for="user_slug" class="col-md-3 control-label input-lg ">字母代号：</label>        <div class="col-md-9 text-left ">
-          <div class="clearfix"><p class=""><b style="font-size:1.6em">http://buci.cc/ <input id="user_slug" placeholder="vivian1987" class="input-lg grid33 border-light-1 bg-lyellow radius-0" name="user_slug" type="text" value="${Dinfo.user_slug }"></b></p></div>
-          <div class="clearfix"><p class="help-block">可以用6~20位的英文或者数字组成</p></div>
+        <label for="tail_slug" class="col-md-3 control-label input-lg ">域名代号：</label>        <div class="col-md-9 text-left ">
+          <div class="clearfix"><p class=""><b style="font-size:1.6em"> <input id="tail_slug" placeholder="vivian1987" required class="input-lg grid33 border-light-1 bg-lyellow radius-0" name="tail_slug" type="text" value="${MyInfo.tail_slug }"></b></p></div>
+          <div class="clearfix"><p class="help-block">可以用2~20位的英文或者数字组成</p></div>
 
           
         </div>
@@ -187,12 +187,39 @@ $(document).ready(function() {
 function saves(){
 	var newpwd1=$("#new_password").val();
 	var newpwd2=$("#new_password_confirmation").val();
+	var slug = $("#tail_slug").val();
 	if(newpwd2!=newpwd1&&newpwd1!=""&&newpwd1!=''&&newpwd1!=null){//修改密码填了不一致
 		art.dialog.alert('2次密码不一致');
 		return;
-	}else{
-	$("#f1").attr("action","cm/saveEditInfo").submit();
 	}
+	if(slug && slug!="${MyInfo.tail_slug }"){
+		$.ajax({
+
+            url:"/cm/tailFlag",
+
+            type:"post",
+
+            data:{"tail":slug},
+
+            success:function(msg){
+
+                if(msg=="exist"){//存在
+
+                    art.dialog.tips('域名代号已存在');
+                    $("#tail_slug").focus();
+
+					return;
+
+                }else{
+                	$("#f1").attr("action","cm/saveEditInfo").submit();
+                }            
+
+            }
+
+        });
+	}
+
+	 
 	
 	
 }

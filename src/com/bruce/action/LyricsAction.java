@@ -378,7 +378,7 @@ public class LyricsAction {
          map.put("plNum", plNum);
          
          //取得谁爱上谁的一个列表
-         String sql_2  = "select b.id as userid,b.username,b.email,b.headpath,c.id as lyricsid,c.title from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id   ";
+         String sql_2  = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,c.id as lyricsid,c.title from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id   ";
          List<Map<String, Object>> loveList = lyricszanManager.mixSqlQuery(sql_2);
          for (int i = 0; i < loveList.size(); i++) {
         	 String imgpath_ =(String) loveList.get(i).get("headpath");

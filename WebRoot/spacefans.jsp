@@ -35,7 +35,17 @@
 	 
 		    <div class="clearfix margin-b20">
 	         <ul class="nav nav-tabs">
-		        <li><a href="/cm/detail/${MyInfo.id}">布.图</a></li>
+		        <li><a 
+		        
+		        
+		        <c:if test="${MyInfo.tail_slug==null || MyInfo.tail_slug==''}">
+				href="/cm/detail/${MyInfo.id}"
+				</c:if>
+				<c:if test="${MyInfo.tail_slug!=null }">
+				href="/people/${MyInfo.tail_slug}"
+				</c:if>
+		        
+		        >布.图</a></li>
 		        <li><a href="/note/viewNotes/${MyInfo.id}">碎碎词</a></li>
 		        <li class="active"><a href="/cm/fans/${MyInfo.id}">Fans</a></li>
 
@@ -49,7 +59,20 @@
 			    <div class="col-md-10">
 				<div class="row">
 												<div class="col-xs-4 col-sm-2 center" >
-									  <a href="/cm/detail/${s.user.id}" title="${s.user.username }" class="thumbnail border-0">
+									  <a 
+									  
+									  
+									  
+									        <c:if test="${s.user.tail_slug==null || s.user.tail_slug==''}">
+										     href="/cm/detail/${s.user.id}" 
+										    </c:if>
+										    <c:if test="${s.user.tail_slug!=null }">
+										     href="/people/${s.user.tail_slug }" 
+										    </c:if>
+									  
+									  
+									  
+									  title="${s.user.username }" class="thumbnail border-0">
 										<img class=" img-circle" 
 										 <c:choose>
                                             <c:when test="${fn:contains(s.user.headpath  ,'http://') }">src="${s.user.headpath  }"</c:when>

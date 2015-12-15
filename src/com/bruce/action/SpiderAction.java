@@ -13,6 +13,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -64,6 +66,46 @@ public class SpiderAction {
  
  
  // http://music.163.com/#/discover/toplist?id=19723756
+ 
+ 
+ /**
+  * 生成唯一自主域名
+ * @param user
+ * @param map
+ * @param session
+ */
+@RequestMapping("/upslug")
+	public void upslug( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+	try {
+		
+				
+		    	//茶找用户
+		    	List<User> ulist = userManager.findAll();
+		    	for (int i = 0; i < ulist.size(); i++) {
+					User u = ulist.get(i);
+					String email = u.getEmail();
+					if(StringUtils.isNotEmpty(email)){
+						if(email.contains("@")){
+						String slug = email.substring(0,email.lastIndexOf("@"));
+						System.out.println(slug);
+						u.setTail_slug(slug);
+						userManager.updateUser(u);
+						
+						}
+						
+					}
+				}
+
+			
+			
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+		   
+	}
+ 
+
  
  /**
   * 生成图片lrc
@@ -446,4 +488,42 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
 	    
 	    return tempList;
 	}     
+	
+	/**
+	 * list去重
+	 * @return
+	 */
+	public static  List<String> listRM1(List<String> list) {  
+	    List<String> listTemp= new ArrayList<String>();  
+		 Iterator<String> it=list.iterator();  
+		 while(it.hasNext()){  
+		  String a=it.next();  
+		  if(listTemp.contains(a)){  
+		   it.remove();  
+		  }  
+		  else{  
+		   listTemp.add(a);  
+		  }  
+		 }  
+	    
+	    return listTemp;
+	}  
+	
+	/**
+	 * list去重
+	 * @return
+	 */
+	public static  List<String> listRM3(List<String> list) {  
+		List<String> listTemp= null;  
+		HashSet<String> set = new HashSet<String>();
+		set.addAll(list);
+		listTemp = new ArrayList<String>(set);
+	    return listTemp;
+	}
+	
+	
+	
+	
+	
+		 
 }

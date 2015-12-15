@@ -36,7 +36,16 @@
 		<div  class="col-md-8">
 		
 			<h2  class="margin0">${ lrc.title} &nbsp; 
-				<small><span  class="glyphicon glyphicon-user"></span> 由<a  href="/cm/detail/${by.id }"  title="花菜菜的最爱">${by.username }</a>创建</small>
+				<small><span  class="glyphicon glyphicon-user"></span> 由<a  
+				
+				<c:if test="${by.tail_slug==null || by.tail_slug==''}">
+			    href="/cm/detail/${by.id}" 
+			    </c:if>
+			    <c:if test="${by.tail_slug!=null }">
+			    href="/people/${by.tail_slug }" 
+			    </c:if>
+				
+				title="花菜菜的最爱">${by.username }</a>创建</small>
 			</h2>
 			<hr>
 		
@@ -57,7 +66,17 @@
 						<h4><span  class="glyphicon glyphicon-heart"></span> ${zanNum }人最爱</h4>
 						<p  style="line-height:200%;">
 						  <c:forEach var="x" items="${zanList }">
-						  	<span><a  href="/cm/detail/${x.id }"  title="${x.username }">${x.username }</a> &nbsp;</span>
+						  	<span><a  
+						  	<c:if test="${x.tail_slug==null || x.tail_slug==''}">
+						    href="/cm/detail/${x.id}" 
+						    </c:if>
+						    <c:if test="${x.tail_slug!=null }">
+						    href="/people/${x.tail_slug }" 
+						    </c:if>
+						  	
+						  	
+						  	
+						  	 title="${x.username }">${x.username }</a> &nbsp;</span>
 						  </c:forEach>
 						  <button  class="btn btn-gray btn-xs click2show"  data-target=".lovers_box">查看更多 ›› </button>
 						</p>
@@ -83,7 +102,15 @@
                         <c:if test="${user!=null }">
 						   <div  class="row">
 						   	<div  class="col-xs-3 col-sm-2">
-						   		<a  href="/cm/detail/${user.id }"  title="${user.username }的最爱"><img  <c:if test="${user.headpath == null}">src="/img/davatar.jpg"</c:if><c:if test="${user.headpath != null}">
+						   		<a  
+							   		<c:if test="${user.tail_slug==null || user.tail_slug==''}">
+									    href="/cm/detail/${user.id}" 
+								    </c:if>
+								    <c:if test="${user.tail_slug!=null }">
+								    	href="/people/${user.tail_slug }" 
+								    </c:if>
+						   		
+						   		 title="${user.username }的最爱"><img  <c:if test="${user.headpath == null}">src="/img/davatar.jpg"</c:if><c:if test="${user.headpath != null}">
 						   		 		<c:choose>
                                             <c:when test="${fn:contains(user.headpath  ,'http://') }">src="${user.headpath  }"</c:when>
                                             <c:otherwise>src="bruce/${user.headpath  }"</c:otherwise>
@@ -108,7 +135,19 @@
 				     <c:forEach var="y" items="${plList }">
 								<div class="row" id="commentbox_${y.userid }">
 									<div class="col-xs-3 col-sm-2">
-										<a href="/cm/detail/${y.userid }" title="${y.username }的最爱"><img
+										<a 
+										
+										
+									<c:if test="${y.tail_slug==null || y.tail_slug==''}">
+									    href="/cm/detail/${y.id}" 
+								    </c:if>
+								    <c:if test="${y.tail_slug!=null }">
+								    	href="/people/${y.tail_slug }" 
+								    </c:if>
+										
+										
+										
+										title="${y.username }的最爱"><img
 											<c:if test="${y.headpath == null}">src="/img/davatar.jpg"</c:if><c:if test="${y.headpath != null}">
 											 <c:choose>
    												<c:when test="${fn:contains(y.headpath,'http://') }">src="${y.headpath }"</c:when>
@@ -122,7 +161,18 @@
 									</div>
 									<div class="col-xs-9 col-sm-10">
 										<p>
-											<a href="/cm/detail/${y.userid }" title="${y.username }的最爱">${y.username }</a>：${y.comment }
+											<a 
+											
+											
+											<c:if test="${y.tail_slug==null || y.tail_slug==''}">
+											    href="/cm/detail/${y.id}" 
+										    </c:if>
+										    <c:if test="${y.tail_slug!=null }">
+										    	href="/people/${y.tail_slug }" 
+										    </c:if>
+											
+											
+											title="${y.username }的最爱">${y.username }</a>：${y.comment }
 										</p>
 										<p>
 											<small class="label label-gray">${y.create_time }</small>
@@ -165,7 +215,18 @@
 				        	
 				        	</c:if>></div>
 				        	<div  class="col-xs-10"  style="line-height:30px;">
-				        		<a  href="/cm/detail/${z.userid }"  title="${z.username }的最爱">${z.username }</a>爱上了<a  title="${z.title }"  href="lyrics/comment/${z.lyricsid }">${z.title }</a>
+				        		<a  
+				        		
+				        		
+				        					<c:if test="${z.tail_slug==null || z.tail_slug==''}">
+											    href="/cm/detail/${z.userid}" 
+										    </c:if>
+										    <c:if test="${z.tail_slug!=null }">
+										    	href="/people/${z.tail_slug }" 
+										    </c:if>
+				        		
+				        		
+				        		 title="${z.username }的最爱">${z.username }</a>爱上了<a  title="${z.title }"  href="lyrics/comment/${z.lyricsid }">${z.title }</a>
 				        	</div>
 				        </div>
 				</c:forEach>

@@ -35,7 +35,16 @@
 								<div class="row">
 									<div class="col-sm-3">
 										<div class="thumbnail border-0 center">
-											<a href="/cm/detail/${s.get('userid')}" title="${s.get('username')}:我的最爱">
+											<a 
+											
+											<c:if test="${s.get('tail_slug')==null ||s.get('tail_slug')==''}">
+											href="/cm/detail/${s.get('userid')}"
+											</c:if>
+											<c:if test="${s.get('tail_slug')!=null }">
+											href="/people/${s.get('tail_slug')}"
+											</c:if>
+											
+											title="${s.get('username')}:我的最爱">
 											<c:if test="${s.get('headpath') ==null}"><img src="/img/davatar.jpg" alt="${s.get('username')}"></c:if>
 											<c:if test="${s.get('headpath') !=null}"><img 
 											 <c:choose>
@@ -51,7 +60,19 @@
 									</div>
 									
 									<div class="col-sm-9">
-										<p><small class="label label-gray">${s.get('createtime') }</small> &nbsp; <a href="/cm/detail/${s.get('userid')}" title="${s.get('username')}的最爱">${s.get('username')}</a> 写到：</p>
+										<p><small class="label label-gray">${s.get('createtime') }</small> &nbsp; <a 
+										
+											<c:if test="${s.get('tail_slug')==null ||s.get('tail_slug')==''}">
+											href="/cm/detail/${s.get('userid')}"
+											</c:if>
+											<c:if test="${s.get('tail_slug')!=null }">
+											href="/people/${s.get('tail_slug')}"
+											</c:if>
+										
+										
+										
+										
+										title="${s.get('username')}的最爱">${s.get('username')}</a> 写到：</p>
 										<p id="brief_${ss.index}">
 										
 										${s.get('brief') }
@@ -87,33 +108,6 @@
 		</div>
 	</div>
 </div>
-	<div
-		class="ui-widget-content ui-reelList-row emptyHeart ui-reelList-active ui-reelList-insert even"
-		reellist-row="0" style="top: 0px;">
-		<div class="ui-reelList-cell  c0">
-			<div class="ui-reelList-checkbox"
-				onclick="checkreelList_88566(0,event,this);"
-				ondblclick="event.stopPropagation?event.stopPropagation():event.cancelBubble=true;return false">
-				<span></span>
-			</div>
-			<span class="listening-icon"></span><span
-				class="similar-icon cur-similar"></span><span
-				class="ui-reelList-songname"><span class="songname-txt">如果一切没有发生过</span></span>
-		</div>
-		<div class="ui-reelList-cell  c1">
-			<a class="a-link"
-				href="http://music.baidu.com/artist/163361619?pst=musicartistd_list"
-				target="_blank">张碧晨</a>
-		</div>
-		<div class="ui-reelList-cell  c2">
-			《<a class="a-link"
-				href="http://music.baidu.com/album/259143607?pst=musicalbumd_list"
-				target="_blank">如果一切没有发生过</a>》
-		</div>
-		<div class="ui-reelList-cell heartColumn c3">
-			<div class="playlist-heart"></div>
-		</div>
-	</div>
 
 	<%@ include file="/page/common/container.jsp"%>
 	<script type="text/javascript">

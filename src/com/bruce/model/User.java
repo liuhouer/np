@@ -75,6 +75,9 @@ public class User implements Serializable{
 
 	@Column(length = 2000)
 	private String wb_info;
+	
+	@Column(length = 2000)
+	private String tail_slug;//自己的域名空间【字母代号】
 
 
 	public String getWx_openid() {
@@ -220,5 +223,13 @@ public class User implements Serializable{
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public String getTail_slug() {
+		return tail_slug;
+	}
+
+	public void setTail_slug(String tail_slug) {
+		this.tail_slug = tail_slug;
 	}
 }

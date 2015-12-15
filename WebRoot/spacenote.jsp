@@ -31,7 +31,17 @@
 	 
 		<div class="clearfix margin-b20">
 	<ul class="nav nav-tabs">
-		<li><a href="/cm/detail/${MyInfo.id}">布.图</a></li>
+		<li><a 
+		
+		
+		   <c:if test="${MyInfo.tail_slug==null || MyInfo.tail_slug==''}">
+				href="/cm/detail/${MyInfo.id}"
+				</c:if>
+				<c:if test="${MyInfo.tail_slug!=null }">
+				href="/people/${MyInfo.tail_slug}"
+				</c:if>
+		        
+		>布.图</a></li>
 		<li class="active"><a href="/note/viewNotes/${MyInfo.id}">碎碎词</a></li>
 		<li><a href="/cm/fans/${MyInfo.id}">Fans</a></li>
 		
@@ -41,7 +51,16 @@
 		       <form id="f2" method="post"><input name="userid" type="hidden" value="${MyInfo.id }"/></form>
 				<div class="row bg-white margin-t10 margin-b10  ">
 			<div class="col-sm-1">
-				<a href="/cm/detail/${MyInfo.id}" title="${MyInfo.username}的最爱"><img src="img/davatar.jpg" class="img-responsive  img-circle max-width-50" alt="654714226的最爱"></a>			</div>
+				<a 
+				
+				<c:if test="${MyInfo.tail_slug==null || MyInfo.tail_slug==''}">
+				href="/cm/detail/${MyInfo.id}"
+				</c:if>
+				<c:if test="${MyInfo.tail_slug!=null }">
+				href="/people/${MyInfo.tail_slug}"
+				</c:if>
+				
+				title="${MyInfo.username}的最爱"><img src="img/davatar.jpg" class="img-responsive  img-circle max-width-50" alt="654714226的最爱"></a>			</div>
 		</div>
 		
 		<c:forEach items="${list }" var="s" varStatus="ss">
