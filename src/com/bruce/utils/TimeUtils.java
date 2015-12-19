@@ -24,9 +24,6 @@ public class TimeUtils {
       private static final String ONE_MONTH_AGO = "月前";  
       private static final String ONE_YEAR_AGO = "年前";  
 		
-		public static void main(String[] args) {
-			System.out.println(N_MonthDate(5));
-		}
 		
 		//格式化时间串成为  几天前 几秒前 几小时前  几分钟前 几年前sth.....
 		public static String formatToNear(String str){
@@ -416,4 +413,8 @@ public class TimeUtils {
 	        System.out.println("TIME:::"+dateString);  
 	        return dateString;  
 	    }  
+	    
+	    public static void main(String[] args) {
+	    	System.out.println(getDayAfterOrBeforeN(nowTime(),-139 ));;
+		}
 }
