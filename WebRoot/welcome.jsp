@@ -37,7 +37,7 @@
 			   				<div class="col-xs-6 col-sm-3 margin-b20 "<c:if test="${user.id!=null }">onmouseover="addSpan('delspan${ss.index }')" onmouseout="rmSpan('delspan${ss.index }')"</c:if>>
 								<div class="thumbnail radius-0 border-0 margin-b0" >
 							<a href="/lyrics/comment/${s.id }" title="${s.title }:love<c:if test="${s.yizan eq 'yizan' }">/已赞过</c:if><c:if test="${s.yizan ne 'yizan' }">/未赞，点击下面的小心就可以赞了嗷~</c:if>">
-							<img  style="width: 200px;height: 200px;"
+							<img  
 								<c:choose>
 								  <c:when test="${fn:contains(s.albumImg ,'http://') }">src="${s.albumImg }"</c:when>
 								  <c:otherwise>src="bruce/${s.albumImg }"</c:otherwise>
