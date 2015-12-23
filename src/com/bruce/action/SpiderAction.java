@@ -30,13 +30,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.bruce.interceptor.SpringInit;
 import com.bruce.manager.GetImgManager;
 import com.bruce.manager.GetNoteManager;
 import com.bruce.manager.LyricsManager;
@@ -57,7 +54,7 @@ import com.bruce.utils.TimeUtils;
 
 @Controller
 @RequestMapping("/web")
-public class SpiderAction extends AbstractAction{
+public class SpiderAction {
  @Autowired	
  private NoteManager noteManager;
  @Autowired	
