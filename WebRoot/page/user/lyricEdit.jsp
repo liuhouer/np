@@ -20,7 +20,7 @@
 <meta name="keywords" content="最爱,回忆,生活">
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
-<link rel="shortcut icon" href="img/favicon.png">
+<link rel="shortcut icon" href="img/favicon.ico">
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.css">
 	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
 	<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">

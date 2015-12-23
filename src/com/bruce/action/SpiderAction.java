@@ -15,6 +15,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -24,11 +25,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.bruce.interceptor.SpringInit;
 import com.bruce.manager.GetImgManager;
 import com.bruce.manager.GetNoteManager;
 import com.bruce.manager.LyricsManager;
@@ -49,7 +57,7 @@ import com.bruce.utils.TimeUtils;
 
 @Controller
 @RequestMapping("/web")
-public class SpiderAction {
+public class SpiderAction extends AbstractAction{
  @Autowired	
  private NoteManager noteManager;
  @Autowired	
@@ -293,6 +301,75 @@ public class SpiderAction {
 	
 	 	}
 	}
+ 
+ 
+ /**
+  * 爬虫xukaiqiang的博客
+  * @param map
+  */
+ @RequestMapping("/getArticle")
+	public void getArticle(ModelMap map) {
+	 try {
+       LinkedList<String> article = new LinkedList<String>();
+	   List<String> urilist = new ArrayList<String>();
+	for (int i = 1; i <= 6; i++) {
+		File in = new File("/Users/zhangyang/Downloads/a"+i+".html");
+
+		Document doc = Jsoup.parse(in, "UTF-8", ""); 
+//		String title = doc.title();
+//		System.out.println(title);
+		Elements notes   = doc.select("a");
+		for(Element p : notes){
+
+				   String links = p.attr("href");
+				   //System.out.println(links);
+				   if(links.startsWith("http://www.xukaiqiang.com/article/")){
+					   urilist.add(links);
+				   }
+
+		}
+	}
+	
+		HashSet<String> v = new HashSet<String>();
+		v.addAll(urilist);
+		List<String> list = new ArrayList<String>();
+		list.addAll(v);
+		for (String s:list) {
+			System.out.println(s);
+			//开始第二步，读取url里面的内容
+			List<String> artlist = HTMLParserUtil.getClassCont(s, "div[class=span12]");
+			article.addAll(artlist);
+		}
+		
+		for (int i=0;i<4;i++) {
+            new Thread(new Run(article)).start();
+        }
+		
+//		for (int i = 0; i < article.size(); i++) {
+
+
+//			FileWriter fw = null;
+//			File f = new File("//Users//zhangyang//Documents//art//a"+i+".txt");
+//
+//			if(!f.exists()){
+//			    f.createNewFile();
+//			}
+//			fw = new FileWriter(f);
+//			BufferedWriter out = new BufferedWriter(fw);
+//			out.write(article.get(i), 0, article.get(i).length()-1);
+//			out.close();
+			
+			
+//		}
+		
+		
+	 } catch (Exception e) {
+	// TODO: handle exception
+		 e.printStackTrace();
+	 } 	
+ 	
+ 	
+	}
 
 /**
  * 上传头像并且返回最后的路径
@@ -375,7 +452,7 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
 	 * @param note_
 	 * @return
 	 */
-	private StringBuilder handleNotes(String note_) {
+	private static StringBuilder handleNotes(String note_) {
 		StringBuilder sb = new StringBuilder();
 		String str[] = note_.split("</p>");
 		if(str.length>=3){
@@ -457,20 +534,7 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
 	}
 	
 	
-	public static void main(String[] args) {
-		List<String> list   =  new ArrayList<String>();
-		for (int i = 0; i < 165; i++) {
-			
-			List<String> list2 = HTMLParserUtil.getClassCont("http://www.caimai.cc/story/page"+i, "small[class=gray-text]");
-			list.addAll(list2);
-		}
-		list = listRM(list);
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-		}
-		
-		System.out.println(list.size());
-	}
+
 	
 	
 	
@@ -523,7 +587,58 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
 	
 	
 	
+	class Run implements Runnable{
+        LinkedList<String> articleList;
+        public Run(LinkedList<String> articleList){
+           this.articleList=articleList;
+        }
+     
+            @Override 
+        public void run() { 
+            String article=null;
+            while(true){
+                synchronized (articleList) { 
+                    if(!articleList.isEmpty()){
+                        article=articleList.removeFirst();
+                        //插入数据库
+                        addNote(article);
+                    }
+                    else{
+                        break;
+                    }
+                }  
+                System.out.println(Thread.currentThread().getName()+"left===="+articleList.size());              
+            }
+        }
+	}
 	
+	public  void addNote(String note_){
+		//添加用户的日记
+    	Note note = new Note();
+    	String brief_  = handleNotes(note_).toString();
+    	note.setBrief(brief_);
+    	note.setCreatetime(TimeUtils.N_YearTime(1));
+    	note.setNote(note_);
+    	note.setOpened("yes");
+    	note.setUserid("111");
+
+
+    	noteManager.addNote(note); 
+	}
 	
-		 
+//	public static void main(String[] args) {
+//	List<String> list   =  new ArrayList<String>();
+//	for (int i = 0; i < 165; i++) {
+//		
+//		List<String> list2 = HTMLParserUtil.getClassCont("http://www.caimai.cc/story/page"+i, "small[class=gray-text]");
+//		list.addAll(list2);
+//	}
+//	list = listRM(list);
+//	for (int i = 0; i < list.size(); i++) {
+//		System.out.println(list.get(i));
+//	}
+//	
+//	System.out.println(list.size());
+//}
+	
 }

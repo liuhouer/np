@@ -12,7 +12,7 @@
 
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
-<link rel="shortcut icon" href="img/favicon.png">
+<link rel="shortcut icon" href="img/favicon.ico">
 <title>${MyInfo.username}的碎碎词::布.词Note</title>
 <meta name="description" content="${MyInfo.username}的碎碎词: 布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">

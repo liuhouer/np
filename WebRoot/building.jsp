@@ -13,7 +13,7 @@
 
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
-<link rel="shortcut icon" href="img/favicon.png">
+<link rel="shortcut icon" href="img/favicon.ico">
 
 <!-- bootstrap & fontawesome -->
 		<link rel="stylesheet" href="/ace/css/bootstrap.min.css" />

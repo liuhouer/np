@@ -17,7 +17,7 @@ import org.jsoup.select.Elements;
 
 /**
  * <p>
- * Title: Neeu.com
+ * Title: buci.com
  * </p>
  * <p>
  * Description:
@@ -29,7 +29,7 @@ import org.jsoup.select.Elements;
  * Company:
  * </p>
  * 
- * @author not attributable
+ * @author bruce
  * @version 1.0
  */
 
@@ -302,18 +302,19 @@ public class HTMLParserUtil
     		Document doc = Jsoup.connect(url).get();
     		
     		String title = doc.title();
-    		System.out.println(title);
+    		System.out.println("title ||---  "+title);
     		Elements notes   = doc.select(classname);
     		
     		for(Element p : notes){
 
     				   String note = p.html();
     				   list.add(note);
-    				   String note2 = p.text();
+    				   //String note2 = p.text();
     				   System.out.println(note);
-    				   System.out.println(note2);
+    				   //System.out.println(note2);
 
     		}
+    		
     		
     	} catch (Exception e) {
     		// TODO: handle exception
@@ -391,24 +392,28 @@ public class HTMLParserUtil
 	 * @throws IOException
 	 */
 	public static List<String> readsong() throws IOException {
-		File in = new File("/Users/zhangyang/Downloads/1.html");
+		
+		List<String> urilist = new ArrayList<String>();
+		for (int i = 1; i <= 6; i++) {
+			File in = new File("/Users/zhangyang/Downloads/a"+i+".html");
 
-		Document doc = Jsoup.parse(in, "UTF-8", ""); 
-		String title = doc.title();
-		System.out.println(title);
-		Elements notes   = doc.select("a");
-		List<String> list_1 = new ArrayList<String>();
-		for(Element p : notes){
+			Document doc = Jsoup.parse(in, "UTF-8", ""); 
+//			String title = doc.title();
+//			System.out.println(title);
+			Elements notes   = doc.select("a");
+			for(Element p : notes){
 
-				   String note = p.html();
-				   list_1.add(note);
-				   String note2 = p.text();
-				   System.out.println(note);
-				   System.out.println(note2);
+					   String links = p.attr("href");
+					   //System.out.println(links);
+					   if(links.startsWith("http://www.xukaiqiang.com/article/")){
+						   urilist.add(links);
+					   }
 
+			}
 		}
+		
 			HashSet<String> v = new HashSet<String>();
-			v.addAll(list_1);
+			v.addAll(urilist);
 			List<String> list = new ArrayList<String>();
 			list.addAll(v);
 			for (String s:list) {

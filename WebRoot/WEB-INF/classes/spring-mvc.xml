@@ -21,6 +21,7 @@
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>    
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
    
+   
     <!-- 静态资源(js/image)的访问 --> 
     <mvc:resources location="/js/" mapping="/js/**"/> 
     <mvc:resources location="/fonts/" mapping="/fonts/**"/> 

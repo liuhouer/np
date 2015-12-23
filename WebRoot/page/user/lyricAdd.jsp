@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="page" content="<%=request.getServletPath()%>">
 <meta name="action" content="<%=new UrlPathHelper().getOriginatingRequestUri(request)%>">
-<link rel="shortcut icon" href="img/favicon.png">
+<link rel="shortcut icon" href="img/favicon.ico">
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.css">
 	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
 	<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
