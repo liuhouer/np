@@ -42,8 +42,8 @@
 				<span class="icon-bar"></span>
 			</button>
 			<div class="navbar-brand">
-									<a href="http://www.buci.cc/feed" target="_blank" id="icon" title="订阅布.词RSS"><img src="/img/rss.png" width="20" height="20" alt="订阅布.词RSS"></a>
-							</div>
+			  <a href="http://northpark.cn/atom.xml" target="_blank" id="icon" title="订阅布.词RSS"><img src="/img/rss.png" width="20" height="20" alt="订阅布.词RSS"></a>
+			</div>
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
 			<ul class="nav mainhead-nav">
