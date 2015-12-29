@@ -4,7 +4,7 @@
   <groupId>com.bruce.buci-web</groupId>
   <artifactId>buci-web</artifactId>
   <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>3.1.1-SNAPSHOT</version>
   <name>buci-web Maven Webapp</name>
   <url>http://maven.apache.org</url>
   
