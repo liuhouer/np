@@ -13,8 +13,8 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>布.词故事::</title>
-<meta name="description" content="布.词故事::第1页::布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
+<title>布.词故事::${ lrc.title}</title>
+<meta name="description" content="布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 </head>
@@ -63,22 +63,28 @@
 				<div  class="col-sm-5">
 
 					<div  class="clearfix">
+						<h7><label class="control-label iteminfo ">${lrc.updatedate }</label> </h7>
 						<h4><span  class="glyphicon glyphicon-heart"></span> ${zanNum }人最爱</h4>
-						<p  style="line-height:200%;">
-						  <c:forEach var="x" items="${zanList }">
-						  	<span><a  
-						  	<c:if test="${x.tail_slug==null || x.tail_slug==''}">
-						    href="/cm/detail/${x.id}" 
-						    </c:if>
-						    <c:if test="${x.tail_slug!=null }">
-						    href="/people/${x.tail_slug }" 
-						    </c:if>
-						  	
-						  	
-						  	
-						  	 title="${x.username }">${x.username }</a> &nbsp;</span>
-						  </c:forEach>
-						  <button  class="btn btn-gray btn-xs click2show"  data-target=".lovers_box">查看更多 ›› </button>
+						<p  class="pline">
+						 
+						  <div id="J_zan_div" class="pline">
+							  <c:forEach var="x" varStatus="xx" items="${zanList }">
+							    	<span><a  
+									  	<c:if test="${x.tail_slug==null || x.tail_slug==''}">
+									    href="/cm/detail/${x.id}" 
+									    </c:if>
+									    <c:if test="${x.tail_slug!=null }">
+									    href="/people/${x.tail_slug }" 
+									    </c:if>
+							  	
+							  	 title="${x.username }">${x.username }</a> &nbsp;</span>
+							  	
+							  </c:forEach>
+						  </div>
+						  <!-- >10个喜欢才有查看更多按钮 -->
+						  <c:if test="${zanNum > 10}">
+						  	<button id="J_lovers_box" class="btn btn-gray btn-xs click2show"  data-target=".lovers_box">查看更多 ›› </button>
+						  </c:if>
 						</p>
 					</div>
 
@@ -274,6 +280,26 @@
 
 $(document).ready(function() {
 	
+	
+	//获取所有点赞人填充
+	$("#J_lovers_box").click(function(){
+		$.ajax({
+
+            url:"/lyrics/getMoreZan",
+
+            type:"post",
+
+            data:{"lyricsid":'${ lrc.id}'},
+
+            success:function(data){
+             console.log(data);	
+			  //填充结果
+			  $("#J_zan_div").empty().prepend(data.replace(/(^")|("$)/g,''));
+            }
+
+        });
+	})
+	
 	 $("#J_commentBtn").click(function(){
          var comment = $("#J_comment").val();
       	var lyricsid = '${lrc.id}';
@@ -344,7 +370,7 @@ $("#J_gz_btn").click(function(){
 
 	
 	
-$('.row-thumbnails').on('click', '.stuffThumb', function(event) {
+/* $('.row-thumbnails').on('click', '.stuffThumb', function(event) {
     $('#mainThumb').html($(this).html());
   });
 
@@ -416,7 +442,7 @@ $('.row-thumbnails').on('click', '.stuffThumb', function(event) {
 					}
 				}
 
-			});
+			}); */
 </script>
 
 

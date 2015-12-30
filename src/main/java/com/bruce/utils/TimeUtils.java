@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
  时间工具类
@@ -414,7 +415,87 @@ public class TimeUtils {
 	        return dateString;  
 	    }  
 	    
+	    
+	    /**
+		 * @desc 随机年07-15
+		 * @return
+		 */
+		public static String getRandomYear(){
+			
+			String a = "";
+			Random ramdom =  new Random();
+			int number = -1;
+			int max = 15;
+			
+			//size 为  10 ，取得类似0-9的区间数
+			number = Math.abs(ramdom.nextInt() % max)+ 7 ;
+			
+			if(String.valueOf(number).length()==1){
+				a = "20"+0+""+number;
+			}else{
+				a = "20"+number+"";
+			}
+			
+			return a;
+	    
+		}
+		
+		/**
+		 * @desc 随机月01-12
+		 * @return
+		 */
+		public static String getRandomMonth(){
+			
+			String a = "";
+			Random ramdom =  new Random();
+			int number = -1;
+			int max = 12;
+			
+			//size 为  10 ，取得类似0-9的区间数
+			number = Math.abs(ramdom.nextInt() % max  );
+			if(String.valueOf(number).length()==1){
+				a = 0+""+number;
+			}else{
+				a = number+"";
+			}
+			
+			return a;
+	    
+		}
+		
+		/**
+		 * @desc 随机日1-31
+		 * @return
+		 */
+		public static String getRandomDay(){
+			
+			String a = "";
+			Random ramdom =  new Random();
+			int number = -1;
+			int max = 30;
+			
+			//size 为  10 ，取得类似0-9的区间数
+			number = Math.abs(ramdom.nextInt() % max);
+			if(String.valueOf(number).length()==1){
+				a = 0+""+number;
+			}else{
+				a = number+"";
+			}
+			return a;
+	    
+		}
+		
+		
+		/**
+		 * @desc 随机日期从2007-至今
+		 * @return
+		 */
+		public static String getRandomDate(){
+			
+			return getRandomYear()+"-"+getRandomMonth()+"-"+getRandomDay();
+	    
+		}
 	    public static void main(String[] args) {
-	    	System.out.println(getDayAfterOrBeforeN(nowTime(),-139 ));;
+	    	System.out.println(getRandomDate());;
 		}
 }

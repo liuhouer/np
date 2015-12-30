@@ -31,18 +31,23 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bruce.manager.GetImgManager;
 import com.bruce.manager.GetNoteManager;
+import com.bruce.manager.LyricsCommentManager;
 import com.bruce.manager.LyricsManager;
+import com.bruce.manager.LyricsZanManager;
 import com.bruce.manager.NoteManager;
 import com.bruce.manager.UserLyricsManager;
 import com.bruce.manager.UserManager;
 import com.bruce.model.GetImg;
 import com.bruce.model.GetNote;
 import com.bruce.model.Lyrics;
+import com.bruce.model.LyricsComment;
+import com.bruce.model.LyricsZan;
 import com.bruce.model.Note;
 import com.bruce.model.User;
 import com.bruce.model.UserLyrics;
@@ -54,6 +59,8 @@ import com.bruce.utils.TimeUtils;
 
 @Controller
 @RequestMapping("/web")
+@ContextConfiguration(locations = { "classpath:spring.xml",
+"classpath:spring-hibernate.xml" })
 public class SpiderAction {
  @Autowired	
  private NoteManager noteManager;
@@ -67,12 +74,133 @@ public class SpiderAction {
  private GetImgManager getimgManager;
  @Autowired	
  private UserLyricsManager userlyricsManager;
+ @Autowired	
+ private LyricsZanManager zanManager;
+ @Autowired	
+ private LyricsCommentManager commentManager;
+ 
+ 
  
  
  
  // http://music.163.com/#/discover/toplist?id=19723756
  
+
  
+ /**
+  * 生成赞和评论
+ * @param user
+ * @param map
+ * @param session
+ */
+@RequestMapping("/zan")
+	public void zan( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+	try {
+		
+				
+		List<Lyrics> list = lyricsManager.findAll();
+		List<User> ul = userManager.findAll();
+		List<GetNote> nol = getnoteManager.findAll();
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < 13; j++) {
+				
+				try {
+					
+					resetVal(list, ul,  i);
+				} catch (Exception e) {//错误继续
+					// TODO: handle exception
+					continue;
+				}
+				
+			}
+		}
+
+			
+			
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+		   
+	}
+
+
+/**
+ * @param list
+ * @param ul
+ * @param nol
+ * @param i
+ */
+public void resetVal(List<Lyrics> list, List<User> ul,  int i) {
+	String userid = ul.get(getRandomOne(ul)).getId();
+	String lyricsid = list.get(i).getId();
+	//String commet = nol.get(getRandomOne(nol)).getBrief();
+	
+	//添加赞和评论的方法
+	addZanPl(userid, lyricsid);
+}
+
+
+/**
+ * 添加赞和评论的方法
+ * @param userid
+ * @param lyricsid
+ * @param commet
+ */
+public void addZanPl(String userid, String lyricsid) {
+	//赞
+	LyricsZan zan = new LyricsZan();
+	zan.setLyricsid(lyricsid);
+	zan.setUserid(userid);
+	zanManager.addLyricsZan(zan);
+//	//评论
+//	LyricsComment cm =  new LyricsComment();
+//	cm.setComment(commet);
+//	cm.setCreate_time(TimeUtils.getNowTime());
+//	cm.setLyricsid(lyricsid);
+//	cm.setUserid(userid);
+//	commentManager.addLyricsComment(cm);
+}
+  
+ 
+ /**
+  * 生成随机时间
+ * @param user
+ * @param map
+ * @param session
+ */
+@RequestMapping("/timelrc")
+	public void timelrc( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+	try {
+		
+				
+		    	//茶找用户
+		    	List<Lyrics> ulist = lyricsManager.findAll();
+		    	for (int i = 0; i < ulist.size(); i++) {
+					Lyrics u = ulist.get(i);
+					String update = u.getUpdatedate();
+					if(StringUtils.isNotEmpty(update)){
+
+						if(update.trim().equals("2016-06-06")){
+							String time =  TimeUtils.getRandomDate();
+							u.setUpdatedate(time);
+							lyricsManager.updateLyrics(u);
+						}
+						
+					}
+						
+				}
+
+			
+			
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+		   
+	}
+ 
+
  /**
   * 生成唯一自主域名
  * @param user
@@ -357,9 +485,6 @@ public class SpiderAction {
 			article.addAll(artlist);
 		}
 		
-		for (int i=0;i<4;i++) {
-            new Thread(new Run(article)).start();
-        }
 		
 //		for (int i = 0; i < article.size(); i++) {
 
@@ -535,6 +660,10 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
 	}
 	
 	
+	
+	
+	
+	
 	@RequestMapping("/upup")
 	public void updateeE() {
 		
@@ -603,27 +732,21 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
 	
 	
 	
+	public static HashSet<String> set = new HashSet<String>();	
 	class Run implements Runnable{
-        LinkedList<String> articleList;
-        public Run(LinkedList<String> articleList){
-           this.articleList=articleList;
+        String userid;
+        String lyricsid;
+        String commet;
+        public Run(String userid,String lyricsid,String commet){
+           this.userid=userid;
+           this.commet=commet;
+           this.lyricsid=lyricsid;
         }
      
             @Override 
-        public void run() { 
-            String article=null;
-            while(true){
-                synchronized (articleList) { 
-                    if(!articleList.isEmpty()){
-                        article=articleList.removeFirst();
-                        //插入数据库
-                        addNote(article);
-                    }
-                    else{
-                        break;
-                    }
-                }  
-                System.out.println(Thread.currentThread().getName()+"left===="+articleList.size());              
+        public synchronized void run() {
+            while(set.add(commet+userid+lyricsid)){
+                 //  addZanPl(userid, lyricsid, commet);           
             }
         }
 	}

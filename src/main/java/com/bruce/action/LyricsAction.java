@@ -311,7 +311,38 @@ public class LyricsAction {
 	}
 	
 	
-	
+	/**
+	 * 根据图片lrc主题异步获取所有喜爱者
+	 * @param request
+	 * @param lyricsid
+	 * @param map
+	 * @param userid
+	 * @return
+	 */
+	@RequestMapping("/getMoreZan")
+	@ResponseBody
+	public String getMoreZan(HttpServletRequest request,HttpServletResponse response, String lyricsid,ModelMap map) {
+		response.setContentType("text/html; charset=UTF-8");  
+		//取得zan的人的列表
+		String sql  = "select b.* from bc_lyrics_zan a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' ";
+		List<Map<String, Object>> zanList = lyricszanManager.mixSqlQuery(sql);
+
+		StringBuilder sb = new StringBuilder();   
+		for (int i = 0; i < zanList.size(); i++) {
+			String href = "";
+			String ym = (String) zanList.get(i).get("tail_slug");
+			if(StringUtils.isNotEmpty(ym)){
+				href = "/people/"+ym;
+			}else{
+				href = "/cm/detail/"+zanList.get(i).get("id");
+			}
+			String str = "<span><a href = '"+href+"' title= '"+zanList.get(i).get("username")+"' >"+zanList.get(i).get("username")+"</a> &nbsp;</span>";
+			sb.append(str);
+		}
+		
+		System.out.println(sb.toString());
+		return sb.toString();
+	}
 	
 	@RequestMapping("/comment/{lyricsid}")
 	public String comment(HttpServletRequest request, @PathVariable String lyricsid,ModelMap map,String userid) {
@@ -344,7 +375,7 @@ public class LyricsAction {
          }
          
          //取得zan的人的列表
-         String sql  = "select b.* from bc_lyrics_zan a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' ";
+         String sql  = "select b.* from bc_lyrics_zan a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' limit 0 , 10 ";
          List<Map<String, Object>> zanList = lyricszanManager.mixSqlQuery(sql);
          map.put("zanList", zanList);
          
@@ -378,7 +409,7 @@ public class LyricsAction {
          map.put("plNum", plNum);
          
          //取得谁爱上谁的一个列表
-         String sql_2  = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,c.id as lyricsid,c.title from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id   ";
+         String sql_2  = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,c.id as lyricsid,c.title from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id  limit 0 , 100 ";
          List<Map<String, Object>> loveList = lyricszanManager.mixSqlQuery(sql_2);
          for (int i = 0; i < loveList.size(); i++) {
         	 String imgpath_ =(String) loveList.get(i).get("headpath");
