@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -59,8 +60,7 @@ import com.bruce.utils.TimeUtils;
 
 @Controller
 @RequestMapping("/web")
-@ContextConfiguration(locations = { "classpath:spring.xml",
-"classpath:spring-hibernate.xml" })
+@ContextConfiguration(locations = { "classpath:spring.xml","classpath:spring-hibernate.xml" })
 public class SpiderAction {
  @Autowired	
  private NoteManager noteManager;
@@ -102,11 +102,21 @@ public class SpiderAction {
 		List<User> ul = userManager.findAll();
 		List<GetNote> nol = getnoteManager.findAll();
 		for (int i = 0; i < list.size(); i++) {
-			for (int j = 0; j < 13; j++) {
+			boolean flag = false;
+			try {
+				
+				flag = commentManager.findByCondition(" where lyricsid = '"+list.get(i).getId()+"' ").getResultlist().size() <= 0;
+			} catch (Exception e) {
+				// TODO: handle exception
+				flag = true;
+			}
+			for (int j = 0; j < (getRandomOne(list)+1); j++) {
 				
 				try {
 					
-					resetVal(list, ul,  i);
+					if(flag){
+					   resetVal(list, nol,ul, i);
+					}
 				} catch (Exception e) {//错误继续
 					// TODO: handle exception
 					continue;
@@ -131,13 +141,12 @@ public class SpiderAction {
  * @param nol
  * @param i
  */
-public void resetVal(List<Lyrics> list, List<User> ul,  int i) {
+public void resetVal(List<Lyrics> list ,List<GetNote> nol ,List<User> ul , int i) {
 	String userid = ul.get(getRandomOne(ul)).getId();
 	String lyricsid = list.get(i).getId();
-	//String commet = nol.get(getRandomOne(nol)).getBrief();
-	
+	String commet = nol.get(getRandomOne(nol)).getBrief();
 	//添加赞和评论的方法
-	addZanPl(userid, lyricsid);
+	addZanPl(userid, lyricsid,commet);
 }
 
 
@@ -147,19 +156,19 @@ public void resetVal(List<Lyrics> list, List<User> ul,  int i) {
  * @param lyricsid
  * @param commet
  */
-public void addZanPl(String userid, String lyricsid) {
+public void addZanPl(String userid, String lyricsid,String commet) {
 	//赞
-	LyricsZan zan = new LyricsZan();
-	zan.setLyricsid(lyricsid);
-	zan.setUserid(userid);
-	zanManager.addLyricsZan(zan);
+//	LyricsZan zan = new LyricsZan();
+//	zan.setLyricsid(lyricsid);
+//	zan.setUserid(userid);
+//	zanManager.addLyricsZan(zan);
 //	//评论
-//	LyricsComment cm =  new LyricsComment();
-//	cm.setComment(commet);
-//	cm.setCreate_time(TimeUtils.getNowTime());
-//	cm.setLyricsid(lyricsid);
-//	cm.setUserid(userid);
-//	commentManager.addLyricsComment(cm);
+	LyricsComment cm =  new LyricsComment();
+	cm.setComment(commet);
+	cm.setCreate_time(TimeUtils.getNowTime());
+	cm.setLyricsid(lyricsid);
+	cm.setUserid(userid);
+	commentManager.addLyricsComment(cm);
 }
   
  
@@ -175,16 +184,16 @@ public void addZanPl(String userid, String lyricsid) {
 		
 				
 		    	//茶找用户
-		    	List<Lyrics> ulist = lyricsManager.findAll();
+		    	List<Note> ulist = noteManager.findAll();
 		    	for (int i = 0; i < ulist.size(); i++) {
-					Lyrics u = ulist.get(i);
-					String update = u.getUpdatedate();
+					Note u = ulist.get(i);
+					String update = u.getCreatetime();
 					if(StringUtils.isNotEmpty(update)){
 
-						if(update.trim().equals("2016-06-06")){
+						if(TimeUtils.stringToMillis(update) > new Date().getTime()){
 							String time =  TimeUtils.getRandomDate();
-							u.setUpdatedate(time);
-							lyricsManager.updateLyrics(u);
+							u.setCreatetime(time);
+							noteManager.updateNote(u);
 						}
 						
 					}
