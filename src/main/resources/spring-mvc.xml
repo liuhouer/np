@@ -11,21 +11,14 @@
 
 	    
 	 <!-- 以下为SpringMVC配置 -->
-	<mvc:annotation-driven>
-		<!-- 返回json数据，@response使用 -->
-		<mvc:message-converters register-defaults="true">
-			<bean
-				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-				<property name="supportedMediaTypes">
-					<list>
-						<value>text/html;charset=UTF-8</value>
-						<value>application/json;charset=UTF-8</value>
-					</list>
-				</property>
-
-			</bean>
-		</mvc:message-converters>
-	</mvc:annotation-driven>   
+	<mvc:annotation-driven >
+    <!-- 消息转换器 -->
+    <mvc:message-converters register-defaults="true">
+      <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+        <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+      </bean>
+    </mvc:message-converters>
+  </mvc:annotation-driven>
 	    
     <!-- 注解扫描包 --> 
     <context:component-scan base-package="com.bruce.action*" /> 

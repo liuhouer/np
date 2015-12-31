@@ -133,6 +133,7 @@ $(document).ready(function() {
           type:"post",
           data:$("#loginForm").serialize(),
           success:function(msg){
+        	  console.log(msg);
               if(msg=="success"){
                   art.dialog.tips('登陆成功,正在跳转..', 3);
                   var uri = $("#redirectURI").val();
