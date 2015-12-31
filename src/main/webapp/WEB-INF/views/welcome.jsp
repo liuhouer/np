@@ -34,7 +34,7 @@
 			    <c:if test="${(ss.index+1) % 4==0}"> 
 			   		  <div class="row">
 			    </c:if>  
-			   				<div class="col-xs-6 col-sm-3 margin-b20 "<c:if test="${user.id!=null }">onmouseover="addSpan('delspan${ss.index }')" onmouseout="rmSpan('delspan${ss.index }')"</c:if>>
+			   				<div class="col-xs-6 col-sm-3 margin-b20 ">
 								<div class="thumbnail radius-0 border-0 margin-b0" >
 							<a href="/lyrics/comment/${s.id }" title="${s.title }:love<c:if test="${s.yizan eq 'yizan' }">/已赞过</c:if><c:if test="${s.yizan ne 'yizan' }">/未赞，点击下面的小心就可以赞了嗷~</c:if>">
 							<img  
@@ -84,13 +84,6 @@ $(function(){
 	}
 })
 
-function addSpan(obj){
-	document.getElementById(obj).className = "span";
-}
-
-function rmSpan(obj){
-	document.getElementById(obj).className = "";
-}
 
 function removes(lyricsid,userlyricsid){
 	$("#f1").attr("action","lyrics/remove.action?lyricsid="+lyricsid+"&userlyricsid="+userlyricsid).submit();
