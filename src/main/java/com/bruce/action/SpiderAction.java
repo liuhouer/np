@@ -60,7 +60,7 @@ import com.bruce.utils.TimeUtils;
 
 @Controller
 @RequestMapping("/web")
-@ContextConfiguration(locations = { "classpath:spring.xml","classpath:spring-hibernate.xml" })
+//@ContextConfiguration(locations = { "classpath:spring.xml","classpath:spring-hibernate.xml" })
 public class SpiderAction {
  @Autowired	
  private NoteManager noteManager;
