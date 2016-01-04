@@ -12,5 +12,12 @@ buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2
 - 添加了junit4测试service调用
 - 添加了pic详情页的查询和点赞处理
 
+## 2016-01-04
+- 添加了memcached
+- 添加了redis
+- 添加了redis junit测试类测试通过
+
+
+
 
 
