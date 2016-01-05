@@ -10,7 +10,9 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,16 +31,38 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 	@Transactional(propagation = Propagation.REQUIRED)
 	public <T extends Serializable> PK save(T entity) {
 		PK pk = null;
-		pk = (PK) sessionFactory.getCurrentSession().save(entity);
-		sessionFactory.getCurrentSession().flush();
+		Session session = sessionFactory.getCurrentSession();
+		try{
+			// 启动事务
+	        Transaction tx = session.beginTransaction();
+			pk = (PK) session.save(entity);
+			 // 提交事务
+	        tx.commit();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			// 关闭Hibernate Session
+			session.flush();
+		}
 		return pk;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public <T extends Serializable> void update(T entity) {
-		// sessionFactory.getCurrentSession().update(entity);
-		sessionFactory.getCurrentSession().saveOrUpdate(entity);
-		sessionFactory.getCurrentSession().flush();
+		
+		Session session = sessionFactory.getCurrentSession();
+		try{
+			// 启动事务
+	        Transaction tx = session.beginTransaction();
+			session.saveOrUpdate(entity);
+			 // 提交事务
+	        tx.commit();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			// 关闭Hibernate Session
+			session.flush();
+		}
 	}
 
 	private <T extends Serializable> String getUpdateStr(
@@ -144,6 +168,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 	public T find(PK primarKeyId) {
 		T findObj = null;
 		findObj = (T) sessionFactory.getCurrentSession().get(t, primarKeyId);
+		sessionFactory.getCurrentSession().flush();
 		return findObj;
 	}
 
@@ -152,6 +177,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		String entityName = t.getName();
 		String hql = "from " + entityName;
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		sessionFactory.getCurrentSession().flush();
 		return query.list();
 	}
 
@@ -212,6 +238,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		queryResult.setResultlist(query.list());
 		queryResult.setTotalrecord((long) query.list().size());
 
+		sessionFactory.getCurrentSession().flush();
 		return queryResult;
 
 	}
@@ -240,7 +267,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 				pageView.setMapRecords(resultlist);
 			}
 		}
-		
+		sessionFactory.getCurrentSession().flush();
 		return pageView;
 	}
 	
@@ -273,6 +300,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 			}
 		}
 		
+		sessionFactory.getCurrentSession().flush();
 		return resultlist;
 	}
 	
@@ -290,6 +318,9 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 		for (int i = 0; i < obj.length; i++)
 			query.setParameter(i, obj[i]);
+		
+		
+		sessionFactory.getCurrentSession().flush();
 		return query.list();
 	}
 	
@@ -305,6 +336,9 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		SQLQuery  query = sessionFactory.getCurrentSession().createSQLQuery(sql);
 		for (int i = 0; i < obj.length; i++)
 			query.setParameter(i, obj[i]);
+		
+		
+		sessionFactory.getCurrentSession().flush();
 		return query.addEntity(clazz).list();
 	}
 	
@@ -334,6 +368,8 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		queryResult.setResultlist(query.list());
 		queryResult.setTotalrecord((long) query.list().size());
 
+		
+		sessionFactory.getCurrentSession().flush();
 		return queryResult;
 
 	}
