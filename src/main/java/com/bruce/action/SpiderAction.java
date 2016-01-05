@@ -32,7 +32,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -48,7 +47,6 @@ import com.bruce.model.GetImg;
 import com.bruce.model.GetNote;
 import com.bruce.model.Lyrics;
 import com.bruce.model.LyricsComment;
-import com.bruce.model.LyricsZan;
 import com.bruce.model.Note;
 import com.bruce.model.User;
 import com.bruce.model.UserLyrics;

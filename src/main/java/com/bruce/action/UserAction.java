@@ -39,8 +39,6 @@ import com.bruce.manager.UserFollowManager;
 import com.bruce.manager.UserLyricsManager;
 import com.bruce.manager.UserManager;
 import com.bruce.manager.UserprofileManager;
-import com.bruce.model.Lyrics;
-import com.bruce.model.LyricsVO;
 import com.bruce.model.LyricsZan;
 import com.bruce.model.QQinfo;
 import com.bruce.model.Reset;
