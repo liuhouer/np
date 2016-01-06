@@ -14,13 +14,8 @@
 <meta name="keywords" content="最爱,回忆,生活">
 <meta name="author" content="bruce">
 <meta name="robots" content="index,follow,archive">
-<base href="<%=BC_Constant.Domain%>">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="shortcut icon" href="img/favicon.ico">
-<link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.css">
-	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
-	<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
 <title>添加我的布.图</title>
+<%@ include file="../common/common.jsp"%>
 <style type="text/css">
 #preview{width:200px;height:200px;border:1px solid #000;overflow:hidden;top: 25%;position: relative;}
 #imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
