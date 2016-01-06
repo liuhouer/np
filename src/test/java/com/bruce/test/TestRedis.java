@@ -13,9 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bruce.manager.NoteManager;
-import com.bruce.model.Note;
 import com.bruce.utils.JedisUtil;
-import com.bruce.utils.json.JsonUtil;
 
 /**
  * 创建时间：2015年12月30日 13:39:12
@@ -37,9 +35,9 @@ public class TestRedis {
 	@Test
 	public void test() {
 		// fail("尚未实现");
-		List<Note> list  = noteManager.findAll();
-		    JedisUtil.pushList("notecache", JsonUtil.objectToJSONString(list));
-		    System.out.println(JedisUtil.getList("notecache"));
+//		List<Note> list  = noteManager.findAll();
+//		    JedisUtil.pushList("notecache", JsonUtil.objectToJSONString(list));
+//		    System.out.println(JedisUtil.getList("notecache"));
 		
 			JedisUtil.putString("test", "123456");
 			String str1 = JedisUtil.getString("test");

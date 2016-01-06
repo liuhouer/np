@@ -34,7 +34,7 @@
 	 
 		    <div class="clearfix margin-b20">
 	         <ul class="nav nav-tabs">
-		        <li><a href="cm/pcentral">布.图</a></li>
+		        <li><a href="/cm/pcentral">布.图</a></li>
 		        <li><a href="note/findAll">碎碎词</a></li>
 		        <li class="active"><a href="/cm/myfans" >Fans</a></li>
 
@@ -69,7 +69,7 @@
 										class="thumbnail border-0"> <img class=" img-circle"
 										 <c:choose>
 											<c:when test="${fn:contains(s.user.headpath  ,'http://') }">src="${s.user.headpath  }"</c:when>
-											<c:otherwise>src="bruce/${s.user.headpath  }"</c:otherwise>
+											<c:otherwise>src="${bcdomain}/bruce/${s.user.headpath  }"</c:otherwise>
 										 </c:choose> 
 									
 									alt="${s.user.username }">

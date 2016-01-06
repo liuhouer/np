@@ -12,16 +12,10 @@
 <meta http-equiv="Content-Language" content="zh-CN">
 <meta name="description" content="添加我的最爱:布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">
-<meta name="author" content="www.qinco.net">
+<meta name="author" content="bruce">
 <meta name="robots" content="index,follow,archive">
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-<base href="<%=basePath%>">
+<base href="<%=BC_Constant.Domain%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="page" content="<%=request.getServletPath()%>">
-<meta name="action" content="<%=new UrlPathHelper().getOriginatingRequestUri(request)%>">
 <link rel="shortcut icon" href="img/favicon.ico">
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.css">
 	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">

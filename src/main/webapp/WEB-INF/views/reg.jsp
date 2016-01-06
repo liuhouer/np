@@ -1,10 +1,6 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-<base href="<%=basePath%>">
+<base href="<%=BC_Constant.Domain%>">
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="UTF-8">
@@ -50,9 +46,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
 			<ul class="nav mainhead-nav">
-				<li><a href="cm/list" title="一张图片，爱满满的">布.图</a></li>
+				<li><a href="/cm/list" title="一张图片，爱满满的">布.图</a></li>
 				<li><a href="note/list" title="一段歌词，一段回忆">布.词</a></li>
-				<li class="active"><a href="cm/toLogin" title="已有账号，去登录布.词">注册</a></li>
+				<li class="active"><a href="/cm/toLogin" title="已有账号，去登录布.词">注册</a></li>
 			</ul>
 		</div>
 	</div>

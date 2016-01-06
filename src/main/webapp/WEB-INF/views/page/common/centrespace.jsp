@@ -13,7 +13,7 @@
 								<c:if test="${MyInfo.headpath!=null }">
 								<c:choose>
                                   <c:when test="${fn:contains(MyInfo.headpath ,'http://') }">src="${MyInfo.headpath}"</c:when>
-                                  <c:otherwise>src="bruce/${MyInfo.headpath }"</c:otherwise>
+                                  <c:otherwise>src="${bcdomain}/bruce/${MyInfo.headpath }"</c:otherwise>
                                 </c:choose> 
 								
 								</c:if>

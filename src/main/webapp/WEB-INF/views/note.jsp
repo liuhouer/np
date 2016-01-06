@@ -37,7 +37,7 @@
 	 
 		<div class="clearfix margin-b20">
 	<ul class="nav nav-tabs">
-		<li><a href="cm/pcentral">布.图</a></li>
+		<li><a href="/cm/pcentral">布.图</a></li>
 		<li class="active"><a href="note/findAll">碎碎词</a></li>
 		<li ><a  href="/cm/myfans" >Fans</a></li>
 		
@@ -50,7 +50,7 @@
                </form>
 				<div class="row bg-white margin-t10 margin-b10  ">
 			<div class="col-sm-1">
-				<a href="cm/pcentral" title="${user.username}的最爱"><img src="/img/davatar.jpg" class="img-responsive  img-circle max-width-50" alt="654714226的最爱"></a>			</div>
+				<a href="/cm/pcentral" title="${user.username}的最爱"><img src="/img/davatar.jpg" class="img-responsive  img-circle max-width-50" alt="654714226的最爱"></a>			</div>
 			<div class="col-sm-11">
 				<form method="POST" action="note/addNote" accept-charset="UTF-8" role="form" class="form">
               	<input name="userid" type="hidden" value="${user.id }"/>

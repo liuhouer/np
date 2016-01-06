@@ -47,8 +47,8 @@
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
 			<ul class="nav mainhead-nav">
-				<li><a href="cm/list" title="一张图片，爱满满的">布.图</a></li>
-				<li><a href="note/list" title="一段歌词，一段回忆">布.词</a></li>
+				<li><a href="/cm/list" title="一张图片，爱满满的">布.图</a></li>
+				<li><a href="/note/list" title="一段歌词，一段回忆">布.词</a></li>
 				<li class="active"><a href="/cm/reg" title="去注册">登陆</a></li>
 			</ul>
 		</div>

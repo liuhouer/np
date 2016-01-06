@@ -4,6 +4,7 @@ package com.bruce.constant;
 
 public class BC_Constant {
 	
+	public static final String Domain = "northpark.cn";
 	
 	/** 是否启用*/
 	public static enum Enabled {

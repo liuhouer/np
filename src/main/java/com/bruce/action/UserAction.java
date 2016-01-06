@@ -63,7 +63,7 @@ import com.bruce.utils.json.JsonUtil;
 public class UserAction {
 
 	 private final String LIST_ACTION = "redirect:/cm/list";
-	 private final String DOMAIN = "lonelyrobots.cn";
+	 private final String DOMAIN = "northpark.cn";
 	 private final String LOGIN_ACTION = "redirect:/cm/toLogin";
 	 @Autowired	
 	 private UserManager userManager;

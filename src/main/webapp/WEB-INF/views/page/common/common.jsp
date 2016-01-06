@@ -1,3 +1,4 @@
+<%@page import="com.bruce.constant.BC_Constant"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" import="org.springframework.web.util.UrlPathHelper" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -5,16 +6,17 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%
+<%-- <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-<base href="<%=basePath%>">
+%> --%>
+<c:set var="bcdomain" scope="request" value="http://northpark.cn"></c:set>
+<base href="http://northpark.cn">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- <meta property="qc:admins" content="61073355176476541272743636" /> -->
-<meta name="page" content="<%=request.getServletPath()%>">
+<%-- <meta name="page" content="<%=request.getServletPath()%>">
 <meta name="action" content="<%=new UrlPathHelper().getOriginatingRequestUri(request)%>">
-
+ --%>
 <!-- <script type="text/javascript" data-callback="true"  src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101204466" data-redirecturi="http://www.lonelyrobots.cn/cm/pic" charset="utf-8"></script> -->
 <script src="/js/jquery-1.7.2.js"></script>  
 <script src="js/artDialog/artDialog.js?skin=blue"></script> 
@@ -22,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="js/artDialog/plugins/iframeTools.js"></script>
 <script src="js/jquery.hotkeys.js"></script>
 <script src="js/jquery.validationEngine.js"></script>
-<script src="<%=basePath%>js/My97DatePicker/WdatePicker.js"></script>
+<script src="js/My97DatePicker/WdatePicker.js"></script>
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrapValidator.min.css">
 	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">

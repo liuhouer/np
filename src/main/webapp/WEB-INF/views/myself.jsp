@@ -39,7 +39,7 @@
 	 
 		    <div class="clearfix margin-b20">
 	         <ul class="nav nav-tabs">
-		        <li class="active"><a href="cm/pcentral">布.图</a></li>
+		        <li class="active"><a href="/cm/pcentral">布.图</a></li>
 		        <li><a href="note/findAll">碎碎词</a></li>
 		         <li ><a  href="/cm/myfans" >Fans</a></li>
 			</ul>
@@ -60,7 +60,7 @@
 											</c:if>
 											<a href="javascript:void(0)" onclick="toView('${s.id}')"
 												title="${s.title }" class="thumbnail border-0"> <img
-												src="bruce/${s.albumImg }" alt="${s.title }">
+												src="${bcdomain}/bruce/${s.albumImg }" alt="${s.title }">
 												<p>${s.title }</p>
 											</a>
 										</div>
