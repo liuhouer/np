@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="mainfoot center">
 		<p style="color: #999">	
-			©2014 布.词 &nbsp; &nbsp; <a href="http://northpark.cn"
+			©2014 布.词 &nbsp; &nbsp; <a href="http://blog.northpark.cn"
 				title="博客">博客blog</a> &nbsp; &nbsp; 联系布.词：654714226@qq.com &nbsp; &nbsp; 
 				<a href="/cm/xbjt" title="小布静听">小布静听</a> &nbsp; &nbsp; 
 				<!-- <span id="qqLoginBtn"></span>
