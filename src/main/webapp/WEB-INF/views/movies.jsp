@@ -13,7 +13,7 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>电影：：潮流</title>
+<title>电影::潮流</title>
 <meta name="description" content="布.词故事::第1页::布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
@@ -27,6 +27,16 @@
 <div class="clearfix maincontent" style="background:#f4f3f1">
 	<div class="container">
 		<div class="mainbody" style="margin-top:80px; ">
+		
+		
+		     <div class="view ">
+                <form class=" form-inline margin-t20" action="/movies/search">
+                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="  input-lg  border-light-1 bg-lyellow grid50 radius-0" name="keyword" type="text">
+                  <input data-activetext="搜索 ››" class="form-control btn btn-hero " value="搜索" type="submit">
+                </form>
+              </div>
+		
+		
 			<div class="row">
 				
 					<c:forEach items="${list }" var="s" varStatus="ss">
@@ -35,7 +45,7 @@
 								<div class="row">
 									<div class="col-sm-3">
 										<div class="thumbnail border-0 center">
-											<p><small class="green-text">${s.name}</small></p>
+											<p><small class="green-text">${s.moviename}</small></p>
 											
 											<p><small class="red-text">￥${s.price}</small></p>
 											
@@ -52,10 +62,10 @@
 									<div class="col-sm-9">
 										<p><small class="label label-gray"></small> &nbsp; <a 
 										
-										title="${s.name}的简介">${s.name}</a> 简介：</p>
+										title="${s.moviename}的简介">${s.moviename}</a> 简介：</p>
 										<p id="brief_${ss.index}">
 										
-										  ${s.desc }
+										  ${s.description }
 										</p>
 
 									</div>

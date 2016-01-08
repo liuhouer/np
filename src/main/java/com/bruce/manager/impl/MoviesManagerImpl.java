@@ -65,5 +65,12 @@ public class MoviesManagerImpl implements MoviesManager {
 				 wheresql);
 		return qrs;
 	}
+
+	@Override
+	public List<Movies> querySql(String sql,  Object... obj) {
+		// TODO Auto-generated method stub
+		return moviesDao.querySql(sql, Movies.class, obj);
+	}
+
 }
 

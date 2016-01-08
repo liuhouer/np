@@ -14,7 +14,7 @@
 <meta name="keywords" content="最爱,回忆,生活">
 <meta name="author" content="bruce">
 <meta name="robots" content="index,follow,archive">
-<title>添加我的布.图</title>
+<title>添加电影</title>
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
@@ -31,7 +31,7 @@
 	<div class="clearfix maincontent">
 		<div class="container">
 			<div class="mainbody" style="margin-top: 5em;">
-				<div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
+				<div class="align-center bg-white radius-5 padding10 max-width-700 min-width-300">
 					<form method="POST" action="movies/addItem" accept-charset="UTF-8" role="form" id="addItemForm" style="color: #444;" class="form margin-t20"  enctype="multipart/form-data">
 						<div class="clearfix">
 							<h4>
@@ -43,7 +43,7 @@
 						<div class="form-group ">
 							<input id="J_name" placeholder="电影名" required
 								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-								name="name" type="text">
+								name="moviename" type="text">
 						</div>
 						<div class="form-group ">
 							<input id="J_path" placeholder="下载地址" required
@@ -58,7 +58,7 @@
 
 						<div class="form-group">
 							<textarea id="J_md_text" style="height: 200px; max-height: 400px;"
-								name="desc" rows="5">
+								name="description" rows="5">
 								#电影简介
 						    </textarea>
 						</div>
@@ -66,7 +66,7 @@
 						<div class="form-group">
 							<input  id="formSubmit" data-activetext="添加 ››"
 								class="btn btn-hero btn-xlg margin-t10 grid50" value="添加"
-								type="submit">
+								type="button">
 						</div>
 					</form>
 				</div>
@@ -108,7 +108,7 @@
 				  
 				  //提交表单
 				 $("#formSubmit").click(function(){
-					 if($("#J_name").val() && $("#J_desc").val()&& $("#J_price").val()&& $("#J_path").val()){
+					 if($("#J_name").val() && $("#J_md_text").val()&& $("#J_price").val()&& $("#J_path").val()){
 						 
 						 $.ajax({
 
@@ -123,12 +123,15 @@
 				                 if(msg=="success"){
 
 				                     art.dialog.tips('添加成功');
+				                     $('#formSubmit').attr("disabled",'disabled');
 
 				                 }            
 
 				             }
 
 				         });
+					 }else{
+						 art.dialog.tips('填写必要信息');
 					 }
 				 });
 			});

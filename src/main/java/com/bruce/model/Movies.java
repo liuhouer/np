@@ -27,10 +27,10 @@ public class Movies implements Serializable{
 	private String id;
 
 	@Column(length = 2000)
-	private String name;
+	private String moviename;
 
 	@Column()
-	private String desc;
+	private String description;
 
 	@Column(length = 11)
 	private Integer price;
@@ -39,7 +39,7 @@ public class Movies implements Serializable{
 	private String path;
 
 	@Column(length = 255)
-	private String time;
+	private String addtime;
 
 
 	public String getId() {
@@ -48,20 +48,6 @@ public class Movies implements Serializable{
 	
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getName() {
-		return name;	
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getDesc() {
-		return desc;	
-	}
-	
-	public void setDesc(String desc) {
-		this.desc = desc;
 	}
 	public Integer getPrice() {
 		return price;	
@@ -77,17 +63,34 @@ public class Movies implements Serializable{
 	public void setPath(String path) {
 		this.path = path;
 	}
-	public String getTime() {
-		return time;	
-	}
-	
-	public void setTime(String time) {
-		this.time = time;
-	}
 
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public String getMoviename() {
+		return moviename;
+	}
+
+	public void setMoviename(String moviename) {
+		this.moviename = moviename;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getAddtime() {
+		return addtime;
+	}
+
+	public void setAddtime(String addtime) {
+		this.addtime = addtime;
 	}
 	
 	/*这里是mybatis部分代码

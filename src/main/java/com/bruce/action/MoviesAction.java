@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bruce.manager.MoviesManager;
 import com.bruce.model.Movies;
+import com.bruce.model.User;
 import com.bruce.query.MoviesQuery;
 import com.bruce.query.condition.MoviesQueryCondition;
 import com.bruce.utils.MyConstant;
@@ -34,19 +35,37 @@ import com.bruce.utils.TimeUtils;
 @SessionAttributes({ "list", "movies" })
 public class MoviesAction {
 
- private final String LIST_ACTION = "redirect:/moviesAction/findAll";
  @Autowired	
  private MoviesManager moviesManager;
  @Autowired	
  private MoviesQuery moviesQuery;
 
+ private final String LIST_ACTION = "redirect:/moviesAction/findAll";
+ public static final String pattern = "([-+*/^()\\]\\[])" ;
+// test = test.replaceAll(pattern, "");
 	
+ 
+ 
+	/**
+	 * 跳转后台添加
+	 * @param map
+	 * @return
+	 */
 	@RequestMapping("/add")
-	public String toAdd(ModelMap map) {
-		//List<Movies> Pidlist = moviesManager.findAll();
-		//map.addAttribute("Pidlist",Pidlist);
-		return "/page/admin/movies/moviesAdd";
+	public String toAdd(ModelMap map,HttpServletRequest request) {
+		String rs = "/page/admin/movies/moviesAdd";
+		User user = (User) request.getSession().getAttribute("user");
+		if(user==null){
+			rs = "/login";
+		}else{
+			if(!user.getEmail().equals("654714226@qq.com") && !user.getEmail().equals("qhdsoft@126.com")){
+				rs = "/login";
+			}
+		}
+		
+		return rs;
 	}
+	
 	
 	
 	
@@ -57,15 +76,10 @@ public class MoviesAction {
 	 */
 	@RequestMapping("/addItem")
 	@ResponseBody
-	public String addItem(ModelMap map,String name,String desc ,Integer price,String path) {
+	public String addItem(ModelMap map,Movies model) {
 		String rs = "success";
 		try {
-			Movies model = new Movies();
-			model.setDesc(desc);
-			model.setName(name);
-			model.setPath(path);
-			model.setPrice(price);
-			model.setTime(TimeUtils.nowTime());
+			model.setAddtime(TimeUtils.nowTime());
 			moviesManager.addMovies(model);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -75,6 +89,52 @@ public class MoviesAction {
 		return rs;
 	}
 	
+	/**
+	 * 查询列表
+	 * @param map
+	 * @param condition
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/list")
+	public String list(ModelMap map,MoviesQueryCondition condition,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) {
+		String  sql = "select * from bc_movies   order by addtime desc limit 0,200 ";
+		List<Movies> list =  moviesManager.querySql(sql);
+		map.addAttribute("list", list);
+
+		return "/movies";
+	}
+	
+	
+	/**
+	 * 关键字匹配列表
+	 * @param map
+	 * @param condition
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/search")
+	public String list(ModelMap map,String keyword,HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+		String wheresql = " where 1=1 ";
+		if(StringUtils.isNotEmpty(keyword)){
+			keyword = keyword.replaceAll(pattern, "");
+			 wheresql = " where moviename like '%"+keyword+"%' or description like '%"+keyword+"%' ";
+		}
+		List<Movies> list =  moviesManager.findByCondition(wheresql+" order by addtime desc ").getResultlist();
+		map.addAttribute("list", list);
+		map.put("keyword", keyword);
+
+
+		return "/movies";
+	}
+	
+	
+	//、、、、、、、、、、、、、、、、、、、、、、以上为用到的方法、、、、、、、、、、、、、、、、、、、、、、、、、、、
 	
 	@RequestMapping("/toEdit")
 	public String toEdit(HttpServletRequest request, @RequestParam("id") String id,ModelMap map) {
@@ -158,15 +218,6 @@ public class MoviesAction {
 		return "/page/admin/movies/moviesList";
 	}
 	
-	@RequestMapping(value="/list")
-	public String list(ModelMap map,MoviesQueryCondition condition,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) {
-		
-		List<Movies> list =  moviesManager.findByCondition(" where 1=1 order by time desc ").getResultlist();
-		map.addAttribute("list", list);
-
-		return "/movies";
-	}
 
 	private PageView<Movies> getPageView(HttpServletRequest request,
 			String whereSql) {
