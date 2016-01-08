@@ -14,6 +14,16 @@ a:focus,a:hover
   color:#999
 }
 
+.green-text
+{
+  color:#2C8C2B
+}
+
+.red-text
+{
+  color:#E071A4
+}
+
 .white-line {border-top:1px solid #fff;height:1px;width:100%;margin-top:12px;margin-bottom:11px;}
 
 .dark-text

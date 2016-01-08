@@ -1,4 +1,3 @@
-<%@page import="com.bruce.constant.BC_Constant"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" import="org.springframework.web.util.UrlPathHelper" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -6,18 +5,9 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%-- <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%> --%>
 <c:set var="bcdomain" scope="request" value="http://northpark.cn"></c:set>
 <base href="http://northpark.cn">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- <meta property="qc:admins" content="61073355176476541272743636" /> -->
-<%-- <meta name="page" content="<%=request.getServletPath()%>">
-<meta name="action" content="<%=new UrlPathHelper().getOriginatingRequestUri(request)%>">
- --%>
-<!-- <script type="text/javascript" data-callback="true"  src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101204466" data-redirecturi="http://www.lonelyrobots.cn/cm/pic" charset="utf-8"></script> -->
 <script src="/js/jquery-1.7.2.js"></script>  
 <script src="js/artDialog/artDialog.js?skin=blue"></script> 
 <script src="js/artDialog/jquery.artDialog.js?skin=blue"></script>
@@ -33,68 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	body {background:#f4f3f1;}
 	</style>
 <script>
-/* 
-//调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中  
-QC.Login({  
-  //btnId：插入按钮的节点id，必选  
-  btnId:"qqLoginBtn",      
-}, function(reqData, opts){//登录成功  
-   //根据返回数据，更换按钮显示状态方法  
-  
-	   if(QC.Login.check()){
-       QC.Login.getMe(function(openId, accessToken){   
-          $.ajax({
-      		url:"/cm/qq/flag",
-      		type:"post",
-      		data:{"openId":openId},
-      		success:function(msg){
-      			if(msg=="0"){//首次绑定
-      				 	var paras = {};  
-      			        QC.api("get_user_info", paras)  
-      			            .success(function(s){//成功回调  
-      			            })  
-      			            .error(function(f){//失败回调  
-      			                art.dialog.tips('获取用户信息失败！');
-      			            })  
-      			            .complete(function(c){//完成请求回调  
-      			                var  qqinfo = c.dataText;
-      			                //异步传回用户数据进行绑定
-      			                $.ajax({
-      			            		url:"/cm/qq/add",
-      			            		type:"post",
-      			            		data:{"openId":openId,"qqinfo":qqinfo},
-      			            		success:function(msg){
-      			            			if(msg=="success"){
-      			            				//art.dialog.tips('登陆成功');
-      			            				$("#J_log_info_l").text("退出");
-      			            				$("#J_log_info_l").attr("href","/cm/logout");
-      			            				$("#J_log_info_r").text("我自己");
-      			            				$("#J_log_info_r").attr("href","/cm/pcentral");
-      			            			}			
-      			            		}
-      			            	}); 
-      			            });  
-      			}else if(msg == "1"){
-      				//art.dialog.tips('登陆成功');
-      				$("#J_log_info_l").text("退出");
-      				$("#J_log_info_l").attr("href","/cm/logout");
-      				$("#J_log_info_r").text("我自己");
-      				$("#J_log_info_r").attr("href","/cm/pcentral");
-      			}			
-      		}
-      	});
-       });   
-   }
-  
-
-   //这里可以调用自己的保存接口  
-   //...  
-
-}, function(opts){//注销成功  
-	art.dialog.tips('qq注销');
-    window.location.href = "/cm/logout?flag=qq";
-}  
-);  */
 
 
 //3.设置全局对话框

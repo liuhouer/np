@@ -7,7 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
+<!-- 百度广告联盟  -->
+<meta name="baidu_union_verify" content="ad2f4f686616aa1be411d6da41308d30">
 <meta http-equiv="Content-Language" content="zh-CN">
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">

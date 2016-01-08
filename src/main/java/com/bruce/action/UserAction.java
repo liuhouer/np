@@ -388,7 +388,7 @@ public class UserAction {
 					map.put("MyInfo", user);
 					
 					//查询个人歌词最爱历史
-					String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ?" ;
+					String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ? order by c.updatedate desc" ;
 					
 					List<Map<String, Object>> list  = userManager.querySql(sql,user.getId());
 					for (int i = 0; i < list.size(); i++) {
@@ -552,7 +552,7 @@ public class UserAction {
 			map.put("MyInfo", user);
 			
 			//查询个人歌词最爱历史
-			String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ?" ;
+			String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ? order by c.updatedate desc" ;
 
 			List<Map<String, Object>> list  = userManager.querySql(sql,user.getId());
 			for (int i = 0; i < list.size(); i++) {
@@ -610,7 +610,7 @@ public class UserAction {
 			//处理图片路径
 			map.put("MyInfo", user);
 			//查询个人歌词最爱历史
-			String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ?" ;
+			String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ? order by c.updatedate desc" ;
 			
 
 			List<Map<String, Object>> list  = userManager.querySql(sql,user.getId());

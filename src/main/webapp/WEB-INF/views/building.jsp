@@ -54,7 +54,7 @@
     <script src="/js/main2.js"></script>
 
 
-	<script language="javascript" type="text/javascript">
+	<!-- <script language="javascript" type="text/javascript">
 		var i = 5;
 		var intervalid;
 		intervalid = setInterval("fun()", 1000);
@@ -68,7 +68,7 @@
 		}
 		
 		console.log('非法请求资源页，IP已记录');
-	</script>
+	</script> -->
 
 
 
