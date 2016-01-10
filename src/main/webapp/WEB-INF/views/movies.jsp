@@ -30,8 +30,8 @@
 		
 		
 		     <div class="view ">
-                <form class=" form-inline margin-t20" action="/movies/search">
-                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="  input-lg  border-light-1 bg-lyellow grid50 radius-0" name="keyword" type="text">
+                <form class=" form-inline margin-t20" action="/movies/search" method="post">
+                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="form-control input-lg  border-light-1 bg-lyellow grid98 radius-0" name="keyword" type="text">
                   <input data-activetext="搜索 ››" class="form-control btn btn-hero " value="搜索" type="submit">
                 </form>
               </div>

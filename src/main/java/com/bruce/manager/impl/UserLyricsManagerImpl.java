@@ -72,7 +72,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 	@Override
 	public PageView<List<Map<String, Object>>> getMixMapData(String currentpage) {
 		// TODO Auto-generated method stub
-		
+		//,(select count(*) from bc_lyrics_zan  d    where a.id =d.lyricsid )as zan ,  (select count(*) from bc_lyrics_comment e where a.id =e.lyricsid )as pl
 		String sql = "select a.*,c.id as userid,c.username,c.email  from bc_lyrics a join bc_user_lyrics b on a.id = b.lyricsid join bc_user c on c.id = b.userid ";
 		/*if (!StringUtils.isEmpty(wheresql)) {
 			sql += wheresql;

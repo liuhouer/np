@@ -1104,6 +1104,7 @@ public class UserAction {
 										String u_id = lz.get(j).getUserid();
 										if(u_id.equals(c_user.getId())){
 											yizan = true ; 
+											break;
 										}
 									}
 								}
