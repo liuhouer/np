@@ -45,8 +45,8 @@
 											</c:if>
 											
 											title="${s.get('username')}:我的最爱">
-											<c:if test="${s.get('headpath') ==null}"><img src="/img/davatar.jpg" alt="${s.get('username')}"></c:if>
-											<c:if test="${s.get('headpath') !=null}"><img 
+											<c:if test="${s.get('headpath') ==null||s.get('headpath') ==''||s.get('headpath').length()==0}"><img src="/img/davatar.jpg" alt="${s.get('username')}"></c:if>
+											<c:if test="${s.get('headpath') !=null && s.get('headpath').length()>0}"><img 
 											 <c:choose>
    												<c:when test="${fn:contains(s.get('headpath') ,'http://') }">src="${s.get('headpath') }"</c:when>
                                   				<c:otherwise>src="${bcdomain}/bruce/${s.get('headpath') }"</c:otherwise>
