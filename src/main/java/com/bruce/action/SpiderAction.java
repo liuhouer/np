@@ -83,7 +83,50 @@ public class SpiderAction {
  
  // http://music.163.com/#/discover/toplist?id=19723756
  
+ /**
+  * 头像
+ * 
+ */
+@RequestMapping("/head")
+	public void head( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+	try {
+		
+				
+		List<Lyrics> list = lyricsManager.findAll();
+		List<User> ul = userManager.findAll();
+		List<GetNote> nol = getnoteManager.findAll();
+		for (int i = 0; i < list.size(); i++) {
+			boolean flag = false;
+			try {
+				
+				flag = commentManager.findByCondition(" where lyricsid = '"+list.get(i).getId()+"' ").getResultlist().size() <= 0;
+			} catch (Exception e) {
+				// TODO: handle exception
+				flag = true;
+			}
+			for (int j = 0; j < (getRandomOne(list)+1); j++) {
+				
+				try {
+					
+					if(flag){
+					   resetVal(list, nol,ul, i);
+					}
+				} catch (Exception e) {//错误继续
+					// TODO: handle exception
+					continue;
+				}
+				
+			}
+		}
 
+			
+			
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+		   
+	}
  
  /**
   * 生成赞和评论
