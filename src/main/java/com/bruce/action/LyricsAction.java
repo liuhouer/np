@@ -381,7 +381,7 @@ public class LyricsAction {
          
          
          //取得 评论 的列表
-         String sql_  = "select b.username,b.email,b.headpath,a.* from bc_lyrics_comment a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' order by a.create_time desc";
+         String sql_  = "select b.username,b.tail_slug,b.email,b.headpath,a.* from bc_lyrics_comment a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' order by a.create_time desc";
          List<Map<String, Object>> plList = lyricszanManager.mixSqlQuery(sql_);
          for (int i = 0; i < plList.size(); i++) {
         	 String imgpath_ =(String) plList.get(i).get("headpath");
