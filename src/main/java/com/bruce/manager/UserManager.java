@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.bruce.model.LyricsVO;
 import com.bruce.model.User;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;

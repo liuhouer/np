@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.bruce.dao.UserDao;
 import com.bruce.manager.UserManager;
-import com.bruce.model.LyricsVO;
 import com.bruce.model.User;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;

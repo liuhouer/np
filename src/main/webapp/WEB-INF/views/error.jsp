@@ -53,8 +53,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/main2.js"></script>
 
-
-	<script language="javascript" type="text/javascript">
+     <script language="javascript" type="text/javascript">
 		var i = 5;
 		var intervalid;
 		intervalid = setInterval("fun()", 1000);
@@ -69,7 +68,7 @@
 		
 		console.log('代码异常，请联系654814226@qq.com');
 	</script>
-
+ 
 
 
 

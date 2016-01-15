@@ -10,9 +10,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,38 +29,16 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 	@Transactional(propagation = Propagation.REQUIRED)
 	public <T extends Serializable> PK save(T entity) {
 		PK pk = null;
-		Session session = sessionFactory.getCurrentSession();
-		try{
-			// 启动事务
-	        Transaction tx = session.beginTransaction();
-			pk = (PK) session.save(entity);
-			 // 提交事务
-	        tx.commit();
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			// 关闭Hibernate Session
-			session.flush();
-		}
+		pk = (PK) sessionFactory.getCurrentSession().save(entity);
+		sessionFactory.getCurrentSession().flush();
 		return pk;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public <T extends Serializable> void update(T entity) {
-		
-		Session session = sessionFactory.getCurrentSession();
-		try{
-			// 启动事务
-	        Transaction tx = session.beginTransaction();
-			session.saveOrUpdate(entity);
-			 // 提交事务
-	        tx.commit();
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			// 关闭Hibernate Session
-			session.flush();
-		}
+		// sessionFactory.getCurrentSession().update(entity);
+				sessionFactory.getCurrentSession().saveOrUpdate(entity);
+				sessionFactory.getCurrentSession().flush();
 	}
 
 	private <T extends Serializable> String getUpdateStr(

@@ -17,6 +17,10 @@ buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2
 - 添加了redis
 - 添加了redis junit测试类测试通过
 
+## 2016-01-08
+- 添加了淘宝支付热映电影
+- 添加了电影管理
+
 
 
 

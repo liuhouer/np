@@ -343,16 +343,24 @@ a.btn {text-decoration: none;}
   border-bottom-width: 5px;
 }
 
-/* 文本截断 */
+/* 鏂囨湰鎴柇 */
 .cut {
 overflow:hidden;
 text-overflow:ellipsis;
 white-space: nowrap; 
 }
 
-/*P里面的行高间距*/
 
 .pline{
 	line-height:200%;
 }
  
+.green-text
+{
+  color:#2C8C2B
+}
+
+.red-text
+{
+  color:#E071A4
+}
