@@ -191,7 +191,7 @@ public class NoteAction {
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("/heads/");
+			String[] str = imgpath.split("heads/");
 			if(str.length>1){
 			String imgp = "heads/"+str[1];
 			user.setHeadpath(imgp);
@@ -254,7 +254,7 @@ public class NoteAction {
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("/heads/");
+			String[] str = imgpath.split("heads/");
 			if(str.length>1){
 			String imgp = "heads/"+str[1];
 			user.setHeadpath(imgp);
@@ -322,7 +322,7 @@ public class NoteAction {
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("/heads/");
+			String[] str = imgpath.split("heads/");
 			if(str.length>1){
 			String imgp = "heads/"+str[1];
 			user.setHeadpath(imgp);
@@ -377,7 +377,7 @@ public class NoteAction {
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("/heads/");
+			String[] str = imgpath.split("heads/");
 			if(str.length>1){
 			String imgp = "heads/"+str[1];
 			user.setHeadpath(imgp);
@@ -442,7 +442,7 @@ public class NoteAction {
 			String imgpath =(String) list.get(i).get("headpath"); //e:/yunlu/upload/1399976848969.jpg
 			String imgp = "";
 			if(!StringUtils.isEmpty(imgpath)){
-				String[] str = imgpath.split("/heads/");
+				String[] str = imgpath.split("heads/");
 				if(str.length>1){
 				  imgp = "heads/"+str[1];
 				}
@@ -488,7 +488,7 @@ public class NoteAction {
 			String imgpath =(String) list.get(i).get("headpath"); //e:/yunlu/upload/1399976848969.jpg
 			String imgp = "";
 			if(!StringUtils.isEmpty(imgpath)){
-				String[] str = imgpath.split("/heads/");
+				String[] str = imgpath.split("heads/");
 				if(str.length>1){
 				  imgp = "heads/"+str[1];
 				}

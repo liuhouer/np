@@ -386,7 +386,7 @@ public class LyricsAction {
          for (int i = 0; i < plList.size(); i++) {
         	 String imgpath_ =(String) plList.get(i).get("headpath");
  			if(!StringUtils.isEmpty(imgpath_)){
- 			   String[] str = imgpath_.split("/heads/");
+ 			   String[] str = imgpath_.split("heads/");
  			   if(str.length>1){
  			   String imgp = "heads/"+str[1];
  			   plList.get(i).put("headpath",imgp);
@@ -414,7 +414,7 @@ public class LyricsAction {
          for (int i = 0; i < loveList.size(); i++) {
         	 String imgpath_ =(String) loveList.get(i).get("headpath");
  			if(!StringUtils.isEmpty(imgpath_)){
- 			   String[] str = imgpath_.split("/heads/");
+ 			   String[] str = imgpath_.split("heads/");
  			   if(str.length>1){
  			   String imgp = "heads/"+str[1];
  			   loveList.get(i).put("headpath",imgp);

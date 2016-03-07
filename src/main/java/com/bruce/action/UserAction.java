@@ -378,7 +378,7 @@ public class UserAction {
 					//处理图片路径
 					String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 					if(!StringUtils.isEmpty(imgpath)){
-					String[] str = imgpath.split("/heads/");
+					String[] str = imgpath.split("heads/");
 					if(str.length>1){
 					String imgp = "heads/"+str[1];
 					user.setHeadpath(imgp);
@@ -423,7 +423,7 @@ public class UserAction {
 	        	//处理图片路径
 	 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 	 			if(!StringUtils.isEmpty(imgpath)){
-	 			String[] str = imgpath.split("/heads/");
+	 			String[] str = imgpath.split("heads/");
 	 			if(str.length>1){
 	 			String imgp = "heads/"+str[1];
 	 			user.setHeadpath(imgp);
@@ -445,7 +445,7 @@ public class UserAction {
 	 						//处理图片路径
 	 						String imgpath1 = uu.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 	 						if(!StringUtils.isEmpty(imgpath1)){
-	 						String[] str = imgpath1.split("/heads/");
+	 						String[] str = imgpath1.split("heads/");
 	 						if(str.length>1){
 	 						String imgp = "heads/"+str[1];
 	 						uu.setHeadpath(imgp);
@@ -476,7 +476,7 @@ public class UserAction {
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("/heads/");
+			String[] str = imgpath.split("heads/");
 			if(str.length>1){
 			String imgp = "heads/"+str[1];
 			user.setHeadpath(imgp);
@@ -498,7 +498,7 @@ public class UserAction {
 						//处理图片路径
 						String imgpath1 = uu.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 						if(!StringUtils.isEmpty(imgpath1)){
-						String[] str = imgpath1.split("/heads/");
+						String[] str = imgpath1.split("heads/");
 						if(str.length>1){
 						String imgp = "heads/"+str[1];
 						uu.setHeadpath(imgp);
@@ -542,7 +542,7 @@ public class UserAction {
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("/heads/");
+			String[] str = imgpath.split("heads/");
 			if(str.length>1){
 			String imgp = "heads/"+str[1];
 			user.setHeadpath(imgp);
@@ -601,7 +601,7 @@ public class UserAction {
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
-				String[] str = imgpath.split("/heads/");
+				String[] str = imgpath.split("heads/");
 				if(str.length>1){
 				String imgp = "heads/"+str[1];
 				user.setHeadpath(imgp);
@@ -658,7 +658,7 @@ public class UserAction {
 			//处理图片路径
 				String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 				if(!StringUtils.isEmpty(imgpath)){
-				String[] str = imgpath.split("/heads/");
+				String[] str = imgpath.split("heads/");
 				if(str.length>1){
 				String imgp = "heads/"+str[1];
 				user.setHeadpath(imgp);
@@ -1189,7 +1189,7 @@ public class UserAction {
 
 			    String imgpath = user.getHeadpath();
                 if(!StringUtils.isEmpty(imgpath)){
-                   String[] str = imgpath.split("/heads/");
+                   String[] str = imgpath.split("heads/");
                    if(str.length>1){
                    String imgp = "heads/"+str[1];
                    user.setHeadpath(imgp);
@@ -1241,7 +1241,7 @@ public class UserAction {
 
 			    String imgpath = user.getHeadpath();
                 if(!StringUtils.isEmpty(imgpath)){
-                   String[] str = imgpath.split("/heads/");
+                   String[] str = imgpath.split("heads/");
                    if(str.length>1){
                    String imgp = "heads/"+str[1];
                    user.setHeadpath(imgp);

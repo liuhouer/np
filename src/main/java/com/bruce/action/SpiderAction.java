@@ -92,32 +92,46 @@ public class SpiderAction {
 	try {
 		
 				
-		List<Lyrics> list = lyricsManager.findAll();
+//		List<Lyrics> list = lyricsManager.findAll();
 		List<User> ul = userManager.findAll();
-		List<GetNote> nol = getnoteManager.findAll();
-		for (int i = 0; i < list.size(); i++) {
-			boolean flag = false;
-			try {
-				
-				flag = commentManager.findByCondition(" where lyricsid = '"+list.get(i).getId()+"' ").getResultlist().size() <= 0;
-			} catch (Exception e) {
-				// TODO: handle exception
-				flag = true;
+		List<User> usefulHeadList = new ArrayList<User>();
+		for (int i = 0; i < ul.size(); i++) {
+			User u = ul.get(i);
+			if(StringUtils.isNotEmpty(u.getHeadpath())){
+				usefulHeadList.add(u);
 			}
-			for (int j = 0; j < (getRandomOne(list)+1); j++) {
-				
-				try {
-					
-					if(flag){
-					   resetVal(list, nol,ul, i);
-					}
-				} catch (Exception e) {//错误继续
-					// TODO: handle exception
-					continue;
-				}
-				
+		}		
+		for (int k = 0; k < ul.size(); k++) {
+			User u = ul.get(k);
+			if(StringUtils.isEmpty(u.getHeadpath())){
+				u.setHeadpath(usefulHeadList.get(getRandomOne(usefulHeadList)).getHeadpath());
+				userManager.updateUser(u);
 			}
-		}
+		}		
+//		List<GetNote> nol = getnoteManager.findAll();
+//		for (int i = 0; i < list.size(); i++) {
+//			boolean flag = false;
+//			try {
+//				
+//				flag = commentManager.findByCondition(" where lyricsid = '"+list.get(i).getId()+"' ").getResultlist().size() <= 0;
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				flag = true;
+//			}
+//			for (int j = 0; j < (getRandomOne(list)+1); j++) {
+//				
+//				try {
+//					
+//					if(flag){
+//					   resetVal(list, nol,ul, i);
+//					}
+//				} catch (Exception e) {//错误继续
+//					// TODO: handle exception
+//					continue;
+//				}
+//				
+//			}
+//		}
 
 			
 			
@@ -382,7 +396,7 @@ public void addZanPl(String userid, String lyricsid,String commet) {
 				//唯一性递归-----------end
 		    	user.setEmail(email);
 		    	String head = headlist.get(i)==null?"":headlist.get(i).getPath();
-		    	head = "/mnt/apk/heads/"+head;
+		    	head = "/mnt/apkheads/"+head;
 		    	user.setUsername(username);
 		    	user.setHeadpath(head);
 		    	user.setPassword(Base64Util.JIAMI("123456"));
