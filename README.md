@@ -21,6 +21,10 @@ buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2
 - 添加了淘宝支付热映电影
 - 添加了电影管理
 
+## 2016-03-07
+- 修改图片显示问题
+- 修改底部链接
+- 添加更新日志
 
 
 
