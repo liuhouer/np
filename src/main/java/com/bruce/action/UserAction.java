@@ -331,6 +331,11 @@ public class UserAction {
 			return "/bruce-quiet-listen";
 		}
 	 	
+	 	@RequestMapping("/cm/vlog")
+		public String vlog(ModelMap map) {
+			return "/vlog";
+		}
+	 	
 
 	 	@RequestMapping("/")
 		public String home(ModelMap map) {
