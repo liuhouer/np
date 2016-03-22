@@ -17,6 +17,10 @@
 <meta name="description" content="布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
+<script src="/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<link href="/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet" />
+<script src="/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
+
 </head>
 
 <body style="">
@@ -125,7 +129,7 @@
 						   		</c:if> class="img-responsive  img-circle max-width-60"  alt="${user.username }的最爱"></a>							</div>
 						   	<div  class="col-xs-9 col-sm-10">
 					                 	<div  class="form-group">
-					                 		<textarea  class="form-control" id="J_comment" name="comment"  rows="3"></textarea>
+					                 		<textarea  class="form-control"  style="height:200px; max-height:400px;"    id="J_comment" name="comment"  rows="3"></textarea>
 					                 	</div>
 					                    <div  class="form-group text-right">
 					                       <input  class="btn btn-info btn-md"  type="button" id="J_commentBtn"  value="+ 发布">
@@ -369,7 +373,6 @@ $("#J_gz_btn").click(function(){
 	
 
 	
-	
 /* $('.row-thumbnails').on('click', '.stuffThumb', function(event) {
     $('#mainThumb').html($(this).html());
   });
@@ -446,7 +449,18 @@ $("#J_gz_btn").click(function(){
 </script>
 
 
- 
+<script type="text/javascript">
+$(function(){
+	var editor = $('#J_comment').wangEditor({
+		'menuConfig': [
+		                ['viewSourceCode'],
+						['fontFamily','fontSize','bold','setHead'],
+						['list','justify','blockquote'],
+						['createLink','insertHr','undo']
+					]
+	});
+});
+</script>	 
 
 
 
