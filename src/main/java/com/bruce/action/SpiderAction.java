@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +42,7 @@ import com.bruce.manager.LyricsCommentManager;
 import com.bruce.manager.LyricsManager;
 import com.bruce.manager.LyricsZanManager;
 import com.bruce.manager.NoteManager;
+import com.bruce.manager.UidLinkManager;
 import com.bruce.manager.UserLyricsManager;
 import com.bruce.manager.UserManager;
 import com.bruce.model.GetImg;
@@ -48,6 +50,7 @@ import com.bruce.model.GetNote;
 import com.bruce.model.Lyrics;
 import com.bruce.model.LyricsComment;
 import com.bruce.model.Note;
+import com.bruce.model.UidLink;
 import com.bruce.model.User;
 import com.bruce.model.UserLyrics;
 import com.bruce.utils.Base64Util;
@@ -76,8 +79,54 @@ public class SpiderAction {
  private LyricsZanManager zanManager;
  @Autowired	
  private LyricsCommentManager commentManager;
+ @Autowired	
+ private UidLinkManager uidLinkManager;
  
+ public static Set<Integer> m = new HashSet<Integer>();
+	/**
+	 * 生成6位int  ID
+	 * @return
+	 */
+	public static int getInt6() {
+		int a = 0;
+			do {
+				a = (int) (Math.random() * 10000+500000);
+			} while (m.contains(a));
+			m.add(a);
+			System.out.println(a);
+		return a;
+	}
  
+ /**
+  * 添加uid映射
+ * @param user
+ * @param map
+ * @param session
+ */
+@RequestMapping("/uidlink")
+	public void uidlink( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+	try {
+		
+				
+		List<User> ul = userManager.findAll();
+        
+		for (User u:ul) {
+			UidLink uidlink = new UidLink();
+			String userid = u.getId();
+			int uid = getInt6();
+			uidlink.setUserid(userid);
+			uidlink.setUid_new(uid);
+			uidLinkManager.addUidLink(uidlink);
+		}
+			
+			
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+		   
+	}
+
  
  
  
@@ -829,7 +878,7 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
     	noteManager.addNote(note); 
 	}
 	
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
 //	List<String> list   =  new ArrayList<String>();
 //	for (int i = 0; i < 165; i++) {
 //		
@@ -842,6 +891,8 @@ private String uploadHead(List<String> list, int i) throws MalformedURLException
 //	}
 //	
 //	System.out.println(list.size());
-//}
+		
+		getInt6();
+}
 	
 }
