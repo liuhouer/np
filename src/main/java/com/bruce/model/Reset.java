@@ -27,7 +27,7 @@ public class Reset implements Serializable{
 	private String id;
 
 	@Column(length = 32)
-	private String user_id;
+	private Integer user_id;
 
 	@Column(length = 255)
 	private String auth_code;
@@ -49,13 +49,8 @@ public class Reset implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getUser_id() {
-		return user_id;	
-	}
-	
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
+
+
 	public String getAuth_code() {
 		return auth_code;	
 	}
@@ -88,6 +83,14 @@ public class Reset implements Serializable{
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public Integer getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
 	}
 	
 	/*这里是mybatis部分代码

@@ -84,7 +84,7 @@ public class LyricsAction {
 		
 		if(StringUtils.isEmpty(userid)){
             User u = (User) request.getSession().getAttribute("user");
-            userid = u.getId();
+            userid = String.valueOf(u.getId());
         } 
 		if(StringUtils.isEmpty(userid)){
 			result ="redirect:/lyrics/toView?id="+id;
@@ -111,7 +111,7 @@ public class LyricsAction {
 			Lyrics model = lyricsManager.findLyrics(id);
 			List<UserLyrics> rs =userlyricsManager.findByCondition(" where lyricsid='"+id+"' ").getResultlist();
 			if(rs.size()>0){
-				String autherid = rs.get(0).getUserid();
+				String autherid = String.valueOf(rs.get(0).getUserid());
 				if(!StringUtils.isEmpty(autherid)){
 				String auther = userManager.findUser(autherid).getEmail();
 				map.put("auther", auther);
@@ -149,7 +149,7 @@ public class LyricsAction {
 		for(String s :glbstr){
 			UserLyrics userlyrics = this.userlyricsManager.findUserLyrics(s);
 			if(userlyrics!=null){//批量删除删除歌词表
-				String lyid = userlyrics.getLyricsid();
+				String lyid = String.valueOf(userlyrics.getLyricsid());
 				if(StringUtils.isNotEmpty(lyid)){
 					this.lyricsManager.delLyrics(lyid);
 				}
@@ -247,7 +247,7 @@ public class LyricsAction {
 		 User u = (User) request.getSession().getAttribute("user");
 		 if(u!=null){
 			 
-			 userid = u.getId();
+			 userid = String.valueOf(u.getId());
 		 }
 		if(StringUtils.isNotEmpty(userid)){
 			 System.out.println("-------------------------------------->开始");  
@@ -302,7 +302,7 @@ public class LyricsAction {
 		       System.out.println("-------------------------------------->结束");  
 		       UserLyrics userlyrics = new UserLyrics();
 		       userlyrics.setLyricsid(lyrics.getId());
-		       userlyrics.setUserid(userid);
+		       userlyrics.setUserid(Integer.parseInt(userid));
 		       this.userlyricsManager.addUserLyrics(userlyrics);
 			}else{//添加失败了
 				map.addAttribute("albumpath", "Failure...");  
@@ -351,7 +351,7 @@ public class LyricsAction {
 		 List<UserLyrics> list = userlyricsManager.findByCondition(" where lyricsid = '"+lyricsid+"'").getResultlist();
 		 if(list!=null){
 			 if(list.size()>0){
-				 by_id = list.get(0).getUserid();
+				 by_id =  String.valueOf(list.get(0).getUserid());
 			 }
 		 }
 		 //取得歌词/图片的信息 
@@ -428,7 +428,7 @@ public class LyricsAction {
          //取得当前用户对作者的关注状态
          User user = (User) request.getSession().getAttribute("user");
          if(user!=null){
-        	 String follow_id = user.getId();
+        	 String follow_id =  String.valueOf(user.getId());
         	 String author_id = by_id;
         	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
         		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();

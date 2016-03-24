@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.bruce.manager.GetImgManager;
-import com.bruce.manager.GetNoteManager;
 import com.bruce.manager.LyricsManager;
 import com.bruce.manager.NoteManager;
 import com.bruce.manager.UserFollowManager;
@@ -54,11 +52,6 @@ public class NoteAction {
  private LyricsManager lyricsManager;
  @Autowired	
  private UserFollowManager userfollowManager;
- @Autowired	
- private GetNoteManager getnoteManager;
- @Autowired	
- private GetImgManager getimgManager;
- 
  
  
     
@@ -107,7 +100,7 @@ public class NoteAction {
 	@RequestMapping("/addNote")
 	public String addNote(Note note) {
 		String rs= LIST_ACTION;
-		if(StringUtils.isNotEmpty(note.getUserid())){
+		if(StringUtils.isNotEmpty(String.valueOf(note.getUserid()))){
 			if(StringUtils.isEmpty(note.getOpened())){
 				note.setOpened("yes");
 			}
@@ -228,7 +221,7 @@ public class NoteAction {
 		//取得当前用户对作者的关注状态
         User lo_user = (User) request.getSession().getAttribute("user");
         if(lo_user!=null){
-       	 String follow_id = lo_user.getId();
+       	 String follow_id = String.valueOf(lo_user.getId());
        	 String author_id = userid;
        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
@@ -291,7 +284,7 @@ public class NoteAction {
 		//取得当前用户对作者的关注状态
         User lo_user = (User) request.getSession().getAttribute("user");
         if(lo_user!=null){
-       	 String follow_id = lo_user.getId();
+       	 String follow_id = String.valueOf(lo_user.getId());
        	 String author_id = userid;
        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
@@ -313,7 +306,7 @@ public class NoteAction {
 		 //取得当前用户
         User user = (User) request.getSession().getAttribute("user");
         if(user!=null){
-        	userid = user.getId();
+        	userid = String.valueOf(user.getId());
         }
 		String result="/note";
 		if(StringUtils.isNotEmpty(userid)){
@@ -368,7 +361,7 @@ public class NoteAction {
 		 //取得当前用户
         User user = (User) request.getSession().getAttribute("user");
         if(user!=null){
-        	userid = user.getId();
+        	userid = String.valueOf(user.getId());
         }
 		String result="/note";
 		if(StringUtils.isNotEmpty(userid)){

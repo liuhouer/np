@@ -27,10 +27,10 @@ public class UserLyrics implements Serializable{
 	private String id;
 
 	@Column(length = 32)
-	private String userid;
+	private Integer userid;
 
 	@Column(length = 32)
-	private String lyricsid;
+	private Integer lyricsid;
 
 
 	public String getId() {
@@ -40,23 +40,25 @@ public class UserLyrics implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getUserid() {
-		return userid;	
-	}
-	
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
-	public String getLyricsid() {
-		return lyricsid;	
-	}
-	
-	public void setLyricsid(String lyricsid) {
-		this.lyricsid = lyricsid;
-	}
 
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
+
+	public Integer getLyricsid() {
+		return lyricsid;
+	}
+
+	public void setLyricsid(Integer lyricsid) {
+		this.lyricsid = lyricsid;
 	}
 }

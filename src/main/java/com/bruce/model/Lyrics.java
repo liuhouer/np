@@ -21,10 +21,10 @@ public class Lyrics implements Serializable{
 	private static final long serialVersionUID = 7352450415620898579L;
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@Column(length = 32)	
-	private String id;
+	@GeneratedValue(generator = "paymentableGenerator") 
+	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
+	@Column(length = 6)	
+	private Integer id;
 
 	@Column(length = 32)
 	private String type;
@@ -57,13 +57,6 @@ public class Lyrics implements Serializable{
 	private String albumImg;
 
 
-	public String getId() {
-		return id;	
-	}
-	
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getType() {
 		return type;	
 	}
@@ -138,5 +131,13 @@ public class Lyrics implements Serializable{
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

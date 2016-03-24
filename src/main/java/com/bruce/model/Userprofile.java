@@ -27,7 +27,7 @@ public class Userprofile implements Serializable{
 	private String id;
 
 	@Column(length = 32)
-	private String user_id;
+	private Integer user_id;
 
 	@Column(length = 255)
 	private String name;
@@ -88,13 +88,8 @@ public class Userprofile implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getUser_id() {
-		return user_id;	
-	}
-	
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
+
+
 	public String getName() {
 		return name;	
 	}
@@ -218,5 +213,13 @@ public class Userprofile implements Serializable{
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public Integer getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
 	}
 }

@@ -28,8 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bruce.manager.GetImgManager;
-import com.bruce.manager.GetNoteManager;
 import com.bruce.manager.LyricsCommentManager;
 import com.bruce.manager.LyricsManager;
 import com.bruce.manager.LyricsZanManager;
@@ -86,10 +84,6 @@ public class UserAction {
 	 @Autowired	
 	 private ResetManager resetManager;
 	 
-	 @Autowired	
-	 private GetNoteManager getnoteManager;
-	 @Autowired	
-	 private GetImgManager getimgManager;
 	 @Autowired	
 	 private NoteManager noteManager;
 	 
@@ -171,7 +165,7 @@ public class UserAction {
 			    List<User> list = userManager.findByCondition(" where email = '"+email+"' ").getResultlist();
 			    if(list!=null){
 			    	if(list.size()>0){
-			    		userid = list.get(0).getId();
+			    		userid = String.valueOf(list.get(0).getId());
 			    	}
 			    }
 				Reset reset = new Reset();
@@ -181,7 +175,7 @@ public class UserAction {
 				reset.setInvalid_time(TimeUtils.getDayAfter(TimeUtils.nowTime()));
 				reset.setIs_email_authed(0);
 				
-				reset.setUser_id(userid);
+				reset.setUser_id(Integer.parseInt(userid));
 				resetManager.addReset(reset);
 				String result = "";
 				try {
@@ -284,8 +278,8 @@ public class UserAction {
 	 			int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
 		 		if(nums==0){
 		 			UserFollow uf = new UserFollow();
-			 		uf.setAuthor_id(author_id);
-			 		uf.setFollow_id(follow_id);
+			 		uf.setAuthor_id(Integer.parseInt(author_id));
+			 		uf.setFollow_id(Integer.parseInt(follow_id));
 			 		uf.setStatus(1);
 			 		uf.setCreate_time(TimeUtils.nowTime());
 			 		if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
@@ -395,7 +389,7 @@ public class UserAction {
 					//查询个人歌词最爱历史
 					String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ? order by c.updatedate desc" ;
 					
-					List<Map<String, Object>> list  = userManager.querySql(sql,user.getId());
+					List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
 					for (int i = 0; i < list.size(); i++) {
 						//批量处理图片的路径
 						String imgpath2 = (String) list.get(i).get("albumImg"); //e:/yunlu/upload/1399976848969.jpg
@@ -444,7 +438,7 @@ public class UserAction {
 	 				if(fan_list.size()>0){
 	 					for (int i = 0; i < fan_list.size(); i++) {
 	 						Map<String,Object> map_ = new HashMap<String,Object>();
-	 						String u_id = fan_list.get(i).getFollow_id();
+	 						String u_id = String.valueOf(fan_list.get(i).getFollow_id());
 	 						User uu = userManager.findUser(u_id);
 	 						
 	 						//处理图片路径
@@ -497,7 +491,7 @@ public class UserAction {
 				if(fan_list.size()>0){
 					for (int i = 0; i < fan_list.size(); i++) {
 						Map<String,Object> map_ = new HashMap<String,Object>();
-						String u_id = fan_list.get(i).getFollow_id();
+						String u_id = String.valueOf(fan_list.get(i).getFollow_id());
 						User uu = userManager.findUser(u_id);
 						
 						//处理图片路径
@@ -526,7 +520,7 @@ public class UserAction {
 			 //取得当前用户对作者的关注状态
 	         User lo_user = (User) request.getSession().getAttribute("user");
 	         if(lo_user!=null){
-	        	 String follow_id = lo_user.getId();
+	        	 String follow_id = String.valueOf(lo_user.getId());
 	        	 String author_id = userid;
 	        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
 	        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
@@ -559,7 +553,7 @@ public class UserAction {
 			//查询个人歌词最爱历史
 			String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ? order by c.updatedate desc" ;
 
-			List<Map<String, Object>> list  = userManager.querySql(sql,user.getId());
+			List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
 			for (int i = 0; i < list.size(); i++) {
 				//批量处理图片的路径
 				String imgpath2 = (String) list.get(i).get("albumImg"); //e:/yunlu/upload/1399976848969.jpg
@@ -579,7 +573,7 @@ public class UserAction {
 			 //取得当前用户对作者的关注状态
 	         User lo_user = (User) request.getSession().getAttribute("user");
 	         if(lo_user!=null){
-	        	 String follow_id = lo_user.getId();
+	        	 String follow_id = String.valueOf(lo_user.getId());
 	        	 String author_id = userid;
 	        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
 	        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
@@ -618,7 +612,7 @@ public class UserAction {
 			String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ? order by c.updatedate desc" ;
 			
 
-			List<Map<String, Object>> list  = userManager.querySql(sql,user.getId());
+			List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
 			for (int i = 0; i < list.size(); i++) {
 				//批量处理图片的路径
 				String imgpath2 = (String) list.get(i).get("albumImg"); //e:/yunlu/upload/1399976848969.jpg
@@ -639,8 +633,8 @@ public class UserAction {
 			 //取得当前用户对作者的关注状态
 	         User lo_user = (User) request.getSession().getAttribute("user");
 	         if(lo_user!=null){
-	        	 String follow_id = lo_user.getId();
-	        	 String author_id = user.getId();
+	        	 String follow_id = String.valueOf(lo_user.getId());
+	        	 String author_id = String.valueOf(user.getId());
 	        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
 	        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
 	        		 if(nums>0){
@@ -656,7 +650,7 @@ public class UserAction {
 		public String toEditInfo(ModelMap map,String userid,HttpServletRequest request) {
 			if(StringUtils.isEmpty(userid)){
 	              User u = (User) request.getSession().getAttribute("user");
-	              userid = u.getId();
+	              userid = String.valueOf(u.getId());
 	        }  
 			
 			User user = userManager.findUser(userid);
@@ -757,10 +751,10 @@ public class UserAction {
 			  //保存User表信息-------结束
 			   
 			 //保存User明细表信息-------start
-            String userid = model.getId();
+            String userid = String.valueOf(model.getId());
             Userprofile up = userprofileManager.getModelByUserid(userid);
-            if(StringUtils.isEmpty(up.getUser_id())){
-            	up.setUser_id(userid);
+            if(StringUtils.isEmpty(String.valueOf(up.getUser_id()))){
+            	up.setUser_id(Integer.parseInt(userid));
             }
             if (!StringUtils.isEmpty(courseware)) {
             	up.setCourseware(courseware);
@@ -812,7 +806,7 @@ public class UserAction {
 		public String toEdit(HttpServletRequest request, String id,ModelMap map) {
 			if(StringUtils.isEmpty(id)){
                 User u = (User) request.getSession().getAttribute("user");
-                id = u.getId();
+                id = String.valueOf(u.getId());
             }  
 			if(!StringUtils.isEmpty(id)){
 				User model = userManager.findUser(id);
@@ -971,7 +965,7 @@ public class UserAction {
 							if(lz!=null){
 								if(lz.size()>0){
 									for (int j = 0; j < lz.size(); j++) {
-										String u_id = lz.get(j).getUserid();
+										String u_id = String.valueOf(lz.get(j).getUserid());
 										if(u_id.equals(c_user.getId())){
 											yizan = true ; 
 										}
@@ -1042,7 +1036,7 @@ public class UserAction {
 						}
 						
 						//批量处理赞和评论的个数
-						String lyricsid = (String) list.get(i).get("id");
+						String lyricsid = String.valueOf(list.get(i).get("id"));
 						int zan =  lyricsZanManager.getZanNumByLRC(lyricsid);
 						int pl  =  lyricsZanManager.getCommentNumByLRC(lyricsid);
 						list.get(i).put("zan",zan);
@@ -1092,7 +1086,7 @@ public class UserAction {
 						}
 						
 						//批量处理赞和评论的个数
-						String lyricsid = (String) list.get(i).get("id");
+						String lyricsid = String.valueOf(list.get(i).get("id"));
 						int zan =  lyricsZanManager.getZanNumByLRC(lyricsid);
 						int pl  =  lyricsZanManager.getCommentNumByLRC(lyricsid);
 						list.get(i).put("zan",zan);
@@ -1106,7 +1100,7 @@ public class UserAction {
 							if(lz!=null){
 								if(lz.size()>0){
 									for (int j = 0; j < lz.size(); j++) {
-										String u_id = lz.get(j).getUserid();
+										String u_id = String.valueOf(lz.get(j).getUserid());
 										if(u_id.equals(c_user.getId())){
 											yizan = true ; 
 											break;

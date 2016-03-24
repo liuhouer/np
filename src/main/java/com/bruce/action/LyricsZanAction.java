@@ -52,7 +52,7 @@ public class LyricsZanAction {
  		
  		if(StringUtils.isEmpty(userid)){
             User u = (User) request.getSession().getAttribute("user");
-            userid = u.getId();
+            userid =  String.valueOf(u.getId());
         } 
  		String msg = "success";
 		int num = this.lyricszanManager.findByCondition(" where lyricsid='"+lyricsid+"' and userid = '"+userid+"' ").getResultlist().size();
@@ -62,8 +62,8 @@ public class LyricsZanAction {
 			try {
 				
 				LyricsZan model = new LyricsZan();
-				model.setLyricsid(lyricsid);
-				model.setUserid(userid);
+				model.setLyricsid(Integer.parseInt(lyricsid));
+				model.setUserid(Integer.parseInt(userid));
 				lyricszanManager.addLyricsZan(model);
 				msg = "success";
 			} catch (Exception e) {
@@ -79,7 +79,7 @@ public class LyricsZanAction {
 	public String addComment(String comment,String userid,String lyricsid,HttpServletRequest request) {
  		if(StringUtils.isEmpty(userid)){
             User u = (User) request.getSession().getAttribute("user");
-            userid = u.getId();
+            userid = String.valueOf(u.getId());
         } 
  		
  		String msg = "success";
@@ -87,8 +87,8 @@ public class LyricsZanAction {
 				
 				LyricsComment model = new LyricsComment();
 				model.setComment(comment);
-				model.setUserid(userid);
-				model.setLyricsid(lyricsid);
+				model.setUserid(Integer.parseInt(userid));
+				model.setLyricsid(Integer.parseInt(lyricsid));
 				model.setCreate_time(TimeUtils.nowTime());
 
 				plManager.addLyricsComment(model);

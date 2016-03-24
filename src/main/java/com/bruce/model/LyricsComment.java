@@ -26,11 +26,11 @@ public class LyricsComment implements Serializable{
 	@Column(length = 32)	
 	private String id;
 
-	@Column(length = 32)
-	private String lyricsid;
+	@Column(length = 11)
+	private Integer lyricsid;
 
-	@Column(length = 32)
-	private String userid;
+	@Column(length = 11)
+	private Integer userid;
 
 	@Column(length = 2000)
 	private String comment;
@@ -45,20 +45,6 @@ public class LyricsComment implements Serializable{
 	
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getLyricsid() {
-		return lyricsid;	
-	}
-	
-	public void setLyricsid(String lyricsid) {
-		this.lyricsid = lyricsid;
-	}
-	public String getUserid() {
-		return userid;	
-	}
-	
-	public void setUserid(String userid) {
-		this.userid = userid;
 	}
 	public String getComment() {
 		return comment;	
@@ -78,5 +64,21 @@ public class LyricsComment implements Serializable{
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public Integer getLyricsid() {
+		return lyricsid;
+	}
+
+	public void setLyricsid(Integer lyricsid) {
+		this.lyricsid = lyricsid;
+	}
+
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
 	}
 }

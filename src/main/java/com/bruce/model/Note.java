@@ -21,10 +21,10 @@ public class Note implements Serializable{
 	private static final long serialVersionUID = 8794166567111470371L;
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@Column(length = 255)	
-	private String id;
+	@GeneratedValue(generator = "paymentableGenerator") 
+	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
+	@Column(length = 6)	
+	private Integer id;
 	
 	@Column()
 	private String brief;
@@ -37,18 +37,12 @@ public class Note implements Serializable{
 
 	@Column(length = 255)
 	private String createtime;
-
-	@Column(length = 32)
-	private String userid;
-
-
-	public String getId() {
-		return id;	
-	}
 	
-	public void setId(String id) {
-		this.id = id;
-	}
+	@Column()
+	private Integer userid;
+	
+
+
 	public String getNote() {
 		return note;	
 	}
@@ -70,13 +64,6 @@ public class Note implements Serializable{
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
-	public String getUserid() {
-		return userid;	
-	}
-	
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
 
     @Override
 	public String toString() {
@@ -90,4 +77,23 @@ public class Note implements Serializable{
 	public void setBrief(String brief) {
 		this.brief = brief;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
+
+
+
 }

@@ -21,10 +21,10 @@ public class User implements Serializable{
 	private static final long serialVersionUID = -414037746823323884L;
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@Column(length = 32)	
-	private String id;
+	@GeneratedValue(generator = "paymentableGenerator") 
+	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
+	@Column(length = 6)	
+	private Integer id;
 
 	@Column(length = 30)
 	private String username;
@@ -94,13 +94,6 @@ public class User implements Serializable{
 	}
 
 
-	public String getId() {
-		return id;	
-	}
-	
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getUsername() {
 		return username;	
 	}
@@ -155,5 +148,13 @@ public class User implements Serializable{
 
 	public void setTail_slug(String tail_slug) {
 		this.tail_slug = tail_slug;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }
