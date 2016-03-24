@@ -26,6 +26,12 @@ buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2
 - 修改底部链接
 - 添加更新日志
 
+## 2016-03-24
+
+- buci3.2版本之前的存档分支。ID策略为UUID。
+- 下个版本在主干，ID策略改为native。
+- 完成uuid--->native重构
+
 
 
 
