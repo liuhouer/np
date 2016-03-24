@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.bruce.dao.UserLyricsDao;
 import com.bruce.manager.UserLyricsManager;
 import com.bruce.model.UserLyrics;
-import com.bruce.query.condition.UserLyricsQueryCondition;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;

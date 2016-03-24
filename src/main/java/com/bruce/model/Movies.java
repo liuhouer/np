@@ -21,10 +21,10 @@ public class Movies implements Serializable{
 	private static final long serialVersionUID = -5716389884123787304L;
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@Column(length = 32)	
-	private String id;
+	@GeneratedValue(generator = "paymentableGenerator") 
+	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
+	@Column(length = 6)	
+	private Integer id;
 
 	@Column(length = 2000)
 	private String moviename;
@@ -42,13 +42,6 @@ public class Movies implements Serializable{
 	private String addtime;
 
 
-	public String getId() {
-		return id;	
-	}
-	
-	public void setId(String id) {
-		this.id = id;
-	}
 	public Integer getPrice() {
 		return price;	
 	}
@@ -92,52 +85,13 @@ public class Movies implements Serializable{
 	public void setAddtime(String addtime) {
 		this.addtime = addtime;
 	}
-	
-	/*这里是mybatis部分代码
-	
-	id,name,desc,price,path,time,	
 
-		#{id},	#{name},	#{desc},	#{price},	#{path},	#{time},	
-	<update id="updateModel" parameterType="com.mai.app.entity.Movies">
-        update Movies
-        <set>
-                
-	   	 id = #{id},
-	   	 
-	            
-	   	 name = #{name},
-	   	 
-	            
-	   	 desc = #{desc},
-	   	 
-	            
-	   	 price = #{price},
-	   	 
-	            
-	   	 path = #{path},
-	   	 
-	            
-	   	 time = #{time},
-	   	 
-	            </set>
-        <where>
-         id = #{id}
-        </where>
-    </update>
-    
-    
-    
-    <select id="findAllByPage"  
-            resultType="com.mai.X.entity.Movies">
-        select * from modelName
-    </select>
-    
-    <select id="findByID"  parameterType="string"
-            resultType="com.mai.X.entity.Movies">
-        select * from Movies where MoviesID = #{id}
-    </select>
-	
-	
-	
-	*/
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 }

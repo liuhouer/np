@@ -21,11 +21,14 @@ public class UserFollow implements Serializable{
 	private static final long serialVersionUID = 7855026603924363478L;
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@Column(length = 32)	
-	private String id;
+	@GeneratedValue(generator = "paymentableGenerator") 
+	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
+	@Column(length = 6)	
+	private Integer id;
 
+	
+
+	
 	@Column(length = 32)
 	private Integer author_id;
 
@@ -39,13 +42,6 @@ public class UserFollow implements Serializable{
 	private Integer status;
 
 
-	public String getId() {
-		return id;	
-	}
-	
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getCreate_time() {
 		return create_time;	
 	}
@@ -81,4 +77,13 @@ public class UserFollow implements Serializable{
 	public void setFollow_id(Integer follow_id) {
 		this.follow_id = follow_id;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 }

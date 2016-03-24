@@ -113,7 +113,7 @@ public class OrdersAction {
 	    order.setStatus(WAIT_BUYER_PAY);
 	    ordersManager.addOrders(order);
 	    
-	    String orderid = order.getId();
+	    String orderid = String.valueOf(order.getId());
 			////////////////////////////////////请求参数//////////////////////////////////////
 					
 			//支付类型

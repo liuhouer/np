@@ -26,6 +26,10 @@ public class LyricsZan implements Serializable{
 	@Column(length = 32)	
 	private String id;
 
+
+	@Column(length = 11)
+	private Integer id_;
+	
 	@Column(length = 32)
 	private Integer lyricsid;
 
@@ -60,5 +64,13 @@ public class LyricsZan implements Serializable{
 
 	public void setUserid(Integer userid) {
 		this.userid = userid;
+	}
+
+	public Integer getId_() {
+		return id_;
+	}
+
+	public void setId_(Integer id_) {
+		this.id_ = id_;
 	}
 }

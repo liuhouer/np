@@ -1,21 +1,15 @@
 
 package com.bruce.manager.impl;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import com.bruce.model.LyricsComment;
-import com.bruce.manager.LyricsCommentManager;
-import com.bruce.dao.LyricsCommentDao;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bruce.dao.LyricsCommentDao;
+import com.bruce.manager.LyricsCommentManager;
+import com.bruce.model.LyricsComment;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;

@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -137,6 +139,23 @@ public class Base64Util{
 	            |(src[offset+3] & 0xFF));  
 	    return value;  
 	}  
+	
+	
+	
+	public static Set<Integer> m = new HashSet<Integer>();
+	/**
+	 * 生成6位int  ID
+	 * @return
+	 */
+	public static int getInt6(Integer min) {
+		int a = 0;
+			do {
+				a = (int) (Math.random() * 10000+min);
+			} while (m.contains(a));
+			m.add(a);
+			System.out.println(a);
+		return a;
+	}
 	  
 	 //加密机制  密码+000000 base64加密
 	 //解密机制  base64解密 除去000000

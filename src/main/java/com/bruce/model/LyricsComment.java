@@ -25,6 +25,9 @@ public class LyricsComment implements Serializable{
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	@Column(length = 32)	
 	private String id;
+	
+	@Column(length = 11)
+	private Integer id_;
 
 	@Column(length = 11)
 	private Integer lyricsid;
@@ -80,5 +83,13 @@ public class LyricsComment implements Serializable{
 
 	public void setUserid(Integer userid) {
 		this.userid = userid;
+	}
+
+	public Integer getId_() {
+		return id_;
+	}
+
+	public void setId_(Integer id_) {
+		this.id_ = id_;
 	}
 }

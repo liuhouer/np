@@ -21,11 +21,12 @@ public class Reset implements Serializable{
 	private static final long serialVersionUID = 2550628003086306974L;
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@Column(length = 32)	
-	private String id;
+	@GeneratedValue(generator = "paymentableGenerator") 
+	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
+	@Column(length = 6)	
+	private Integer id;
 
+	
 	@Column(length = 32)
 	private Integer user_id;
 
@@ -41,14 +42,6 @@ public class Reset implements Serializable{
 	@Column(length = 50)
 	private String created_time;
 
-
-	public String getId() {
-		return id;	
-	}
-	
-	public void setId(String id) {
-		this.id = id;
-	}
 
 
 	public String getAuth_code() {
@@ -92,40 +85,12 @@ public class Reset implements Serializable{
 	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
-	
-	/*这里是mybatis部分代码
-	
-	id,user_id,auth_code,invalid_time,is_email_authed,created_time,	
 
-		#{id},	#{user_id},	#{auth_code},	#{invalid_time},	#{is_email_authed},	#{created_time},	
-	<update id="updateModel" parameterType="com.mai.app.entity.Reset">
-        update Reset
-        <set>
-                
-	   	 id = #{id},
-	   	 
-	            
-	   	 user_id = #{user_id},
-	   	 
-	            
-	   	 auth_code = #{auth_code},
-	   	 
-	            
-	   	 invalid_time = #{invalid_time},
-	   	 
-	            
-	   	 is_email_authed = #{is_email_authed},
-	   	 
-	            
-	   	 created_time = #{created_time},
-	   	 
-	            </set>
-        <where>
-         id = #{id}
-        </where>
-    </update>
-	
-	
-	
-	*/
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }
