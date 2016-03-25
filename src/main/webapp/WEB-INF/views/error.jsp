@@ -30,8 +30,11 @@
 			<div class="row margin-b20 margin-t20">
 				<div class="col-sm-6 col-sm-offset-3 margin-b20 margin-t20">
 					<div class="row margin-b20 margin-t20">
-						<p>
+						<!-- <p>
 							您访问的页面穿越到了火星需要救援。。<span id="mes"><font color="blue">5</font></span> 秒钟后返回首页！
+						</p> -->	
+						<p>
+							您访问的页面穿越到了火星需要救援。。<span id="mes">返回首页</span> 
 						</p>		
 					</div>
 				</div>
@@ -54,7 +57,7 @@
     <script src="/js/main2.js"></script>
 
      <script language="javascript" type="text/javascript">
-		var i = 5;
+		/* var i = 5;
 		var intervalid;
 		intervalid = setInterval("fun()", 1000);
 		function fun() {
@@ -64,7 +67,13 @@
 			}
 			$("#mes").html("<font color=\"blue\">"+i+"</font>");
 			i--;
-		}
+		} */
+		
+		$(function(){
+			$("#mes").click(function(){
+				window.location.href="/";
+			})
+		})
 		
 		console.log('代码异常，请联系654814226@qq.com');
 	</script>

@@ -9,13 +9,13 @@ import com.bruce.utils.QueryResult;
 
 public interface UserprofileManager {
 	
-	public Userprofile findUserprofile(String id);
+	public Userprofile findUserprofile(Integer id);
 
 	public List<Userprofile> findAll();
 
 	public void addUserprofile(Userprofile userprofile);
 
-	public boolean delUserprofile(String id);
+	public boolean delUserprofile(Integer id);
 
 	public boolean updateUserprofile(Userprofile userprofile);
 	

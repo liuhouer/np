@@ -21,7 +21,7 @@ public class ResetManagerImpl implements ResetManager {
 	private ResetDao resetDao;
 
 	@Override
-	public Reset findReset(String id) {
+	public Reset findReset(Integer id) {
 		return resetDao.find(id);
 	}
 
@@ -36,7 +36,7 @@ public class ResetManagerImpl implements ResetManager {
 	}
 
 	@Override
-	public boolean delReset(String id) {
+	public boolean delReset(Integer id) {
 		Reset reset = resetDao.find(id);
 		resetDao.delete(reset);
 		return true;

@@ -21,7 +21,7 @@ public class UserprofileManagerImpl implements UserprofileManager {
 	private UserprofileDao userprofileDao;
 
 	@Override
-	public Userprofile findUserprofile(String id) {
+	public Userprofile findUserprofile(Integer id) {
 		return userprofileDao.find(id);
 	}
 
@@ -36,7 +36,7 @@ public class UserprofileManagerImpl implements UserprofileManager {
 	}
 
 	@Override
-	public boolean delUserprofile(String id) {
+	public boolean delUserprofile(Integer id) {
 		Userprofile userprofile = userprofileDao.find(id);
 		userprofileDao.delete(userprofile);
 		return true;

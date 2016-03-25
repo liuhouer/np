@@ -10,13 +10,13 @@ import com.bruce.utils.QueryResult;
 
 public interface LyricsZanManager {
 	
-	public LyricsZan findLyricsZan(String id);
+	public LyricsZan findLyricsZan(Integer id);
 
 	public List<LyricsZan> findAll();
 
 	public void addLyricsZan(LyricsZan lyricszan);
 
-	public boolean delLyricsZan(String id);
+	public boolean delLyricsZan(Integer id);
 
 	public boolean updateLyricsZan(LyricsZan lyricszan);
 	

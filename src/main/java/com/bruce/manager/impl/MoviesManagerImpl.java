@@ -21,7 +21,7 @@ public class MoviesManagerImpl implements MoviesManager {
 	private MoviesDao moviesDao;
 
 	@Override
-	public Movies findMovies(String id) {
+	public Movies findMovies(Integer id) {
 		return moviesDao.find(id);
 	}
 
@@ -36,7 +36,7 @@ public class MoviesManagerImpl implements MoviesManager {
 	}
 
 	@Override
-	public boolean delMovies(String id) {
+	public boolean delMovies(Integer id) {
 		Movies movies = moviesDao.find(id);
 		moviesDao.delete(movies);
 		return true;

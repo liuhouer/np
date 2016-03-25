@@ -79,7 +79,7 @@ public class LyricsAction {
 	}
 	
 	@RequestMapping("/toEdit")
-	public String toEdit(HttpServletRequest request, @RequestParam("id") String id,ModelMap map,String userid) {
+	public String toEdit(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map,String userid) {
 		String result ="/page/user/lyricEdit";
 		
 		if(StringUtils.isEmpty(userid)){
@@ -90,7 +90,7 @@ public class LyricsAction {
 			result ="redirect:/lyrics/toView?id="+id;
 		}
 		map.put("userid", userid);
-		if(!StringUtils.isEmpty(id)){
+		if(null!=id && 0!=id){
 			Lyrics model = lyricsManager.findLyrics(id);
 			map.put("model", model);
 			String imgpath = model.getAlbumImg(); //e:/yunlu/upload/1399976848969.jpg
@@ -106,13 +106,13 @@ public class LyricsAction {
 	}
 	
 	@RequestMapping("/toView")
-	public String toView(HttpServletRequest request, @RequestParam("id") String id,ModelMap map) {
-		if(!StringUtils.isEmpty(id)){
+	public String toView(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map) {
+		if(null!=id && 0!=id){
 			Lyrics model = lyricsManager.findLyrics(id);
 			List<UserLyrics> rs =userlyricsManager.findByCondition(" where lyricsid='"+id+"' ").getResultlist();
 			if(rs.size()>0){
-				String autherid = String.valueOf(rs.get(0).getUserid());
-				if(!StringUtils.isEmpty(autherid)){
+				Integer autherid = rs.get(0).getUserid();
+				if(null!=autherid && autherid>0){
 				String auther = userManager.findUser(autherid).getEmail();
 				map.put("auther", auther);
 				}
@@ -131,7 +131,7 @@ public class LyricsAction {
 	}
 	
 	@RequestMapping("/remove")
-	public String remove(@RequestParam("lyricsid") String lyricsid,String userid,String userlyricsid) {
+	public String remove(@RequestParam("lyricsid") Integer lyricsid,String userid,Integer userlyricsid) {
 		String result =LIST_ACTION2;
 		if(StringUtils.isNotEmpty(userid)){
 		this.lyricsManager.delLyrics(lyricsid);
@@ -147,14 +147,14 @@ public class LyricsAction {
 		if(StringUtils.isNotEmpty(userid)){
 		String[] glbstr = ids.split(",");
 		for(String s :glbstr){
-			UserLyrics userlyrics = this.userlyricsManager.findUserLyrics(s);
+			UserLyrics userlyrics = this.userlyricsManager.findUserLyrics(Integer.parseInt(s));
 			if(userlyrics!=null){//批量删除删除歌词表
-				String lyid = String.valueOf(userlyrics.getLyricsid());
-				if(StringUtils.isNotEmpty(lyid)){
+				Integer lyid = userlyrics.getLyricsid();
+				if(null!=lyid && lyid >0){
 					this.lyricsManager.delLyrics(lyid);
 				}
 			}
-			this.userlyricsManager.delUserLyrics(s);//批量删除关联表
+			this.userlyricsManager.delUserLyrics(Integer.parseInt(s));//批量删除关联表
 		}
 		result=LIST_ACTION2+"?userid="+userid;
 		}
@@ -345,7 +345,7 @@ public class LyricsAction {
 	}
 	
 	@RequestMapping("/comment/{lyricsid}")
-	public String comment(HttpServletRequest request, @PathVariable String lyricsid,ModelMap map,String userid) {
+	public String comment(HttpServletRequest request, @PathVariable Integer lyricsid,ModelMap map,String userid) {
 		 String result ="/zancmmet";
 		 String by_id = "";
 		 List<UserLyrics> list = userlyricsManager.findByCondition(" where lyricsid = '"+lyricsid+"'").getResultlist();
@@ -370,7 +370,7 @@ public class LyricsAction {
 		 
 		 //取得上传者的信息
          if(StringUtils.isNotEmpty(by_id)){
-        	 User  by =  userManager.findUser(by_id);
+        	 User  by =  userManager.findUser(Integer.parseInt(by_id));
         	 map.put("by", by);
          }
          
@@ -401,11 +401,11 @@ public class LyricsAction {
          map.put("plList", plList);
          
          //取得zan的人数
-         int zanNum = lyricszanManager.getZanNumByLRC(lyricsid);
+         int zanNum = lyricszanManager.getZanNumByLRC(String.valueOf(lyricsid));
          map.put("zanNum", zanNum);
          
          //取得评论的条数
-         int plNum = lyricszanManager.getCommentNumByLRC(lyricsid);
+         int plNum = lyricszanManager.getCommentNumByLRC(String.valueOf(lyricsid));
          map.put("plNum", plNum);
          
          //取得谁爱上谁的一个列表
@@ -445,14 +445,14 @@ public class LyricsAction {
 	
 
 	@RequestMapping("/findLyrics")
-	private String findLyrics(@RequestParam("id") String id, ModelMap map) {
+	private String findLyrics(@RequestParam("id") Integer id, ModelMap map) {
 		Lyrics lyrics = this.lyricsManager.findLyrics(id);
 		map.addAttribute("lyrics", lyrics);
 		return "findresult";
 	}
 
 	@RequestMapping("/delLyrics")
-	public String delLyrics(@RequestParam("id") String id) {
+	public String delLyrics(@RequestParam("id") Integer id) {
 		this.lyricsManager.delLyrics(id);
 		return LIST_ACTION;
 	}
@@ -465,7 +465,7 @@ public class LyricsAction {
 		String lrcpath ="";
 		String rs ="";
 		if (StringUtils.isNotEmpty(id)) {
-			Lyrics  lyrics =lyricsManager.findLyrics(id);
+			Lyrics  lyrics =lyricsManager.findLyrics(Integer.parseInt(id));
 			if(lyrics!=null){
 				lrcpath = lyrics.getPath();
 				String[] str = lrcpath.split("/album/");

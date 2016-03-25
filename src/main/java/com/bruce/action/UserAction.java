@@ -204,7 +204,7 @@ public class UserAction {
 						if (StringUtils.isNotEmpty(gtmodel.getInvalid_time())) {// 设置了失效时间
 							if (TimeUtils.isInvalid(TimeUtils.nowTime(),
 									gtmodel.getInvalid_time())&& (0==gtmodel.getIs_email_authed() )) {// 时间未过期
-								User user = userManager.findUser(userid);
+								User user = userManager.findUser(Integer.parseInt(userid));
 								if (user != null) {
 									user.setPassword(Base64Util.JIAMI(auth_code));
 									userManager.updateUser(user);
@@ -220,7 +220,7 @@ public class UserAction {
 							}
 						} else {// 没有设置失效时间
 							if(0==gtmodel.getIs_email_authed()){
-								User user = userManager.findUser(userid);
+								User user = userManager.findUser(Integer.parseInt(userid));
 								if (user != null) {
 									user.setPassword(Base64Util.JIAMI(auth_code));
 									userManager.updateUser(user);
@@ -304,7 +304,7 @@ public class UserAction {
 	 		
 	 		try {
 	 			if(StringUtils.isNotEmpty(id)){
-	 				userfollowManager.delUserFollow(id);
+	 				userfollowManager.delUserFollow(Integer.parseInt(id));
 	 			}else{
 	 				msg= "nullid";
 	 			}
@@ -439,7 +439,7 @@ public class UserAction {
 	 					for (int i = 0; i < fan_list.size(); i++) {
 	 						Map<String,Object> map_ = new HashMap<String,Object>();
 	 						String u_id = String.valueOf(fan_list.get(i).getFollow_id());
-	 						User uu = userManager.findUser(u_id);
+	 						User uu = userManager.findUser(Integer.parseInt(u_id));
 	 						
 	 						//处理图片路径
 	 						String imgpath1 = uu.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
@@ -471,7 +471,7 @@ public class UserAction {
 		
 		@RequestMapping("/cm/fans/{userid}")
 		public String fans(ModelMap map, @PathVariable String userid ,HttpServletRequest request) {
-			User user = userManager.findUser(userid);
+			User user = userManager.findUser(Integer.parseInt(userid));
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
@@ -492,7 +492,7 @@ public class UserAction {
 					for (int i = 0; i < fan_list.size(); i++) {
 						Map<String,Object> map_ = new HashMap<String,Object>();
 						String u_id = String.valueOf(fan_list.get(i).getFollow_id());
-						User uu = userManager.findUser(u_id);
+						User uu = userManager.findUser(Integer.parseInt(u_id));
 						
 						//处理图片路径
 						String imgpath1 = uu.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
@@ -537,7 +537,7 @@ public class UserAction {
 		public String detail(ModelMap map, @PathVariable String userid ,HttpServletRequest request) {
 			//获取域名
 			 URLUtil.getDomain(request);
-			User user = userManager.findUser(userid);
+			User user = userManager.findUser(Integer.parseInt(userid));
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
@@ -653,7 +653,7 @@ public class UserAction {
 	              userid = String.valueOf(u.getId());
 	        }  
 			
-			User user = userManager.findUser(userid);
+			User user = userManager.findUser(Integer.parseInt(userid));
 			//处理图片路径
 				String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 				if(!StringUtils.isEmpty(imgpath)){
@@ -803,12 +803,12 @@ public class UserAction {
 		}
 		
 		@RequestMapping("/cm/toEdit")
-		public String toEdit(HttpServletRequest request, String id,ModelMap map) {
-			if(StringUtils.isEmpty(id)){
+		public String toEdit(HttpServletRequest request, Integer id,ModelMap map) {
+			if(null!=id && 0!=id){
                 User u = (User) request.getSession().getAttribute("user");
-                id = String.valueOf(u.getId());
+                id =  u.getId();
             }  
-			if(!StringUtils.isEmpty(id)){
+			if(null!=id && 0!=id){
 				User model = userManager.findUser(id);
 				map.put("model", model);
 			}
@@ -816,7 +816,7 @@ public class UserAction {
 		}
 		
 		@RequestMapping("/cm/remove")
-		public String remove(@RequestParam("id") String id) {
+		public String remove(@RequestParam("id") Integer id) {
 			this.userManager.delUser(id);
 			return LIST_ACTION;
 		}
@@ -825,7 +825,7 @@ public class UserAction {
 		public String removes(@RequestParam("ids") String ids) {
 			String[] str = ids.split(",");
 			for(String s :str){
-				this.userManager.delUser(s);
+				this.userManager.delUser(Integer.parseInt(s));
 			}
 			return LIST_ACTION;
 		}
@@ -905,20 +905,20 @@ public class UserAction {
 		}
 
 		@RequestMapping("/cm/findUser")
-		private String findUser(@RequestParam("id") String id, ModelMap map) {
+		private String findUser(@RequestParam("id") Integer id, ModelMap map) {
 			User user = this.userManager.findUser(id);
 			map.addAttribute("user", user);
 			return "/findresult";
 		}
 
 		@RequestMapping("/cm/delUser")
-		public String delUser(@RequestParam("id") String id) {
+		public String delUser(@RequestParam("id") Integer id) {
 			this.userManager.delUser(id);
 			return LIST_ACTION;
 		}
 
 		@RequestMapping("/cm/updateUser")
-		public String updateUser(@RequestParam("id") String id) {
+		public String updateUser(@RequestParam("id") Integer id) {
 			User user = this.userManager.findUser(id);
 			this.userManager.updateUser(user);
 			return LIST_ACTION;
@@ -951,7 +951,7 @@ public class UserAction {
 						}
 						
 						//批量处理赞和评论的个数
-						String lyricsid = (String) list.get(i).get("id");
+						String lyricsid = String.valueOf(list.get(i).get("id"));
 						int zan =  lyricsZanManager.getZanNumByLRC(lyricsid);
 						int pl  =  lyricsZanManager.getCommentNumByLRC(lyricsid);
 						list.get(i).put("zan",zan);
@@ -1064,6 +1064,9 @@ public class UserAction {
 		public String commonPic(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session) {
 			
+			
+			//获取域名
+			 URLUtil.getDomain(request);
 			session.removeAttribute("tabs");
 			session.setAttribute("tabs","pic");
 			String currentpage = request.getParameter("currentpage");

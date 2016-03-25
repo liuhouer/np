@@ -9,16 +9,16 @@
 <base href="http://northpark.cn">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/js/jquery-1.7.2.js"></script>  
-<script src="js/artDialog/artDialog.js?skin=blue"></script> 
-<script src="js/artDialog/jquery.artDialog.js?skin=blue"></script>
-<script src="js/artDialog/plugins/iframeTools.js"></script>
-<script src="js/jquery.hotkeys.js"></script>
-<script src="js/jquery.validationEngine.js"></script>
-<script src="js/My97DatePicker/WdatePicker.js"></script>
+<script src="/js/artDialog/artDialog.js?skin=blue"></script> 
+<script src="/js/artDialog/jquery.artDialog.js?skin=blue"></script>
+<script src="/js/artDialog/plugins/iframeTools.js"></script>
+<script src="/js/jquery.hotkeys.js"></script>
+<script src="/js/jquery.validationEngine.js"></script>
+<script src="/js/My97DatePicker/WdatePicker.js"></script>
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrapValidator.min.css">
-	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
-	<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
     <style type="text/css">
     	body {background:#f4f3f1;}
 	</style>

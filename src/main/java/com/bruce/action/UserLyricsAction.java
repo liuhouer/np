@@ -47,11 +47,11 @@ public class UserLyricsAction {
 	}
 	
 	@RequestMapping("/toEdit")
-	public String toEdit(HttpServletRequest request, @RequestParam("id") String id,ModelMap map) {
+	public String toEdit(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map) {
 		//String id = request.getParameter("id");
 		//List<UserLyrics> Pidlist = userlyricsManager.findAll();
 		//map.addAttribute("Pidlist",Pidlist);
-		if(!StringUtils.isEmpty(id)){
+		if(null!=id && 0!=id){
 			UserLyrics model = userlyricsManager.findUserLyrics(id);
 			map.put("model", model);
 		}
@@ -59,7 +59,7 @@ public class UserLyricsAction {
 	}
 	
 	@RequestMapping("/remove")
-	public String remove(@RequestParam("id") String id) {
+	public String remove(@RequestParam("id") Integer id) {
 		this.userlyricsManager.delUserLyrics(id);
 		return LIST_ACTION;
 	}
@@ -68,7 +68,7 @@ public class UserLyricsAction {
 	public String removes(@RequestParam("ids") String ids) {
 		String[] str = ids.split(",");
 		for(String s :str){
-			this.userlyricsManager.delUserLyrics(s);
+			this.userlyricsManager.delUserLyrics(Integer.parseInt(s));
 		}
 		return LIST_ACTION;
 	}
@@ -87,20 +87,20 @@ public class UserLyricsAction {
 	}
 
 	@RequestMapping("/findUserLyrics")
-	private String findUserLyrics(@RequestParam("id") String id, ModelMap map) {
+	private String findUserLyrics(@RequestParam("id") Integer id, ModelMap map) {
 		UserLyrics userlyrics = this.userlyricsManager.findUserLyrics(id);
 		map.addAttribute("userlyrics", userlyrics);
 		return "findresult";
 	}
 
 	@RequestMapping("/delUserLyrics")
-	public String delUserLyrics(@RequestParam("id") String id) {
+	public String delUserLyrics(@RequestParam("id") Integer id) {
 		this.userlyricsManager.delUserLyrics(id);
 		return LIST_ACTION;
 	}
 
 	@RequestMapping("/updateUserLyrics")
-	public String updateUserLyrics(@RequestParam("id") String id) {
+	public String updateUserLyrics(@RequestParam("id") Integer id) {
 		UserLyrics userlyrics = this.userlyricsManager.findUserLyrics(id);
 		this.userlyricsManager.updateUserLyrics(userlyrics);
 		return LIST_ACTION;

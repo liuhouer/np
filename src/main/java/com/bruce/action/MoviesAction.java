@@ -137,11 +137,11 @@ public class MoviesAction {
 	//、、、、、、、、、、、、、、、、、、、、、、以上为用到的方法、、、、、、、、、、、、、、、、、、、、、、、、、、、
 	
 	@RequestMapping("/toEdit")
-	public String toEdit(HttpServletRequest request, @RequestParam("id") String id,ModelMap map) {
+	public String toEdit(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map) {
 		//String id = request.getParameter("id");
 		//List<Movies> Pidlist = moviesManager.findAll();
 		//map.addAttribute("Pidlist",Pidlist);
-		if(!StringUtils.isEmpty(id)){
+		if(null!=id && 0!=id){
 			Movies model = moviesManager.findMovies(id);
 			map.put("model", model);
 		}
@@ -149,7 +149,7 @@ public class MoviesAction {
 	}
 	
 	@RequestMapping("/remove")
-	public String remove(@RequestParam("id") String id) {
+	public String remove(@RequestParam("id") Integer id) {
 		this.moviesManager.delMovies(id);
 		return LIST_ACTION;
 	}
@@ -158,7 +158,7 @@ public class MoviesAction {
 	public String removes(@RequestParam("ids") String ids) {
 		String[] str = ids.split(",");
 		for(String s :str){
-			this.moviesManager.delMovies(s);
+			this.moviesManager.delMovies(Integer.parseInt(s));
 		}
 		return LIST_ACTION;
 	}
@@ -177,20 +177,20 @@ public class MoviesAction {
 	}
 
 	@RequestMapping("/findMovies")
-	private String findMovies(@RequestParam("id") String id, ModelMap map) {
+	private String findMovies(@RequestParam("id") Integer id, ModelMap map) {
 		Movies movies = this.moviesManager.findMovies(id);
 		map.addAttribute("movies", movies);
 		return "findresult";
 	}
 
 	@RequestMapping("/delMovies")
-	public String delMovies(@RequestParam("id") String id) {
+	public String delMovies(@RequestParam("id") Integer id) {
 		this.moviesManager.delMovies(id);
 		return LIST_ACTION;
 	}
 
 	@RequestMapping("/updateMovies")
-	public String updateMovies(@RequestParam("id") String id) {
+	public String updateMovies(@RequestParam("id") Integer id) {
 		Movies movies = this.moviesManager.findMovies(id);
 		this.moviesManager.updateMovies(movies);
 		return LIST_ACTION;

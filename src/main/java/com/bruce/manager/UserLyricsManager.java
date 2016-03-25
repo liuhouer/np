@@ -10,13 +10,13 @@ import com.bruce.utils.QueryResult;
 
 public interface UserLyricsManager {
 	
-	public UserLyrics findUserLyrics(String id);
+	public UserLyrics findUserLyrics(Integer id);
 
 	public List<UserLyrics> findAll();
 
 	public void addUserLyrics(UserLyrics userlyrics);
 
-	public boolean delUserLyrics(String id);
+	public boolean delUserLyrics(Integer id);
 
 	public boolean updateUserLyrics(UserLyrics userlyrics);
 	

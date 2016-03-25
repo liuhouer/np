@@ -31,7 +31,7 @@
 				<div class="col-sm-6 col-sm-offset-3 margin-b20 margin-t20">
 					<div class="row margin-b20 margin-t20">
 						<p>
-							您访问的页面穿越到了星际。。<span id="mes"><font color="blue">5</font></span> 秒钟后返回首页！
+							您访问的页面穿越到了星际。。<span id="mes">返回首页</span> <!-- <span id="mes"><font color="blue">5</font></span> 秒钟后返回首页！ -->
 						</p>		
 					</div>
 				</div>
@@ -55,7 +55,7 @@
 
 
 	  <script language="javascript" type="text/javascript">
-		var i = 5;
+		/* var i = 5;
 		var intervalid;
 		intervalid = setInterval("fun()", 1000);
 		function fun() {
@@ -66,7 +66,14 @@
 			$("#mes").html("<font color=\"blue\">"+i+"</font>");
 			i--;
 		}
-		
+		 */
+		 
+
+			$(function(){
+				$("#mes").click(function(){
+					window.location.href="/";
+				})
+			})
 		console.log('非法请求资源页，IP已记录');
 	</script>  
 

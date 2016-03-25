@@ -64,11 +64,11 @@ public class NoteAction {
 	}
 	
 	@RequestMapping("/toEdit")
-	public String toEdit(HttpServletRequest request, @RequestParam("id") String id,ModelMap map) {
+	public String toEdit(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map) {
 		//String id = request.getParameter("id");
 		//List<Note> Pidlist = noteManager.findAll();
 		//map.addAttribute("Pidlist",Pidlist);
-		if(!StringUtils.isEmpty(id)){
+		if(null!=id && 0!=id){
 			Note model = noteManager.findNote(id);
 			map.put("model", model);
 		}
@@ -76,7 +76,7 @@ public class NoteAction {
 	}
 	
 	@RequestMapping("/remove")
-	public String remove(@RequestParam("id") String id,String userid) {
+	public String remove(@RequestParam("id") Integer id,String userid) {
 		this.noteManager.delNote(id);
 		return LIST_ACTION+"?userid="+userid;
 	}
@@ -85,7 +85,7 @@ public class NoteAction {
 	public String removes(@RequestParam("ids") String ids) {
 		String[] str = ids.split(",");
 		for(String s :str){
-			this.noteManager.delNote(s);
+			this.noteManager.delNote(Integer.parseInt(s));
 		}
 		return LIST_ACTION;
 	}
@@ -152,20 +152,20 @@ public class NoteAction {
 	
 
 	@RequestMapping("/findNote")
-	private String findNote(@RequestParam("id") String id, ModelMap map) {
+	private String findNote(@RequestParam("id") Integer id, ModelMap map) {
 		Note note = this.noteManager.findNote(id);
 		map.addAttribute("note", note);
 		return "/note";
 	}
 
 	@RequestMapping("/delNote")
-	public String delNote(@RequestParam("id") String id) {
+	public String delNote(@RequestParam("id") Integer id) {
 		this.noteManager.delNote(id);
 		return LIST_ACTION;
 	}
 
 	@RequestMapping("/updateNote")
-	public String updateNote(@RequestParam("id") String id) {
+	public String updateNote(@RequestParam("id") Integer id) {
 		Note note = this.noteManager.findNote(id);
 		this.noteManager.updateNote(note);
 		return LIST_ACTION;
@@ -180,7 +180,7 @@ public class NoteAction {
 		if(StringUtils.isNotEmpty(userid)){
 			condition.setUserid(userid);
 			map.addAttribute("userid",userid);
-			User user = userManager.findUser(userid);
+			User user = userManager.findUser(Integer.parseInt(userid));
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
@@ -243,7 +243,7 @@ public class NoteAction {
 		if(StringUtils.isNotEmpty(userid)){
 			condition.setUserid(userid);
 			map.addAttribute("userid",userid);
-			User user = userManager.findUser(userid);
+			User user = userManager.findUser(Integer.parseInt(userid));
 			//处理图片路径
 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){

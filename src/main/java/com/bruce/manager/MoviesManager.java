@@ -9,13 +9,13 @@ import com.bruce.utils.QueryResult;
 
 public interface MoviesManager {
 	
-	public Movies findMovies(String id);
+	public Movies findMovies(Integer id);
 
 	public List<Movies> findAll();
 
 	public void addMovies(Movies movies);
 
-	public boolean delMovies(String id);
+	public boolean delMovies(Integer id);
 
 	public boolean updateMovies(Movies movies);
 	

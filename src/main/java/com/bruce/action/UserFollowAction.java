@@ -47,11 +47,11 @@ public class UserFollowAction {
 	}
 	
 	@RequestMapping("/toEdit")
-	public String toEdit(HttpServletRequest request, @RequestParam("id") String id,ModelMap map) {
+	public String toEdit(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map) {
 		//String id = request.getParameter("id");
 		//List<UserFollow> Pidlist = userfollowManager.findAll();
 		//map.addAttribute("Pidlist",Pidlist);
-		if(!StringUtils.isEmpty(id)){
+		if(null!=id && 0!=id){
 			UserFollow model = userfollowManager.findUserFollow(id);
 			map.put("model", model);
 		}
@@ -59,7 +59,7 @@ public class UserFollowAction {
 	}
 	
 	@RequestMapping("/remove")
-	public String remove(@RequestParam("id") String id) {
+	public String remove(@RequestParam("id") Integer id) {
 		this.userfollowManager.delUserFollow(id);
 		return LIST_ACTION;
 	}
@@ -68,7 +68,7 @@ public class UserFollowAction {
 	public String removes(@RequestParam("ids") String ids) {
 		String[] str = ids.split(",");
 		for(String s :str){
-			this.userfollowManager.delUserFollow(s);
+			this.userfollowManager.delUserFollow(Integer.parseInt(s));
 		}
 		return LIST_ACTION;
 	}
@@ -87,20 +87,20 @@ public class UserFollowAction {
 	}
 
 	@RequestMapping("/findUserFollow")
-	private String findUserFollow(@RequestParam("id") String id, ModelMap map) {
+	private String findUserFollow(@RequestParam("id") Integer id, ModelMap map) {
 		UserFollow userfollow = this.userfollowManager.findUserFollow(id);
 		map.addAttribute("userfollow", userfollow);
 		return "/findresult";
 	}
 
 	@RequestMapping("/delUserFollow")
-	public String delUserFollow(@RequestParam("id") String id) {
+	public String delUserFollow(@RequestParam("id") Integer id) {
 		this.userfollowManager.delUserFollow(id);
 		return LIST_ACTION;
 	}
 
 	@RequestMapping("/updateUserFollow")
-	public String updateUserFollow(@RequestParam("id") String id) {
+	public String updateUserFollow(@RequestParam("id") Integer id) {
 		UserFollow userfollow = this.userfollowManager.findUserFollow(id);
 		this.userfollowManager.updateUserFollow(userfollow);
 		return LIST_ACTION;

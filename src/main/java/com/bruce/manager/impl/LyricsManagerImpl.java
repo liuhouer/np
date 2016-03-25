@@ -21,7 +21,7 @@ public class LyricsManagerImpl implements LyricsManager {
 	private LyricsDao lyricsDao;
 
 	@Override
-	public Lyrics findLyrics(String id) {
+	public Lyrics findLyrics(Integer id) {
 		return lyricsDao.find(id);
 	}
 
@@ -36,7 +36,7 @@ public class LyricsManagerImpl implements LyricsManager {
 	}
 
 	@Override
-	public boolean delLyrics(String id) {
+	public boolean delLyrics(Integer id) {
 		Lyrics lyrics = lyricsDao.find(id);
 		lyricsDao.delete(lyrics);
 		return true;

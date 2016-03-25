@@ -11,13 +11,13 @@ import com.bruce.utils.QueryResult;
 public interface UserManager {
 	
 	
-	public User findUser(String id);
+	public User findUser(Integer id);
 
 	public List<User> findAll();
 
 	public void addUser(User user);
 
-	public boolean delUser(String id);
+	public boolean delUser(Integer id);
 
 	public boolean updateUser(User user);
 	

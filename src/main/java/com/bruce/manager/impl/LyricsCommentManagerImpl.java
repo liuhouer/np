@@ -3,6 +3,7 @@ package com.bruce.manager.impl;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class LyricsCommentManagerImpl implements LyricsCommentManager {
 	private LyricsCommentDao lyricscommentDao;
 
 	@Override
-	public LyricsComment findLyricsComment(String id) {
+	public LyricsComment findLyricsComment(Integer id) {
 		return lyricscommentDao.find(id);
 	}
 
@@ -36,7 +37,7 @@ public class LyricsCommentManagerImpl implements LyricsCommentManager {
 	}
 
 	@Override
-	public boolean delLyricsComment(String id) {
+	public boolean delLyricsComment(Integer id) {
 		LyricsComment lyricscomment = lyricscommentDao.find(id);
 		lyricscommentDao.delete(lyricscomment);
 		return true;
@@ -64,6 +65,24 @@ public class LyricsCommentManagerImpl implements LyricsCommentManager {
 		QueryResult qrs = lyricscommentDao.findByCondition(
 				 wheresql);
 		return qrs;
+	}
+
+	@Override
+	public List<LyricsComment> querySql(String sql, Object... obj) {
+		// TODO Auto-generated method stub
+		return lyricscommentDao.querySql(sql, LyricsComment.class, obj);
+	}
+
+	@Override
+	public List<LyricsComment> querySql(String sql) {
+		// TODO Auto-generated method stub
+		return lyricscommentDao.querySql(sql, LyricsComment.class);
+	}
+
+	@Override
+	public PageView<List<Map<String, Object>>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView) {
+		// TODO Auto-generated method stub
+		return lyricscommentDao.QuerySQLForMapList(sql, pageView);
 	}
 }
 

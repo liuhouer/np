@@ -47,11 +47,11 @@ public class UserprofileAction {
 	}
 	
 	@RequestMapping("/toEdit")
-	public String toEdit(HttpServletRequest request, @RequestParam("id") String id,ModelMap map) {
+	public String toEdit(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map) {
 		//String id = request.getParameter("id");
 		//List<Userprofile> Pidlist = userprofileManager.findAll();
 		//map.addAttribute("Pidlist",Pidlist);
-		if(!StringUtils.isEmpty(id)){
+		if(null!=id && 0!=id){
 			Userprofile model = userprofileManager.findUserprofile(id);
 			map.put("model", model);
 		}
@@ -59,7 +59,7 @@ public class UserprofileAction {
 	}
 	
 	@RequestMapping("/remove")
-	public String remove(@RequestParam("id") String id) {
+	public String remove(@RequestParam("id") Integer id) {
 		this.userprofileManager.delUserprofile(id);
 		return LIST_ACTION;
 	}
@@ -68,7 +68,7 @@ public class UserprofileAction {
 	public String removes(@RequestParam("ids") String ids) {
 		String[] str = ids.split(",");
 		for(String s :str){
-			this.userprofileManager.delUserprofile(s);
+			this.userprofileManager.delUserprofile(Integer.parseInt(s));
 		}
 		return LIST_ACTION;
 	}
@@ -87,20 +87,20 @@ public class UserprofileAction {
 	}
 
 	@RequestMapping("/findUserprofile")
-	private String findUserprofile(@RequestParam("id") String id, ModelMap map) {
+	private String findUserprofile(@RequestParam("id") Integer id, ModelMap map) {
 		Userprofile userprofile = this.userprofileManager.findUserprofile(id);
 		map.addAttribute("userprofile", userprofile);
 		return "findresult";
 	}
 
 	@RequestMapping("/delUserprofile")
-	public String delUserprofile(@RequestParam("id") String id) {
+	public String delUserprofile(@RequestParam("id") Integer id) {
 		this.userprofileManager.delUserprofile(id);
 		return LIST_ACTION;
 	}
 
 	@RequestMapping("/updateUserprofile")
-	public String updateUserprofile(@RequestParam("id") String id) {
+	public String updateUserprofile(@RequestParam("id") Integer id) {
 		Userprofile userprofile = this.userprofileManager.findUserprofile(id);
 		this.userprofileManager.updateUserprofile(userprofile);
 		return LIST_ACTION;

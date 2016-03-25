@@ -22,7 +22,7 @@ public class UserManagerImpl implements UserManager {
 	private UserDao userDao;
 
 	@Override
-	public User findUser(String id) {
+	public User findUser(Integer id) {
 		return userDao.find(id);
 	}
 
@@ -37,7 +37,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Override
-	public boolean delUser(String id) {
+	public boolean delUser(Integer id) {
 		User user = userDao.find(id);
 		userDao.delete(user);
 		return true;

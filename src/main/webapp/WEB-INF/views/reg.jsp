@@ -19,9 +19,9 @@
 <meta name="keywords" content="加入布.词,最爱,回忆,生活">
 
 
-	<link media="all" type="text/css" rel="stylesheet" href="./css/bootstrap.min.css">
-	<link media="all" type="text/css" rel="stylesheet" href="./css/qinco.css">
-	<link media="all" type="text/css" rel="stylesheet" href="./css/main2.css">
+<link media="all" type="text/css" rel="stylesheet" href="./css/bootstrap.min.css">
+<link media="all" type="text/css" rel="stylesheet" href="./css/qinco.css">
+<link media="all" type="text/css" rel="stylesheet" href="./css/main2.css">
     <style type="text/css">
     	body {background:#f4f3f1;}
 	</style>

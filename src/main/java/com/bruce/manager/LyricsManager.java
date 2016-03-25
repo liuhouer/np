@@ -9,13 +9,13 @@ import com.bruce.utils.QueryResult;
 
 public interface LyricsManager {
 	
-	public Lyrics findLyrics(String id);
+	public Lyrics findLyrics(Integer id);
 
 	public List<Lyrics> findAll();
 
 	public void addLyrics(Lyrics lyrics);
 
-	public boolean delLyrics(String id);
+	public boolean delLyrics(Integer id);
 
 	public boolean updateLyrics(Lyrics lyrics);
 	

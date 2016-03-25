@@ -297,9 +297,9 @@ public class OrdersAction {
 						
 						request.getSession().setAttribute("sendgood", sHtmlText);
 						
-						Orders order = ordersManager.findOrders(out_trade_no);
+						Orders order = ordersManager.findOrders(Integer.parseInt(out_trade_no));
 						if(order!=null){
-							Movies movies = moviesManager.findMovies(order.getMovie_id());
+							Movies movies = moviesManager.findMovies(Integer.parseInt(order.getMovie_id()));
 							if(movies!=null){
 								map.put("curl", movies.getPath());
 							}
@@ -433,7 +433,7 @@ public class OrdersAction {
 	
 	
 	@RequestMapping("/remove")
-	public String remove(@RequestParam("id") String id) {
+	public String remove(@RequestParam("id") Integer id) {
 		this.ordersManager.delOrders(id);
 		return LIST_ACTION;
 	}
@@ -442,7 +442,7 @@ public class OrdersAction {
 	public String removes(@RequestParam("ids") String ids) {
 		String[] str = ids.split(",");
 		for(String s :str){
-			this.ordersManager.delOrders(s);
+			this.ordersManager.delOrders(Integer.parseInt(s));
 		}
 		return LIST_ACTION;
 	}
@@ -461,20 +461,20 @@ public class OrdersAction {
 	}
 
 	@RequestMapping("/findOrders")
-	private String findOrders(@RequestParam("id") String id, ModelMap map) {
+	private String findOrders(@RequestParam("id") Integer id, ModelMap map) {
 		Orders orders = this.ordersManager.findOrders(id);
 		map.addAttribute("orders", orders);
 		return "findresult";
 	}
 
 	@RequestMapping("/delOrders")
-	public String delOrders(@RequestParam("id") String id) {
+	public String delOrders(@RequestParam("id") Integer id) {
 		this.ordersManager.delOrders(id);
 		return LIST_ACTION;
 	}
 
 	@RequestMapping("/updateOrders")
-	public String updateOrders(@RequestParam("id") String id) {
+	public String updateOrders(@RequestParam("id") Integer id) {
 		Orders orders = this.ordersManager.findOrders(id);
 		this.ordersManager.updateOrders(orders);
 		return LIST_ACTION;

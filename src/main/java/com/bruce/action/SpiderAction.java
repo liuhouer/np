@@ -1,114 +1,107 @@
-//
-//package com.bruce.action;
-///*
-//* @author bruce
-//* 本类用于网络爬虫获取各种网站资料【图片|笔记|文章|】
-//**/
-//import java.io.File;
-//import java.io.FileNotFoundException;
-//import java.io.FileOutputStream;
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.net.MalformedURLException;
-//import java.net.URL;
-//import java.net.URLConnection;
-//import java.util.ArrayList;
-//import java.util.Date;
-//import java.util.HashSet;
-//import java.util.Iterator;
-//import java.util.LinkedList;
-//import java.util.List;
-//import java.util.Properties;
-//import java.util.Random;
-//import java.util.Set;
-//
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import javax.servlet.http.HttpSession;
-//
-//import org.apache.commons.lang.StringUtils;
-//import org.jsoup.Jsoup;
-//import org.jsoup.nodes.Document;
-//import org.jsoup.nodes.Element;
-//import org.jsoup.select.Elements;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.ModelMap;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//
-//import com.bruce.manager.GetImgManager;
-//import com.bruce.manager.GetNoteManager;
-//import com.bruce.manager.LrcidLinkManager;
-//import com.bruce.manager.LyricsCommentManager;
-//import com.bruce.manager.LyricsManager;
-//import com.bruce.manager.LyricsZanManager;
-//import com.bruce.manager.NoteManager;
-//import com.bruce.manager.UidLinkManager;
-//import com.bruce.manager.UserLyricsManager;
-//import com.bruce.manager.UserManager;
-//import com.bruce.model.GetImg;
-//import com.bruce.model.GetNote;
-//import com.bruce.model.LrcidLink;
-//import com.bruce.model.Lyrics;
-//import com.bruce.model.LyricsComment;
-//import com.bruce.model.Note;
-//import com.bruce.model.UidLink;
-//import com.bruce.model.User;
-//import com.bruce.model.UserLyrics;
-//import com.bruce.utils.Base64Util;
-//import com.bruce.utils.HTMLParserUtil;
-//import com.bruce.utils.PinyinUtil;
-//import com.bruce.utils.TimeUtils;
-//
-//
-//@Controller
-//@RequestMapping("/web")
-////@ContextConfiguration(locations = { "classpath:spring.xml","classpath:spring-hibernate.xml" })
-//public class SpiderAction {
-// @Autowired	
-// private NoteManager noteManager;
-// @Autowired	
-// private UserManager userManager;
-// @Autowired	
-// private LyricsManager lyricsManager;
-// @Autowired	
-// private GetNoteManager getnoteManager;
-// @Autowired	
-// private GetImgManager getimgManager;
-// @Autowired	
-// private UserLyricsManager userlyricsManager;
-// @Autowired	
-// private LyricsZanManager zanManager;
-// @Autowired	
-// private LyricsCommentManager commentManager;
-// @Autowired	
-// private UidLinkManager uidLinkManager;
-// @Autowired	
-// private LrcidLinkManager lrcidLinkManager;
-// 
-// public static Set<Integer> m = new HashSet<Integer>();
-//	/**
-//	 * 生成6位int  ID
-//	 * @return
-//	 */
-//	public static int getInt6() {
-//		int a = 0;
-//			do {
-//				a = (int) (Math.random() * 10000+500000);
-//			} while (m.contains(a));
-//			m.add(a);
-//			System.out.println(a);
-//		return a;
-//	}
-//	
-//
-//	
-//	/**
-//	  * 更新note表信息
-//	 * @param user
-//	 * @param map
-//	 * @param session
-//	 */
+
+package com.bruce.action;
+/*
+* @author bruce
+* 本类用于网络爬虫获取各种网站资料【图片|笔记|文章|】
+**/
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.bruce.manager.LyricsCommentManager;
+import com.bruce.manager.LyricsManager;
+import com.bruce.manager.LyricsZanManager;
+import com.bruce.manager.NoteManager;
+import com.bruce.manager.UserLyricsManager;
+import com.bruce.manager.UserManager;
+import com.bruce.model.LyricsComment;
+
+
+@Controller
+@RequestMapping("/web")
+//@ContextConfiguration(locations = { "classpath:spring.xml","classpath:spring-hibernate.xml" })
+public class SpiderAction {
+ @Autowired	
+ private NoteManager noteManager;
+ @Autowired	
+ private UserManager userManager;
+ @Autowired	
+ private LyricsManager lyricsManager;
+ @Autowired	
+ private UserLyricsManager userlyricsManager;
+ @Autowired	
+ private LyricsZanManager zanManager;
+ @Autowired	
+ private LyricsCommentManager commentManager;
+ 
+ public static Set<Integer> m = new HashSet<Integer>();
+	/**
+	 * 生成6位int  ID
+	 * @return
+	 */
+	public static int getInt6() {
+		int a = 0;
+			do {
+				a = (int) (Math.random() * 10000+590000);
+			} while (m.contains(a));
+			m.add(a);
+			System.out.println(a);
+		return a;
+	}
+	
+
+	
+	/**
+	  * 添加lrcid映射
+	 * @param user
+	 * @param map
+	 * @param session
+	 */
+	@RequestMapping("/lrccm")
+		public void lrccm( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+		try {
+			List<LyricsComment> ul = commentManager.findAll();
+	        Set<Integer> set1 = new HashSet<Integer>(); 
+	        Set<Integer> set2 = new HashSet<Integer>(); 
+			for (LyricsComment u:ul) {
+				if(set1.add(u.getId())){
+					
+				}else{
+					set2.add(u.getId());
+				}
+			}
+			
+			
+			for(LyricsComment u:ul){
+				for(int i:set2){
+					if(u.getId() == i){
+						u.setId(getInt6());
+					}
+				}
+			}
+				
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+			   
+		}
+	
+	/**
+	  * 更新note表信息
+	 * @param user
+	 * @param map
+	 * @param session
+	 */
 //	@RequestMapping("/noteid")
 //		public void noteid( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
 //		try {
@@ -137,13 +130,13 @@
 //		}
 //			   
 //		}
-//	
-//	/**
-//	  * 添加lrcid映射
-//	 * @param user
-//	 * @param map
-//	 * @param session
-//	 */
+	
+	/**
+	  * 添加lrcid映射
+	 * @param user
+	 * @param map
+	 * @param session
+	 */
 //	@RequestMapping("/lrcidlink")
 //		public void lrcidlink( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
 //		try {
@@ -167,14 +160,14 @@
 //		}
 //			   
 //		}
-//
-// 
-// /**
-//  * 添加uid映射
-// * @param user
-// * @param map
-// * @param session
-// */
+
+ 
+ /**
+  * 添加uid映射
+ * @param user
+ * @param map
+ * @param session
+ */
 //@RequestMapping("/uidlink")
 //	public void uidlink( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
 //	try {
@@ -200,14 +193,14 @@
 //	}
 //
 // 
-// 
-// 
-// // http://music.163.com/#/discover/toplist?id=19723756
-// 
-// /**
-//  * 头像
-// * 
-// */
+ 
+ 
+ // http://music.163.com/#/discover/toplist?id=19723756
+ 
+ /**
+  * 头像
+ * 
+ */
 //@RequestMapping("/head")
 //	public void head( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
 //	try {
@@ -950,21 +943,21 @@
 //    	noteManager.addNote(note); 
 //	}
 //	
-//	public static void main(String[] args) {
-////	List<String> list   =  new ArrayList<String>();
-////	for (int i = 0; i < 165; i++) {
-////		
-////		List<String> list2 = HTMLParserUtil.getClassCont("http://www.caimai.cc/story/page"+i, "small[class=gray-text]");
-////		list.addAll(list2);
-////	}
-////	list = listRM(list);
-////	for (int i = 0; i < list.size(); i++) {
-////		System.out.println(list.get(i));
-////	}
-////	
-////	System.out.println(list.size());
+	public static void main(String[] args) {
+//	List<String> list   =  new ArrayList<String>();
+//	for (int i = 0; i < 165; i++) {
 //		
-//		getInt6();
-//}
+//		List<String> list2 = HTMLParserUtil.getClassCont("http://www.caimai.cc/story/page"+i, "small[class=gray-text]");
+//		list.addAll(list2);
+//	}
+//	list = listRM(list);
+//	for (int i = 0; i < list.size(); i++) {
+//		System.out.println(list.get(i));
+//	}
 //	
-//}
+//	System.out.println(list.size());
+		
+		getInt6();
+}
+	
+}

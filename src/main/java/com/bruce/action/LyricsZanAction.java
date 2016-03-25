@@ -110,11 +110,11 @@ public class LyricsZanAction {
 	}
 	
 	@RequestMapping("/toEdit")
-	public String toEdit(HttpServletRequest request, @RequestParam("id") String id,ModelMap map) {
+	public String toEdit(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map) {
 		//String id = request.getParameter("id");
 		//List<LyricsZan> Pidlist = lyricszanManager.findAll();
 		//map.addAttribute("Pidlist",Pidlist);
-		if(!StringUtils.isEmpty(id)){
+		if(null!=id && 0!=id){
 			LyricsZan model = lyricszanManager.findLyricsZan(id);
 			map.put("model", model);
 		}
@@ -122,7 +122,7 @@ public class LyricsZanAction {
 	}
 	
 	@RequestMapping("/remove")
-	public String remove(@RequestParam("id") String id) {
+	public String remove(@RequestParam("id") Integer id) {
 		this.lyricszanManager.delLyricsZan(id);
 		return LIST_ACTION;
 	}
@@ -131,7 +131,7 @@ public class LyricsZanAction {
 	public String removes(@RequestParam("ids") String ids) {
 		String[] str = ids.split(",");
 		for(String s :str){
-			this.lyricszanManager.delLyricsZan(s);
+			this.lyricszanManager.delLyricsZan(Integer.parseInt(s));
 		}
 		return LIST_ACTION;
 	}
@@ -150,20 +150,20 @@ public class LyricsZanAction {
 	}
 
 	@RequestMapping("/findLyricsZan")
-	private String findLyricsZan(@RequestParam("id") String id, ModelMap map) {
+	private String findLyricsZan(@RequestParam("id") Integer id, ModelMap map) {
 		LyricsZan lyricszan = this.lyricszanManager.findLyricsZan(id);
 		map.addAttribute("lyricszan", lyricszan);
 		return "findresult";
 	}
 
 	@RequestMapping("/delLyricsZan")
-	public String delLyricsZan(@RequestParam("id") String id) {
+	public String delLyricsZan(@RequestParam("id") Integer id) {
 		this.lyricszanManager.delLyricsZan(id);
 		return LIST_ACTION;
 	}
 
 	@RequestMapping("/updateLyricsZan")
-	public String updateLyricsZan(@RequestParam("id") String id) {
+	public String updateLyricsZan(@RequestParam("id") Integer id) {
 		LyricsZan lyricszan = this.lyricszanManager.findLyricsZan(id);
 		this.lyricszanManager.updateLyricsZan(lyricszan);
 		return LIST_ACTION;

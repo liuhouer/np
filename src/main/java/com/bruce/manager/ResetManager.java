@@ -9,13 +9,13 @@ import com.bruce.utils.QueryResult;
 
 public interface ResetManager {
 	
-	public Reset findReset(String id);
+	public Reset findReset(Integer id);
 
 	public List<Reset> findAll();
 
 	public void addReset(Reset reset);
 
-	public boolean delReset(String id);
+	public boolean delReset(Integer id);
 
 	public boolean updateReset(Reset reset);
 	

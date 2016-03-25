@@ -25,7 +25,7 @@ public class LyricsZanManagerImpl implements LyricsZanManager {
  	private LyricsCommentDao lyricsCommentDao;
 
 	@Override
-	public LyricsZan findLyricsZan(String id) {
+	public LyricsZan findLyricsZan(Integer id) {
 		return lyricszanDao.find(id);
 	}
 
@@ -40,7 +40,7 @@ public class LyricsZanManagerImpl implements LyricsZanManager {
 	}
 
 	@Override
-	public boolean delLyricsZan(String id) {
+	public boolean delLyricsZan(Integer id) {
 		LyricsZan lyricszan = lyricszanDao.find(id);
 		lyricszanDao.delete(lyricszan);
 		return true;

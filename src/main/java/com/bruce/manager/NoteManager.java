@@ -10,13 +10,13 @@ import com.bruce.utils.QueryResult;
 
 public interface NoteManager {
 	
-	public Note findNote(String id);
+	public Note findNote(Integer id);
 
 	public List<Note> findAll();
 
 	public void addNote(Note note);
 
-	public boolean delNote(String id);
+	public boolean delNote(Integer id);
 
 	public boolean updateNote(Note note);
 	

@@ -10,13 +10,13 @@ import com.bruce.utils.QueryResult;
 
 public interface UserFollowManager {
 	
-	public UserFollow findUserFollow(String id);
+	public UserFollow findUserFollow(Integer id);
 
 	public List<UserFollow> findAll();
 
 	public void addUserFollow(UserFollow userfollow);
 
-	public boolean delUserFollow(String id);
+	public boolean delUserFollow(Integer id);
 
 	public boolean updateUserFollow(UserFollow userfollow);
 	

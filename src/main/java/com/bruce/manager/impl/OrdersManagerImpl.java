@@ -21,7 +21,7 @@ public class OrdersManagerImpl implements OrdersManager {
 	private OrdersDao ordersDao;
 
 	@Override
-	public Orders findOrders(String id) {
+	public Orders findOrders(Integer id) {
 		return ordersDao.find(id);
 	}
 
@@ -36,7 +36,7 @@ public class OrdersManagerImpl implements OrdersManager {
 	}
 
 	@Override
-	public boolean delOrders(String id) {
+	public boolean delOrders(Integer id) {
 		Orders orders = ordersDao.find(id);
 		ordersDao.delete(orders);
 		return true;

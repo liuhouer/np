@@ -23,7 +23,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 	private UserLyricsDao userlyricsDao;
 
 	@Override
-	public UserLyrics findUserLyrics(String id) {
+	public UserLyrics findUserLyrics(Integer id) {
 		return userlyricsDao.find(id);
 	}
 
@@ -38,7 +38,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 	}
 
 	@Override
-	public boolean delUserLyrics(String id) {
+	public boolean delUserLyrics(Integer id) {
 		UserLyrics userlyrics = userlyricsDao.find(id);
 		userlyricsDao.delete(userlyrics);
 		return true;

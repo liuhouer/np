@@ -22,7 +22,7 @@ public class UserFollowManagerImpl implements UserFollowManager {
 	private UserFollowDao userfollowDao;
 
 	@Override
-	public UserFollow findUserFollow(String id) {
+	public UserFollow findUserFollow(Integer id) {
 		return userfollowDao.find(id);
 	}
 
@@ -37,7 +37,7 @@ public class UserFollowManagerImpl implements UserFollowManager {
 	}
 
 	@Override
-	public boolean delUserFollow(String id) {
+	public boolean delUserFollow(Integer id) {
 		UserFollow userfollow = userfollowDao.find(id);
 		userfollowDao.delete(userfollow);
 		return true;

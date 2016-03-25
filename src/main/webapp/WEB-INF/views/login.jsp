@@ -16,11 +16,10 @@
 <title>登录布.词</title>
 <meta name="description" content="登录布.词：布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="登录,最爱,回忆,生活">
-<c:set var="domain" value="http://northpark.cn/"></c:set>
-
-	<link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
-	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
-	<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
+<c:set var="domain" value="http://northpark.cn"></c:set>
+<link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
     <style type="text/css">
     	body {background:#f4f3f1;}
 	</style>

@@ -21,13 +21,11 @@ public class LyricsComment implements Serializable{
 	private static final long serialVersionUID = -8460236276757497795L;
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@Column(length = 32)	
-	private String id;
-	
-	@Column(length = 11)
-	private Integer id_;
+	@GeneratedValue(generator = "paymentableGenerator") 
+	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
+	@Column(length = 6)	
+	private Integer id;
+
 
 	@Column(length = 11)
 	private Integer lyricsid;
@@ -42,13 +40,7 @@ public class LyricsComment implements Serializable{
 	private String create_time;
 
 
-	public String getId() {
-		return id;	
-	}
-	
-	public void setId(String id) {
-		this.id = id;
-	}
+
 	public String getComment() {
 		return comment;	
 	}
@@ -85,11 +77,12 @@ public class LyricsComment implements Serializable{
 		this.userid = userid;
 	}
 
-	public Integer getId_() {
-		return id_;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setId_(Integer id_) {
-		this.id_ = id_;
+	public void setId(Integer id) {
+		this.id = id;
 	}
+
 }

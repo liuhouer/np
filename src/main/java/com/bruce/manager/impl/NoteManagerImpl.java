@@ -23,7 +23,7 @@ public class NoteManagerImpl implements NoteManager {
 	private NoteDao noteDao;
 
 	@Override
-	public Note findNote(String id) {
+	public Note findNote(Integer id) {
 		return noteDao.find(id);
 	}
 
@@ -38,7 +38,7 @@ public class NoteManagerImpl implements NoteManager {
 	}
 
 	@Override
-	public boolean delNote(String id) {
+	public boolean delNote(Integer id) {
 		Note note = noteDao.find(id);
 		noteDao.delete(note);
 		return true;
