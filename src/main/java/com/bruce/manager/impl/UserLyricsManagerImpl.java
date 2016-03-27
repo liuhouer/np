@@ -69,19 +69,30 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 	}
 
 	@Override
-	public PageView<List<Map<String, Object>>> getMixMapData(String currentpage) {
-		// TODO Auto-generated method stub
-		//,(select count(*) from bc_lyrics_zan  d    where a.id =d.lyricsid )as zan ,  (select count(*) from bc_lyrics_comment e where a.id =e.lyricsid )as pl
-		String sql = "select a.*,c.id as userid,c.username,c.email  from bc_lyrics a join bc_user_lyrics b on a.id = b.lyricsid join bc_user c on c.id = b.userid ";
-		/*if (!StringUtils.isEmpty(wheresql)) {
-			sql += wheresql;
-		}*/
-		sql+=" order by a.updatedate desc";
+	public PageView<List<Map<String, Object>>> getMixMapData(String currentpage,String userid) {
+		String sql = " select a.id,a.title,a.artist,a.album,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
+	               
+				   + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '"+userid+"' )> 0 "
+	               +" then 'yizan' "
+	               +" else '' "
+	               +" end "
+	               +" as yizan "
+	
+				   + "from bc_lyrics a join bc_user_lyrics b on a.id = b.lyricsid join bc_user c on c.id = b.userid ";
+
+		       sql+=" order by a.updatedate desc";
 		
+		       System.out.println(sql);
 		//设置pageview参数
 		PageView<List<Map<String, Object>>> pageview=new PageView<List<Map<String, Object>>>();
+		String countQueryString = (new StringBuilder(" select count(*) as total from (")).append(sql).append(") as t").toString();
 		int pages = 0; // 总页数
-		int n =  userlyricsDao.querySql(sql).size();
+		List<?> countlist = (List<?>) userlyricsDao.querySql(countQueryString);
+		
+		int n = 0;
+		if (countlist != null && countlist.size() > 0) {
+			n = Integer.valueOf(((Map)countlist.get(0)).get("total").toString());
+		}
 		int maxresult = pageview.getMaxresult();
 		/** 每页显示记录数 **/
 		if (n % maxresult == 0) {

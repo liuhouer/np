@@ -55,6 +55,13 @@ public class Lyrics implements Serializable{
 
 	@Column(length = 255)
 	private String albumImg;
+	
+	@Column(length = 11)
+	private Integer zan;
+
+	@Column(length = 11)
+	private Integer pl;
+	
 
 
 	public String getType() {
@@ -140,4 +147,21 @@ public class Lyrics implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	public Integer getZan() {
+		return zan;
+	}
+
+	public void setZan(Integer zan) {
+		this.zan = zan;
+	}
+
+	public Integer getPl() {
+		return pl;
+	}
+
+	public void setPl(Integer pl) {
+		this.pl = pl;
+	}
+
 }

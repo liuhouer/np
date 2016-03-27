@@ -228,22 +228,13 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 	 */
 	@SuppressWarnings("rawtypes")
 	public com.bruce.utils.PageView<List<Map<String, Object>>> QuerySQLForMapList(String sql, com.bruce.utils.PageView<List<Map<String, Object>>> pageView) {
-		
-		String countQueryString = (new StringBuilder(" select count(*) as total from (")).append(sql).append(") as t").toString();
-		
-		List countlist = querySql(countQueryString);
-		
-		int totalCount = 0;
-		
-		if (countlist != null && countlist.size() > 0) {
-			totalCount = Integer.valueOf(((Map)countlist.get(0)).get("total").toString());
+		int totalCount = pageView.getTotalrecord();
 			if (totalCount >= 1) {
 				String resultQueryString = (new StringBuilder(" select t.* from (")).append(sql).append(") as t LIMIT " +((pageView.getCurrentpage()) * pageView.getMaxresult() )+ "," + pageView.getMaxresult()).toString();
 				List<Map<String, Object>> resultlist = querySql(resultQueryString);
 				pageView.setMapRecords(resultlist);
+				sessionFactory.getCurrentSession().flush();
 			}
-		}
-		sessionFactory.getCurrentSession().flush();
 		return pageView;
 	}
 	

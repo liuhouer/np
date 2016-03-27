@@ -933,55 +933,13 @@ public class UserAction {
 			session.setAttribute("tabs","pic");
 			String currentpage = page;
 			
-			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage);
+			User u = (User) session.getAttribute("user");
+			
+			String userid = (u==null?"":String.valueOf(u.getId()));
+			
+			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage,userid);
 			
 			List<Map<String, Object>> list = pageView.getMapRecords();
-			if(list!=null){
-				if(list.size()>0){
-					for (int i = 0; i < list.size(); i++) {
-						
-						//批量处理图片的路径
-						String imgpath = (String) list.get(i).get("albumImg"); //e:/yunlu/upload/1399976848969.jpg
-						if(!StringUtils.isEmpty(imgpath)){
-						String[] str = imgpath.split("/album/");
-						if(str.length>1){
-						String imgp = "album/"+str[1];
-						list.get(i).put("albumImg",imgp);
-						}
-						}
-						
-						//批量处理赞和评论的个数
-						String lyricsid = String.valueOf(list.get(i).get("id"));
-						int zan =  lyricsZanManager.getZanNumByLRC(lyricsid);
-						int pl  =  lyricsZanManager.getCommentNumByLRC(lyricsid);
-						list.get(i).put("zan",zan);
-						list.get(i).put("pl",pl);
-						
-						//批量处理当前用户对这个pic/歌词的赞状态
-						User c_user = (User) session.getAttribute("user");
-						boolean yizan =  false;
-						if(c_user!=null){
-							List<LyricsZan> lz = lyricsZanManager.findByCondition(" where lyricsid= '"+lyricsid+"' ").getResultlist();
-							if(lz!=null){
-								if(lz.size()>0){
-									for (int j = 0; j < lz.size(); j++) {
-										String u_id = String.valueOf(lz.get(j).getUserid());
-										if(u_id.equals(c_user.getId())){
-											yizan = true ; 
-										}
-									}
-								}
-							}
-						}
-						if(yizan == true){
-							list.get(i).put("yizan","yizan");
-						}
-						
-						
-						
-					}
-				}
-			}
 			
 			map.addAttribute("pageView", pageView);
 			int pages = 0;
@@ -1009,41 +967,15 @@ public class UserAction {
 		@RequestMapping(value="/cm/list")
 		public String findAll(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session,String userid) {
-			if(!StringUtils.isEmpty(userid)){
-			    condition.setUserid(userid);
-			    map.addAttribute("userid",userid);
-			}else{
-				map.addAttribute("userid","");
-			}
+
+            User u = (User) session.getAttribute("user");
+			
+			userid = (u==null?"":String.valueOf(u.getId()));
 
 			String currentpage = request.getParameter("currentpage");
 			
-			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage);
+			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage,userid);
 			
-			List<Map<String, Object>> list = pageView.getMapRecords();
-			if(list!=null){
-				if(list.size()>0){
-					for (int i = 0; i < list.size(); i++) {
-						
-						//批量处理图片的路径
-						String imgpath = (String) list.get(i).get("albumImg"); //e:/yunlu/upload/1399976848969.jpg
-						if(!StringUtils.isEmpty(imgpath)){
-						String[] str = imgpath.split("/album/");
-						if(str.length>1){
-						String imgp = "album/"+str[1];
-						list.get(i).put("albumImg",imgp);
-						}
-						}
-						
-						//批量处理赞和评论的个数
-						String lyricsid = String.valueOf(list.get(i).get("id"));
-						int zan =  lyricsZanManager.getZanNumByLRC(lyricsid);
-						int pl  =  lyricsZanManager.getCommentNumByLRC(lyricsid);
-						list.get(i).put("zan",zan);
-						list.get(i).put("pl",pl);
-					}
-				}
-			}
 			
 			map.addAttribute("pageView", pageView);
 			map.put("condition", condition);
@@ -1066,61 +998,18 @@ public class UserAction {
 			
 			
 			//获取域名
-			 URLUtil.getDomain(request);
+			URLUtil.getDomain(request);
 			session.removeAttribute("tabs");
 			session.setAttribute("tabs","pic");
 			String currentpage = request.getParameter("currentpage");
 			
-			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage);
+	         User u = (User) session.getAttribute("user");
+				
+			String	userid = (u==null?"":String.valueOf(u.getId()));
+
 			
-			List<Map<String, Object>> list = pageView.getMapRecords();
-			if(list!=null){
-				if(list.size()>0){
-					for (int i = 0; i < list.size(); i++) {
-						
-						//批量处理图片的路径
-						String imgpath = (String) list.get(i).get("albumImg"); //e:/yunlu/upload/1399976848969.jpg
-						if(!StringUtils.isEmpty(imgpath)){
-						String[] str = imgpath.split("/album/");
-						if(str.length>1){
-						String imgp = "album/"+str[1];
-						list.get(i).put("albumImg",imgp);
-						}
-						}
-						
-						//批量处理赞和评论的个数
-						String lyricsid = String.valueOf(list.get(i).get("id"));
-						int zan =  lyricsZanManager.getZanNumByLRC(lyricsid);
-						int pl  =  lyricsZanManager.getCommentNumByLRC(lyricsid);
-						list.get(i).put("zan",zan);
-						list.get(i).put("pl",pl);
-						
-						//批量处理当前用户对这个pic/歌词的赞状态
-						User c_user = (User) session.getAttribute("user");
-						boolean yizan =  false;
-						if(c_user!=null){
-							List<LyricsZan> lz = lyricsZanManager.findByCondition(" where lyricsid= '"+lyricsid+"' ").getResultlist();
-							if(lz!=null){
-								if(lz.size()>0){
-									for (int j = 0; j < lz.size(); j++) {
-										String u_id = String.valueOf(lz.get(j).getUserid());
-										if(u_id.equals(c_user.getId())){
-											yizan = true ; 
-											break;
-										}
-									}
-								}
-							}
-						}
-						if(yizan == true){
-							list.get(i).put("yizan","yizan");
-						}
-						
-						
-						
-					}
-				}
-			}
+			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage,userid);
+			
 			
 			map.addAttribute("pageView", pageView);
 			map.put("condition", condition);

@@ -27,7 +27,7 @@ public interface UserLyricsManager {
 			String wheresql);
 	
 
-	public PageView<List<Map<String, Object>>> getMixMapData(String currentpage);
+	public PageView<List<Map<String, Object>>> getMixMapData(String currentpage, String userid);
 	
 }
 

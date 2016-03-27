@@ -6,6 +6,7 @@ package com.bruce.action;
 **/
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,13 +18,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bruce.manager.GetnotesManager;
 import com.bruce.manager.LyricsCommentManager;
 import com.bruce.manager.LyricsManager;
 import com.bruce.manager.LyricsZanManager;
 import com.bruce.manager.NoteManager;
 import com.bruce.manager.UserLyricsManager;
 import com.bruce.manager.UserManager;
+import com.bruce.model.Getnotes;
+import com.bruce.model.Lyrics;
 import com.bruce.model.LyricsComment;
+import com.bruce.model.LyricsZan;
+import com.bruce.model.User;
+import com.bruce.utils.TimeUtils;
 
 
 @Controller
@@ -42,6 +49,9 @@ public class SpiderAction {
  private LyricsZanManager zanManager;
  @Autowired	
  private LyricsCommentManager commentManager;
+ 
+ @Autowired	
+ private GetnotesManager getnotesManager;
  
  public static Set<Integer> m = new HashSet<Integer>();
 	/**
@@ -256,52 +266,55 @@ public class SpiderAction {
 //		   
 //	}
 // 
-// /**
-//  * 生成赞和评论
-// * @param user
-// * @param map
-// * @param session
-// */
-//@RequestMapping("/zan")
-//	public void zan( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
-//	try {
-//		
-//				
-//		List<Lyrics> list = lyricsManager.findAll();
-//		List<User> ul = userManager.findAll();
-//		List<GetNote> nol = getnoteManager.findAll();
-//		for (int i = 0; i < list.size(); i++) {
-//			boolean flag = false;
-//			try {
-//				
-//				flag = commentManager.findByCondition(" where lyricsid = '"+list.get(i).getId()+"' ").getResultlist().size() <= 0;
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				flag = true;
-//			}
-//			for (int j = 0; j < (getRandomOne(list)+1); j++) {
-//				
-//				try {
-//					
-//					if(flag){
-//					   resetVal(list, nol,ul, i);
-//					}
-//				} catch (Exception e) {//错误继续
-//					// TODO: handle exception
-//					continue;
-//				}
-//				
-//			}
-//		}
-//
-//			
-//			
-//	} catch (Exception e) {
-//		// TODO: handle exception
-//		e.printStackTrace();
-//	}
-//		   
-//	}
+ /**
+  * 生成赞和评论
+ * @param user
+ * @param map
+ * @param session
+ */
+@RequestMapping("/zan")
+	public void zan( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+	try {
+		
+				
+		List<Lyrics> list = lyricsManager.findAll();
+		List<User> ul = userManager.findAll();
+		List<Getnotes> nol = getnotesManager.findAll();
+		for (int i = 0; i < list.size(); i++) {
+			try{
+			   for(int j =0;j<getRandomInt();j++){
+			   	//添加评论
+			   	String commet = nol.get(getRandomOne(nol)).getBrief();
+			   	LyricsComment cm =  new LyricsComment();
+			   	cm.setComment(commet);
+			   	cm.setCreate_time(TimeUtils.getNowTime());
+			   	cm.setLyricsid(list.get(i).getId());
+			   	cm.setUserid(ul.get(getRandomOne(ul)).getId());
+			   	commentManager.addLyricsComment(cm);
+			   	
+			   }
+               
+			   for(int k =0;k<getRandomInt();k++){
+			   		//添加赞
+			   		LyricsZan zan  =new LyricsZan();
+			   		zan.setLyricsid(list.get(i).getId());
+			   		zan.setUserid(ul.get(getRandomOne(ul)).getId());
+			   		zanManager.addLyricsZan(zan);
+			   
+			   }
+			}catch(Exception e){
+				continue;
+			}
+		}
+
+			
+			
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+		   
+	}
 //
 //
 ///**
@@ -317,8 +330,8 @@ public class SpiderAction {
 //	//添加赞和评论的方法
 //	addZanPl(userid, lyricsid,commet);
 //}
-//
-//
+
+
 ///**
 // * 添加赞和评论的方法
 // * @param userid
@@ -819,23 +832,46 @@ public class SpiderAction {
 //		return "111";
 //	}
 //
-//	/**
-//	 * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
-//	 * @return
-//	 */
-//	public static Integer getRandomOne(List<?> list){
-//		
-//		
-//		Random ramdom =  new Random();
-//		int number = -1;
-//		int max = list.size();
-//		
-//		//size 为  10 ，取得类似0-9的区间数
-//		number = Math.abs(ramdom.nextInt() % max  );
-//		
-//		return number;
-//    
-//	}
+	/**
+	 * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
+	 * @return
+	 */
+	public static Integer getRandomOne(List<?> list){
+		
+		
+		Random ramdom =  new Random();
+		int number = -1;
+		int max = list.size();
+		
+		//size 为  10 ，取得类似0-9的区间数
+		number = Math.abs(ramdom.nextInt() % max  );
+		
+		return number;
+    
+	}
+	
+	
+	/**
+	 * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
+	 * @return
+	 */
+	public static Integer getRandomInt(){
+		
+		
+		Random ramdom =  new Random();
+		int number = -1;
+		int max = 20;
+		
+		//size 为  10 ，取得类似0-9的区间数
+		number = Math.abs(ramdom.nextInt() % max  );
+		
+		if(number==0){
+			number+=1;
+		}
+		
+		return number;
+    
+	}
 //	
 //	
 //	
