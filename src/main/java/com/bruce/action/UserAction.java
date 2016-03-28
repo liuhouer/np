@@ -710,10 +710,11 @@ public class UserAction {
 		}
 
 		
-		@RequestMapping(value="/cm/pic/page{page}")
-		public String pic(ModelMap map,UserLyricsQueryCondition condition,@PathVariable String page,HttpServletRequest request,
+		@RequestMapping(value="/cm/list/page{page}")
+		public String listpage(ModelMap map,UserLyricsQueryCondition condition,@PathVariable String page,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session) {
 			
+			//获取域名+tab{selection}
 			session.removeAttribute("tabs");
 			session.setAttribute("tabs","pic");
 			String currentpage = page;
@@ -738,7 +739,7 @@ public class UserAction {
 			map.put("page", pages);
 			map.put("condition", condition);
 			map.addAttribute("list", pageView.getMapRecords()==null?"":list);
-			map.addAttribute("actionUrl","cm/pic");
+			map.addAttribute("actionUrl","cm/list");
 			
 			String signoutflag = (String) request.getParameter("signout");
 			if(StringUtils.isNotEmpty(signoutflag)){
@@ -750,14 +751,18 @@ public class UserAction {
 			return "/welcome";
 		}
 		@RequestMapping(value="/cm/list")
-		public String findAll(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
+		public String list(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session,String userid) {
-
-            User u = (User) session.getAttribute("user");
+			//获取域名
+			URLUtil.getDomain(request);
+			session.removeAttribute("tabs");
+			session.setAttribute("tabs","pic");
+			String currentpage = request.getParameter("currentpage");
 			
+	        User u = (User) session.getAttribute("user");
+				
 			userid = (u==null?"":String.valueOf(u.getId()));
 
-			String currentpage = request.getParameter("currentpage");
 			
 			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage,userid);
 			
@@ -765,7 +770,7 @@ public class UserAction {
 			map.addAttribute("pageView", pageView);
 			map.put("condition", condition);
 			map.addAttribute("list", pageView.getMapRecords()==null?"":pageView.getMapRecords());
-			map.addAttribute("actionUrl","cm/pic");
+			map.addAttribute("actionUrl","cm/list");
 			
 			String signoutflag = (String) request.getParameter("signout");
 			if(StringUtils.isNotEmpty(signoutflag)){
@@ -777,39 +782,6 @@ public class UserAction {
 			return "/welcome";
 		}
 		
-		@RequestMapping(value="/cm/pic")
-		public String commonPic(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
-				HttpServletResponse response, HttpSession session) {
-			
-			
-			//获取域名
-			URLUtil.getDomain(request);
-			session.removeAttribute("tabs");
-			session.setAttribute("tabs","pic");
-			String currentpage = request.getParameter("currentpage");
-			
-	         User u = (User) session.getAttribute("user");
-				
-			String	userid = (u==null?"":String.valueOf(u.getId()));
-
-			
-			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage,userid);
-			
-			
-			map.addAttribute("pageView", pageView);
-			map.put("condition", condition);
-			map.addAttribute("list", pageView.getMapRecords()==null?"":pageView.getMapRecords());
-			map.addAttribute("actionUrl","cm/pic");
-			
-			String signoutflag = (String) request.getParameter("signout");
-			if(StringUtils.isNotEmpty(signoutflag)){
-				if(signoutflag.equals("true")){
-					map.addAttribute("signout", "true");
-				}
-			}
-			
-			return "/welcome";
-		}
 
 		private PageView<UserLyrics> getPageView(HttpServletRequest request,
 				String whereSql) {

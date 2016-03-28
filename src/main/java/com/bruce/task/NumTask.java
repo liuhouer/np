@@ -38,39 +38,39 @@ public class NumTask {
 		
 		
 		//更新图片地址
-//		List<Lyrics> list = lyricsManager.findAll();
-//		
-//		
-//		if(list!=null){
-//			if(list.size()>0){
-//				for (int i = 0; i < list.size(); i++) {
-//					
-//					//批量处理图片的路径
-//					String imgpath = (String) list.get(i).getAlbumImg(); //e:/yunlu/upload/1399976848969.jpg
-//					if(!StringUtils.isEmpty(imgpath)){
-//					String[] str = imgpath.split("/album/");
-//					if(str.length>1){
-//					String imgp = "album/"+str[1];
-//					list.get(i).setAlbumImg(imgp);
-//					}
-//					}
-//					
-//					//批量处理赞和评论的个数
-//					String lyricsid = String.valueOf(list.get(i).getId());
-//					int zan =  zanManager.getZanNumByLRC(lyricsid);
-//					int pl  =  zanManager.getCommentNumByLRC(lyricsid);
-//					list.get(i).setZan(zan);
-//					list.get(i).setPl(pl);
-//					
-//					//批量处理当前用户对这个pic/歌词的赞状态
-//					
-//					
-//					//更新
-//					lyricsManager.updateLyrics(list.get(i));
-//					
-//				}
-//			}
-//		}
+		List<Lyrics> list = lyricsManager.findAll();
+		
+		
+		if(list!=null){
+			if(list.size()>0){
+				for (int i = 0; i < list.size(); i++) {
+					
+					//批量处理图片的路径
+					String imgpath = (String) list.get(i).getAlbumImg(); //e:/yunlu/upload/1399976848969.jpg
+					if(!StringUtils.isEmpty(imgpath)){
+					String[] str = imgpath.split("/album/");
+					if(str.length>1){
+					String imgp = "album/"+str[1];
+					list.get(i).setAlbumImg(imgp);
+					}
+					}
+					
+					//批量处理赞和评论的个数
+					String lyricsid = String.valueOf(list.get(i).getId());
+					int zan =  zanManager.getZanNumByLRC(lyricsid);
+					int pl  =  zanManager.getCommentNumByLRC(lyricsid);
+					list.get(i).setZan(zan);
+					list.get(i).setPl(pl);
+					
+					//批量处理当前用户对这个pic/歌词的赞状态
+					
+					
+					//更新
+					lyricsManager.updateLyrics(list.get(i));
+					
+				}
+			}
+		}
 		
 		
 		//更新头像地址
