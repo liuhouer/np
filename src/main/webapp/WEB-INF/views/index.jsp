@@ -8,6 +8,6 @@
 </head>
 
 <body>
-<% response.sendRedirect("/cm/pic") ;%>
+<% response.sendRedirect("/cm/list") ;%>
 </body>
 </html>

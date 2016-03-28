@@ -140,7 +140,7 @@ $(document).ready(function() {
                 	  window.location.href = uri;
                   }else{
                 	  
-                      window.location.href = "/cm/pic";
+                      window.location.href = "/cm/list";
                   }
               }else{
             	  art.dialog.tips('用户名密码错误');

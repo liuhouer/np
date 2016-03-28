@@ -27,7 +27,7 @@
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
 			<ul class="nav mainhead-nav" id="J_tabs">
-				<li cname="pic"><a href="/cm/pic" title="一张图片，爱满满的">布.图</a></li>
+				<li cname="pic"><a href="/cm/list" title="一张图片，爱满满的">布.图</a></li>
 				<li cname="note"><a href="/note/list" title="一段歌词，一段回忆">布.词</a></li>
 				<li cname="pcenter">
 				<a id="J_log_info_r" <c:if test="${user!=null }"> href="/cm/pcentral"</c:if><c:if test="${user==null }">href="/cm/toLogin"</c:if>><c:if test="${user!=null }">我自己</c:if><c:if test="${user==null }">登陆</c:if></a>

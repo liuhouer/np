@@ -598,7 +598,7 @@ public class UserAction {
 			String redirectURI = request.getParameter("redirectURI");
 			if(StringUtils.isNotEmpty(redirectURI)){
 				if(redirectURI.equals("/cm/toLogin")){
-					redirectURI = "/cm/pic";
+					redirectURI = "/cm/list";
 				}
 				map.put("redirectURI", redirectURI);
 			}
