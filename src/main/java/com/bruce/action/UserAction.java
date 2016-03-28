@@ -1,7 +1,6 @@
 
 package com.bruce.action;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Random;
 
 import javax.servlet.http.Cookie;
@@ -37,7 +35,6 @@ import com.bruce.manager.UserFollowManager;
 import com.bruce.manager.UserLyricsManager;
 import com.bruce.manager.UserManager;
 import com.bruce.manager.UserprofileManager;
-import com.bruce.model.LyricsZan;
 import com.bruce.model.QQinfo;
 import com.bruce.model.Reset;
 import com.bruce.model.User;
@@ -49,6 +46,7 @@ import com.bruce.query.UserQuery;
 import com.bruce.query.condition.UserLyricsQueryCondition;
 import com.bruce.utils.Base64Util;
 import com.bruce.utils.EmailUtils;
+import com.bruce.utils.FileUtils;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.TimeUtils;
@@ -356,13 +354,6 @@ public class UserAction {
 			return "/error";
 		}
 		
-		@RequestMapping("/cm/toAdd")
-		public String toAdd(ModelMap map) {
-			//List<User> Pidlist = userManager.findAll();
-			//map.addAttribute("Pidlist",Pidlist);
-			return "/user/userAdd";
-		}
-		
 		
 		@RequestMapping("/cm/pcentral")
 		public String pcentral(ModelMap map,HttpServletRequest request) {
@@ -374,16 +365,6 @@ public class UserAction {
 			request.getSession().removeAttribute("tabs");
 			request.getSession().setAttribute("tabs","pcenter");
 			if(user!=null){	
-					//处理图片路径
-					String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-					if(!StringUtils.isEmpty(imgpath)){
-					String[] str = imgpath.split("heads/");
-					if(str.length>1){
-					String imgp = "heads/"+str[1];
-					user.setHeadpath(imgp);
-					}
-					}
-					//处理图片路径
 					map.put("MyInfo", user);
 					
 					//查询个人歌词最爱历史
@@ -391,19 +372,8 @@ public class UserAction {
 					
 					List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
 					for (int i = 0; i < list.size(); i++) {
-						//批量处理图片的路径
-						String imgpath2 = (String) list.get(i).get("albumImg"); //e:/yunlu/upload/1399976848969.jpg
-						if(!StringUtils.isEmpty(imgpath2)){
-							String[] str = imgpath2.split("/album/");
-							if(str.length>1){
-								String imgp = "album/"+str[1];
-								list.get(i).put("albumImg",imgp);
-							}
-						}
-						
 						//--批量处理时间
 						list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
-						//list.get(i).setUpdatedate(TimeUtils.formatToNear(list.get(i).getUpdatedate()));
 						
 					}
 					map.addAttribute("Lovelist", list);
@@ -419,16 +389,7 @@ public class UserAction {
 			 //取得当前用户
 	         User user = (User) request.getSession().getAttribute("user");
 	         if(user!=null){
-	        	//处理图片路径
-	 			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-	 			if(!StringUtils.isEmpty(imgpath)){
-	 			String[] str = imgpath.split("heads/");
-	 			if(str.length>1){
-	 			String imgp = "heads/"+str[1];
-	 			user.setHeadpath(imgp);
-	 			}
-	 			}
-	 			//处理图片路径
+	        	 
 	 			map.put("MyInfo", user);
 	 			
 	 			//查询该用户的粉丝列表
@@ -440,18 +401,6 @@ public class UserAction {
 	 						Map<String,Object> map_ = new HashMap<String,Object>();
 	 						String u_id = String.valueOf(fan_list.get(i).getFollow_id());
 	 						User uu = userManager.findUser(Integer.parseInt(u_id));
-	 						
-	 						//处理图片路径
-	 						String imgpath1 = uu.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-	 						if(!StringUtils.isEmpty(imgpath1)){
-	 						String[] str = imgpath1.split("heads/");
-	 						if(str.length>1){
-	 						String imgp = "heads/"+str[1];
-	 						uu.setHeadpath(imgp);
-	 						}
-	 						}
-	 						
-	 						
 	 						
 	 						UserFollow ff = fan_list.get(i);
 	 						//处理时间格式
@@ -472,16 +421,6 @@ public class UserAction {
 		@RequestMapping("/cm/fans/{userid}")
 		public String fans(ModelMap map, @PathVariable String userid ,HttpServletRequest request) {
 			User user = userManager.findUser(Integer.parseInt(userid));
-			//处理图片路径
-			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("heads/");
-			if(str.length>1){
-			String imgp = "heads/"+str[1];
-			user.setHeadpath(imgp);
-			}
-			}
-			//处理图片路径
 			map.put("MyInfo", user);
 			
 			//查询该用户的粉丝列表
@@ -493,18 +432,6 @@ public class UserAction {
 						Map<String,Object> map_ = new HashMap<String,Object>();
 						String u_id = String.valueOf(fan_list.get(i).getFollow_id());
 						User uu = userManager.findUser(Integer.parseInt(u_id));
-						
-						//处理图片路径
-						String imgpath1 = uu.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-						if(!StringUtils.isEmpty(imgpath1)){
-						String[] str = imgpath1.split("heads/");
-						if(str.length>1){
-						String imgp = "heads/"+str[1];
-						uu.setHeadpath(imgp);
-						}
-						}
-						
-						
 						
 						UserFollow ff = fan_list.get(i);
 						//处理时间格式
@@ -538,16 +465,6 @@ public class UserAction {
 			//获取域名
 			 URLUtil.getDomain(request);
 			User user = userManager.findUser(Integer.parseInt(userid));
-			//处理图片路径
-			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("heads/");
-			if(str.length>1){
-			String imgp = "heads/"+str[1];
-			user.setHeadpath(imgp);
-			}
-			}
-			//处理图片路径
 			map.put("MyInfo", user);
 			
 			//查询个人歌词最爱历史
@@ -555,16 +472,6 @@ public class UserAction {
 
 			List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
 			for (int i = 0; i < list.size(); i++) {
-				//批量处理图片的路径
-				String imgpath2 = (String) list.get(i).get("albumImg"); //e:/yunlu/upload/1399976848969.jpg
-				if(!StringUtils.isEmpty(imgpath2)){
-					String[] str = imgpath2.split("/album/");
-					if(str.length>1){
-						String imgp = "album/"+str[1];
-						list.get(i).put("albumImg",imgp);
-					}
-				}
-				
 				//--批量处理时间
 				list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));;
 			
@@ -597,16 +504,6 @@ public class UserAction {
 					user = ul.get(0);
 				}
 			}
-			//处理图片路径
-			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-			if(!StringUtils.isEmpty(imgpath)){
-				String[] str = imgpath.split("heads/");
-				if(str.length>1){
-				String imgp = "heads/"+str[1];
-				user.setHeadpath(imgp);
-				}
-			}
-			//处理图片路径
 			map.put("MyInfo", user);
 			//查询个人歌词最爱历史
 			String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ? order by c.updatedate desc" ;
@@ -614,15 +511,6 @@ public class UserAction {
 
 			List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
 			for (int i = 0; i < list.size(); i++) {
-				//批量处理图片的路径
-				String imgpath2 = (String) list.get(i).get("albumImg"); //e:/yunlu/upload/1399976848969.jpg
-				if(!StringUtils.isEmpty(imgpath2)){
-					String[] str = imgpath2.split("/album/");
-					if(str.length>1){
-						String imgp = "album/"+str[1];
-						list.get(i).put("albumImg",imgp);
-					}
-				}
 				
 				//--批量处理时间
 				list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
@@ -654,16 +542,6 @@ public class UserAction {
 	        }  
 			
 			User user = userManager.findUser(Integer.parseInt(userid));
-			//处理图片路径
-				String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-				if(!StringUtils.isEmpty(imgpath)){
-				String[] str = imgpath.split("heads/");
-				if(str.length>1){
-				String imgp = "heads/"+str[1];
-				user.setHeadpath(imgp);
-				}
-				}
-				//处理图片路径
 			map.put("MyInfo", user);
 			Userprofile Duser = userprofileManager.getModelByUserid(userid);
 			map.put("Dinfo", Duser);
@@ -672,74 +550,18 @@ public class UserAction {
 		
 		@RequestMapping("/cm/saveEditInfo")
 		public String saveEditInfo(HttpSession session,User model,ModelMap map,String oldpath, @RequestParam(value = "file", required = false) MultipartFile[] file,String new_password,String new_password_confirmation,String courseware,String year_of_birth,String user_slug) {
-			//保存User表信息
 			// 执行删除图片缓存
-			if(file.length>=1){
-				System.out.println(file[0].getOriginalFilename()+"------------------------------------------------》》"); 
-				if(StringUtils.isNotEmpty(file[0].getOriginalFilename())){//新上传了图片才把以前的删除
-			if(StringUtils.isNotEmpty(oldpath)){
-			  File f = new File(oldpath);
-			  System.out.println("要删除文件的绝对路径是："+f.getAbsolutePath());
-				if (f.exists()){
-					f.delete();
-				}else{
-					System.out.println("文件已经丢失!");
-				}
-			  }
-			}
-			}
-			// 执行删除图片缓存
-		    //执行上传头像	
-			 System.out.println("-------------------------------------->开始");  
-			    Properties prop = System.getProperties();
+			FileUtils.removeOldFile(oldpath, file);
+			
+			//执行上传		
+			List<String> filelist = FileUtils.commonUpload(file, FileUtils.suffix_head);
+	        //执行上传end
 
-				String os = prop.getProperty("os.name");
-				System.out.println(os);
-				String path = "e:/bruce/album";
-				String fileName="";
-				String newName="";
-		         if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
-		        	 path = "e:/bruce/heads";
-		         }else{
-		        	 path = "/mnt/apk/heads";
-		         }
-		       //  String path = "e:/bruce/upload";
-		         String headpath = "";
-		        for (int i = 0; i < file.length; i++) {
-		        	fileName = file[i].getOriginalFilename();  
-			        System.out.println(path); 
-			        if(!StringUtils.isEmpty(fileName)){//新上传了才执行保存
-			        String ext = fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()); 
-			        newName = String.valueOf(System.currentTimeMillis())+"."+ext;
-			        File targetFile = new File(path, newName);  
-			        if(!targetFile.exists()){  
-			            targetFile.mkdirs();  
-			        }  
-			  
-			        //保存  
-			        try {  
-			            file[i].transferTo(targetFile);  
-			        } catch (Exception e) {  
-			            e.printStackTrace();  
-			        }  
-			        
-			        if(i==0){
-			        	headpath = newName;
-			        }
-			        }
-				}
-//		        String imgpath = path+"/"+newName;
-//		        System.out.println(imgpath);
-		      //执行上传头像end
-		      //上传图片非空时，执行保存路径
-		        headpath = path+"/"+headpath;
-		        //lrcpath = path +"/"+lrcpath;
-		        if(headpath.contains(".")){
-		        	model.setHeadpath(headpath);
-		        }else{
-		        	model.setHeadpath(oldpath);//以前的头像
-		        }
-		        System.out.println("-------------------------------------->结束");  
+			if(filelist.size()>0){
+				model.setHeadpath(filelist.get(0));
+			}else{
+				model.setHeadpath(oldpath);
+			}
 		        
 		        //处理密码信息
 		        if(!StringUtils.isEmpty(new_password)&&!StringUtils.isEmpty(new_password_confirmation)&&new_password.equals(new_password_confirmation)){
@@ -767,7 +589,7 @@ public class UserAction {
 			}
             userprofileManager.updateUserprofile(up);
           //保存User明细表信息-------end
-			return "redirect:pcentral?userid="+userid;
+			return "redirect:pcentral";
 		}
 		
 		@RequestMapping("/cm/toLogin")
@@ -815,26 +637,9 @@ public class UserAction {
 			return "/user/userEdit";
 		}
 		
-		@RequestMapping("/cm/remove")
-		public String remove(@RequestParam("id") Integer id) {
-			this.userManager.delUser(id);
-			return LIST_ACTION;
-		}
+
+
 		
-		@RequestMapping("/cm/removes")
-		public String removes(@RequestParam("ids") String ids) {
-			String[] str = ids.split(",");
-			for(String s :str){
-				this.userManager.delUser(Integer.parseInt(s));
-			}
-			return LIST_ACTION;
-		}
-		
-		@RequestMapping("/cm/update")
-		public String update(User model) {
-			this.userManager.updateUser(model);
-			return LIST_ACTION;
-		}
 		
 		@RequestMapping("/cm/logout")
 		public String logout(HttpServletRequest request, HttpSession session,HttpServletResponse response) {
@@ -902,26 +707,6 @@ public class UserAction {
 				map.put("user", user);
 				return "redirect:pic";
 			}
-		}
-
-		@RequestMapping("/cm/findUser")
-		private String findUser(@RequestParam("id") Integer id, ModelMap map) {
-			User user = this.userManager.findUser(id);
-			map.addAttribute("user", user);
-			return "/findresult";
-		}
-
-		@RequestMapping("/cm/delUser")
-		public String delUser(@RequestParam("id") Integer id) {
-			this.userManager.delUser(id);
-			return LIST_ACTION;
-		}
-
-		@RequestMapping("/cm/updateUser")
-		public String updateUser(@RequestParam("id") Integer id) {
-			User user = this.userManager.findUser(id);
-			this.userManager.updateUser(user);
-			return LIST_ACTION;
 		}
 
 		

@@ -13,7 +13,7 @@
 								<c:if test="${MyInfo.headpath!=null }">
 								<c:choose>
                                   <c:when test="${fn:contains(MyInfo.headpath ,'http://') }">src="${MyInfo.headpath}"</c:when>
-                                  <c:otherwise>src="${bcdomain}/bruce/${MyInfo.headpath }"</c:otherwise>
+                                  <c:otherwise>src="/bruce/${MyInfo.headpath }"</c:otherwise>
                                 </c:choose> 
 								
 								</c:if>
@@ -24,7 +24,7 @@
 						</div>
 						<div class="col-xs-8">
 							<h1 class="margin0">${MyInfo.username } </h1>
-							<h4 class="margin0"><small>/people/${MyInfo.tail_slug }</small></h4>
+							<h4 class="margin0"><small>http://${dm}/people/${MyInfo.tail_slug }</small></h4>
 							<p class="white-line"></p>
 
 							

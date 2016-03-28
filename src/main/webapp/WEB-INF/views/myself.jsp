@@ -60,7 +60,7 @@
 											</c:if>
 											<a href="javascript:void(0)" onclick="toView('${s.id}')"
 												title="${s.title }" class="thumbnail border-0"> <img
-												src="${bcdomain}/bruce/${s.albumImg }" alt="${s.title }">
+												src="/bruce/${s.albumImg }" alt="${s.title }">
 												<p>${s.title }</p>
 											</a>
 										</div>

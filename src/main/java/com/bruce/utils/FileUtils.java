@@ -1,7 +1,7 @@
 package com.bruce.utils;
 
 
-	import java.io.BufferedReader;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,15 +17,130 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 	  
 	public class FileUtils {  
+		
+		 /**
+		 * 头像
+		 */
+		 public static final String suffix_head = "heads";
+		 
+		 
+		 /**
+		 * 专辑
+		 */
+		public static final String suffix_album = "album";
+		
+		 /**
+		 * 文件
+		 */
+		public static final String suffix_upload = "upload";
+		 
+		 //-------------以下为布词公用上传 、下载 、删除相关方法-------------------------------------------
+		
+		/**
+		 * 以下为布词文件删除方法
+		 * @param oldpath
+		 * @param file
+		 */
+		public static void removeOldFile(String oldpath, MultipartFile[] file) {
+			if (file.length >= 1) {
+				System.out.println(file[0].getOriginalFilename()
+						+ "------------------------------------------------》》");
+				
+				Properties prop = System.getProperties();
+
+				String os = prop.getProperty("os.name");
+				String path = "/mnt/apk/";
+		         if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
+		        	 path = "e:/bruce/";
+		         }else{
+		        	 path = "/mnt/apk/";
+		         }
+				if (StringUtils.isNotEmpty(file[0].getOriginalFilename())) {// 新上传了图片才把以前的删除
+					if (StringUtils.isNotEmpty(oldpath)) {
+						File f = new File(path+oldpath);
+						System.out.println("要删除文件的绝对路径是：" + f.getAbsolutePath());
+						if (f.exists()) {
+							f.delete();
+						} else {
+							System.out.println("文件已经丢失!");
+						}
+					}
+				}
+			}
+		}
+		 
+		 
+		 /**
+		  * 以下为布词上传upload相关方法
+		 * @param file
+		 * @param suffix
+		 * @return 保存的路径数值集合
+		 */
+		public static List<String> commonUpload(MultipartFile[] file ,String suffix)  {
+		    System.out.println("-------------------------------------->开始");  
+		    
+		    List<String> list = new ArrayList<String>();
+		    Properties prop = System.getProperties();
+
+			String os = prop.getProperty("os.name");
+			String path = "/mnt/apk/";
+			String fileName="";
+			String newName="";
+	         if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
+	        	 path = "e:/bruce/";
+	         }else{
+	        	 path = "/mnt/apk/";
+	         }
+	         
+	         String pre_path   =path+suffix+"/"; //["/mnt/apk/heads/"]
+	         
+	         for (int i = 0; i < file.length; i++) {
+	        	String tail_path   ="";         //["/heads/100101.ext"数据库保存的数值]
+	        	
+	        	fileName = file[i].getOriginalFilename();  
+	        	//fileName为空时证明用户没有上传文件
+	        	if(StringUtils.isNotEmpty(fileName)){
+	        		String ext = fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()); 
+			        newName = String.valueOf(System.currentTimeMillis())+"."+ext;
+			        File targetFile = new File(pre_path, newName);  
+			        if(!targetFile.exists()){  
+			            targetFile.mkdirs();  
+			        }  
+			        //保存  
+			        try {  
+			            file[i].transferTo(targetFile);  
+			        } catch (Exception e) {  
+			            e.printStackTrace();  
+			            continue;
+			        }  
+			        tail_path = "/"+suffix+"/"+newName;
+			       
+			        list.add(tail_path);
+	        	}
+		        
+			}
+	         
+	         System.out.println("-------------------------------------->结束");
+			return list;
+		 
+		 }
+		 
+		 
+		 
+		 //-------------以下为爬虫相关方法-------------------------------------------
 	    /** 
 	     * 获得网络图片地址。或者图片地址 
 	     * @param url 

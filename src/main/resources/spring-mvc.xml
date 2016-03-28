@@ -26,7 +26,6 @@
 	    
     <!-- 注解扫描包 --> 
     <context:component-scan base-package="com.bruce.action*" /> 
- 
     <!-- 开启注解 --> 
     <mvc:annotation-driven />
     
@@ -71,7 +70,7 @@
     <bean id="numTask" class="com.bruce.task.NumTask"></bean>
      <!--要定时执行的方法--> 
 	<task:scheduled-tasks scheduler="myScheduler">
-        <task:scheduled ref="numTask" method="runTask"  cron="0 59 12,23 * * ?"/>
+        <task:scheduled ref="numTask" method="runTask"  cron="0 20 12,15 * * ?"/>
     </task:scheduled-tasks>
     <task:scheduler id="myScheduler" pool-size="5"/>
      <!--要定时执行的方法-->

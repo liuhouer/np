@@ -38,6 +38,7 @@ import com.bruce.model.User;
 import com.bruce.model.UserLyrics;
 import com.bruce.query.LyricsQuery;
 import com.bruce.query.condition.LyricsQueryCondition;
+import com.bruce.utils.FileUtils;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
@@ -52,6 +53,9 @@ public class LyricsAction {
  private final String LIST_ACTION = "redirect:/lyrics/findAll";
  private final String LIST_ACTION2 = "redirect:/cm/pcentral";
  private final String LOGIN_ACTION = "redirect:/cm/toLogin";
+
+ 
+ 
  @Autowired	
  private LyricsManager lyricsManager;
  @Autowired	
@@ -68,6 +72,7 @@ public class LyricsAction {
 	
 	@RequestMapping("/add")
 	public String toAdd(ModelMap map,String userid,HttpServletRequest request,HttpServletResponse response) {
+		 request.getSession().setAttribute("user", userManager.findUser(507723));
 		String result = "/page/user/lyricAdd";
 		 User u = (User) request.getSession().getAttribute("user");
 		 if(u!=null){
@@ -93,13 +98,9 @@ public class LyricsAction {
 		if(null!=id && 0!=id){
 			Lyrics model = lyricsManager.findLyrics(id);
 			map.put("model", model);
-			String imgpath = model.getAlbumImg(); //e:/yunlu/upload/1399976848969.jpg
+			String imgpath = model.getAlbumImg(); 
 			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("/album/");
-			if(str.length>1){
-			String imgp = "album/"+str[1];
-			map.put("imgp", imgp);
-			}
+				map.put("imgp", imgpath);
 			}
 		}
 		return result;
@@ -120,11 +121,7 @@ public class LyricsAction {
 			map.put("model", model);
 			String imgpath = model.getAlbumImg(); //e:/yunlu/upload/1399976848969.jpg
 			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("/album/");
-			if(str.length>1){
-			String imgp = "album/"+str[1];
-			map.put("imgp", imgp);
-			}
+				map.put("imgp", imgpath);
 			}
 		}
 		return "/page/user/lyricView";
@@ -164,79 +161,24 @@ public class LyricsAction {
 	@RequestMapping("/update")
 	public String update(Lyrics model,HttpServletRequest request,String oldpath, @RequestParam(value = "file", required = false) MultipartFile[] file,ModelMap map,String userid) {
 		// 执行删除
-		if(file.length>=1){
-			System.out.println(file[0].getOriginalFilename()+"------------------------------------------------》》"); 
-			if(StringUtils.isNotEmpty(file[0].getOriginalFilename())){//新上传了图片才把以前的删除
-		if(StringUtils.isNotEmpty(oldpath)){
-		  File f = new File(oldpath);
-		  System.out.println("要删除文件的绝对路径是："+f.getAbsolutePath());
-			if (f.exists()){
-				f.delete();
-			}else{
-				System.out.println("文件已经丢失!");
-			}
-		  }
-		}
-		}
-		// 执行删除
-	    //执行上传		
-		 System.out.println("-------------------------------------->开始");  
-		    Properties prop = System.getProperties();
+		FileUtils.removeOldFile(oldpath, file);
 
-			String os = prop.getProperty("os.name");
-			System.out.println(os);
-			String path = "e:/bruce/album";
-			String fileName="";
-			String newName="";
-	         if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
-	        	 path = "e:/bruce/album";
-	         }else{
-	        	 path = "/mnt/apk/album";
-	         }
-	       //  String path = "e:/bruce/upload";
-	         String albumpath = "";
-		     String lrcpath   ="";
-	        for (int i = 0; i < file.length; i++) {
-	        	fileName = file[i].getOriginalFilename();  
-		        System.out.println(path); 
-		        if(!StringUtils.isEmpty(fileName)){//新上传了才执行保存
-		        String ext = fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()); 
-		        newName = String.valueOf(System.currentTimeMillis())+"."+ext;
-		        File targetFile = new File(path, newName);  
-		        if(!targetFile.exists()){  
-		            targetFile.mkdirs();  
-		        }  
-		  
-		        //保存  
-		        try {  
-		            file[i].transferTo(targetFile);  
-		        } catch (Exception e) {  
-		            e.printStackTrace();  
-		        }  
-		        
-		        if(i==0){
-		        	albumpath = newName;
-		        }
-		        }
-			}
-//	        String imgpath = path+"/"+newName;
-//	        System.out.println(imgpath);
+
+	    	//执行上传		
+			List<String> filelist = FileUtils.commonUpload(file, FileUtils.suffix_album);
 	        //执行上传end
-	      //上传图片非空时，执行保存路径
-	        albumpath = path+"/"+albumpath;
-	        //lrcpath = path +"/"+lrcpath;
-	        System.out.println(albumpath+"\n\t"+"---->"+lrcpath);
-	        if(albumpath.contains(".")){
-	        	model.setAlbumImg(albumpath);
-	        }else{
-	        	model.setAlbumImg(oldpath);
-	        }
+
+			if(filelist.size()>0){
+				model.setAlbumImg(filelist.get(0));
+			}else{
+				model.setAlbumImg(oldpath);
+			}
 	        model.setUpdatedate(TimeUtils.nowTime());
-	        map.addAttribute("albumpath", albumpath);
-	        System.out.println("-------------------------------------->结束");  
-		this.lyricsManager.updateLyrics(model);
-		return LIST_ACTION2+"?userid="+userid;
+		    this.lyricsManager.updateLyrics(model);
+		    
+		return LIST_ACTION2;
 	}
+
 	
 	
 	
@@ -244,62 +186,27 @@ public class LyricsAction {
 	@RequestMapping("/addLyrics")
 	public String addLyrics(Lyrics lyrics,String userid,HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile[] file,ModelMap map) {
 		
+		 request.getSession().setAttribute("user", userManager.findUser(507723));
 		 User u = (User) request.getSession().getAttribute("user");
 		 if(u!=null){
 			 
 			 userid = String.valueOf(u.getId());
 		 }
 		if(StringUtils.isNotEmpty(userid)){
-			 System.out.println("-------------------------------------->开始");  
-			    Properties prop = System.getProperties();
-
-				String os = prop.getProperty("os.name");
-				System.out.println(os);
-				String path = "e:/bruce/album";
-				String fileName="";
-				String newName="";
-		         if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
-		        	 path = "e:/bruce/album";
-		         }else{
-		        	 path = "/mnt/apk/album";
-		         }
-		       //  String path = "e:/bruce/upload";
-		         String albumpath = "";
-			     String lrcpath   ="";
-		        for (int i = 0; i < file.length; i++) {
-		        	fileName = file[i].getOriginalFilename();  
-			        System.out.println(path); 
-			        String ext = fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()); 
-			        newName = String.valueOf(System.currentTimeMillis())+"."+ext;
-			        File targetFile = new File(path, newName);  
-			        if(!targetFile.exists()){  
-			            targetFile.mkdirs();  
-			        }  
-			  
-			        //保存  
-			        try {  
-			            file[i].transferTo(targetFile);  
-			        } catch (Exception e) {  
-			            e.printStackTrace();  
-			        }  
-			        
-			        if(i==0){
-			        	albumpath = newName;
-			        }else if(i==1){
-			        	lrcpath = newName ;
-			        }
-				}
-		        albumpath = path+"/"+albumpath;
-		        lrcpath = path +"/"+lrcpath;
-//		        String imgpath = path+"/"+newName;
-//		        System.out.println(imgpath);
-		        map.addAttribute("albumpath", albumpath);
+			//上传
+				 String albumpath = "";
+				 String lrcpath   ="";
+			     List<String> filelist = FileUtils.commonUpload(file, FileUtils.suffix_album);
+			     if(filelist!=null&&filelist.size()>0){
+			    	 albumpath = filelist.get(0);
+			    	 lrcpath = filelist.size()>1?filelist.get(1):"";
+			     }
 		        lyrics.setUpdatedate(TimeUtils.nowTime());
 		        lyrics.setType("lrc");
 		        lyrics.setAlbumImg(albumpath);
 		        lyrics.setPath(lrcpath);
 		        this.lyricsManager.addLyrics(lyrics);
-		       System.out.println("-------------------------------------->结束");  
+		        
 		       UserLyrics userlyrics = new UserLyrics();
 		       userlyrics.setLyricsid(lyrics.getId());
 		       userlyrics.setUserid(Integer.parseInt(userid));
@@ -357,15 +264,6 @@ public class LyricsAction {
 		 //取得歌词/图片的信息 
 		 Lyrics lyrics = lyricsManager.findLyrics(lyricsid);
 		 
-		 //处理图像路径
-		    String imgpath = lyrics.getAlbumImg(); //e:/yunlu/upload/1399976848969.jpg
-			if(!StringUtils.isEmpty(imgpath)){
-			   String[] str = imgpath.split("/album/");
-			   if(str.length>1){
-			   String imgp = "album/"+str[1];
-			   lyrics.setAlbumImg(imgp);
-			   }
-			}
 		 map.put("lrc", lyrics);
 		 
 		 //取得上传者的信息
@@ -384,14 +282,6 @@ public class LyricsAction {
          String sql_  = "select b.username,b.tail_slug,b.email,b.headpath,a.* from bc_lyrics_comment a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' order by a.create_time desc";
          List<Map<String, Object>> plList = lyricszanManager.mixSqlQuery(sql_);
          for (int i = 0; i < plList.size(); i++) {
-        	 String imgpath_ =(String) plList.get(i).get("headpath");
- 			if(!StringUtils.isEmpty(imgpath_)){
- 			   String[] str = imgpath_.split("heads/");
- 			   if(str.length>1){
- 			   String imgp = "heads/"+str[1];
- 			   plList.get(i).put("headpath",imgp);
- 			   }
- 			}
  			
  			//批量处理时间
  			plList.get(i).put("create_time",TimeUtils.formatToNear((String) plList.get(i).get("create_time")));
@@ -411,16 +301,7 @@ public class LyricsAction {
          //取得谁爱上谁的一个列表
          String sql_2  = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,c.id as lyricsid,c.title from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id  limit 0 , 100 ";
          List<Map<String, Object>> loveList = lyricszanManager.mixSqlQuery(sql_2);
-         for (int i = 0; i < loveList.size(); i++) {
-        	 String imgpath_ =(String) loveList.get(i).get("headpath");
- 			if(!StringUtils.isEmpty(imgpath_)){
- 			   String[] str = imgpath_.split("heads/");
- 			   if(str.length>1){
- 			   String imgp = "heads/"+str[1];
- 			   loveList.get(i).put("headpath",imgp);
- 			   }
- 			}
-		 }
+
          Collections.shuffle(loveList);    
          map.put("loveList", loveList);
          

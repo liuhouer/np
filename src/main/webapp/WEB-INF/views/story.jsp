@@ -49,7 +49,7 @@
 											<c:if test="${s.get('headpath') !=null && s.get('headpath').length()>0}"><img 
 											 <c:choose>
    												<c:when test="${fn:contains(s.headpath ,'http://') }">src="${s.headpath }"</c:when>
-                                  				<c:otherwise>src="${bcdomain}/bruce/${s.headpath }"</c:otherwise>
+                                  				<c:otherwise>src="/bruce/${s.headpath }"</c:otherwise>
                                 			</c:choose> 
 											
 											 alt="${s.username}"></c:if>

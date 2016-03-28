@@ -7,20 +7,15 @@ package com.bruce.action;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bruce.manager.MoviesManager;
@@ -28,10 +23,6 @@ import com.bruce.manager.OrdersManager;
 import com.bruce.model.Movies;
 import com.bruce.model.Orders;
 import com.bruce.query.OrdersQuery;
-import com.bruce.query.condition.OrdersQueryCondition;
-import com.bruce.utils.MyConstant;
-import com.bruce.utils.PageView;
-import com.bruce.utils.QueryResult;
 import com.bruce.utils.TimeUtils;
 import com.bruce.utils.alipay.config.AlipayConfig;
 import com.bruce.utils.alipay.util.AlipayNotify;
@@ -42,7 +33,6 @@ import com.bruce.utils.alipay.util.AlipaySubmit;
 @SessionAttributes({ "list", "orders" })
 public class OrdersAction {
 
- private final String LIST_ACTION = "redirect:/ordersAction/findAll";
  @Autowired	
  private OrdersManager ordersManager;
  @Autowired	
@@ -91,12 +81,6 @@ public class OrdersAction {
 		 */
 	 public final String COD_WAIT_SYS_PAY_SELLER	= "8";//签收成功等待系统打款给卖家（货到付款）
 	
-	@RequestMapping("/toAdd")
-	public String toAdd(ModelMap map) {
-		//List<Orders> Pidlist = ordersManager.findAll();
-		//map.addAttribute("Pidlist",Pidlist);
-		return "admin/orders/ordersAdd";
-	}
 	
 	@RequestMapping("/toPay")
 	public String toPay(HttpServletRequest request,ModelMap map,HttpServletResponse response) {
@@ -428,115 +412,5 @@ public class OrdersAction {
 			return "/return_url";
 		}
 		
-	
-	
-	
-	
-	@RequestMapping("/remove")
-	public String remove(@RequestParam("id") Integer id) {
-		this.ordersManager.delOrders(id);
-		return LIST_ACTION;
-	}
-	
-	@RequestMapping("/removes")
-	public String removes(@RequestParam("ids") String ids) {
-		String[] str = ids.split(",");
-		for(String s :str){
-			this.ordersManager.delOrders(Integer.parseInt(s));
-		}
-		return LIST_ACTION;
-	}
-	
-	@RequestMapping("/update")
-	public String update(Orders model) {
-		this.ordersManager.updateOrders(model);
-		return LIST_ACTION;
-	}
-	
-
-	@RequestMapping("/addOrders")
-	public String addOrders(Orders orders) {
-		this.ordersManager.addOrders(orders);
-		return LIST_ACTION;
-	}
-
-	@RequestMapping("/findOrders")
-	private String findOrders(@RequestParam("id") Integer id, ModelMap map) {
-		Orders orders = this.ordersManager.findOrders(id);
-		map.addAttribute("orders", orders);
-		return "findresult";
-	}
-
-	@RequestMapping("/delOrders")
-	public String delOrders(@RequestParam("id") Integer id) {
-		this.ordersManager.delOrders(id);
-		return LIST_ACTION;
-	}
-
-	@RequestMapping("/updateOrders")
-	public String updateOrders(@RequestParam("id") Integer id) {
-		Orders orders = this.ordersManager.findOrders(id);
-		this.ordersManager.updateOrders(orders);
-		return LIST_ACTION;
-	}
-
-	@RequestMapping(value="/findAll")
-	public String findAll(ModelMap map,OrdersQueryCondition condition,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) {
-		String whereSql = ordersQuery.getSql(condition);
-		
-		PageView<Orders> pageView = getPageView(request, whereSql);
-		
-
-		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("createtime", "desc");
-
-		QueryResult<Orders> qrs = this.ordersManager.findByCondition(pageView,
-				whereSql, order);
-		List<Orders> list = qrs.getResultlist();
-		map.addAttribute("pageView", pageView);
-		map.put("condition", condition);
-		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","ordersAction/findAll" );
-
-		return "admin/orders/ordersList";
-	}
-
-	private PageView<Orders> getPageView(HttpServletRequest request,
-			String whereSql) {
-		PageView<Orders> pageView = new PageView<Orders>();
-		int currentpage = 0; //当前页码
-		int pages = 0; //总页数
-		int n = this.ordersManager.findByCondition(whereSql).getResultlist().size();
-		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
-        if(n % maxresult==0)
-       {
-          pages = n / maxresult ;
-       }else{
-          pages = n / maxresult + 1;
-       }
-        if(StringUtils.isEmpty(request.getParameter("currentpage"))){
-           currentpage = 0;
-        }else{
-           currentpage = Integer.parseInt(request.getParameter("currentpage"));
-           
-           if(currentpage<0)
-           {
-              currentpage = 0;
-           }
-           if(currentpage>=pages)
-           {
-              currentpage = pages - 1;
-           }
-        }
-		int startindex = currentpage*maxresult;
-		int endindex = startindex+maxresult-1;
-		pageView.setStartindex(startindex);
-		pageView.setEndindex(endindex);
-		pageView.setTotalrecord(this.ordersManager.findAll().size());
-		pageView.setCurrentpage(currentpage);
-		pageView.setTotalpage(pages);
-		return pageView;
-	}
 
 }

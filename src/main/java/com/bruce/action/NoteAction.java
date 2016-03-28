@@ -19,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bruce.manager.LyricsManager;
@@ -52,49 +51,8 @@ public class NoteAction {
  private LyricsManager lyricsManager;
  @Autowired	
  private UserFollowManager userfollowManager;
- 
- 
-    
 	
-	@RequestMapping("/toAdd")
-	public String toAdd(ModelMap map) {
-		//List<Note> Pidlist = noteManager.findAll();
-		//map.addAttribute("Pidlist",Pidlist);
-		return "/admin/note/noteAdd";
-	}
 	
-	@RequestMapping("/toEdit")
-	public String toEdit(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map) {
-		//String id = request.getParameter("id");
-		//List<Note> Pidlist = noteManager.findAll();
-		//map.addAttribute("Pidlist",Pidlist);
-		if(null!=id && 0!=id){
-			Note model = noteManager.findNote(id);
-			map.put("model", model);
-		}
-		return "/admin/note/noteEdit";
-	}
-	
-	@RequestMapping("/remove")
-	public String remove(@RequestParam("id") Integer id,String userid) {
-		this.noteManager.delNote(id);
-		return LIST_ACTION+"?userid="+userid;
-	}
-	
-	@RequestMapping("/removes")
-	public String removes(@RequestParam("ids") String ids) {
-		String[] str = ids.split(",");
-		for(String s :str){
-			this.noteManager.delNote(Integer.parseInt(s));
-		}
-		return LIST_ACTION;
-	}
-	
-	@RequestMapping("/update")
-	public String update(Note model) {
-		this.noteManager.updateNote(model);
-		return LIST_ACTION;
-	}
 	
 
 	@RequestMapping("/addNote")
@@ -151,25 +109,6 @@ public class NoteAction {
 	}
 	
 
-	@RequestMapping("/findNote")
-	private String findNote(@RequestParam("id") Integer id, ModelMap map) {
-		Note note = this.noteManager.findNote(id);
-		map.addAttribute("note", note);
-		return "/note";
-	}
-
-	@RequestMapping("/delNote")
-	public String delNote(@RequestParam("id") Integer id) {
-		this.noteManager.delNote(id);
-		return LIST_ACTION;
-	}
-
-	@RequestMapping("/updateNote")
-	public String updateNote(@RequestParam("id") Integer id) {
-		Note note = this.noteManager.findNote(id);
-		this.noteManager.updateNote(note);
-		return LIST_ACTION;
-	}
 	
 	
 	@RequestMapping(value="/viewNotes/{userid}")
@@ -181,16 +120,6 @@ public class NoteAction {
 			condition.setUserid(userid);
 			map.addAttribute("userid",userid);
 			User user = userManager.findUser(Integer.parseInt(userid));
-			//处理图片路径
-			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("heads/");
-			if(str.length>1){
-			String imgp = "heads/"+str[1];
-			user.setHeadpath(imgp);
-			}
-			}
-			//处理图片路径
 			map.put("MyInfo", user);
 		}else{
 			condition.setUserid("空");
@@ -244,16 +173,6 @@ public class NoteAction {
 			condition.setUserid(userid);
 			map.addAttribute("userid",userid);
 			User user = userManager.findUser(Integer.parseInt(userid));
-			//处理图片路径
-			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("heads/");
-			if(str.length>1){
-			String imgp = "heads/"+str[1];
-			user.setHeadpath(imgp);
-			}
-			}
-			//处理图片路径
 			map.put("MyInfo", user);
 		}else{
 			condition.setUserid("空");
@@ -312,16 +231,6 @@ public class NoteAction {
 		if(StringUtils.isNotEmpty(userid)){
 			condition.setUserid(userid);
 			map.addAttribute("userid",userid);
-			//处理图片路径
-			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("heads/");
-			if(str.length>1){
-			String imgp = "heads/"+str[1];
-			user.setHeadpath(imgp);
-			}
-			}
-			//处理图片路径
 			map.put("MyInfo", user);
 		}else{
 			condition.setUserid("空");
@@ -367,16 +276,6 @@ public class NoteAction {
 		if(StringUtils.isNotEmpty(userid)){
 			condition.setUserid(userid);
 			map.addAttribute("userid",userid);
-			//处理图片路径
-			String imgpath = user.getHeadpath(); //e:/yunlu/upload/1399976848969.jpg
-			if(!StringUtils.isEmpty(imgpath)){
-			String[] str = imgpath.split("heads/");
-			if(str.length>1){
-			String imgp = "heads/"+str[1];
-			user.setHeadpath(imgp);
-			}
-			}
-			//处理图片路径
 			map.put("MyInfo", user);
 		}else{
 			condition.setUserid("空");
@@ -431,16 +330,6 @@ public class NoteAction {
 				createtime = TimeUtils.getHalfDate(createtime);
 			}
 			list.get(i).put("createtime", createtime);
-			//头像处理
-			String imgpath =(String) list.get(i).get("headpath"); //e:/yunlu/upload/1399976848969.jpg
-			String imgp = "";
-			if(!StringUtils.isEmpty(imgpath)){
-				String[] str = imgpath.split("heads/");
-				if(str.length>1){
-				  imgp = "heads/"+str[1];
-				}
-			}
-			list.get(i).put("headpath", imgp);
 			
 		}
 		
@@ -477,16 +366,6 @@ public class NoteAction {
 				createtime = TimeUtils.getHalfDate(createtime);
 			}
 			list.get(i).put("createtime", createtime);
-			//头像处理
-			String imgpath =(String) list.get(i).get("headpath"); //e:/yunlu/upload/1399976848969.jpg
-			String imgp = "";
-			if(!StringUtils.isEmpty(imgpath)){
-				String[] str = imgpath.split("heads/");
-				if(str.length>1){
-				  imgp = "heads/"+str[1];
-				}
-			}
-			list.get(i).put("headpath", imgp);
 			
 		}
 		int pages = 0;

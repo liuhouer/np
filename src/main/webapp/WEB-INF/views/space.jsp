@@ -59,7 +59,7 @@
 										<div class="col-xs-4 col-sm-2 center">
 											<a href="javascript:void(0)" onclick="toView('${s.id}')"
 												title="${s.title }" class="thumbnail border-0"> <img
-												src="${bcdomain}/bruce/${s.albumImg }" alt="${s.title }">
+												src="/bruce/${s.albumImg }" alt="${s.title }">
 												<p>${s.title }</p>
 											</a>
 										</div>

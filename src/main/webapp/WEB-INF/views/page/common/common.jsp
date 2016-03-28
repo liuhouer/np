@@ -5,8 +5,11 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<c:set var="bcdomain" scope="request" value="http://northpark.cn"></c:set>
-<base href="http://northpark.cn">
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/js/jquery-1.7.2.js"></script>  
 <script src="/js/artDialog/artDialog.js?skin=blue"></script> 

@@ -41,7 +41,7 @@
 							<img  
 								<c:choose>
 								  <c:when test="${fn:contains(s.albumImg ,'http://') }">src="${s.albumImg }"</c:when>
-								  <c:otherwise>src="${bcdomain}/bruce/${s.albumImg }"</c:otherwise>
+								  <c:otherwise>src="/bruce/${s.albumImg }"</c:otherwise>
 								</c:choose> 
 							
 							 alt="${s.title }"></a>

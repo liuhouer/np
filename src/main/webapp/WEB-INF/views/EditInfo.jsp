@@ -77,7 +77,7 @@
 			<c:if test="${MyInfo.headpath!=null }">
 			    <c:choose>
                                   <c:when test="${fn:contains(MyInfo.headpath ,'http://') }">src="${MyInfo.headpath }"</c:when>
-                                  <c:otherwise>src="${bcdomain}/bruce/${MyInfo.headpath }"</c:otherwise>
+                                  <c:otherwise>src="/bruce/${MyInfo.headpath }"</c:otherwise>
                                 </c:choose> 
 			</c:if>
 
@@ -200,13 +200,14 @@ function saves(){
 
 					return;
 
-                }else{
-                	$("#f1").attr("action","cm/saveEditInfo").submit();
-                }            
+                }        
 
             }
 
         });
+	}else{
+        	
+		$("#f1").attr("action","cm/saveEditInfo").submit();
 	}
 
 	 

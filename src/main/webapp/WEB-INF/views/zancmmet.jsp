@@ -57,7 +57,7 @@
 				<div  class="col-sm-7 ">
 
 					<div  class="clearfix"  style="position:relative">
-						<div  class="clearfix"  id="mainThumb"><img  class="img-responsive img-full"  src="${bcdomain}/bruce/${lrc.albumImg }"  alt="${ lrc.title}"></div>
+						<div  class="clearfix"  id="mainThumb"><img  class="img-responsive img-full"  src="/bruce/${lrc.albumImg }"  alt="${ lrc.title}"></div>
 
 											</div>
 
@@ -123,7 +123,7 @@
 						   		 title="${user.username }的最爱"><img  <c:if test="${user.headpath == null}">src="/img/davatar.jpg"</c:if><c:if test="${user.headpath != null}">
 						   		 		<c:choose>
                                             <c:when test="${fn:contains(user.headpath  ,'http://') }">src="${user.headpath  }"</c:when>
-                                            <c:otherwise>src="${bcdomain}/bruce/${user.headpath  }"</c:otherwise>
+                                            <c:otherwise>src="/bruce/${user.headpath  }"</c:otherwise>
                                          </c:choose>   
 						   		
 						   		</c:if> class="img-responsive  img-circle max-width-60"  alt="${user.username }的最爱"></a>							</div>
@@ -161,7 +161,7 @@
 											<c:if test="${y.headpath == null}">src="/img/davatar.jpg"</c:if><c:if test="${y.headpath != null}">
 											 <c:choose>
    												<c:when test="${fn:contains(y.headpath,'http://') }">src="${y.headpath }"</c:when>
-                                  				<c:otherwise>src="${bcdomain}/bruce/${y.headpath}"</c:otherwise>
+                                  				<c:otherwise>src="/bruce/${y.headpath}"</c:otherwise>
                                 			</c:choose>   
 											
 											
@@ -218,7 +218,7 @@
 				        	<div  class="col-xs-2"><img  class="img-responsive img-circle max-width-30"  <c:if test="${z.headpath == null}">src="/img/davatar.jpg"</c:if><c:if test="${z.headpath != null}">
 				        	    <c:choose>
    									<c:when test="${fn:contains(z.headpath ,'http://') }">src="${z.headpath }"</c:when>
-                                    <c:otherwise>src="${bcdomain}/bruce/${z.headpath }"</c:otherwise>
+                                    <c:otherwise>src="/bruce/${z.headpath }"</c:otherwise>
                                 </c:choose>   
 
 				        	
