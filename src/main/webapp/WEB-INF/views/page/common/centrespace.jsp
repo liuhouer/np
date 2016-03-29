@@ -24,7 +24,7 @@
 						</div>
 						<div class="col-xs-8">
 							<h1 class="margin0">${MyInfo.username } </h1>
-							<h4 class="margin0"><small>http://${dm}/people/${MyInfo.tail_slug }</small></h4>
+							<h4 class="margin0"><small>http://northpark.cn/people/${MyInfo.tail_slug }</small></h4>
 							<p class="white-line"></p>
 
 							

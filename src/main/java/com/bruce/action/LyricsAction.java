@@ -186,7 +186,6 @@ public class LyricsAction {
 	@RequestMapping("/addLyrics")
 	public String addLyrics(Lyrics lyrics,String userid,HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile[] file,ModelMap map) {
 		
-		 request.getSession().setAttribute("user", userManager.findUser(507723));
 		 User u = (User) request.getSession().getAttribute("user");
 		 if(u!=null){
 			 
