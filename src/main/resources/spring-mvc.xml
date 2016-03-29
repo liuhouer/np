@@ -66,12 +66,14 @@
     </bean>  
     <!-- 定义多文件上传 --> 
     
-    
-    <bean id="numTask" class="com.bruce.task.NumTask"></bean>
-     <!--要定时执行的方法--> 
+    <!--定时任务  -->
+  <!--   <bean id="numTask" class="com.bruce.task.NumTask"></bean>
+     要定时执行的方法 
 	<task:scheduled-tasks scheduler="myScheduler">
         <task:scheduled ref="numTask" method="runTask"  cron="0 20 12,15 * * ?"/>
     </task:scheduled-tasks>
     <task:scheduler id="myScheduler" pool-size="5"/>
-     <!--要定时执行的方法-->
+     要定时执行的方法
+      -->
+     
 </beans>

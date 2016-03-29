@@ -9,8 +9,8 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<base href="<%=basePath%>">
-<!-- <base href="http://northpark.cn"> -->
+<%-- <base href="<%=basePath%>"> --%>
+<base href="http://northpark.cn">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/js/jquery-1.7.2.js"></script>  
 <script src="/js/artDialog/artDialog.js?skin=blue"></script> 

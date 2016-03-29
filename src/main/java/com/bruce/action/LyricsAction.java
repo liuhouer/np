@@ -251,7 +251,7 @@ public class LyricsAction {
 		return sb.toString();
 	}
 	
-	@RequestMapping("/comment/{lyricsid}")
+	@RequestMapping("/comment/{lyricsid}.html")
 	public String comment(HttpServletRequest request, @PathVariable Integer lyricsid,ModelMap map,String userid) {
 		 String result ="/zancmmet";
 		 String by_id = "";

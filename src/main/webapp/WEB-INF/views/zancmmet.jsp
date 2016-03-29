@@ -236,7 +236,7 @@
 										    </c:if>
 				        		
 				        		
-				        		 title="${z.username }的最爱">${z.username }</a>爱上了<a  title="${z.title }"  href="lyrics/comment/${z.lyricsid }">${z.title }</a>
+				        		 title="${z.username }的最爱">${z.username }</a>爱上了<a  title="${z.title }"  href="lyrics/comment/${z.lyricsid }.html">${z.title }</a>
 				        	</div>
 				        </div>
 				</c:forEach>
