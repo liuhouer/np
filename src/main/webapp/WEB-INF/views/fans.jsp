@@ -35,7 +35,7 @@
 		    <div class="clearfix margin-b20">
 	         <ul class="nav nav-tabs">
 		        <li><a href="/cm/pcentral">布.图</a></li>
-		        <li><a href="note/findAll">碎碎词</a></li>
+		        <li><a href="/note/findAll">碎碎词</a></li>
 		        <li class="active"><a href="/cm/myfans" >Fans</a></li>
 
 			</ul>

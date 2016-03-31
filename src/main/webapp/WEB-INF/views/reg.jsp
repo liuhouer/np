@@ -1,6 +1,5 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<base href="http://northpark.cn">
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="UTF-8">
@@ -19,12 +18,8 @@
 <meta name="keywords" content="加入布.词,最爱,回忆,生活">
 
 
-<link media="all" type="text/css" rel="stylesheet" href="./css/bootstrap.min.css">
-<link media="all" type="text/css" rel="stylesheet" href="./css/qinco.css">
-<link media="all" type="text/css" rel="stylesheet" href="./css/main2.css">
-    <style type="text/css">
-    	body {background:#f4f3f1;}
-	</style>
+
+<%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 </head>
 
@@ -64,7 +59,7 @@
                     
             <div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
 
-              <form method="POST" action="cm/addUser" accept-charset="UTF-8" role="form" id="signupForm" style="color:#444;" class="form margin-t20">
+              <form method="POST" action="/cm/addUser" accept-charset="UTF-8" role="form" id="signupForm" style="color:#444;" class="form margin-t20">
                 <div class="clearfix">
                   <h4>加入布.词，记住每一个美好</h4>
                   <hr>
@@ -93,27 +88,44 @@
 
 
 <script type="text/javascript">
+	function em(email){
+	
+	   var Regex = /^(?:\w+\.?)*\w+@(?:\w+\.)*\w+$/;            
+
+	   if (Regex.test(email)){                
+
+		return true;
+		
+	   }else{
+		   return false;
+	   }        
+		
+	}
 
 $(document).ready(function() {
 
 
+	if( $('#formSubmit').val().length<6){
+		 
+		$('#formSubmit').attr('disabled',true);
+    }
 	
-	  $('#formSubmit').attr('disabled',true);
-  $('#signupForm').on('keyup', '#newPassword', function(event) {
-      var keycode = (event.keyCode ? event.keyCode : event.which);
-      if(keycode == '8')
-      {
-        $('#newPassword').val('');
-        $('#formSubmit').attr('disabled',true);
-      }
+  
+   $('#signupForm').on('keyup', '#newPassword', function(event) {
+	   if($('#newPassword').val().length>=6 && em($('#newAccount').val()))
+	          $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
       else
-      {
-        if($('#newPassword').val().length>=6)
-          $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
-        else
-          $('#formSubmit').attr('disabled',true);
-      }
-    });
+        $('#formSubmit').attr('disabled',true);
+    }); 
+   
+   $("#newAccount").change(function(){
+	   if($('#newPassword').val().length>=6 && em($('#newAccount').val()))
+	          $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
+	   else
+		   $('#formSubmit').attr('disabled',true);
+	});
+   
+  
 });
 </script>
 

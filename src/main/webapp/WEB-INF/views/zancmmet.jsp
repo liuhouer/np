@@ -372,84 +372,8 @@ $("#J_gz_btn").click(function(){
 	
 	
 
-	
-/* $('.row-thumbnails').on('click', '.stuffThumb', function(event) {
-    $('#mainThumb').html($(this).html());
-  });
 
 
-
-	$(".loveyearBtn")
-			.click(
-					function() {
-						var now_year = $(this).attr('title');
-						var love_id = $(this).attr('rel');
-						var select_html = "从<select id='newloveyear'>";
-						for (var i = 2014; i > 1950; i--) {
-							if (i == now_year)
-								select_html += "<option value='"+i+"' selected>"
-										+ i + "年</option>";
-							else
-								select_html += "<option value='"+i+"'>" + i
-										+ "年</option>";
-						}
-						select_html += "</select>开始爱上 <button class='btn btn-sm btn-white' id='changeLoveYearBtn' rel='"+love_id+"'>修改</button>";
-						$("#loveryearBox").html(select_html);
-					});
-
-	$('body').on('click', '#changeLoveYearBtn', function(event) {
-		$(this).html('处理中...');
-		_aj['new_year'] = $('#newloveyear').val();
-		_aj['love_id'] = $(this).attr('rel');
-		$.get('/do/changeloveryear', _aj, ajaxDone);
-	});
-
-	function loadStuffCommentDone(returndata) {
-		$('#loadingAnimation').hide();
-		$("#auto_loading").val('no');
-
-		data = jQuery.parseJSON(returndata);
-		if (data.response == 'YES') {
-			$('#comment_id_from').val(data.last_id);
-			if (data.last_id != '-1') {
-				$('#loadStuffCommentBtn').show();
-				$('#stuffCommentBox').append(data.html);
-			}
-
-		}
-
-		ajaxDone(returndata);
-	}
-
-	$("#loadStuffCommentBtn").click(function() {
-		$(this).hide();
-		$('#loadingAnimation').show();
-		$("#auto_loading").val('yes');
-
-		_aj['comment_id_from'] = $('#comment_id_from').val();
-		_aj['comment_perpage'] = $('#comment_perpage').val();
-		_aj['stuff_id'] = $(this).attr('rel');
-		$.get('/do/loadstuffcomment', _aj, loadStuffCommentDone);
-	});
-
-	$("#loadStuffCommentBtn").click();
-
-	$(window).scroll(
-			function() {
-				if ((($(window).scrollTop() + $(window).height()) + 150) >= $(
-						document).height()) {
-					if ($("#auto_loading").val() == 'no'
-							&& $('#comment_id_from').val() > 0) {
-						$("#auto_loading").val('yes');
-						$("#loadStuffCommentBtn").click();
-					}
-				}
-
-			}); */
-</script>
-
-
-<script type="text/javascript">
 $(function(){
 	var editor = $('#J_comment').wangEditor({
 		'menuConfig': [
@@ -464,5 +388,4 @@ $(function(){
 
 
 
-<script  id="hiddenlpsubmitdiv"  style="display: none;"></script><script>try{for(var lastpass_iter=0; lastpass_iter < document.forms.length; lastpass_iter++){ var lastpass_f = document.forms[lastpass_iter]; if(typeof(lastpass_f.lpsubmitorig2)=="undefined"){ lastpass_f.lpsubmitorig2 = lastpass_f.submit; lastpass_f.submit = function(){ var form=this; var customEvent = document.createEvent("Event"); customEvent.initEvent("lpCustomEvent", true, true); var d = document.getElementById("hiddenlpsubmitdiv"); if (d) {for(var i = 0; i < document.forms.length; i++){ if(document.forms[i]==form){ if (typeof(d.innerText) != 'undefined') { d.innerText=i; } else { d.textContent=i; } } } d.dispatchEvent(customEvent); }form.lpsubmitorig2(); } } }}catch(e){}</script>
 </body></html>

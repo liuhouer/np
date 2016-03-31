@@ -1,23 +1,17 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" import="org.springframework.web.util.UrlPathHelper" %>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%-- <base href="<%=basePath%>"> --%>
-<base href="http://northpark.cn">
+<base href="<%=basePath%>"> 
+<!-- <base href="http://northpark.cn"> -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/js/jquery-1.7.2.js"></script>  
 <script src="/js/artDialog/artDialog.js?skin=blue"></script> 
 <script src="/js/artDialog/jquery.artDialog.js?skin=blue"></script>
 <script src="/js/artDialog/plugins/iframeTools.js"></script>
-<script src="/js/jquery.hotkeys.js"></script>
-<script src="/js/jquery.validationEngine.js"></script>
 <script src="/js/My97DatePicker/WdatePicker.js"></script>
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrapValidator.min.css">

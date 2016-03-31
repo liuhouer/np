@@ -705,7 +705,7 @@ public class UserAction {
 				this.userManager.addUser(user);
 				session.setAttribute("user", user);
 				map.put("user", user);
-				return "redirect:pic";
+				return LIST_ACTION;
 			}
 		}
 

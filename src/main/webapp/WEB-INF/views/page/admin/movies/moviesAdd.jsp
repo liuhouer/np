@@ -86,9 +86,6 @@
 	
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
-<script src="/js/jquery-1.js"></script>
-    <script src="/js/bootstrap.js"></script>
-    <script src="/js/main2.js"></script>
 <script src="/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <link href="/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet" />
 <script src="/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>

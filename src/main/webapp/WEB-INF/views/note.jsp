@@ -58,16 +58,6 @@
               	<div class="form-group">
               		<textarea id="J_md_text" style="height:200px; max-height:400px; width:100%;" name="note" rows="5"></textarea>
               	</div>
-				<!-- <h3>wangEditor test</h3>
-				<textarea id='textarea1' style='height:200px; max-height:400px; width:100%;'>
-					<p>最简单的demo</p>
-					<p>最简单的demo</p>
-					<blockquote style="color:#999; display:block; border-left: 5px solid #d0e5f2; padding:0 0 0 10px; margin:0; line-height:1.4; font-size: 100%;">
-						默认高度 200px，最大高度 400px
-					</blockquote>
-					<p><br></p>
-				</textarea>
- -->
 				<div class="form-group">
                     <button type="submit" class="btn btn-inverse btn-md"><span class="glyphicon glyphicon-music"></span> 添加碎碎词</button>
                     &nbsp; &nbsp; 

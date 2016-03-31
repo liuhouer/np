@@ -1,5 +1,4 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="UTF-8">
@@ -16,14 +15,8 @@
 <title>登录布.词</title>
 <meta name="description" content="登录布.词：布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="登录,最爱,回忆,生活">
-<c:set var="domain" value="http://northpark.cn"></c:set>
-<link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
-<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
-<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
-    <style type="text/css">
-    	body {background:#f4f3f1;}
-	</style>
 
+<%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 
 </head>
@@ -41,7 +34,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<div class="navbar-brand">
-			  <a href="http://northpark.cn/atom.xml" target="_blank" id="icon" title="订阅布.词RSS"><img src="/img/rss.png" width="20" height="20" alt="订阅布.词RSS"></a>
+			  <a href="http://blog.northpark.cn/atom.xml" target="_blank" id="icon" title="订阅布.词RSS"><img src="/img/rss.png" width="20" height="20" alt="订阅布.词RSS"></a>
 			</div>
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
@@ -116,15 +109,26 @@
 
 $(document).ready(function() {
 
-	  if( $('#formSubmit').val().length<6){
-	  $('#formSubmit').attr('disabled',true);
- }
+	if( $('#formSubmit').val().length<6){
+	 
+		$('#formSubmit').attr('disabled',true);
+    }
+	
   $('#loginForm').on('keyup', '#loginPassword', function(event) {
       if($('#loginPassword').val().length>=6)
         $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
       else
         $('#formSubmit').attr('disabled',true);
-    });
+    }); 
+   
+   $(document).keydown(function(event){
+	    if(event.keyCode==13){
+	       $("#formSubmit").click();
+	    }
+   });
+   
+   
+   
   
   $('#formSubmit').click(function(){
 	  $.ajax({

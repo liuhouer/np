@@ -160,15 +160,6 @@
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
-<script async="" src="/js/analytics.js"></script><script src="/js/jquery-1.11.0.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/main2.js"></script>
-
-      <script src="/js/plupload.js"></script>
-  <script src="/js/plupload.full.js"></script>
-
-
-
 
 
 <script type="text/javascript">

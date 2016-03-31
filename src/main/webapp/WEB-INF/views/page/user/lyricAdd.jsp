@@ -94,9 +94,6 @@ body {background:#f4f3f1;}
 	
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
-<script src="/js/jquery-1.js"></script>
-    <script src="/js/bootstrap.js"></script>
-    <script src="/js/main2.js"></script>
 
     
 

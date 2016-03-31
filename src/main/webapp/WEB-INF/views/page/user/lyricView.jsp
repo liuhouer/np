@@ -5,11 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>布.图</title>
-<%@ include file="../common/common.jsp"%>
-<style type="text/css">
-#preview{width:200px;height:200px;border:1px solid #000;overflow:hidden;top:0%;position: relative;}
-#imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
-</style>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
@@ -21,9 +16,12 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.css">
-	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
-	<link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
+
+<%@ include file="../common/common.jsp"%>
+<style type="text/css">
+#preview{width:200px;height:200px;border:1px solid #000;overflow:hidden;top:0%;position: relative;}
+#imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
+</style>
 </head>
 
 <body style="overflow: hidden;">
