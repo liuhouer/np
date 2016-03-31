@@ -3,10 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
-
-
-
-
 <div class="navbar navbar-default navbar-fixed-top mainhead-navbox" role="navigation">
 
 	<div class="container">

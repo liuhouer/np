@@ -72,7 +72,6 @@ public class LyricsAction {
 	
 	@RequestMapping("/add")
 	public String toAdd(ModelMap map,String userid,HttpServletRequest request,HttpServletResponse response) {
-		 request.getSession().setAttribute("user", userManager.findUser(507723));
 		String result = "/page/user/lyricAdd";
 		 User u = (User) request.getSession().getAttribute("user");
 		 if(u!=null){

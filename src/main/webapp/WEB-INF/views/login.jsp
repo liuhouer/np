@@ -91,6 +91,12 @@
 								
 								
 						</div>
+						<!-- <span id="qqLoginBtn"></span>
+						<script type="text/javascript">
+							QC.Login({
+								btnId : "qqLoginBtn" //插入按钮的节点id
+							});
+						</script> -->
 					</form>
             </div>
             <br><br>
