@@ -2,6 +2,7 @@
 package com.bruce.action;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -47,8 +48,10 @@ import com.bruce.query.condition.UserLyricsQueryCondition;
 import com.bruce.utils.Base64Util;
 import com.bruce.utils.EmailUtils;
 import com.bruce.utils.FileUtils;
+import com.bruce.utils.JedisUtil;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
+import com.bruce.utils.SerializationUtil;
 import com.bruce.utils.TimeUtils;
 import com.bruce.utils.URLUtil;
 import com.bruce.utils.json.JsonUtil;
@@ -86,7 +89,49 @@ public class UserAction {
 	 private NoteManager noteManager;
 	 
 	 
+	 	
+	 /**
+	 * 爬虫抓取的优惠券列表页
+	 * @param session
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	@RequestMapping("/cp/index")
+		public String quanlist(HttpSession session) throws UnsupportedEncodingException {
+		 	  	
+		        byte[] b = JedisUtil.getListByte("B_quan");
+		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+		        session.setAttribute("quan", list);
+		        
+		 
+		 	return "/quan";
+		 	  	
+		}
 	
+	/**
+	 * 爬虫抓取的优惠券列表页
+	 * @param session
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	@RequestMapping("/cp/show/{id}")
+		public String quanshow(HttpSession session, @PathVariable String id ,ModelMap map) throws UnsupportedEncodingException {
+		 	  	
+		        byte[] b = JedisUtil.getListByte("B_quan");
+		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+		        String path_mt = "";
+		        for (int i = 0; i < list.size(); i++) {
+					if(list.get(i).get("id").equals(id)){
+						 path_mt = list.get(i).get("path_mt");
+					}
+				}
+		        
+		        map.put("path_mt", path_mt);
+		        
+		 
+		 	return "/quanshow";
+		 	  	
+		}
 
 	 	/**
 	 	 * @ 页面对有关于用户的操作，先异步进行判断，假如有用户，返回1.没有用户直接跳转到登陆界面，并且传入需要return的url。

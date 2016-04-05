@@ -26,6 +26,49 @@ public class JedisUtil {
 		config.setMaxTotal(10);
 		pool = new JedisPool(config, "123.56.129.117", 6379, 2000, "redisredis");
 	}
+	
+
+	/**
+	 * @author zhangyang
+	 * 添加List[byte[],byte[]]
+	 * @param key
+	 * @param value
+	 */
+	public static void addList(String key,List list){
+		Jedis jedis = pool.getResource();
+		try {
+			// 存入一个 List对象
+			jedis.set(key.getBytes(), SerializationUtil.serialize(list));
+		} catch (Exception e) {
+			closeJedis(jedis);
+			LOGGER.error("JedisUtil putString Exception",e);
+		} finally {
+			closeJedis(jedis);
+		}
+	}
+	
+	/**
+	 * @author zhangyang
+	 * 根据key【byte】取出value【byte【】】
+	 * @param key
+	 * @return byte[list]
+	 */
+	public static byte[] getListByte(String key){
+		Jedis jedis = pool.getResource();
+		byte[] b = null;
+		try {
+			// 取出byte数组
+			b = jedis.get(key.getBytes());
+		
+		}catch (Exception e) {
+			closeJedis(jedis);
+			LOGGER.error("JedisUtil getList Exception",e);
+		} finally {
+			closeJedis(jedis);
+		}
+		return b;
+	}
+	
 	/**
 	 * 删除操作
 	 * @param key
@@ -41,6 +84,8 @@ public class JedisUtil {
 			closeJedis(jedis);
 		}
 	}
+	
+	
 	/**
 	 * 添加字符串
 	 * @param key

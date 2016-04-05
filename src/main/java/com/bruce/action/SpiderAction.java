@@ -6,6 +6,7 @@ package com.bruce.action;
 **/
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -23,13 +24,17 @@ import com.bruce.manager.LyricsCommentManager;
 import com.bruce.manager.LyricsManager;
 import com.bruce.manager.LyricsZanManager;
 import com.bruce.manager.NoteManager;
+import com.bruce.manager.QuanManager;
 import com.bruce.manager.UserLyricsManager;
 import com.bruce.manager.UserManager;
 import com.bruce.model.Getnotes;
 import com.bruce.model.Lyrics;
 import com.bruce.model.LyricsComment;
 import com.bruce.model.LyricsZan;
+import com.bruce.model.Quan;
 import com.bruce.model.User;
+import com.bruce.utils.JedisUtil;
+import com.bruce.utils.SerializationUtil;
 import com.bruce.utils.TimeUtils;
 
 
@@ -53,6 +58,10 @@ public class SpiderAction {
  @Autowired	
  private GetnotesManager getnotesManager;
  
+ @Autowired
+ public QuanManager quanManager;
+
+ 
  public static Set<Integer> m = new HashSet<Integer>();
 	/**
 	 * 生成6位int  ID
@@ -61,13 +70,47 @@ public class SpiderAction {
 	public static int getInt6() {
 		int a = 0;
 			do {
-				a = (int) (Math.random() * 10000+590000);
+				a = (int) (Math.random() * 10000+700000);
 			} while (m.contains(a));
 			m.add(a);
 			System.out.println(a);
 		return a;
 	}
 	
+	/**
+	  * 添加lrcid映射
+	 * @param user
+	 * @param map
+	 * @param session
+	 */
+	@RequestMapping("/addQuan")
+	public void addQuan(){
+		//去重
+		  List<Quan> list_q =  quanManager.findAll();
+		  Set<String> set = new HashSet<String>();
+		  for(Quan q:list_q){
+			  set.add(q.getPath());
+		  }
+		  
+		  
+		  byte[] b = JedisUtil.getListByte("B_quan");
+	      List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+	      
+	    for (int i = 0; i <list.size(); i++) {
+	    	Map<String,String> map = list.get(i);
+	    	if(set.add(map.get("path"))){//判断去重
+			    	Quan model = new Quan();
+			    	model.setFromwhere(map.get("from"));     
+					model.setPublistime( map.get("publishtime"));   
+					model.setAuthorIP(map.get("authorIP"));     
+					model.setPath(map.get("path"));    
+					model.setTitle(map.get("title"));    
+					model.setPath_mt(map.get("path_mt"));    
+					model.setAddtime(map.get("addtime"));
+					quanManager.addQuan(model);
+	    	}
+		}
+	}
 
 	
 	/**

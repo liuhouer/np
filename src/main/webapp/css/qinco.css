@@ -85,6 +85,21 @@ a:focus,a:hover
   background-color:#888
 }
 
+.btn-green
+{
+  color:#49c7be;
+  text-shadow:none;
+  background-color:#ccc;
+  border:0
+}
+
+.btn-green:hover,.btn-green:focus
+{
+  color:#49c7be;
+  text-shadow:none;
+  background-color:#888
+}
+
 .btn-inverse
 {
   color:#fff;
