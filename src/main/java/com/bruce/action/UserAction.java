@@ -36,6 +36,7 @@ import com.bruce.manager.UserFollowManager;
 import com.bruce.manager.UserLyricsManager;
 import com.bruce.manager.UserManager;
 import com.bruce.manager.UserprofileManager;
+import com.bruce.model.Movies;
 import com.bruce.model.QQinfo;
 import com.bruce.model.Reset;
 import com.bruce.model.User;
@@ -89,6 +90,8 @@ public class UserAction {
 	 private NoteManager noteManager;
 	 
 	 
+	 public static final String pattern = "([-+*/^()\\]\\[])" ;
+	 
 	 	
 	 /**
 	 * 爬虫抓取的优惠券列表页
@@ -107,6 +110,47 @@ public class UserAction {
 		 	return "/quan";
 		 	  	
 		}
+	
+	
+	 /**
+		 * 从redis缓存筛选列表
+		 * @param session
+		 * @return
+		 * @throws UnsupportedEncodingException 
+		 */
+		@RequestMapping("/cp/search")
+			public String quanquery(HttpSession session,String keyword,ModelMap model) throws UnsupportedEncodingException {
+			 	  	
+			        byte[] b = JedisUtil.getListByte("B_quan");
+			        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+			        List<Map<String,String> > list_search  = new ArrayList<Map<String,String>>(); 
+			        		
+			        		if(StringUtils.isNotEmpty(keyword)){
+			        			keyword = keyword.replaceAll(pattern, "");
+			        			for (int i = 0; i < list.size(); i++) {
+			        				Map<String,String> map = list.get(i);
+			        				String from = map.get("from");
+			        				if(StringUtils.isNotEmpty(from)){
+			        					if(from.contains(keyword)){
+			        						
+			        						list_search.add(map);
+			        					}
+			        				}
+			        			}
+			        		}
+			        		
+			        		if(list_search.size()>0){
+			        			model.put("quan", list_search);
+			        		}else{
+			        			model.put("quan", list);
+			        		}
+			        		
+			        		model.put("keyword", keyword);
+			        
+			 
+			 	return "/quan";
+			 	  	
+			}
 	
 	/**
 	 * 爬虫抓取的优惠券列表页

@@ -70,6 +70,33 @@ a:focus,a:hover
   border:1px solid #e6e6e6
 }
 
+.tag-node
+{
+    font-size: 15px;
+    line-height: 15px;
+    padding: 4px 10px 4px 10px;
+    margin: 0px 5px 5px 0px;
+    border-radius: 16px;
+    display: inline-block;
+    border: 1px solid #e5e5e5;
+    background-color: white;
+    width: 100px;
+}
+
+.tag-node-sel
+{
+    font-size: 15px;
+    line-height: 15px;
+    padding: 4px 10px 4px 10px;
+    margin: 0px 5px 5px 0px;
+    border-radius: 16px;
+    display: inline-block;
+    border: 1px solid #e5e5e5;
+    color:white;
+    width: 100px;
+}
+
+
 .btn-gray
 {
   color:#fff;

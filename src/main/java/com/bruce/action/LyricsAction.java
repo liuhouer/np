@@ -82,8 +82,8 @@ public class LyricsAction {
 		return result;
 	}
 	
-	@RequestMapping("/toEdit")
-	public String toEdit(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map,String userid) {
+	@RequestMapping("/toEdit/{id}")
+	public String toEdit(HttpServletRequest request, @PathVariable("id") Integer id,ModelMap map,String userid) {
 		String result ="/page/user/lyricEdit";
 		
 		if(StringUtils.isEmpty(userid)){
@@ -91,7 +91,7 @@ public class LyricsAction {
             userid = String.valueOf(u.getId());
         } 
 		if(StringUtils.isEmpty(userid)){
-			result ="redirect:/lyrics/toView?id="+id;
+			result ="redirect:/lyrics/toView/"+id;
 		}
 		map.put("userid", userid);
 		if(null!=id && 0!=id){
@@ -105,8 +105,8 @@ public class LyricsAction {
 		return result;
 	}
 	
-	@RequestMapping("/toView")
-	public String toView(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map) {
+	@RequestMapping("/toView/{id}")
+	public String toView(HttpServletRequest request, @PathVariable("id") Integer id,ModelMap map) {
 		if(null!=id && 0!=id){
 			Lyrics model = lyricsManager.findLyrics(id);
 			List<UserLyrics> rs =userlyricsManager.findByCondition(" where lyricsid='"+id+"' ").getResultlist();
@@ -126,13 +126,14 @@ public class LyricsAction {
 		return "/page/user/lyricView";
 	}
 	
-	@RequestMapping("/remove")
-	public String remove(@RequestParam("lyricsid") Integer lyricsid,String userid,Integer userlyricsid) {
+	@RequestMapping("/remove/{lyricsid}/{userlyricsid}")
+	public String remove(@PathVariable("lyricsid") Integer lyricsid,String userid,@PathVariable("userlyricsid") Integer userlyricsid,HttpServletRequest request) {
 		String result =LIST_ACTION2;
+		User u = (User) request.getSession().getAttribute("user");
+        userid = String.valueOf(u.getId());
 		if(StringUtils.isNotEmpty(userid)){
-		this.lyricsManager.delLyrics(lyricsid);
-		userlyricsManager.delUserLyrics(userlyricsid);
-		result=LIST_ACTION2+"?userid="+userid;
+			lyricsManager.delLyrics(lyricsid);
+			userlyricsManager.delUserLyrics(userlyricsid);
 		}
 		return result;
 	}

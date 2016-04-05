@@ -22,9 +22,6 @@
 </head>
 
 <body style="">
-     <form action="" method="post" id="f2">
-       <input name="userid" value="${MyInfo.id }" type="hidden">
-     </form>
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 
     	<%@ include file="/WEB-INF/views/page/common/centrespace.jsp"%>
@@ -57,7 +54,7 @@
 								<div class="col-md-10">
 									<div class="row">
 										<div class="col-xs-4 col-sm-2 center">
-											<a href="javascript:void(0)" onclick="toView('${s.id}')"
+											<a  href="/lyrics/toView/${s.id}"
 												title="${s.title }" class="thumbnail border-0"> <img
 												src="/bruce/${s.albumImg }" alt="${s.title }">
 												<p>${s.title }</p>
@@ -85,13 +82,6 @@
 <script type="text/javascript">
 
 	
-	function toEditInfo(){
-		$("#f1").submit();
-	}
-	
-	function toView(id){
-		$("#f2").attr("action","lyrics/toView.action?id="+id).submit();
-	}
 	
 	
 	$("#J_gz_btn").click(function(){

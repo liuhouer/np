@@ -23,9 +23,6 @@
 </head>
 
 <body style="">
-     <form action="cm/toEditInfo" method="post" id="f1">
-       <input name="userid" value="${user.id }" type="hidden">
-     </form>
      <form action="" method="post" id="f2">
        <input name="userid" value="${user.id }" type="hidden">
      </form>
@@ -40,7 +37,7 @@
 		    <div class="clearfix margin-b20">
 	         <ul class="nav nav-tabs">
 		        <li class="active"><a href="/cm/pcentral">布.图</a></li>
-		        <li><a href="note/findAll">碎碎词</a></li>
+		        <li><a href="/note/findAll">碎碎词</a></li>
 		         <li ><a  href="/cm/myfans" >Fans</a></li>
 			</ul>
 			</div>		
@@ -58,7 +55,7 @@
 												<span id="delspan${ss.index }"
 													onclick="removes('${s.id}','${s.userlyricsid }')"></span>
 											</c:if>
-											<a href="javascript:void(0)" onclick="toView('${s.id}')"
+											<a  href="lyrics/toEdit/${s.id}"
 												title="${s.title }" class="thumbnail border-0"> <img
 												src="/bruce/${s.albumImg }" alt="${s.title }">
 												<p>${s.title }</p>
@@ -91,13 +88,6 @@
 <script type="text/javascript">
 
 	
-	function toEditInfo(){
-		$("#f1").submit();
-	}
-	
-	function toView(id){
-		$("#f2").attr("action","lyrics/toEdit.action?id="+id).submit();
-	}
 	
 	function addSpan(obj){
 		document.getElementById(obj).className = "glyphicon glyphicon-trash";
@@ -109,7 +99,7 @@
 
 	function removes(lyricsid,userlyricsid){
 		art.dialog.confirm('你确定要删除这首最爱歌词吗？', function () {
-		    $("#f2").attr("action","lyrics/remove.action?lyricsid="+lyricsid+"&userlyricsid="+userlyricsid).submit();
+			window.location.href = "lyrics/remove/"+lyricsid+"/"+userlyricsid;
 		}, function () {
 		    return ;
 		});

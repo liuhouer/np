@@ -29,12 +29,22 @@
 		<div class="mainbody" style="margin-top:80px; ">
 		
 		
-		     <%-- <div class="view ">
-                <form class=" form-inline margin-t20" action="/movies/search" method="post">
-                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="form-control input-lg  border-light-1 bg-lyellow grid98 radius-0" name="keyword" type="text">
-                  <input data-activetext="搜索 ››" class="form-control btn btn-hero " value="搜索" type="submit">
+		     <div class="view ">
+                <form id="J_tag_fm" class=" form-inline margin-t20" action="/cp/search" method="post">
+                 <%--  <input id="keyword" placeholder="美团|滴滴|饿了么.."    value="${keyword }"	class="form-control input-lg  border-light-1 bg-lyellow grid98 radius-0" name="keyword" type="text">
+                  <input data-activetext="搜索 ››" class="form-control btn btn-hero " value="搜索" type="submit"> --%>
+                    <div class="clearfix align-center  margin-t10 margin-b10 padding20">
+                     	<input type="hidden"  id="keyword"  name="keyword"  value="${keyword}">
+                    	<input class="btn tag-node" type="button" value="美团">
+                    	<input class="btn tag-node" type="button" value="滴滴">
+                    	<input class="btn tag-node" type="button" value="饿了么">
+                    	<input class="btn tag-node" type="button" value="大众点评">
+                    	<span id="J_clear_tag" class="glyphicon glyphicon-repeat" style="padding-left: 10px" aria-hidden="true"></span>
+                    	
+                    </div>
+                   
                 </form>
-              </div> --%>
+              </div> 
 		
 		
 			<div class="row">
@@ -90,6 +100,40 @@
 	$("body").on('click', '.click2show', function() {
 			$(this).hide();
 	});
+	$(function(){
+		//设置
+		$(".tag-node").each(function(){
+			$(this).click(function(){
+				var val = $(this).val();
+				
+				$("#keyword").val(val);
+				
+				if(val){
+					$("#J_tag_fm").submit();
+				}
+			})
+			
+		})
+		
+		var keyword =  $("#keyword").val();
+		//选中样式
+		$(".tag-node").each(function(){
+				var val = $(this).val();
+				
+				if(keyword == val){
+					$(this).removeClass().addClass("btn tag-node-sel");
+				}
+			
+		})
+		
+		
+		//清除选项
+		$("#J_clear_tag").click(function(){
+			$("#keyword").val("");
+			$("#J_tag_fm").submit();
+			
+		})
+	})
 	
 	function showquan(id){
 		

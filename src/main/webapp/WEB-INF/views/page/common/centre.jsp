@@ -19,7 +19,7 @@
 								</c:if>
 								>
 								<br>
-								<a href="javascript:void(0);" onclick="toEditInfo()" class="btn btn-gray btn-sm"><span class="glyphicon glyphicon-pencil"></span> 编辑档案</a>
+								<a href="/cm/toEditInfo" class="btn btn-gray btn-sm"><span class="glyphicon glyphicon-pencil"></span> 编辑档案</a>
 							</div>
 						</div>
 						<div class="col-xs-8">
