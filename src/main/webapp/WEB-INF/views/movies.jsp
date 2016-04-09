@@ -50,17 +50,16 @@
 											<p><small class="red-text">￥${s.price}</small></p>
 											
 											<p> 
-											 <button class="clearfix btn btn-gray btn-xs click2show" onclick="pay('${s.id}','${s.price }')"  <span class="glyphicon glyphicon-yen">购买</span> &nbsp; </button>
+											 <button class="clearfix btn btn-gray btn-xs click2show" onclick="pay('${s.id}','${s.price }')"  <span class="glyphicon glyphicon-yen">donate</span> &nbsp; </button>
 											 
 											 </p>
-
 											
 											<div class="clearfix visible-xs"><hr></div>
 										</div>
 									</div>
 									
 									<div class="col-sm-9">
-										<p><small class="label label-gray"></small> &nbsp; <a 
+										<p><small class="label label-gray"><p><small class="red-text">${s.path}</small></p></small> &nbsp; <a 
 										
 										title="${s.moviename}的简介">${s.moviename}</a> 简介：</p>
 										<p id="brief_${ss.index}">
