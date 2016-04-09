@@ -93,6 +93,7 @@ a:focus,a:hover
     display: inline-block;
     border: 1px solid #e5e5e5;
     color:white;
+    background-color: gray;
     width: 100px;
 }
 

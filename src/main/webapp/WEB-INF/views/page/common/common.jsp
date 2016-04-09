@@ -16,6 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  data-appid="101204466" data-redirecturi="http://northpark.cn/cm/list" charset="utf-8"></script>
   -->
 <script src="/js/jquery-1.7.2.js"></script>  
+<script src="/js/jquery.lazyload.js"></script>  
 <script src="/js/artDialog/artDialog.js?skin=blue"></script> 
 <script src="/js/artDialog/jquery.artDialog.js?skin=blue"></script>
 <script src="/js/artDialog/plugins/iframeTools.js"></script>
@@ -41,25 +42,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 })(art.dialog.blue);//这个是用哪个主题有很多主题的你把名字打上就行啦  
  
  
-
-/**
- * checkbox全选事件
- */
-function selectAll(){
-	 var checklist = document.getElementsByName ("checkbox");
-	   if(document.getElementById("al").checked)
-	   {
-	   for(var i=0;i<checklist.length;i++)
-	   {
-	      checklist[i].checked = 1;
-	   } 
-	 }else{
-	  for(var j=0;j<checklist.length;j++)
-	  {
-	     checklist[j].checked = 0;
-	  }
-	 }
-	}
 
 
 //图片上传预览    IE是用了滤镜。

@@ -66,14 +66,25 @@
                 </div>
                 
                 <div class="form-group ">
-                  <label for="newAccount" class="control-label">Email：</label>                    <input id="newAccount" placeholder="example@gmail.com" class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0" name="email" type="text">                                    </div>
+                  <label for="newAccount" class="control-label">Email：</label> 
+ 				  <input id="newAccount" placeholder="example@gmail.com" 
+ 				  class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0" name="email" type="text">
+ 				</div>
 
                 <div class="form-group ">
-                  <label for="newPassword" class="control-label">设置密码：</label>                  <input id="newPassword" class="form-control  input-lg  border-light-1 bg-lyellow  grid70 radius-0" name="password" type="password" value="">                                    
+                  <label for="newPassword" class="control-label">设置密码：</label>
+                  <input id="newPassword" class="form-control  input-lg  border-light-1 bg-lyellow  grid98 radius-0" name="password" type="password" value="">                                    
                 </div>
-                  <label  class="control-label"><c:if test="${reged eq 'reged' }"><font color="red">账号已注册</font> </c:if>   </label>     
+                
+                <label  class="control-label"><c:if test="${reged eq 'reged' }"><font color="red">账号已注册</font> </c:if>   </label>     
                 <div class="form-group">
-                    <input id="formSubmit" data-activetext="加入 ››" class="btn btn-hero btn-xlg margin-t10 grid50" type="submit" value="加入" disabled="disabled">                </div>
+                    <input id="formSubmit" data-activetext="加入 ››" class="btn btn-hero btn-xlg margin-t10 grid50" type="submit" value="加入" disabled="disabled"> 
+                </div>
+                
+                <div class="form-group">
+							 <a class="pull-left" href="/cm/toLogin"><span
+								class="glyphicon glyphicon-hand-right"></span> 已有账号，去登陆</a>	
+				</div>	
               </form>
             </div>
             <br><br>

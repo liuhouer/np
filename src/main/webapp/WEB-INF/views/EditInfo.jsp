@@ -56,7 +56,7 @@
           <input type="hidden" name="date_joined"  value="${MyInfo.date_joined }">
           
           <p id="email" class="input-lg padding0 control-label text-left">${MyInfo.email }</p>
-          <p class="help-block">如需修改邮箱，请<a href="http://user.qzone.qq.com/1007136434/infocenter?ptsig=28Kr5VKAgebWZnAm1pmylFiXL98OvRVMtfQ4kVhzEbM_">联系我们</a></p>
+          <p class="help-block">如需修改邮箱，请<a href="mailto:zhangyang.z@icloud.com">联系我们</a></p>
         </div>
       </div>
       <hr>

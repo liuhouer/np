@@ -70,10 +70,10 @@
 						</div>
 
 						<div class="form-group ">
-							<label for="loginPassword" class="control-label">您的密码：</label> <a
-								class="pull-right" href="/cm/forget"><span
-								class="glyphicon glyphicon-question-sign"></span> 忘记密码了</a> <input
-								id="loginPassword"
+							<label for="loginPassword" class="control-label">您的密码：</label> 
+							<a class="pull-right" href="/cm/forget"><span
+								class="glyphicon glyphicon-question-sign"></span> 忘记密码了</a> 
+							<input id="loginPassword"
 								class="form-control  input-lg  border-light-1 bg-lyellow    radius-0"
 								name="password" type="password" value="">
 						</div>
@@ -88,9 +88,11 @@
 							<input id="formSubmit" data-activetext="登录 ››"
 								class="btn btn-success btn-lg margin-t10 grid50" type="button"
 								value="登录" disabled="disabled">
-								
-								
 						</div>
+						<div class="form-group">
+							 <a class="pull-left" href="/cm/reg"><span
+								class="glyphicon glyphicon-hand-right"></span> 还没账号，去注册</a>	
+						</div>		
 						<!-- <span id="qqLoginBtn"></span>
 						<script type="text/javascript">
 							QC.Login({

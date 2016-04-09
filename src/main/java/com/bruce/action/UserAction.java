@@ -27,24 +27,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bruce.manager.LyricsCommentManager;
-import com.bruce.manager.LyricsManager;
-import com.bruce.manager.LyricsZanManager;
-import com.bruce.manager.NoteManager;
 import com.bruce.manager.ResetManager;
 import com.bruce.manager.UserFollowManager;
 import com.bruce.manager.UserLyricsManager;
 import com.bruce.manager.UserManager;
 import com.bruce.manager.UserprofileManager;
-import com.bruce.model.Movies;
 import com.bruce.model.QQinfo;
 import com.bruce.model.Reset;
 import com.bruce.model.User;
 import com.bruce.model.UserFollow;
 import com.bruce.model.UserLyrics;
 import com.bruce.model.Userprofile;
-import com.bruce.query.UserLyricsQuery;
-import com.bruce.query.UserQuery;
 import com.bruce.query.condition.UserLyricsQueryCondition;
 import com.bruce.utils.Base64Util;
 import com.bruce.utils.EmailUtils;
@@ -62,32 +55,26 @@ import com.bruce.utils.json.JsonUtil;
 @SessionAttributes({ "list", "User" })
 public class UserAction {
 
+     /**
+     * 域名
+     */
+     private final String DOMAIN = "northpark.cn";
+     /**
+      * 定向action'
+      */
 	 private final String LIST_ACTION = "redirect:/cm/list";
-	 private final String DOMAIN = "northpark.cn";
 	 private final String LOGIN_ACTION = "redirect:/cm/toLogin";
+	 private final String REG_ACTION = "redirect:/cm/reg";
 	 @Autowired	
 	 private UserManager userManager;
 	 @Autowired	
 	 private UserprofileManager userprofileManager;
 	 @Autowired	
-	 private UserQuery userQuery;
-	 @Autowired	
-	 private UserLyricsQuery userlyricsQuery;
-	 @Autowired	
 	 private UserLyricsManager userlyricsManager;
-	 @Autowired	
-	 private LyricsManager lyricsManager;
-	 @Autowired	
-	 private LyricsZanManager lyricsZanManager;
-	 @Autowired	
-	 private LyricsCommentManager lyricsCommentManager;
 	 @Autowired	
 	 private UserFollowManager userfollowManager;
 	 @Autowired	
 	 private ResetManager resetManager;
-	 
-	 @Autowired	
-	 private NoteManager noteManager;
 	 
 	 
 	 public static final String pattern = "([-+*/^()\\]\\[])" ;
@@ -698,6 +685,8 @@ public class UserAction {
 		@RequestMapping("/cm/reg")
 		public String toReg(ModelMap map,HttpServletRequest request) {
 			
+			map.put("reged", request.getParameter("reged"));
+			
 			return "/reg";
 		}
 		
@@ -777,7 +766,7 @@ public class UserAction {
 			int num = userManager.findByCondition(" where email = '"+user.getEmail()+"' ").getResultlist().size();
 			if(num>0){
 				map.put("reged", "reged");
-				return "/reg";
+				return REG_ACTION;
 			}else{
 				
 				user.setDate_joined(TimeUtils.nowTime());

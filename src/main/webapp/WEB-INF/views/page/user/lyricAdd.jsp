@@ -17,7 +17,7 @@
 <title>添加我的布.图</title>
 <%@ include file="../common/common.jsp"%>
 <style type="text/css">
-#preview{width:200px;height:200px;border:1px solid #000;overflow:hidden;top: 25%;position: relative;}
+#preview{width:200px;height:200px;border:0;overflow:hidden;top: 25%;position: relative;}
 #imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
 body {background:#f4f3f1;}
 </style>
@@ -37,45 +37,49 @@ body {background:#f4f3f1;}
 					<form method="POST" action="lyrics/addLyrics.action" accept-charset="UTF-8" role="form" id="addItemForm" style="color: #444;" class="form margin-t20"  enctype="multipart/form-data">
 						<div class="clearfix">
 							<h4>
-								<span class="glyphicon glyphicon-plus"></span> 添加我的歌词
+								<span class="glyphicon glyphicon-plus"></span> 添加我的布.图
 							</h4>
 							<hr>
 						</div>
 
-						<div class="form-group ">
+						<!-- <div class="form-group hidden">
 							<input id="artist" placeholder="艺术家 比如：周杰伦"
 								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-								name="artist" type="text">
+								name="artist" type="text" >
 						</div>
-						<div class="form-group ">
+						<div class="form-group hidden" >
 							<input id="album" placeholder="专辑 比如：依然范特西"
 								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-								name="album" type="text">
+								name="album" type="text" >
 						</div>
-						<div class="form-group ">
-							<input id="title" placeholder="歌曲名 比如：夜的第七章"
+						<div class="form-group hidden">
+							<input id="medialength" placeholder="媒体长度 比如：00:04:25"
+								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
+								name="medialength" type="text" value="00:04:25">
+						</div> -->
+						<span style="color: #999; opacity: 1;">主题</span>
+						<div class="form-group padding-b20">
+							<input id="title" placeholder="暴雨中漫步"
 								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
 								name="title" type="text">
 						</div>
-						<div class="form-group ">
-							<input id="medialength" placeholder="媒体长度 比如：00:04:25"
-								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-								name="medialength" type="text">
-						</div>
-						<span style="color: #999; opacity: 1;">专辑图片</span>
-					            <input placeholder="专辑图片 选择一个你喜欢的图片" name="file" id="file1" type="file" onchange="previewImage(this)" accept=".jpg,.gif,.png,.ico,.bmp" class=" border-light-1 bg-lyellow grid98 radius-0"/>  
-						<span style="color: #999; opacity: 1;">歌词文件</span>
-						 		<input  placeholder="选择一个你喜欢的歌词" name="file" id="lrcid" type="file"  accept=".lrc"  class="border-light-1 bg-lyellow grid98 radius-0" />  
+						<span style="color: #999; opacity: 1;">主题图片</span>
+						<div class="form-group  padding-b20">
+					        <input placeholder="专辑图片 选择一个你喜欢的图片" name="file" id="file1" type="file" onchange="previewImage(this)" accept=".jpg,.gif,.png,.ico,.bmp" 
+					        class="form-control   border-light-1 bg-lyellow grid98 radius-0"/> 
+					    </div>     
+						<!-- <span style="color: #999; opacity: 1;">歌词文件</span>
+						 		<input  placeholder="选择一个你喜欢的歌词" name="file" id="lrcid" type="file"  accept=".lrc"  class="border-light-1 bg-lyellow grid98 radius-0" />   -->
 						<div class="clearfix hidden" id="searchResult"></div>
 
+						 <div id="preview" class="form-group " >
+							<img id="imghead" border=0 src="/img/head_180.jpg" width="200" height="200" />
+						</div>
 						<div class="form-group">
 							<input disabled="disabled" id="formSubmit" data-activetext="添加 ››"
 								class="btn btn-hero btn-xlg margin-t10 grid50" value="添加"
 								type="submit">
 						</div>
-						 <div id="preview" class="align-center bg-white radius-5 padding10 max-width-400 min-width-300" style="padding-left: 50px;border: 0">
-							<img id="imghead" border=0 src="img/head_180.jpg" width="200" height="200" />
-				</div>
 					</form>
 				</div>
 				
@@ -109,30 +113,8 @@ $(document).ready(function() {
 	
 	
   $('#formSubmit').attr('disabled',true);
-  $('#addItemForm').on('keyup', '#artist', function(event) {
-	    if($('#artist').val().length>=1&&$('#album').val().length>=1&&$('#title').val().length>=1&&$('#medialength').val().length>=1&&$('#lrcid').val().length>=1)
-	    {
-	      $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
-
-	    }
-	    else
-	      $('#formSubmit').attr('disabled',true);
-	  
-    });
-  
-  $('#addItemForm').on('keyup', '#album', function(event) {
-	    if($('#artist').val().length>=1&&$('#album').val().length>=1&&$('#title').val().length>=1&&$('#medialength').val().length>=1&&$('#lrcid').val().length>=1)
-	    {
-	      $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
-
-	    }
-	    else
-	      $('#formSubmit').attr('disabled',true);
-	  
-  });
-  
   $('#addItemForm').on('keyup', '#title', function(event) {
-	    if($('#artist').val().length>=1&&$('#album').val().length>=1&&$('#title').val().length>=1&&$('#medialength').val().length>=1&&$('#lrcid').val().length>=1)
+	    if($('#title').val().length>=1&&$('#file1').val().length>=1)
 	    {
 	      $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
 
@@ -142,21 +124,9 @@ $(document).ready(function() {
 	  
   });
   
-  $('#addItemForm').on('keyup', '#medialength', function(event) {
-	    if($('#artist').val().length>=1&&$('#album').val().length>=1&&$('#title').val().length>=1&&$('#medialength').val().length>=1&&$('#lrcid').val().length>=1)
-	    {
-	      $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
-
-	    }
-	    else{
-	      $('#formSubmit').attr('disabled',true);
-	    }
-	  
-  });
   
-  
-  $('#addItemForm').on('change', '#lrcid', function(event) {
-	    if($('#artist').val().length>=1&&$('#album').val().length>=1&&$('#title').val().length>=1&&$('#medialength').val().length>=1&&$('#lrcid').val().length>=1)
+  $('#addItemForm').on('change', '#file1', function(event) {
+	    if($('#title').val().length>=1&&$('#file1').val().length>=1)
 	    {
 	      $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
 
@@ -213,64 +183,6 @@ $(document).ready(function() {
 			
 			
 			
-			//图片上传预览    IE是用了滤镜。
-			function previewImage(file)
-			{
-			  var MAXWIDTH  = 260; 
-			  var MAXHEIGHT = 180;
-			  var div = document.getElementById('preview');
-			  if (file.files && file.files[0])
-			  {
-			      div.innerHTML ='<img id=imghead>';
-			      var img = document.getElementById('imghead');
-			      img.onload = function(){
-			        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-			        img.width  =  rect.width;
-			        img.height =  rect.height;
-//			         img.style.marginLeft = rect.left+'px';
-			        img.style.marginTop = rect.top+'px';
-			      }
-			      var reader = new FileReader();
-			      reader.onload = function(evt){img.src = evt.target.result;}
-			      reader.readAsDataURL(file.files[0]);
-			  }
-			  else //兼容IE
-			  {
-			    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
-			    file.select();
-			    var src = document.selection.createRange().text;
-			    div.innerHTML = '<img id=imghead>';
-			    var img = document.getElementById('imghead');
-			    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
-			    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-			    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
-			    div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
-			  }
-			}
-
-
-			function clacImgZoomParam( maxWidth, maxHeight, width, height ){
-			    var param = {top:0, left:0, width:width, height:height};
-			    if( width>maxWidth || height>maxHeight )
-			    {
-			        rateWidth = width / maxWidth;
-			        rateHeight = height / maxHeight;
-			        
-			        if( rateWidth > rateHeight )
-			        {
-			            param.width =  maxWidth;
-			            param.height = Math.round(height / rateWidth);
-			        }else
-			        {
-			            param.width = Math.round(width / rateHeight);
-			            param.height = maxHeight;
-			        }
-			    }
-			    
-			    param.left = Math.round((maxWidth - param.width) / 2);
-			    param.top = Math.round((maxHeight - param.height) / 2);
-			    return param;
-			}
 	</script>
 </body>
 </html>
