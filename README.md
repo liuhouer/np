@@ -33,8 +33,9 @@ buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2
 - 完成uuid--->native重构
 - 
 ## 2016-4-8
+- 免费电影了 | 红包优化修改
 
 ## 2016年04月10日
-简化注册登陆流程，统一样式并且大大简化添加主题步骤
+- 简化注册登陆流程，统一样式并且大大简化添加主题步骤
 
 
