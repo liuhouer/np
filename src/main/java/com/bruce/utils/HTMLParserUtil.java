@@ -365,8 +365,8 @@ public class HTMLParserUtil
     public static void main(String args[]){
     	try {
 
-    		retQuan();
-    		
+    		//retQuan();
+    		JedisUtil.remove("B_quan");
 
     	} catch (Exception e) {
     		// TODO: handle exception

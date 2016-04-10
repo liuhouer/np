@@ -160,58 +160,12 @@ public class Base64Util{
 	 //加密机制  密码+000000 base64加密
 	 //解密机制  base64解密 除去000000
 	 public static void main(String[] args) throws UnsupportedEncodingException {
-		 Base64Util bs = new Base64Util();
-		 System.out.println(bs.JIAMI("13483724051"));
-//		    String s = "yang521xiao1314";
+//		 Base64Util bs = new Base64Util();
+//		 System.out.println(bs.JIAMI("13483724051"));
+		    String s = "MTk4OTA3MTUwMDAwMDA=";
 //	        System.out.println("加密前：" + s);
 //	        System.out.println("加密后：" + JIAMI(s));
-//	        System.out.println("解密后：" + JIEMI(JIAMI(s)));
-		 
-//		 String a = "H4sIAAAAAAAAA6VRybKiQBC88xXvPofpBhE4zKEaBRFRG2xAbjQNiGwaLghfPxgx"+
-//					"fzB5qIrKyKglK1WypZrJhraQNVQIZCh5rqcGL/Q01wTiPylKkY6KhZwvC6xwJZXF"+
-//					"nJUCaQoyVCF+loYuVJxiQ+gplnGWqzpeGIbQuIbwcqlLf/4TUsU+6WmAvXnp3fUK"+
-//					"SgoNwFAfPAADvrCSxj+IKGGnDsxfmJzQlwznQHb+b09KYmickXxEFE7Cbt688148"+
-//					"oq5ZeVfH2pRQgmOW/WdXEZbarDxH6iTkcHQ2/tuxPzcpadljLjwoP5i3jZzE2ykJ"+
-//					"hq+wduxwD3HtEApTGqndcejHuZHDlazkkfXKA9JJWWs9s5G8k4pMXAkfs2iaRSVF"+
-//					"xoEii7lr/yJs9vK77ZuzZ5PH4p21tHdqYYcjmaRkXimGHkhA6nNcV26g2lzZPs/x"+
-//					"V4T3iU1nbiivQ3KYJ3fnryu2/+SBc3MjUkhWRVw+0GJlkpANN58FZJO1Bs5Wveve"+
-//					"gUBFXiLCVeSLG1TO3X3To3n1Ri8gR+9EsbQ3iemdiAWr9RHM+u7WtR2Ws4l20843"+
-//					"rmhIGEUXkgGvrXLoaJA9nLV1YFhYrLr4khfU/Y7C6AYIPIX6awr/MP/4L1driBiI"+
-//					"AgAA";
-//		 try {
-//			
-//			 byte[] bb = Base64.decode(a);
-//			 byte[] rs = unGzip(bb);
-//			 
-//			for (int i = 0; i < 70; i++) {
-//				
-//				int aaa = bytesToInt(rs, i);
-//				String res =  String.valueOf(aaa);
-//				System.out.println(i+" ----> "+ res);
-//			}
-//
-//			 
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}
-		 
-//		 try {
-//			
-//			 byte b1[] = intToBytes(168515078);
-//			 byte b2[] = gzip(b1);
-//			 String result = Base64.encode(b2);
-//			 System.out.println(result);
-//			 
-//			 byte b3[] = Base64.decode("H4sIAAAAAAAAAOPiDmMDAH6PLkcEAAAA");
-//			 byte b4[] = unGzip(b3);
-//			 int i5 =  bytesToInt2(b4, 4);
-//			 System.out.println(i5);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			// TODO: handle exception
-//		}
-		 
+	        System.out.println("解密后：" + JIEMI(s));
 
 	 }
 }

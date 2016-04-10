@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bruce.manager.QuanManager;
 import com.bruce.model.Quan;
@@ -19,6 +23,9 @@ import com.bruce.utils.TimeUtils;
  *
  * 定时爬取红包
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:spring.xml",
+ "classpath:spring-hibernate.xml" })
 public class QuanTask {
 	
 	@Autowired
@@ -55,22 +62,27 @@ public class QuanTask {
 			  
 			  byte[] b = JedisUtil.getListByte("B_quan");
 		      List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
-		      
-		    for (int i = 0; i <list.size(); i++) {
-		    	Map<String,String> map = list.get(i);
-		    	if(set.add(map.get("path"))){//判断去重
-				    	Quan model = new Quan();
-				    	model.setFromwhere(map.get("from"));     
-						model.setPublistime( map.get("publishtime"));   
-						model.setAuthorIP(map.get("authorIP"));     
-						model.setPath(map.get("path"));    
-						model.setTitle(map.get("title"));    
-						model.setPath_mt(map.get("path_mt"));    
-						model.setAddtime(map.get("addtime"));
-						quanManager.addQuan(model);
-		    	}
-			}
-    		
+		      if(list==null){
+		    	  HTMLParserUtil.retQuan();
+		    	  b = JedisUtil.getListByte("B_quan");
+			      list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+		      }
+		      if(list!=null){
+				    for (int i = 0; i <list.size(); i++) {
+				    	Map<String,String> map = list.get(i);
+				    	if(set.add(map.get("path"))){//判断去重
+						    	Quan model = new Quan();
+						    	model.setFromwhere(map.get("from"));     
+								model.setPublistime( map.get("publishtime"));   
+								model.setAuthorIP(map.get("authorIP"));     
+								model.setPath(map.get("path"));    
+								model.setTitle(map.get("title"));    
+								model.setPath_mt(map.get("path_mt"));    
+								model.setAddtime(map.get("addtime"));
+								quanManager.addQuan(model);
+				    	}
+					}
+		      }
 
     	} catch (Exception e) {
     		// TODO: handle exception
@@ -80,6 +92,11 @@ public class QuanTask {
 
 		
 		System.out.println("定时任务结束"+TimeUtils.getNowTime());
+	}
+	
+	@Test
+	public void save() {
+		upTask();
 	}
 	
 }

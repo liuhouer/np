@@ -42,6 +42,7 @@ import com.bruce.query.condition.UserLyricsQueryCondition;
 import com.bruce.utils.Base64Util;
 import com.bruce.utils.EmailUtils;
 import com.bruce.utils.FileUtils;
+import com.bruce.utils.HTMLParserUtil;
 import com.bruce.utils.JedisUtil;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
@@ -84,13 +85,19 @@ public class UserAction {
 	 * 爬虫抓取的优惠券列表页
 	 * @param session
 	 * @return
-	 * @throws UnsupportedEncodingException 
+	 * @throws IOException 
 	 */
 	@RequestMapping("/cp/index")
-		public String quanlist(HttpSession session) throws UnsupportedEncodingException {
+		public String quanlist(HttpSession session) throws IOException {
 		 	  	
 		        byte[] b = JedisUtil.getListByte("B_quan");
 		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+		        if(list==null){
+		        	HTMLParserUtil.retQuan();
+		        	b = JedisUtil.getListByte("B_quan");
+			        list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+			        
+		        }
 		        session.setAttribute("quan", list);
 		        
 		 
