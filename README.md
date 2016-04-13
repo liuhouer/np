@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # buci-web
 
 buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2015年12月29日19:04:33 maven版本
@@ -40,11 +39,8 @@ buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2
 - 简化注册登陆流程，统一样式并且大大简化添加主题步骤
 
 
-=======
 # buci
 buci fix to elegance and add some new function fix serval bugs VERSION v3.0 2015-12-01 11:56:55
 
-Nothing to commit today 
 
 1月3日 休息了几天。。。回家没有了雾霾，暂时的安静
->>>>>>> 6b060c46656e44f88829b1e982a1568698aa6bbf
