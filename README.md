@@ -38,6 +38,9 @@ buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2
 ## 2016年04月10日
 - 简化注册登陆流程，统一样式并且大大简化添加主题步骤
 
+## 2016-4-13
+- 迁移到coding.net,build path 各种恶心的问题修复，重新部署
+
 
 # buci
 buci fix to elegance and add some new function fix serval bugs VERSION v3.0 2015-12-01 11:56:55
