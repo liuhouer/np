@@ -76,7 +76,7 @@
 										<img class=" img-circle" 
 										 <c:choose>
                                             <c:when test="${fn:contains(s.user.headpath  ,'http://') }">src="${s.user.headpath  }"</c:when>
-                                            <c:when test="${s.user.headpath ==null }">src="/img/davatar.jpg"</c:whe
+                                            <c:when test="${s.user.headpath ==null }">src="/img/davatar.jpg"</c:when>
                                             <c:otherwise>src="/bruce/${s.user.headpath  }"</c:otherwise>
                                          </c:choose>   
 										

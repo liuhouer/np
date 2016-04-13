@@ -1,19 +1,4 @@
-<<<<<<< HEAD
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
-encoding//src/main/resources=UTF-8
-encoding//src/main/webapp/css/main2.css=UTF-8
 encoding//src/test/java=UTF-8
-encoding//src/test/resources=UTF-8
 encoding/<project>=UTF-8
-=======
-eclipse.preferences.version=1
-encoding//WebRoot/EditInfo.jsp=UTF-8
-encoding//WebRoot/index.jsp=UTF-8
-encoding//WebRoot/page/common/fenye.jsp=UTF-8
-encoding//src/com/bruce/constant/BC_Constant.java=UTF-8
-encoding//src/com/yunlu/utils/MyConstant.java=utf-8
-encoding//src/com/yunlu/utils/PageIndex.java=UTF-8
-encoding//src/com/yunlu/utils/PageView.java=utf-8
-encoding/<project>=UTF-8
->>>>>>> 6b060c46656e44f88829b1e982a1568698aa6bbf
