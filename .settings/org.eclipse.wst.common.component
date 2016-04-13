@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="buci-web">
         <wb-resource deploy-path="/WEB-INF/web.xml" source-path="/src/main/webapp/WEB-INF/web.xml"/>
@@ -10,14 +9,3 @@
         <property name="java-output-path" value="/buci-web/build/classes"/>
     </wb-module>
 </project-modules>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="SpringMVC3">
-        <wb-resource deploy-path="/" source-path="/WebRoot"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="java-output-path" value="/SpringMVC3/WebRoot/WEB-INF/classes"/>
-        <property name="context-root" value="/buci"/>
-    </wb-module>
-</project-modules>
->>>>>>> 6b060c46656e44f88829b1e982a1568698aa6bbf
