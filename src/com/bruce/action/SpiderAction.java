@@ -301,6 +301,25 @@ public class SpiderAction {
  
  
  /**
+  * 爬虫我的的博客
+  * @param map
+  */
+ @RequestMapping("/getMe")
+	public void getMe(ModelMap map) {
+	 try {
+		 for (int i = 0; i < 6000; i++) {
+//				String url = "http://northpark.cn/";
+//	 		    List<String> list_ = HTMLParserUtil.getImgUrl(url);
+//	 		
+		 }
+	 } catch (Exception e) {
+	// TODO: handle exception
+		 e.printStackTrace();
+	 } 	
+ 	
+ 	
+	}
+ /**
   * 爬虫xukaiqiang的博客
   * @param map
   */

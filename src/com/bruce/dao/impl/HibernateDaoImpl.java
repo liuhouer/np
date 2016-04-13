@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bruce.dao.HibernateDao;
-import com.bruce.model.NoteVO;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
 import com.bruce.utils.ReflectManager;

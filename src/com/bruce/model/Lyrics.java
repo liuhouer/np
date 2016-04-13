@@ -16,6 +16,11 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "bc_lyrics")
 public class Lyrics implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7352450415620898579L;
+
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")

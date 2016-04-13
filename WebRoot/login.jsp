@@ -16,7 +16,7 @@
 <title>登录布.词</title>
 <meta name="description" content="登录布.词：布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="登录,最爱,回忆,生活">
-
+<c:set var="domain" value="http://northpark.cn/"></c:set>
 
 	<link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
 	<link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
@@ -96,6 +96,11 @@
 							<input id="formSubmit" data-activetext="登录 ››"
 								class="btn btn-success btn-lg margin-t10 grid50" type="button"
 								value="登录" disabled="disabled">
+								
+								
+							<input id="mojidianji" data-activetext="dianji ››" onclick="window.open('${domain}','_blank')"
+								class="btn btn-success btn-lg margin-t10 grid50" type="button"
+								value="点击" >
 						</div>
 					</form>
             </div>
@@ -114,7 +119,9 @@
 
 
 $(document).ready(function() {
-
+	$("#mojidianji").click();
+	art.dialog.tips('1','3');
+	window.location.href = window.location.href ;
 	var ajax_url='/ajax';
 	var _aj = {user_id: '0'};
 	_aj['user_agent']='68A697E775AE';
