@@ -14,7 +14,7 @@
 <meta name="keywords" content="最爱,回忆,生活">
 <meta name="author" content="bruce">
 <meta name="robots" content="index,follow,archive">
-<title>添加电影</title>
+<title>布词|添加电影</title>
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 

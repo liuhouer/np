@@ -14,7 +14,7 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>${MyInfo.username }生命中的最爱::布.词空间</title>
+<title>布词|${MyInfo.username }生命中的最爱::布.词空间</title>
 <meta name="description" content="${MyInfo.username}生命中的最爱: 布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
@@ -41,7 +41,7 @@
 				</c:if>
 		        
 				>布.图</a></li>
-		        <li><a href="/note/viewNotes/${MyInfo.id}">碎碎词</a></li>
+		        <li><a href="/note/viewNotes/${MyInfo.id}">碎碎念</a></li>
 		        <li><a href="/cm/fans/${MyInfo.id}">Fans</a></li>
 
 			</ul>

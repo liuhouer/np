@@ -13,8 +13,8 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>${user.username}的碎碎词::布.词档案</title>
-<meta name="description" content="${user.username}的碎碎词: 布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
+<title>布词|${user.username}的碎碎念::布.词档案</title>
+<meta name="description" content="${user.username}的碎碎念: 布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
@@ -38,7 +38,7 @@
 		<div class="clearfix margin-b20">
 	<ul class="nav nav-tabs">
 		<li><a href="/cm/pcentral">布.图</a></li>
-		<li class="active"><a href="note/findAll">碎碎词</a></li>
+		<li class="active"><a href="note/findAll">碎碎念</a></li>
 		<li ><a  href="/cm/myfans" >Fans</a></li>
 		
 
@@ -59,7 +59,7 @@
               		<textarea id="J_md_text" style="height:200px; max-height:400px; width:100%;" name="note" rows="5"></textarea>
               	</div>
 				<div class="form-group">
-                    <button type="submit" class="btn btn-inverse btn-md"><span class="glyphicon glyphicon-music"></span> 添加碎碎词</button>
+                    <button type="submit" class="btn btn-inverse btn-md"><span class="glyphicon glyphicon-music"></span> 添加碎碎念</button>
                     &nbsp; &nbsp; 
                     <span class="bg-lyellow"><input name="opened" type="checkbox" value="no"> <small>仅供自己看到，不对外公布</small></span>
                 </div>
