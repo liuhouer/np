@@ -14,7 +14,7 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>布词|布词更新日志</title>
+<title>布词 | 布词更新日志</title>
 <meta name="description" content="布词更新日志">
 <meta name="keywords" content="最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>

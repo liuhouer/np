@@ -14,7 +14,7 @@
 <meta name="keywords" content="最爱,回忆,生活">
 <meta name="author" content="bruce">
 <meta name="robots" content="index,follow,archive">
-<title>布词|添加我的布.图</title>
+<title>布词 | 添加我的布.图</title>
 <%@ include file="../common/common.jsp"%>
 <style type="text/css">
 #preview{width:200px;height:200px;border:0;overflow:hidden;top: 25%;position: relative;}
