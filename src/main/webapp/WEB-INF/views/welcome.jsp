@@ -7,15 +7,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<!-- 百度广告联盟  -->
-<meta name="baidu_union_verify" content="ad2f4f686616aa1be411d6da41308d30">
 <meta http-equiv="Content-Language" content="zh-CN">
 <meta name="author" content="www.qinco.net">
-<meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
 <title>布词 | 布.词::分享最爱,保存记忆,享受美好</title>
-<meta name="description" content="布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
-<meta name="keywords" content="最爱,回忆,生活">
+<meta name="description" content="布.词会让您记住每一件美好的事物，记录生命回忆，记住世界上最好的东西。">
+<meta name="keywords" content="布词,最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 </head>
@@ -35,7 +32,7 @@
 			   				<div class="col-xs-6 col-sm-3 margin-b20 ">
 								<div class="thumbnail radius-0 border-0 margin-b0" >
 							<a href="/lyrics/comment/${s.id }.html" title="${s.title }:love<c:if test="${s.yizan eq 'yizan' }">/已赞过</c:if><c:if test="${s.yizan ne 'yizan' }">/未赞，点击下面的小心就可以赞了嗷~</c:if>">
-							<img  class="lazy" alt=""  
+							<img alt=""  
 								<c:choose>
 								  <c:when test="${fn:contains(s.albumImg ,'http://') }">src="${s.albumImg }"</c:when>
 								  <c:otherwise>src="/bruce/${s.albumImg }"</c:otherwise>
@@ -83,21 +80,6 @@ $(function(){
 	}
 })
 
-//#lazy load
-   $("img.lazy").lazyload();
-
-/* $("img.lazy").lazyload({
-    threshold : 200
-}); */
-
-$("img.lazy").lazyload({
-    effect : "fadeIn"
-});
-
-
-$("img.lazy").lazyload({
-	placeholder : "/img/davatar.jpg"
-});
 
 function zan(lrcid,userid){
    $.ajax({

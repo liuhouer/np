@@ -227,7 +227,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 	 * @return PageView<List<Map<String, Object>>>
 	 */
 	@SuppressWarnings("rawtypes")
-	public com.bruce.utils.PageView<List<Map<String, Object>>> QuerySQLForMapList(String sql, com.bruce.utils.PageView<List<Map<String, Object>>> pageView) {
+	public PageView<List<Map<String, Object>>> QuerySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
 		int totalCount = pageView.getTotalrecord();
 			if (totalCount >= 1) {
 				String resultQueryString = (new StringBuilder(" select t.* from (")).append(sql).append(") as t LIMIT " +((pageView.getCurrentpage()) * pageView.getMaxresult() )+ "," + pageView.getMaxresult()).toString();
@@ -238,38 +238,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		return pageView;
 	}
 	
-	
-	/**
-	 * 
-	 * @desc  多表联合查询 包含分页 返回List<VO>集合 by bruce 
-	 * @param sql
-	 * @param pageview
-	 * @return PageView<List<Map<String, Object>>>
-	 */
-	@SuppressWarnings("rawtypes")
-	public <T extends Serializable> List<T> QuerySQLForVOList(String sql, PageView<T> pageview,LinkedHashMap<String, String> order) {
-		
-		String countQueryString = (new StringBuilder(" select count(*) as total from (")).append(sql).append(") as t").toString();
-		
-		List<T> countlist = (List<T>) querySql(countQueryString);
-		
-		List<T> resultlist = null;
-		int totalCount = 0;
-		
-		if (countlist != null && countlist.size() > 0) {
-			totalCount = Integer.valueOf(((Map)countlist.get(0)).get("total").toString());
-			if (order != null) {
-				sql+=" order by "+this.getOrderStr(order);
-			}
-			if (totalCount >= 1) {
-				String resultQueryString = (new StringBuilder(" select t.* from (")).append(sql).append(") as t LIMIT " +((pageview.getCurrentpage()) * pageview.getMaxresult() )+ "," + pageview.getMaxresult()).toString();
-				resultlist = (List<T>)querySql(resultQueryString);
-			}
-		}
-		
-		sessionFactory.getCurrentSession().flush();
-		return resultlist;
-	}
 	
 	/**
 	 * SQL查询操作

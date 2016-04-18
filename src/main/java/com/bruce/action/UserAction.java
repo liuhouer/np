@@ -868,42 +868,6 @@ public class UserAction {
 		}
 		
 
-		private PageView<UserLyrics> getPageView(HttpServletRequest request,
-				String whereSql) {
-			PageView<UserLyrics> pageView = new PageView<UserLyrics>();
-			int currentpage = 0; //当前页码
-			int pages = 0; //总页数
-			int n = this.userlyricsManager.findByCondition(whereSql).getResultlist().size();
-			int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
-	        if(n % maxresult==0)
-	       {
-	          pages = n / maxresult ;
-	       }else{
-	          pages = n / maxresult + 1;
-	       }
-	        if(StringUtils.isEmpty(request.getParameter("currentpage"))){
-	           currentpage = 0;
-	        }else{
-	           currentpage = Integer.parseInt(request.getParameter("currentpage"));
-	           
-	           if(currentpage<0)
-	           {
-	              currentpage = 0;
-	           }
-	           if(currentpage>=pages)
-	           {
-	              currentpage = pages - 1;
-	           }
-	        }
-			int startindex = currentpage*maxresult;
-			int endindex = startindex+maxresult-1;
-			pageView.setStartindex(startindex);
-			pageView.setEndindex(endindex);
-			pageView.setTotalrecord(this.userlyricsManager.findAll().size());
-			pageView.setCurrentpage(currentpage);
-			pageView.setTotalpage(pages);
-			return pageView;
-		}
 		
 		
 	@RequestMapping("/cm/login")

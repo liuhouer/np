@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  data-appid="101204466" data-redirecturi="http://northpark.cn/cm/list" charset="utf-8"></script>
   -->
 <script src="/js/jquery-1.7.2.js"></script>  
-<script src="/js/jquery.lazyload.js"></script>  
+<!-- <script src="/js/jquery.lazyload.js"></script>  --> 
 <script src="/js/artDialog/artDialog.js?skin=blue"></script> 
 <script src="/js/artDialog/jquery.artDialog.js?skin=blue"></script>
 <script src="/js/artDialog/plugins/iframeTools.js"></script>
