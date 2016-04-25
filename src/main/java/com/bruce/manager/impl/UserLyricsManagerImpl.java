@@ -85,14 +85,11 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 		       System.out.println(sql);
 		//设置pageview参数
 		PageView<List<Map<String, Object>>> pageview=new PageView<List<Map<String, Object>>>();
-		String countQueryString = (new StringBuilder(" select count(*) as total from (")).append(sql).append(") as t").toString();
-		int pages = 0; // 总页数
-		List<?> countlist = (List<?>) userlyricsDao.querySql(countQueryString);
 		
-		int n = 0;
-		if (countlist != null && countlist.size() > 0) {
-			n = Integer.valueOf(((Map)countlist.get(0)).get("total").toString());
-		}
+		int pages = 0; // 总页数
+		//总条数
+		int n = userlyricsDao.countSql(sql);
+		
 		int maxresult = pageview.getMaxresult();
 		/** 每页显示记录数 **/
 		if (n % maxresult == 0) {

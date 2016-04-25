@@ -13,9 +13,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>布词 | 红包::布词</title>
-<meta name="description" content="布词::最及时红包">
-<meta name="keywords" content="布词::最及时红包">
+<title>布.词 | 红包</title>
+<meta name="description" content="布.词::最及时红包">
+<meta name="keywords" content="布.词::最及时红包">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 </head>
 
@@ -35,10 +35,9 @@
                   <input data-activetext="搜索 ››" class="form-control btn btn-hero " value="搜索" type="submit"> --%>
                     <div class="clearfix align-center  margin-t10 margin-b10 padding20">
                      	<input type="hidden"  id="keyword"  name="keyword"  value="${keyword}">
-                    	<input class="btn tag-node" type="button" value="美团">
-                    	<!-- <input class="btn tag-node" type="button" value="滴滴"> -->
-                    	<input class="btn tag-node" type="button" value="饿了么">
-                    	<input class="btn tag-node" type="button" value="大众点评">
+                    	<c:forEach items="${B_tags }" var="tags" varStatus="tagsStatus">
+                    		<input class="btn tag-node" type="button" value="${tags }">
+                    	</c:forEach>
                     	<span id="J_clear_tag" class="glyphicon glyphicon-repeat" style="padding-left: 10px" aria-hidden="true"></span>
                     	
                     </div>

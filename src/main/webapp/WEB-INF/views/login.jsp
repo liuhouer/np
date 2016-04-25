@@ -12,8 +12,8 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>布词 | 登录布.词</title>
-<meta name="description" content="登录布.词：布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
+<title>布.词 | 登录</title>
+<meta name="description" content="登录布.词：布.词会让您记住每一件美好的事物，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="登录,最爱,回忆,生活">
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
@@ -39,8 +39,9 @@
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
 			<ul class="nav mainhead-nav">
-				<li><a href="/cm/list" title="一张图片，爱满满的">布.图</a></li>
-				<li><a href="/note/list" title="一段歌词，一段回忆">布.词</a></li>
+				<li><a href="/cm/list" title="一张图片，爱满满的">最爱</a></li>
+				<li><a href="/note/list" title="一段歌词，一段回忆">碎碎念</a></li>
+				<li><a href="/eq/list" title="情圣养成日记">情圣日记</a></li>
 				<li class="active"><a href="/cm/reg" title="去注册">登陆</a></li>
 			</ul>
 		</div>

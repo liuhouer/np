@@ -10,9 +10,9 @@
 <meta http-equiv="Content-Language" content="zh-CN">
 <meta name="author" content="www.qinco.net">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>布词 | 布.词::分享最爱,保存记忆,享受美好</title>
+<title>布.词</title>
 <meta name="description" content="布.词会让您记住每一件美好的事物，记录生命回忆，记住世界上最好的东西。">
-<meta name="keywords" content="布词,最爱,回忆,生活">
+<meta name="keywords" content="布.词,最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 </head>

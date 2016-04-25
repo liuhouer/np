@@ -60,7 +60,30 @@ public interface HibernateDao<T, PK extends Serializable> {
 	 */
 	public <T extends Serializable> List<T> querySql(String sql, Class<T> clazz, Object... obj);
 	
+	
 	public PageView<List<Map<String, Object>>> QuerySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) ;
 	
 	
+	
+
+	/**
+	 * 根据sql语句查询条数
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 * @return int
+	 */
+	public int countSql(String sql) ;
+	
+	
+	/**
+	 * 根据实体查询条数
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 * @return int
+	 */
+	public <T extends Serializable> int countHql(Class<T> clazz,String wheresql);
 }

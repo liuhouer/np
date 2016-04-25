@@ -7,9 +7,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +38,6 @@ import com.bruce.model.QQinfo;
 import com.bruce.model.Reset;
 import com.bruce.model.User;
 import com.bruce.model.UserFollow;
-import com.bruce.model.UserLyrics;
 import com.bruce.model.Userprofile;
 import com.bruce.query.condition.UserLyricsQueryCondition;
 import com.bruce.utils.Base64Util;
@@ -44,7 +45,6 @@ import com.bruce.utils.EmailUtils;
 import com.bruce.utils.FileUtils;
 import com.bruce.utils.HTMLParserUtil;
 import com.bruce.utils.JedisUtil;
-import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.SerializationUtil;
 import com.bruce.utils.TimeUtils;
@@ -91,6 +91,8 @@ public class UserAction {
 		public String quanlist(HttpSession session) throws IOException {
 		 	  	
 		        byte[] b = JedisUtil.getListByte("B_quan");
+		        Set<String> tags = new HashSet<String>();
+		        		
 		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
 		        if(list==null){
 		        	HTMLParserUtil.retQuan();
@@ -99,6 +101,11 @@ public class UserAction {
 			        
 		        }
 		        session.setAttribute("quan", list);
+		        
+		        for (int i = 0; i < list.size(); i++) {
+		        	tags.add(list.get(i).get("from"));
+				}
+		        session.setAttribute("B_tags", new ArrayList<String>(tags));
 		        
 		 
 		 	return "/quan";

@@ -13,9 +13,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>布词 | 优惠券::布词</title>
-<meta name="description" content="布词::每日优惠券">
-<meta name="keywords" content="布词::每日优惠券">
+<title>布.词</title>
+<meta name="description" content="布.词::每日优惠券">
+<meta name="keywords" content="布.词::每日优惠券">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 </head>
 

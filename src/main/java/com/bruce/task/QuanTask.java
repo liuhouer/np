@@ -1,21 +1,9 @@
 package com.bruce.task;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bruce.manager.QuanManager;
-import com.bruce.model.Quan;
 import com.bruce.utils.HTMLParserUtil;
-import com.bruce.utils.JedisUtil;
-import com.bruce.utils.SerializationUtil;
 import com.bruce.utils.TimeUtils;
 
 /**

@@ -212,7 +212,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 
 		QueryResult<T> queryResult = new QueryResult<T>();
 		queryResult.setResultlist(query.list());
-		queryResult.setTotalrecord((long) query.list().size());
+		//queryResult.setTotalrecord((long) query.list().size());
 
 		sessionFactory.getCurrentSession().flush();
 		return queryResult;
@@ -301,7 +301,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		QueryResult<T> queryResult = new QueryResult<T>();
 
 		queryResult.setResultlist(query.list());
-		queryResult.setTotalrecord((long) query.list().size());
+		//queryResult.setTotalrecord((long) query.list().size());
 
 		
 		sessionFactory.getCurrentSession().flush();
@@ -324,6 +324,61 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 
 	public HibernateDaoImpl() {
 		t = ReflectManager.getFirstGenericTypeSuperclass(this.getClass());
+	}
+	
+
+	/**
+	 * 根据sql语句查询条数
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 * @return int
+	 */
+	@Transactional(propagation = Propagation.REQUIRED)
+	public int countSql(String sql) {
+		
+		String countQueryString = (new StringBuilder(" select count(*) as total from (")).append(sql).append(") as t").toString();
+		List<?> countlist = (List<?>) querySql(countQueryString);
+		
+		int n = 0;
+		if (countlist != null && countlist.size() > 0) {
+			n = Integer.valueOf(((Map)countlist.get(0)).get("total").toString());
+		}
+		
+		return n;
+		
+	}
+	
+	/**
+	 * 根据实体查询条数
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 * @return int
+	 */
+	@Transactional(propagation = Propagation.REQUIRED)
+	public <T extends Serializable> int countHql(Class<T> clazz,String wheresql){
+		String entityName = t.getName();
+
+		StringBuilder hql = new StringBuilder();
+
+		hql.append("select count(*) from " + entityName + " as o");
+
+		if (StringUtils.isNotEmpty(wheresql)) {
+			hql.append(wheresql);
+		}
+
+		Query query =sessionFactory.getCurrentSession().createQuery(hql.toString());
+		
+		Long count = (Long)query.uniqueResult();
+		
+		sessionFactory.getCurrentSession().flush();
+		int nums = count.intValue();
+		
+		return nums;
+		
 	}
 
 }

@@ -14,8 +14,8 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>布词 | 小布静听构建</title>
-<meta name="description" content="${user.username}生命中的最爱: 布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
+<title>布.词 | 小布静听构建</title>
+<meta name="description" content="${user.username}生命中的最爱: 布.词会让您记住每一件美好的事物，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
@@ -30,6 +30,29 @@
 			<div class="row margin-b20 margin-t20">
 				<div class="col-sm-6 col-sm-offset-3 margin-b20 margin-t20">
 					<div class="row margin-b20 margin-t20">
+<p>	
+<br>原创软件：小布静听 2016年4月20日更新到1.9.2.1
+<br># 1.9.2.1-------2016-4-20---------by bruce
+<br>## version --1.9.2.1
+<br>## date --2016-4-20
+<br>## author --by bruce
+<br>1.去掉N个时钟控件，去掉每秒优化内存的冗余功能。
+<br>2.去掉关于页面的水波效果。
+<br>3.修改Tag标签修改不成功的bug.
+<br>4.去掉时钟控制的磁性窗体，目前只用obcontrol一种方式控制。
+<br>5.TODO..歌词秀功能由listbox改成listview
+<br>6.歌词自动检索。| 歌词搜索点击后设置时间间隔保存，以防止程序锁死。
+<br>7.此版本主要祛除了所有冗余|耗cpu的功能
+<br>8.这一两年对java的深入理解也提升了对半吊子delphi的开发能力，
+<br>只是没那么多精力去鼓捣这门落伍的语言了，
+<br>可惜了，当你时间充裕，富有激情的去开发一个东西的时候，那时你能力不足，资历过浅；
+    当你能力足矣，功力初成的时候，已经没有了当初对这个东西的挚爱。
+
+<br>下载地址：链接: http://pan.baidu.com/s/1pLkXqun 密码: nqxd
+
+<br>//---------------------------------------------------------- 
+</p>
+					
 <p>				
 <br>原创软件：小布静听 2014-7-10更新到1.9.0.1
 <br>最近几天很闲，把之前的不完善的地方都重新编写了。主要如下：
@@ -153,6 +176,26 @@
 <br>2. Modify desktop lyrics rolling algorithm,
 <br>3. Add a few small optimization
 <br>Download: 1.8.4 ：http://pan.baidu.com/share/link?shareid=89446&uk=3860164064
+<br>//----------------------------------------------------------
+<br>
+<br>## version --1.9.2.1
+<br>## date --2016-4-20
+<br>## author --by bruce
+<br>
+<br>- 1. Remove the N clock control, removing redundant memory optimization features per second.
+<br>- 2. Remove the wave effect on the page.
+<br>- 3. Modify Tag label modification unsuccessful bug.
+<br>- 4. remove the clock control magnetic form, currently only control obcontrol way.
+<br>- 5. TODO .. lyrics show features the listbox into listview
+<br>- 6. lyrics automatically retrieved. | Lyrics search click-to set the time interval to save, to prevent the program lock.
+<br>- 7. This version is mainly to get rid of all the redundant | cpu consumption function
+<br>- 8. This year's in-depth understanding of java also promoted to half-delphi development capabilities,
+<br>     But not so much energy to tinker with the language behind this door.
+<br>     Unfortunately, when you have plenty of time, to develop a passion for something, then you lack the ability, qualifications too shallow;
+<br>     When you sufficient ability, skill early as when the original has no love for this thing.
+<br>
+<br>#### download： http://pan.baidu.com/s/1pLkXqun | password: nqxd
+---------------------------------------------------------------------------------------------------------------------------------------------
 <br>////////////////////////////////////////////////////////////////历史更新/////////////////////////////////////////
 					</div>
 				</div>

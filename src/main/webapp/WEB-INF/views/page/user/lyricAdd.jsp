@@ -10,11 +10,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Language" content="zh-CN">
-<meta name="description" content="添加我的最爱:布.词会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
+<meta name="description" content="添加我的最爱:布.词会让您记住每一件美好的事物，记录生命回忆，记住世界上最好的东西。">
 <meta name="keywords" content="最爱,回忆,生活">
 <meta name="author" content="bruce">
 <meta name="robots" content="index,follow,archive">
-<title>布词 | 添加我的布.图</title>
+<title>布.词 | 添加我的最爱</title>
 <%@ include file="../common/common.jsp"%>
 <style type="text/css">
 #preview{width:200px;height:200px;border:0;overflow:hidden;top: 25%;position: relative;}

@@ -1,5 +1,6 @@
 
 package com.bruce.manager;
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,28 @@ public interface UserManager {
 	 * @return
 	 */
 	public List<Map<String, Object>> querySql(String sql,String userid);
+	
+	
+	/**
+	 * 根据sql语句查询条数
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 * @return int
+	 */
+	public int countSql(String sql) ;
+	
+	
+	/**
+	 * 根据实体查询条数
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 * @return int
+	 */
+	public  int countHql(User user,String wheresql);
 	
 }
 

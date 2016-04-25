@@ -1,12 +1,17 @@
 package com.bruce.utils;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +22,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.bruce.action.SpiderAction;
+
+import javassist.bytecode.stackmap.BasicBlock.Catch;
 
 /**
  * <p>
@@ -362,21 +369,6 @@ public class HTMLParserUtil
     }
     
    
-    public static void main(String args[]){
-    	try {
-
-    		//retQuan();
-    		JedisUtil.remove("B_quan");
-
-    	} catch (Exception e) {
-    		// TODO: handle exception
-    			e.printStackTrace();
-    	}
-
-
-    	
-    	        
-    }
 
 	/**
 	 * 爬虫获取红包添加到缓存
@@ -476,7 +468,279 @@ public class HTMLParserUtil
 			
 
 	}
+	//情圣文章分析------------------------------------------------------------------------------------------------
+	
+	//	<div class="info">
+	//    <div class="title">
+	//        <a title="情圣大卫：怎么判断她是不是喜欢你？" href="/yuedu/18984480.html" target="_blank">情圣大卫：怎么判断她是不是喜欢你？</a>
+	//    </div>
+	//    <div class="summary">
+	//    
+	//        <div class="pic">
+	//            <div class="picinner">
+	//                <a title="情圣大卫：怎么判断她是不是喜欢你？" href="/yuedu/18984480.html" target="_blank">
+	//                    <img src="http://awb.img1.xmtbang.com/wechatmsg2015/article201503/20150325/thumb/5b2201bdb5c74368a6f8632c095a5d96.jpg" onerror="this.parentNode.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode.parentNode)" original="http://awb.img1.xmtbang.com/wechatmsg2015/article201503/20150325/thumb/5b2201bdb5c74368a6f8632c095a5d96.jpg" alt="情圣大卫：怎么判断她是不是喜欢你？" style="display: inline;">
+	//                </a>
+	//            </div>
+	//        </div>
+	//      
+	//        <div class="text">女人的好感信号，你分辨的出来吗？</div>
+	//    </div>
+	//    <div class="clear h"></div>
+	//    <div class="ifooter">
+	//        <span class="text">2015-03-24</span>
+	//        <span class="fav-operate">
+	//            <a class="favarticle " href="javascript:;" data-articleid="18984480">收藏，稍后阅读</a>
+	//            <a class="unfavarticle undis" href="http://u.aiweibang.com/fav/article" target="_blank">已收藏</a>
+	//        </span>
+	//    </div>
+	//</div>
+	
+	
+	
+	/**
+	 * 爬虫获取情圣的文章
+	 * @throws IOException
+	 */
+	public static List<Map<String,String>> retEQArticle() throws IOException {
+		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+		for(int i=1;i<=22;i++){
+			try{
+			Document doc = Jsoup.connect("http://www.aiweibang.com/u/10608?page="+i).get();
+			Elements info   = doc.select("div[class=info]");
+			for(Element p : info){
+				
+				HashMap<String, String> map =new HashMap<String, String>();
+				//标题
+				Elements titles = p.select("div[class=title]");
+				
+				String title = titles.get(0).text();
+				title = title.replace("大卫", "");
+				String aurl = "http://www.aiweibang.com"+titles.get(0).select("a").get(0).attr("href");
+				
+				
+				
+//				Elements dates = p.select("span[class=text]");
+//				
+//				String date = dates.get(0).text();
+				
+				//文章
+				Document doc_ = Jsoup.connect(aurl).get();
+				Elements articles = doc_.select("div[class=innertext]");
+				String article = articles.get(0).html();
+				article = article.replace("大卫","<情圣>").replace("<p>请回复：<span style=\"background-color: rgb(255, 251, 0);\">千万别追女神</span></p>", "").replace("<p>请回复：<span style=\"background-color: rgb(255, 255, 0);\">千万别追女神</span></p>", "").replace("<p>你想学习正确的追女孩技巧，早日抱得美人归吗？</p>", "").replace("<p>你想得到<情圣>的帮助，解决棘手的情感问题吗？</p>", "");
+				
+				//日期
+				Elements dates = doc_.select("span[class=activity-meta no-extra]");
+				String date = dates.get(0).text();
+				
+				
+				//标题图
+				Elements pics = doc_.select("img");
+				String img = pics.get(0).attr("src");
+				
+				//简介
+				Elements texts = p.select("div[class=text]");
+				String brief = texts.get(0).text();
+				brief = brief.replace("大卫", "");
+				
+				map.put("title", title);
+				map.put("aurl", aurl);
+				map.put("img", img);
+				map.put("brief", brief);
+				map.put("date", date);
+				map.put("article", article);
+				//System.out.println(title+"\t\r"+aurl+"\t\r"+img+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+				
+				list.add(map);
+				
+
+				}
+			}catch (Exception e) {
+				continue;
+			}
+		}
+		return list;
+	}
+	
+	
+	
+	/**
+	 * //妹子图获取
+	 * // http://huaban.com/from/meizitu.com/
+	 * @throws IOException
+	 */
+	public static List<String> retMeizitu() throws IOException {
+		List<String> list = new ArrayList<String>();
+			try{
+				Document doc = Jsoup.connect("http://huaban.com/from/meizitu.com/?inepv8xm&max=695360534&limit=300&wfl=1").get();
+				//src
+				Elements pics = doc.select("img");
+				int index = 0;
+				for(Element p : pics){
+					index++;
+					list.add(p.attr("src"));
+					//System.out.println(index+ p.attr("src"));
+				}
+				list.remove(list.size()-1);
+				//session.setAttribute("meizutu", list);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		return list;
+	}
+	
+	
+	/**
+	 * 读取网络图片到硬盘
+	 */
+	public static void readPic2Disk(){
+		try {
+    		//retMeizitu();
+    		
+    		Document doc = Jsoup.connect("http://orenogazoo.tumblr.com/").get();
+			//src
+			Elements pics = doc.select("img");
+			for(Element p : pics){
+				try{
+		    		URL   url   =   new   URL(p.attr("src")); 
+		    		URLConnection   uc   =   url.openConnection(); 
+		    		InputStream   is   =   uc.getInputStream(); 
+		    		
+		    		String name = p.attr("src").substring(p.attr("src").lastIndexOf("/")+1, p.attr("src").length());
+		    		
+		    		String path = "/Users/zhangyang/Pictures/";
+		    		
+		    		String date = TimeUtils.nowdate()+"/";
+		    		path = path+date;
+		    		
+		    		File filepath = new File(path);  
+		    		if(!filepath.exists() && !filepath.isDirectory()){  
+		    			filepath.mkdirs();  
+			        }  
+		    		if(name.endsWith(".png")||name.endsWith(".jpg")||name.endsWith(".ico")||name.endsWith(".gif")){
+			    		FileOutputStream   out   =   new   FileOutputStream(path+name); 
+			    		System.out.println("写入中..."+path+name);
+			    		int   i1=0; 
+			    		while   ((i1=is.read())!=-1)   { 
+			    			out.write(i1); 
+			    		} 
+		    		}
+		    		is.close();
+				}catch(Exception e){
+					e.printStackTrace();
+					continue;
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+  
+	/**
+	 * 爬取今日情圣的文章
+	 */
+	public static Map<String, String> retTodayEq() {
+		// TODO Auto-generated method stub
+				HashMap<String, String> map =new HashMap<String, String>();
+		try{
+				Document doc = Jsoup.connect("http://www.aiweibang.com/u/10608?page=1").get();
+				Elements info   = doc.select("div[class=info]");
+			    Element p  = info.get(0);
+				
+				//标题
+				Elements titles = p.select("div[class=title]");
+				
+				String title = titles.get(0).text();
+				title = title.replace("大卫", "");
+				String aurl = "http://www.aiweibang.com"+titles.get(0).select("a").get(0).attr("href");
+				
+				
+				
+//				Elements dates = p.select("span[class=text]");
+//				
+//				String date = dates.get(0).text();
+				
+				//文章
+				Document doc_ = Jsoup.connect(aurl).get();
+				Elements articles = doc_.select("div[class=innertext]");
+				String article = articles.get(0).html();
+				article = article.replace("大卫","<情圣>").replace("<p>请回复：<span style=\"background-color: rgb(255, 251, 0);\">千万别追女神</span></p>", "").replace("<p>请回复：<span style=\"background-color: rgb(255, 255, 0);\">千万别追女神</span></p>", "").replace("<p>你想学习正确的追女孩技巧，早日抱得美人归吗？</p>", "").replace("<p>你想得到<情圣>的帮助，解决棘手的情感问题吗？</p>", "");
+				
+				//日期
+				Elements dates = doc_.select("span[class=activity-meta no-extra]");
+				String date = dates.get(0).text();
+				
+				//标题图
+	//			Elements pics = doc_.select("img");
+	//			String img = pics.get(0).attr("src");
+				
+				//简介
+				Elements texts = p.select("div[class=text]");
+				String brief = texts.get(0).text();
+				brief = brief.replace("大卫", "");
+				
+				map.put("title", title);
+				map.put("aurl", aurl);
+				map.put("brief", brief);
+				map.put("date", date);
+				map.put("article", article);
+				System.out.println(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+				
+				
+				
+
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
+		return map;	
+	}
+	
+	/**
+	 * 生成妹子图从十张动漫
+	 * @return
+	 */
+	public static List<String> gegeMEIZITU(){
+		List<String> meizi = new ArrayList<String>();
+		
+		for (int i = 1; i <= 10; i++) {
+			String img = "/img/eq/tumblr_o"+i+".png";
+			meizi.add(img);
+		}
+		return meizi;
+	}
+	
+	/**
+	 * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
+	 * @return
+	 */
+	public static Integer getRandomOne(List<?> list){
+		
+		
+		Random ramdom =  new Random();
+		int number = -1;
+		int max = list.size();
+		
+		//size 为  10 ，取得类似0-9的区间数
+		number = Math.abs(ramdom.nextInt() % max  );
+		
+		return number;
     
+	}
+	
+	  public static void main(String[] args) {
+	    	try {
+	    		//retMeizitu();
+	    		retTodayEq();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
     
 }
 

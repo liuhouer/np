@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.bruce.dao.NoteDao;
 import com.bruce.manager.NoteManager;
 import com.bruce.model.Note;
+import com.bruce.model.User;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
@@ -77,7 +78,7 @@ public class NoteManagerImpl implements NoteManager {
 		//设置pageview参数
 		PageView<List<Map<String, Object>>> pageview=new PageView<List<Map<String, Object>>>();
 		int pages = 0; // 总页数
-		int n =  noteDao.querySql(sql).size();
+		int n =  noteDao.countSql(sql);
 		int maxresult = pageview.getMaxresult();
 		/** 每页显示记录数 **/
 		if (n % maxresult == 0) {
@@ -122,6 +123,24 @@ public class NoteManagerImpl implements NoteManager {
 	public int findmixCount(String whereSql) {
 		// TODO Auto-generated method stub
 		return noteDao.querySql(whereSql).size();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.bruce.manager.NoteManager#countSql(java.lang.String)
+	 */
+	@Override
+	public int countSql(String sql) {
+		// TODO Auto-generated method stub
+		return noteDao.countSql(sql);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.bruce.manager.NoteManager#countHql(com.bruce.model.User, java.lang.String)
+	 */
+	@Override
+	public int countHql(Note note, String wheresql) {
+		// TODO Auto-generated method stub
+		return noteDao.countHql(note.getClass(), wheresql);
 	}
 }
 

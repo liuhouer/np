@@ -127,7 +127,7 @@ public class NoteAction {
 		}
 		String whereSql = noteQuery.getSql(condition);
 		
-		PageView<Note> pageView = getPageView(request, whereSql);
+		PageView<Note> pageView = getPageView(null, whereSql);
 		
 
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -180,7 +180,7 @@ public class NoteAction {
 		}
 		String whereSql = noteQuery.getSql(condition);
 		
-		PageView<Note> pageView = getPageView(request, whereSql);
+		PageView<Note> pageView = getPageView(page, whereSql);
 		
 		request.setAttribute("page", page);
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -239,7 +239,7 @@ public class NoteAction {
 		String whereSql = noteQuery.getSql(condition);
 		
 		request.setAttribute("page", page);
-		PageView<Note> pageView = getPageView(request, whereSql);
+		PageView<Note> pageView = getPageView(page, whereSql);
 		
 
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -283,7 +283,7 @@ public class NoteAction {
 		}
 		String whereSql = noteQuery.getSql(condition);
 		
-		PageView<Note> pageView = getPageView(request, whereSql);
+		PageView<Note> pageView = getPageView(null, whereSql);
 		
 
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -389,12 +389,12 @@ public class NoteAction {
 	}
 
 
-	private PageView<Note> getPageView(HttpServletRequest request,
+	private PageView<Note> getPageView(String page,
 			String whereSql) {
 		PageView<Note> pageView = new PageView<Note>();
 		int currentpage = 0; //当前页码
 		int pages = 0; //总页数
-		int n = this.noteManager.findByCondition(whereSql).getResultlist().size();
+		int n = this.noteManager.countHql(new Note(), whereSql);
 		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
         if(n % maxresult==0)
        {
@@ -402,10 +402,10 @@ public class NoteAction {
        }else{
           pages = n / maxresult + 1;
        }
-        if(StringUtils.isEmpty((String) request.getAttribute("page"))){
+        if(StringUtils.isEmpty(page)){
            currentpage = 0;
         }else{
-           currentpage = Integer.parseInt((String) request.getAttribute("page"));
+           currentpage = Integer.parseInt(page);
            
            if(currentpage<0)
            {

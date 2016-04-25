@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bruce.model.Note;
+import com.bruce.model.User;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
 
@@ -30,6 +31,28 @@ public interface NoteManager {
 	public PageView<List<Map<String, Object>>> findmixByCondition(String currentpage,String wheresql) ;
 
 	public int findmixCount(String whereSql);
+	
+	/**
+	 * 根据sql语句查询条数
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 * @return int
+	 */
+	public int countSql(String sql) ;
+	
+	
+	/**
+	 * 根据实体查询条数
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 * @return int
+	 */
+	public  int countHql(Note note,String wheresql);
+	
 
 	
 }

@@ -14,6 +14,13 @@ a:focus,a:hover
   color:#999
 }
 
+.bold-text
+{
+  color:#999;
+  margin-top:10px;
+  font: bolder;
+}
+
 .green-text
 {
   color:#2C8C2B

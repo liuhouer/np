@@ -85,5 +85,24 @@ public class UserManagerImpl implements UserManager {
 		return userDao.querySql(sql,userid);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bruce.manager.UserManager#countSql(java.lang.String)
+	 */
+	@Override
+	public int countSql(String sql) {
+		// TODO Auto-generated method stub
+		
+		return userDao.countSql(sql);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.bruce.manager.UserManager#countHql(com.bruce.model.User, java.lang.String)
+	 */
+	@Override
+	public int countHql(User user, String wheresql) {
+		// TODO Auto-generated method stub
+		return userDao.countHql(user.getClass(), wheresql);
+	}
+
 }
 
