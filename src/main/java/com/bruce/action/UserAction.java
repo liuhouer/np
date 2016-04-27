@@ -247,7 +247,7 @@ public class UserAction {
 		@RequestMapping("/cm/resetEmail")
 		@ResponseBody
 		public String resetEmail(HttpServletRequest request,
-				HttpServletResponse response, ModelMap map, String email)
+				HttpServletResponse response, ModelMap map,String email)
 				throws ParseException {
 			    String userid = "";
 			    List<User> list = userManager.findByCondition(" where email = '"+email+"' ").getResultlist();

@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.bruce.model.Lyrics;
+import com.bruce.model.Note;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
 
@@ -25,7 +26,26 @@ public interface LyricsManager {
 	public QueryResult<Lyrics> findByCondition(
 			String wheresql);
 	
+	/**
+	 * 根据sql语句查询条数
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 * @return int
+	 */
+	public int countSql(String sql) ;
 	
+	
+	/**
+	 * 根据实体查询条数
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 * @return int
+	 */
+	public  int countHql(Lyrics m,String wheresql);
 	
 }
 

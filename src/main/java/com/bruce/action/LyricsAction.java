@@ -404,7 +404,7 @@ public class LyricsAction {
 			HttpServletResponse response, HttpSession session) {
 		String whereSql = lyricsQuery.getSql(condition);
 		
-		PageView<Lyrics> pageView = getPageView(request, whereSql);
+		PageView<Lyrics> pageView = getPageView(null, whereSql);
 		
 
 //		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -421,12 +421,12 @@ public class LyricsAction {
 		return "/page/user/lyricList";
 	}
 
-	private PageView<Lyrics> getPageView(HttpServletRequest request,
+	private PageView<Lyrics> getPageView(String page,
 			String whereSql) {
 		PageView<Lyrics> pageView = new PageView<Lyrics>();
 		int currentpage = 0; //当前页码
 		int pages = 0; //总页数
-		int n = this.lyricsManager.findByCondition(whereSql).getResultlist().size();
+		int n = this.lyricsManager.countHql(new Lyrics(), whereSql);
 		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
         if(n % maxresult==0)
        {
@@ -434,10 +434,10 @@ public class LyricsAction {
        }else{
           pages = n / maxresult + 1;
        }
-        if(StringUtils.isEmpty(request.getParameter("currentpage"))){
+        if(StringUtils.isEmpty(page)){
            currentpage = 0;
         }else{
-           currentpage = Integer.parseInt(request.getParameter("currentpage"));
+           currentpage = Integer.parseInt(page);
            
            if(currentpage<0)
            {

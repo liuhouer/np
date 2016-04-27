@@ -66,5 +66,23 @@ public class LyricsManagerImpl implements LyricsManager {
 		return qrs;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bruce.manager.LyricsManager#countSql(java.lang.String)
+	 */
+	@Override
+	public int countSql(String sql) {
+		// TODO Auto-generated method stub
+		return lyricsDao.countSql(sql);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.bruce.manager.LyricsManager#countHql(com.bruce.model.Lyrics, java.lang.String)
+	 */
+	@Override
+	public int countHql(Lyrics m, String wheresql) {
+		// TODO Auto-generated method stub
+		return lyricsDao.countHql(m.getClass(), wheresql);
+	}
+
 }
 

@@ -16,15 +16,27 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Scanner;
+import java.util.Set;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.bruce.utils.json.JsonUtil;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -412,34 +424,200 @@ import sun.misc.BASE64Encoder;
 			return path;
 		}
 	    
-	    public static void main(String[] args) {
-	    	//readTxt();
-	    	try{
+		
+	
+		
+		
 //			   	 File root = new File("/mnt/apk/album");
 //		   	     showAllFiles(root);
-	    		
-	    		//replaceFiles();
-	    		
-	    		
-
-				
-				//写入文件
-				FileInputStream in = new FileInputStream("/Users/zhangyang/Downloads/2.png");
-				FileOutputStream bos = new FileOutputStream("/mnt/apk/album/1449928675112.jpg"); 
-				int count = 0 ;
-				byte[] buffer = new byte[1024];  
-				int len = 0;  
-				while (-1 != (len = in.read(buffer, 0, 1024))) {  
-					bos.write(buffer, 0, len);  
-				}
-	    		
+		
+		//replaceFiles();
+		
+		
+		
+		
+		//写入文件
+//				FileInputStream in = new FileInputStream("/Users/zhangyang/Documents/lvzheng_pc.access.log.2016-04-25");
+//				FileOutputStream bos = new FileOutputStream("/mnt/apk/album/1449928675112.jpg"); 
+//				int count = 0 ;
+//				byte[] buffer = new byte[1024];  
+//				int len = 0;  
+//				while (-1 != (len = in.read(buffer, 0, 1024))) {  
+//					bos.write(buffer, 0, len);  
+//				}
+//	    		
 //	    		System.out.println(MD5Utils.encoding( new FileInputStream("/mnt/apk/album/1449928592939.jpg")));
 //	    		System.out.println(MD5Utils.encoding( new FileInputStream("/mnt/apk/album/1449928750567.jpg")));
+		
+		
+		
+		
+	    public static void main(String[] args) {
+	    	try{
+	    		
+				List<trackVO> tlist = new ArrayList<trackVO>();
+				List<String> list = ReadFile("/Users/zhangyang/Documents/lvzheng_pc.access.log.2016-04-25");
+				//System.out.println(JsonContext);
+				for (int i = 0; i < list.size(); i++) {
+					
+					//System.out.println(list.get(i));
+					trackVO model =  JsonUtil.jsonUtil.jsonToModel(list.get(i), trackVO.class);
+					tlist.add(model);
+					
+					
+				}
+				
+				
+				 //实现统计逻辑
+				 
+				 Map<String, Integer> m = getCount(tlist,"pageUrl");
+				 
+				 
+				 //打印统计结果|发送邮件
+				 String rs = printMap(m);
+				 
+				 
+				 EmailUtils.emailUtil.analyseLog("duqingxiang92@163.com", rs);
+				 
 	    		
 	    		
 	    	}catch(Exception e){
 	    		e.printStackTrace();
 	    	}
+		}
+	    
+	    
+		/**
+		 * 读取文件返回string
+		 * @param Path
+		 * @return
+		 */
+		public static List<String> ReadFile(String Path){
+			 File file = new File(Path);
+			 	List<String> list = new ArrayList<String>();
+		        Scanner scanner = null;
+		        try {
+		            scanner = new Scanner(file, "utf-8");
+		            while (scanner.hasNextLine()) {
+		            	StringBuilder buffer = new StringBuilder();
+		                buffer.append(scanner.nextLine());
+		                list.add(buffer.toString());
+		            }
+		 
+		        } catch (FileNotFoundException e) {
+		            // TODO Auto-generated catch block  
+		 
+		        } finally {
+		            if (scanner != null) {
+		                scanner.close();
+		            }
+		        }
+		         
+				return list;
+		}
+
+
+		/**
+		 * 实现统计逻辑
+		 * @param tlist
+		 */
+		public static Map<String,Integer> getCount(List<trackVO> tlist,String column) {
+			Map<String,Integer> m = new HashMap<String,Integer>();
+			    //用word初使化m，m中包含了所有不重复的单词
+			    for(int i=0;i<tlist.size();i++){
+			    	String word  = "";
+			    	word = caseColumn(tlist, column, i, word);
+			    	m.put(word,0);
+			    }
+			    Set<String> set = m.keySet(); 
+			    //用word中的每个单词与m中的单词比较，发现相同的就统计一次    
+			    for(int i=0;i<tlist.size();i++){
+			    	    String word = "";
+			    	    word = caseColumn(tlist, column, i, word);
+				        Iterator<String> it = set.iterator();
+				        while(it.hasNext()){
+			              String k = it.next();
+			              if(word.equals(k)){
+			                    int c = m.get(k);                  
+			                    c++;
+			                    m.put(word,c);
+			                }
+			            }                          
+			    }
+			    m = sortMap(m);
+			   
+			    //System.out.println(m);
+			    return m;
+		}
+
+
+		/**
+		 * 根据column判断字段的取值
+		 * @param tlist
+		 * @param column
+		 * @param i
+		 * @param word
+		 * @return
+		 */
+		public static String caseColumn(List<trackVO> tlist, String column, int i, String word) {
+			if("cookieId".equals(column)){
+				word = tlist.get(i).getCookieId();
+			}else if("currentTime".equals(column)){
+				word = tlist.get(i).getCurrentTime();
+			}else if("from".equals(column)){
+				word = tlist.get(i).getFrom();
+			}else if("ip".equals(column)){
+				word = tlist.get(i).getIp();
+			}else if("moudle".equals(column)){
+				word = tlist.get(i).getMoudle();
+			}else if("pageUrl".equals(column)){
+				word = tlist.get(i).getPageUrl();
+			}else if("spider".equals(column)){
+				word = tlist.get(i).getSpider();
+			}else if("userId".equals(column)){
+				word = tlist.get(i).getUserId();
+			}
+			return word;
+		}
+		
+		
+		
+		//Map根据value排序
+		public static Map<String, Integer> sortMap(Map<String, Integer> map) {
+		        List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(map.entrySet());
+		        Comparator<Map.Entry<String, Integer>> c = new Comparator<Map.Entry<String, Integer>>() {
+		            public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+		                return -(o1.getValue() - o2.getValue()); //倒序排列
+		            }
+		        };
+		        Collections.sort(list, c);
+		        Map<String, Integer> result = new LinkedHashMap<String, Integer>();
+
+		        for (Iterator<Entry<String, Integer>> it = list.iterator(); it.hasNext();) {
+		            Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) it.next();
+		            result.put(entry.getKey(), entry.getValue());
+		        }
+		        return result;
+		}
+		
+		//遍历Map并且返回排版好的String字符串
+		public static String printMap(Map<String, Integer> map) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<html><body><p style=\"margin-left: 30px;\"><font size=\"5\" color=\"rgb(216,206,178)\" >日志分析</font></p>");
+			
+			sb.append("<p style=\"background-color:rgb(163,210,202);margin-left: 30px;\">");
+			sb.append("统计"+"||||"+"次<br>");
+			sb.append("<br>");
+			Iterator<Map.Entry<String, Integer>> iterator = map.entrySet().iterator();
+			while (iterator.hasNext()) {
+				Map.Entry<String, Integer> entry = iterator.next();
+				sb.append(entry.getKey()+"||||"+entry.getValue().toString());
+				sb.append("<br>");
+				//System.out.println(entry.getKey() + "---->" + entry.getValue().toString());
+			}
+			sb.append("----analysed by bruce----<br/><br/>" + "</p>" + "</body></html>");
+			
+			return sb.toString();
 		}
 	  
 	}  

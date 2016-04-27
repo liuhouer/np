@@ -17,6 +17,46 @@ public class EmailUtils {
 	private static Logger log =LoggerFactory.getLogger(EmailUtils.class);
 	public static final EmailUtils emailUtil = new EmailUtils();
 	
+	/**
+	 * 日志分析auto发送
+	 * 
+	 * @param toEmail
+	 * @param usrId
+	 * @param authCode
+	 */
+	public static void analyseLog(String toEmail,String cont) {
+		try {
+
+			String host = "smtp.163.com";
+			String myEmail = "qhdsoftware@163.com";
+			String myName = "小布";
+			String myPassword = Base64Util.JIEMI("MTM0ODM3MjQwNTEwMDAwMDA=");
+			// 接收者邮箱
+			String to = toEmail;
+			String subject = "日志分析";
+			String mailConent = "日志分析";
+
+			HtmlEmail email = new HtmlEmail();
+			email.setAuthentication(myEmail, myPassword);
+			email.setHostName(host);
+			email.addTo(to, "亲");
+			email.setFrom(myEmail);
+			email.setSubject(subject);
+			// 注意，发送内容时，后面这段会让中文正常显示，否则乱码
+			email.setCharset("utf-8");
+			email.setHtmlMsg(cont); /* 邮件内容 */
+			// 添加附件对象
+			// email.attach(attachment);
+			// 发送
+			email.send();
+			System.err.println("邮件发送成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			System.err.println("邮件发送失败");
+		}
+
+	}
 	
 	/**
 	 * 找回密码邮件认证
