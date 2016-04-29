@@ -510,6 +510,7 @@ public class UserAction {
 		
 		@RequestMapping("/cm/fans/{userid}")
 		public String fans(ModelMap map, @PathVariable String userid ,HttpServletRequest request) {
+		try{
 			User user = userManager.findUser(Integer.parseInt(userid));
 			map.put("MyInfo", user);
 			
@@ -547,11 +548,16 @@ public class UserAction {
 	        	 }
 	        	 
 	         }
+		}catch(Exception e){
+			e.printStackTrace();
+			
+		}
 			return "/spacefans";
 		}
 		
 		@RequestMapping("/cm/detail/{userid}")
 		public String detail(ModelMap map, @PathVariable String userid ,HttpServletRequest request) {
+			try{
 			//获取域名
 			 URLUtil.getDomain(request);
 			User user = userManager.findUser(Integer.parseInt(userid));
@@ -580,11 +586,16 @@ public class UserAction {
 	        	 }
 	        	 
 	         }
+	         
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			return "/space";
 		}
 		
 		@RequestMapping("/people/{tail_slug}")
 		public String people(ModelMap map, @PathVariable String tail_slug ,HttpServletRequest request) {
+			try{
 			//获取域名
 			 URLUtil.getDomain(request);
 			User user = null;
@@ -621,6 +632,9 @@ public class UserAction {
 	        	 }
 	        	 
 	         }
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			return "/space";
 		}
 		
@@ -889,16 +903,6 @@ public class UserAction {
 			password = Base64Util.JIAMI(password);
 			User user = userManager.login(email, password);
 			if (user != null) {
-				//处理头像
-
-			    String imgpath = user.getHeadpath();
-                if(!StringUtils.isEmpty(imgpath)){
-                   String[] str = imgpath.split("heads/");
-                   if(str.length>1){
-                   String imgp = "heads/"+str[1];
-                   user.setHeadpath(imgp);
-                   }
-                }
 
 				session.setAttribute("user", user);
 				map.put("user", user);
@@ -941,16 +945,6 @@ public class UserAction {
 			}
 			User user = userManager.login(email, password);
 			if (user != null) {
-				//处理头像
-
-			    String imgpath = user.getHeadpath();
-                if(!StringUtils.isEmpty(imgpath)){
-                   String[] str = imgpath.split("heads/");
-                   if(str.length>1){
-                   String imgp = "heads/"+str[1];
-                   user.setHeadpath(imgp);
-                   }
-                }
 
 				session.setAttribute("user", user);
 				map.put("user", user);
@@ -962,7 +956,10 @@ public class UserAction {
 				info = "用户名密码错误";
 			}
 		}
-		return result;
+		Map<String, Object> rsmap = new HashMap<String, Object>();
+		rsmap.put("result", result);
+		rsmap.put("info", info);
+		return JsonUtil.jsonUtil.mapToJSONString(rsmap);
 	}
 	
 	

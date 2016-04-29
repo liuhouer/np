@@ -41,7 +41,7 @@ public class TimeUtils {
 					str = TimeUtils.format(date);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					str = str;
 				}
 				
 			return str;
