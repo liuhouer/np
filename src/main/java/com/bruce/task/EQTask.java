@@ -33,20 +33,24 @@ public class EQTask {
 			String brief = map.get("brief");
 			String date = map.get("date");
 			String article = map.get("article");
+			//是今天的文章
+			if(date.equals(TimeUtils.nowdate())){
+				//生成并且设置图片
+				List<String> meizi = HTMLParserUtil.gegeMEIZITU();
+				
+				int index = HTMLParserUtil.getRandomOne(meizi);
+				String img = meizi.get(index);
+				
+	    		Eq eq = new Eq();
+	    		eq.setArticle(article);
+	    		eq.setBrief(brief);
+	    		eq.setDate(date);
+	    		eq.setTitle(title);
+	    		eq.setImg(img);
+	    		EqManager.addEq(eq);
+			}
 			
-			//生成并且设置图片
-			List<String> meizi = HTMLParserUtil.gegeMEIZITU();
 			
-			int index = HTMLParserUtil.getRandomOne(meizi);
-			String img = meizi.get(index);
-			
-    		Eq eq = new Eq();
-    		eq.setArticle(article);
-    		eq.setBrief(brief);
-    		eq.setDate(date);
-    		eq.setTitle(title);
-    		eq.setImg(img);
-    		EqManager.addEq(eq);
 
     	} catch (Exception e) {
     		// TODO: handle exception

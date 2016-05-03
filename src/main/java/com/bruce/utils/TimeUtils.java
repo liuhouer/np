@@ -496,6 +496,6 @@ public class TimeUtils {
 	    
 		}
 	    public static void main(String[] args) {
-	    	System.out.println(getRandomDate());;
+	    	System.out.println(nowdate());;
 		}
 }

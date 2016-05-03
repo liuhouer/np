@@ -534,6 +534,9 @@ public class HTMLParserUtil
 				Elements dates = doc_.select("span[class=activity-meta no-extra]");
 				String date = dates.get(0).text();
 				
+//				if(!(date.equals("2016-05-02")||date.equals("2016-05-03")||date.equals("2016-04-29"))){
+//					continue;
+//				}
 				
 				//标题图
 				Elements pics = doc_.select("img");
@@ -673,6 +676,8 @@ public class HTMLParserUtil
 				Elements dates = doc_.select("span[class=activity-meta no-extra]");
 				String date = dates.get(0).text();
 				
+				
+				
 				//标题图
 	//			Elements pics = doc_.select("img");
 	//			String img = pics.get(0).attr("src");
@@ -734,7 +739,9 @@ public class HTMLParserUtil
 	  public static void main(String[] args) {
 	    	try {
 	    		//retMeizitu();
-	    		retTodayEq();
+	    		//retTodayEq();
+	    		List<Map<String, String>> retEQArticle = retEQArticle();
+	    		System.out.println(retEQArticle.size());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

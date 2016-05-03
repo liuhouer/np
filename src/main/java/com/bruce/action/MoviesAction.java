@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.bruce.manager.MoviesManager;
 import com.bruce.model.Movies;
 import com.bruce.model.User;
-import com.bruce.query.MoviesQuery;
 import com.bruce.query.condition.MoviesQueryCondition;
 import com.bruce.utils.TimeUtils;
+import com.bruce.utils.safe.WAQ;
 
 @Controller
 @RequestMapping("/movies")
@@ -32,12 +32,7 @@ public class MoviesAction {
 
  @Autowired	
  private MoviesManager moviesManager;
- @Autowired	
- private MoviesQuery moviesQuery;
 
- public static final String pattern = "([-+*/^()\\]\\[])" ;
-// test = test.replaceAll(pattern, "");
-	
  
  
 	/**
@@ -116,8 +111,9 @@ public class MoviesAction {
 	public String list(ModelMap map,String keyword,HttpServletRequest request,HttpServletResponse response, HttpSession session) {
 		String wheresql = " where 1=1 ";
 		if(StringUtils.isNotEmpty(keyword)){
-			keyword = keyword.replaceAll(pattern, "");
-			 wheresql = " where moviename like '%"+keyword+"%' or description like '%"+keyword+"%' ";
+			//sql注入处理
+			keyword = WAQ.forSQL().escapeSql(keyword);
+			wheresql = " where moviename like '%"+keyword+"%' or description like '%"+keyword+"%' ";
 		}
 		List<Movies> list =  moviesManager.findByCondition(wheresql+" order by addtime desc ").getResultlist();
 		map.addAttribute("list", list);

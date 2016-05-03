@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.bruce.manager.LyricsManager;
 import com.bruce.manager.NoteManager;
 import com.bruce.manager.UserFollowManager;
 import com.bruce.manager.UserManager;
@@ -47,8 +46,6 @@ public class NoteAction {
  private UserManager userManager;
  @Autowired	
  private NoteQuery noteQuery;
- @Autowired	
- private LyricsManager lyricsManager;
  @Autowired	
  private UserFollowManager userfollowManager;
 	

@@ -50,6 +50,7 @@ import com.bruce.utils.SerializationUtil;
 import com.bruce.utils.TimeUtils;
 import com.bruce.utils.URLUtil;
 import com.bruce.utils.json.JsonUtil;
+import com.bruce.utils.safe.WAQ;
 
 @Controller
 @RequestMapping("")
@@ -77,8 +78,6 @@ public class UserAction {
 	 @Autowired	
 	 private ResetManager resetManager;
 	 
-	 
-	 public static final String pattern = "([-+*/^()\\]\\[])" ;
 	 
 	 	
 	 /**
@@ -127,7 +126,7 @@ public class UserAction {
 			        List<Map<String,String> > list_search  = new ArrayList<Map<String,String>>(); 
 			        		
 			        		if(StringUtils.isNotEmpty(keyword)){
-			        			keyword = keyword.replaceAll(pattern, "");
+			        			keyword = WAQ.forSQL().escapeSql(keyword);
 			        			for (int i = 0; i < list.size(); i++) {
 			        				Map<String,String> map = list.get(i);
 			        				String from = map.get("from");
@@ -886,6 +885,8 @@ public class UserAction {
 		String info   = "";
 		Cookie[] cookies = request.getCookies();
 		if (!StringUtils.isEmpty(email) && !StringUtils.isEmpty(password)) {
+			//防止sql注入--email
+			email = WAQ.forSQL().escapeSql(email);
 			password = Base64Util.JIAMI(password);
 			User user = userManager.login(email, password);
 			if (user != null) {
@@ -939,6 +940,9 @@ public class UserAction {
 					continue;
 				}
 			}
+			//防止sql注入--email
+			email = WAQ.forSQL().escapeSql(email);
+			
 			User user = userManager.login(email, password);
 			if (user != null) {
 				//处理头像
