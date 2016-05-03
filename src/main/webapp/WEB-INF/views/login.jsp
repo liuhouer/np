@@ -132,7 +132,13 @@ $(document).ready(function() {
    
    $(document).keydown(function(event){
 	    if(event.keyCode==13){
-	       $("#formSubmit").click();
+	    	var cansub = $('#formSubmit').attr('disabled');
+	    	var can = (cansub == 'disabled');
+	    	if(!cansub){//没有禁用
+	    		
+	    		 $("#formSubmit").click();
+	    	}
+	      
 	    }
    });
    
@@ -145,9 +151,12 @@ $(document).ready(function() {
           type:"post",
           data:$("#loginForm").serialize(),
           success:function(msg){
-        	  console.log(msg);
-              if(msg=="success"){
-                  art.dialog.tips('登陆成功,正在跳转..', 3);
+        	  //console.log(msg);
+        	  msg = eval('(' + msg + ')');
+              if(msg.result=="success"){
+            	  //禁用提交按钮。防止点击起来没完
+            	  $('#formSubmit').attr('disabled',true);
+                  art.dialog.tips(msg.info+' | 正在跳转..', 3);
                   var uri = $("#redirectURI").val();
                   if(uri){
                 	  window.location.href = uri;
@@ -156,7 +165,9 @@ $(document).ready(function() {
                       window.location.href = "/cm/list";
                   }
               }else{
-            	  art.dialog.tips('用户名密码错误');
+            	  art.dialog.tips(msg.info);
+            	  //禁用提交按钮。防止点击起来没完
+            	  $('#formSubmit').attr('disabled',true);
               }            
           }
       });
