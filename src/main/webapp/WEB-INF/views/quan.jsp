@@ -24,7 +24,7 @@
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	 
 	
-<div class="clearfix maincontent" style="background:#f4f3f1">
+<div class="clearfix maincontent grayback">
 	<div class="container">
 		<div class="mainbody" style="margin-top:80px; ">
 		

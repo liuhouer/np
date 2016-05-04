@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
-<div class="clearfix mainhead " style="background:#f4f3f1;">
+<div class="clearfix mainhead grayback">
 		<div class="container">
 			<div class="row margin-b20 margin-t20">
 				<div class="col-sm-6 col-sm-offset-3 margin-b20 margin-t20">

@@ -19,12 +19,12 @@
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 </head>
 
-<body style="">
+<body class="grayback">
 
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	 
 	
-<div class="clearfix maincontent" style="background:#f4f3f1">
+<div class="clearfix maincontent grayback">
 	<div class="container">
 		<div class="mainbody" style="margin-top:80px; ">
 			<div class="row">
@@ -83,13 +83,13 @@
 					
 		  	</div>
 
-		    <%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
+		   
 		  	
 		  	
 		</div>
 	</div>
 </div>
-
+	<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	<script type="text/javascript">
 	$("body").on('click', '.click2show', function() {

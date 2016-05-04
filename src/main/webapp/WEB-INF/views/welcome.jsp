@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta charset="UTF-8">
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
@@ -17,12 +19,12 @@
 
 </head>
 
-<body style="" >
+<body class="grayback">
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	
 		 
-	<div class="clearfix maincontent" style="background:#f4f3f1; ">		
-		<div class="container">
+	<div class="clearfix maincontent grayback">		
+		<div class="container grayback">
 			<div class="mainbody padding-t20" style="margin-top:70px;">
 			 <c:if test="${!empty list }">
 			   <c:forEach items="${list }" var="s" varStatus="ss">
@@ -63,11 +65,12 @@
 
 				
 				
-
-		  	</div>
+			</div>
 		</div>
-		  	<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
 
+
+
+<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
 <%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 <script type="text/javascript">
 
@@ -101,7 +104,8 @@ function zan(lrcid,userid){
 
 
 
+</body>
 
- 
+</html>    
 
 

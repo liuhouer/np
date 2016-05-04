@@ -19,7 +19,6 @@
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
     <style type="text/css">
-    	body {background:#f4f3f1;}
         #imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);width: 100%;width: 100%;position: relative;}
 	</style>
 

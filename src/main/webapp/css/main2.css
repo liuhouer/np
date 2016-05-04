@@ -2,11 +2,12 @@ body {background: #fff;padding:0;margin:0;}
 hr {margin-top:1em;margin-bottom: 1em;}
 .mainhead {margin-top:60px;}
 .maincontent {background: #fff; padding-bottom:5em;}
-.mainfoot {min-height: 66px; padding-top:1em;}
+.mainfoot {min-height: 100px; padding-top:1em;}
 .mainfoot, .mainfoot a {color:#bcb9b2;}
 .mainfoot a:focus,.mainfoot a:hover {color: #888;}
 .mainfoot .partnerbox {color:#ddd;padding-top:1em;padding-bottom:0.8em;margin-top:5em;background:#fff;}
 .mainfoot .partnerbox a {color:#ddd;}
+.grayback {background:#f4f3f1;}
 
 a.btn {text-decoration: none;}
 
