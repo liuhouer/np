@@ -40,26 +40,27 @@
 			<div class="row">
 				
 					<c:forEach items="${list }" var="s" varStatus="ss">
-					<div class="col-sm-6 ">
+					<div class="col-sm-12 ">
 					<div class="clearfix bg-white margin-t10 margin-b10 padding20">
 								<div class="row">
-									<div class="col-sm-3">
+									<div class="col-sm-4">
 										<div class="thumbnail border-0 center">
-											<p><small class="green-text">${s.moviename}</small></p>
+											<p><small class="green-text"><font size="5">${s.moviename}</font></small></p>
 											
-											<p><small class="red-text">￥${s.price}</small></p>
+											<%-- <p><small class="red-text">￥${s.price}</small></p> --%>
 											
 											<p> 
 											 <button class="clearfix btn btn-gray btn-xs click2show" onclick="pay('${s.id}','${s.price }')"  <span class="glyphicon glyphicon-yen">donate</span> &nbsp; </button>
 											 
 											 </p>
 											
+											<p><small class="label label-gray"><p><small class="red-text">${s.path}</small></p></small> </p>&nbsp;
 											<div class="clearfix visible-xs"><hr></div>
 										</div>
 									</div>
 									
-									<div class="col-sm-9">
-										<p><small class="label label-gray"><p><small class="red-text">${s.path}</small></p></small> &nbsp; <a 
+									<div class="col-sm-8">
+										 <a 
 										
 										title="${s.moviename}的简介">${s.moviename}</a> 简介：</p>
 										<p id="brief_${ss.index}">

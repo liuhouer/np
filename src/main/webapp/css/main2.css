@@ -344,7 +344,7 @@ a.btn {text-decoration: none;}
   border-bottom-width: 5px;
 }
 
-/* 鏂囨湰鎴柇 */
+/*字符截断 */
 .cut {
 overflow:hidden;
 text-overflow:ellipsis;
@@ -358,7 +358,8 @@ white-space: nowrap;
  
 .green-text
 {
-  color:#45d0c6
+  color:#45d0c6;
+  font-size: 10;
 }
 
 .red-text
