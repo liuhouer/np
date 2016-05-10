@@ -50,7 +50,7 @@
 											<%-- <p><small class="red-text">￥${s.price}</small></p> --%>
 											
 											<p> 
-											 <button class="clearfix btn btn-gray btn-xs click2show" onclick="pay('${s.id}','${s.price }')"  <span class="glyphicon glyphicon-yen">donate</span> &nbsp; </button>
+											 <button class="clearfix btn btn-gray btn-xs click2show" onclick="pay('${s.id}','${s.price }')" > <span class="glyphicon glyphicon-yen">donate</span> &nbsp; </button>
 											 
 											 </p>
 											

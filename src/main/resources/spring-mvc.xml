@@ -73,7 +73,7 @@
 	<task:scheduled-tasks scheduler="myScheduler">
 	
         <task:scheduled ref="quanTask" method="runTask"  cron="0 0 8-18/2 * * ?" /><!--  每天八点到18点每隔两小时执行-->
-        <task:scheduled ref="eqTask" method="runTask"    cron="0 0 12 * * ?" /><!--  每天10:05执行-->
+        <task:scheduled ref="eqTask" method="runTask"    cron="0 41 11 * * ?" /><!--  每天11:41执行-->
         <!-- <task:scheduled ref="quanTask" method="upTask"   cron="0 27 1 * * ?" /> -->
     </task:scheduled-tasks>
     <task:scheduler id="myScheduler" pool-size="5"/>
