@@ -98,35 +98,6 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
 
-<script type="text/javascript">
-
-function removes(obj){
-	      var id=$(obj).attr('rel');
-	      art.dialog.confirm('你确定要删除曾经的故事吗？', function () {
-	    	  $("#f2").attr("action","note/remove?id="+id).submit();
-			}, function () {
-			    return ;
-			});
-	      
-	      
-}
-
-function toEditInfo(){
-	$("#f1").submit();
-}
-</script>
-
- <script type="text/javascript">
-$(function(){
-	var editor = $('#J_md_text').wangEditor({
-		'menuConfig': [
-		                ['viewSourceCode'],
-						['fontFamily','fontSize','bold','setHead'],
-						['list','justify','blockquote'],
-						['createLink','insertHr','undo']
-					]
-	});
-});
-</script>
+ <script src="/js/page/note.js"></script>
 
 </body></html>

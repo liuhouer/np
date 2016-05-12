@@ -90,6 +90,8 @@
 								class="btn btn-success btn-lg margin-t10 grid50" type="button"
 								value="登录" disabled="disabled">
 						</div>
+						<div id="showResult" class="form-group">
+						</div>
 						<div class="form-group">
 							 <a class="pull-left" href="/cm/reg"><span
 								class="glyphicon glyphicon-hand-right"></span> 还没账号，去注册</a>	
@@ -113,72 +115,6 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
 
-<script type="text/javascript">
-
-
-$(document).ready(function() {
-
-	if( $('#formSubmit').val().length<6){
-	 
-		$('#formSubmit').attr('disabled',true);
-    }
-	
-  $('#loginForm').on('keyup', '#loginPassword', function(event) {
-      if($('#loginPassword').val().length>=6)
-        $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext') );
-      else
-        $('#formSubmit').attr('disabled',true);
-    }); 
-   
-   $(document).keydown(function(event){
-	    if(event.keyCode==13){
-	    	var cansub = $('#formSubmit').attr('disabled');
-	    	var can = (cansub == 'disabled');
-	    	if(!cansub){//没有禁用
-	    		
-	    		 $("#formSubmit").click();
-	    	}
-	      
-	    }
-   });
-   
-   
-   
-  
-  $('#formSubmit').click(function(){
-	  $.ajax({
-          url:"/cm/login",
-          type:"post",
-          data:$("#loginForm").serialize(),
-          success:function(msg){
-        	  //console.log(msg);
-        	  msg = eval('(' + msg + ')');
-              if(msg.result=="success"){
-            	  //禁用提交按钮。防止点击起来没完
-            	  $('#formSubmit').attr('disabled',true);
-                  art.dialog.tips(msg.info+' | 正在跳转..', 3);
-                  var uri = $("#redirectURI").val();
-                  if(uri){
-                	  window.location.href = uri;
-                  }else{
-                	  
-                      window.location.href = "/cm/list";
-                  }
-              }else{
-            	  art.dialog.tips(msg.info);
-            	  //禁用提交按钮。防止点击起来没完
-            	  $('#formSubmit').attr('disabled',true);
-              }            
-          }
-      });
-  });
-  
-  
-});
-
-
-
-
-</script>
+<script src="/js/page/login.js"></script>
 
 </body></html>

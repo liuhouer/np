@@ -91,12 +91,6 @@
 </div>
 	<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
-	<script type="text/javascript">
-	$("body").on('click', '.click2show', function() {
-			$(this).hide();
-	});
-	
-	</script>
 
 
 

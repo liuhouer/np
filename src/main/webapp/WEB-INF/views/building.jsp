@@ -38,7 +38,7 @@
 							除非你找的就是这个错误页面，在这种情况下：恭喜！你真的找到了。
 							</p>	
 							<p>
-							 <span id="mes" style="cursor: pointer;"><font color="#49c7be">返回首页</font></span> <!-- <span id="mes"><font color="blue">5</font></span> 秒钟后返回首页！ -->
+							 <span id="mes" style="cursor: pointer;"><font color="#49c7be"><img src='/img/loading.gif' style='width:16px;height:16px;' /> 返回首页</font></span> <!-- <span id="mes"><font color="blue">5</font></span> 秒钟后返回首页！ -->
 						</p>		
 					</div>
 				</div>
@@ -52,32 +52,7 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
 
-	  <script language="javascript" type="text/javascript">
-		/* var i = 5;
-		var intervalid;
-		intervalid = setInterval("fun()", 1000);
-		function fun() {
-			if (i == 0) {
-				window.location.href = "/";
-				clearInterval(intervalid);
-			}
-			$("#mes").html("<font color=\"blue\">"+i+"</font>");
-			i--;
-		}
-		 */
-		 
-
-			$(function(){
-				$("#mes").click(function(){
-					window.location.href="/";
-				})
-			})
-		console.log('非法请求资源页，IP已记录');
-	</script>  
-
-
-
-
+<script src="/js/page/building.js"></script>  
 
 
 </body></html>    

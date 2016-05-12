@@ -169,22 +169,7 @@
 	<!-- <script>document.forms['alipaysubmit'].submit();</script> -->
 
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
-	<script type="text/javascript">
-	$("body").on('click', '.click2show', function() {
-			$(this).hide();
-	});
-	
-	function pay(movie_id,price){
-		
-		if(movie_id && price){
-			$("#J_movieid").val(movie_id);
-			$("#J_price").val(price);
-			$("#J_sub_ali").click();
-		}
-		
-	}
-	
-	</script>
+	<script src="/js/page/movies.js"></script>
 
 
 

@@ -24,7 +24,7 @@
 </style>
 </head>
 
-<body style="overflow: hidden;">
+<body >
 <%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 
 	<div class="clearfix maincontent">
@@ -89,11 +89,8 @@
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
-	<script type="text/javascript">
+	<script src="/js/page/lrc/lyricview.js"></script>
 	
-	function downloadIt(){
-		$("#f1").attr("action","lyrics/downloadLrc.action").submit();
-	}
-	</script>
+	
 </body>
 </html>

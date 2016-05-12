@@ -72,38 +72,9 @@
 
 <%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
 <%@ include file="/WEB-INF/views/page/common/container.jsp"%>
-<script type="text/javascript">
-
-$(function(){
-	var flag = "${signout}";
-	if(flag=='true'){
-		if(QC.Login.check()){
-			QC.Login.signOut();
-		}
-	}
-})
 
 
-function zan(lrcid,userid){
-   $.ajax({
-		url:"/zanAction/zan",
-		type:"post",
-		data:{"lyricsid":lrcid,"userid":userid},
-		success:function(msg){
-			if(msg=="success"){
-				art.dialog.tips('已赞!');
-				window.location.href = window.location.href;
-			}			
-		}
-	});
-}
-
-
-
-</script>
-
-
-
+<script src="/js/page/welcome.js"></script>
 </body>
 
 </html>    
