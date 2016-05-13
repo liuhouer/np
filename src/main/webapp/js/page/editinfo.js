@@ -1,4 +1,6 @@
 
+var tail_slug = $("#J_tail_slug").val();
+
 
 function saves(){
 	var newpwd1=$("#new_password").val();
@@ -8,7 +10,7 @@ function saves(){
 		art.dialog.alert('2次密码不一致');
 		return;
 	}
-	if(slug && slug!="${MyInfo.tail_slug }"){
+	if(slug && slug!=tail_slug){
 		$.ajax({
 
             url:"/cm/tailFlag",

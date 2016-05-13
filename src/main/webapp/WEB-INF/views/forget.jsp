@@ -22,7 +22,7 @@
 <body style="" >
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 
-
+	<input  type="hidden" id="J_msg" value="${msg}"/>
 	<div class="clearfix maincontent" >
 		<div class="container">
 		<div class="mainbody" style="margin-top:5em;">

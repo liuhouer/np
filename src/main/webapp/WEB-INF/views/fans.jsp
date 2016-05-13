@@ -26,8 +26,18 @@
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 
     <%@ include file="/WEB-INF/views/page/common/centre.jsp"%>
-<form id="f2" method="post"><input name="userid" type="hidden" value="${user.id }"/></form>
- <form action="cm/toEditInfo" method="post" id="f1"><input name="userid" value="${user.id }" type="hidden"></form>
+<form id="f2" method="post">
+
+	<input name="userid" type="hidden" value="${user.id }"/>
+</form>
+ <form action="cm/toEditInfo" method="post" id="f1">
+ 		<input name="userid" value="${user.id }" type="hidden">
+ </form>
+    
+    <input  type="hidden" id="J_uid" value="${ user.id}"/>
+
+ 	<input  type="hidden" id="J_gz" value="${gz }"/>
+    
     <div class="clearfix maincontent">
 	    <div class="container">
 	      <div class="mainbody padding10" style="margin-top:2em;">

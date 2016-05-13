@@ -36,6 +36,10 @@
 		});
 	}
 	
+	var uid =   $("#J_uid").val();
+	var gz =    $("#J_gz").val();
+
+	
 	$("#J_gz_btn").click(function(){
 		var url = window.location.href;
 		//把userid的判断转为后台判断
@@ -44,9 +48,9 @@
           type:"post",
           success:function(msg){
           if(msg=="1"){//已登录
-        		var userid = '${user.id}' ;
+        		var userid = uid ;
         	 	var author_id = $("#by_id").val();
-        	 	var gz_status = '${gz }';
+        	 	var gz_status = gz;
         	 		if(author_id==userid){
         	 			art.dialog.alert('您不能关注自己');
         	 			return ;

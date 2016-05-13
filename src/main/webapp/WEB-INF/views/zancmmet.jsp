@@ -35,7 +35,9 @@
 	    <div  class="container">
 	    	
 <div  class="mainbody padding10"  style="margin-top:5em;">
-
+        <input  type="hidden" id="J_lrcid" value="${ lrc.id}"/>
+        <input  type="hidden" id="J_uid" value="${ user.id}"/>
+		<input  type="hidden" id="J_gz" value="${gz }"/>
 		<div  class="row">
 		<div  class="col-md-8">
 		

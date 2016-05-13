@@ -29,6 +29,8 @@
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 
     
+    
+    <input  type="hidden" id="J_tail_slug" value="${MyInfo.tail_slug }"/>
     <div class="clearfix maincontent">
 	    <div class="container">
 	    	

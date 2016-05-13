@@ -1,15 +1,19 @@
+var lrcid = $("#J_lrcid").val();
+var uid =   $("#J_uid").val();
+var gz =    $("#J_gz").val();
 $(document).ready(function() {
 	
 	
 	//获取所有点赞人填充
 	$("#J_lovers_box").click(function(){
+		
 		$.ajax({
 
             url:"/lyrics/getMoreZan",
 
             type:"post",
 
-            data:{"lyricsid":'${ lrc.id}'},
+            data:{"lyricsid":lrcid},
 
             success:function(data){
              console.log(data);	
@@ -22,13 +26,11 @@ $(document).ready(function() {
 	
 	 $("#J_commentBtn").click(function(){
          var comment = $("#J_comment").val();
-      	var lyricsid = '${lrc.id}';
-      	var userid = '${user.id}' ;
       	 if(comment){
       		$.ajax({
       			url:"/zanAction/addComment",
       			type:"post",
-      			data:{"lyricsid":lyricsid,"userid":userid,"comment":comment},
+      			data:{"lyricsid":lrcid,"userid":uid,"comment":comment},
       			success:function(msg){
       				if(msg=="success"){
       					art.dialog.tips('评论成功');
@@ -50,9 +52,9 @@ $("#J_gz_btn").click(function(){
 			data:{"url":url},
 			success:function(msg){
 				if(msg=="1"){//已登录
-					var userid = '${user.id}' ;
+					var userid = uid ;
 					var author_id = $("#by_id").val();
-				 	var gz_status = '${gz }';
+				 	var gz_status = gz;
 				 	 
 				 		if(author_id==userid){
 				 			art.dialog.alert('您不能关注自己');

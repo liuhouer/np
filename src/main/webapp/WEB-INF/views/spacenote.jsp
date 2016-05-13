@@ -25,6 +25,8 @@
 <%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 <%@ include file="/WEB-INF/views/page/common/centrespace.jsp"%>
 
+    <input  type="hidden" id="J_uid" value="${ user.id}"/>
+	<input  type="hidden" id="J_gz" value="${gz }"/>
     <div class="clearfix maincontent">
 	    <div class="container">
 	    		<div class="mainbody padding10" style="margin-top:2em;">

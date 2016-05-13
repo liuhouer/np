@@ -38,7 +38,7 @@ $(function(){
 				
 			});
 			
-			var msg = "${msg}";
+			var msg = $("#J_msg").val();
 			if(msg=='success'){
 				 art.dialog.tips('修改成功，正在跳转。。', 5);
 				 window.location.href = "cm/pcentral";
