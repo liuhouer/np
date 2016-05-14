@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="/js/page/common.js"></script>
 
-<input  type="hidden" id="J_tabs" value="${ tabs}"/>
+<input  type="hidden" id="J_tab_name" value="${ tabs}"/>
 
 
 

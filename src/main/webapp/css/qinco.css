@@ -411,6 +411,19 @@ a:focus,a:hover
   text-align:center!important
 }
 
+.left
+{
+  text-align:left;
+  text-align:left!important
+}
+
+.right
+{
+  text-align:right;
+  text-align:right!important
+}
+
+
 .padding0
 {
   padding:0

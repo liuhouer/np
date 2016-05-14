@@ -61,7 +61,7 @@
 											<button class="clearfix btn btn-gray btn-xs click2show"  data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}"> &nbsp; <span class="glyphicon glyphicon-chevron-down"></span> &nbsp; </button>
 										</c:if>
 										</p>
-												<div class="clearfix hidden" id="text_${ss.index}">
+												<div class="clearfix hidden" id="text_${ss.index}" style="background:#f3f3f1;">
 													${s.article }
 												</div>
 

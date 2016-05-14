@@ -504,7 +504,7 @@ public class HTMLParserUtil
 	 */
 	public static List<Map<String,String>> retEQArticle() throws IOException {
 		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-		for(int i=1;i<=22;i++){
+		for(int i=1;i<=2;i++){
 			try{
 			Document doc = Jsoup.connect("http://www.aiweibang.com/u/10608?page="+i).get();
 			Elements info   = doc.select("div[class=info]");
@@ -534,9 +534,9 @@ public class HTMLParserUtil
 				Elements dates = doc_.select("span[class=activity-meta no-extra]");
 				String date = dates.get(0).text();
 				
-//				if(!(date.equals("2016-05-02")||date.equals("2016-05-03")||date.equals("2016-04-29"))){
-//					continue;
-//				}
+				if(!(date.equals("2016-05-12")||date.equals("2016-05-13")||date.equals("2016-05-14"))){
+					continue;
+				}
 				
 				//标题图
 				Elements pics = doc_.select("img");
@@ -705,13 +705,13 @@ public class HTMLParserUtil
 	}
 	
 	/**
-	 * 生成妹子图从十张动漫
+	 * 生成妹子图从N张动漫
 	 * @return
 	 */
 	public static List<String> gegeMEIZITU(){
 		List<String> meizi = new ArrayList<String>();
 		
-		for (int i = 1; i <= 10; i++) {
+		for (int i = 1; i <= 18; i++) {
 			String img = "/img/eq/tumblr_o"+i+".png";
 			meizi.add(img);
 		}
@@ -740,8 +740,9 @@ public class HTMLParserUtil
 	    	try {
 	    		//retMeizitu();
 	    		//retTodayEq();
-	    		List<Map<String, String>> retEQArticle = retEQArticle();
-	    		System.out.println(retEQArticle.size());
+//	    		List<Map<String, String>> retEQArticle = retEQArticle();
+//	    		System.out.println(retEQArticle.size());
+	    		readPic2Disk();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
