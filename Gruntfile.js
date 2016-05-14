@@ -27,7 +27,7 @@ module.exports = function(grunt) {
     jshint: {
       files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
       options: {
-        //这里是覆盖JSHint默认配置的选项
+        //杩欓噷鏄鐩朖SHint榛樿閰嶇疆鐨勯�夐」
         globals: {
           jQuery: true,
           console: true,
