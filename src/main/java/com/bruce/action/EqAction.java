@@ -27,10 +27,12 @@ import com.bruce.manager.EqManager;
 import com.bruce.model.Eq;
 import com.bruce.query.EqQuery;
 import com.bruce.query.condition.EqQueryCondition;
+import com.bruce.query.condition.NoteQueryCondition;
 import com.bruce.utils.HTMLParserUtil;
 import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
+import com.bruce.utils.TimeUtils;
 
 
 /**
@@ -136,8 +138,8 @@ public class EqAction {
 			
 			//获取pageview
 			PageView<Eq> p = getPageView(null, whereSql);
-			QueryResult<Eq> qr = this.eqManager.findByCondition(p, whereSql, order);
-			List<Eq> resultlist = qr.getResultlist();
+//			QueryResult<Eq> qr = this.eqManager.findByCondition(p, whereSql, order);
+//			List<Eq> resultlist = qr.getResultlist();
 			int pages = 0;
 			try {
 				pages = Integer.parseInt(page)+1;
@@ -150,7 +152,7 @@ public class EqAction {
 			
 			map.addAttribute("pageView", p);
 			map.put("condition", condition);
-			map.addAttribute("list", resultlist);
+//			map.addAttribute("list", resultlist);
 			map.addAttribute("actionUrl","eq/list");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -179,8 +181,8 @@ public class EqAction {
 		
 		//获取pageview
 		PageView<Eq> p = getPageView(currentpage, whereSql);
-		QueryResult<Eq> qr = this.eqManager.findByCondition(p, whereSql, order);
-		List<Eq> resultlist = qr.getResultlist();
+//		QueryResult<Eq> qr = this.eqManager.findByCondition(p, whereSql, order);
+//		List<Eq> resultlist = qr.getResultlist();
 		int pages = 0;
 		try {
 			 pages = Integer.parseInt(page)+1;
@@ -193,13 +195,33 @@ public class EqAction {
 		
 		map.addAttribute("pageView", p);
 		map.put("condition", condition);
-		map.addAttribute("list", resultlist);
+//		map.addAttribute("list", resultlist);
 		map.addAttribute("actionUrl","eq/list");
 		
 		
 
 		return result;
 	}
+	
+	//异步分页查询eq数据
+		@RequestMapping(value="/equery")
+		public String lovequery(ModelMap map,HttpServletRequest request,EqQueryCondition condition,  HttpSession session,String userid) {
+			String currentpage = request.getParameter("currentpage");
+			
+			String whereSql = eqQuery.getSql(condition);
+			PageView<Eq> p = getPageView(currentpage, whereSql);
+			//排序条件
+			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+			order.put("date", "desc");
+			
+			QueryResult<Eq> qr = this.eqManager.findByCondition(p, whereSql, order);
+			List<Eq> resultlist = qr.getResultlist();
+			map.addAttribute("list", resultlist==null?"":resultlist);
+			
+			
+			return "/page/eq/eqdata";
+		}
+	
 	
 	private PageView<Eq> getPageView(String current,
 			String whereSql) {

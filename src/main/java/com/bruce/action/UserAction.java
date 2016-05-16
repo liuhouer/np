@@ -828,7 +828,7 @@ public class UserAction {
 			
 			String userid = (u==null?"":String.valueOf(u.getId()));
 			
-			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage,userid);
+			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapPage(currentpage,userid);
 			
 			List<Map<String, Object>> list = pageView.getMapRecords();
 			
@@ -843,7 +843,7 @@ public class UserAction {
 			}
 			map.put("page", pages);
 			map.put("condition", condition);
-			map.addAttribute("list", pageView.getMapRecords()==null?"":list);
+//			map.addAttribute("list", pageView.getMapRecords()==null?"":list);
 			map.addAttribute("actionUrl","cm/list");
 			
 			String signoutflag = (String) request.getParameter("signout");
@@ -855,11 +855,12 @@ public class UserAction {
 			
 			return "/welcome";
 		}
+		
 		@RequestMapping(value="/cm/list")
 		public String list(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session,String userid) {
 			//获取域名
-			URLUtil.getDomain(request);
+			//URLUtil.getDomain(request);
 			session.removeAttribute("tabs");
 			session.setAttribute("tabs","pic");
 			String currentpage = request.getParameter("currentpage");
@@ -869,12 +870,12 @@ public class UserAction {
 			userid = (u==null?"":String.valueOf(u.getId()));
 
 			
-			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage,userid);
+			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapPage(currentpage,userid);
 			
 			
 			map.addAttribute("pageView", pageView);
 			map.put("condition", condition);
-			map.addAttribute("list", pageView.getMapRecords()==null?"":pageView.getMapRecords());
+			//map.addAttribute("list", pageView.getMapRecords()==null?"":pageView.getMapRecords());
 			map.addAttribute("actionUrl","cm/list");
 			
 			String signoutflag = (String) request.getParameter("signout");
@@ -885,6 +886,26 @@ public class UserAction {
 			}
 			
 			return "/welcome";
+		}
+		
+		
+		//异步分页查询love'数据
+		@RequestMapping(value="/lovequery")
+		public String lovequery(ModelMap map,HttpServletRequest request, HttpSession session,String userid) {
+			String currentpage = request.getParameter("currentpage");
+			
+	        User u = (User) session.getAttribute("user");
+				
+			userid = (u==null?"":String.valueOf(u.getId()));
+
+			
+			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage,userid);
+			
+			
+			map.addAttribute("list", pageView.getMapRecords()==null?"":pageView.getMapRecords());
+			
+			
+			return "/page/love/lovedata";
 		}
 		
 

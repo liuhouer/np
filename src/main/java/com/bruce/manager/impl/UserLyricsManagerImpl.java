@@ -82,7 +82,24 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
 		       sql+=" order by a.updatedate desc";
 		
-		       System.out.println(sql);
+		PageView<List<Map<String, Object>>> pageview = setPageviewParam(
+				currentpage, userid,sql);
+		pageview = userlyricsDao.QuerySQLForMapList(sql, pageview);
+		return pageview;
+		
+		
+	}
+
+	/**
+	 * @param currentpage
+	 * @param userid
+	 * @return
+	 * @throws NumberFormatException
+	 */
+	private PageView<List<Map<String, Object>>> setPageviewParam(
+			String currentpage, String userid,String sql) throws NumberFormatException {
+		
+		System.out.println(sql);
 		//设置pageview参数
 		PageView<List<Map<String, Object>>> pageview=new PageView<List<Map<String, Object>>>();
 		
@@ -124,11 +141,30 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 		//设置pageview参数 end
 		
 		
-		pageview = userlyricsDao.QuerySQLForMapList(sql, pageview);
 		
 		return pageview;
+	}
+
+	@Override
+	public PageView<List<Map<String, Object>>> getMixMapPage(
+			String currentpage, String userid) {
+		// TODO Auto-generated method stub
+		String sql = " select a.id,a.title,a.artist,a.album,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
+	               
+				   + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '"+userid+"' )> 0 "
+	               +" then 'yizan' "
+	               +" else '' "
+	               +" end "
+	               +" as yizan "
+	
+				   + "from bc_lyrics a join bc_user_lyrics b on a.id = b.lyricsid join bc_user c on c.id = b.userid ";
+
+		       sql+=" order by a.updatedate desc";
 		
-		
+		//只设置分页信息
+		PageView<List<Map<String, Object>>> pageview = setPageviewParam(
+				currentpage, userid,sql);
+		return pageview;
 	}
 
 }

@@ -29,6 +29,10 @@ public interface UserLyricsManager {
 
 	public PageView<List<Map<String, Object>>> getMixMapData(String currentpage, String userid);
 	
+	
+	//只获取Page分页信息,不获取数据
+	public PageView<List<Map<String, Object>>> getMixMapPage(String currentpage, String userid);
+	
 }
 
 

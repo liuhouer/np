@@ -29,6 +29,9 @@ public interface NoteManager {
 	
 	
 	public PageView<List<Map<String, Object>>> findmixByCondition(String currentpage,String wheresql) ;
+	
+	//只获取分页信息
+	public PageView<List<Map<String, Object>>> findmixPageByCondition(String currentpage,String wheresql) ;
 
 	public int findmixCount(String whereSql);
 	

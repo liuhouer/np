@@ -317,23 +317,11 @@ public class NoteAction {
 		System.out.println("sql ---"+whereSql);
 		String currentpage = "0";
 		
-		PageView<List<Map<String, Object>>> pageView = this.noteManager.findmixByCondition(currentpage,whereSql);
-		List<Map<String, Object>> list = pageView.getMapRecords();
-		
-		for (int i = 0; i < list.size(); i++) {
-			//时间处理
-			String createtime = (String) list.get(i).get("createtime"); //e:/yunlu/upload/1399976848969.jpg
-			if(StringUtils.isNotEmpty(createtime)){
-				createtime = TimeUtils.getHalfDate(createtime);
-			}
-			list.get(i).put("createtime", createtime);
-			
-		}
-		
+		PageView<List<Map<String, Object>>> pageView = this.noteManager.findmixPageByCondition(currentpage,whereSql);
 		map.put("page", "1");
 		map.addAttribute("pageView", pageView);
 		map.put("condition", condition);
-		map.addAttribute("list", list);
+//		map.addAttribute("list", list);
 		map.addAttribute("actionUrl","note/list");
 		
 		
@@ -353,18 +341,7 @@ public class NoteAction {
 		System.out.println("sql ---"+whereSql);
 		String currentpage = page;
 		
-		PageView<List<Map<String, Object>>> pageView = this.noteManager.findmixByCondition(currentpage,whereSql);
-		List<Map<String, Object>> list = pageView.getMapRecords();
-		
-		for (int i = 0; i < list.size(); i++) {
-			//时间处理
-			String createtime = (String) list.get(i).get("createtime"); //e:/yunlu/upload/1399976848969.jpg
-			if(StringUtils.isNotEmpty(createtime)){
-				createtime = TimeUtils.getHalfDate(createtime);
-			}
-			list.get(i).put("createtime", createtime);
-			
-		}
+		PageView<List<Map<String, Object>>> pageView = this.noteManager.findmixPageByCondition(currentpage,whereSql);
 		int pages = 0;
 		try {
 			 pages = Integer.parseInt(page)+1;
@@ -377,12 +354,42 @@ public class NoteAction {
 		
 		map.addAttribute("pageView", pageView);
 		map.put("condition", condition);
-		map.addAttribute("list", list);
+//		map.addAttribute("list", list);
 		map.addAttribute("actionUrl","note/list");
 		
 		
 
 		return result;
+	}
+	
+	
+	//异步分页查询story数据
+	@RequestMapping(value="/storyquery")
+	public String lovequery(ModelMap map,HttpServletRequest request,NoteQueryCondition condition, HttpSession session,String userid) {
+		String currentpage = request.getParameter("currentpage");
+		
+		condition.setOpened("yes");
+		
+		String whereSql = noteQuery.getMixSql(condition);
+		
+		PageView<List<Map<String, Object>>> pageView = this.noteManager.findmixByCondition(currentpage,whereSql);
+		List<Map<String, Object>> list = pageView.getMapRecords();
+		
+		for (int i = 0; i < list.size(); i++) {
+			//时间处理
+			String createtime = (String) list.get(i).get("createtime"); //e:/yunlu/upload/1399976848969.jpg
+			if(StringUtils.isNotEmpty(createtime)){
+				createtime = TimeUtils.getHalfDate(createtime);
+			}
+			list.get(i).put("createtime", createtime);
+			
+		}
+		
+		
+		map.addAttribute("list", pageView.getMapRecords()==null?"":list);
+		
+		
+		return "/page/story/storydata";
 	}
 
 

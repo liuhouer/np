@@ -1,33 +1,11 @@
 
-$(function(){
-	var flag = "${signout}";
-	if(flag=='true'){
-		if(QC.Login.check()){
-			QC.Login.signOut();
-		}
-	}
-})
 
-
-function zan(lrcid,userid){
-   $.ajax({
-		url:"/zanAction/zan",
-		type:"post",
-		data:{"lyricsid":lrcid,"userid":userid},
-		success:function(msg){
-			if(msg=="success"){
-				art.dialog.tips('已赞!');
-				window.location.href = window.location.href;
-			}			
-		}
-	});
-}
 
 //load data...
 $(function(){
 	var pagenow = parseInt($("#pagenow").val())-1;
 	 $.ajax({
-			url:"/lovequery",
+			url:"/eq/equery",
 			type:"post",
 			data:{"currentpage":pagenow},
 			beforeSend:beforeSend, //发送请求

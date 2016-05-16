@@ -73,6 +73,23 @@ public class NoteManagerImpl implements NoteManager {
 	public PageView<List<Map<String, Object>>> findmixByCondition(String currentpage,String wheresql) {
 		// TODO Auto-generated method stub
 		
+		PageView<List<Map<String, Object>>> pageview = setPageviewParam(
+				currentpage, wheresql);
+		
+		
+		pageview = noteDao.QuerySQLForMapList(wheresql, pageview);
+		return pageview;
+		
+	}
+
+	/**
+	 * @param currentpage
+	 * @param wheresql
+	 * @return
+	 * @throws NumberFormatException
+	 */
+	private PageView<List<Map<String, Object>>> setPageviewParam(
+			String currentpage, String wheresql) throws NumberFormatException {
 		String sql = wheresql;
 		
 		//设置pageview参数
@@ -113,10 +130,8 @@ public class NoteManagerImpl implements NoteManager {
 		//设置pageview参数 end
 		
 		
-		pageview = noteDao.QuerySQLForMapList(sql, pageview);
 		
 		return pageview;
-		
 	}
 
 	@Override
@@ -141,6 +156,13 @@ public class NoteManagerImpl implements NoteManager {
 	public int countHql(Note note, String wheresql) {
 		// TODO Auto-generated method stub
 		return noteDao.countHql(note.getClass(), wheresql);
+	}
+
+	@Override
+	public PageView<List<Map<String, Object>>> findmixPageByCondition(
+			String currentpage, String wheresql) {
+		// TODO Auto-generated method stub
+		return setPageviewParam(currentpage, wheresql);
 	}
 }
 
