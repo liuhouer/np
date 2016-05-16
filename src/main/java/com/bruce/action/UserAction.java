@@ -64,7 +64,7 @@ public class UserAction {
      /**
       * 定向action'
       */
-	 private final String LIST_ACTION = "redirect:/cm/list";
+	 private final String LIST_ACTION = "redirect:/love";
 	 private final String LOGIN_ACTION = "redirect:/cm/toLogin";
 	 private final String REG_ACTION = "redirect:/cm/reg";
 	 @Autowired	
@@ -79,6 +79,15 @@ public class UserAction {
 	 private ResetManager resetManager;
 	 
 	 
+	    /**
+		 *首页
+		 */
+		@RequestMapping("/")
+		public void dashborard(HttpServletResponse response) throws IOException {
+	 	  	
+		    response.sendRedirect("http://"+DOMAIN+"/love");
+		 	  	
+		}	
 	 	
 	 /**
 	 * 爬虫抓取的优惠券列表页
@@ -417,11 +426,6 @@ public class UserAction {
 			return "/vlog";
 		}
 	 	
-
-	 	@RequestMapping("/")
-		public String home(ModelMap map) {
-			return LIST_ACTION;
-		}
 	 	
 	 	/**
 	 	 * 404错误
@@ -701,7 +705,7 @@ public class UserAction {
 			String redirectURI = request.getParameter("redirectURI");
 			if(StringUtils.isNotEmpty(redirectURI)){
 				if(redirectURI.equals("/cm/toLogin")){
-					redirectURI = "/cm/list";
+					redirectURI = "/love";
 				}
 				map.put("redirectURI", redirectURI);
 			}
@@ -815,7 +819,7 @@ public class UserAction {
 		}
 
 		
-		@RequestMapping(value="/cm/list/page{page}")
+		@RequestMapping(value="/love/page{page}")
 		public String listpage(ModelMap map,UserLyricsQueryCondition condition,@PathVariable String page,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session) {
 			
@@ -844,7 +848,7 @@ public class UserAction {
 			map.put("page", pages);
 			map.put("condition", condition);
 //			map.addAttribute("list", pageView.getMapRecords()==null?"":list);
-			map.addAttribute("actionUrl","cm/list");
+			map.addAttribute("actionUrl","love");
 			
 			String signoutflag = (String) request.getParameter("signout");
 			if(StringUtils.isNotEmpty(signoutflag)){
@@ -856,7 +860,7 @@ public class UserAction {
 			return "/welcome";
 		}
 		
-		@RequestMapping(value="/cm/list")
+		@RequestMapping(value="/love")
 		public String list(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session,String userid) {
 			//获取域名
@@ -876,7 +880,7 @@ public class UserAction {
 			map.addAttribute("pageView", pageView);
 			map.put("condition", condition);
 			//map.addAttribute("list", pageView.getMapRecords()==null?"":pageView.getMapRecords());
-			map.addAttribute("actionUrl","cm/list");
+			map.addAttribute("actionUrl","love");
 			
 			String signoutflag = (String) request.getParameter("signout");
 			if(StringUtils.isNotEmpty(signoutflag)){

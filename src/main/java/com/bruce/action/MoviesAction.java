@@ -26,7 +26,7 @@ import com.bruce.utils.TimeUtils;
 import com.bruce.utils.safe.WAQ;
 
 @Controller
-@RequestMapping("/movies")
+@RequestMapping("")
 @SessionAttributes({ "list", "movies" })
 public class MoviesAction {
 
@@ -40,7 +40,7 @@ public class MoviesAction {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping("/add")
+	@RequestMapping("/movies/add")
 	public String toAdd(ModelMap map,HttpServletRequest request) {
 		String rs = "/page/admin/movies/moviesAdd";
 		User user = (User) request.getSession().getAttribute("user");
@@ -63,7 +63,7 @@ public class MoviesAction {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping("/addItem")
+	@RequestMapping("/movies/addItem")
 	@ResponseBody
 	public String addItem(ModelMap map,Movies model) {
 		String rs = "success";
@@ -87,7 +87,7 @@ public class MoviesAction {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/list")
+	@RequestMapping(value="/movies")
 	public String list(ModelMap map,MoviesQueryCondition condition,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) {
 		String  sql = "select * from bc_movies   order by addtime desc limit 0,200 ";
@@ -107,7 +107,7 @@ public class MoviesAction {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/search")
+	@RequestMapping(value="/movies/search")
 	public String list(ModelMap map,String keyword,HttpServletRequest request,HttpServletResponse response, HttpSession session) {
 		String wheresql = " where 1=1 ";
 		if(StringUtils.isNotEmpty(keyword)){

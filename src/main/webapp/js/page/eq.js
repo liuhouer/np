@@ -5,7 +5,7 @@
 $(function(){
 	var pagenow = parseInt($("#pagenow").val())-1;
 	 $.ajax({
-			url:"/eq/equery",
+			url:"/romeo/equery",
 			type:"post",
 			data:{"currentpage":pagenow},
 			beforeSend:beforeSend, //发送请求

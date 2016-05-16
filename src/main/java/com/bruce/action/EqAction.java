@@ -43,7 +43,7 @@ import com.bruce.utils.TimeUtils;
  * 
  */
 @Controller
-@RequestMapping("/eq")
+@RequestMapping("")
 @SessionAttributes({ "list", "eq" })
 public class EqAction {
 
@@ -58,7 +58,7 @@ public class EqAction {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping("/geneArt")
+	@RequestMapping("/romeo/geneArt")
 	public String geneArt(ModelMap map) {
 		try {
 			
@@ -87,7 +87,7 @@ public class EqAction {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping("/meizitu")
+	@RequestMapping("/romeo/meizitu")
 	@ResponseBody
 	public String meizitu(ModelMap map) {
 		try {
@@ -121,7 +121,7 @@ public class EqAction {
 		return "meizitu  success";
 	}
 
-	@RequestMapping("/list")
+	@RequestMapping("/romeo")
 	public String list(ModelMap map,EqQueryCondition condition, String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)  {
 		String result="/equp";
@@ -153,7 +153,7 @@ public class EqAction {
 			map.addAttribute("pageView", p);
 			map.put("condition", condition);
 //			map.addAttribute("list", resultlist);
-			map.addAttribute("actionUrl","eq/list");
+			map.addAttribute("actionUrl","romeo");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -164,7 +164,7 @@ public class EqAction {
 		return result;
 	}
 	
-	@RequestMapping(value="/list/page{page}")
+	@RequestMapping(value="/romeo/page{page}")
 	public String listpage(ModelMap map,EqQueryCondition condition, @PathVariable String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
@@ -196,7 +196,7 @@ public class EqAction {
 		map.addAttribute("pageView", p);
 		map.put("condition", condition);
 //		map.addAttribute("list", resultlist);
-		map.addAttribute("actionUrl","eq/list");
+		map.addAttribute("actionUrl","romeo");
 		
 		
 
@@ -204,7 +204,7 @@ public class EqAction {
 	}
 	
 	//异步分页查询eq数据
-		@RequestMapping(value="/equery")
+		@RequestMapping(value="/romeo/equery")
 		public String lovequery(ModelMap map,HttpServletRequest request,EqQueryCondition condition,  HttpSession session,String userid) {
 			String currentpage = request.getParameter("currentpage");
 			

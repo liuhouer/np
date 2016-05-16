@@ -5,15 +5,15 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<base href="<%=basePath%>">
-<!-- <base href="http://northpark.cn"> -->
+<%-- <base href="<%=basePath%>"> --%>
+<base href="http://northpark.cn">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!--QQ登陆  -->
 <!-- <meta property="qc:admins" content="61073355176476541272743636" /> 
 
 <script type="text/javascript" data-callback="true" 
  src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" 
- data-appid="101204466" data-redirecturi="http://northpark.cn/cm/list" charset="utf-8"></script>
+ data-appid="101204466" data-redirecturi="http://northpark.cn/love" charset="utf-8"></script>
   -->
 <script src="/js/jquery-1.7.2.js"></script>  
 <!-- <script src="/js/jquery.lazyload.js"></script>  --> 

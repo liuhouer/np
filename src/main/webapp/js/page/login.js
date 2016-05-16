@@ -48,7 +48,7 @@ $(document).ready(function() {
                 	  window.location.href = uri;
                   }else{
                 	  
-                      window.location.href = "/cm/list";
+                      window.location.href = "/love";
                   }
               }else{
             	  art.dialog.tips(msg.info);

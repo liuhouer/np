@@ -39,9 +39,9 @@
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
 			<ul class="nav mainhead-nav">
-				<li><a href="/cm/list" title="一张图片，爱满满的">最爱</a></li>
+				<li><a href="/love" title="一张图片，爱满满的">最爱</a></li>
 				<li><a href="/note/list" title="一段歌词，一段回忆">碎碎念</a></li>
-				<li><a href="/eq/list" title="情圣养成日记">情圣日记</a></li>
+				<li><a href="/romeo" title="情圣养成日记">情圣日记</a></li>
 				<li class="active"><a href="/cm/reg" title="去注册">登陆</a></li>
 			</ul>
 		</div>
