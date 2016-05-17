@@ -41,12 +41,24 @@ $(function(){
 })
 
 
- function beforeSend(XMLHttpRequest){
-	  $("#J_progress").append("<div><img src='/img/loading.gif' style='width:48px;height:48px;' /><div>");
-  }
-  
-  function complete(XMLHttpRequest, textStatus){
-	  $("#J_progress").empty();
-  }
-  
+//bind pagination
+
+$(function(){
+	
+	//分页事件	
+	$(".qinco-pagination ").find("li a").each(function(){
+		$(this).click(function(){
+			
+			var pagenow = $(this).attr("data");
+			pagination("/lovequery",pagenow);
+			//移除所有的active
+			rmactive();
+			//添加选中样式
+			$(this).parent().addClass('active');
+		})
+	})
+	
+	
+});
+
 

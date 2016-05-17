@@ -41,4 +41,10 @@
 
 <script src="/js/page/eq.js"></script>
 
+<script src="/js/page/pagination/pagination.js">
+
+
+
+</script>
+
 </body></html>

@@ -48,7 +48,8 @@
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
 
-<script src="/js/page/welcome.js"></script>
+	<script src="/js/page/welcome.js"></script>
+	<script src="/js/page/pagination/pagination.js"></script>
 </body>
 
 </html>    

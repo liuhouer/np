@@ -722,6 +722,7 @@ a:focus,a:hover
     color: #7a8c8c;
   background-color: #eee;
   border-color: #ddd;
+  cursor: pointer;
 }
 .qinco-pagination > .active > a,
 .qinco-pagination > .active > span,

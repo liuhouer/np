@@ -61,6 +61,7 @@ public class UserAction {
      * 域名
      */
      private final String DOMAIN = "northpark.cn";
+     private final String DOMAIN_LOCAL = "localhost:8082";
      /**
       * 定向action'
       */
@@ -85,7 +86,7 @@ public class UserAction {
 		@RequestMapping("/")
 		public void dashborard(HttpServletResponse response) throws IOException {
 	 	  	
-		    response.sendRedirect("http://"+DOMAIN+"/love");
+		    response.sendRedirect("http://"+DOMAIN_LOCAL+"/love");
 		 	  	
 		}	
 	 	
