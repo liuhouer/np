@@ -54,7 +54,7 @@
 											 
 											 </p>
 											
-											<p><small class="label label-gray"><p><small class="red-text">${s.path}</small></p></small> </p>&nbsp;
+											<p><small class="label label-gray"><p><small class="red-text">${s.path}</small></p></small> </p> &nbsp;
 											<div class="clearfix visible-xs"><hr></div>
 										</div>
 									</div>

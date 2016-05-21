@@ -15,9 +15,6 @@ import com.bruce.utils.TimeUtils;
  *
  * 定时爬取今日情圣文章
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = { "classpath:spring.xml",
-// "classpath:spring-hibernate.xml" })
 public class EQTask {
 	
 	@Autowired
@@ -61,10 +58,6 @@ public class EQTask {
 		
 		System.out.println("情圣定时任务结束"+TimeUtils.getNowTime());
 	}
-//	
-//	@Test
-//	public void save() {
-//		runTask();
-//	}
-//	
+	
+	
 }

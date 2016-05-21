@@ -2,11 +2,14 @@ package com.bruce.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -22,8 +25,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.bruce.action.SpiderAction;
-
-import javassist.bytecode.stackmap.BasicBlock.Catch;
 
 /**
  * <p>
@@ -534,7 +535,7 @@ public class HTMLParserUtil
 				Elements dates = doc_.select("span[class=activity-meta no-extra]");
 				String date = dates.get(0).text();
 				
-				if(!(date.equals("2016-05-15"))){
+				if(!(date.equals("2016-05-20"))){
 					continue;
 				}
 				
@@ -641,6 +642,104 @@ public class HTMLParserUtil
 		}
 	}
 	
+	/**
+	 * 解析七牛URL为markdown格式
+	 * @return 
+	 */
+	public static List<String> url2markdown(){
+		List<String> urilist = new ArrayList<String>();
+		List<String> list = new ArrayList<String>();
+		try {
+				File in = new File("C:\\Users\\bruce\\Desktop\\111\\aaaa.html");
+
+				Document doc = Jsoup.parse(in, "UTF-8", ""); 
+				Elements notes   = doc.select("button[class=test_pic]");
+				for(Element p : notes){
+
+				String links = p.attr("cval");
+				urilist.add(links);
+
+				}
+			
+				HashSet<String> v = new HashSet<String>();
+				v.addAll(urilist);
+				
+				list.addAll(v);
+				for (String s:list) {
+					System.out.println(s);
+				}
+				
+				
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
+	
+		
+		/**
+		 * 爬取5年来。。。。。。。。。
+		 */
+		public static Map<Integer, String> retV2Romeo() {
+			// TODO Auto-generated method stub
+			HashMap<Integer, String> map =new HashMap<Integer, String>();
+			try{
+				
+					Document doc = Jsoup.connect("http://www.yi-see.com/art_18165_584.html").get();
+					
+					Elements as  = doc.select("a");
+					
+					//catch the map <"index",article>
+					for (int j = 0; j < as.size(); j++) {
+						System.out.println(as.get(j).html());
+						if(as.get(j).html().contains("节")){
+							String href  =  as.get(j).attr("href");
+							Document doc2 = Jsoup.connect("http://www.yi-see.com/"+href).get();
+							Elements elements =doc2.select("div[class=ART]");
+							String article = elements.get(0).html();
+							map.put(Integer.parseInt(as.get(j).html().replace("第", "").replace("节", "")), article);
+						}
+					}
+					
+					
+					
+					//sort the map
+					Object[]   key   =     map.keySet().toArray();   
+					Arrays.sort(key);  
+
+					String filePath = "C:\\Users\\bruce\\Downloads\\Text\\5yearv2romeo.txt";
+					FileWriter writer = new FileWriter(filePath, true);
+					System.out.println("写入start....");
+					try {
+						
+							for   (int   i   =   0;   i   <   key.length;   i++)   {   
+									
+										//打开一个写文件器，构造函数中的第二个参数true表示以追加形式写文件  
+										
+										writer.write(map.get(key[i]));
+										writer.write("---------------------------------------"+"<br>");
+										
+							}   
+							
+					} catch (IOException e) {
+						e.printStackTrace();
+					}finally{
+						writer.close();
+					}
+				
+				 
+
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			
+			System.out.println("写入end....");
+			return map;	
+		}
   
 	/**
 	 * 爬取今日情圣的文章
@@ -742,7 +841,12 @@ public class HTMLParserUtil
 	    		//retTodayEq();
 //	    		List<Map<String, String>> retEQArticle = retEQArticle();
 //	    		System.out.println(retEQArticle.size());
-	    		readPic2Disk();
+//	    		readPic2Disk();
+//	    		retV2Romeo();
+	    		url2markdown();
+	    		
+	    		
+	    		
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

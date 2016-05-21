@@ -67,6 +67,11 @@
 			</div>
 		</div>
 		
+		<div class="row bg-white margin-t10 margin-b10 center">
+			<div id="showResult" class="form-group">
+				
+			</div>
+		</div>
 		<c:forEach items="${list }" var="s" varStatus="ss">
 		
 		    <div class='row bg-white margin-t10 margin-b10' id='notebox_${s.id }'>

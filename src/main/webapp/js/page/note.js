@@ -2,7 +2,26 @@
 function removes(obj){
 	      var id=$(obj).attr('rel');
 	      art.dialog.confirm('你确定要删除曾经的故事吗？', function () {
-	    	  $("#f2").attr("action","note/remove?id="+id).submit();
+	    	  $.ajax({
+	              url:"/note/remove",
+	              type:"post",
+	              beforeSend:beforeSend, //发送请求
+	              complete:complete,
+	              data:{"id":id},
+	              success:function(msg){
+	            	  //console.log(msg);
+	            	  msg = eval('(' + msg + ')');
+	                  if(msg.result=="success."){
+	                	  //成功|js移除模块
+	                	  
+	                	  $(obj).parent().parent().remove();
+	                	  art.dialog.tips(msg.result);
+	                  }else{
+	                	  art.dialog.tips(msg.result);
+	                  }            
+	              }
+	          });
+	    	  
 			}, function () {
 			    return ;
 			});
@@ -12,6 +31,15 @@ function removes(obj){
 
 function toEditInfo(){
 	$("#f1").submit();
+}
+
+
+function beforeSend(XMLHttpRequest){
+	  $("#showResult").append("<div><img src='/img/loading.gif' style='width:32px;height:32px;' /><div>");
+}
+
+function complete(XMLHttpRequest, textStatus){
+	  $("#showResult").empty();
 }
 
 

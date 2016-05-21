@@ -5,6 +5,7 @@ package com.bruce.action;
 *
 **/
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bruce.manager.NoteManager;
@@ -32,6 +34,7 @@ import com.bruce.utils.MyConstant;
 import com.bruce.utils.PageView;
 import com.bruce.utils.QueryResult;
 import com.bruce.utils.TimeUtils;
+import com.bruce.utils.json.JsonUtil;
 
 @Controller
 @RequestMapping("/note")
@@ -392,6 +395,37 @@ public class NoteAction {
 		return "/page/story/storydata";
 	}
 
+	//异步删除笔记内容
+	@RequestMapping(value="/remove")
+	@ResponseBody
+	public String remove(ModelMap map,HttpServletRequest request,String id, HttpSession session)  {
+		
+		String result = "success.";	
+		try{
+			if(StringUtils.isNotEmpty(id)){
+				
+				Note note = noteManager.findNote(Integer.valueOf(id));
+				if(note!=null){
+					 //取得当前用户
+			        User user = (User) request.getSession().getAttribute("user");
+			        if(user!=null){
+			        	if(user.getId() == note.getUserid()){
+			        		//登陆者和作者一样 | 执行删除
+			        		noteManager.delNote(Integer.parseInt(id));
+			        		result = "success.";
+			        	}
+			        }
+				}
+			}
+		}catch(Exception e){
+			result = "opps,发生了异常.";
+			e.printStackTrace();
+		}
+
+		Map<String, Object> rsmap = new HashMap<String, Object>();
+		rsmap.put("result", result);
+		return JsonUtil.jsonUtil.mapToJSONString(rsmap);
+	}
 
 	private PageView<Note> getPageView(String page,
 			String whereSql) {
