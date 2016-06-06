@@ -20,8 +20,8 @@
 											</c:if>
 											
 											title="${s.get('username')}:我的最爱">
-											<c:if test="${s.get('headpath') ==null||s.get('headpath') ==''||s.get('headpath').length()==0}"><img src="/img/davatar.jpg" alt="${s.get('username')}"></c:if>
-											<c:if test="${s.get('headpath') !=null && s.get('headpath').length()>0}"><img 
+											<c:if test="${s.get('headpath') ==null||s.get('headpath') ==''||s.get('headpath').length()==0}"><img src="/img/davatar.jpg" class="imgbreath" alt="${s.get('username')}"></c:if>
+											<c:if test="${s.get('headpath') !=null && s.get('headpath').length()>0}"><img class="imgbreath"
 											 <c:choose>
    												<c:when test="${fn:contains(s.headpath ,'http://') }">src="${s.headpath }"</c:when>
                                   				<c:otherwise>src="/bruce/${s.headpath }"</c:otherwise>

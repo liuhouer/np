@@ -5,7 +5,7 @@
 	
 		<div class="col-sm-12  " >
 				<p>
-				 ©2014 <span class="glyphicon glyphicon-heart"></span> 布.词
+				 ©2014 <span class="glyphicon glyphicon-heart"></span> northpark
 				</p>
 			
 		</div>

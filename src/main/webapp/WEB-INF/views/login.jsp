@@ -12,9 +12,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>布.词 | 登录</title>
-<meta name="description" content="登录布.词：布.词会让您记住每一件美好的事物，记录生命回忆，记住世界上最好的东西。">
-<meta name="keywords" content="登录,最爱,回忆,生活">
+<title>northpark / Login</title>
+<meta name="description" content="登录northpark：northpark / 记住美好,保留回忆,分享最爱。">
+<meta name="keywords" content="登录,northpark,最爱,回忆,生活">
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
@@ -34,7 +34,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<div class="navbar-brand">
-			  <a href="http://blog.northpark.cn/atom.xml" target="_blank" id="icon" title="订阅布.词RSS"><img src="/img/rss.png" width="20" height="20" alt="订阅布.词RSS"></a>
+			  <a href="http://blog.northpark.cn/atom.xml" target="_blank" id="icon" title="订阅northparkRSS"><img src="/img/rss.png" width="20" height="20" alt="订阅northparkRSS"></a>
 			</div>
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
@@ -42,7 +42,7 @@
 				<li><a href="/love" title="一张图片，爱满满的">最爱</a></li>
 				<li><a href="/note/list" title="一段歌词，一段回忆">碎碎念</a></li>
 				<li><a href="/romeo" title="情圣养成日记">情圣日记</a></li>
-				<li class="active"><a href="/cm/reg" title="去注册">登陆</a></li>
+				<li class="active"><a href="/signup" title="去注册">登陆</a></li>
 			</ul>
 		</div>
 	</div>
@@ -59,7 +59,7 @@
 
               <form method="POST" action="cm/login" accept-charset="UTF-8" role="form" id="loginForm" style="color:#444;" class="form margin-t20">
                 <div class="clearfix">
-                  <h4>登录我的布.词</h4>
+                  <h4>登录northpark</h4>
                   <hr>
                 </div>
 
@@ -93,7 +93,7 @@
 						<div id="showResult" class="form-group">
 						</div>
 						<div class="form-group">
-							 <a class="pull-left" href="/cm/reg"><span
+							 <a class="pull-left" href="/signup"><span
 								class="glyphicon glyphicon-hand-right"></span> 还没账号，去注册</a>	
 						</div>		
 						<!-- <span id="qqLoginBtn"></span>

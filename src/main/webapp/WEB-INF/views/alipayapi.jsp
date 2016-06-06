@@ -25,7 +25,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>布.词 | 支付宝纯担保交易接口</title>
+		<title>northpark / 支付宝纯担保交易接口</title>
 	</head>
 	<%
 		////////////////////////////////////请求参数//////////////////////////////////////

@@ -1,7 +1,12 @@
 
 var tail_slug = $("#J_tail_slug").val();
 
-
+$(function(){
+	$('#user_nick').datepicker({
+		format: 'yyyy-mm-dd',
+		autoclose:true
+	});
+})
 function saves(){
 	var newpwd1=$("#new_password").val();
 	var newpwd2=$("#new_password_confirmation").val();

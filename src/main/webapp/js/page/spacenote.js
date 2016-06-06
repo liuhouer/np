@@ -46,7 +46,7 @@ $("#J_gz_btn").click(function(){
 	    			});
 
 	    		}else if(msg=="0"){//没有登录
-	    			window.location.href = "/cm/toLogin?redirectURI="+url; 
+	    			window.location.href = "/login?redirectURI="+url; 
 	    		}
 	    	}
 	    });

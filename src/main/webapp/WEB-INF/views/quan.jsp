@@ -13,9 +13,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>布.词 | 红包</title>
-<meta name="description" content="布.词::最及时红包">
-<meta name="keywords" content="布.词::最及时红包">
+<title>northpark / 红包</title>
+<meta name="description" content="northpark::最及时红包">
+<meta name="keywords" content="northpark::最及时红包">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 </head>
 

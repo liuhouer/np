@@ -59,10 +59,10 @@ import sun.misc.BASE64Encoder;
 		 */
 		public static final String suffix_upload = "upload";
 		 
-		 //-------------以下为布.词公用上传 、下载 、删除相关方法-------------------------------------------
+		 //-------------以下为northpark公用上传 、下载 、删除相关方法-------------------------------------------
 		
 		/**
-		 * 以下为布.词文件删除方法
+		 * 以下为northpark文件删除方法
 		 * @param oldpath
 		 * @param file
 		 */
@@ -96,7 +96,7 @@ import sun.misc.BASE64Encoder;
 		 
 		 
 		 /**
-		  * 以下为布.词上传upload相关方法
+		  * 以下为northpark上传upload相关方法
 		 * @param file
 		 * @param suffix
 		 * @return 保存的路径数值集合

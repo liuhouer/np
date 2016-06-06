@@ -35,7 +35,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			if(user!=null){
 				
 			}else{
-				response.sendRedirect("/cm/toLogin?url="+url);
+				response.sendRedirect("/login?url="+url);
 			}
         }
         return flag;

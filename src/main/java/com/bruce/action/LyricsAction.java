@@ -52,7 +52,7 @@ public class LyricsAction {
 
  private final String LIST_ACTION = "redirect:/lyrics/findAll";
  private final String LIST_ACTION2 = "redirect:/cm/pcentral";
- private final String LOGIN_ACTION = "redirect:/cm/toLogin";
+ private final String LOGIN_ACTION = "redirect:/login";
 
  
  

@@ -13,10 +13,13 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>布.词 | 编辑我的档案</title>
+<title>northpark / 编辑我的档案</title>
 <meta name="description" content="采麦会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
-<meta name="keywords" content="最爱,回忆,生活">
+<meta name="keywords" content="northpark,最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
+<link media="all" type="text/css" rel="stylesheet" href="/css/bsorigin/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+
 
     <style type="text/css">
         #imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);width: 100%;width: 100%;position: relative;}
@@ -116,7 +119,7 @@
       <div class="form-group ">
         <label for="user_birth" class="col-md-3 control-label input-lg">生日：</label>        <div class="col-md-9 text-left">
           <div class="row">
-            <input id="user_nick" placeholder="1991-12-31" onClick="WdatePicker()" class="Wdate form-control border-light-1 input-lg bg-lyellow padding10 grid70 radius-0" name="year_of_birth" type="text" value="${Dinfo.year_of_birth }">
+            <input id="user_nick" placeholder="1991-12-31"  class="form_date form-control border-light-1 input-lg bg-lyellow padding10 grid70 radius-0" name="year_of_birth" type="text" value="${Dinfo.year_of_birth }">
           </div>
                   </div>
       </div>
@@ -164,6 +167,7 @@
 
 
 <script src="/js/page/editinfo.js"></script>
+
 
 
 </body></html>   

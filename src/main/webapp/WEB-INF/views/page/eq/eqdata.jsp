@@ -12,10 +12,10 @@
 										<div class="thumbnail border-0 center">
 											<a title="${s.title}">
 											<c:if test="${s.img==null ||s.img==''}">
-												<img src="/img/davatar.jpg">
+												<img src="/img/davatar.jpg" class="imgbreath">
 											</c:if>
 											<c:if test="${s.img!=null }">
-												<img src="${s.img }">
+												<img src="${s.img }" class="imgbreath">
 											</c:if>
 											</a>
 											<p><label class="bold-text">${s.title}</label></p>
@@ -36,7 +36,7 @@
 											<button class="clearfix btn btn-gray btn-xs click2show"  data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}"> &nbsp; <span class="glyphicon glyphicon-chevron-down"></span> &nbsp; </button>
 										</c:if>
 										</p>
-												<div class="clearfix hidden" id="text_${ss.index}" style="background:#f3f3f1;">
+												<div class="clearfix hidden" id="text_${ss.index}" >
 													${s.article }
 												</div>
 

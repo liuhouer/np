@@ -30,8 +30,10 @@ public class EQTask {
 			String brief = map.get("brief");
 			String date = map.get("date");
 			String article = map.get("article");
-			//是今天的文章
-			if(date.equals(TimeUtils.nowdate())){
+			//是不存在的文章
+			int flag = EqManager.countHql(new Eq(), " date= '"+date+"' ");
+			
+			if(flag<=0){
 				//生成并且设置图片
 				List<String> meizi = HTMLParserUtil.gegeMEIZITU();
 				

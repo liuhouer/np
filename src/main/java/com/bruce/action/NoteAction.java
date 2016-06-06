@@ -42,7 +42,7 @@ import com.bruce.utils.json.JsonUtil;
 public class NoteAction {
 
  private final String LIST_ACTION = "redirect:/note/findAll";
- private final String LOGIN_ACTION = "redirect:/cm/toLogin";
+ private final String LOGIN_ACTION = "redirect:/login";
  @Autowired	
  private NoteManager noteManager;
  @Autowired	

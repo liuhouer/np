@@ -74,20 +74,20 @@ public class EmailUtils {
 			String myPassword = Base64Util.JIEMI("MTM0ODM3MjQwNTEwMDAwMDA=");
 			// 接收者邮箱
 			String to = toEmail;
-			String subject = "找回密码";
-			String mailConent = "找回密码";
+			String subject = "~~~~(>_<)~~~~找回northpark的密码";
+			String mailConent = "~~~~(>_<)~~~~找回密码";
 
 			HtmlEmail email = new HtmlEmail();
 			email.setAuthentication(myEmail, myPassword);
 			email.setHostName(host);
 			email.addTo(to, "亲");
-			email.setFrom(myEmail);
+			email.setFrom("northpark官方");
 			email.setSubject(subject);
-			String dm =  URLUtil.getDomain(request);
+			String dm =  "northpark.cn";//URLUtil.getDomain(request);
 			// 注意，发送内容时，后面这段会让中文正常显示，否则乱码
 			email.setCharset("utf-8");
 			email.setHtmlMsg("<html><body><p style=\"margin-left: 30px;\"><font size=\"5\" color=\"rgb(216,206,178)\" >忘记密码？</font></p>"
-					+ "<p style=\"background-color:rgb(163,210,202);margin-left: 30px;\">" + "【布.词】在"
+					+ "<p style=\"background-color:rgb(163,210,202);margin-left: 30px;\">" + "【northpark官方】在"
 					+ TimeUtils.nowTime()
 					+ "收到了您的 帐号重置密码的请求。<br/><br/>"
 					+ "如果要重置密码，请单击下面的链接： <br/><br/> "
@@ -104,7 +104,7 @@ public class EmailUtils {
 					+ "</a><br/><br/>"
 					+ "请注意，这是一次性链接。<br/>  "
 					+ "点击链接以后，密码将被修改为【 <font color=\"red\">"+authCode+"</font>  】,请牢记喔~尽快到个人信息页面修改<br/>  "
-					+ "如果不想重置密码，请忽略此邮件，您的密码不会改变。如有任何疑问或顾虑，请联系布.词。<br/><br/>" + "小布<br/><br/>" + "</p>" + "</body></html>"); /* 邮件内容 */
+					+ "如果不想重置密码，请忽略此邮件，您的密码不会改变。如有任何疑问或顾虑，请联系northpark。<br/><br/>" + "小布<br/><br/>"+"欢迎来我的博客"+"<a href=\"http://blog.northpark.cn\">果冻时刻</a>"+"<br/><br/>" + "</p>" + "</body></html>"); /* 邮件内容 */
 			// 添加附件对象
 			// email.attach(attachment);
 			// 发送

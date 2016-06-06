@@ -20,7 +20,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="/js/artDialog/artDialog.js?skin=blue"></script> 
 <script src="/js/artDialog/jquery.artDialog.js?skin=blue"></script>
 <script src="/js/artDialog/plugins/iframeTools.js"></script>
-<script src="/js/My97DatePicker/WdatePicker.js"></script>
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrapValidator.min.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">

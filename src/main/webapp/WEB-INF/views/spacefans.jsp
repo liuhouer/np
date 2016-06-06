@@ -14,9 +14,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>布.词</title>
-<meta name="description" content="布.词 | Fans ${MyInfo.username}生命中的最爱: 布.词会让您记住每一件美好的事物，记录生命回忆，记住世界上最好的东西。">
-<meta name="keywords" content="最爱,回忆,生活">
+<title>northpark</title>
+<meta name="description" content="northpark / Fans ${MyInfo.username}生命中的最爱: northpark / 记住美好,保留回忆,分享最爱。">
+<meta name="keywords" content="northpark,最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 </head>

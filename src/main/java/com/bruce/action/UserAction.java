@@ -66,8 +66,8 @@ public class UserAction {
       * 定向action'
       */
 	 private final String LIST_ACTION = "redirect:/love";
-	 private final String LOGIN_ACTION = "redirect:/cm/toLogin";
-	 private final String REG_ACTION = "redirect:/cm/reg";
+	 private final String LOGIN_ACTION = "redirect:/login";
+	 private final String REG_ACTION = "redirect:/signup";
 	 @Autowired	
 	 private UserManager userManager;
 	 @Autowired	
@@ -700,12 +700,12 @@ public class UserAction {
 			return "redirect:pcentral";
 		}
 		
-		@RequestMapping("/cm/toLogin")
+		@RequestMapping("/login")
 		public String toLogin(ModelMap map,HttpServletRequest request) {
 			//redirect URI的设置
 			String redirectURI = request.getParameter("redirectURI");
 			if(StringUtils.isNotEmpty(redirectURI)){
-				if(redirectURI.equals("/cm/toLogin")){
+				if(redirectURI.equals("/login")){
 					redirectURI = "/love";
 				}
 				map.put("redirectURI", redirectURI);
@@ -714,7 +714,7 @@ public class UserAction {
 			return "/login";
 		}
 		
-		@RequestMapping("/cm/reg")
+		@RequestMapping("/signup")
 		public String toReg(ModelMap map,HttpServletRequest request) {
 			
 			map.put("reged", request.getParameter("reged"));
