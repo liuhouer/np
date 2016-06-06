@@ -49,12 +49,17 @@
 											
 											<%-- <p><small class="red-text">￥${s.price}</small></p> --%>
 											
+											
+											
+											<p><small class="label red-text">下载地址<p><small class="red-text">${s.path}</small></p></small> </p> &nbsp;
+											
 											<p> 
-											 <button class="clearfix btn btn-gray btn-xs click2show" onclick="pay('${s.id}','${s.price }')" > <span class="glyphicon glyphicon-yen">donate</span> &nbsp; </button>
+											 <button class="clearfix btn btn-gray btn-xs click2show" onclick="showtoggle('${s.id}')" > <span class="glyphicon glyphicon-yen">donate</span> &nbsp; </button>
 											 
 											 </p>
-											
-											<p><small class="label label-gray"><p><small class="red-text">${s.path}</small></p></small> </p> &nbsp;
+											<p id="donate_${s.id}" style="display: none">
+												<img src="/img/donate.png" style="width: 160px;height: 200px" />
+											</p>
 											<div class="clearfix visible-xs"><hr></div>
 										</div>
 									</div>
