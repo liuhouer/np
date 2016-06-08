@@ -18,6 +18,7 @@
 <meta name="description" content="${user.username}生命中的最爱: northpark / 记住美好,保留回忆,分享最爱。">
 <meta name="keywords" content="northpark,最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
+<link media="all" type="text/css" rel="stylesheet" href="/css/bu.css">
 
 
 </head>
@@ -36,7 +37,10 @@
 							</p>	
 							<p>
 							 <span id="mes" style="cursor: pointer;"><font color="#49c7be">返回首页</font></span> <!-- <span id="mes"><font color="blue">5</font></span> 秒钟后返回首页！ -->
-						</p>		
+							</p>
+							<p>
+							<canvas id="c"></canvas>
+							</p>		
 					</div>
 				</div>
 			</div>
