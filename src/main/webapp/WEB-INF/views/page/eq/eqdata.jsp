@@ -5,8 +5,8 @@
 				<div class="row">
 				
 					<c:forEach items="${list }" var="s" varStatus="ss">
-					<div class="col-sm-12 ">
-					<div class="clearfix bg-white margin-t10 margin-b10 padding20">
+					<div class="col-sm-4 " >
+					<div class="clearfix bg-white margin-t10 margin-b10 padding20" >
 								<div class="row">
 									<div class="col-sm-4">
 										<div class="thumbnail border-0 center">
@@ -25,7 +25,7 @@
 									</div>
 									
 									<div class="col-sm-8">
-										<p><small class="label label-gray">${s.date }</small> &nbsp; 
+										<p><small class="label label-gray">${s.date }</small> &nbsp; <br><br>
 										
 										
 										<a  title="${s.title}">${s.title}</a> ：</p>

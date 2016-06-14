@@ -6,7 +6,7 @@
 				<div class="row">
 					<c:forEach items="${list }" var="s" varStatus="ss">
 					<div class="col-sm-6 ">
-					<div class="clearfix bg-white margin-t10 margin-b10 padding20">
+					<div class="clearfix bg-white margin-t10 margin-b10 padding20" >
 								<div class="row">
 									<div class="col-sm-3">
 										<div class="thumbnail border-0 center">
