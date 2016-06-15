@@ -31,7 +31,7 @@ public class EQTask {
 			String date = map.get("date");
 			String article = map.get("article");
 			//是不存在的文章
-			int flag = EqManager.countHql(new Eq(), " date= '"+date+"' ");
+			int flag = EqManager.countHql(new Eq(), " where o.date= '"+date+"' ");
 			
 			if(flag<=0){
 				//生成并且设置图片
