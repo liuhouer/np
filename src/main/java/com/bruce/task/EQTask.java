@@ -49,6 +49,11 @@ public class EQTask {
 	    		EqManager.addEq(eq);
 			}
 			
+			//去重
+			String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM bc_eq GROUP BY date HAVING ( COUNT(date) > 1 )) AS p)" ;
+			
+			EqManager.executeSql(delsql);
+			
 			
 
     	} catch (Exception e) {

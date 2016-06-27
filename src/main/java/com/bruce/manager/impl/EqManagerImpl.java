@@ -115,5 +115,14 @@ public class EqManagerImpl implements EqManager {
 		// TODO Auto-generated method stub
 		return eqDao.countHql(eq.getClass(), wheresql);
 	}
+
+	/* (non-Javadoc)
+	 * @see com.bruce.manager.EqManager#executeSql(java.lang.String)
+	 */
+	@Override
+	public void executeSql(String sql) {
+		// TODO Auto-generated method stub
+		 eqDao.executess(sql);
+	}
 }
 

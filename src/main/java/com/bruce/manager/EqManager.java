@@ -75,6 +75,16 @@ public interface EqManager {
 	 */
 	public  int countHql(Eq eq,String wheresql);
 	
+	
+	/**
+	 * 执行sql语句
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 */
+	public  void executeSql(String sql);
+	
 
 	
 
