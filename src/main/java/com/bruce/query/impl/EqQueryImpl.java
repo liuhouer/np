@@ -8,7 +8,7 @@ import com.bruce.query.condition.EqQueryCondition;
 /**
  * @author bruce
  * @date ${date}
- * @email zhangyang226@gmial.com
+ * @email zhangyang226@gmail.com
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
  * 
  */

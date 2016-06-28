@@ -2,7 +2,7 @@ package com.bruce.utils;
 /**
  * @author bruce
  * @date 2016年4月26日
- * @email zhangyang226@gmial.com
+ * @email zhangyang226@gmail.com
  * @site http                ://blog.northpark.cn | http                ://northpark.cn | orginazation https                ://github.com/jellyband
  * 
  */
