@@ -535,7 +535,7 @@ public class HTMLParserUtil
 				Elements dates = doc_.select("span[class=activity-meta no-extra]");
 				String date = dates.get(0).text();
 				
-				if(!(date.equals("2016-06-13"))){
+				if(!(date.equals("2016-06-29"))){
 					continue;
 				}
 				
