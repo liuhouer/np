@@ -21,6 +21,7 @@ public static String WX_url_menu_create = "https://api.weixin.qq.com/cgi-bin/men
 	
 	public static String WX_url_getUser = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
 
+	public static final String weixin_hosts = "http://m.lvzheng.com";//"http://www.lvzheng.com";
 	
 	public static final String TOKEN = "his8Zzjzweizhan1025";
 	public static final String bd_prefix = "DHBD";
