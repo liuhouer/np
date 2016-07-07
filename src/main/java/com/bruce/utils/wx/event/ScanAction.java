@@ -5,6 +5,7 @@ import com.bruce.constant.BC_Constant;
 
 public class ScanAction {
 
+	
 	private static ScanAction sa = null;
 	public static ScanAction getstance(){
 		if(sa == null)
