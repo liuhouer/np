@@ -1,8 +1,5 @@
 package com.bruce.utils.wx.event;
 
-import java.util.Date;
-import java.util.List;
-
 import com.bruce.constant.BC_Constant;
 import com.bruce.utils.wx.handler.MessageHandler;
 import com.bruce.utils.wx.model.MessageEntity;
