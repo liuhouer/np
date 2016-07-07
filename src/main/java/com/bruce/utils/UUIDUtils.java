@@ -3,6 +3,7 @@ package com.bruce.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Calendar;
 import java.util.Random;
 /**
  *@author bruce 
@@ -452,6 +453,24 @@ public class UUIDUtils  implements java.io.Serializable, Comparable<UUIDUtils> {
 	    	  }
 	    	  return rs;
 	    	}
+			
+			/**
+			 * 生成一个随机不重复的情景id数字
+			 * @return
+			 */
+			public static synchronized int getUniqueSceneid(){
+				int i = 0;
+				Random random = new Random();
+				Calendar time=Calendar.getInstance();
+				time.set(Calendar.HOUR_OF_DAY, 0);
+				time.set(Calendar.MINUTE, 0);
+				time.set(Calendar.SECOND, 0);
+				time.set(Calendar.MILLISECOND, 0);
+				
+				i = (int) (System.currentTimeMillis() - time.getTimeInMillis() + random.nextInt(10000));
+				
+				return i;
+			}
 	    
 	    public static void main(String[] args) {
 			//System.out.println(UUIDUtils.getUUID().toString());
