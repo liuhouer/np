@@ -1,6 +1,9 @@
 # buci-web
 
 buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2015年12月29日19:04:33 maven版本
+
+
+
 ## 2015年12月29日19:04:33 maven版本
 - 改进个人中心访问加载速度
 - 重构了hibernate+springmvc配置 添加二级缓存和连接池控制
@@ -41,6 +44,9 @@ buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2
 ## 2016-4-13
 - 迁移到coding.net,build path 各种恶心的问题修复，重新部署
 
+
+## 2016-07-07
+-  添加微信的常见所有开发情景处理和二维码生成的工具类
 
 # buci
 buci fix to elegance and add some new function fix serval bugs VERSION v3.0 2015-12-01 11:56:55
