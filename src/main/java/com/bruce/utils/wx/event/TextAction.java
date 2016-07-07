@@ -2,7 +2,7 @@ package com.bruce.utils.wx.event;
 
 import com.bruce.constant.BC_Constant;
 import com.bruce.utils.wx.handler.MessageHandler;
-import com.bruce.utils.wx.model.MessageEntity;
+import com.bruce.utils.wx.model.Message;
 
 
 public class TextAction {
@@ -13,7 +13,7 @@ public class TextAction {
 			ts = new TextAction();
 		return ts;
 	}
-	public String dealMessage(MessageEntity me){
+	public String dealMessage(Message me){
 		String res = "";
 		String rm = me.getContent();
 		//String[] array = rm.split("_");

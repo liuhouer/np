@@ -1,6 +1,6 @@
 package com.bruce.utils.wx.model;
 
-public class PayMessageEntity {
+public class PayMessage {
 
 	private String return_code;
 	private String return_msg;

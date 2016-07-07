@@ -11,8 +11,8 @@ import org.jdom2.Element;
 import com.alibaba.fastjson.JSONObject;
 import com.bruce.constant.BC_Constant;
 import com.bruce.utils.XmlParser;
-import com.bruce.utils.wx.model.MessageEntity;
-import com.bruce.utils.wx.model.PayMessageEntity;
+import com.bruce.utils.wx.model.Message;
+import com.bruce.utils.wx.model.PayMessage;
 
 
 public class MessageHandler{
@@ -34,9 +34,9 @@ public class MessageHandler{
 		System.out.println(this.getClass()+":res is "+ret);
 		return ret;
 	}
-	public MessageEntity getMessageEntity(HttpServletRequest re){
+	public Message getMessageEntity(HttpServletRequest re){
 		String c = tranceUserMessageTostring(re);
-		MessageEntity me = tranceStrToentity(c);
+		Message me = tranceStrToentity(c);
 		return me;
 	}
 	public String tranceUserMessageTostring(HttpServletRequest re){
@@ -66,8 +66,8 @@ public class MessageHandler{
 		}
 		return res;
 	}
-	public PayMessageEntity trancePayResultToentity(String xmlstr){
-		PayMessageEntity pme = new PayMessageEntity();
+	public PayMessage trancePayResultToentity(String xmlstr){
+		PayMessage pme = new PayMessage();
 		Element el = null;
 		try {
 			el = XmlParser.newInstance().parseXmlToElement(xmlstr);
@@ -100,9 +100,9 @@ public class MessageHandler{
 		}
 		return pme;
 	}
-	public MessageEntity tranceStrToentity(String xmlstr){
+	public Message tranceStrToentity(String xmlstr){
 		System.out.println("revice msg from weixin is "+xmlstr);
-		MessageEntity me = new MessageEntity();
+		Message me = new Message();
 		Element el = null;
 		try {
 			el = XmlParser.newInstance().parseXmlToElement(xmlstr);

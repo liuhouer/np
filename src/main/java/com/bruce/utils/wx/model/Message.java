@@ -1,7 +1,7 @@
 package com.bruce.utils.wx.model;
 
 
-public class MessageEntity {
+public class Message {
 
 	private String messageid;//微信返回的messageid.每个公众号messageid唯一
 	private long creatime;
