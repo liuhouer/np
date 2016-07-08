@@ -15,17 +15,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" 
  data-appid="101204466" data-redirecturi="http://northpark.cn/love" charset="utf-8"></script>
   -->
-<script src="/js/jquery-1.7.2.js"></script>  
-<!-- <script src="/js/jquery.lazyload.js"></script>  --> 
-<script src="/js/artDialog/artDialog.js?skin=blue"></script> 
-<script src="/js/artDialog/jquery.artDialog.js?skin=blue"></script>
-<script src="/js/artDialog/plugins/iframeTools.js"></script>
+
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrapValidator.min.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
 
-<script src="/js/page/common.js"></script>
+
 
 <input  type="hidden" id="J_tab_name" value="${ tabs}"/>
 
