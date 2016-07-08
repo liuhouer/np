@@ -68,6 +68,7 @@ public class NoteAction {
 			String note_ = note.getNote();
 			//note_ = "<p>"+note_+"</p>";
 			note_ = note_.replaceAll("script", "urshit").replaceAll("alert", "caonima").replaceAll("location", "tiaonima");
+			note.setNote(note_);
 			StringBuilder sb = handleNotes(note_);
 			note.setBrief(sb.toString());
 			//end-------------------
