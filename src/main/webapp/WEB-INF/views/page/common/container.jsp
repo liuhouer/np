@@ -1,7 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 
-<div class="container">
-	<div class="mainfoot center">
+	<footer class="mainfoot center ">
 	
 		<div class="col-sm-12  " >
 				<p>
@@ -15,8 +14,13 @@
 				<a href="/cm/xbjt" title="原创音乐播放器">小布静听</a>              
 				<a href="/movies" title="最新热映电影BT|云盘">影院热映</a>
 		</div>
-	</div>
-</div>
+	</footer>
+	
+<script src="/js/jquery-1.7.2.js"></script>  
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/artDialog/artDialog.js?skin=blue"></script> 
+<script src="/js/artDialog/jquery.artDialog.js?skin=blue"></script>
+<script src="/js/artDialog/plugins/iframeTools.js"></script>
 <script src="/js/main2.js"></script>    
 <script src="/js/page/seltab.js"></script> 
+<script src="/js/page/common.js"></script>
