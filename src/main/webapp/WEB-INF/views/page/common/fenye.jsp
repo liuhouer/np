@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*,com.bruce.utils.MyConstant,com.bruce.utils.PageView" pageEncoding="UTF-8"%>
 
-<div class="row center">
+<div class="row center ">
 	 <%
 	 	int liststep = 5;//最多显示分页页数
 	 	int maxresult = MyConstant.MAXRESULT;//每页显示记录数
