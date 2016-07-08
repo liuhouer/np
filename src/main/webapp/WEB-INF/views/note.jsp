@@ -18,9 +18,8 @@
 <meta name="keywords" content="northpark,最爱,回忆,生活">
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
-<script src="/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <link href="/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet" />
-<script src="/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
+
 
 
 </head>
@@ -101,6 +100,9 @@
 	    </div>
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp"%>
+
+<script src="/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
 
 
  <script src="/js/page/note.js"></script>

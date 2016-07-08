@@ -17,7 +17,7 @@
 <title>northpark / 添加电影</title>
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
-
+<link href="/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet" />
 		
 </head>
 
@@ -86,8 +86,8 @@
 	
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
+
 <script src="/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<link href="/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet" />
 <script src="/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
 <script type="text/javascript">
 			$(function(){

@@ -87,6 +87,7 @@ public class LyricsZanAction {
 			try {
 				
 				LyricsComment model = new LyricsComment();
+				comment = comment.replaceAll("script", "urshit").replaceAll("alert", "caonima").replaceAll("location", "tiaonima");
 				model.setComment(comment);
 				model.setUserid(Integer.parseInt(userid));
 				model.setLyricsid(Integer.parseInt(lyricsid));

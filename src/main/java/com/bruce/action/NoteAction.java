@@ -66,6 +66,8 @@ public class NoteAction {
 			
 			//处理笔记和介绍
 			String note_ = note.getNote();
+			//note_ = "<p>"+note_+"</p>";
+			note_ = note_.replaceAll("script", "urshit").replaceAll("alert", "caonima").replaceAll("location", "tiaonima");
 			StringBuilder sb = handleNotes(note_);
 			note.setBrief(sb.toString());
 			//end-------------------

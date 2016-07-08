@@ -34,7 +34,7 @@ $(function(){
 	        complete:complete,
 			success:function(data){
 				if(data){
-					$("#J_maincontent").append(data);
+					$("#J_container").append(data);
 				}			
 			}
 		});
