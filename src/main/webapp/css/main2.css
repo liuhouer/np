@@ -2,7 +2,7 @@ body {background: #fff;padding:0;margin:0;}
 hr {margin-top:1em;margin-bottom: 1em;}
 .mainhead {margin-top:60px;}
 .maincontent {background: #fff; padding-bottom:5em;}
-.mainfoot {min-height: 100px; padding-top:1em;}
+.mainfoot {min-height: 100px; padding-top:1em;padding-top: 20px;}
 .mainfoot, .mainfoot a {color:#bcb9b2;padding-right: 10px;}
 .mainfoot a:focus,.mainfoot a:hover {color: #888;}
 .mainfoot .partnerbox {color:#ddd;padding-top:1em;padding-bottom:0.8em;margin-top:5em;background:#fff;}
@@ -398,3 +398,294 @@ white-space: nowrap;
 	-o-transition-delay: all ease 1s;
 	transition: all ease 1s
 }
+
+/* 谷歌卡片样式编写 */
+
+.card {
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+	background: #fff;
+	border: 1px solid #e1e1e1;
+	margin-bottom: 32px;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 500px
+}
+
+.project-card {
+	margin-left: auto;
+	margin-right: auto;
+	position: relative
+}
+
+.project-card-clickable:hover {
+	-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15)
+}
+
+.project-card-small {
+	max-width: 320px
+}
+
+a.project-card-link {
+	text-decoration: none;
+	color: rgba(0, 0, 0, .87)
+}
+
+.stage {
+	height: 500px;
+	overflow: hidden;
+	position: relative
+}
+
+.stage-image {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center
+}
+
+.stage-video {
+	width: 100%;
+	height: 380px;
+	position: absolute
+}
+
+.stage-content-center-wrapper {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: table
+}
+
+.stage-content-center {
+	display: table-cell;
+	padding: 0 16px;
+	text-align: center;
+	vertical-align: middle
+}
+
+.stage-content-bottom {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	padding: 40px 0 8px 0;
+	text-align: center;
+	color: #fff;
+	background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0,
+		rgba(0, 0, 0, 0.7) 80px);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(0, 0,
+		0, 0)), color-stop(80px, rgba(0, 0, 0, 0.7)));
+	background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0,
+		rgba(0, 0, 0, 0.7) 80px);
+	background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0,
+		rgba(0, 0, 0, 0.7) 80px);
+	background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0,
+		rgba(0, 0, 0, 0.7) 80px);
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0,
+		rgba(0, 0, 0, 0.7) 80px);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',
+		endColorstr='#a0000000', GradientType=0)
+}
+
+.project-card-small-stage {
+	height: 360px
+}
+
+
+.project-card-small-title {
+	color: rgba(0, 0, 0, .54);
+	font-size: 24px;
+	font-weight: 300;
+	color: #fff;
+	margin: 16px
+}
+
+.project-card-small-organization {
+	color: rgba(0, 0, 0, .54);
+	font-size: 16px;
+	font-weight: 400;
+	color: rgba(255, 255, 255, .54);
+	margin: 16px
+}
+
+.project-card-small-content {
+	color: rgba(0, 0, 0, .54);
+	font-size: 16px;
+	font-weight: 400;
+	margin: 32px 16px 16px 16px;
+	text-align: center
+}
+
+.card-content {
+	margin: 32px 16px
+}
+
+.card-content>.maia-cols {
+	margin-bottom: -16px
+}
+
+@media screen and (min-width:768px) {
+	.card {
+		margin-left: 0;
+		margin-right: 0;
+		max-width: none
+	}
+	.card-content {
+		margin: 32px
+	}
+}
+
+
+@media screen and (max-width:767px) {
+	.card-content h1, .card-content h2, .card-content h3, .card-content h4,
+		.card-content h5, .card-content h6 {
+		margin-top: 1em
+	}
+}
+
+@media screen and (min-width:768px) {
+	.card-content-centered-wrapper {
+		display: table;
+		width: 100%;
+		height: 100%
+	}
+	.card-content-centered-wrapper .card-content {
+		display: table-cell;
+		padding: 32px;
+		vertical-align: middle
+	}
+}
+
+.card-content .project-card-wide-stage-content {
+	display: none
+}
+
+@media screen and (min-width:768px) {
+	.project-card-wide {
+		margin-left: 0;
+		margin-right: 0;
+		max-width: none
+	}
+	.project-card-wide-col {
+		height: 500px
+	}
+	.project-card-wide-col .stage-video {
+		height: 500px
+	}
+	.project-card-youtube-play-button {
+		margin-top: 50%
+	}
+	.project-card-wide-stage .stage-content-bottom {
+		display: none
+	}
+	.card-content .project-card-wide-stage-content {
+		display: block;
+		margin-bottom: 32px
+	}
+	.project-card-wide-stage-message {
+		color: rgba(0, 0, 0, .54);
+		margin: 16px 0 0
+	}
+	.project-card-wide-stage-charity-name {
+		color: rgba(0, 0, 0, .54);
+		margin: 16px 0 0
+	}
+	.project-card-wide-fact {
+		margin: 32px 16px 16px
+	}
+}
+
+@media screen and (max-width:767px) {
+	#project-details-card-content {
+		max-width: 450px;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 16px;
+		padding-right: 16px
+	}
+}
+
+.voucher-campaign .card-content {
+	margin-top: 0px;
+	margin-left: 24px;
+	margin-right: 24px
+}
+
+.card-footer {
+	margin: -8px 8px 8px 8px;
+	text-align: right
+}
+
+.card-footer-button-flat {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	background: transparent;
+	border: 0;
+	color: rgba(0, 0, 0, .87);
+	cursor: pointer;
+	display: inline-block;
+	font-family: 'Roboto', 'open sans', arial, sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	height: 40px;
+	letter-spacing: .05em;
+	line-height: 40px;
+	padding: 0 20px;
+	text-align: center;
+	text-decoration: none;
+	transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none
+}
+
+.card-footer-button-flat:hover, .card-footer-button-flat:focus,
+	.card-footer-button-flat:active {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	background: transparent;
+	border: 0;
+	color: #000;
+	cursor: pointer;
+	display: inline-block;
+	font-family: 'Roboto', 'open sans', arial, sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	height: 40px;
+	letter-spacing: .05em;
+	line-height: 40px;
+	padding: 0 20px;
+	text-align: center;
+	text-decoration: none;
+	transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none
+}
+
+.card>.maia-cols>.maia-col-1, .card>.maia-cols>.maia-col-2, .card>.maia-cols>.maia-col-3,
+	.card>.maia-cols>.maia-col-4, .card>.maia-cols>.maia-col-5, .card>.maia-cols>.maia-col-6,
+	.card>.maia-cols>.maia-col-7, .card>.maia-cols>.maia-col-8, .card>.maia-cols>.maia-col-9,
+	.card>.maia-cols>.maia-col-10, .card>.maia-cols>.maia-col-11 {
+	margin-bottom: 0 !important
+}
+
