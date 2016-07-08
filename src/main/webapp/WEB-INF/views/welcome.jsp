@@ -41,6 +41,7 @@
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
+
 </head>
 
 <body class="grayback">
@@ -53,7 +54,7 @@
 
 
 
-			<div class="container grayback">
+			<div class="container grayback" id="J_container">
 					<div class="mainbody padding-t20" style="margin-top:70px;">
 						<div id="J_progress" class="center padding-t20"></div>
 					</div>
@@ -65,9 +66,6 @@
 
 		
 	</div>
-
-
-
 	<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
