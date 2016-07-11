@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bruce.interceptor.CheckLogin;
 import com.bruce.manager.LyricsManager;
 import com.bruce.manager.LyricsZanManager;
 import com.bruce.manager.UserFollowManager;
@@ -70,15 +71,10 @@ public class LyricsAction {
  @Autowired	
  private UserFollowManager userfollowManager;
 	
+ 	@CheckLogin
 	@RequestMapping("/add")
 	public String toAdd(ModelMap map,String userid,HttpServletRequest request,HttpServletResponse response) {
 		String result = "/page/user/lyricAdd";
-		 User u = (User) request.getSession().getAttribute("user");
-		 if(u!=null){
-			 
-		 }else{
-			 result = LOGIN_ACTION;
-		 }
 		return result;
 	}
 	
