@@ -42,7 +42,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     				String[] strs = url.split("8082/");
     				String postfix = strs[1];
     				url = "http://"+BC_Constant.Domain+"/"+postfix;
-    				request.setAttribute("redirectURI", url);
     				response.sendRedirect("/login?redirectURI="+url);
     				return false;
     			}       
