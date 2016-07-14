@@ -46,6 +46,7 @@ import com.bruce.utils.FileUtils;
 import com.bruce.utils.HTMLParserUtil;
 import com.bruce.utils.JedisUtil;
 import com.bruce.utils.PageView;
+import com.bruce.utils.PinyinUtil;
 import com.bruce.utils.SerializationUtil;
 import com.bruce.utils.TimeUtils;
 import com.bruce.utils.URLUtil;
@@ -809,6 +810,14 @@ public class UserAction {
 					username=strs[0];
 				}else{
 					username=str;
+				}
+				//默认字符头像
+				String abc = PinyinUtil.paraseStringToPinyin(username);
+				if(StringUtils.isNotEmpty(abc)){
+					String headspan = abc.substring(0, 1).toUpperCase();
+					String headspanclass = "text-"+headspan.toLowerCase();
+					user.setHeadpath(headspan);
+					user.setHeadspanclass(headspanclass);
 				}
 				user.setUsername(username);
 				user.setPassword(Base64Util.JIAMI(user.getPassword()));
