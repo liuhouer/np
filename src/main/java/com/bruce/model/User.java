@@ -42,6 +42,12 @@ public class User implements Serializable{
 	@Column(length = 32)
 	private String date_joined;
 
+	@Column(length = 20)
+	private String headspanclass;
+	
+	@Column(length = 20)
+	private String  headspan;
+	
 	@Column(length = 255)
 	private String headpath;
 	
@@ -156,5 +162,21 @@ public class User implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getHeadspanclass() {
+		return headspanclass;
+	}
+
+	public void setHeadspanclass(String headspanclass) {
+		this.headspanclass = headspanclass;
+	}
+
+	public String getHeadspan() {
+		return headspan;
+	}
+
+	public void setHeadspan(String headspan) {
+		this.headspan = headspan;
 	}
 }

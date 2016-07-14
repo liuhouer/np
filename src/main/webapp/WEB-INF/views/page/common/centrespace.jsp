@@ -9,18 +9,23 @@
 					<div class="row margin-b20 margin-t20">
 						<div class="col-xs-4 center">
 							<div class="thumbnail bg-no margin-t5 border-0">
-								<img alt="${MyInfo.username }的最爱" class="img-circle img-responsive "
-								<c:if test="${MyInfo.headpath==null }">src="/img/davatar.jpg"</c:if>
-								<c:if test="${MyInfo.headpath!=null }">
-								<c:choose>
-                                  <c:when test="${fn:contains(MyInfo.headpath ,'http://') }">src="${MyInfo.headpath}"</c:when>
-                                  <c:otherwise>src="/bruce/${MyInfo.headpath }"</c:otherwise>
-                                </c:choose> 
+							<div class="avatar centre">
+								<c:if test="${MyInfo.headpath==null }">
+									<span class=" ${MyInfo.headspanclass }" alt="${s.get('username')}">${MyInfo.headspan }</span>
 								
 								</c:if>
+								<c:if test="${MyInfo.headpath!=null }">
+								<img alt="${MyInfo.username }的最爱" class="img-circle img-responsive "
+									<c:choose>
+	                                  <c:when test="${fn:contains(MyInfo.headpath ,'http://') }">src="${MyInfo.headpath}"</c:when>
+	                                  <c:otherwise>src="/bruce/${MyInfo.headpath }"</c:otherwise>
+	                                </c:choose> 
+									
 								>
+								</c:if>
 								<br>
 								<!-- <a href="javascript:void(0);" onclick="toEditInfo()" class="btn btn-gray btn-sm"><span class="glyphicon glyphicon-pencil"></span> 编辑档案</a> -->
+							 </div>
 							</div>
 						</div>
 						<div class="col-xs-8">

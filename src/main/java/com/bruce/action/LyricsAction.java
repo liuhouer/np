@@ -274,7 +274,7 @@ public class LyricsAction {
          
          
          //取得 评论 的列表
-         String sql_  = "select b.username,b.tail_slug,b.email,b.headpath,a.* from bc_lyrics_comment a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' order by a.create_time desc";
+         String sql_  = "select b.username,b.tail_slug,b.email,b.headpath,b.headspan,b.headspanclass,a.* from bc_lyrics_comment a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' order by a.create_time desc";
          List<Map<String, Object>> plList = lyricszanManager.mixSqlQuery(sql_);
          for (int i = 0; i < plList.size(); i++) {
  			
@@ -294,7 +294,7 @@ public class LyricsAction {
          map.put("plNum", plNum);
          
          //取得谁爱上谁的一个列表
-         String sql_2  = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,c.id as lyricsid,c.title from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id  limit 0 , 100 ";
+         String sql_2  = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,b.headspan,b.headspanclass,c.id as lyricsid,c.title from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id order by c.updatedate desc limit 0 , 100 ";
          List<Map<String, Object>> loveList = lyricszanManager.mixSqlQuery(sql_2);
 
          Collections.shuffle(loveList);    

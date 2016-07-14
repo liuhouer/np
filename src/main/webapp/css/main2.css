@@ -689,3 +689,123 @@ a.project-card-link {
 	margin-bottom: 0 !important
 }
 
+
+
+
+
+.avatar img {
+    width: 50px;
+    height:50px;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.22);
+}
+.avatar span {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.22);
+}
+.avatar .text-a,
+.avatar .text-n {
+    background: #F44336;
+}
+.avatar .text-b,
+.avatar .text-o {
+    background: #E91E63;
+}
+.avatar .text-c,
+.avatar .text-p {
+    background: #FFC107;
+}
+.avatar .text-d,
+.avatar .text-q {
+    background: #61C5FF;
+}
+.avatar .text-e,
+.avatar .text-r {
+    background: #2196F3;
+}
+.avatar .text-f,
+.avatar .text-s {
+    background: #00BCD4;
+}
+.avatar .text-g,
+.avatar .text-t {
+    background: #009688;
+}
+.avatar .text-h,
+.avatar .text-u {
+    background: #4CAF50;
+}
+.avatar .text-i,
+.avatar .text-v {
+    background: #CDDC39;
+}
+.avatar .text-j,
+.avatar .text-w {
+    background: #FFC107;
+}
+.avatar .text-k,
+.avatar .text-x {
+    background: #FF9800;
+}
+.avatar .text-l,
+.avatar .text-y {
+    background: #FF5722;
+}
+.avatar .text-m,
+.avatar .text-z {
+    background: #FF6639;
+}
+
+
+.sidebar .avatar img {
+    width: 32px;
+    height: 32px;
+}
+
+
+.sidebar .avatar span {
+    font-size: 14px;
+    line-height: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+
+.thumbnail .avatar img {
+    width: 60px;
+    height: 60px;
+}
+
+.thumbnail .avatar span {
+    font-size: 14px;
+    line-height: 60px;
+    width: 60px;
+    height: 60px;
+}
+
+
+.thumbnail .centre img {
+    width: 100px;
+    height: 100px;
+}
+
+.thumbnail .centre span {
+    font-size: 28px;
+    line-height: 100px;
+    width: 100px;
+    height: 100px;
+}
+
+.thumbnail p {
+    margin-top: 5px;
+}
+
+
+

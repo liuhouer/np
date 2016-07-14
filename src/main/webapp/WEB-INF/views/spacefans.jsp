@@ -58,15 +58,13 @@
 			<c:forEach items="${fanlist }" var="s" varStatus="ss">
 			<div class="row">
 			    <div class="col-md-2">
-				<h3 class="label label-gray">${s.follow.create_time }：</h3>
+					<h3 class="label label-gray">${s.follow.create_time }：</h3>
 			    </div>
+			    
 			    <div class="col-md-10">
 				<div class="row">
-												<div class="col-xs-4 col-sm-2 center" >
+					<div class="col-xs-4 col-sm-2 center avatar" >
 									  <a 
-									  
-									  
-									  
 									        <c:if test="${s.user.tail_slug==null || s.user.tail_slug==''}">
 										     href="/cm/detail/${s.user.id}" 
 										    </c:if>
@@ -74,21 +72,31 @@
 										     href="/people/${s.user.tail_slug }" 
 										    </c:if>
 									  
-									  
-									  
-									  title="${s.user.username }" class="thumbnail border-0">
-										<img class=" img-circle" 
-										 <c:choose>
-                                            <c:when test="${fn:contains(s.user.headpath  ,'http://') }">src="${s.user.headpath  }"</c:when>
-                                            <c:when test="${s.user.headpath ==null }">src="/img/davatar.jpg"</c:when>
-                                            <c:otherwise>src="/bruce/${s.user.headpath  }"</c:otherwise>
-                                         </c:choose>   
-										
-										
-										 alt="${s.user.username }">
+									       title="${s.user.username }" class="thumbnail border-0 ">
+									       
+									       
+									       
+											<c:if test="${s.user.headpath==null }">
+															<span class=" ${s.user.headspanclass }" alt="${s.user.username}">${s.user.headspan }</span>
+														
+											</c:if>
+											<c:if test="${s.user.headpath!=null }">
+														<img alt="${s.user.username }的最爱" 
+															<c:choose>
+							                                  <c:when test="${fn:contains(s.user.headpath ,'http://') }">src="${s.user.headpath}"</c:when>
+							                                  <c:otherwise>src="/bruce/${s.user.headpath }"</c:otherwise>
+							                                </c:choose> 
+															
+														>
+											</c:if>
+															       
+										 
+										 
+										 
 										<p>${s.user.username }</p>
 									</a>
-							</div>				</div>
+					</div>				
+				</div>
 			    </div>
 		     </div>
 	 

@@ -145,30 +145,29 @@
 				<div  class="clearfix"  id="stuffCommentBox">
 				     <c:forEach var="y" items="${plList }">
 								<div class="row" id="commentbox_${y.userid }">
-									<div class="col-xs-3 col-sm-2">
+									<div class="col-xs-3 col-sm-2 avatar">
 										<a 
 										
+											<c:if test="${y.tail_slug==null || y.tail_slug==''}">
+											    href="/cm/detail/${y.id}" 
+										    </c:if>
+										    <c:if test="${y.tail_slug!=null }">
+										    	href="/people/${y.tail_slug }" 
+										    </c:if>
 										
-									<c:if test="${y.tail_slug==null || y.tail_slug==''}">
-									    href="/cm/detail/${y.id}" 
-								    </c:if>
-								    <c:if test="${y.tail_slug!=null }">
-								    	href="/people/${y.tail_slug }" 
-								    </c:if>
-										
-										
-										
-										title="${y.username }的最爱"><img
-											<c:if test="${y.headpath == null}">src="/img/davatar.jpg"</c:if><c:if test="${y.headpath != null}">
-											 <c:choose>
-   												<c:when test="${fn:contains(y.headpath,'http://') }">src="${y.headpath }"</c:when>
-                                  				<c:otherwise>src="/bruce/${y.headpath}"</c:otherwise>
-                                			</c:choose>   
-											
-											
-											</c:if>
-											class="img-responsive  img-circle max-width-60"
-											alt="${y.username }的最爱"></a>
+											title="${y.username }的最爱">
+												<c:if test="${y.headpath == null}">
+												  <span class="${y.headspanclass }">${y.headspan }</span>
+												</c:if>
+												<c:if test="${y.headpath != null}">
+													<img
+													 <c:choose>
+		   												<c:when test="${fn:contains(y.headpath,'http://') }">src="${y.headpath }"</c:when>
+		                                  				<c:otherwise>src="/bruce/${y.headpath}"</c:otherwise>
+		                                			</c:choose>   
+													alt="${y.username }的最爱">
+												</c:if>
+										</a>
 									</div>
 									<div class="col-xs-9 col-sm-10">
 										<p>
@@ -216,15 +215,20 @@
 				</div>
 				<c:forEach var="z" items="${loveList }">
 				        <div  class="row padding10">
-				        	<div  class="col-xs-2"><img  class="img-responsive img-circle max-width-30"  <c:if test="${z.headpath == null}">src="/img/davatar.jpg"</c:if><c:if test="${z.headpath != null}">
-				        	    <c:choose>
-   									<c:when test="${fn:contains(z.headpath ,'http://') }">src="${z.headpath }"</c:when>
-                                    <c:otherwise>src="/bruce/${z.headpath }"</c:otherwise>
-                                </c:choose>   
-
+				        	<div  class="col-xs-2 avatar">
+					        	<c:if test="${z.headpath == null}">	
+					        		<span class="${z.headspanclass }">${z.headspan }</span>
+								</c:if>
+								<c:if test="${z.headpath != null}">
+					        	<img  
+					        	    <c:choose>
+	   									<c:when test="${fn:contains(z.headpath ,'http://') }">src="${z.headpath }"</c:when>
+	                                    <c:otherwise>src="/bruce/${z.headpath }"</c:otherwise>
+	                                </c:choose>   
+					        	>
+				        	</c:if>
 				        	
-				        	
-				        	</c:if>></div>
+				        	</div>
 				        	<div  class="col-xs-10"  style="line-height:30px;">
 				        		<a  
 				        		

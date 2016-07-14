@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,6 +35,7 @@ import com.bruce.model.LyricsZan;
 import com.bruce.model.Quan;
 import com.bruce.model.User;
 import com.bruce.utils.JedisUtil;
+import com.bruce.utils.PinyinUtil;
 import com.bruce.utils.SerializationUtil;
 import com.bruce.utils.TimeUtils;
 
@@ -254,61 +256,34 @@ public class SpiderAction {
   * 头像
  * 
  */
-//@RequestMapping("/head")
-//	public void head( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
-//	try {
-//		
-//				
-////		List<Lyrics> list = lyricsManager.findAll();
-//		List<User> ul = userManager.findAll();
-//		List<User> usefulHeadList = new ArrayList<User>();
-//		for (int i = 0; i < ul.size(); i++) {
-//			User u = ul.get(i);
-//			if(StringUtils.isNotEmpty(u.getHeadpath())){
-//				usefulHeadList.add(u);
-//			}
-//		}		
-//		for (int k = 0; k < ul.size(); k++) {
-//			User u = ul.get(k);
-//			if(StringUtils.isEmpty(u.getHeadpath())){
-//				u.setHeadpath(usefulHeadList.get(getRandomOne(usefulHeadList)).getHeadpath());
-//				userManager.updateUser(u);
-//			}
-//		}		
-////		List<GetNote> nol = getnoteManager.findAll();
-////		for (int i = 0; i < list.size(); i++) {
-////			boolean flag = false;
-////			try {
-////				
-////				flag = commentManager.findByCondition(" where lyricsid = '"+list.get(i).getId()+"' ").getResultlist().size() <= 0;
-////			} catch (Exception e) {
-////				// TODO: handle exception
-////				flag = true;
-////			}
-////			for (int j = 0; j < (getRandomOne(list)+1); j++) {
-////				
-////				try {
-////					
-////					if(flag){
-////					   resetVal(list, nol,ul, i);
-////					}
-////				} catch (Exception e) {//错误继续
-////					// TODO: handle exception
-////					continue;
-////				}
-////				
-////			}
-////		}
-//
-//			
-//			
-//	} catch (Exception e) {
-//		// TODO: handle exception
-//		e.printStackTrace();
-//	}
-//		   
-//	}
-// 
+@RequestMapping("/head")
+	public void head( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+	try {
+		
+				
+//		List<Lyrics> list = lyricsManager.findAll();
+		List<User> ul = userManager.findAll();
+		for(User u:ul){
+			String name  = u .getUsername();
+			
+			String abc = PinyinUtil.paraseStringToPinyin(name);
+			if(StringUtils.isNotEmpty(abc)){
+				String headspan = abc.substring(0, 1).toUpperCase();
+				String headspanclass = "text-"+headspan.toLowerCase();
+				u.setHeadpath(headspan);
+				u.setHeadspanclass(headspanclass);
+				userManager.updateUser(u);
+			}
+		}
+			
+			
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+		   
+	}
+ 
  /**
   * 生成赞和评论
  * @param user

@@ -52,17 +52,33 @@
 </div>
 		       <form id="f2" method="post"><input name="userid" type="hidden" value="${MyInfo.id }"/></form>
 				<div class="row bg-white margin-t10 margin-b10  ">
-			<div class="col-sm-1">
+			<div class="col-sm-1 avatar">
 				<a 
 				
-				<c:if test="${MyInfo.tail_slug==null || MyInfo.tail_slug==''}">
-				href="/cm/detail/${MyInfo.id}"
-				</c:if>
-				<c:if test="${MyInfo.tail_slug!=null }">
-				href="/people/${MyInfo.tail_slug}"
-				</c:if>
+					<c:if test="${MyInfo.tail_slug==null || MyInfo.tail_slug==''}">
+					href="/cm/detail/${MyInfo.id}"
+					</c:if>
+					<c:if test="${MyInfo.tail_slug!=null }">
+					href="/people/${MyInfo.tail_slug}"
+					</c:if>
 				
-				title="${MyInfo.username}的最爱"><img src="img/davatar.jpg" class="img-responsive  img-circle max-width-50" alt="654714226的最爱"></a>			</div>
+					title="${MyInfo.username}的最爱">
+					<c:if test="${MyInfo.headpath==null }">
+									<span class=" ${MyInfo.headspanclass }" alt="${s.get('username')}">${MyInfo.headspan }</span>
+								
+					</c:if>
+					<c:if test="${MyInfo.headpath!=null }">
+								<img alt="${MyInfo.username }的最爱" 
+									<c:choose>
+	                                  <c:when test="${fn:contains(MyInfo.headpath ,'http://') }">src="${MyInfo.headpath}"</c:when>
+	                                  <c:otherwise>src="/bruce/${MyInfo.headpath }"</c:otherwise>
+	                                </c:choose> 
+									
+								>
+					</c:if>
+					<!-- <img src="img/davatar.jpg" class="img-responsive  img-circle max-width-50" alt="654714226的最爱"> -->
+				</a>			
+			</div>
 		</div>
 		
 		<c:forEach items="${list }" var="s" varStatus="ss">
