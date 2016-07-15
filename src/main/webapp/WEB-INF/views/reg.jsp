@@ -62,7 +62,7 @@
 
               <form method="POST" action="/cm/addUser" accept-charset="UTF-8" role="form" id="signupForm" style="color:#444;" class="form margin-t20">
                 <div class="clearfix">
-                  <h4>加入northpark，记住每一个美好</h4>
+                  <h4>加入 northpark</h4>
                   <hr>
                 </div>
                 
@@ -74,7 +74,7 @@
 
                 <div class="form-group ">
                   <label for="newPassword" class="control-label">设置密码：</label>
-                  <input id="newPassword" class="form-control  input-lg  border-light-1 bg-lyellow  grid98 radius-0" name="password" type="password" value="">                                    
+                  <input id="newPassword" placeholder="密码"  class="form-control  input-lg  border-light-1 bg-lyellow  grid98 radius-0" name="password" type="password" value="">                                    
                 </div>
                 
                 <label  class="control-label"><c:if test="${reged eq 'reged' }"><font color="red">账号已注册</font> </c:if>   </label>     

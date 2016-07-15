@@ -33,18 +33,25 @@
 														<p class="project-card-small-organization">— ${s.artist }</p>
 													</div>
 												</div>
+												
+											</a>	
 												<div class="card-content project-card-small-content">
 													<p>
-													<c:if test="${s.yizan eq 'yizan' }"><span class="glyphicon glyphicon-heart"></span></c:if>
-											    	<c:if test="${s.yizan ne 'yizan' }"><span class="glyphicon glyphicon-heart-empty" style="cursor: pointer;" <c:if test="${user.id!=null }">onclick="zan('${s.id}','${user.id }')"</c:if> ></span></c:if>
-												    ${s.zan } 
+													<c:if test="${s.yizan eq 'yizan' }"><span class="glyphicon glyphicon-heart"></span>${s.zan }</c:if>
+											    	<c:if test="${s.yizan ne 'yizan' }">
+											    	<span class="glyphicon glyphicon-heart-empty" style="cursor: pointer;" 
+											    	<c:if test="${user.id!=null }">onclick="zan('${s.id}','${user.id }')"</c:if> ></span>${s.zan }</c:if>
+											    	
+											    	
+												    
 												<span class="hidden-sm hidden-xs"> &nbsp; 
-												<span class="glyphicon glyphicon-comment" style="cursor: pointer;" onclick="location.href='/lyrics/comment/${s.id }.html'"></span>  ${s.pl } </span></p>
+												<span class="glyphicon glyphicon-comment" style="cursor: pointer;" onclick="location.href='/lyrics/comment/${s.id }.html'"></span>  ${s.pl } </span>
+												</p>
 												</div>
 												<!-- <div class="card-footer">
 													<div class="card-footer-button-flat">LEARN MORE</div>
 												</div> -->
-											</a>
+											
 											
 											
 											

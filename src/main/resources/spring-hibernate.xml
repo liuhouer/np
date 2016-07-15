@@ -66,7 +66,7 @@ SQLException,如设为0则无限期等待。单位毫秒。Default: 0 -->
 			</props>
 		</property>
 		<!-- 扫描hibernate注解配置的entity -->
-		<property name="packagesToScan" value="com.bruce.model." />
+		<property name="packagesToScan" value="cn.northpark.model." />
 	</bean>
 
 	<!-- 配置事务管理器 -->
@@ -98,7 +98,7 @@ SQLException,如设为0则无限期等待。单位毫秒。Default: 0 -->
 	<aop:config>
 		<!-- 配置切入点 -->
 		<aop:pointcut id="transactionPointcut"
-			expression="execution(* com.bruce.manager..*Impl.*(..))" />
+			expression="execution(* cn.northpark.manager..*Impl.*(..))" />
 		<!-- 指定在txAdvice切入点应用txAdvice事务增强处理 -->
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />

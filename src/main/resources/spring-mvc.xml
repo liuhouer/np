@@ -25,7 +25,7 @@
   </mvc:annotation-driven>
 	    
     <!-- 注解扫描包 --> 
-    <context:component-scan base-package="com.bruce.action*" /> 
+    <context:component-scan base-package="cn.northpark.action*" /> 
     
     <!-- 开启注解 --> 
     <mvc:annotation-driven />
@@ -40,7 +40,7 @@
 	    <!-- 国际化操作拦截器 如果采用基于（请求/Session/Cookie）则必需配置 --> 
 	    <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />  
 	    <!-- 如果不定义 mvc:mapping path 将拦截所有的URL请求 -->
-	    <bean class="com.bruce.interceptor.LoginInterceptor"></bean>
+	    <bean class="cn.northpark.interceptor.LoginInterceptor"></bean>
 	</mvc:interceptors>
 	
 
@@ -77,8 +77,8 @@
     <!--定时任务  -->
     <!-- task任务扫描注解 -->  
    <task:annotation-driven/>  
-  <context:component-scan base-package="com.bruce.task*" /> 
-  <bean id="eqTask" class="com.bruce.task.EQTask"></bean>
+  <context:component-scan base-package="cn.northpark.task*" /> 
+  <bean id="eqTask" class="cn.northpark.task.EQTask"></bean>
    <!--   要定时执行的方法  -->
 	<task:scheduled-tasks scheduler="myScheduler">
         <task:scheduled ref="eqTask" method="runTask"    cron="0 30 15 * * ?" /><!--  每天下午3点半执行-->

@@ -21,7 +21,7 @@
 
 </head>
 
-<body style="">
+<body class="grayback">
 
 <div class="navbar navbar-default navbar-fixed-top mainhead-navbox" role="navigation">
 
@@ -48,18 +48,17 @@
 	</div>
 </div>
     
-    <div class="clearfix maincontent">
+    <div class="clearfix maincontent ">
 	    <div class="container">
 	    	
 
         <div class="mainbody" style="margin-top:5em;">
 
-                    
             <div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
 
               <form method="POST" action="cm/login" accept-charset="UTF-8" role="form" id="loginForm" style="color:#444;" class="form margin-t20">
                 <div class="clearfix">
-                  <h4>登录northpark</h4>
+                  <h4>登录 northpark</h4>
                   <hr>
                 </div>
 
@@ -79,10 +78,10 @@
 								name="password" type="password" value="">
 						</div>
 
-						<div class="checkbox">
+						<!-- <div class="checkbox">
 							<input name="loginRemember" type="checkbox" value="yes">
 							在这台电脑上记住我的登录
-						</div>
+						</div> -->
 						<input id="redirectURI" name="redirectURI" type="hidden"
 							value="${redirectURI} ">
 						<div class="form-group">
@@ -105,7 +104,6 @@
 					</form>
             </div>
             <br><br>
-            
           </div>
  
 

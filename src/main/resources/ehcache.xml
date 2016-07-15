@@ -16,7 +16,7 @@
 	<!-- Special objects setting. -->
 
 	<cache 
-	     name="com.bruce.model.Lyrics"
+	     name="cn.northpark.model.Lyrics"
 		 maxElementsInMemory="2"
 		 memoryStoreEvictionPolicy="LRU" 
 		 eternal="true" 
@@ -24,7 +24,7 @@
 		 overflowToDisk="false" 
 		 maxElementsOnDisk="1000000" />	 
 	<cache 
-	     name="com.bruce.model.Note"
+	     name="cn.northpark.model.Note"
 		 maxElementsInMemory="2"
 		 memoryStoreEvictionPolicy="LRU" 
 		 eternal="true" 

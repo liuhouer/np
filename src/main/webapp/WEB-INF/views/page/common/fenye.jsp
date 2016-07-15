@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.bruce.utils.MyConstant,com.bruce.utils.PageView" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,cn.northpark.utils.MyConstant,cn.northpark.utils.PageView" pageEncoding="UTF-8"%>
 
 <div class="row center ">
 	 <%
