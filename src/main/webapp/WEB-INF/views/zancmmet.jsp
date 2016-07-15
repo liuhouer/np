@@ -143,64 +143,19 @@
 
 
 				<div  class="clearfix"  id="stuffCommentBox">
-				     <c:forEach var="y" items="${plList }">
-								<div class="row" id="commentbox_${y.userid }">
-									<div class="col-xs-3 col-sm-2 avatar">
-										<a 
-										
-											<c:if test="${y.tail_slug==null || y.tail_slug==''}">
-											    href="/cm/detail/${y.id}" 
-										    </c:if>
-										    <c:if test="${y.tail_slug!=null }">
-										    	href="/people/${y.tail_slug }" 
-										    </c:if>
-										
-											title="${y.username }的最爱">
-												<c:if test="${y.headpath == null}">
-												  <span class="${y.headspanclass }">${y.headspan }</span>
-												</c:if>
-												<c:if test="${y.headpath != null}">
-													<img
-													 <c:choose>
-		   												<c:when test="${fn:contains(y.headpath,'http://') }">src="${y.headpath }"</c:when>
-		                                  				<c:otherwise>src="/bruce/${y.headpath}"</c:otherwise>
-		                                			</c:choose>   
-													alt="${y.username }的最爱">
-												</c:if>
-										</a>
-									</div>
-									<div class="col-xs-9 col-sm-10">
-										<p>
-											<a 
-											
-											
-											<c:if test="${y.tail_slug==null || y.tail_slug==''}">
-											    href="/cm/detail/${y.id}" 
-										    </c:if>
-										    <c:if test="${y.tail_slug!=null }">
-										    	href="/people/${y.tail_slug }" 
-										    </c:if>
-											
-											
-											title="${y.username }的最爱">${y.username }</a>：${y.comment }
-										</p>
-										<p>
-											<small class="label label-gray">${y.create_time }</small>
-										</p>
-										<hr>
-									</div>
-								</div>
-					</c:forEach>
+				     
 				</div>
 					
 					<div  class="row center">
-						<!-- <div  class="row"  id="loadingAnimation"  style="display: none;">
-							<img  src="./reg_files/ajax_loading.gif">						</div> -->
-
-						<button  class="btn btn-default btn-lg"  id="loadStuffCommentBtn"  data-htmlboxid="stuffCommentBox"  rel="938"  style="display: none;">加载更多回忆 <span  class="glyphicon glyphicon-chevron-down"></span></button>
-						<input  type="hidden"  id="comment_id_from"  value="-1">
-						<input  type="hidden"  id="comment_perpage"  value="30">
+						<div  class="row margin-b20"  id="loadingAnimation" >
+							<img  src="/img/loading.gif" width="30"  height="30">			
+						</div>
+						<button  class="btn btn-default btn-lg margin-b20"  id="loadStuffCommentBtn"  data-htmlboxid="stuffCommentBox"  rel="938" >加载更多回忆 <span  class="glyphicon glyphicon-chevron-down"></span></button>
+						<input  type="hidden"  id="comment_id_from"  value="1">
+						<input  type="hidden"  id="comment_perpage"  value="12">
 						<input  type="hidden"  id="auto_loading"  value="no">
+						<input  type="hidden"  id="J_lrc_id"  value="${lrc.id }">
+						<input  type="hidden"  id="J_tail"  value="${tail }">
 					</div>
 								
 				
@@ -211,7 +166,7 @@
 		<div  class="col-md-4">
 			<div  class="clearfix sidebar radius-5">
 				<div  class="clearfix border-bottom">
-					<h4><span  class=" glyphicon glyphicon-th-large"></span> 随便看看</h4>
+					<h4><span  class=" glyphicon glyphicon-th-large margin-b20"></span> 随便看看</h4>
 				</div>
 				<c:forEach var="z" items="${loveList }">
 				        <div  class="row padding10">
@@ -269,7 +224,6 @@
 <script src="/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
 <script src="/js/page/zancmt.js"></script>
-
 
 
 </body></html>

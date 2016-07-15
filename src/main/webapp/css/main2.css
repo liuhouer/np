@@ -711,42 +711,52 @@ a.project-card-link {
     box-shadow: 0 1px 3px rgba(0,0,0,0.22);
 }
 .avatar .text-a,
+.avatar .text-1,
 .avatar .text-n {
     background: #F44336;
 }
 .avatar .text-b,
+.avatar .text-2,
 .avatar .text-o {
     background: #E91E63;
 }
 .avatar .text-c,
+.avatar .text-3,
 .avatar .text-p {
     background: #FFC107;
 }
 .avatar .text-d,
+.avatar .text-4,
 .avatar .text-q {
     background: #61C5FF;
 }
 .avatar .text-e,
+.avatar .text-5,
 .avatar .text-r {
     background: #2196F3;
 }
 .avatar .text-f,
+.avatar .text-6,
 .avatar .text-s {
     background: #00BCD4;
 }
 .avatar .text-g,
+.avatar .text-7,
 .avatar .text-t {
     background: #009688;
 }
 .avatar .text-h,
+.avatar .text-8,
 .avatar .text-u {
     background: #4CAF50;
 }
 .avatar .text-i,
+.avatar .text-9,
 .avatar .text-v {
     background: #CDDC39;
 }
 .avatar .text-j,
+.avatar .text-0,
 .avatar .text-w {
     background: #FFC107;
 }

@@ -298,6 +298,7 @@ public class SpiderAction {
 		List<Lyrics> list = lyricsManager.findAll();
 		List<User> ul = userManager.findAll();
 		List<Getnotes> nol = getnotesManager.findAll();
+		System.out.println("生成开始..."+TimeUtils.nowTime());
 		for (int i = 0; i < list.size(); i++) {
 			try{
 			   for(int j =0;j<getRandomInt();j++){
@@ -309,23 +310,55 @@ public class SpiderAction {
 			   	cm.setLyricsid(list.get(i).getId());
 			   	cm.setUserid(ul.get(getRandomOne(ul)).getId());
 			   	commentManager.addLyricsComment(cm);
-			   	
+			   	System.out.println("生成中...");
 			   }
                
-			   for(int k =0;k<getRandomInt();k++){
-			   		//添加赞
-			   		LyricsZan zan  =new LyricsZan();
-			   		zan.setLyricsid(list.get(i).getId());
-			   		zan.setUserid(ul.get(getRandomOne(ul)).getId());
-			   		zanManager.addLyricsZan(zan);
-			   
-			   }
+//			   for(int k =0;k<getRandomInt();k++){
+//			   		//添加赞
+//			   		LyricsZan zan  =new LyricsZan();
+//			   		zan.setLyricsid(list.get(i).getId());
+//			   		zan.setUserid(ul.get(getRandomOne(ul)).getId());
+//			   		zanManager.addLyricsZan(zan);
+//			   
+//			   }
 			}catch(Exception e){
 				continue;
 			}
 		}
 
+		System.out.println("生成结束..."+TimeUtils.nowTime());
 			
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+		   
+	}
+
+/**
+ * 生成评论数目
+* @param user
+* @param map
+* @param session
+*/
+@RequestMapping("/plnum")
+	public void plnum( ModelMap map,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+	try {
+		
+				
+		List<Lyrics> list = lyricsManager.findAll();
+		System.out.println("生成开始..."+TimeUtils.nowTime());
+		for (int i = 0; i < list.size(); i++) {
+			Lyrics lyrics = list.get(i);
+			Integer lrcid = lyrics.getId();
+			String sql= "select * from bc_lyrics_comment where lyricsid="+lrcid;
+			int nums = commentManager.countSql(sql);
+			System.out.println("nums-----"+nums);
+			lyrics.setPl(nums);
+			lyricsManager.updateLyrics(lyrics);
+		}
+
+		System.out.println("生成结束..."+TimeUtils.nowTime());
 			
 	} catch (Exception e) {
 		// TODO: handle exception
@@ -878,7 +911,7 @@ public class SpiderAction {
 		
 		Random ramdom =  new Random();
 		int number = -1;
-		int max = 20;
+		int max = 100;
 		
 		//size 为  10 ，取得类似0-9的区间数
 		number = Math.abs(ramdom.nextInt() % max  );

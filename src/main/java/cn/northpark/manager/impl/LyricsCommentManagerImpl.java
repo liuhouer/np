@@ -84,5 +84,23 @@ public class LyricsCommentManagerImpl implements LyricsCommentManager {
 		// TODO Auto-generated method stub
 		return lyricscommentDao.QuerySQLForMapList(sql, pageView);
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.northpark.manager.LyricsCommentManager#countSql(java.lang.String)
+	 */
+	@Override
+	public int countSql(String sql) {
+		// TODO Auto-generated method stub
+		return lyricscommentDao.countSql(sql);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.northpark.manager.LyricsCommentManager#countHql(cn.northpark.model.Lyrics, java.lang.String)
+	 */
+	@Override
+	public int countHql(LyricsComment m, String wheresql) {
+		// TODO Auto-generated method stub
+		return lyricscommentDao.countHql(m.getClass(), wheresql);
+	}
 }
 

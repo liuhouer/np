@@ -495,7 +495,63 @@ public class TimeUtils {
 			return getRandomYear()+"-"+getRandomMonth()+"-"+getRandomDay();
 	    
 		}
+		
+		
+		/**
+		 * @author bruce
+		 * 获取N个工作日以后的日期
+		 * @param currentDate
+		 * @param days
+		 * @return
+		 */
+		public static Date getWorkDate(Date currentDate,int days){
+	        Calendar calendar=Calendar.getInstance();
+	        calendar.setTime(currentDate);
+	        int i=0;
+	        while(i<days){
+	            calendar.add(Calendar.DATE,1);
+	            i++;
+	            if(calendar.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY || 
+	                    calendar.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){
+	                i--;
+	            }
+	        }
+	        return calendar.getTime();
+	    }
+		
+		
+		/**
+		 * @author bruce
+		 * 获取从今天N个工作日以后的具体时间
+		 * @param currentDate
+		 * @param days
+		 * @return
+		 */
+		public static String getWorkDateTime(int days){
+	        Date Ndate = getWorkDate(new Date(), days);
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        return dateFormat.format(Ndate);
+	    }
+		
+		public static String Ten2Two(int number){
+			String result = "";
+			int sum = 0;
+			for (int i = number; i >= 1; i /= 2) {
+
+				if (i % 2 == 0) {
+					sum = 0;
+				} else {
+					sum = 1;
+				}
+				result = sum + result;
+
+			}
+			System.out.print(result);
+			return result;
+		}
+		
 	    public static void main(String[] args) {
-	    	System.out.println(nowdate());;
+	    	//System.out.println(getWorkDateTime(11));;
+	    	Ten2Two(11);
 		}
 }

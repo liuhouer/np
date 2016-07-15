@@ -29,12 +29,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.northpark.interceptor.CheckLogin;
+import cn.northpark.manager.LyricsCommentManager;
 import cn.northpark.manager.LyricsManager;
 import cn.northpark.manager.LyricsZanManager;
 import cn.northpark.manager.UserFollowManager;
 import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.manager.UserManager;
 import cn.northpark.model.Lyrics;
+import cn.northpark.model.LyricsComment;
 import cn.northpark.model.User;
 import cn.northpark.model.UserLyrics;
 import cn.northpark.query.LyricsQuery;
@@ -65,7 +67,8 @@ public class LyricsAction {
  private UserManager userManager;
  @Autowired	
  private UserLyricsManager userlyricsManager;
- 
+ @Autowired	
+ private  LyricsCommentManager  plManager;
  @Autowired	
  private LyricsZanManager lyricszanManager;
  @Autowired	
@@ -246,6 +249,67 @@ public class LyricsAction {
 		return sb.toString();
 	}
 	
+	//异步分页查询#comment'数据
+	@RequestMapping(value="/commentQuery")
+	public String commentQuery(ModelMap map,HttpServletRequest request, HttpSession session,String userid) {
+		String page = request.getParameter("currentpage");
+		String lyricsid =    request.getParameter("lrcid");
+		
+		
+		map.put("tail", "false");
+		int currentpage = 1; //当前页码
+		int pages = 0; //总页数
+		int n = this.plManager.countHql(new LyricsComment(), " where lyricsid = "+lyricsid);
+		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
+        if(n % maxresult==0)
+       {
+          pages = n / maxresult ;
+       }else{
+          pages = n / maxresult + 1;
+       }
+        if(StringUtils.isEmpty(page)){
+           currentpage = 1;
+        }else{
+           currentpage = Integer.parseInt(page);
+           
+           if(currentpage<=1)
+           {
+              currentpage = 1;
+           }
+           if(currentpage>=pages)
+           {  
+              currentpage = pages;
+              map.put("tail", "tail");
+           }
+        }
+        
+        int startindex = (currentpage-1)*maxresult;
+		int endindex = startindex+maxresult-1;
+        
+        
+		
+		//取得 评论 的列表 
+        String sql_  = "select b.username,b.tail_slug,b.email,b.headpath,b.headspan,b.headspanclass,a.* from bc_lyrics_comment a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' order by a.create_time desc";
+        
+        sql_+=" limit "+startindex+" , "+endindex;
+        
+        
+        
+        List<Map<String, Object>> plList = lyricszanManager.mixSqlQuery(sql_);
+        for (int i = 0; i < plList.size(); i++) {
+			
+			//批量处理时间
+			plList.get(i).put("create_time",TimeUtils.formatToNear((String) plList.get(i).get("create_time")));
+		 }
+        
+       
+        map.put("plList", plList);
+        
+		
+		
+		return "/page/zancmt/loadcomment";
+	}
+	
 	@RequestMapping("/comment/{lyricsid}.html")
 	public String comment(HttpServletRequest request, @PathVariable Integer lyricsid,ModelMap map,String userid) {
 		 String result ="/zancmmet";
@@ -273,17 +337,6 @@ public class LyricsAction {
          map.put("zanList", zanList);
          
          
-         //取得 评论 的列表
-         String sql_  = "select b.username,b.tail_slug,b.email,b.headpath,b.headspan,b.headspanclass,a.* from bc_lyrics_comment a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' order by a.create_time desc";
-         List<Map<String, Object>> plList = lyricszanManager.mixSqlQuery(sql_);
-         for (int i = 0; i < plList.size(); i++) {
- 			
- 			//批量处理时间
- 			plList.get(i).put("create_time",TimeUtils.formatToNear((String) plList.get(i).get("create_time")));
-		 }
-         
-        
-         map.put("plList", plList);
          
          //取得zan的人数
          int zanNum = lyricszanManager.getZanNumByLRC(String.valueOf(lyricsid));
@@ -294,7 +347,7 @@ public class LyricsAction {
          map.put("plNum", plNum);
          
          //取得谁爱上谁的一个列表
-         String sql_2  = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,b.headspan,b.headspanclass,c.id as lyricsid,c.title from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id order by c.updatedate desc limit 0 , 100 ";
+         String sql_2  = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,b.headspan,b.headspanclass,c.id as lyricsid,c.title from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id order by c.updatedate desc limit 0 , 50 ";
          List<Map<String, Object>> loveList = lyricszanManager.mixSqlQuery(sql_2);
 
          Collections.shuffle(loveList);    
