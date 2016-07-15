@@ -552,6 +552,5 @@ public class TimeUtils {
 		
 	    public static void main(String[] args) {
 	    	//System.out.println(getWorkDateTime(11));;
-	    	Ten2Two(11);
 		}
 }

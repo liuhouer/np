@@ -150,7 +150,7 @@
 						<div  class="row margin-b20"  id="loadingAnimation" >
 							<img  src="/img/loading.gif" width="30"  height="30">			
 						</div>
-						<button  class="btn btn-default btn-lg margin-b20"  id="loadStuffCommentBtn"  data-htmlboxid="stuffCommentBox"  rel="938" >加载更多回忆 <span  class="glyphicon glyphicon-chevron-down"></span></button>
+						<button  class="btn btn-default btn-lg margin-b20"  id="loadStuffCommentBtn"  data-htmlboxid="stuffCommentBox"  rel="938" >加载更多 <span  class="glyphicon glyphicon-chevron-down"></span></button>
 						<input  type="hidden"  id="comment_id_from"  value="1">
 						<input  type="hidden"  id="comment_perpage"  value="12">
 						<input  type="hidden"  id="auto_loading"  value="no">

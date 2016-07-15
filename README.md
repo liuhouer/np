@@ -53,9 +53,10 @@ buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2
 
 ## 2016-07-15
 -  更新包名为网站的番号 版本更新为3.5
+-  ajax 加载更多加载评论
 
 # buci
-*** 之前的 ***
+***之前的***
 -  buci fix to elegance and add some new function fix serval bugs VERSION v3.0 2015-12-01 11:56:55
 
 
