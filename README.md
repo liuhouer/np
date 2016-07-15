@@ -48,8 +48,15 @@ buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2
 ## 2016-07-07
 -  添加微信的常见所有开发情景处理和二维码生成的工具类
 
+## 2016-07-14
+-  修改所有的默认头像为谷歌MD设计的首字母带阴影头像
+
+## 2016-07-15
+-  更新包名为网站的番号 版本更新为3.5
+
 # buci
-buci fix to elegance and add some new function fix serval bugs VERSION v3.0 2015-12-01 11:56:55
+*** 之前的 ***
+-  buci fix to elegance and add some new function fix serval bugs VERSION v3.0 2015-12-01 11:56:55
 
 
-1月3日 休息了几天。。。回家没有了雾霾，暂时的安静
+-  1月3日 休息了几天。。。回家没有了雾霾，暂时的安静
