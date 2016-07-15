@@ -76,14 +76,20 @@
 									
 									
 									title="${s.user.username }"
-										class="thumbnail border-0"> <img class=" img-circle"
-										 <c:choose>
-											<c:when test="${fn:contains(s.user.headpath  ,'http://') }">src="${s.user.headpath  }"</c:when>
-											<c:when test="${s.user.headpath ==null }">src="/img/davatar.jpg"</c:when>
-											<c:otherwise>src="/bruce/${s.user.headpath  }"</c:otherwise>
-										 </c:choose> 
-									
-									alt="${s.user.username }">
+										class="thumbnail border-0 avatar"> 
+										<c:if test="${s.user.headpath==null }">
+															<span class=" ${s.user.headspanclass }" alt="${s.user.username}">${s.user.headspan }</span>
+														
+											</c:if>
+											<c:if test="${s.user.headpath!=null }">
+														<img alt="${s.user.username }的最爱" 
+															<c:choose>
+							                                  <c:when test="${fn:contains(s.user.headpath ,'http://') }">src="${s.user.headpath}"</c:when>
+							                                  <c:otherwise>src="/bruce/${s.user.headpath }"</c:otherwise>
+							                                </c:choose> 
+															
+														>
+											</c:if>
 										<p>${s.user.username }</p>
 									</a>
 								</div>
