@@ -23,7 +23,7 @@
 
 </head>
 
-<body style="">
+<body class="grayback">
 
 	<div class="navbar navbar-default navbar-fixed-top mainhead-navbox" role="navigation">
 
