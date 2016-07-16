@@ -22,7 +22,7 @@
 
 </head>
 
-<body style="">
+<body class="grayback">
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 
 
