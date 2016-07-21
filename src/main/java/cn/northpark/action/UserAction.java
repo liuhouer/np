@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -29,24 +30,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.northpark.manager.EqManager;
+import cn.northpark.manager.NoteManager;
 import cn.northpark.manager.ResetManager;
 import cn.northpark.manager.UserFollowManager;
 import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.manager.UserManager;
 import cn.northpark.manager.UserprofileManager;
+import cn.northpark.model.Eq;
 import cn.northpark.model.QQinfo;
 import cn.northpark.model.Reset;
 import cn.northpark.model.User;
 import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
+import cn.northpark.query.EqQuery;
+import cn.northpark.query.NoteQuery;
+import cn.northpark.query.condition.EqQueryCondition;
+import cn.northpark.query.condition.NoteQueryCondition;
 import cn.northpark.query.condition.UserLyricsQueryCondition;
 import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.JedisUtil;
+import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.PinyinUtil;
+import cn.northpark.utils.QueryResult;
 import cn.northpark.utils.SerializationUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.URLUtil;
@@ -79,115 +89,73 @@ public class UserAction {
 	 private UserFollowManager userfollowManager;
 	 @Autowired	
 	 private ResetManager resetManager;
+	 @Autowired	
+	 private NoteManager noteManager;
+	 @Autowired	
+	 private NoteQuery noteQuery;
+	 @Autowired	
+	 private EqManager eqManager;
+	 @Autowired	
+	 private EqQuery eqQuery;
+
 	 
 	 
 	    /**
 		 *首页
 		 */
 		@RequestMapping("/")
-		public void dashborard(HttpServletResponse response) throws IOException {
+		public String dashborard(HttpServletResponse response,ModelMap map) throws IOException {
 	 	  	
-		    response.sendRedirect("http://"+DOMAIN+"/love");
+			//slider
+			
+		    //取出一部分love数据
+			PageView<List<Map<String, Object>>> lovepageView = this.userlyricsManager.getMixMapData("0","");
+			
+			
+			map.addAttribute("lovelist", lovepageView.getMapRecords()==null?"":lovepageView.getMapRecords());
+			
+			//取出一部分日记
+			
+			NoteQueryCondition notecondition = new NoteQueryCondition();
+			notecondition.setOpened("yes");
+			String noteSql = noteQuery.getMixSql(notecondition);
+			PageView<List<Map<String, Object>>> notepageView = this.noteManager.findmixByCondition("0",noteSql);
+			List<Map<String, Object>> notelist = notepageView.getMapRecords();
+			
+			for (int i = 0; i < notelist.size(); i++) {
+				//时间处理
+				String createtime = (String) notelist.get(i).get("createtime"); //e:/yunlu/upload/1399976848969.jpg
+				if(StringUtils.isNotEmpty(createtime)){
+					createtime = TimeUtils.getHalfDate(createtime);
+				}
+				notelist.get(i).put("createtime", createtime);
+				
+			}
+			
+			
+			map.addAttribute("notelist", notepageView.getMapRecords()==null?"":notelist);
+			
+			
+			//取出一部分情圣日记
+			
+			String whereSql = eqQuery.getSql(new EqQueryCondition());
+			PageView<Eq> p = getEQPageView("1", whereSql);
+			//排序条件
+			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+			order.put("date", "desc");
+			
+			QueryResult<Eq> qr = this.eqManager.findByCondition(p, whereSql, order);
+			List<Eq> eqlist = qr.getResultlist();
+			map.addAttribute("eqlist", eqlist==null?"":eqlist);
+			
+		    
+		    
+		    
+			return "/dashboard";
 		 	  	
 		}	
 	 	
-	 /**
-	 * 爬虫抓取的优惠券列表页
-	 * @param session
-	 * @return
-	 * @throws IOException 
-	 */
-	@RequestMapping("/cp/index")
-		public String quanlist(HttpSession session) throws IOException {
-		 	  	
-		        byte[] b = JedisUtil.getListByte("B_quan");
-		        Set<String> tags = new HashSet<String>();
-		        		
-		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
-		        if(list==null){
-		        	HTMLParserUtil.retQuan();
-		        	b = JedisUtil.getListByte("B_quan");
-			        list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
-			        
-		        }
-		        session.setAttribute("quan", list);
-		        
-		        for (int i = 0; i < list.size(); i++) {
-		        	tags.add(list.get(i).get("from"));
-				}
-		        session.setAttribute("B_tags", new ArrayList<String>(tags));
-		        
-		 
-		 	return "/quan";
-		 	  	
-		}
-	
-	
-	 /**
-		 * 从redis缓存筛选列表
-		 * @param session
-		 * @return
-		 * @throws UnsupportedEncodingException 
-		 */
-		@RequestMapping("/cp/search")
-			public String quanquery(HttpSession session,String keyword,ModelMap model) throws UnsupportedEncodingException {
-			 	  	
-			        byte[] b = JedisUtil.getListByte("B_quan");
-			        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
-			        List<Map<String,String> > list_search  = new ArrayList<Map<String,String>>(); 
-			        		
-			        		if(StringUtils.isNotEmpty(keyword)){
-			        			keyword = WAQ.forSQL().escapeSql(keyword);
-			        			for (int i = 0; i < list.size(); i++) {
-			        				Map<String,String> map = list.get(i);
-			        				String from = map.get("from");
-			        				if(StringUtils.isNotEmpty(from)){
-			        					if(from.contains(keyword)){
-			        						
-			        						list_search.add(map);
-			        					}
-			        				}
-			        			}
-			        		}
-			        		
-			        		if(list_search.size()>0){
-			        			model.put("quan", list_search);
-			        		}else{
-			        			model.put("quan", list);
-			        		}
-			        		
-			        		model.put("keyword", keyword);
-			        
-			 
-			 	return "/quan";
-			 	  	
-			}
-	
-	/**
-	 * 爬虫抓取的优惠券列表页
-	 * @param session
-	 * @return
-	 * @throws UnsupportedEncodingException 
-	 */
-	@RequestMapping("/cp/show/{id}")
-		public String quanshow(HttpSession session, @PathVariable String id ,ModelMap map) throws UnsupportedEncodingException {
-		 	  	
-		        byte[] b = JedisUtil.getListByte("B_quan");
-		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
-		        String path_mt = "";
-		        for (int i = 0; i < list.size(); i++) {
-					if(list.get(i).get("id").equals(id)){
-						 path_mt = list.get(i).get("path_mt");
-					}
-				}
-		        
-		        map.put("path_mt", path_mt);
-		        
-		 
-		 	return "/quanshow";
-		 	  	
-		}
-
+	 
 	 	/**
 	 	 * @ 页面对有关于用户的操作，先异步进行判断，假如有用户，返回1.没有用户直接跳转到登陆界面，并且传入需要return的url。
 	 	 * @param request
@@ -1068,6 +1036,7 @@ public class UserAction {
 		return result;
 	}
 	
+	/////////////////////////////////////////失效的方法和工具方法、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
 
 	/**
 	 * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
@@ -1086,5 +1055,143 @@ public class UserAction {
 		return number;
     
 	}
+	
+	/**
+	 * 爬虫抓取的优惠券列表页
+	 * @param session
+	 * @return
+	 * @throws IOException 
+	 */
+	@RequestMapping("/cp/index")
+		public String quanlist(HttpSession session) throws IOException {
+		 	  	
+		        byte[] b = JedisUtil.getListByte("B_quan");
+		        Set<String> tags = new HashSet<String>();
+		        		
+		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+		        if(list==null){
+		        	HTMLParserUtil.retQuan();
+		        	b = JedisUtil.getListByte("B_quan");
+			        list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+			        
+		        }
+		        session.setAttribute("quan", list);
+		        
+		        for (int i = 0; i < list.size(); i++) {
+		        	tags.add(list.get(i).get("from"));
+				}
+		        session.setAttribute("B_tags", new ArrayList<String>(tags));
+		        
+		 
+		 	return "/quan";
+		 	  	
+		}
+	
+	
+	 /**
+		 * 从redis缓存筛选列表
+		 * @param session
+		 * @return
+		 * @throws UnsupportedEncodingException 
+		 */
+		@RequestMapping("/cp/search")
+			public String quanquery(HttpSession session,String keyword,ModelMap model) throws UnsupportedEncodingException {
+			 	  	
+			        byte[] b = JedisUtil.getListByte("B_quan");
+			        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+			        List<Map<String,String> > list_search  = new ArrayList<Map<String,String>>(); 
+			        		
+			        		if(StringUtils.isNotEmpty(keyword)){
+			        			keyword = WAQ.forSQL().escapeSql(keyword);
+			        			for (int i = 0; i < list.size(); i++) {
+			        				Map<String,String> map = list.get(i);
+			        				String from = map.get("from");
+			        				if(StringUtils.isNotEmpty(from)){
+			        					if(from.contains(keyword)){
+			        						
+			        						list_search.add(map);
+			        					}
+			        				}
+			        			}
+			        		}
+			        		
+			        		if(list_search.size()>0){
+			        			model.put("quan", list_search);
+			        		}else{
+			        			model.put("quan", list);
+			        		}
+			        		
+			        		model.put("keyword", keyword);
+			        
+			 
+			 	return "/quan";
+			 	  	
+			}
+	
+	/**
+	 * 爬虫抓取的优惠券列表页
+	 * @param session
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	@RequestMapping("/cp/show/{id}")
+		public String quanshow(HttpSession session, @PathVariable String id ,ModelMap map) throws UnsupportedEncodingException {
+		 	  	
+		        byte[] b = JedisUtil.getListByte("B_quan");
+		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+		        String path_mt = "";
+		        for (int i = 0; i < list.size(); i++) {
+					if(list.get(i).get("id").equals(id)){
+						 path_mt = list.get(i).get("path_mt");
+					}
+				}
+		        
+		        map.put("path_mt", path_mt);
+		        
+		 
+		 	return "/quanshow";
+		 	  	
+		}
+	
+	
+	
+	public PageView<Eq> getEQPageView(String current,
+			String whereSql) {
+		PageView<Eq> pageView = new PageView<Eq>();
+		int currentpage = 0; //当前页码
+		int pages = 0; //总页数
+		//总条数
+		int n = eqManager.countHql(new Eq(), whereSql);
+		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
+        if(n % maxresult==0)
+       {
+          pages = n / maxresult ;
+       }else{
+          pages = n / maxresult + 1;
+       }
+        if(StringUtils.isEmpty(current)){
+           currentpage = 0;
+        }else{
+           currentpage = Integer.parseInt(current);
+           
+           if(currentpage<0)
+           {
+              currentpage = 0;
+           }
+           if(currentpage>=pages)
+           {
+              currentpage = pages - 1;
+           }
+        }
+		int startindex = currentpage*maxresult;
+		int endindex = startindex+maxresult-1;
+		pageView.setStartindex(startindex);
+		pageView.setEndindex(endindex);
+		pageView.setTotalrecord(n);
+		pageView.setCurrentpage(currentpage);
+		pageView.setTotalpage(pages);
+		return pageView;
+	}
+
 
 }

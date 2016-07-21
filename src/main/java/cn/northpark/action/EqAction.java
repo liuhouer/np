@@ -223,7 +223,7 @@ public class EqAction {
 		}
 	
 	
-	private PageView<Eq> getPageView(String current,
+	public PageView<Eq> getPageView(String current,
 			String whereSql) {
 		PageView<Eq> pageView = new PageView<Eq>();
 		int currentpage = 0; //当前页码
