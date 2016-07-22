@@ -44,7 +44,7 @@
 
 </head>
 
-<body class="grayback">
+<body >
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	
 		 
@@ -71,6 +71,8 @@
 
 
 <script src="/js/page/welcome.js"></script>
+	 <script src="/js/plugins.js"></script>
+     <script src="/js/main.js"></script>
 </body>
 
 </html>    

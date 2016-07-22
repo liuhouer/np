@@ -17,9 +17,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   -->
 
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
-<link media="all" type="text/css" rel="stylesheet" href="/css/bootstrapValidator.min.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/bootstrapValidator.min.css">
 
 
 

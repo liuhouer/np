@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +25,14 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.NoteManager;
@@ -104,21 +108,39 @@ public class UserAction {
 		 *首页
 		 */
 		@RequestMapping("/")
-		public String dashborard(HttpServletResponse response,ModelMap map) throws IOException {
+		public String dashborard(HttpServletRequest request,ModelMap map) throws Exception {
 	 	  	
 			//slider
+			request.getSession().removeAttribute("tabs");
 			
 		    //取出一部分love数据
 			PageView<List<Map<String, Object>>> lovepageView = this.userlyricsManager.getMixMapData("0","");
 			
+			List<Map<String, Object>> lovelist = lovepageView.getMapRecords();
+			if(!CollectionUtils.isEmpty(lovelist)){
+				for (int i = 0; i < lovelist.size(); i++) {
+					Map<String, Object> map2 = lovelist.get(i);
+					
+					//处理标题截断
+					String title = (String) map2.get("title");
+					String cutString = HTMLParserUtil.CutString(title, 12);
+					map2.put("cuttitle", cutString);
+					
+					//处理日期显示格式
+					String updatedate = (String) map2.get("updatedate");
+					String engDate = TimeUtils.parse2EnglishDate(updatedate);
+					map2.put("engDate", engDate);
+				}
+			}
 			
-			map.addAttribute("lovelist", lovepageView.getMapRecords()==null?"":lovepageView.getMapRecords());
+			map.addAttribute("lovelist", lovelist==null?"":lovelist);
 			
 			//取出一部分日记
 			
 			NoteQueryCondition notecondition = new NoteQueryCondition();
 			notecondition.setOpened("yes");
 			String noteSql = noteQuery.getMixSql(notecondition);
+			noteSql =  noteSql.replace("order by a.createtime desc", "order by a.id ");
 			PageView<List<Map<String, Object>>> notepageView = this.noteManager.findmixByCondition("0",noteSql);
 			List<Map<String, Object>> notelist = notepageView.getMapRecords();
 			
@@ -883,8 +905,25 @@ public class UserAction {
 			
 			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage,userid);
 			
+			List<Map<String, Object>> lovelist = pageView.getMapRecords();
+			if(!CollectionUtils.isEmpty(lovelist)){
+				for (int i = 0; i < lovelist.size(); i++) {
+					Map<String, Object> map2 = lovelist.get(i);
+					
+					//处理标题截断
+					String title = (String) map2.get("title");
+					String cutString = HTMLParserUtil.CutString(title, 12);
+					map2.put("cuttitle", cutString);
+					
+					//处理日期显示格式
+					String updatedate = (String) map2.get("updatedate");
+					String engDate = TimeUtils.parse2EnglishDate(updatedate);
+					map2.put("engDate", engDate);
+				}
+			}
 			
-			map.addAttribute("list", pageView.getMapRecords()==null?"":pageView.getMapRecords());
+			
+			map.addAttribute("lovelist", lovelist);
 			
 			
 			return "/page/love/lovedata";
@@ -1194,4 +1233,30 @@ public class UserAction {
 	}
 
 
+	
+	/**
+	 * 过滤掉文本的样式
+	 * @param htmlStr
+	 * @return
+	 */
+	public String delHTMLTag(String htmlStr){   
+        String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式   
+        String regEx_html="<[^>]+>"; //定义HTML标签的正则表达式   
+           
+        Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE);   
+        Matcher m_style=p_style.matcher(htmlStr);   
+        htmlStr=m_style.replaceAll(""); //过滤style标签   
+           
+        Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE);   
+        Matcher m_html=p_html.matcher(htmlStr);   
+        htmlStr=m_html.replaceAll(""); //过滤html标签   
+          
+        htmlStr=htmlStr.replace(" ","");  
+        htmlStr=htmlStr.replaceAll("\\s*|\t|\r|\n","");  
+        htmlStr=htmlStr.replace("“","");  
+        htmlStr=htmlStr.replace("”","");  
+        htmlStr=htmlStr.replaceAll("　","");  
+            
+        return htmlStr.trim(); //返回文本字符串   
+    }  
 }

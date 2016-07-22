@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -124,6 +125,33 @@ public class TimeUtils {
 			return dateFormat.format(calendar.getTime());
 		}
 		
+
+		/**
+		 * 取得英文日期时间，格式： 29 Sep 2011
+		 *
+		 * @return 当前时间
+		 */
+		public static String getEnglishDate() {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(new Date().getTime());
+			SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+			return sdf.format(calendar.getTime());
+		}
+		
+		/**
+		 * 转化取得英文日期时间，从 2016-07-22 格式： 29 Sep 2011
+		 *
+		 * @return 当前时间
+		 */
+		public static String parse2EnglishDate(String date) {
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+			return sdf.format(stringToMillis(date));
+		}
+		
+
+
+		
 		/**
 		 * 字符串(格式：yyyy-MM-dd hh:mm:ss) --> 毫秒(说明：1970年1月1日0时起到当前字符串时间的毫秒)
 		 *
@@ -131,7 +159,12 @@ public class TimeUtils {
 		 */
 		public static long stringToMillis(String source) {
 			Date date = null;
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat dateFormat = null;
+			if(source.length()>10){
+				dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			}else{
+				dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			}
 			try {
 				date = dateFormat.parse(source);
 			} catch (ParseException e) {
@@ -552,5 +585,7 @@ public class TimeUtils {
 		
 	    public static void main(String[] args) {
 	    	//System.out.println(getWorkDateTime(11));;
+	    	
+	    	System.out.println(parse2EnglishDate(nowdate()));
 		}
 }

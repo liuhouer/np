@@ -14,7 +14,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<div class="navbar-brand">
-													<a <c:if test="${user!=null }">href="/cm/pcentral"</c:if><c:if test="${user==null }">href="/login"</c:if>  class="mainhead-avatar"><img src="/img/davatar.jpg" class="img-circle max-width-50" height="40" width="40"></a>
+					<a href="/" class="mainhead-avatar"><img src="/img/davatar.jpg" class="img-circle max-width-50" height="40" width="40"></a>
 					&nbsp; &nbsp; <a href="lyrics/add" class="btn btn-hero"><span class="glyphicon glyphicon-plus"></span> 添加</a>
 					&nbsp; &nbsp; 
 					<c:if test="${user!=null }"><a href="/cm/logout" id="J_log_info_l" ><span class="glyphicon glyphicon-off"></span>退出</a></c:if>

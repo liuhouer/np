@@ -35,6 +35,16 @@ $(function(){
 			success:function(data){
 				if(data){
 					$("#J_container").append(data);
+					
+					//绑定动态事件
+					 $("div.blog-post").hover(
+							    function() {
+							        $(this).find("div.content-hide").slideToggle("fast");
+							    },
+							    function() {
+							        $(this).find("div.content-hide").slideToggle("fast");
+							    }
+					);
 				}			
 			}
 		});

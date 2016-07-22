@@ -346,9 +346,15 @@ a.btn {text-decoration: none;}
 
 /*字符截断 */
 .cut {
+width:200px;
+height:14px;
 overflow:hidden;
+white-space:nowrap;
 text-overflow:ellipsis;
-white-space: nowrap; 
+text-overflow: ellipsis;
+-ms-text-overflow: ellipsis;
+-o-text-overflow: ellipsis;
+-moz-binding: url("ellipsis.xml#ellipsis");
 }
 
 
@@ -774,6 +780,73 @@ a.project-card-link {
 }
 
 
+
+/* 文本字体颜色--开始 */
+ .text-color-A,
+ .text-color-1,
+ .text-color-N {
+    color: #F44336;
+}
+ .text-color-B,
+ .text-color-2,
+ .text-color-O {
+    color: #E91E63;
+}
+ .text-color-C,
+ .text-color-3,
+ .text-color-P {
+    color: #FFC107;
+}
+ .text-color-D,
+ .text-color-4,
+ .text-color-Q {
+    color: #61C5FF;
+}
+ .text-color-E,
+ .text-color-5,
+ .text-color-R {
+    color: #2196F3;
+}
+ .text-color-F,
+ .text-color-6,
+ .text-color-S {
+    color: #00BCD4;
+}
+ .text-color-G,
+ .text-color-7,
+ .text-color-T {
+    color: #009688;
+}
+ .text-color-H,
+ .text-color-8,
+ .text-color-U {
+    color: #4CAF50;
+}
+ .text-color-I,
+ .text-color-9,
+ .text-color-V {
+    color: #CDDC39;
+}
+ .text-color-J,
+ .text-color-0,
+ .text-color-W {
+    color: #FFC107;
+}
+ .text-color-K,
+ .text-color-X {
+    color: #FF9800;
+}
+ .text-color-L,
+ .text-color-Y {
+    color: #FF5722;
+}
+ .text-color-M,
+ .text-color-Z {
+    color: #FF6639;
+}
+
+/* 文本字体颜色--结束 */
+
 .sidebar .avatar img {
     width: 32px;
     height: 32px;
@@ -851,6 +924,7 @@ a.project-card-link {
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
+  text-decoration: none;
 }
 
 .content-show span {
@@ -920,3 +994,136 @@ a.project-card-link {
 
 
 
+.smallhr {
+	display: block;
+	-webkit-margin-before: 0.5em;
+	-webkit-margin-after: 0.5em;
+	-webkit-margin-start: auto;
+	-webkit-margin-end: auto;
+	/* border-style: inset; 
+	border-width: 1px; */
+	border-color: #e0e0e0;
+    margin: 0 auto 20px auto;
+    width: 100px !important;
+    
+    /* margin-top: 20px;
+    margin-bottom: 20px; */
+    border: 0;
+    border-top: 1px solid #eee;
+    
+    height: 0;
+  /*   -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box; */
+    box-sizing: content-box;
+}
+
+
+/*---blog 日记、博客、板块代码 --*/
+
+.blog{
+	padding: 7% 0;
+	background: #EFEFEE;
+}
+.blog-head{
+	text-align:center;
+}
+.blog-head h3{
+	font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #333;
+	font-size: 2.5em;
+	font-weight: 700;
+	text-align: center;
+}
+.blog-head p{
+	font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 1.4em;
+	padding: 0em 0;
+	color: #777;
+	line-height: 1.5em;
+	text-align:center;
+	margin-bottom: 6%;
+}
+.blog-grid {
+	margin-bottom: 3.2%;
+}
+.blog-left{
+	float: left;
+	width: 46%;
+	background:#fff;
+	padding: 15px;
+	 border-radius: 10px;
+ 	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+.blog-right{
+	float: right;
+	width: 46%;
+	background:#fff;
+	padding: 15px;
+	 border-radius: 10px;
+ 	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+.img-left{
+	float: left;
+	width: 43%;
+}
+.img-left img{
+	width: 100%;
+	cursor:pointer;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+}
+.img-left img:hover{
+	opacity: 0.6;
+}
+.text-right {
+	float: right;
+	width: 52%;
+}
+.text-right h6{
+	font-size: 0.8755em;
+	color:#777;
+	padding-bottom: 3px;
+}
+.text-right h3 a{
+	font-size: 1.5em;
+	color: #303030;
+	font-weight: 600;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+}
+.text-right h3 a:hover{
+	color: #2A80B9;
+}
+.text-right p{
+	font-size: 0.9755em;
+	color:#222;
+	line-height: 1.8em;
+}
+.text-right p a {
+	font-size: 0.82355em;
+	color: #fff;
+	float: right;
+	padding: 6px 10px;
+	margin-top: 6px;
+	background: #DB5941;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+}
+.text-right p a:hover {
+	background: #2A80B9;
+}
+/*---//blog--*/

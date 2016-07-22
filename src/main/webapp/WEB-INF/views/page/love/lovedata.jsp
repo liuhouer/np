@@ -4,59 +4,48 @@
 
 				
 					   	<div class="row">
-							 <c:if test="${!empty list }">
-							   <c:forEach items="${list }" var="s" varStatus="ss">
-				   				<div class="col-xs-12 col-sm-4 margin-b20 ">
-				   				
-										<div
-											class="card project-card project-card-small project-card-clickable">
-											<a href="/lyrics/comment/${s.id }.html" data-g-label="/lyrics/comment/${s.id }.html"
-												class="project-card-link"><div
-													class="stage project-card-small-stage">
-													<div class="stage-image imgbreath"
-														<c:choose>
+							 <c:if test="${!empty lovelist }">
+							   <c:forEach items="${lovelist }" var="s" varStatus="ss">
+				   				<div class="col-xs-12 col-sm-3 margin-b20 ">
+							   			<div class="blog-post">
+			                                <div class="blog-thumb">
+			                                    <img class="imgbreath" width="257" height="193"
+			                                    <c:choose>
 														  <c:when test="${fn:contains(s.albumImg ,'http://') }">
-														  style="background-image: url(${s.albumImg })"
+														  src="${s.albumImg }"
 														  </c:when>
 														  <c:otherwise>
-														  style="background-image: url(http://northpark.cn/bruce/${s.albumImg })"
+														  src="/bruce/${s.albumImg }"
 														  </c:otherwise>
-														</c:choose> 
-																
-														
-														alt="${s.title }">
-														
-														
-													</div>
-													<div class="stage-content-bottom">
-														<p class="project-card-small-title">${s.album }</p>
-														<p class="project-card-small-organization">— ${s.artist }</p>
-													</div>
-												</div>
-												
-											</a>	
-												<div class="card-content project-card-small-content">
-													<p>
-													<c:if test="${s.yizan eq 'yizan' }"><span class="glyphicon glyphicon-heart"></span>${s.zan }</c:if>
-											    	<c:if test="${s.yizan ne 'yizan' }">
-											    	<span class="glyphicon glyphicon-heart-empty" style="cursor: pointer;" 
-											    	<c:if test="${user.id!=null }">onclick="zan('${s.id}','${user.id }')"</c:if> ></span>${s.zan }</c:if>
-											    	
-											    	
-												    
+												</c:choose> 
+			                                    
+			                                    alt="${s.title }">
+			                                </div>
+			                                <div class="blog-content">
+			                                    <div class="content-show">
+			                                        <h4>
+			                                       	 <a href="/lyrics/comment/${s.id }.html" >
+			                                       	 ${s.cuttitle }
+			                                       	 </a></h4>
+			                                        <span>${s.engDate }</span>
+			                                    </div>
+			                                    <div class="content-hide" style="display: none;">
+			                                        <p>${s.album }<br>${s.artist }</p>
+			                                    </div>
+			                                </div>
+			                                
+			                                
+			                                
+			                            </div>
+			                           <!-- pl和点赞的div --> 
+								       <div class="row margin-t0 iteminfo" style="margin-top: -1.5em;">
+											<div class="col-xs-7 text-left">
+											</div>
+											<div class="col-xs-5 text-right">
+												<span class="glyphicon glyphicon-heart"></span> ${s.zan }
 												<span class="hidden-sm hidden-xs"> &nbsp; 
-												<span class="glyphicon glyphicon-comment" style="cursor: pointer;" onclick="location.href='/lyrics/comment/${s.id }.html'"></span>  ${s.pl } </span>
-												</p>
-												</div>
-												<!-- <div class="card-footer">
-													<div class="card-footer-button-flat">LEARN MORE</div>
-												</div> -->
-											
-											
-											
-											
-											
-											
+													<span class="glyphicon glyphicon-comment"></span> ${s.pl } 						</span>
+											</div>
 										</div>
 										
 								</div>

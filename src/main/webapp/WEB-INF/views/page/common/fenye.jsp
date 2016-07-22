@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*,cn.northpark.utils.MyConstant,cn.northpark.utils.PageView" pageEncoding="UTF-8"%>
 
-<div class="row center ">
+<div class="row center grayback">
 	 <%
 	 	int liststep = 5;//最多显示分页页数
 	 	int maxresult = MyConstant.MAXRESULT;//每页显示记录数
@@ -33,7 +33,7 @@
 	     
 	 <form id="pageForm" action="">
 		<ul class="qinco-pagination pagination-lg">
-			<li><a href="<%=actionUrl%>/page0">‹‹</a></li>
+			<li><a href="<%=actionUrl%>/page0">S</a></li>
 			<li><a href="<%=actionUrl%>/page<%=currentpage - 1%>">‹</a>
 			</li>
 			<%
@@ -52,7 +52,7 @@
 				}//显示分页码>
 			%>
 			<li><a href="<%=actionUrl%>/page<%=currentpage + 1%>">›</a></li>
-			<li><a href="<%=actionUrl%>/page<%=totalpage - 1%>">››</a> 
+			<li><a href="<%=actionUrl%>/page<%=totalpage - 1%>">E<%=totalpage%></a> 
 			</li>
 		</ul>
 

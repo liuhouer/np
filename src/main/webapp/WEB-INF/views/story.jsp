@@ -19,7 +19,7 @@
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 </head>
 
-<body class="grayback">
+<body >
 
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	 
