@@ -1126,4 +1126,128 @@ a.project-card-link {
 .text-right p a:hover {
 	background: #2A80B9;
 }
+
+.blog-div{
+	background:#fff;
+	padding: 15px;
+	margin-right:1px;
+	 border-radius: 10px;
+ 	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+
+.readmore{
+	font-size: 0.82355em;
+    color: #fff;
+    float: right;
+    padding: 6px 10px;
+    margin-top: 6px;
+    background: #49c7be;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
 /*---//blog--*/
+
+
+
+/*---clients--*/
+.clients{
+	padding: 7% 0;
+	background: #fff;
+}
+.client-head{
+	text-align:center;
+}
+.client-head h3{
+	font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #333;
+	font-size: 2.5em;
+	font-weight: 700;
+	text-align: center;
+}
+/*-----*/
+.flexiselDemo3 {
+display:none;
+}
+
+.nbs-flexisel-container {
+    position:relative;
+    max-width:100%;
+}
+.nbs-flexisel-ul {
+    position:relative;
+    width:9999px;
+    margin:0px;
+    padding:0px;
+    list-style-type:none;   
+    text-align:center;  
+}
+
+.nbs-flexisel-inner {
+    overflow:hidden;
+    float:left;
+    width:100%;
+    margin: 2em 0 0em;
+}
+.nbs-flexisel-item {
+    float:left;
+    margin:0px;
+    padding:0px;
+    cursor:pointer;
+    position:relative;
+    line-height:0px;
+    cursor:pointer;
+}
+.nbs-flexisel-item img {
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width:30x;
+    max-height:30px;
+}
+
+/*** Navigation ***/
+
+.nbs-flexisel-nav-left,
+.nbs-flexisel-nav-right {
+    width: 22px;
+    height: 22px; 
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    opacity: 0.5;
+}
+
+.nbs-flexisel-nav-left {
+    left: 10px;
+    background: url(/img/index/button-previous.png) no-repeat;
+}
+
+.nbs-flexisel-nav-right {
+    right: 5px;
+    background: url(/img/index/button-next.png) no-repeat;
+}
+/*---//End-trust-----*/
+/*---//movies--*/
+
+
+.moviebox{ width:980px; margin:0 auto; position:relative; overflow:hidden; _height:100%;}
+.picbox{ width:980px; height:115px; overflow:hidden; position:relative;}
+.piclist{ height:115px;position:absolute; left:0px; top:0px}
+.piclist li{ background:#eee; margin-right:20px; padding:5px; float:left;list-style:none;line-height: 115px;}
+.swaplist{ position:absolute; left:-3000px; top:0px}
+.og_prev,.og_next{ width:30px; height:50px; background:url(/img/index/PreAndNext.png) no-repeat; background:url(../images/icon_ie6.png) no-repeat\9; position:absolute; top:33px; z-index:99; cursor:pointer;filter:alpha(opacity=70); opacity:0.7;}
+.og_prev{ background-position:0 -60px; left:4px;}
+.og_next{ background-position:0 0; right:4px;}
+.piclist li img{ width: 32px;height: 32px;margin-right: 10px;}
+
+/*---//movies--*/

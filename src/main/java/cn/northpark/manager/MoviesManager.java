@@ -3,6 +3,7 @@ package cn.northpark.manager;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import cn.northpark.model.Eq;
 import cn.northpark.model.Movies;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
@@ -31,6 +32,12 @@ public interface MoviesManager {
 	 */
 	public List<Movies> querySql(String sql,Object... obj);
 	
+	
+	/**
+	 * sql
+	 * @return
+	 */
+	public List<Movies> querySql(String sql);
 }
 
 

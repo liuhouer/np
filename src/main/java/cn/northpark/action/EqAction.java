@@ -52,6 +52,25 @@ public class EqAction {
  @Autowired	
  private EqQuery eqQuery;
 
+ 
+ 
+ /**
+	 * 阅读文章页面|||通用的样式
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping("/romeo/{eqid}.html")
+	public String article(ModelMap map,@PathVariable Integer eqid) {
+		try {
+			
+			Eq eq = eqManager.findEq(eqid);
+			map.addAttribute("model", eq);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return "/page/eq/article";
+	}
 	
 	/**
 	 * 爬虫生成情圣养成日记

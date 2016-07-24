@@ -354,16 +354,15 @@ public class LyricsAction {
          map.put("loveList", loveList);
          
          
-         //取得当前用户对作者的关注状态
+         //取得当前用户对这个主题的赞的状态
          User user = (User) request.getSession().getAttribute("user");
          if(user!=null){
-        	 String follow_id =  String.valueOf(user.getId());
-        	 String author_id = by_id;
-        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
-        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
-        		 if(nums>0){
-        			 map.put("gz", "ygz");
-        		 }
+        	 Integer uid =  user.getId();
+
+        	 Integer num = lyricszanManager.findByCondition(" where userid="+uid+" and lyricsid="+lyricsid).getResultlist().size();
+        	 
+        	 if(num>0){
+        		 map.put("yizan", "yizan");
         	 }
         	 
          }

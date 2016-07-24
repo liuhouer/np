@@ -36,7 +36,7 @@
 <div  class="mainbody padding10"  style="margin-top:5em;">
         <input  type="hidden" id="J_lrcid" value="${ lrc.id}"/>
         <input  type="hidden" id="J_uid" value="${ user.id}"/>
-		<input  type="hidden" id="J_gz" value="${gz }"/>
+		<input  type="hidden" id="J_yizan" value="${yizan }"/>
 		<div  class="row">
 		<div  class="col-md-8">
 		
@@ -94,7 +94,7 @@
 					</div>
 
 				    <h2> <a  class="btn btn-warning btn-xlg" id="J_gz_btn"><span  class="glyphicon glyphicon-heart"></span>
-				    <c:if test="${gz eq 'ygz' }">已关注</c:if><c:if test="${gz ne 'ygz' }">关注此人 </c:if>
+				    <c:if test="${yizan eq 'yizan' }">已爱上~</c:if><c:if test="${yizan ne 'yizan' }">加入我的最爱 </c:if>
 				    
 				    
 				    </a></h2>

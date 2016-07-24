@@ -8,13 +8,10 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -33,34 +30,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import cn.northpark.manager.EqManager;
-import cn.northpark.manager.NoteManager;
 import cn.northpark.manager.ResetManager;
 import cn.northpark.manager.UserFollowManager;
 import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.manager.UserManager;
 import cn.northpark.manager.UserprofileManager;
-import cn.northpark.model.Eq;
 import cn.northpark.model.QQinfo;
 import cn.northpark.model.Reset;
 import cn.northpark.model.User;
 import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
-import cn.northpark.query.EqQuery;
-import cn.northpark.query.NoteQuery;
-import cn.northpark.query.condition.EqQueryCondition;
-import cn.northpark.query.condition.NoteQueryCondition;
 import cn.northpark.query.condition.UserLyricsQueryCondition;
 import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.JedisUtil;
-import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.PinyinUtil;
-import cn.northpark.utils.QueryResult;
 import cn.northpark.utils.SerializationUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.URLUtil;
@@ -93,89 +80,9 @@ public class UserAction {
 	 private UserFollowManager userfollowManager;
 	 @Autowired	
 	 private ResetManager resetManager;
-	 @Autowired	
-	 private NoteManager noteManager;
-	 @Autowired	
-	 private NoteQuery noteQuery;
-	 @Autowired	
-	 private EqManager eqManager;
-	 @Autowired	
-	 private EqQuery eqQuery;
 
 	 
 	 
-	    /**
-		 *首页
-		 */
-		@RequestMapping("/")
-		public String dashborard(HttpServletRequest request,ModelMap map) throws Exception {
-	 	  	
-			//slider
-			request.getSession().removeAttribute("tabs");
-			
-		    //取出一部分love数据
-			PageView<List<Map<String, Object>>> lovepageView = this.userlyricsManager.getMixMapData("0","");
-			
-			List<Map<String, Object>> lovelist = lovepageView.getMapRecords();
-			if(!CollectionUtils.isEmpty(lovelist)){
-				for (int i = 0; i < lovelist.size(); i++) {
-					Map<String, Object> map2 = lovelist.get(i);
-					
-					//处理标题截断
-					String title = (String) map2.get("title");
-					String cutString = HTMLParserUtil.CutString(title, 12);
-					map2.put("cuttitle", cutString);
-					
-					//处理日期显示格式
-					String updatedate = (String) map2.get("updatedate");
-					String engDate = TimeUtils.parse2EnglishDate(updatedate);
-					map2.put("engDate", engDate);
-				}
-			}
-			
-			map.addAttribute("lovelist", lovelist==null?"":lovelist);
-			
-			//取出一部分日记
-			
-			NoteQueryCondition notecondition = new NoteQueryCondition();
-			notecondition.setOpened("yes");
-			String noteSql = noteQuery.getMixSql(notecondition);
-			noteSql =  noteSql.replace("order by a.createtime desc", "order by a.id ");
-			PageView<List<Map<String, Object>>> notepageView = this.noteManager.findmixByCondition("0",noteSql);
-			List<Map<String, Object>> notelist = notepageView.getMapRecords();
-			
-			for (int i = 0; i < notelist.size(); i++) {
-				//时间处理
-				String createtime = (String) notelist.get(i).get("createtime"); //e:/yunlu/upload/1399976848969.jpg
-				if(StringUtils.isNotEmpty(createtime)){
-					createtime = TimeUtils.getHalfDate(createtime);
-				}
-				notelist.get(i).put("createtime", createtime);
-				
-			}
-			
-			
-			map.addAttribute("notelist", notepageView.getMapRecords()==null?"":notelist);
-			
-			
-			//取出一部分情圣日记
-			
-			String whereSql = eqQuery.getSql(new EqQueryCondition());
-			PageView<Eq> p = getEQPageView("1", whereSql);
-			//排序条件
-			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-			order.put("date", "desc");
-			
-			QueryResult<Eq> qr = this.eqManager.findByCondition(p, whereSql, order);
-			List<Eq> eqlist = qr.getResultlist();
-			map.addAttribute("eqlist", eqlist==null?"":eqlist);
-			
-		    
-		    
-		    
-			return "/dashboard";
-		 	  	
-		}	
 	 	
 	 
 	 	/**
@@ -188,8 +95,7 @@ public class UserAction {
 	 	 */
 	 	@RequestMapping("/cm/loginFlag")
 	 	@ResponseBody
-		public String loginFlag(HttpServletRequest request, HttpServletResponse response,ModelMap map,String url) {
-	         System.out.println(">>>: " + url);
+		public String loginFlag(HttpServletRequest request) {
 	            String msg = "0";
 	            User user = (User) request.getSession().getAttribute("user");
 	 			if(user!=null){
@@ -1194,69 +1100,7 @@ public class UserAction {
 	
 	
 	
-	public PageView<Eq> getEQPageView(String current,
-			String whereSql) {
-		PageView<Eq> pageView = new PageView<Eq>();
-		int currentpage = 0; //当前页码
-		int pages = 0; //总页数
-		//总条数
-		int n = eqManager.countHql(new Eq(), whereSql);
-		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
-        if(n % maxresult==0)
-       {
-          pages = n / maxresult ;
-       }else{
-          pages = n / maxresult + 1;
-       }
-        if(StringUtils.isEmpty(current)){
-           currentpage = 0;
-        }else{
-           currentpage = Integer.parseInt(current);
-           
-           if(currentpage<0)
-           {
-              currentpage = 0;
-           }
-           if(currentpage>=pages)
-           {
-              currentpage = pages - 1;
-           }
-        }
-		int startindex = currentpage*maxresult;
-		int endindex = startindex+maxresult-1;
-		pageView.setStartindex(startindex);
-		pageView.setEndindex(endindex);
-		pageView.setTotalrecord(n);
-		pageView.setCurrentpage(currentpage);
-		pageView.setTotalpage(pages);
-		return pageView;
-	}
 
 
 	
-	/**
-	 * 过滤掉文本的样式
-	 * @param htmlStr
-	 * @return
-	 */
-	public String delHTMLTag(String htmlStr){   
-        String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式   
-        String regEx_html="<[^>]+>"; //定义HTML标签的正则表达式   
-           
-        Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE);   
-        Matcher m_style=p_style.matcher(htmlStr);   
-        htmlStr=m_style.replaceAll(""); //过滤style标签   
-           
-        Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE);   
-        Matcher m_html=p_html.matcher(htmlStr);   
-        htmlStr=m_html.replaceAll(""); //过滤html标签   
-          
-        htmlStr=htmlStr.replace(" ","");  
-        htmlStr=htmlStr.replaceAll("\\s*|\t|\r|\n","");  
-        htmlStr=htmlStr.replace("“","");  
-        htmlStr=htmlStr.replace("”","");  
-        htmlStr=htmlStr.replaceAll("　","");  
-            
-        return htmlStr.trim(); //返回文本字符串   
-    }  
 }
