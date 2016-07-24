@@ -136,6 +136,9 @@ $(function(){
 					$(this).fadeTo('fast',0.7);
 				})
 				
+				
+				$(".og_next").click();
+				
 			/*电影轮播end*/	
 			}			
 		}
