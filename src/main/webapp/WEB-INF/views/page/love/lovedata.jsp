@@ -6,7 +6,7 @@
 					   	<div class="row">
 							 <c:if test="${!empty lovelist }">
 							   <c:forEach items="${lovelist }" var="s" varStatus="ss">
-				   				<div class="col-xs-12 col-sm-3 margin-b20 ">
+				   				<div class="col-xs-6 col-sm-3 margin-b20 ">
 							   			<div class="blog-post">
 			                                <div class="blog-thumb">
 			                                    <img class="imgbreath" width="257" height="193"

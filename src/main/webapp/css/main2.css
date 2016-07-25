@@ -1240,8 +1240,8 @@ display:none;
 /*---//movies--*/
 
 
-.moviebox{ width:980px; margin:0 auto; position:relative; overflow:hidden; _height:100%;}
-.picbox{ width:980px; height:115px; overflow:hidden; position:relative;}
+.moviebox{ width:100%; margin:0 auto; position:relative; overflow:hidden; _height:100%;}
+.picbox{ width:100%; height:115px; overflow:hidden; position:relative;}
 .piclist{ height:115px;position:absolute; left:0px; top:0px}
 .piclist li{ background:#eee; margin-right:20px; padding:5px; float:left;list-style:none;line-height: 115px;}
 .swaplist{ position:absolute; left:-3000px; top:0px}

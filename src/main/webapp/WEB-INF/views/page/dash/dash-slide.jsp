@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- 轮播区域 -->
-			<div id="slider">
+			<div id="slider" style="margin-top:80px; ">
 			<div class="flexslider">
 				<ul class="slides">
 					<li class=""
