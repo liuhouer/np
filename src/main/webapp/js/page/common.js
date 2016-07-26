@@ -1,12 +1,12 @@
 //3.设置全局对话框
 // 设置对话框全局默认配置
-(function (config) {  
-    config['lock'] = true;  
-    config['fixed'] = true;  
-    config['okVal'] = 'Ok';  
-    config['cancelVal'] = 'Cancel';  
-    // [more..]  
-})(art.dialog.blue);//这个是用哪个主题有很多主题的你把名字打上就行啦  
+(function (config) {
+    config['lock'] = true;
+    config['fixed'] = true;
+    config['okVal'] = 'Ok';
+    config['cancelVal'] = 'Cancel';
+    // [more..]
+})(art.dialog.defaults);
  
  
 

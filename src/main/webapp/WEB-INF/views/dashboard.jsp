@@ -42,7 +42,10 @@
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 <link rel="stylesheet" href="/css/font-awesome.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/flexslider.css">
-<link media="all" type="text/css" rel="stylesheet" href="/css/slider.css">
+<link type="text/css" rel="stylesheet" href="/css/jquery.mmenu.all.css" />
+
+
+
 
 <style type="text/css">
 
@@ -177,6 +180,9 @@
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	 <script src="/js/plugins.js"></script>
      <script src="/js/main.js"></script>
+     <script type="text/javascript" src="/js/jquery.mmenu.min.all.js"></script>
+<script type="text/javascript" src="/js/jquery.flexslider.js"></script>
+<script type="text/javascript" src="/js/o-script.js"></script>
 </body>
 
 </html>    
