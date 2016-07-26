@@ -329,4 +329,8 @@ public class JedisUtil {
 			jedis = null;
 		}
 	}
+	
+	public static void main(String[] args) {
+		JedisUtil.remove("movieslist");
+	}
 }

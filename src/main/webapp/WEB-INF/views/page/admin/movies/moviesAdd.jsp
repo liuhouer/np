@@ -53,7 +53,7 @@
 						<div class="form-group ">
 							<input id="J_price" placeholder="定价" required
 								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-								name="price" type="text">
+								name="price" value="1" type="text">
 						</div>
 
 						<div class="form-group">

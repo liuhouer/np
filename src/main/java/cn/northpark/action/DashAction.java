@@ -157,7 +157,7 @@ public class DashAction {
 				 */
 				public void pushMovies2Redis(ModelMap map) {
 					//取出热门电影
-						String msql = "select * from bc_movies order by addtime desc limit 1,50";
+						String msql = "select * from bc_movies order by id desc limit 1,50";
 						List<Movies> movieslist = moviesManager.querySql(msql);
 						JedisUtil.addList("movieslist", movieslist==null?new ArrayList<>():movieslist);
 						map.addAttribute("movieslist", movieslist==null?"":movieslist);

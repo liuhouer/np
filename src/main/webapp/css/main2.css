@@ -972,7 +972,7 @@ a.project-card-link {
   font-size: 18px;
   font-weight: 300;
   color: #fff;
-  line-height: 15px;
+  line-height: 22px;
 }
 
 .slider-caption span {
@@ -986,7 +986,7 @@ a.project-card-link {
 }
 
 .slider-caption a {
-  margin-top: 40px;
+  margin-top: 25px;
   text-decoration: none;
   display: inline-block;
   background-color: #45d0c6;

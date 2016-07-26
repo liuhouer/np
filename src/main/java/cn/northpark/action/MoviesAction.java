@@ -108,12 +108,18 @@ public class MoviesAction {
 	 * @return
 	 */
 	@RequestMapping(value="/movies/search")
-	public String list(ModelMap map,String keyword,HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+	public String list(ModelMap map,String keyword,String id,HttpServletRequest request,HttpServletResponse response, HttpSession session) {
 		String wheresql = " where 1=1 ";
 		if(StringUtils.isNotEmpty(keyword)){
 			//sql注入处理
 			keyword = WAQ.forSQL().escapeSql(keyword);
 			wheresql = " where moviename like '%"+keyword+"%' or description like '%"+keyword+"%' ";
+		}
+		
+		if(StringUtils.isNotEmpty(id)){
+			//sql注入处理
+			id = WAQ.forSQL().escapeSql(id);
+			wheresql = " where id = "+id;
 		}
 		List<Movies> list =  moviesManager.findByCondition(wheresql+" order by addtime desc ").getResultlist();
 		map.addAttribute("list", list);
