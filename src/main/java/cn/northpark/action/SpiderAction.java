@@ -31,7 +31,7 @@ import cn.northpark.manager.UserManager;
 import cn.northpark.model.Getnotes;
 import cn.northpark.model.Lyrics;
 import cn.northpark.model.LyricsComment;
-import cn.northpark.model.LyricsZan;
+import cn.northpark.model.Note;
 import cn.northpark.model.Quan;
 import cn.northpark.model.User;
 import cn.northpark.utils.JedisUtil;
@@ -830,59 +830,61 @@ public class SpiderAction {
 //	}
 //	
 //
-//	/**
-//	 * 处理笔记
-//	 * @param note_
-//	 * @return
-//	 */
-//	private static StringBuilder handleNotes(String note_) {
-//		StringBuilder sb = new StringBuilder();
-//		String str[] = note_.split("</p>");
-//		if(str.length>=3){
-//			sb.append(str[0]).append("</p>");
-//			sb.append(str[1]).append("</p>");
-//			sb.append(str[2]).append("</p>");
-//		}else{
-//			String rp_ = note_.replaceAll("<p>", "").replaceAll("</p>", "");
-//			String br[] = rp_.split("<br>");
-//			if(br.length>=3){
-//				sb.append(br[0]).append("<br>");
-//				sb.append(br[1]).append("<br>");
-//				sb.append(br[2]).append("<br>");
-//			}else{
-//				String space[] = rp_.split(" ");
-//				for (int i = 0; i < space.length; i++) {
-//					if(i!=space.length-1){
-//					    space[i] += "<br>";
-//					}
-//					sb.append(space[i]);
-//				}
-//			}
-//		}
-//		return sb;
-//	}
-//	
-//	@RequestMapping("/Bief")
-//	public String updateBief() {
-//		
-//		List<GetNote> list = this.getnoteManager.findAll();
-//		
-//		for(GetNote n:list){
-//			//处理笔记和介绍
-//			String note_ = n.getNotes();
-//			StringBuilder sb = handleNotes(note_);
-//			System.out.println(sb.toString());
-//			n.setBrief(sb.toString());
-//			
-//			getnoteManager.updateGetNote(n);
-//			//end-------------------
-//			
-//			
-//		}
-//			
-//		return "111";
-//	}
-//
+/**
+ * 处理笔记
+ * @param note_
+ * @return
+ */
+private StringBuilder handleNotes(String note_) {
+	StringBuilder sb = new StringBuilder();
+	String str[] = note_.split("</p>");
+	if(str.length>=3){
+		sb.append(str[0].replace("<p>", "")).append("<br>");
+		sb.append(str[1].replace("<p>", "")).append("<br>");
+		sb.append(str[2].replace("<p>", "")).append("<br>");
+	}else{
+		String rp_ = note_.replaceAll("<p>", "").replaceAll("</p>", "");
+		String br[] = rp_.split("<br>");
+		if(br.length>=3){
+			sb.append(br[0]).append("<br>");
+			sb.append(br[1]).append("<br>");
+			sb.append(br[2]).append("<br>");
+		}else{
+			String space[] = rp_.split(" ");
+			for (int i = 0; i < space.length; i++) {
+				if(i!=space.length-1){
+				    space[i] += "<br>";
+				}
+				sb.append(space[i]);
+			}
+		}
+	}
+	return sb;
+}
+
+	
+	@RequestMapping("/Bief")
+	public String updateBief() {
+		
+		String sql  = "select * from bc_note order by createtime desc limit 0,20";
+		List<Note> list = this.noteManager.querySql(sql);
+		
+		for(Note n:list){
+			//处理笔记和介绍
+			String note_ = n.getNote();
+			StringBuilder sb = handleNotes(note_);
+			System.out.println(sb.toString());
+			n.setBrief(sb.toString());
+			
+			noteManager.updateNote(n);
+			//end-------------------
+			
+			
+		}
+			
+		return "111";
+	}
+
 	/**
 	 * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
 	 * @return

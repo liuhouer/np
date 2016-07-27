@@ -114,8 +114,10 @@ $(function(){
 			               ['viewSourceCode'],
 			               ['fontFamily','fontSize','bold','setHead'],
 			               ['list','justify','blockquote'],
-			               ['createLink','insertHr','undo']
-			               ]
+			               ['createLink','insertHr','undo','redo'],
+						   ['insertImage', 'insertVideo', 'insertLocation','insertCode']
+			               
+			              ]
 		});
 	}
 });

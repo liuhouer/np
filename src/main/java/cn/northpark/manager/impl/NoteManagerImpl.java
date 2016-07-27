@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import cn.northpark.dao.NoteDao;
 import cn.northpark.manager.NoteManager;
+import cn.northpark.model.Eq;
 import cn.northpark.model.Note;
 import cn.northpark.model.User;
 import cn.northpark.utils.MyConstant;
@@ -163,6 +164,16 @@ public class NoteManagerImpl implements NoteManager {
 			String currentpage, String wheresql) {
 		// TODO Auto-generated method stub
 		return setPageviewParam(currentpage, wheresql);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.northpark.manager.NoteManager#querySql(java.lang.String)
+	 */
+	@Override
+	public List<Note> querySql(String sql) {
+		// TODO Auto-generated method stub
+		return noteDao.querySql(sql, Note.class);
+		
 	}
 }
 

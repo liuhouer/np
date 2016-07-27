@@ -88,9 +88,9 @@ public class NoteAction {
 		StringBuilder sb = new StringBuilder();
 		String str[] = note_.split("</p>");
 		if(str.length>=3){
-			sb.append(str[0]).append("</p>");
-			sb.append(str[1]).append("</p>");
-			sb.append(str[2]).append("</p>");
+			sb.append(str[0].replace("<p>", "")).append("<br>");
+			sb.append(str[1].replace("<p>", "")).append("<br>");
+			sb.append(str[2].replace("<p>", "")).append("<br>");
 		}else{
 			String rp_ = note_.replaceAll("<p>", "").replaceAll("</p>", "");
 			String br[] = rp_.split("<br>");

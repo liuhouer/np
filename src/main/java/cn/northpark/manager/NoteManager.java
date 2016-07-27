@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import cn.northpark.model.Note;
-import cn.northpark.model.User;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
 
@@ -55,6 +54,12 @@ public interface NoteManager {
 	 * @return int
 	 */
 	public  int countHql(Note note,String wheresql);
+	
+	/**
+	 * sql
+	 * @return
+	 */
+	public List<Note> querySql(String sql);
 	
 
 	
