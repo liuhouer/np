@@ -712,7 +712,7 @@ public class UserAction {
 				if(StringUtils.isNotEmpty(abc)){
 					String headspan = abc.substring(0, 1).toUpperCase();
 					String headspanclass = "text-"+headspan.toLowerCase();
-					user.setHeadpath(headspan);
+					user.setHeadspan(headspan);
 					user.setHeadspanclass(headspanclass);
 				}
 				user.setUsername(username);
