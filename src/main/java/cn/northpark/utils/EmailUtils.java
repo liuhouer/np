@@ -88,7 +88,7 @@ public class EmailUtils {
 			email.setCharset("utf-8");
 			//email.setContent(aObject, aContentType);
 			email.setHtmlMsg("<html><body><style type=\"text/css\">.aboutWrapper{background-image:url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/64876897.jpg);background-repeat:no-repeat;background-position:center top}.reservationsWrapper{margin-top:70px}.aboutWrapper{background-color:#ebebeb;padding-bottom:40px;position:relative;margin-bottom:350px}.aboutWrapper:before{content:' ';display:block;position:absolute;bottom:-200px;background-image:url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/34631260.jpg);max-width:100%;left:0;height:291px;width:100%}</style>"
-					+ "<div style=\"width: 83.33333333%;text-align:center;background: #f5f5f5;\"><div class=\"aboutWrapper reservationsWrapper\"><div class=\"clearfix margin-b10 center\">"
+					+ "<div style=\"width: 83.33333333%;text-align:center;background: #f5f5f5;\"><div class=\"aboutWrapper reservationsWrapper\"><div class=\"clearfix margin-b10 center\" style=\"padding-top:30px;\">"
 					+ "<h2> Welcome! </h2>"
 					+ "<br><br>Welcome join northpark! "
 					+ "<br/><br/>"

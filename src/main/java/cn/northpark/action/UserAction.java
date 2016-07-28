@@ -51,6 +51,7 @@ import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.SerializationUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.URLUtil;
+import cn.northpark.utils.trackVO;
 import cn.northpark.utils.json.JsonUtil;
 import cn.northpark.utils.safe.WAQ;
 
@@ -692,7 +693,11 @@ public class UserAction {
 
 		@RequestMapping("/cm/addUser")
 		public String addUser(User user, ModelMap map,HttpSession session) {
-			int num = userManager.findByCondition(" where email = '"+user.getEmail()+"' ").getResultlist().size();
+			String email = user.getEmail();
+			String pwd = user.getPassword();
+			email = WAQ.forSQL().escapeSql(email);
+			pwd = WAQ.forSQL().escapeSql(pwd);
+			int num = userManager.countHql(user, " where email= '"+email+"' ");
 			if(num>0){
 				map.put("reged", "reged");
 				return REG_ACTION;
@@ -720,6 +725,14 @@ public class UserAction {
 				this.userManager.addUser(user);
 				session.setAttribute("user", user);
 				map.put("user", user);
+				//发送邮件
+				try {
+					
+					EmailUtils.ThanksReg(email);
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
 				return LIST_ACTION;
 			}
 		}
