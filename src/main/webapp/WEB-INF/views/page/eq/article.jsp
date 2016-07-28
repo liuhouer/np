@@ -19,6 +19,37 @@
 <meta name="keywords" content="northpark,最爱,回忆,生活">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
+<style type="text/css">
+.aboutWrapper {
+    background-image: url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/64876897.jpg);
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+
+.reservationsWrapper {
+    margin-top: 70px;
+}
+
+.aboutWrapper {
+    background-color: #ebebeb;
+    padding-bottom: 40px;
+    position: relative;
+    margin-bottom: 350px;
+}
+
+.aboutWrapper:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    bottom: -100px;
+    background-image: url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/34631260.jpg);
+    max-width: 100%;
+    left: 0;
+    height: 291px;
+    width: 100%;
+}
+
+</style>
 
 </head>
 
@@ -30,14 +61,15 @@
 	<div class="container">
 		<div class="mainbody" id="J_maincontent"  style="margin-top:150px; ">
 			
-			<div class="col-sm-8 col-xs-offset-2 center" >
+			<div class="col-sm-10 col-xs-10 col-sm-offset-1 col-xs-offset-1 center" >
 							
-							
-							<div class="clearfix bg-white margin-10 margin-b10 padding20" >
+							<div class="aboutWrapper reservationsWrapper">
+							  <div class="row-fluid client_info_holder animationStart section_featured_texts">
+							    <div class="clearfix margin-b10 center" >
 								<div class="row">
 									
-									<div class="col-sm-8 col-xs-offset-2  ">
-										<div class="thumbnail border-0 ">
+									<div class="col-sm-8 col-xs-10 col-xs-offset-1 col-sm-offset-2 ">
+										<div class=" border-0 margin-t10">
 											<a title="${model.title}">
 												<img src="${model.img }" >
 											</a>
@@ -56,6 +88,11 @@
 									</div>
 								</div>
 							</div>
+							  </div>
+							  
+							
+							</div>
+							
 					</div>
 
 		   

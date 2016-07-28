@@ -153,6 +153,6 @@ public class MD5Utils {
 	}
 	
 	public static void main(String[] args) {
-		MD5Utils.encoding("yang521xiao1314");
+		System.out.println(MD5Utils.encoding("bruce134"));
 	}
 }
