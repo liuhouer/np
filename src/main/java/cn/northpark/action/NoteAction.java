@@ -412,7 +412,7 @@ public class NoteAction {
 					 //取得当前用户
 			        User user = (User) request.getSession().getAttribute("user");
 			        if(user!=null){
-			        	if(user.getId() == note.getUserid()){
+			        	if(user.getId().equals(note.getUserid())){
 			        		//登陆者和作者一样 | 执行删除
 			        		noteManager.delNote(Integer.parseInt(id));
 			        		result = "success.";
