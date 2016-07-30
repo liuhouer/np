@@ -49,7 +49,7 @@
 				href="/people/${MyInfo.tail_slug}"
 				</c:if>
 		        
-		        >布.图</a></li>
+		        >最爱</a></li>
 		        <li><a href="/note/viewNotes/${MyInfo.id}">碎碎念</a></li>
 		        <li class="active"><a href="/cm/fans/${MyInfo.id}">Fans</a></li>
 
