@@ -536,7 +536,7 @@ public class HTMLParserUtil
 				String date = dates.get(0).text();
 				
 //				if(!(date.equals("2016-07-20")) && !(date.equals("2016-07-23"))&& !(date.equals("2016-07-23"))){
-				if(!(date.equals("2016-07-24")) ){
+				if(!(date.equals("2016-08-01")) ){
 					continue;
 				}
 				

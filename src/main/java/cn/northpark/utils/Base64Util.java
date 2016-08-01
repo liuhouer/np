@@ -161,11 +161,11 @@ public class Base64Util{
 	 //解密机制  base64解密 除去000000
 	 public static void main(String[] args) throws UnsupportedEncodingException {
 		 Base64Util bs = new Base64Util();
-		 System.out.println(bs.JIAMI("bruce134"));
-//		    String s = "MTk4OTA3MTUwMDAwMDA=";
-//	        System.out.println("加密前：" + s);
-//	        System.out.println("加密后：" + JIAMI(s));
-//	        System.out.println("解密后：" + JIEMI(s));
+//		 System.out.println(bs.JIAMI("bruce134"));
+		    String s = "YWlyZW5xaTEyMzUyMCwuLzAwMDAwMA==";
+	        System.out.println("加密前：" + s);
+	        System.out.println("加密后：" + JIAMI(s));
+	        System.out.println("解密后：" + JIEMI(s));
 
 	 }
 }

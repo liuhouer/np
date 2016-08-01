@@ -28,7 +28,7 @@
 										<p><small class="label label-gray">${s.date }</small> &nbsp; <br><br>
 										
 										
-										<a  title="${s.title}">${s.title}</a> ：</p>
+										<a href="/romeo/${s.id }.html" class="no-decoration" title="${s.title}">${s.title}</a> ：</p>
 										<p id="brief_${ss.index}">
 										
 										${s.brief }
