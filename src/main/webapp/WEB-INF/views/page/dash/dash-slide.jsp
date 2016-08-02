@@ -11,19 +11,22 @@
 		
 							<li>
 								<div class="slider-caption">
-								<img src="/img/index/slide1.jpg" alt="" />
+								<img src="/img/index/slide05.jpg" alt="" />
 								 
 								 
 								 <span >
-								 <h1>最爱</h1>
-								 
+								 <!-- <h1>Love</h1>
+								 <p>
+								 <br>
+								 <br>
+								 </p>
 								 
 								<p>
 									什么时候爱上一首曲子，什么时候恋上一张贴画，什么时候迷上一种习惯 <br>
 									<br>一件件美好的事物，勾勒出您最真实的生命轨迹。
 								</p>
 								 <a href="/love">More Details</a>		
-								 </span>
+								 </span> -->
 								</div>
 							</li>
 								<li>

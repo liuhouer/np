@@ -23,7 +23,7 @@
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
 			<ul class="nav mainhead-nav" id="J_tabs">
-				<li cname="pic"><a href="/love" title="一张图片，爱满满的">最爱</a></li>
+				<li cname="pic"><a href="/love" title="一张图片，爱满满的">爱的随笔</a></li>
 				<li cname="note"><a href="/note/list" title="一段歌词，一段回忆">碎碎念</a></li>
 				<li cname="equp"><a href="/romeo" title="情圣养成日记">情圣日记</a></li>
 				<li cname="pcenter">
