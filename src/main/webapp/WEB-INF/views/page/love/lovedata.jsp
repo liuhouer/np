@@ -9,17 +9,20 @@
 				   				<div class="col-xs-6 col-sm-3 margin-b20 ">
 							   			<div class="blog-post">
 			                                <div class="blog-thumb">
-			                                    <img class="imgbreath" width="257" height="193"
-			                                    <c:choose>
-														  <c:when test="${fn:contains(s.albumImg ,'http://') }">
-														  src="${s.albumImg }"
-														  </c:when>
-														  <c:otherwise>
-														  src="/bruce/${s.albumImg }"
-														  </c:otherwise>
-												</c:choose> 
+			                                    <a href="/lyrics/comment/${s.id }.html" >
+			                                       	<img class="imgbreath" width="257" height="193"
+					                                    <c:choose>
+																  <c:when test="${fn:contains(s.albumImg ,'http://') }">
+																  src="${s.albumImg }"
+																  </c:when>
+																  <c:otherwise>
+																  src="/bruce/${s.albumImg }"
+																  </c:otherwise>
+														</c:choose> 
+					                                    
+					                                    alt="${s.title }">
+			                                    </a>
 			                                    
-			                                    alt="${s.title }">
 			                                </div>
 			                                <div class="blog-content">
 			                                    <div class="content-show">
