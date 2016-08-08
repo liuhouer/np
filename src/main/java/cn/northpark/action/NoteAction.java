@@ -85,6 +85,7 @@ public class NoteAction {
 	 * @return
 	 */
 	private StringBuilder handleNotes(String note_) {
+		note_.replaceAll("<p><br></p>",  "<br><br>");
 		StringBuilder sb = new StringBuilder();
 		String str[] = note_.split("</p>");
 		if(str.length>=3){
