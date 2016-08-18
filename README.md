@@ -55,6 +55,9 @@ buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2
 -  更新包名为网站的番号 版本更新为3.5
 -  ajax 加载更多加载评论
 
+## 2016-08-18
+- 新写了一套登录和注册的样式，更加可爱 & 小清新
+
 # buci
 ***之前的***
 -  buci fix to elegance and add some new function fix serval bugs VERSION v3.0 2015-12-01 11:56:55
