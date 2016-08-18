@@ -67,8 +67,9 @@ public class DashAction {
 			
 			//if www return no www
 			String getDoamin = request.getServerName();
+			System.out.println("getdomain--"+getDoamin);
 			if(getDoamin.startsWith("www")){
-				response.sendRedirect(BC_Constant.Domain);
+				response.sendRedirect("http://"+BC_Constant.Domain);
 			}
 		    
 			return "/dashboard";
