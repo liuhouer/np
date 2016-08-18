@@ -15,7 +15,7 @@
 								 
 								 
 								 <span >
-								 <!-- <h1>Love</h1>
+								 <h1>Love</h1>
 								 <p>
 								 <br>
 								 <br>
@@ -26,7 +26,7 @@
 									<br>一件件美好的事物，勾勒出您最真实的生命轨迹。
 								</p>
 								 <a href="/love">More Details</a>		
-								 </span> -->
+								 </span>
 								</div>
 							</li>
 								<li>

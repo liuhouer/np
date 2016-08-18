@@ -64,7 +64,6 @@ public class UserAction {
      * 域名
      */
      private final String DOMAIN = "northpark.cn";
-     private final String DOMAIN_LOCAL = "localhost:8082";
      /**
       * 定向action'
       */
@@ -609,7 +608,7 @@ public class UserAction {
 				map.put("redirectURI", redirectURI);
 			}
 			
-			return "/login";
+			return "/login2";
 		}
 		
 		@RequestMapping("/signup")
@@ -617,7 +616,7 @@ public class UserAction {
 			
 			map.put("reged", request.getParameter("reged"));
 			
-			return "/reg";
+			return "/reg2";
 		}
 		
 		/**
