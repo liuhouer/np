@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.northpark.constant.BC_Constant;
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.NoteManager;
@@ -58,11 +60,16 @@ public class DashAction {
 		 *首页
 		 */
 		@RequestMapping("/")
-		public String dashborard(HttpServletRequest request,ModelMap map) throws Exception {
+		public String dashborard(HttpServletRequest request,HttpServletResponse response, ModelMap map) throws Exception {
 	 	  	
 			//slider
 			request.getSession().removeAttribute("tabs");
 			
+			//if www return no www
+			String getDoamin = request.getServerName();
+			if(getDoamin.startsWith("www")){
+				response.sendRedirect(BC_Constant.Domain);
+			}
 		    
 			return "/dashboard";
 		 	  	
