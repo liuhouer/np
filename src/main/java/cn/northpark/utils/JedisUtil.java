@@ -332,5 +332,8 @@ public class JedisUtil {
 	
 	public static void main(String[] args) {
 		JedisUtil.remove("movieslist");
+		JedisUtil.remove("lovelist");
+		JedisUtil.remove("eqlist");
+		JedisUtil.remove("notelist");
 	}
 }

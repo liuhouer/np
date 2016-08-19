@@ -31,6 +31,7 @@ import cn.northpark.utils.JedisUtil;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.SerializationUtil;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.XMemcachedUtil;
 
 
 /**
@@ -67,7 +68,6 @@ public class DashAction {
 			
 			//if www return no www
 			String getDoamin = request.getServerName();
-			System.out.println("getdomain--"+getDoamin);
 			if(getDoamin.startsWith("www")){
 				response.sendRedirect("http://"+BC_Constant.Domain);
 			}
@@ -82,11 +82,11 @@ public class DashAction {
 				@RequestMapping(value="/dash/getLove")
 				public String getLove(ModelMap map) {
 					
-					 byte[] b = JedisUtil.getListByte("lovelist");
-					 List<Map<String, Object>> lovelist = (List<Map<String, Object>>) SerializationUtil.deserialize(b);
+					Object obj = XMemcachedUtil.get("lovelist");
+					 List<Map<String, Object>> lovelist = (List<Map<String, Object>>)obj;
 					 if(CollectionUtils.isEmpty(lovelist)){
 						 //查询数据库并且放到缓存
-						 pushLove2Redis(map);
+						 pushLove2Cache(map);
 					 }else{
 						 map.addAttribute("lovelist", lovelist==null?"":lovelist);
 					 }
@@ -100,11 +100,11 @@ public class DashAction {
 				@RequestMapping(value="/dash/getNote")
 				public String getNote(ModelMap map) {
 					
-					 byte[] b = JedisUtil.getListByte("notelist");
-					 List<Map<String, Object>> notelist = (List<Map<String, Object>>) SerializationUtil.deserialize(b);
+					 Object obj = XMemcachedUtil.get("notelist");
+					 List<Map<String, Object>> notelist = (List<Map<String, Object>>)obj;
 					 if(CollectionUtils.isEmpty(notelist)){
 						 //查询数据库并且放到缓存
-						  pushNote2Redis(map);
+						  pushNote2Cache(map);
 							
 					 }else{
 						 map.addAttribute("notelist", notelist==null?"":notelist);
@@ -119,11 +119,11 @@ public class DashAction {
 				@RequestMapping(value="/dash/getRomeo")
 				public String getRomeo(ModelMap map) {
 					
-					 byte[] b = JedisUtil.getListByte("eqlist");
-					 List<Eq>  eqlist = (List<Eq>) SerializationUtil.deserialize(b);
+					 Object obj = XMemcachedUtil.get("eqlist");
+					 List<Eq>  eqlist = (List<Eq>) obj;
 					 if(CollectionUtils.isEmpty(eqlist)){
 						 //查询数据库并且放到缓存
-						  pushEQ2Redis(map);
+						  pushEQ2Cache(map);
 							
 							
 							
@@ -140,12 +140,12 @@ public class DashAction {
 				@RequestMapping(value="/dash/getMovies")
 				public String getMovies(ModelMap map) {
 					
-					 byte[] b = JedisUtil.getListByte("movieslist");
-					 List<Movies>  movieslist = (List<Movies>) SerializationUtil.deserialize(b);
+					 Object obj = XMemcachedUtil.get("movieslist");
+					 List<Movies>  movieslist = (List<Movies>) obj;
 					 if(CollectionUtils.isEmpty(movieslist)){
 						 //查询数据库并且放到缓存
 						 
-						pushMovies2Redis(map);
+						pushMovies2Cache(map);
 							
 							
 							
@@ -163,11 +163,11 @@ public class DashAction {
 				/**
 				 * @param map
 				 */
-				public void pushMovies2Redis(ModelMap map) {
+				public void pushMovies2Cache(ModelMap map) {
 					//取出热门电影
 						String msql = "select * from bc_movies order by id desc limit 1,50";
 						List<Movies> movieslist = moviesManager.querySql(msql);
-						JedisUtil.addList("movieslist", movieslist==null?new ArrayList<>():movieslist);
+						XMemcachedUtil.put("movieslist", movieslist==null?new ArrayList<>():movieslist);
 						map.addAttribute("movieslist", movieslist==null?"":movieslist);
 				}
 
@@ -176,13 +176,13 @@ public class DashAction {
 				/**
 				 * @param map
 				 */
-				public void pushEQ2Redis(ModelMap map) {
+				public void pushEQ2Cache(ModelMap map) {
 					//取出一部分情圣日记
 						
 						String eqsql = "select * from bc_eq  where date ='2016-07-21' or date ='2016-07-19' or date ='2016-07-15' order by date desc";
 						List<Eq> eqlist = this.eqManager.querySql(eqsql);
 						
-						JedisUtil.addList("eqlist", eqlist==null?new ArrayList<>():eqlist);
+						XMemcachedUtil.put("eqlist", eqlist==null?new ArrayList<>():eqlist);
 						map.addAttribute("eqlist", eqlist==null?"":eqlist);
 				}
 
@@ -192,7 +192,7 @@ public class DashAction {
 				 * 把首页的日记数据查询出来并且添加到缓存里去
 				 * @param map
 				 */
-				public void pushNote2Redis(ModelMap map) {
+				public void pushNote2Cache(ModelMap map) {
 					//取出一部分日记
 						
 						NoteQueryCondition notecondition = new NoteQueryCondition();
@@ -212,7 +212,7 @@ public class DashAction {
 							
 						}
 						
-						JedisUtil.addList("notelist", notelist==null?new ArrayList<>():notelist);
+						XMemcachedUtil.put("notelist", notelist==null?new ArrayList<>():notelist);
 						
 						map.addAttribute("notelist", notepageView.getMapRecords()==null?"":notelist);
 				}
@@ -223,7 +223,7 @@ public class DashAction {
 				 * 把首页的love数据查询出来并且添加到缓存里去
 				 * @param map
 				 */
-				public void pushLove2Redis(ModelMap map) {
+				public void pushLove2Cache(ModelMap map) {
 					//取出一部分love数据
 					PageView<List<Map<String, Object>>> lovepageView = this.userlyricsManager.getMixMapData("0","");
 					
@@ -244,7 +244,7 @@ public class DashAction {
 						}
 					}
 					
-					JedisUtil.addList("lovelist", lovelist==null?new ArrayList<>():lovelist);
+					XMemcachedUtil.put("lovelist", lovelist==null?new ArrayList<>():lovelist);
 					
 					map.addAttribute("lovelist", lovelist==null?"":lovelist);
 				}	
