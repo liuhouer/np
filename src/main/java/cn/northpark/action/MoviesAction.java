@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import cn.northpark.interceptor.CheckLogin;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.model.Movies;
 import cn.northpark.model.User;
@@ -41,14 +42,15 @@ public class MoviesAction {
 	 * @return
 	 */
 	@RequestMapping("/movies/add")
+	@CheckLogin
 	public String toAdd(ModelMap map,HttpServletRequest request) {
 		String rs = "/page/admin/movies/moviesAdd";
 		User user = (User) request.getSession().getAttribute("user");
 		if(user==null){
-			rs = "/login";
+			rs = "/login2";
 		}else{
 			if(!user.getEmail().equals("654714226@qq.com") && !user.getEmail().equals("qhdsoft@126.com")){
-				rs = "/login";
+				rs = "/login2";
 			}
 		}
 		

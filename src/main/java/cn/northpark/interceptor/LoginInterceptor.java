@@ -38,9 +38,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     			}else{//如果验证失败
     				//返回到登录界面
     				String url = request.getRequestURL().toString();
-    				String[] strs = url.split("8082/");
-    				String postfix = strs[1];
-    				url = "http://"+BC_Constant.Domain+"/"+postfix;
     				response.sendRedirect("/login?redirectURI="+url);
     				return false;
     			}       
