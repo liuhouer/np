@@ -26,7 +26,13 @@
 	
 <div class="clearfix maincontent grayback">
 	<div class="container">
-		<div class="mainbody" id="J_maincontent"  style="margin-top:80px; ">
+		    <div class="view margin-t20"  style="margin-top:100px; " >
+                <form class=" form-inline margin-t20"  method="post">
+                  <input id="keyword" placeholder="约不出来怎么办"    value="${keyword }"	class="form-control input-lg  border-light-1 bg-lyellow grid98 radius-0" name="keyword" type="text">
+                  <input data-activetext="搜索 ››" id="J_search" class="form-control btn btn-hero " value="搜索" type="button">
+                </form>
+              </div>
+		<div class="mainbody" id="J_maincontent"  >
 			
 			<div id="J_progress" class="center padding-t20"></div>
 

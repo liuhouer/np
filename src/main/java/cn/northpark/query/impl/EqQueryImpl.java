@@ -18,7 +18,7 @@ public class EqQueryImpl implements EqQuery {
 
 	@Override
 	public String getSql(EqQueryCondition eqQueryCondition) {
-		StringBuilder sql = new StringBuilder(" where 1=1");
+		StringBuilder sql = new StringBuilder(" where 1=1 ");
 		
         
 		return sql.toString();

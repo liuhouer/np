@@ -13,6 +13,12 @@ import java.io.Serializable;
 public class EqQueryCondition implements Serializable {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6578257695810046024L;
+
+
 	private Integer id;
   
 

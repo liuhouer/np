@@ -2,6 +2,9 @@
 
 
 //load data...
+
+
+
 $(function(){
 	var pagenow = parseInt($("#pagenow").val())-1;
 	 $.ajax({
@@ -16,6 +19,33 @@ $(function(){
 				}			
 			}
 		});
+	 
+	 
+	 
+	 
+	 
+	 //搜索点击事件
+	 $("#J_search").click(function(){
+		 
+		 var keyword = $("#keyword").val();
+		 if(keyword){
+			 
+			 $.ajax({
+				 url:"/romeo/equery",
+				 type:"post",
+				 data:{"keyword":keyword},
+				 beforeSend:beforeSend, //发送请求
+				 complete:complete,
+				 success:function(data){
+					 if(data){
+						 $("#J_maincontent").empty().append(data);
+						 $("#pageForm").remove();
+					 }			
+				 }
+			 });
+		 }
+	 });
+	 
 })
 
 

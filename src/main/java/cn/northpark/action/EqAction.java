@@ -33,6 +33,7 @@ import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.safe.WAQ;
 
 
 /**
@@ -140,6 +141,8 @@ public class EqAction {
 		return "meizitu  success";
 	}
 
+	
+	
 	@RequestMapping("/romeo")
 	public String list(ModelMap map,EqQueryCondition condition, String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)  {
@@ -224,10 +227,15 @@ public class EqAction {
 	
 	//异步分页查询eq数据
 		@RequestMapping(value="/romeo/equery")
-		public String lovequery(ModelMap map,HttpServletRequest request,EqQueryCondition condition,  HttpSession session,String userid) {
+		public String lovequery(ModelMap map,HttpServletRequest request,EqQueryCondition condition,  HttpSession session,String keyword) {
 			String currentpage = request.getParameter("currentpage");
 			
 			String whereSql = eqQuery.getSql(condition);
+			
+			if(StringUtils.isNotEmpty(keyword)){
+				keyword = WAQ.forSQL().escapeSql(keyword);
+				whereSql+=" and title like '%"+keyword+"%' ";
+			}
 			PageView<Eq> p = getPageView(currentpage, whereSql);
 			//排序条件
 			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

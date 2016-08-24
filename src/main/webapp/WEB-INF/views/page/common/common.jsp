@@ -6,7 +6,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%-- <base href="<%=basePath%>"> --%>
-<base href="http://northpark.cn">
+<!-- <base href="http://northpark.cn"> -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!--QQ登陆  -->
 <!-- <meta property="qc:admins" content="61073355176476541272743636" /> 
