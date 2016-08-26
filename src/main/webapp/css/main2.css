@@ -358,6 +358,21 @@ text-overflow: ellipsis;
 }
 
 
+/*多行的截断  */
+.cutline{
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 3;
+overflow: hidden;
+}
+
+/* 加粗的标签 */
+.boldlabel{
+font: bold;
+font-family:fantasy;
+font-style: normal;
+}
+
 .pline{
 	line-height:200%;
 }

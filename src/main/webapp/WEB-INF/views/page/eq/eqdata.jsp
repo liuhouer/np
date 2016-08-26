@@ -18,7 +18,7 @@
 												<img src="${s.img }" class="imgbreath">
 											</c:if>
 											</a>
-											<p><label class="bold-text">${s.title}</label></p>
+											<p><label class="bold-text cutline ">${s.title}</label></p>
 											
 											<div class="clearfix visible-xs"><hr></div>
 										</div>
