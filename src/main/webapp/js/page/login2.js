@@ -48,11 +48,11 @@ $(document).ready(function() {
             	  $('#formSubmit').attr('disabled',true);
                   art.dialog.tips(msg.info+' | 正在跳转..', 3);
                   var uri = $("#redirectURI").val();
-                  if(uri){
+                  if(uri.trim()){
                 	  window.location.href = uri;
                   }else{
                 	  
-                      window.location.href = "/love";
+                      window.location.href = "/";
                   }
               }else{
             	  art.dialog.tips(msg.info);
