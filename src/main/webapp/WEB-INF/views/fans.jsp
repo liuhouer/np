@@ -30,7 +30,7 @@
 
 	<input name="userid" type="hidden" value="${user.id }"/>
 </form>
- <form action="cm/toEditInfo" method="post" id="f1">
+ <form action="/cm/toEditInfo" method="post" id="f1">
  		<input name="userid" value="${user.id }" type="hidden">
  </form>
     

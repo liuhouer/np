@@ -33,7 +33,7 @@
 		<div class="container">
 			<div class="mainbody" style="margin-top: 5em;">
 				<div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
-	<form id="f1" action="lyrics/update.action" method="post" enctype="multipart/form-data">
+	<form id="f1" action="/lyrics/update.action" method="post" enctype="multipart/form-data">
 	   <input type="hidden" name="userid" value="${userid }"/>
 	   <input type="hidden" id="albumpath" value="${albumpath }">
 	   <input type="hidden" name="oldpath" value="${model.albumImg }">

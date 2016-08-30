@@ -56,7 +56,7 @@
 			<div id="login">
 			    <div class="wrapper">
 			        <div class="login">
-			            <form id="loginForm"  action="cm/login" method="post" class="container offset1 loginform">
+			            <form id="loginForm"  action="/cm/login" method="post" class="container offset1 loginform">
 			                <div id="owl-login">
 			                    <div class="hand"></div>
 			                    <div class="hand hand-r"></div>

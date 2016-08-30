@@ -44,7 +44,7 @@
     <div clas="row">
     
     <div class="col-lg-6 col-lg-offset-3 bg-white radius-5  min-width-300">
-      <form method="POST" action="cm/saveEditInfo" enctype="multipart/form-data" accept-charset="UTF-8" role="form" style="color:#444;" id="f1" class="form-horizontal margin-t20">     
+      <form method="POST" action="/cm/saveEditInfo" enctype="multipart/form-data" accept-charset="UTF-8" role="form" style="color:#444;" id="f1" class="form-horizontal margin-t20">     
       <div class="form-group">
         <div class="col-md-9 col-md-offset-3 text-left">
           <h3>编辑我的档案</h3>

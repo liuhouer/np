@@ -33,7 +33,7 @@
 		<div class="container">
 			<div class="mainbody" style="margin-top: 5em;">
 				<div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
-					<form method="POST" action="lyrics/addLyrics.action" accept-charset="UTF-8" role="form" id="addItemForm" style="color: #444;" class="form margin-t20"  enctype="multipart/form-data">
+					<form method="POST" action="/lyrics/addLyrics.action" accept-charset="UTF-8" role="form" id="addItemForm" style="color: #444;" class="form margin-t20"  enctype="multipart/form-data">
 						<div class="clearfix">
 							<h4>
 								<span class="glyphicon glyphicon-plus"></span> 添加我的最爱

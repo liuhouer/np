@@ -56,7 +56,7 @@
 
             <div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
 
-              <form method="POST" action="cm/login" accept-charset="UTF-8" role="form" id="loginForm" style="color:#444;" class="form margin-t20">
+              <form method="POST" action="/cm/login" accept-charset="UTF-8" role="form" id="loginForm" style="color:#444;" class="form margin-t20">
                 <div class="clearfix">
                   <h4>登录 northpark</h4>
                   <hr>

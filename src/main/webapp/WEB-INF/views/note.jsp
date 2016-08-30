@@ -44,14 +44,14 @@
 			</ul>
 </div>
 		       <form id="f2" method="post"><input name="userid" type="hidden" value="${user.id }"/></form>
-		       <form action="cm/toEditInfo" method="post" id="f1">
+		       <form action="/cm/toEditInfo" method="post" id="f1">
                    <input name="userid" value="${user.id }" type="hidden">
                </form>
 				<div class="row bg-white margin-t10 margin-b10  ">
 			<div class="col-sm-1">
 				<a href="/cm/pcentral" title="${user.username}的最爱"><img src="/img/davatar.jpg" class="img-responsive  img-circle max-width-50" alt="654714226的最爱"></a>			</div>
 			<div class="col-sm-11">
-				<form method="POST" action="note/addNote" accept-charset="UTF-8" role="form" class="form">
+				<form method="POST" action="/note/addNote" accept-charset="UTF-8" role="form" class="form">
               	<input name="userid" type="hidden" value="${user.id }"/>
               	
               	<div class="form-group">

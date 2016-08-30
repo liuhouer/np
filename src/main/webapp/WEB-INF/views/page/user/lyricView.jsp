@@ -31,7 +31,7 @@
 		<div class="container">
 			<div class="mainbody" style="margin-top: 5em;">
 				<div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
-	<form id="f1" action="lyrics/addLyrics.action" method="post" enctype="multipart/form-data">
+	<form id="f1" action="/lyrics/addLyrics.action" method="post" enctype="multipart/form-data">
 	   <input type="hidden" name="id" value="${model.id }"/>
 	         上传者:<c:out value="${auther }"/><br/>
 		    
