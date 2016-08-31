@@ -19,6 +19,7 @@
 											</c:if>
 											</a>
 											<p><label class="bold-text cutline ">${s.title}</label></p>
+											<p class="cutline boldlabel margin-t10 ">${s.title}</p>
 											
 											<div class="clearfix visible-xs"><hr></div>
 										</div>
