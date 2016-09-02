@@ -369,12 +369,7 @@ overflow: hidden;
 /* 加粗的标签 */
 .boldlabel{
 font: bold;
-font-family:fantasy;
-<<<<<<< HEAD
 font-style: normal;
-=======
-font-style: italic;
->>>>>>> 4d676b007ed8caafbb3dbffd682ae6f4cc04f7f6
 }
 
 .pline{

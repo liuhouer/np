@@ -149,7 +149,7 @@ public class NoteAction {
 		map.addAttribute("pageView", pageView);
 		map.put("condition", condition);
 		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","note/viewNotes/"+userid );
+		map.addAttribute("actionUrl","/note/viewNotes/"+userid );
 		
 		//取得当前用户对作者的关注状态
         User lo_user = (User) request.getSession().getAttribute("user");
@@ -202,7 +202,7 @@ public class NoteAction {
 		map.addAttribute("pageView", pageView);
 		map.put("condition", condition);
 		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","note/viewNotes/"+userid );
+		map.addAttribute("actionUrl","/note/viewNotes/"+userid );
 		
 		//取得当前用户对作者的关注状态
         User lo_user = (User) request.getSession().getAttribute("user");
@@ -261,7 +261,7 @@ public class NoteAction {
 		map.addAttribute("pageView", pageView);
 		map.put("condition", condition);
 		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","note/findAll" );
+		map.addAttribute("actionUrl","/note/findAll" );
 
 		return result;
 	}
@@ -305,7 +305,7 @@ public class NoteAction {
 		map.addAttribute("pageView", pageView);
 		map.put("condition", condition);
 		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","note/findAll" );
+		map.addAttribute("actionUrl","/note/findAll" );
 
 		return result;
 	}
@@ -329,7 +329,7 @@ public class NoteAction {
 		map.addAttribute("pageView", pageView);
 		map.put("condition", condition);
 //		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","note/list");
+		map.addAttribute("actionUrl","/note/list");
 		
 		
 
@@ -362,7 +362,7 @@ public class NoteAction {
 		map.addAttribute("pageView", pageView);
 		map.put("condition", condition);
 //		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","note/list");
+		map.addAttribute("actionUrl","/note/list");
 		
 		
 
