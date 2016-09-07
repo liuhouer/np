@@ -55,7 +55,19 @@
 											
 											title="${s.get('username')}">
 											
-											<span class=" imgbreath ${s.headspanclass }" alt="${s.get('username')}">${s.headspan }</span>
+											
+											<c:if test="${s.get('headpath') ==null||s.get('headpath') ==''||s.get('headpath').length()==0}">
+												<span class=" imgbreath ${s.headspanclass }" alt="${s.get('username')}">${s.headspan }</span>
+											</c:if>
+											<c:if test="${s.get('headpath') !=null && s.get('headpath').length()>0}">
+											    <img class="imgbreath" style="text-align: center;display: inline-block;"
+											 <c:choose>
+   												<c:when test="${fn:contains(s.headpath ,'http://') }">src="${s.headpath }"</c:when>
+                                  				<c:otherwise>src="/bruce/${s.headpath }"</c:otherwise>
+                                			</c:choose> 
+											
+											 alt="${s.username}">
+											 </c:if>
 											</a>
 										</p>
 										<h6 class="gray-text">
