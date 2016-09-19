@@ -451,39 +451,39 @@ import sun.misc.BASE64Encoder;
 		
 		
 		
-	    public static void main(String[] args) {
-	    	try{
-	    		
-				List<trackVO> tlist = new ArrayList<trackVO>();
-				List<String> list = ReadFile("/Users/zhangyang/Documents/lvzheng_pc.access.log.2016-04-25");
-				//System.out.println(JsonContext);
-				for (int i = 0; i < list.size(); i++) {
-					
-					//System.out.println(list.get(i));
-					trackVO model =  JsonUtil.jsonUtil.jsonToModel(list.get(i), trackVO.class);
-					tlist.add(model);
-					
-					
-				}
-				
-				
-				 //实现统计逻辑
-				 
-				 Map<String, Integer> m = getCount(tlist,"pageUrl");
-				 
-				 
-				 //打印统计结果|发送邮件
-				 String rs = printMap(m);
-				 
-				 
-				 EmailUtils.emailUtil.analyseLog("duqingxiang92@163.com", rs);
-				 
-	    		
-	    		
-	    	}catch(Exception e){
-	    		e.printStackTrace();
-	    	}
-		}
+//	    public static void main(String[] args) {
+//	    	try{
+//	    		
+//				List<trackVO> tlist = new ArrayList<trackVO>();
+//				List<String> list = ReadFile("/Users/zhangyang/Documents/lvzheng_pc.access.log.2016-04-25");
+//				//System.out.println(JsonContext);
+//				for (int i = 0; i < list.size(); i++) {
+//					
+//					//System.out.println(list.get(i));
+//					trackVO model =  JsonUtil.jsonUtil.jsonToModel(list.get(i), trackVO.class);
+//					tlist.add(model);
+//					
+//					
+//				}
+//				
+//				
+//				 //实现统计逻辑
+//				 
+//				 Map<String, Integer> m = getCount(tlist,"pageUrl");
+//				 
+//				 
+//				 //打印统计结果|发送邮件
+//				 String rs = printMap(m);
+//				 
+//				 
+//				 EmailUtils.emailUtil.analyseLog("duqingxiang92@163.com", rs);
+//				 
+//	    		
+//	    		
+//	    	}catch(Exception e){
+//	    		e.printStackTrace();
+//	    	}
+//		}
 	    
 	    
 		/**
@@ -619,5 +619,22 @@ import sun.misc.BASE64Encoder;
 			return sb.toString();
 		}
 	  
+		
+		
+		
+		public static void main(String[] args) {
+				  String path="/Users/zhangyang";
+				  File file=new File(path);
+				  File[] tempList = file.listFiles();
+				  System.out.println("该目录下对象个数："+tempList.length);
+				  for (int i = 0; i < tempList.length; i++) {
+				   if (tempList[i].isFile()) {
+				    System.out.println("文     件："+tempList[i]);
+				   }
+				   if (tempList[i].isDirectory()) {
+				    System.out.println("文件夹："+tempList[i]);
+				   }
+				  }
+		}
 	}  
 
