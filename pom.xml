@@ -119,11 +119,19 @@
 			<version>5.1.34</version>
 		</dependency>
 
-		<!-- c3p0数据源 -->
+		
+		<!-- commons-dbcp -->
 		<dependency>
-			<groupId>com.mchange</groupId>
-			<artifactId>c3p0</artifactId>
-			<version>0.9.5-pre10</version>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		
+		<!-- commons-pool -->
+		<dependency>
+		    <groupId>commons-pool</groupId>
+		    <artifactId>commons-pool</artifactId>
+		    <version>1.6</version>
 		</dependency>
 
 		<!-- json -->
