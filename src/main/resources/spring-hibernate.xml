@@ -19,13 +19,13 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 		<!--maxActive: 最大连接数量 -->
-		<property name="maxActive" value="150" />
+		<property name="maxActive" value="100" />
 		<!--minIdle: 最小空闲连接 -->
-		<property name="minIdle" value="5" />
+		<property name="minIdle" value="3" />
 		<!--maxIdle: 最大空闲连接 -->
-		<property name="maxIdle" value="20" />
+		<property name="maxIdle" value="16" />
 		<!--initialSize: 初始化连接 -->
-		<property name="initialSize" value="30" />
+		<property name="initialSize" value="10" />
 		<!-- 连接被泄露时是否打印 -->
 		<property name="logAbandoned" value="true" />
 		<!--removeAbandoned: 是否自动回收超时连接 -->
@@ -57,11 +57,11 @@
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
 
 				<!-- 开启二级缓存 ehcache -->
-				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+				<!-- <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
 				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
 				<prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
 				<prop key="hibernate.cache.provider_configuration_file_resource_path">${hibernate.cache.provider_configuration_file_resource_path}
-				</prop>
+				</prop> -->
 			</props>
 		</property>
 		<!-- 扫描hibernate注解配置的entity -->
