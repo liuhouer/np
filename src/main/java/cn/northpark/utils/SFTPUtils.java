@@ -9,6 +9,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Vector;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 import org.apache.log4j.Logger;
 
 import com.jcraft.jsch.Channel;
@@ -137,16 +141,29 @@ public class SFTPUtils {
 		
 	
 		
-		ChannelSftp sftp = connect("123.56.129.117", 22, "root", "DUdu123456");
+		ChannelSftp sftp = connect("123.57.10.193", 22, "root", "Jix141118");
 		try {
-			String path  = "/mnt/apk/";
+			String path  = "/opt/statics/audios/";
 			
 			
-			getFileList(sftp, path);
+			List<Map<String, String>> fileList = getFileList(sftp, path);
+			
+			for (int i = 0; i < fileList.size(); i++) {
+				Map<String, String> map  = fileList.get(i);
+				
+				String fileurl = map.get("fileurl").replaceAll("/opt/statics/", "http://static.lvzheng.com/");
+
+				System.out.println(fileurl);
+			        Clip clip = AudioSystem.getClip();
+			        AudioInputStream ais = AudioSystem.getAudioInputStream(new File(fileurl));
+			        clip.open(ais);
+			        System.out.println( clip.getMicrosecondLength() / 1000000D + " s" );//获取音频文件时长
+				
+			}
 			
 			
 			
-		} catch (SftpException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
@@ -177,7 +194,7 @@ public class SFTPUtils {
 			//是文件夹
 			if(mattr.isDir()){
 				String path1 = path+model.getFilename();
-				System.out.println("path1--"+path1);
+//				System.out.println("path1--"+path1);
 				if(!path1.endsWith(".")){
 					dirname = model.getFilename();
 					
@@ -185,13 +202,13 @@ public class SFTPUtils {
 				}
 			}else{//不是文件夹
 				filename = model.getFilename();
-				fileurl = path+model.getFilename();
+				fileurl = path+"/"+model.getFilename();
 				map.put("filename", filename );
 				map.put("dirname", dirname);
 				map.put("fileurl", fileurl);
 				
 				finalfilelist.add(map);
-				System.out.println(dirname+"    "+fileurl+"----->");
+//				System.out.println(dirname+"    "+fileurl+"----->");
 			}
 		}
 		return finalfilelist;
