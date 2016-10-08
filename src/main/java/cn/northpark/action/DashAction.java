@@ -1,11 +1,8 @@
 
 package cn.northpark.action;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,11 +24,8 @@ import cn.northpark.model.Movies;
 import cn.northpark.query.NoteQuery;
 import cn.northpark.query.condition.NoteQueryCondition;
 import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.JedisUtil;
 import cn.northpark.utils.PageView;
-import cn.northpark.utils.SerializationUtil;
 import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.XMemcachedUtil;
 
 
 /**
@@ -39,6 +33,7 @@ import cn.northpark.utils.XMemcachedUtil;
  * 处理首页的内容
  * 所有内容
  * 从redis缓存获取
+ * @date 2016-10-08 去掉缓存|内存占用有点大
  */
 @Controller
 @RequestMapping("")
@@ -78,80 +73,43 @@ public class DashAction {
 		
 		
 		
-				//异步获取首页的love数据 从redis缓存！！！
+				//异步获取首页的love数据 
 				@RequestMapping(value="/dash/getLove")
 				public String getLove(ModelMap map) {
-					
-					Object obj = XMemcachedUtil.get("lovelist");
-					 List<Map<String, Object>> lovelist = (List<Map<String, Object>>)obj;
-					 if(CollectionUtils.isEmpty(lovelist)){
-						 //查询数据库并且放到缓存
-						 pushLove2Cache(map);
-					 }else{
-						 map.addAttribute("lovelist", lovelist==null?"":lovelist);
-					 }
-					 
-					
+				    
+					pushLove2Map(map);
 					
 					return "/page/love/lovedata";
 				}
 				
-				//异步获取首页的《碎碎念》数据 从redis缓存！！！
+				//异步获取首页的《碎碎念》数据 
 				@RequestMapping(value="/dash/getNote")
 				public String getNote(ModelMap map) {
 					
-					 Object obj = XMemcachedUtil.get("notelist");
-					 List<Map<String, Object>> notelist = (List<Map<String, Object>>)obj;
-					 if(CollectionUtils.isEmpty(notelist)){
-						 //查询数据库并且放到缓存
-						  pushNote2Cache(map);
-							
-					 }else{
-						 map.addAttribute("notelist", notelist==null?"":notelist);
-					 }
-					 
+					
+					pushNote2Map(map);
 					
 					
 					return "/page/dash/notedata";
 				}
 				
-				//异步获取首页的《情圣》数据 从redis缓存！！！
+				//异步获取首页的《情圣》数据  
 				@RequestMapping(value="/dash/getRomeo")
 				public String getRomeo(ModelMap map) {
 					
-					 Object obj = XMemcachedUtil.get("eqlist");
-					 List<Eq>  eqlist = (List<Eq>) obj;
-					 if(CollectionUtils.isEmpty(eqlist)){
-						 //查询数据库并且放到缓存
-						  pushEQ2Cache(map);
-							
-							
-							
-					 }else{
-						 map.addAttribute("eqlist", eqlist==null?"":eqlist);
-					 }
-					 
+					pushEQ2Map(map);
 					
 					
 					return "/page/dash/romeodata";
 				}
 				
-				//异步获取首页的《电影》数据 从redis缓存！！！
+				//异步获取首页的《电影》数据 
 				@RequestMapping(value="/dash/getMovies")
 				public String getMovies(ModelMap map) {
 					
-					 Object obj = XMemcachedUtil.get("movieslist");
-					 List<Movies>  movieslist = (List<Movies>) obj;
-					 if(CollectionUtils.isEmpty(movieslist)){
-						 //查询数据库并且放到缓存
 						 
-						pushMovies2Cache(map);
+					pushMovies2Map(map);
 							
-							
-							
-					 }else{
-						 map.addAttribute("movieslist", movieslist==null?"":movieslist);
-					 }
 					 
 					
 					
@@ -163,11 +121,10 @@ public class DashAction {
 				/**
 				 * @param map
 				 */
-				public void pushMovies2Cache(ModelMap map) {
+				public void pushMovies2Map(ModelMap map) {
 					//取出热门电影
 						String msql = "select * from bc_movies order by id desc limit 1,50";
 						List<Movies> movieslist = moviesManager.querySql(msql);
-						XMemcachedUtil.put("movieslist", movieslist==null?new ArrayList<>():movieslist);
 						map.addAttribute("movieslist", movieslist==null?"":movieslist);
 				}
 
@@ -176,13 +133,12 @@ public class DashAction {
 				/**
 				 * @param map
 				 */
-				public void pushEQ2Cache(ModelMap map) {
+				public void pushEQ2Map(ModelMap map) {
 					//取出一部分情圣日记
 						
 						String eqsql = "select * from bc_eq  where date ='2016-07-21' or date ='2016-07-19' or date ='2016-07-15' order by date desc";
 						List<Eq> eqlist = this.eqManager.querySql(eqsql);
 						
-						XMemcachedUtil.put("eqlist", eqlist==null?new ArrayList<>():eqlist);
 						map.addAttribute("eqlist", eqlist==null?"":eqlist);
 				}
 
@@ -192,7 +148,7 @@ public class DashAction {
 				 * 把首页的日记数据查询出来并且添加到缓存里去
 				 * @param map
 				 */
-				public void pushNote2Cache(ModelMap map) {
+				public void pushNote2Map(ModelMap map) {
 					//取出一部分日记
 						
 						NoteQueryCondition notecondition = new NoteQueryCondition();
@@ -212,7 +168,6 @@ public class DashAction {
 							
 						}
 						
-						XMemcachedUtil.put("notelist", notelist==null?new ArrayList<>():notelist);
 						
 						map.addAttribute("notelist", notepageView.getMapRecords()==null?"":notelist);
 				}
@@ -223,7 +178,7 @@ public class DashAction {
 				 * 把首页的love数据查询出来并且添加到缓存里去
 				 * @param map
 				 */
-				public void pushLove2Cache(ModelMap map) {
+				public void pushLove2Map(ModelMap map) {
 					//取出一部分love数据
 					PageView<List<Map<String, Object>>> lovepageView = this.userlyricsManager.getMixMapData("0","");
 					
@@ -244,36 +199,10 @@ public class DashAction {
 						}
 					}
 					
-					XMemcachedUtil.put("lovelist", lovelist==null?new ArrayList<>():lovelist);
 					
 					map.addAttribute("lovelist", lovelist==null?"":lovelist);
 				}	
 	 	
 
 	
-	/**
-	 * 过滤掉文本的样式
-	 * @param htmlStr
-	 * @return
-	 */
-	public String delHTMLTag(String htmlStr){   
-        String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式   
-        String regEx_html="<[^>]+>"; //定义HTML标签的正则表达式   
-           
-        Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE);   
-        Matcher m_style=p_style.matcher(htmlStr);   
-        htmlStr=m_style.replaceAll(""); //过滤style标签   
-           
-        Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE);   
-        Matcher m_html=p_html.matcher(htmlStr);   
-        htmlStr=m_html.replaceAll(""); //过滤html标签   
-          
-        htmlStr=htmlStr.replace(" ","");  
-        htmlStr=htmlStr.replaceAll("\\s*|\t|\r|\n","");  
-        htmlStr=htmlStr.replace("“","");  
-        htmlStr=htmlStr.replace("”","");  
-        htmlStr=htmlStr.replaceAll("　","");  
-            
-        return htmlStr.trim(); //返回文本字符串   
-    }  
 }

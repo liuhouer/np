@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Language" content="zh-CN">
-<meta name="description" content="添加我的最爱:northpark / 记住美好,保留回忆,分享最爱。">
+<meta name="description" content="northpark影视">
 <meta name="keywords" content="northpark,最爱,回忆,生活">
 <meta name="author" content="bruce">
 <meta name="robots" content="index,follow,archive">

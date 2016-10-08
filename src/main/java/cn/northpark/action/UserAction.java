@@ -766,7 +766,7 @@ public class UserAction {
 			map.put("page", pages);
 			map.put("condition", condition);
 //			map.addAttribute("list", pageView.getMapRecords()==null?"":list);
-			map.addAttribute("actionUrl","love");
+			map.addAttribute("actionUrl","/love");
 			
 			String signoutflag = (String) request.getParameter("signout");
 			if(StringUtils.isNotEmpty(signoutflag)){
@@ -798,7 +798,7 @@ public class UserAction {
 			map.addAttribute("pageView", pageView);
 			map.put("condition", condition);
 			//map.addAttribute("list", pageView.getMapRecords()==null?"":pageView.getMapRecords());
-			map.addAttribute("actionUrl","love");
+			map.addAttribute("actionUrl","/love");
 			
 			String signoutflag = (String) request.getParameter("signout");
 			if(StringUtils.isNotEmpty(signoutflag)){

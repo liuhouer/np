@@ -175,7 +175,7 @@ public class EqAction {
 			map.addAttribute("pageView", p);
 			map.put("condition", condition);
 //			map.addAttribute("list", resultlist);
-			map.addAttribute("actionUrl","romeo");
+			map.addAttribute("actionUrl","/romeo");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -218,7 +218,7 @@ public class EqAction {
 		map.addAttribute("pageView", p);
 		map.put("condition", condition);
 //		map.addAttribute("list", resultlist);
-		map.addAttribute("actionUrl","romeo");
+		map.addAttribute("actionUrl","/romeo");
 		
 		
 

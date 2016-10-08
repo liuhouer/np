@@ -464,7 +464,7 @@ public class LyricsAction {
 		map.addAttribute("pageView", pageView);
 		map.put("condition", condition);
 		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","lyrics/findAll" );
+		map.addAttribute("actionUrl","/lyrics/findAll" );
 
 		return "/page/user/lyricList";
 	}

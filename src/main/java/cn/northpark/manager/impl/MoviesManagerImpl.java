@@ -79,5 +79,23 @@ public class MoviesManagerImpl implements MoviesManager {
 		return moviesDao.querySql(sql, Movies.class);
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.northpark.manager.MoviesManager#countSql(java.lang.String)
+	 */
+	@Override
+	public int countSql(String sql) {
+		// TODO Auto-generated method stub
+		return moviesDao.countSql(sql);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.northpark.manager.MoviesManager#countHql(cn.northpark.model.Movies, java.lang.String)
+	 */
+	@Override
+	public int countHql(Movies m, String wheresql) {
+		// TODO Auto-generated method stub
+		return moviesDao.countHql(m.getClass(), wheresql);
+	}
+
 }
 

@@ -92,6 +92,7 @@
 	
 	<!-- <script>document.forms['alipaysubmit'].submit();</script> -->
 
+	<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	<script src="/js/page/movies.js"></script>
 

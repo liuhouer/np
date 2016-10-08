@@ -33,7 +33,7 @@
 	     
 	 <form id="pageForm" action="">
 		<ul class="qinco-pagination pagination-lg">
-			<li><a href="<%=actionUrl%>/page0">S</a></li>
+			<li><a href="<%=actionUrl%>/page0">首页</a></li>
 			<li><a href="<%=actionUrl%>/page<%=currentpage - 1%>">‹</a>
 			</li>
 			<%
@@ -52,7 +52,7 @@
 				}//显示分页码>
 			%>
 			<li><a href="<%=actionUrl%>/page<%=currentpage + 1%>">›</a></li>
-			<li><a href="<%=actionUrl%>/page<%=totalpage - 1%>">E<%=totalpage%></a> 
+			<li><a href="<%=actionUrl%>/page<%=totalpage - 1%>">尾页</a> 
 			</li>
 		</ul>
 
