@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -18,13 +17,10 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import cn.northpark.action.SpiderAction;
 
 /**
  * <p>
@@ -375,63 +371,63 @@ public class HTMLParserUtil
 	 * 爬虫获取红包添加到缓存
 	 * @throws IOException
 	 */
-	public static void retQuan() throws IOException {
-		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-		Document doc = Jsoup.connect("http://quan.liuguofa.com/").get();
-
-		Elements tr   = doc.select("tr");
-
-		for(Element p : tr){
-			
-			HashMap<String, String> map =new HashMap<String, String>();
-			Elements td = p.select("td");
-			
-			Element url = td.get(0);
-			String from = td.get(1).html();
-			String time = td.get(2).html();
-			String authorIP = td.get(3).html();
-			
-			Elements al = url.select("a");
-			String path = al.attr("href");
-			String title = al.attr("title");
-			
-			
-			map.put("from", from);
-			map.put("publishtime", time);
-			map.put("authorIP", authorIP);
-			map.put("path", path);
-			map.put("title", title);
-			map.put("id", SpiderAction.getInt6()+"");
-			
-			System.out.println(path+"\t\r"+from+"\t\r"+time+"\t\r"+authorIP+"\t\r"+title+"\t\r"+"-----------------");
-			
-			list.add(map);
-			
-
-		}
-		
-		//处理List集合
-		for (int i = 0; i < list.size(); i++) {
-			String path = list.get(i).get("path");
-			if(StringUtils.isNotEmpty(path)){
-				String url = "http://quan.liuguofa.com"+path;
-				Document doc_mt = Jsoup.connect(url).get();
-				
-				Elements iframe = doc_mt.select("iframe");
-				String path_mt =  iframe.attr("src");
-				list.get(i).put("path_mt", path_mt);
-				
-				list.get(i).put("addtime",TimeUtils.nowTime());
-			}
-		}
-		
-		list.remove(0);
-		
-		//更新redis缓存
-		System.out.println(list);
-		JedisUtil.remove("B_quan");
-		JedisUtil.addList("B_quan",list);
-	}
+//	public static void retQuan() throws IOException {
+//		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+//		Document doc = Jsoup.connect("http://quan.liuguofa.com/").get();
+//
+//		Elements tr   = doc.select("tr");
+//
+//		for(Element p : tr){
+//			
+//			HashMap<String, String> map =new HashMap<String, String>();
+//			Elements td = p.select("td");
+//			
+//			Element url = td.get(0);
+//			String from = td.get(1).html();
+//			String time = td.get(2).html();
+//			String authorIP = td.get(3).html();
+//			
+//			Elements al = url.select("a");
+//			String path = al.attr("href");
+//			String title = al.attr("title");
+//			
+//			
+//			map.put("from", from);
+//			map.put("publishtime", time);
+//			map.put("authorIP", authorIP);
+//			map.put("path", path);
+//			map.put("title", title);
+//			map.put("id", SpiderAction.getInt6()+"");
+//			
+//			System.out.println(path+"\t\r"+from+"\t\r"+time+"\t\r"+authorIP+"\t\r"+title+"\t\r"+"-----------------");
+//			
+//			list.add(map);
+//			
+//
+//		}
+//		
+//		//处理List集合
+//		for (int i = 0; i < list.size(); i++) {
+//			String path = list.get(i).get("path");
+//			if(StringUtils.isNotEmpty(path)){
+//				String url = "http://quan.liuguofa.com"+path;
+//				Document doc_mt = Jsoup.connect(url).get();
+//				
+//				Elements iframe = doc_mt.select("iframe");
+//				String path_mt =  iframe.attr("src");
+//				list.get(i).put("path_mt", path_mt);
+//				
+//				list.get(i).put("addtime",TimeUtils.nowTime());
+//			}
+//		}
+//		
+//		list.remove(0);
+//		
+//		//更新redis缓存
+//		System.out.println(list);
+//		JedisUtil.remove("B_quan");
+//		JedisUtil.addList("B_quan",list);
+//	}
 
 	/**
 	 * @throws IOException

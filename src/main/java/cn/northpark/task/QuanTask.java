@@ -23,7 +23,7 @@ public class QuanTask {
 		System.out.println("定时任务开始"+TimeUtils.getNowTime());
 		try {
 
-    		HTMLParserUtil.retQuan();
+//    		HTMLParserUtil.retQuan();
     		
 
     	} catch (Exception e) {

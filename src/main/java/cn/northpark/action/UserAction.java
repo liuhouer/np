@@ -2,16 +2,13 @@
 package cn.northpark.action;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -45,13 +42,10 @@ import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
 import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.JedisUtil;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.PinyinUtil;
-import cn.northpark.utils.SerializationUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.URLUtil;
-import cn.northpark.utils.trackVO;
 import cn.northpark.utils.json.JsonUtil;
 import cn.northpark.utils.safe.WAQ;
 
@@ -1013,102 +1007,102 @@ public class UserAction {
     
 	}
 	
-	/**
-	 * 爬虫抓取的优惠券列表页
-	 * @param session
-	 * @return
-	 * @throws IOException 
-	 */
-	@RequestMapping("/cp/index")
-		public String quanlist(HttpSession session) throws IOException {
-		 	  	
-		        byte[] b = JedisUtil.getListByte("B_quan");
-		        Set<String> tags = new HashSet<String>();
-		        		
-		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
-		        if(list==null){
-		        	HTMLParserUtil.retQuan();
-		        	b = JedisUtil.getListByte("B_quan");
-			        list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
-			        
-		        }
-		        session.setAttribute("quan", list);
-		        
-		        for (int i = 0; i < list.size(); i++) {
-		        	tags.add(list.get(i).get("from"));
-				}
-		        session.setAttribute("B_tags", new ArrayList<String>(tags));
-		        
-		 
-		 	return "/quan";
-		 	  	
-		}
-	
-	
-	 /**
-		 * 从redis缓存筛选列表
-		 * @param session
-		 * @return
-		 * @throws UnsupportedEncodingException 
-		 */
-		@RequestMapping("/cp/search")
-			public String quanquery(HttpSession session,String keyword,ModelMap model) throws UnsupportedEncodingException {
-			 	  	
-			        byte[] b = JedisUtil.getListByte("B_quan");
-			        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
-			        List<Map<String,String> > list_search  = new ArrayList<Map<String,String>>(); 
-			        		
-			        		if(StringUtils.isNotEmpty(keyword)){
-			        			keyword = WAQ.forSQL().escapeSql(keyword);
-			        			for (int i = 0; i < list.size(); i++) {
-			        				Map<String,String> map = list.get(i);
-			        				String from = map.get("from");
-			        				if(StringUtils.isNotEmpty(from)){
-			        					if(from.contains(keyword)){
-			        						
-			        						list_search.add(map);
-			        					}
-			        				}
-			        			}
-			        		}
-			        		
-			        		if(list_search.size()>0){
-			        			model.put("quan", list_search);
-			        		}else{
-			        			model.put("quan", list);
-			        		}
-			        		
-			        		model.put("keyword", keyword);
-			        
-			 
-			 	return "/quan";
-			 	  	
-			}
-	
-	/**
-	 * 爬虫抓取的优惠券列表页
-	 * @param session
-	 * @return
-	 * @throws UnsupportedEncodingException 
-	 */
-	@RequestMapping("/cp/show/{id}")
-		public String quanshow(HttpSession session, @PathVariable String id ,ModelMap map) throws UnsupportedEncodingException {
-		 	  	
-		        byte[] b = JedisUtil.getListByte("B_quan");
-		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
-		        String path_mt = "";
-		        for (int i = 0; i < list.size(); i++) {
-					if(list.get(i).get("id").equals(id)){
-						 path_mt = list.get(i).get("path_mt");
-					}
-				}
-		        
-		        map.put("path_mt", path_mt);
-		        
-		 
-		 	return "/quanshow";
-		 	  	
-		}
+//	/**
+//	 * 爬虫抓取的优惠券列表页
+//	 * @param session
+//	 * @return
+//	 * @throws IOException 
+//	 */
+//	@RequestMapping("/cp/index")
+//		public String quanlist(HttpSession session) throws IOException {
+//		 	  	
+//		        byte[] b = JedisUtil.getListByte("B_quan");
+//		        Set<String> tags = new HashSet<String>();
+//		        		
+//		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+//		        if(list==null){
+//		        	HTMLParserUtil.retQuan();
+//		        	b = JedisUtil.getListByte("B_quan");
+//			        list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+//			        
+//		        }
+//		        session.setAttribute("quan", list);
+//		        
+//		        for (int i = 0; i < list.size(); i++) {
+//		        	tags.add(list.get(i).get("from"));
+//				}
+//		        session.setAttribute("B_tags", new ArrayList<String>(tags));
+//		        
+//		 
+//		 	return "/quan";
+//		 	  	
+//		}
+//	
+//	
+//	 /**
+//		 * 从redis缓存筛选列表
+//		 * @param session
+//		 * @return
+//		 * @throws UnsupportedEncodingException 
+//		 */
+//		@RequestMapping("/cp/search")
+//			public String quanquery(HttpSession session,String keyword,ModelMap model) throws UnsupportedEncodingException {
+//			 	  	
+//			        byte[] b = JedisUtil.getListByte("B_quan");
+//			        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+//			        List<Map<String,String> > list_search  = new ArrayList<Map<String,String>>(); 
+//			        		
+//			        		if(StringUtils.isNotEmpty(keyword)){
+//			        			keyword = WAQ.forSQL().escapeSql(keyword);
+//			        			for (int i = 0; i < list.size(); i++) {
+//			        				Map<String,String> map = list.get(i);
+//			        				String from = map.get("from");
+//			        				if(StringUtils.isNotEmpty(from)){
+//			        					if(from.contains(keyword)){
+//			        						
+//			        						list_search.add(map);
+//			        					}
+//			        				}
+//			        			}
+//			        		}
+//			        		
+//			        		if(list_search.size()>0){
+//			        			model.put("quan", list_search);
+//			        		}else{
+//			        			model.put("quan", list);
+//			        		}
+//			        		
+//			        		model.put("keyword", keyword);
+//			        
+//			 
+//			 	return "/quan";
+//			 	  	
+//			}
+//	
+//	/**
+//	 * 爬虫抓取的优惠券列表页
+//	 * @param session
+//	 * @return
+//	 * @throws UnsupportedEncodingException 
+//	 */
+//	@RequestMapping("/cp/show/{id}")
+//		public String quanshow(HttpSession session, @PathVariable String id ,ModelMap map) throws UnsupportedEncodingException {
+//		 	  	
+//		        byte[] b = JedisUtil.getListByte("B_quan");
+//		        List<Map<String,String> > list = (List<Map<String, String>>) SerializationUtil.deserialize(b);
+//		        String path_mt = "";
+//		        for (int i = 0; i < list.size(); i++) {
+//					if(list.get(i).get("id").equals(id)){
+//						 path_mt = list.get(i).get("path_mt");
+//					}
+//				}
+//		        
+//		        map.put("path_mt", path_mt);
+//		        
+//		 
+//		 	return "/quanshow";
+//		 	  	
+//		}
 	
 	
 	
