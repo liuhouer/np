@@ -164,11 +164,13 @@ public class MoviesAction {
 			id = WAQ.forSQL().escapeSql(id);
 			wheresql = " where id = "+id;
 		}
+		
+		
 		List<Movies> list =  moviesManager.findByCondition(wheresql+" order by addtime desc ").getResultlist();
 		map.addAttribute("list", list);
 		map.put("keyword", keyword);
-
-
+		map.put("search", "search");
+		
 		return "/movies";
 	}
 	

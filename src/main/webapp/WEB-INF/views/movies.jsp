@@ -92,7 +92,10 @@
 	
 	<!-- <script>document.forms['alipaysubmit'].submit();</script> -->
 
-	<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
+    <c:if test="${search }==search">
+    
+		<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
+    </c:if>
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	<script src="/js/page/movies.js"></script>
 
