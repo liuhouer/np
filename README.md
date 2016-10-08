@@ -2,7 +2,10 @@
 
 buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2015年12月29日19:04:33 maven版本
 
-
+## 2016-10-08 12:45:11
+- 首页缓存去除、优化速度加载
+- 电影添加分页
+- bug fix
 
 ## 2015年12月29日19:04:33 maven版本
 - 改进个人中心访问加载速度
