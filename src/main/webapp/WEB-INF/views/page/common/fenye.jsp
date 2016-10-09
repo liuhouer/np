@@ -51,9 +51,12 @@
 				}
 				}//显示分页码>
 			%>
+			<li><a href="<%=actionUrl%>/page<%=currentpage + 1%>">...</a></li>
 			<li><a href="<%=actionUrl%>/page<%=currentpage + 1%>">›</a></li>
-			<li><a href="<%=actionUrl%>/page<%=totalpage - 1%>">尾页</a> 
+			<li><a href="<%=actionUrl%>/page<%=totalpage - 1%>"><%=totalpage %>页</a> 
 			</li>
+			<%-- <li><a>共<%=totalpage %>页</a> 
+			</li> --%>
 		</ul>
 
 		<input id="pagenow" value="<%=currentpage + 1%>"  type="hidden"/>         

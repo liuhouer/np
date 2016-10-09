@@ -140,3 +140,11 @@ $("body").on('click', '.click2show', function() {
 	$(this).hide();
 });
 
+
+
+$(function() {
+    $(window).resize(function(){
+        $('body').css('min-height',($(window).height()));
+        $('.maincontent ').css('min-height',($(window).height()-100));
+    }).resize();
+});
