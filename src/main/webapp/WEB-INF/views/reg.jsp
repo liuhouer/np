@@ -15,7 +15,7 @@
 <link rel="shortcut icon" href="img/favicon.ico">
 <title>northpark / Signup</title>
 <meta name="description" content="加入northpark，记住每一个美好">
-<meta name="keywords" content="northpark,最爱,回忆,生活">
+<meta name="keywords" content="northpark">
 
 
 

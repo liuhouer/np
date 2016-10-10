@@ -11,7 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Language" content="zh-CN">
 <meta name="description" content="northpark影视">
-<meta name="keywords" content="northpark,最爱,回忆,生活">
+<meta name="keywords" content="northpark">
 <meta name="author" content="bruce">
 <meta name="robots" content="index,follow,archive">
 <title>northpark / 添加电影</title>

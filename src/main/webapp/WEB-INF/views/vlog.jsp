@@ -16,7 +16,7 @@
 <link rel="shortcut icon" href="img/favicon.ico">
 <title>northpark / northpark更新日志</title>
 <meta name="description" content="northpark更新日志">
-<meta name="keywords" content="northpark,最爱,回忆,生活">
+<meta name="keywords" content="northpark">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 

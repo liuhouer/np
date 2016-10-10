@@ -10,11 +10,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta http-equiv="Content-Language" content="zh-CN">
-<meta name="author" content="www.qinco.net">
+<meta name="author" content="bruce">
 <link rel="shortcut icon" href="img/favicon.ico">
 <title>northpark</title>
-<meta name="description" content="northpark / 记住美好,保留回忆,分享最爱。">
-<meta name="keywords" content="northpark,northpark,最爱,回忆,生活">
+<meta name="description" content="northpark ，文艺，小清新的小众社区。里面有最文艺的相册、碎碎念、电影、情圣模块。">
+<meta name="keywords" content="northpark">
 <!-- /**
  *
  * ━━━━━━神兽出没━━━━━━

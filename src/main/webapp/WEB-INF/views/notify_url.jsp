@@ -16,7 +16,7 @@
 <link rel="shortcut icon" href="img/favicon.ico">
 <title>northpark / 支付异步通知</title>
 <meta name="description" content="支付宝服务器异步通知页面">
-<meta name="keywords" content="northpark,最爱,回忆,生活">
+<meta name="keywords" content="northpark">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 

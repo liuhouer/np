@@ -15,7 +15,7 @@
 <link rel="shortcut icon" href="img/favicon.ico">
 <title>northpark / 情圣养成日记::第${page}页</title>
 <meta name="description" content="情圣养成日记::第${page}页::northpark / 记住美好,保留回忆,分享最爱。">
-<meta name="keywords" content="northpark,最爱,回忆,生活">
+<meta name="keywords" content="northpark">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 </head>
 

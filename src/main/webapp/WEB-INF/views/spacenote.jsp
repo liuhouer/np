@@ -15,7 +15,7 @@
 <link rel="shortcut icon" href="img/favicon.ico">
 <title>northpark</title>
 <meta name="description" content="${MyInfo.username}的碎碎念: northpark / 记住美好,保留回忆,分享最爱。">
-<meta name="keywords" content="northpark,最爱,回忆,生活">
+<meta name="keywords" content="northpark">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 </head>
