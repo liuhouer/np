@@ -14,9 +14,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>northpark / 支付异步通知</title>
+<title>NorthPark / 支付异步通知</title>
 <meta name="description" content="支付宝服务器异步通知页面">
-<meta name="keywords" content="northpark">
+<meta name="keywords" content="NorthPark">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 

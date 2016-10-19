@@ -4,14 +4,14 @@
 	
 		<div class="col-sm-12  " >
 				<p>
-				 ©2014 <span class="glyphicon glyphicon-heart"></span> northpark
+				 ©2014 <span class="glyphicon glyphicon-heart"></span> NorthPark
 				</p>
 			
 		</div>
 		<div class="row"></div>
 		<div class="col-sm-12  ">
-				<a href="http://blog.northpark.cn" title="northpark博客">northpark博客</a>
-				<a href="http://shop.northpark.cn" title="northpark商城">northpark商城</a>
+				<a href="http://blog.NorthPark.cn" title="NorthPark博客">NorthPark博客</a>
+				<a href="http://shop.NorthPark.cn" title="NorthPark商城">NorthPark商城</a>
 				<a href="/cm/xbjt" title="原创音乐播放器">小布静听</a>              
 				<a href="/movies" title="最新热映电影BT|云盘">影院热映</a>
 		</div>

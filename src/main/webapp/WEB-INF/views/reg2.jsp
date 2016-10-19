@@ -12,9 +12,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>northpark / Signup</title>
-<meta name="description" content="登录northpark：northpark / 记住美好,保留回忆,分享最爱。">
-<meta name="keywords" content="登录,northpark,最爱,回忆,生活">
+<title>NorthPark / Signup</title>
+<meta name="description" content="登录NorthPark：NorthPark / 记住美好,保留回忆,分享最爱。">
+<meta name="keywords" content="登录,NorthPark,最爱,回忆,生活">
 
 <link media="all" type="text/css" rel="stylesheet" href="/css/login/owl-login.css">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
@@ -35,7 +35,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<div class="navbar-brand">
-				<a href="http://blog.northpark.cn/atom.xml" target="_blank" id="icon" title="订阅northparkRSS"><img src="./img/rss.png" width="20" height="20" alt="订阅northpark博客RSS"></a>
+				<a href="http://blog.NorthPark.cn/atom.xml" target="_blank" id="icon" title="订阅NorthParkRSS"><img src="./img/rss.png" width="20" height="20" alt="订阅NorthPark博客RSS"></a>
 			</div>
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
@@ -43,7 +43,7 @@
 				<li><a href="/love" title="一张图片，爱满满的">最爱</a></li>
 				<li><a href="note/list" title="一段歌词，一段回忆">碎碎念</a></li>
 				<li><a href="/romeo" title="情圣养成日记">情圣日记</a></li>
-				<li class="active"><a href="/login" title="已有账号，去登录northpark">注册</a></li>
+				<li class="active"><a href="/login" title="已有账号，去登录NorthPark">注册</a></li>
 			</ul>
 		</div>
 	</div>

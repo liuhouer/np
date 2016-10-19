@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,cn.northpark.utils.MyConstant,cn.northpark.utils.PageView" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,cn.NorthPark.utils.MyConstant,cn.NorthPark.utils.PageView" pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 

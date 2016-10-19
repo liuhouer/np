@@ -12,9 +12,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>northpark / 忘记密码</title>
-<meta name="description" content="northpark / 记住美好,保留回忆,分享最爱。">
-<meta name="keywords" content="northpark">
+<title>NorthPark / 忘记密码</title>
+<meta name="description" content="NorthPark / 记住美好,保留回忆,分享最爱。">
+<meta name="keywords" content="NorthPark">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 </head>

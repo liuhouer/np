@@ -12,9 +12,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>northpark / Login</title>
-<meta name="description" content="登录northpark：northpark / 记住美好,保留回忆,分享最爱。">
-<meta name="keywords" content="登录,northpark,最爱,回忆,生活">
+<title>NorthPark / Login</title>
+<meta name="description" content="登录NorthPark：NorthPark / 记住美好,保留回忆,分享最爱。">
+<meta name="keywords" content="登录,NorthPark,最爱,回忆,生活">
 
 <link media="all" type="text/css" rel="stylesheet" href="/css/login/owl-login.css">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
@@ -35,7 +35,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<div class="navbar-brand">
-			  <a href="http://blog.northpark.cn/atom.xml" target="_blank" id="icon" title="订阅northparkRSS"><img src="/img/rss.png" width="20" height="20" alt="订阅northparkRSS"></a>
+			  <a href="http://blog.NorthPark.cn/atom.xml" target="_blank" id="icon" title="订阅NorthParkRSS"><img src="/img/rss.png" width="20" height="20" alt="订阅NorthParkRSS"></a>
 			</div>
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">

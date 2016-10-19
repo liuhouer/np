@@ -13,9 +13,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>northpark / 编辑我的档案</title>
-<meta name="description" content="采麦会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
-<meta name="keywords" content="northpark">
+<title>NorthPark / 编辑我的档案</title>
+<meta name="description" content="NorthPark会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
+<meta name="keywords" content="NorthPark">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 <link media="all" type="text/css" rel="stylesheet" href="/css/bsorigin/bootstrap-datetimepicker.min.css">
 <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>

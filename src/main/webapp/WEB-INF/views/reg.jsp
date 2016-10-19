@@ -13,9 +13,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>northpark / Signup</title>
-<meta name="description" content="加入northpark，记住每一个美好">
-<meta name="keywords" content="northpark">
+<title>NorthPark / Signup</title>
+<meta name="description" content="加入NorthPark，记住每一个美好">
+<meta name="keywords" content="NorthPark">
 
 
 
@@ -36,7 +36,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<div class="navbar-brand">
-				<a href="http://blog.northpark.cn/atom.xml" target="_blank" id="icon" title="订阅northparkRSS"><img src="./img/rss.png" width="20" height="20" alt="订阅northpark博客RSS"></a>
+				<a href="http://blog.NorthPark.cn/atom.xml" target="_blank" id="icon" title="订阅NorthParkRSS"><img src="./img/rss.png" width="20" height="20" alt="订阅NorthPark博客RSS"></a>
 			</div>
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
@@ -44,7 +44,7 @@
 				<li><a href="/love" title="一张图片，爱满满的">最爱</a></li>
 				<li><a href="note/list" title="一段歌词，一段回忆">碎碎念</a></li>
 				<li><a href="/romeo" title="情圣养成日记">情圣日记</a></li>
-				<li class="active"><a href="/login" title="已有账号，去登录northpark">注册</a></li>
+				<li class="active"><a href="/login" title="已有账号，去登录NorthPark">注册</a></li>
 			</ul>
 		</div>
 	</div>
@@ -62,7 +62,7 @@
 
               <form method="POST" action="/cm/addUser" accept-charset="UTF-8" role="form" id="signupForm" style="color:#444;" class="form margin-t20">
                 <div class="clearfix">
-                  <h4>加入 northpark</h4>
+                  <h4>加入 NorthPark</h4>
                   <hr>
                 </div>
                 

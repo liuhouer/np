@@ -17,15 +17,15 @@
  */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="cn.northpark.utils.alipay.config.*"%>
-<%@ page import="cn.northpark.utils.alipay.util.*"%>
+<%@ page import="cn.NorthPark.utils.alipay.config.*"%>
+<%@ page import="cn.NorthPark.utils.alipay.util.*"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Map"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>northpark / 支付宝纯担保交易接口</title>
+		<title>NorthPark / 支付宝纯担保交易接口</title>
 	</head>
 	<%
 		////////////////////////////////////请求参数//////////////////////////////////////

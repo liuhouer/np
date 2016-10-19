@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>northpark / 编辑我的最爱</title>
+<title>NorthPark / 编辑我的最爱</title>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -12,8 +12,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Language" content="zh-CN">
-<meta name="description" content="添加我的最爱:northpark / 记住美好,保留回忆,分享最爱。">
-<meta name="keywords" content="northpark">
+<meta name="description" content="添加我的最爱:NorthPark / 记住美好,保留回忆,分享最爱。">
+<meta name="keywords" content="NorthPark">
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">

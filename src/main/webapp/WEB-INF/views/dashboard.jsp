@@ -12,9 +12,9 @@
 <meta http-equiv="Content-Language" content="zh-CN">
 <meta name="author" content="bruce">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>northpark</title>
-<meta name="description" content="northpark ，文艺，小清新的小众社区。里面有最文艺的相册、碎碎念、电影、情圣模块。">
-<meta name="keywords" content="northpark">
+<title>NorthPark</title>
+<meta name="description" content="NorthPark ，文艺，小清新的小众社区。里面有最文艺的相册、碎碎念、电影、情圣模块。">
+<meta name="keywords" content="NorthPark">
 <!-- /**
  *
  * ━━━━━━神兽出没━━━━━━
@@ -77,7 +77,7 @@
 								
 								<p>什么时候爱上一首曲子，什么时候恋上一张贴画，什么时候迷上一种习惯...</p>
 								<p>一件件美好的事物，勾勒出您最真实的生命轨迹。</p>
-														<a href="/signup" class="btn btn-hero btn-lg radius-2 margin-t10 no-decoration">Join Northpark ››</a>
+														<a href="/signup" class="btn btn-hero btn-lg radius-2 margin-t10 no-decoration">Join NorthPark ››</a>
 												</div>
 						</div>
 					</div>

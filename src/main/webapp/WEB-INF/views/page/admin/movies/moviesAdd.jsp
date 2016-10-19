@@ -10,11 +10,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Language" content="zh-CN">
-<meta name="description" content="northpark影视">
-<meta name="keywords" content="northpark">
+<meta name="description" content="NorthPark影视">
+<meta name="keywords" content="NorthPark">
 <meta name="author" content="bruce">
 <meta name="robots" content="index,follow,archive">
-<title>northpark / 添加电影</title>
+<title>NorthPark / 添加电影</title>
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 <link href="/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet" />

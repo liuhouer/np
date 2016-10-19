@@ -13,9 +13,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="img/favicon.ico">
-<title>northpark</title>
-<meta name="description" content="${MyInfo.username}的碎碎念: northpark / 记住美好,保留回忆,分享最爱。">
-<meta name="keywords" content="northpark">
+<title>NorthPark</title>
+<meta name="description" content="${MyInfo.username}的碎碎念: NorthPark / 记住美好,保留回忆,分享最爱。">
+<meta name="keywords" content="NorthPark">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 </head>
