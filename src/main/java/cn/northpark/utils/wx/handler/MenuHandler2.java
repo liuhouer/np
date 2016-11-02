@@ -35,7 +35,7 @@ public class MenuHandler2 {
 	public static String getUrl(String targetUrl){
 		String tempUrl = "";
 		try {
-			tempUrl = BC_Constant.WX_url_base_shouquan_page.replace("APP_ID", appid).replace("REDIRECT_URI", URLEncoder.encode("http://wechat.feiyisheng.com/julu_wx"+targetUrl, "utf-8"));
+			tempUrl = BC_Constant.WX_url_base_shouquan_page.replace("APP_ID", appid).replace("REDIRECT_URI", URLEncoder.encode("http://wechat.feiyisheng.com/julu_wx/"+targetUrl, "utf-8"));
 			//tempUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+MContents.weixin_app_id+"&redirect_uri="+URLEncoder.encode(MContents.weixin_hosts+targetUrl, "UTF-8")+"&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,7 +73,6 @@ public class MenuHandler2 {
 			if(StringUtils.isNotEmpty(token)){
 				
 				requrl = requrl.replace("ACCESS_TOKEN", token);
-				System.out.println(menustr);
 				ret = ws.sendMessage(requrl,menustr);
 			}
 		} catch (Exception e1) {
