@@ -51,9 +51,9 @@ public class MenuHandler2 {
 				
 				+ "]},"
 				
-				+ "{\"name\":\"一问一答\",\"sub_button\":["
-				+ "{\"type\":\"view\",\"name\":\"test\",\"url\":\""+getUrl(center_user)+"\"}"
-				+ "]},"
+//				+ "{\"name\":\"一问一答\",\"sub_button\":["
+//				+ "{\"type\":\"view\",\"name\":\"test\",\"url\":\""+getUrl(center_user)+"\"}"
+//				+ "]},"
 				
 				+"{\"name\":\"更多服务\",\"sub_button\":["
 					+ "{\"type\":\"view\",\"name\":\"我的咨询\",\"url\":\""+getUrl(my_ask)+"\"},"
