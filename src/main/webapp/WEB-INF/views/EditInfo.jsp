@@ -22,8 +22,19 @@
 
 
     <style type="text/css">
-        #imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);width: 100%;width: 100%;position: relative;}
-	</style>
+	#imghead {
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+        			 display: inline-block;
+					 width: 80px;
+					 height: 80px;
+					 line-height: 100px;
+					 text-align: center;
+					 color: #fff;
+					 font-size: 18px;
+					 border-radius: 50%;
+					 box-shadow: 0 1px 3px rgba(0,0,0,0.22);
+	}
+</style>
 
 </head>
 

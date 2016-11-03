@@ -26,7 +26,7 @@ function previewImage(file)
         img.width  =  rect.width;
         img.height =  rect.height;
 //         img.style.marginLeft = rect.left+'px';
-        img.style.marginTop = rect.top+'px';
+       // img.style.marginTop = rect.top+'px';
       }
       var reader = new FileReader();
       reader.onload = function(evt){img.src = evt.target.result;}
