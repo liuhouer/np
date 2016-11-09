@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.jdom2.Element;
 
-import com.alibaba.fastjson.JSONObject;
-
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.utils.XmlParser;
 import cn.northpark.utils.wx.model.Message;
 import cn.northpark.utils.wx.model.PayMessage;
+
+import com.alibaba.fastjson.JSONObject;
 
 
 public class MessageHandler{

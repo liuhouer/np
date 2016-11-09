@@ -891,11 +891,11 @@ public class HTMLParserUtil
 	/**
 	 * 爬取1页的内容
 	 */
-	public static List<Map<String, String>> retSoft() {
+	public static List<Map<String, String>> retSoft(Integer index) {
 		// TODO Auto-generated method stub
 		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
 		try{
-				Document doc = Jsoup.connect("http://www.sdifenzhou.com/page/1/").get();
+				Document doc = Jsoup.connect("http://www.sdifenzhou.com/page/"+index+"/").get();
 				Elements articles   = doc.select("article");
 				if(!articles.isEmpty()){
 					for (int i = 0; i < articles.size(); i++) {
@@ -909,6 +909,17 @@ public class HTMLParserUtil
 						System.out.println("title===================="+title);
 						
 						String aurl = titles.get(0).select("a").get(0).attr("href");
+						
+						
+						//标签tags
+						
+						Elements tags = article.select("span[class=cat-links]");
+						
+						String tag = tags.get(0).text();
+						tag = tag.replaceAll("发表在", "").replaceAll(" ", "");
+								
+						System.out.println("tag===================="+tag);
+						
 						
 						
 						//code
@@ -967,6 +978,9 @@ public class HTMLParserUtil
 						map.put("brief", brief);
 						map.put("date", date);
 						map.put("article", text);
+						map.put("tag", tag);
+						map.put("code", code);
+						map.put("os", "mac");
 						list.add(map);
 					}
 				}
@@ -1079,7 +1093,7 @@ public class HTMLParserUtil
 //	    		url2markdown();
 //	    		String cutString = CutString("荒烟蔓草的年头，就连分手都很沉默", 12);	    
 //	    		System.out.println(cutString);
-	    		retSoft();
+	    		retSoft(1);
 	    		
 	    		
 			} catch (Exception e) {

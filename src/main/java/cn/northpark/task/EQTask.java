@@ -3,6 +3,7 @@ package cn.northpark.task;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.northpark.manager.EqManager;
@@ -10,10 +11,11 @@ import cn.northpark.model.Eq;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.TimeUtils;
 
+
 /**
  * @author zhangyang
  *
- * 定时爬取今日情圣文章
+ * 定时爬取今日情圣文章+软件
  */
 public class EQTask {
 	
@@ -21,6 +23,8 @@ public class EQTask {
 	public EqManager EqManager;
 
 	public void runTask(){
+		
+		Logger logger = Logger.getLogger(EQTask.class);  
 		System.out.println("情圣定时任务开始"+TimeUtils.getNowTime());
 		try {
 

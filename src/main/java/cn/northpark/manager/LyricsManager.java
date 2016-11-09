@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import cn.northpark.model.Lyrics;
-import cn.northpark.model.Note;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
 

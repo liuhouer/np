@@ -13,15 +13,15 @@ import org.hibernate.annotations.GenericGenerator;
 
 /**
  * @author bruce
- * @date ${date}
+ * @date 2016-11-09
  * @email zhangyang226@gmail.com
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
  * 
  */
 
 @Entity
-@Table(name = "bc_eq")
-public class Eq implements Serializable{
+@Table(name = "bc_soft")
+public class Soft implements Serializable{
 
 /**
  *
@@ -41,20 +41,29 @@ private static final long serialVersionUID = 1L;
 	@Column(length = 6)	
 	private Integer id;
 
-	@Column(length = 2000)
+	@Column(length = 20)
+	private String retcode;
+	
+	@Column(length = 255)
 	private String title;
 
-	@Column(length = 2000)
-	private String img;
-
-	@Column(length = 2000)
+	@Column()
 	private String brief;
 
-	@Column(length = 255)
-	private String date;
+	@Column()
+	private String content;
 
 	@Column(length = 255)
-	private String article;
+	private String postdate;
+
+	@Column(length = 255)
+	private String os;
+
+	@Column(length = 255)
+	private String tags;
+
+	@Column(length = 255)
+	private String returl;
 
 
 	public Integer getId() {
@@ -64,19 +73,12 @@ private static final long serialVersionUID = 1L;
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getTitle() {
-		return title;	
+	public String getRetcode() {
+		return retcode;	
 	}
 	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getImg() {
-		return img;	
-	}
-	
-	public void setImg(String img) {
-		this.img = img;
+	public void setRetcode(String retcode) {
+		this.retcode = retcode;
 	}
 	public String getBrief() {
 		return brief;	
@@ -85,51 +87,86 @@ private static final long serialVersionUID = 1L;
 	public void setBrief(String brief) {
 		this.brief = brief;
 	}
-	public String getDate() {
-		return date;	
+	public String getContent() {
+		return content;	
 	}
 	
-	public void setDate(String date) {
-		this.date = date;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public String getArticle() {
-		return article;	
+	public String getPostdate() {
+		return postdate;	
 	}
 	
-	public void setArticle(String article) {
-		this.article = article;
+	public void setPostdate(String postdate) {
+		this.postdate = postdate;
+	}
+	public String getOs() {
+		return os;	
+	}
+	
+	public void setOs(String os) {
+		this.os = os;
+	}
+	public String getTags() {
+		return tags;	
+	}
+	
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+	public String getReturl() {
+		return returl;	
+	}
+	
+	public void setReturl(String returl) {
+		this.returl = returl;
 	}
 
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	
 	/*这里是mybatis部分代码
 	
-	id,title,img,brief,date,article,	
+	id,retcode,brief,content,postdate,os,tags,returl,	
 
-		#{id},	#{title},	#{img},	#{brief},	#{date},	#{article},	
-	<update id="updateModel" parameterType="com.mai.app.entity.Eq">
-        update Eq
+		#{id},	#{retcode},	#{brief},	#{content},	#{postdate},	#{os},	#{tags},	#{returl},	
+	<update id="updateModel" parameterType="com.mai.app.entity.Soft">
+        update Soft
         <set>
                 
 	   	 id = #{id},
 	   	 
 	            
-	   	 title = #{title},
-	   	 
-	            
-	   	 img = #{img},
+	   	 retcode = #{retcode},
 	   	 
 	            
 	   	 brief = #{brief},
 	   	 
 	            
-	   	 date = #{date},
+	   	 content = #{content},
 	   	 
 	            
-	   	 article = #{article},
+	   	 postdate = #{postdate},
+	   	 
+	            
+	   	 os = #{os},
+	   	 
+	            
+	   	 tags = #{tags},
+	   	 
+	            
+	   	 returl = #{returl},
 	   	 
 	            </set>
         <where>
@@ -140,13 +177,13 @@ private static final long serialVersionUID = 1L;
     
     
     <select id="findAllByPage"  
-            resultType="com.mai.X.entity.Eq">
+            resultType="com.mai.X.entity.Soft">
         select * from modelName
     </select>
     
     <select id="findByID"  parameterType="string"
-            resultType="com.mai.X.entity.Eq">
-        select * from Eq where EqID = #{id}
+            resultType="com.mai.X.entity.Soft">
+        select * from Soft where SoftID = #{id}
     </select>
 	
 	

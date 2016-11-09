@@ -1,11 +1,11 @@
 
 package cn.northpark.manager.impl;
 
-import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.northpark.dao.GetnotesDao;
@@ -14,13 +14,6 @@ import cn.northpark.model.Getnotes;
 import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
-
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service("GetnotesManager")
 public class GetnotesManagerImpl implements GetnotesManager {

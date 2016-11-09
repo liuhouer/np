@@ -2,14 +2,11 @@
 package cn.northpark.action;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,12 +24,10 @@ import cn.northpark.manager.EqManager;
 import cn.northpark.model.Eq;
 import cn.northpark.query.EqQuery;
 import cn.northpark.query.condition.EqQueryCondition;
-import cn.northpark.query.condition.NoteQueryCondition;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
-import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.safe.WAQ;
 
 

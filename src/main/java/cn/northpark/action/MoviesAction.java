@@ -25,7 +25,6 @@ import cn.northpark.interceptor.CheckLogin;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.model.Movies;
 import cn.northpark.model.User;
-import cn.northpark.query.condition.MoviesQueryCondition;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
 import cn.northpark.utils.TimeUtils;

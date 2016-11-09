@@ -3,7 +3,6 @@ package cn.northpark.task;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.northpark.manager.QuanManager;
-import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.TimeUtils;
 
 /**
