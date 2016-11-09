@@ -31,7 +31,7 @@ import cn.northpark.utils.QueryResult;
  * 
  */
 @Controller
-@RequestMapping("/softAction")
+@RequestMapping("/soft")
 @SessionAttributes({ "list", "soft" })
 public class SoftAction {
 

@@ -428,7 +428,7 @@ public class NoteAction {
 
 		Map<String, Object> rsmap = new HashMap<String, Object>();
 		rsmap.put("result", result);
-		return JsonUtil.jsonUtil.mapToJSONString(rsmap);
+		return JsonUtil.map2json(rsmap);
 	}
 
 	private PageView<Note> getPageView(String page,

@@ -16,21 +16,6 @@
                     </div>
         </div>
 	
-		<!-- <div class="col-sm-12  " >
-				<p>
-				 ©2014 <span class="glyphicon glyphicon-heart"></span> NorthPark
-				</p>
-			
-		</div>
-		<div class="row"></div>
-		<div class="col-sm-12">
-				<a class="no-decoration" href="http://blog.NorthPark.cn" title="NorthPark博客">NorthPark 博客</a>
-				<a class="no-decoration" href="http://shop.NorthPark.cn" title="NorthPark商城">NorthPark 商城</a>
-				<a class="no-decoration" href="/movies" title="最新热映电影BT|云盘">NorthPark 影院</a>
-				<a class="no-decoration" href="/cm/xbjt" title="原创音乐播放器">小布静听</a>     
-				<a target="_blank" href="https://twitter.com/htmlstream">Htmlstream</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
-                        </p>         
-		</div> -->
 	</footer>
 	
 <script src="/js/jquery-1.7.2.js"></script>  

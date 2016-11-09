@@ -917,7 +917,7 @@ public class UserAction {
 		Map<String, Object> rsmap = new HashMap<String, Object>();
 		rsmap.put("result", result);
 		rsmap.put("info", info);
-		return JsonUtil.jsonUtil.mapToJSONString(rsmap);
+		return JsonUtil.map2json(rsmap);
 	}
 	
 	
@@ -938,7 +938,7 @@ public class UserAction {
 
 				System.out.println(qqinfo);
 				if(StringUtils.isNotEmpty(qqinfo)){
-					QQinfo qqinfom = JsonUtil.jsonToModel(qqinfo, QQinfo.class);
+					QQinfo qqinfom = JsonUtil.json2Model(qqinfo, QQinfo.class);
 					//添加user
 					User userm = new User();
 					userm.setDate_joined(TimeUtils.nowTime());
