@@ -887,6 +887,187 @@ public class HTMLParserUtil
         return rs;
     }
 	
+	
+	/**
+	 * 爬取1页的内容
+	 */
+	public static List<Map<String, String>> retSoft() {
+		// TODO Auto-generated method stub
+		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+		try{
+				Document doc = Jsoup.connect("http://www.sdifenzhou.com/page/1/").get();
+				Elements articles   = doc.select("article");
+				if(!articles.isEmpty()){
+					for (int i = 0; i < articles.size(); i++) {
+						HashMap<String, String> map =new HashMap<String, String>();
+						Element article  = articles.get(i);
+						
+						//标题
+						Elements titles = article.select("h1[class=entry-title]");
+						
+						String title = titles.get(0).text();
+						System.out.println("title===================="+title);
+						
+						String aurl = titles.get(0).select("a").get(0).attr("href");
+						
+						
+						//code
+						String code = article.attr("id");
+						
+						System.out.println("code===================="+code);
+						
+						
+						//文章
+						StringBuilder sb = new StringBuilder();
+						
+						Document doc_ = Jsoup.connect(aurl).get();
+						Elements article_alls = doc_.select("div[class=entry-content] p");
+						if(!article_alls.isEmpty()){
+							for (int i1 = 0; i1 < article_alls.size(); i1++) {
+								String p1 = article_alls.get(i1).html();
+								if(!p1.contains("本文链接") && !p1.contains("转载声明") ){
+									sb.append("<p>"+p1+"</p>");
+								}
+							}
+						}
+					
+						String text = sb.toString().replaceAll("小子", "小布");
+						System.out.println("article============="+text);
+						
+						
+						//日期
+						 Elements dates = doc.select("time[class=entry-date]");
+						String date = dates.get(0).text();
+						date=date.replaceAll(" ", "");
+						date=date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
+						System.out.println("date===================="+date);
+						
+						
+						//简介
+						Elements briefs = doc.select("div[class=entry-content]");
+						
+						briefs = briefs.get(0).select("p");
+						StringBuilder sb2 = new StringBuilder();
+						String brief = briefs.get(0).html();
+						
+						if(!briefs.isEmpty()){
+							for (int i1 = 0; i1 < briefs.size(); i1++) {
+								String p1 = briefs.get(i1).html();
+								if(!p1.contains("继续阅读") ){
+									sb2.append("<p>"+p1+"</p>");
+								}
+							}
+						}
+						brief = sb2.toString().replaceAll("小子", "小布");
+						
+						System.out.println("brief===================="+brief);
+						
+						map.put("title", title);
+						map.put("aurl", aurl);
+						map.put("brief", brief);
+						map.put("date", date);
+						map.put("article", text);
+						list.add(map);
+					}
+				}
+				
+			    
+//				System.out.println(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+				
+				
+				
+
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
+		return list;	
+	}
+	
+	
+	/**
+	 * 爬取一篇软件
+	 */
+	public static Map<String, String> retSoftList() {
+		// TODO Auto-generated method stub
+				HashMap<String, String> map =new HashMap<String, String>();
+		try{
+				Document doc = Jsoup.connect("http://www.sdifenzhou.com/page/2/").get();
+				Elements articles   = doc.select("article");
+			    Element article  = articles.get(0);
+				
+				//标题
+				Elements titles = article.select("h1[class=entry-title]");
+				
+				String title = titles.get(0).html();
+				System.out.println("title===================="+title);
+				
+				String aurl = titles.get(0).select("a").get(0).attr("href");
+				
+				
+				//文章
+				StringBuilder sb = new StringBuilder();
+				
+				Document doc_ = Jsoup.connect(aurl).get();
+				Elements article_alls = doc_.select("div[class=entry-content] p");
+				if(!article_alls.isEmpty()){
+					for (int i = 0; i < article_alls.size(); i++) {
+						String p1 = article_alls.get(i).html();
+						if(!p1.contains("本文链接") && !p1.contains("转载声明") ){
+							sb.append("<p>"+p1+"</p>");
+						}
+					}
+				}
+			
+				String text = sb.toString().replaceAll("小子", "小布");
+				System.out.println("article============="+text);
+				
+				
+				//日期
+				 Elements dates = doc.select("time[class=entry-date]");
+				String date = dates.get(0).text();
+				date=date.replaceAll(" ", "");
+				date=date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
+				System.out.println("date===================="+date);
+				
+				
+				//简介
+				Elements briefs = doc.select("div[class=entry-content]");
+				
+				briefs = briefs.get(0).select("p");
+				StringBuilder sb2 = new StringBuilder();
+				String brief = briefs.get(0).html();
+				
+				if(!briefs.isEmpty()){
+					for (int i = 0; i < briefs.size(); i++) {
+						String p1 = briefs.get(i).html();
+						if(!p1.contains("继续阅读") ){
+							sb2.append("<p>"+p1+"</p>");
+						}
+					}
+				}
+				brief = sb2.toString().replaceAll("小子", "小布");
+				
+				System.out.println("brief===================="+brief);
+				
+				map.put("title", title);
+				map.put("aurl", aurl);
+				map.put("brief", brief);
+				map.put("date", date);
+				map.put("article", text);
+//				System.out.println(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+				
+				
+				
+
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
+		return map;	
+	}
+	
+	
 	  public static void main(String[] args) {
 	    	try {
 	    		//retMeizitu();
@@ -896,8 +1077,9 @@ public class HTMLParserUtil
 //	    		readPic2Disk();
 //	    		retV2Romeo();
 //	    		url2markdown();
-	    		String cutString = CutString("荒烟蔓草的年头，就连分手都很沉默", 12);	    
-	    		System.out.println(cutString);
+//	    		String cutString = CutString("荒烟蔓草的年头，就连分手都很沉默", 12);	    
+//	    		System.out.println(cutString);
+	    		retSoft();
 	    		
 	    		
 			} catch (Exception e) {
