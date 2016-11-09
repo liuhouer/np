@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import cn.northpark.dao.MoviesDao;
 import cn.northpark.manager.MoviesManager;
-import cn.northpark.model.Eq;
 import cn.northpark.model.Movies;
 import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.PageView;

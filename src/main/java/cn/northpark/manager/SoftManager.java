@@ -4,46 +4,46 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.northpark.model.Eq;
+import cn.northpark.model.Soft;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
 
 /**
  * @author bruce
- * @date ${date}
+ * @date 2016-11-09
  * @email zhangyang226@gmail.com
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
  * 
  */
-public interface EqManager {
+public interface SoftManager {
 	
-	public Eq findEq(Integer id);
+	public Soft findSoft(Integer id);
 
-	public List<Eq> findAll();
+	public List<Soft> findAll();
 
-	public void addEq(Eq eq);
+	public void addSoft(Soft soft);
 
-	public boolean delEq(Integer id);
+	public boolean delSoft(Integer id);
 
-	public boolean updateEq(Eq eq);
+	public boolean updateSoft(Soft soft);
 	
-	public QueryResult<Eq> findByCondition(PageView<Eq> p,
+	public QueryResult<Soft> findByCondition(PageView<Soft> p,
 			String wheresql, LinkedHashMap<String, String> order);
 
-	public QueryResult<Eq> findByCondition(
+	public QueryResult<Soft> findByCondition(
 			String wheresql);
 			
 	/**
 	 * sql+
 	 * @return
 	 */
-	public List<Eq> querySql(String sql,Object... obj);
+	public List<Soft> querySql(String sql,Object... obj);
 	
 	/**
 	 * sql
 	 * @return
 	 */
-	public List<Eq> querySql(String sql);
+	public List<Soft> querySql(String sql);
 	
 	
 	/**
@@ -51,7 +51,7 @@ public interface EqManager {
 	 * @return
 	 */
 	public PageView<List<Map<String, Object>>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView);
-	
+
 	
 	/**
 	 * 根据sql语句查询条数
@@ -72,19 +72,7 @@ public interface EqManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(Eq eq,String wheresql);
-	
-	
-	/**
-	 * 执行sql语句
-	 * 
-	 * @param sql
-	 *            SQL语句
-	 * 
-	 */
-	public  void executeSql(String sql);
-	
-
+	public  int countHql(Soft m,String wheresql);
 	
 
 	

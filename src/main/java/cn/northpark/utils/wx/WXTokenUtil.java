@@ -17,12 +17,12 @@ import javax.net.ssl.TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.JSONObject;
-
 import cn.northpark.utils.wx.model.AccessToken;
 import cn.northpark.utils.wx.model.MyX509TrustManager;
 import cn.northpark.utils.wx.model.SNSUserInfo;
 import cn.northpark.utils.wx.model.WeixinOauth2Token;
+
+import com.alibaba.fastjson.JSONObject;
   
 /** 
  * 定时获取微信access_token的线程 

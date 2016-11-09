@@ -1,10 +1,10 @@
 package cn.northpark.utils.wx.handler;
 
 
-import com.alibaba.fastjson.JSONObject;
-
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.utils.wx.WXTokenUtil;
+
+import com.alibaba.fastjson.JSONObject;
 
 public class TextHandler{
 

@@ -36,7 +36,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.northpark.utils.json.JsonUtil;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 	  

@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 
 import cn.northpark.dao.NoteDao;
 import cn.northpark.manager.NoteManager;
-import cn.northpark.model.Eq;
 import cn.northpark.model.Note;
-import cn.northpark.model.User;
 import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
