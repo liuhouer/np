@@ -10,6 +10,25 @@ hr {
 	margin-bottom: 1em;
 }
 
+.common-a{
+	color: #45d0c6;
+	text-decoration: none;
+	margin-right: 10px;
+	padding-right: 12px;
+	white-space: nowrap;
+	
+}
+
+.common-a-right{
+	color: #45d0c6;
+	text-decoration: none;
+	border-right: 1px solid #d6d6d6;
+	margin-right: 10px;
+	padding-right: 12px;
+	white-space: nowrap;
+	
+}
+
 .mainhead {
 	margin-top: 60px;
 }

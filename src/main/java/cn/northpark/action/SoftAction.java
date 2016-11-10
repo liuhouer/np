@@ -1,5 +1,6 @@
 
 package cn.northpark.action;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -40,6 +42,63 @@ public class SoftAction {
  private SoftManager softManager;
  @Autowired	
  private SoftQuery softQuery;
+ 
+ 
+ /**
+	 * 查询列表
+	 * @param map
+	 * @param condition
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/mac")
+	public String list() {
+//		String  sql = "select * from bc_movies   order by addtime desc limit 0,200 ";
+//		List<Soft> list =  softManager.querySql(sql);
+//		map.addAttribute("list", list);
+
+		return "redirect:/soft/mac/page0";
+	}
+	
+	@RequestMapping(value="/mac/page{page}")
+	public String listpage(ModelMap map, @PathVariable String page,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws IOException {
+		
+		session.removeAttribute("tabs");
+		String result="/soft";
+		String whereSql = "";
+		
+		System.out.println("sql ---"+whereSql);
+		String currentpage = page;
+		//排序条件
+		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+		order.put("postdate,id", "desc");
+		
+		//获取pageview
+		PageView<Soft> p = getPageView(currentpage, whereSql);
+		QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
+		List<Soft> resultlist = qr.getResultlist();
+		int pages = 0;
+		try {
+			 pages = Integer.parseInt(page)+1;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			pages = 1;
+		}
+		map.put("page", pages);
+		
+		map.addAttribute("pageView", p);
+		map.addAttribute("list", resultlist);
+		map.addAttribute("actionUrl","/soft/mac");
+		
+		
+
+		return result;
+	}
+	
 
 	
 
