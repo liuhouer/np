@@ -55,7 +55,7 @@ public class NoteManagerImpl implements NoteManager {
 	public QueryResult<Note> findByCondition(PageView<Note> p,
 			String wheresql, LinkedHashMap<String, String> order) {
 		QueryResult qrs = noteDao.findByCondition(p.getStartindex(),
-				MyConstant.MAXRESULT, wheresql, order);
+				p.getMaxresult(), wheresql, order);
 		return qrs;
 	}
 

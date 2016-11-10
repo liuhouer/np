@@ -503,6 +503,7 @@ public class LyricsAction {
 		pageView.setTotalrecord(this.lyricsManager.findAll().size());
 		pageView.setCurrentpage(currentpage);
 		pageView.setTotalpage(pages);
+		pageView.setMaxresult(maxresult);
 		return pageView;
 	}
 

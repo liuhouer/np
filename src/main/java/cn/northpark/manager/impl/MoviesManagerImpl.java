@@ -53,7 +53,7 @@ public class MoviesManagerImpl implements MoviesManager {
 	public QueryResult<Movies> findByCondition(PageView<Movies> p,
 			String wheresql, LinkedHashMap<String, String> order) {
 		QueryResult qrs = moviesDao.findByCondition(p.getStartindex(),
-				MyConstant.MAXRESULT, wheresql, order);
+				p.getMaxresult(), wheresql, order);
 		return qrs;
 	}
 
