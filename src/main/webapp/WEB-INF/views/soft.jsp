@@ -55,7 +55,9 @@
 										
 										发表于：<a class="common-a-right"  title="${s.postdate}" href="${s.postdate }">${s.postdate}</a>
 										
-										       <a class="common-a"  title="${s.tags}" href="${s.tags }">${s.tags}</a>
+										     <a class="common-a-right"  title="${s.tags}" href="${s.tags }">${s.tags}</a>
+										     
+										     <a class="common-a"  title="${s.os}" href="/soft/${s.os }">${s.os}</a>
 										</p>
 										<p id="brief_${ss.index}">
 										

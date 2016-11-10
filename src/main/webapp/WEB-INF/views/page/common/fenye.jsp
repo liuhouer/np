@@ -10,6 +10,7 @@
 	 	currentpage = pageView.getCurrentpage();
 	 	int totalrecord = pageView.getTotalrecord(); //总记录数
 	 	totalpage = pageView.getTotalpage(); //总页数
+	 	maxresult = pageView.getMaxresult(); //每页显示记录数
 	 	if (totalpage == 0) {
 	 		totalpage = 1;
 	 	}

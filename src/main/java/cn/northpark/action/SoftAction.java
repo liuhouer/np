@@ -137,7 +137,7 @@ public class SoftAction {
 		int currentpage = 0; //当前页码
 		int pages = 0; //总页数
 		int n = this.softManager.countHql(new Soft(), whereSql);;
-		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
+		int maxresult = 6; /** 每页显示记录数**/
         if(n % maxresult==0)
        {
           pages = n / maxresult ;
@@ -165,6 +165,7 @@ public class SoftAction {
 		pageView.setTotalrecord(n);
 		pageView.setCurrentpage(currentpage);
 		pageView.setTotalpage(pages);
+		pageView.setMaxresult(maxresult);
 		return pageView;
 	}
 
