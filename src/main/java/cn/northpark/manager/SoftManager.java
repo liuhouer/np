@@ -45,6 +45,12 @@ public interface SoftManager {
 	 */
 	public List<Soft> querySql(String sql);
 	
+	/**
+	 * sql
+	 * @return
+	 */
+	public List<Map<String, Object>> querySqlMap(String sql);
+	
 	
 	/**
 	 * sqlmap

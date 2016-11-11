@@ -29,11 +29,13 @@
 		<div class="mainbody" style="margin-top:80px; ">
 		
 		
-		     <div class="view ">
-                <form class=" form-inline margin20" action="/movies/search" method="post">
+		     <div >
+		        <form class="form-inline padding20">
                   <input id="keyword" placeholder="Mac软件板块上线啦~"    value="${keyword }"	class="form-control input-lg  border-light-1 bg-lyellow grid98 radius-0" name="keyword" type="text">
-                  <input data-activetext="搜索 ››" class="form-control btn btn-hero " value="搜索" type="submit">
+                  <input id="bdcsMain" data-activetext="搜索 ››" class="form-control btn btn-hero " value="搜索" type="submit">
                 </form>
+                 
+                
               </div>
 		
 		
@@ -41,11 +43,17 @@
 				<div  class="col-md-8">
 					<c:forEach items="${list }" var="s" varStatus="ss">
 					
-						<div class="col-sm-12 ">
+						<div class="col-sm-12">
 							<div class="clearfix bg-white margin-t10 margin-b10 padding20 ">
 								<div class="row margin5">
 										<div class="thumbnail border-0 center">
-											<p><small class="green-text"><font size="5">${s.title}</font></small></p>
+											<p>
+											<a href="/soft/${s.retcode }.html">
+												<small class="green-text">
+													<font size="5">${s.title}</font>
+												</small>
+											</a>
+											</p>
 											
 											
 											<div class="clearfix visible-xs"><hr></div>
@@ -53,9 +61,13 @@
 									
 										<p>  
 										
-										发表于：<a class="common-a-right"  title="${s.postdate}" href="${s.postdate }">${s.postdate}</a>
+										发表于：<a class="common-a-right"  title="${s.postdate}" href="/soft/date/${s.postdate }">${s.postdate}</a>
 										
-										       <a class="common-a"  title="${s.tags}" href="${s.tags }">${s.tags}</a>
+										     <a class="common-a-right"  title="${s.tags}" href="/soft/tag/${s.tags }">${s.tags}</a>
+										     
+										     <a class="common-a-right"  title="${s.os}" href="/soft/${s.os }">${s.os}</a>
+										     
+										     <a href="/soft/${s.retcode }.html#comment" class="ds-thread-count common-a" data-thread-key="${s.retcode }" data-count-type="comments"></a>
 										</p>
 										<p id="brief_${ss.index}">
 										
@@ -63,7 +75,7 @@
 										</p>
 										
 										<p>
-										<a class="btn btn-warning margin-t10" href="/soft/">
+										<a class="btn btn-warning margin-t10" href="/soft/${s.retcode }.html">
 										  Read More
 										 <span class="glyphicon  glyphicon-circle-arrow-right padding5"></span>
 				   						 </a>
@@ -73,9 +85,27 @@
 							</div>
 						</div>
 					</c:forEach>
-				<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
+					<c:if test="${pagein!='no' }">
+						<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
+					</c:if>
 				</div>
-				<div  class="col-md-4">
+				<div  class="col-md-4 ">
+					<div  class="clearfix sidebar radius-5 ">
+						<div  class="clearfix border-bottom">
+							<h4><span  class=" glyphicon glyphicon-th-large "></span> 标签</h4>
+						</div>
+						<c:forEach var="z" items="${soft_tags }">
+						        
+						        <div class="col-md-10 margin5" >
+						           
+				        			<a href="/soft/tag/${z.tags }" title="${z.tags }">${z.tags } </a>
+				        			<a style="color: #45d0c6;" href="/soft/tag/${z.tags }" title="">(${z.num }) </a>
+				        			
+				        		</div>
+						</c:forEach>
+		
+						<p  class="white-line margin0"></p>
+					 </div>
 				</div>
 			</div>
 		  	
@@ -90,9 +120,18 @@
 	
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	
-	
-	<script src="/js/page/movies.js"></script>
-
+	<!-- 多说js加载开始，一个页面只需要加载一次 -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"jellyband"};
+	(function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = 'http://static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说js加载结束，一个页面只需要加载一次 -->
 
 
 </body></html>

@@ -1,8 +1,10 @@
 
 package cn.northpark.action;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -19,10 +22,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Soft;
 import cn.northpark.query.SoftQuery;
-import cn.northpark.query.condition.SoftQueryCondition;
-import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.safe.WAQ;
 
 
 /**
@@ -37,7 +39,6 @@ import cn.northpark.utils.QueryResult;
 @SessionAttributes({ "list", "soft" })
 public class SoftAction {
 
- private final String LIST_ACTION = "redirect:/softAction/findAll";
  @Autowired	
  private SoftManager softManager;
  @Autowired	
@@ -55,9 +56,6 @@ public class SoftAction {
 	 */
 	@RequestMapping(value="/mac")
 	public String list() {
-//		String  sql = "select * from bc_movies   order by addtime desc limit 0,200 ";
-//		List<Soft> list =  softManager.querySql(sql);
-//		map.addAttribute("list", list);
 
 		return "redirect:/soft/mac/page0";
 	}
@@ -95,49 +93,138 @@ public class SoftAction {
 		map.addAttribute("actionUrl","/soft/mac");
 		
 		
+		List<Map<String, Object>> tags = softManager.querySqlMap("select count(tags) as num,tags from bc_soft group by tags order by num desc");
+		
+		map.put("soft_tags", tags);
+		
 
 		return result;
 	}
 	
+	
+	/**
+	 * 查看全文
+	 * @param map
+	 * @param retcode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/{retcode}.html")
+	public String softdetail(ModelMap map, @PathVariable String retcode ,HttpServletRequest request) {
+		try{
+			//根据retcode获取文章内容
+			List<Soft> list = softManager.querySql("select * from bc_soft where retcode=?", retcode);
+			if(!CollectionUtils.isEmpty(list)){
+				map.addAttribute("article", list.get(0));
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			
+		}
+		return "/softdetail";
+	}
 
 	
-
-	@RequestMapping("/addSoft")
-	public String addSoft(Soft soft) {
-		this.softManager.addSoft(soft);
-		return LIST_ACTION;
+	/**
+	 * 按照日期计算
+	 * @param map
+	 * @param retcode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/date/{postdate}")
+	public String datesearch(ModelMap map, @PathVariable String postdate ,HttpServletRequest request) {
+		try{
+			//根据retcode获取文章内容
+			List<Soft> list = softManager.querySql("select * from bc_soft where postdate=?", postdate);
+			if(!CollectionUtils.isEmpty(list)){
+				map.addAttribute("list", list);
+				map.addAttribute("pagein","no");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			
+		}
+		return "/soft";
 	}
 
-
-	@RequestMapping(value="/findAll")
-	public String findAll(ModelMap map,SoftQueryCondition condition,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) {
-		String whereSql = softQuery.getSql(condition);
+	
+	/**
+	 * 按照标签计算
+	 * @param map
+	 * @param retcode
+	 * @param requestk
+	 * @return
+	 */
+	@RequestMapping("/tag/{tags}")
+	public String tagsearch(ModelMap map, @PathVariable String tags ,HttpServletRequest request) {
+		try{
+			
+			tags = URLEncoder.encode(tags,"UTF-8");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		String rs = "redirect:/soft/pagetag/"+tags+"/page0";
+		return rs;
+	}
+	
+	/**
+	 * 按照标签分页计算
+	 * @param map
+	 * @param retcode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/tag/{tags}/page{page}")
+	public String tagsearchpage(ModelMap map, @PathVariable String page,@PathVariable String tags,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws IOException {
 		
-		PageView<Soft> pageView = getPageView(null, whereSql);
+		session.removeAttribute("tabs");
+		String result="/soft";
+		//防止sql注入
+		tags = WAQ.forSQL().escapeSql(tags);
+ 		String whereSql = " where tags = '"+tags+"' ";
 		
-
+		
+		
+		System.out.println("sql ---"+whereSql);
+		String currentpage = page;
+		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("createtime", "desc");
+		order.put("postdate,id", "desc");
+		
+		//获取pageview
+		PageView<Soft> p = getPageView(currentpage, whereSql);
+		QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
+		List<Soft> resultlist = qr.getResultlist();
+		int pages = 0;
+		try {
+			 pages = Integer.parseInt(page)+1;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			pages = 1;
+		}
+		map.put("page", pages);
+		
+		map.addAttribute("pageView", p);
+		map.addAttribute("list", resultlist);
+		map.addAttribute("actionUrl","/soft/pagetag/"+tags);
+		
+		
 
-		QueryResult<Soft> qrs = this.softManager.findByCondition(pageView,
-				whereSql, order);
-		List<Soft> list = qrs.getResultlist();
-		map.addAttribute("pageView", pageView);
-		map.put("condition", condition);
-		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","softAction/findAll" );
-
-		return "admin/soft/softList";
+		return result;
 	}
-
+	
 	private PageView<Soft> getPageView(String page,
 			String whereSql) {
 		PageView<Soft> pageView = new PageView<Soft>();
 		int currentpage = 0; //当前页码
 		int pages = 0; //总页数
 		int n = this.softManager.countHql(new Soft(), whereSql);;
-		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
+		int maxresult = 6; /** 每页显示记录数**/
         if(n % maxresult==0)
        {
           pages = n / maxresult ;
@@ -165,6 +252,7 @@ public class SoftAction {
 		pageView.setTotalrecord(n);
 		pageView.setCurrentpage(currentpage);
 		pageView.setTotalpage(pages);
+		pageView.setMaxresult(maxresult);
 		return pageView;
 	}
 
