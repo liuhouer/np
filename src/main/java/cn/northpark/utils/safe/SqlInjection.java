@@ -1,8 +1,10 @@
 package cn.northpark.utils.safe;
 
 public class SqlInjection{
+
+ public static SqlInjection instance = new SqlInjection();
 	
-  public static String escapeSql(String str){
+  public  String escapeSql(String str){
 	  str = str.isEmpty() ? "" : str.replaceAll("'", "''");
       str = str.replaceAll("(?i)exec",  "&#101;xec");
       str = str.replaceAll("(?i)xp_cmdshell",  "&#120;p_cmdshell");
@@ -25,7 +27,7 @@ public class SqlInjection{
   }
   
   public static void main(String[] args) {
-	escapeSql("select * from bc_movies where 1=1");
+	  instance.escapeSql("select * from bc_movies where 1=1");
   }
   
   

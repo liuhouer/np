@@ -465,6 +465,7 @@ public class NoteAction {
 		pageView.setTotalrecord(n);
 		pageView.setCurrentpage(currentpage);
 		pageView.setTotalpage(pages);
+		pageView.setMaxresult(maxresult);
 		return pageView;
 	}
 	

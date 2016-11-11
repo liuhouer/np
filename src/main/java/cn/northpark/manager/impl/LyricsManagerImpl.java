@@ -53,7 +53,7 @@ public class LyricsManagerImpl implements LyricsManager {
 	public QueryResult<Lyrics> findByCondition(PageView<Lyrics> p,
 			String wheresql, LinkedHashMap<String, String> order) {
 		QueryResult qrs = lyricsDao.findByCondition(p.getStartindex(),
-				MyConstant.MAXRESULT, wheresql, order);
+				p.getMaxresult(), wheresql, order);
 		return qrs;
 	}
 
