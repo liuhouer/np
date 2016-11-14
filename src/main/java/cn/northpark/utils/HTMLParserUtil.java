@@ -895,7 +895,7 @@ public class HTMLParserUtil
 		// TODO Auto-generated method stub
 		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
 		try{
-				Document doc = Jsoup.connect("http://www.sdifenzhou.com/page/"+index+"/").get();
+				Document doc = Jsoup.connect("http://www.sdifenzhou.com/archives/category/black-apple/apple-software/page/"+index+"/").get();
 				Elements articles   = doc.select("article");
 				if(!articles.isEmpty()){
 					for (int i = 0; i < articles.size(); i++) {
@@ -920,7 +920,28 @@ public class HTMLParserUtil
 								
 						System.out.println("tag===================="+tag);
 						
-						
+						//计算标签编码、
+						String tagcode = "005";
+						if(tag.contains("应用")){
+							tagcode = "001";
+						}else if(tag.contains("开发")){
+							tagcode = "002";
+						}else if(tag.contains("媒体")){
+							tagcode = "003";
+						}else if(tag.contains("安全")){
+							tagcode = "004";
+						}else if(tag.contains("其他")){
+							tagcode = "005";
+						}else if(tag.contains("游戏")){
+							tagcode = "006";
+						}else if(tag.contains("限免")){
+							tagcode = "007";
+						}else if(tag.contains("疑难")){
+							tagcode = "008";
+						}else{
+							tagcode = "005";
+						}
+						System.out.println("tagcode===================="+tagcode);
 						
 						//code
 						String code = article.attr("id");
@@ -953,6 +974,14 @@ public class HTMLParserUtil
 						date=date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
 						System.out.println("date===================="+date);
 						
+						//月
+						String month = date.substring(0, date.lastIndexOf("-"));
+						System.out.println("month===================="+month);
+						
+						
+						//年
+						String year = month.substring(0, month.lastIndexOf("-"));
+						System.out.println("year===================="+year);
 						
 						//简介
 						Elements briefs = article.select("div[class=entry-content] p");
@@ -980,6 +1009,9 @@ public class HTMLParserUtil
 						map.put("tag", tag);
 						map.put("code", code);
 						map.put("os", "mac");
+						map.put("month", month);
+						map.put("year", year);
+						map.put("tagcode", tagcode);
 						list.add(map);
 					}
 				}
@@ -1012,7 +1044,6 @@ public class HTMLParserUtil
 //	    		String cutString = CutString("荒烟蔓草的年头，就连分手都很沉默", 12);	    
 //	    		System.out.println(cutString);
 	    		retSoft(1);
-	    		
 	    		
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

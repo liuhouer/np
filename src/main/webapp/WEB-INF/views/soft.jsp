@@ -188,6 +188,21 @@
 	
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	
+	
+	<script type="text/javascript">
+	  /*  ##set query param */
+	    var keyword = $("#keyword").val(); 
+	    if(keyword){
+	    	$("#pageForm a").each(function(){
+	    		var href = $(this).attr("href");
+	    		$(this).attr("href",href+"?keyword="+keyword);
+	    	})
+	    }
+		
+	
+	
+	</script>
+	
 	<!-- 多说js加载开始，一个页面只需要加载一次 -->
 	<script type="text/javascript">
 	var duoshuoQuery = {short_name:"jellyband"};

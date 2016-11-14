@@ -57,9 +57,13 @@ public class SoftAction {
 	 * @return
 	 */
 	@RequestMapping(value="/mac")
-	public String list() {
+	public String list(HttpServletRequest request) {
+		
+		//搜索
 
-		return "redirect:/soft/mac/page0";
+				String rs = "redirect:/soft/mac/page0";
+
+		return rs;
 	}
 	
 	@RequestMapping(value="/mac/page{page}")
@@ -67,6 +71,7 @@ public class SoftAction {
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
 		session.removeAttribute("tabs");
+		session.setAttribute("tabs","soft");
 		String result="/soft";
 		String whereSql = "";
 		
@@ -90,7 +95,7 @@ public class SoftAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("postdate,id", "desc");
+		order.put("UNIX_TIMESTAMP(postdate)", "desc");
 		
 		//获取pageview
 		PageView<Soft> p = getPageView(currentpage, whereSql);
@@ -315,7 +320,7 @@ public class SoftAction {
 		request.getSession().setAttribute("hot_list", hotlist);
 		
 		//获取月份排序
-		String datesql = "select * from bc_soft group by month order by postdate,month desc";
+		String datesql = "select * from bc_soft group by month order by id,month desc";
 		List<Soft> datelist = softManager.querySql(datesql);
 		
 		request.getSession().setAttribute("date_list", datelist);

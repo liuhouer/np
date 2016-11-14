@@ -42,6 +42,7 @@
 			<ul class="nav mainhead-nav">
 				<li><a href="/love" title="一张图片，爱满满的">最爱</a></li>
 				<li><a href="/note/list" title="一段歌词，一段回忆">碎碎念</a></li>
+				<li><a href="/soft/mac" title="丰富的mac软件资源">Mac软件</a></li>
 				<li><a href="/romeo" title="情圣养成日记">情圣日记</a></li>
 				<li class="active"><a href="/signup" title="去注册">登陆</a></li>
 			</ul>

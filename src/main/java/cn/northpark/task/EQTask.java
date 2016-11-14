@@ -5,9 +5,12 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.EqManager;
+import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Eq;
+import cn.northpark.model.Soft;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.TimeUtils;
 
@@ -21,6 +24,9 @@ public class EQTask {
 	
 	@Autowired
 	public EqManager EqManager;
+	@Autowired
+	public SoftManager softManager;
+
 
 	public void runTask(){
 		
@@ -59,12 +65,74 @@ public class EQTask {
 			EqManager.executeSql(delsql);
 			
 			
+			
+			
+			
 
     	} catch (Exception e) {
     		// TODO: handle exception
     		e.printStackTrace();
     	}
 
+		
+		try {
+			
+			System.out.println("soft task==============start="+TimeUtils.getNowTime());
+			logger.info("soft task==============start="+TimeUtils.getNowTime());
+			Map<String,String> map = null;
+				
+			List<Map<String, String>> list = HTMLParserUtil.retSoft(1);
+			
+			
+			if(!CollectionUtils.isEmpty(list)){
+				for (int i = 0; i < list.size(); i++) {
+					map  = list.get(i);
+					
+					String title = map.get("title");
+					String aurl = map.get("aurl");
+					String brief = map.get("brief");
+					String date = map.get("date");
+					String article = map.get("article");
+					String tag = map.get("tag");
+					String code = map.get("code");
+					String os = map.get("os");
+					String month  = map.get("month");
+					String year  = map.get("year");
+					String tagcode = map.get("tagcode");
+					
+					
+
+					//是不存在的文章
+					int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
+					
+					if(flag<=0){
+						
+			    		Soft model = new Soft();
+			    		model.setBrief(brief);
+			    		model.setContent(article);
+			    		model.setOs(os);
+			    		model.setPostdate(date);
+			    		model.setRetcode(code);
+			    		model.setReturl(aurl);
+			    		model.setTags(tag);
+			    		model.setTitle(title);
+			    		model.setMonth(month);
+			    		model.setYear(year);
+			    		model.setTagscode(tagcode);
+			    		softManager.addSoft(model);
+					}
+				}
+			}
+			
+			
+			logger.info("soft task==============end="+TimeUtils.getNowTime());
+			logger.trace("soft task==============end="+TimeUtils.getNowTime());
+			System.out.println("soft task==============end="+TimeUtils.getNowTime());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
 
 		
 		System.out.println("情圣定时任务结束"+TimeUtils.getNowTime());
