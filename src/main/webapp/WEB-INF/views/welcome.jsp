@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta http-equiv="Content-Language" content="zh-CN">
 <meta name="author" content="www.qinco.net">
-<link rel="shortcut icon" href="img/favicon.ico">
+<link rel="shortcut icon" href="/img/favicon.ico">
 <title>NorthPark</title>
 <meta name="description" content="NorthPark / 记住美好,保留回忆,分享最爱。">
 <meta name="keywords" content="NorthPark,NorthPark,最爱,回忆,生活">

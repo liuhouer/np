@@ -13,7 +13,7 @@
 
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
-<link rel="shortcut icon" href="img/favicon.ico">
+<link rel="shortcut icon" href="/img/favicon.ico">
 <title>NorthPark / 火星救援</title>
 <meta name="description" content="${user.username}生命中的最爱: NorthPark / 记住美好,保留回忆,分享最爱。">
 <meta name="keywords" content="NorthPark">

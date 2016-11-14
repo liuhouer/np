@@ -12,7 +12,7 @@
 
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
-<link rel="shortcut icon" href="img/favicon.ico">
+<link rel="shortcut icon" href="/img/favicon.ico">
 <title>NorthPark / Mac软件</title>
 <meta name="description" content="NorthPark-Mac软件">
 <meta name="keywords" content="NorthPark-Mac软件">
@@ -30,7 +30,8 @@
 		
 		
 		     <div >
-		        <form class="form-inline padding20">
+		     
+		        <form class="form-inline padding20" id="J_ser_from" action="/soft/mac/page0">
                   <input id="keyword" placeholder="Mac软件板块上线啦~"    value="${keyword }"	class="form-control input-lg  border-light-1 bg-lyellow grid98 radius-0" name="keyword" type="text">
                   <input id="bdcsMain" data-activetext="搜索 ››" class="form-control btn btn-hero " value="搜索" type="submit">
                 </form>
@@ -63,7 +64,7 @@
 										
 										发表于：<a class="common-a-right"  title="${s.postdate}" href="/soft/date/${s.postdate }">${s.postdate}</a>
 										
-										     <a class="common-a-right"  title="${s.tags}" href="/soft/tag/${s.tags }">${s.tags}</a>
+										     <a class="common-a-right"  title="${s.tags}" href="/soft/tag/${s.tagscode }">${s.tags}</a>
 										     
 										     <a class="common-a-right"  title="${s.os}" href="/soft/${s.os }">${s.os}</a>
 										     
@@ -90,22 +91,89 @@
 					</c:if>
 				</div>
 				<div  class="col-md-4 ">
-					<div  class="clearfix sidebar radius-5 ">
+				 
+					 
+					 <!-- hot  --> 
+					 <div  class="clearfix sidebar radius-5 ">
 						<div  class="clearfix border-bottom">
-							<h4><span  class=" glyphicon glyphicon-th-large "></span> 标签</h4>
+							<h4><span  class=" glyphicon glyphicon-leaf margin5"></span> 热门</h4>
 						</div>
-						<c:forEach var="z" items="${soft_tags }">
+						<c:forEach var="z" items="${hot_list }">
 						        
-						        <div class="col-md-10 margin5" >
-						           
-				        			<a href="/soft/tag/${z.tags }" title="${z.tags }">${z.tags } </a>
-				        			<a style="color: #45d0c6;" href="/soft/tag/${z.tags }" title="">(${z.num }) </a>
+						        <div class="col-md-12 margin5" >
+						              <div class="col-xs-2 avatar">
+					        		
+					        			<span class="text-${ fn:toLowerCase(fn:substring( z.title ,0,1)) }">${ fn:toUpperCase(fn:substring(z.title ,0,1))   }</span>
+								
+				        			  </div>
+				        			   <div class="col-xs-10">
+					        		
+					        			 <a style="font-size: 14px;line-height: 32px;color: #888" href="/soft/${z.retcode }.html" title="${z.title }">${z.title } </a>
+								
+				        			 </div>
+						             
 				        			
 				        		</div>
 						</c:forEach>
 		
-						<p  class="white-line margin0"></p>
+						
+						
+					 </div> 
+					 
+					 
+					   <!-- tags  -->
+					<div  class="clearfix sidebar radius-5 ">
+						<div  class="clearfix border-bottom">
+							<h4><span  class=" glyphicon glyphicon-tags margin5"></span> 标签</h4>
+						</div>
+						<c:forEach var="z" items="${soft_tags }">
+						        
+						        <div class="col-md-10 margin5" >
+						            <c:if test="${z.tagscode == seltag }">
+						             <span  class="glyphicon glyphicon-arrow-right margin5"></span>
+						             <a style="color: #45d0c6;" href="/soft/tag/${z.tagscode }" title="${z.tags }">${z.tags } </a>
+						            </c:if>
+						            <c:if test="${z.tagscode != seltag }">
+						             <span  class="glyphicon glyphicon-tag margin5"></span>
+						             <a href="/soft/tag/${z.tagscode }" title="${z.tags }">${z.tags } </a>
+						            </c:if>
+						           
+				        			
+				        			<a style="color: #45d0c6;" href="/soft/tag/${z.tagscode }" title="">(${z.num }) </a>
+				        			
+				        		</div>
+						</c:forEach>
+		
+						
+						
 					 </div>
+					 
+					  <!-- month  --> 
+					 <div  class="clearfix sidebar radius-5 ">
+						<div  class="clearfix border-bottom">
+							<h4><span  class=" glyphicon glyphicon-time margin5"></span> 月份</h4>
+						</div>
+						<c:forEach var="z" items="${date_list }">
+						        
+						        <div class="col-md-10 margin5" >
+						            <c:if test="${z.month == selmonth }">
+						             <span  class="glyphicon glyphicon-arrow-right margin5"></span>
+						             <a style="color: #45d0c6;" href="/soft/month/${z.month}" title="${z.month }">${z.month } </a>
+						            </c:if>
+						            <c:if test="${z.month != selmonth }">
+						             <span  class="glyphicon glyphicon-tree-conifer margin5"></span>
+						             <a href="/soft/month/${z.month}" title="${z.month }">${z.month } </a>
+						            </c:if>
+						           
+				        			
+				        			
+				        		</div>
+						</c:forEach>
+		
+						
+						
+					 </div> 
+					 
 				</div>
 			</div>
 		  	

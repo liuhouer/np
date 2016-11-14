@@ -12,7 +12,7 @@
 
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
-<link rel="shortcut icon" href="img/favicon.ico">
+<link rel="shortcut icon" href="/img/favicon.ico">
 <title>NorthPark / Signup</title>
 <meta name="description" content="加入NorthPark，记住每一个美好">
 <meta name="keywords" content="NorthPark">

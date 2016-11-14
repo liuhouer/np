@@ -12,7 +12,7 @@
 
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
-<link rel="shortcut icon" href="img/favicon.ico">
+<link rel="shortcut icon" href="/img/favicon.ico">
 <title>NorthPark / ${article.title}</title>
 <meta name="description" content="${article.title}">
 <meta name="keywords" content="${article.title}">
@@ -48,7 +48,7 @@
 										<a class="common-a-right" title="${article.postdate}" href="/soft/date/${article.postdate }">
 											${article.postdate}
 										</a>
-										<a class="common-a-right" title="${article.tags}" href="/soft/tag/${article.tags }">
+										<a class="common-a-right" title="${article.tags}" href="/soft/tag/${article.tagscode }">
 											${article.tags}
 										</a>
 										<a class="common-a" title="${article.os}" href="/soft/${article.os }">

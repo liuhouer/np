@@ -1,7 +1,6 @@
 
 package cn.northpark.action;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import net.rubyeye.xmemcached.MemcachedClient;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import cn.northpark.model.Soft;
 import cn.northpark.query.SoftQuery;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.XMemcachedUtil;
 import cn.northpark.utils.safe.WAQ;
 
 
@@ -68,6 +70,22 @@ public class SoftAction {
 		String result="/soft";
 		String whereSql = "";
 		
+		//搜索
+		String keyword = request.getParameter("keyword");
+		
+		map.put("keyword", keyword);
+		if(StringUtils.isNotEmpty(keyword)){
+			keyword = WAQ.forSQL().escapeSql(keyword);
+			if(keyword.contains(" ")){
+				String keyword2 = keyword.replaceAll(" ", "");
+				whereSql+= " where title like '%"+keyword+"%' or title like '%"+keyword2+"%' " ;
+			}else{
+				whereSql+= " where title like '%"+keyword+"%' " ;
+			}
+		
+			
+		}
+
 		System.out.println("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
@@ -93,13 +111,15 @@ public class SoftAction {
 		map.addAttribute("actionUrl","/soft/mac");
 		
 		
-		List<Map<String, Object>> tags = softManager.querySqlMap("select count(tags) as num,tags from bc_soft group by tags order by num desc");
-		
-		map.put("soft_tags", tags);
+		//获取标签模块
+		getTags(map,request);
 		
 
 		return result;
 	}
+
+	
+	
 	
 	
 	/**
@@ -143,11 +163,73 @@ public class SoftAction {
 				map.addAttribute("pagein","no");
 			}
 			
+
 		}catch(Exception e){
 			e.printStackTrace();
 			
 		}
 		return "/soft";
+	}
+	
+	
+	/**
+	 * 按照月份计算
+	 * @param map
+	 * @param retcode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/month/{month}")
+	public String monthsearch(ModelMap map, @PathVariable String month ,HttpServletRequest request) {
+		return "redirect:/soft/month/"+month+"/page0";
+	}
+	
+	/**
+	 * 按照月份计算
+	 * @param map
+	 * @param retcode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/month/{month}/page{page}")
+	public String monthsearch(ModelMap map, @PathVariable String month , @PathVariable String page,HttpServletRequest request) {
+		String result="/soft";
+		try{
+			month = WAQ.forSQL().escapeSql(month);
+			String whereSql = " where month='"+month+"' ";
+			
+			map.put("selmonth", month);
+			
+			System.out.println("sql ---"+whereSql);
+			String currentpage = page;
+			//排序条件
+			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+			order.put("postdate,id", "desc");
+			
+			//获取pageview
+			PageView<Soft> p = getPageView(currentpage, whereSql);
+			QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
+			List<Soft> resultlist = qr.getResultlist();
+			int pages = 0;
+			try {
+				 pages = Integer.parseInt(page)+1;
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				pages = 1;
+			}
+			map.put("page", pages);
+			
+			map.addAttribute("pageView", p);
+			map.addAttribute("list", resultlist);
+			map.addAttribute("actionUrl","/soft/month/"+month);
+			
+
+		}catch(Exception e){
+			e.printStackTrace();
+			
+		}
+		return result;
 	}
 
 	
@@ -158,15 +240,9 @@ public class SoftAction {
 	 * @param requestk
 	 * @return
 	 */
-	@RequestMapping("/tag/{tags}")
-	public String tagsearch(ModelMap map, @PathVariable String tags ,HttpServletRequest request) {
-		try{
-			
-			tags = URLEncoder.encode(tags,"UTF-8");
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		String rs = "redirect:/soft/pagetag/"+tags+"/page0";
+	@RequestMapping("/tag/{tagscode}")
+	public String tagsearch(ModelMap map, @PathVariable String tagscode ,HttpServletRequest request) {
+		String rs = "redirect:/soft/tag/"+tagscode+"/page0";
 		return rs;
 	}
 	
@@ -177,15 +253,17 @@ public class SoftAction {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/tag/{tags}/page{page}")
-	public String tagsearchpage(ModelMap map, @PathVariable String page,@PathVariable String tags,HttpServletRequest request,
+	@RequestMapping(value="/tag/{tagscode}/page{page}")
+	public String tagsearchpage(ModelMap map, @PathVariable String page,@PathVariable String tagscode,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
 		session.removeAttribute("tabs");
 		String result="/soft";
 		//防止sql注入
-		tags = WAQ.forSQL().escapeSql(tags);
- 		String whereSql = " where tags = '"+tags+"' ";
+		tagscode = WAQ.forSQL().escapeSql(tagscode);
+ 		String whereSql = " where tagscode = '"+tagscode+"' ";
+ 		
+ 		map.put("seltag", tagscode);
 		
 		
 		
@@ -211,11 +289,41 @@ public class SoftAction {
 		
 		map.addAttribute("pageView", p);
 		map.addAttribute("list", resultlist);
-		map.addAttribute("actionUrl","/soft/pagetag/"+tags);
-		
+		map.addAttribute("actionUrl","/soft/tag/"+tagscode);
 		
 
 		return result;
+	}
+	
+	
+	
+	///////common ----- method======================================================================================================================
+	/**
+	 * 获取标签模块
+	 * @param map
+	 */
+	private void getTags(ModelMap map,HttpServletRequest request) {
+		//获取标签
+		List<Map<String, Object>> tags = softManager.querySqlMap("select count(tags) as num,tags,tagscode from bc_soft group by tags order by num desc");
+		
+		request.getSession().setAttribute("soft_tags", tags);
+		
+		//获取热门文章
+		String hotsql = "select * from bc_soft order by postdate desc limit 0,10";
+		List<Soft> hotlist = softManager.querySql(hotsql);
+		
+		request.getSession().setAttribute("hot_list", hotlist);
+		
+		//获取月份排序
+		String datesql = "select * from bc_soft group by month order by postdate,month desc";
+		List<Soft> datelist = softManager.querySql(datesql);
+		
+		request.getSession().setAttribute("date_list", datelist);
+		
+	    XMemcachedUtil.put("SOFT_soft_tags", tags, 3600 * 1000 *2);
+	    XMemcachedUtil.put("SOFT_hot_list", hotlist, 3600 * 1000 *2);
+	    XMemcachedUtil.put("SOFT_date_list", datelist, 3600 * 1000 *2);
+		
 	}
 	
 	private PageView<Soft> getPageView(String page,

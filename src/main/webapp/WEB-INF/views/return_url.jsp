@@ -13,7 +13,7 @@
 
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
-<link rel="shortcut icon" href="img/favicon.ico">
+<link rel="shortcut icon" href="/img/favicon.ico">
 <title>NorthPark / 支付同步通知</title>
 <meta name="description" content="支付宝页面跳转同步通知页面">
 <meta name="keywords" content="NorthPark">

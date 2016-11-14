@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta http-equiv="Content-Language" content="zh-CN">
 <meta name="author" content="bruce">
-<link rel="shortcut icon" href="img/favicon.ico">
+<link rel="shortcut icon" href="/img/favicon.ico">
 <title>NorthPark</title>
 <meta name="description" content="NorthPark ，文艺，小清新的小众社区。里面有最文艺的相册、碎碎念、电影、情圣模块。">
 <meta name="keywords" content="NorthPark">

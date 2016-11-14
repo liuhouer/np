@@ -52,6 +52,15 @@ private static final long serialVersionUID = 1L;
 
 	@Column()
 	private String content;
+	
+
+	@Column(length = 255)
+	private String year;
+
+
+	@Column(length = 255)
+	private String month;
+
 
 	@Column(length = 255)
 	private String postdate;
@@ -61,6 +70,9 @@ private static final long serialVersionUID = 1L;
 
 	@Column(length = 255)
 	private String tags;
+	
+	@Column(length = 255)
+	private String tagscode;
 
 	@Column(length = 255)
 	private String returl;
@@ -134,6 +146,30 @@ private static final long serialVersionUID = 1L;
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getTagscode() {
+		return tagscode;
+	}
+
+	public void setTagscode(String tagscode) {
+		this.tagscode = tagscode;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
 	}
 	
 	/*这里是mybatis部分代码
