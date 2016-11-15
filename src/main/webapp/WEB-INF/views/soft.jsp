@@ -31,7 +31,7 @@
 		
 		     <div >
 		     
-		        <form class="form-inline padding20" id="J_ser_from" action="/soft/mac/page0">
+		        <form class="form-inline padding20" id="J_ser_from" method="post" accept-charset="UTF-8" action="/soft/mac/page0">
                   <input id="keyword" placeholder="Mac软件板块上线啦~"    value="${keyword }"	class="form-control input-lg  border-light-1 bg-lyellow grid98 radius-0" name="keyword" type="text">
                   <input id="bdcsMain" data-activetext="搜索 ››" class="form-control btn btn-hero " value="搜索" type="submit">
                 </form>
