@@ -81,7 +81,7 @@
   <bean id="eqTask" class="cn.northpark.task.EQTask"></bean>
    <!--   要定时执行的方法  -->
 	<task:scheduled-tasks scheduler="myScheduler">
-        <task:scheduled ref="eqTask" method="runTask"    cron="0 30 15 * * ?" /><!--  每天下午3点半执行-->
+        <task:scheduled ref="eqTask" method="runTask"    cron="0 30 17 * * ?" /><!--  每天下午3点半执行-->
     </task:scheduled-tasks>
     <task:scheduler id="myScheduler" pool-size="5"/>
     <!--  要定时执行的方法 -->
