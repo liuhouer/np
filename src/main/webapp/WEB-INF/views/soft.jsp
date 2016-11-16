@@ -28,16 +28,15 @@
 	<div class="container">
 		<div class="mainbody" style="margin-top:80px; ">
 		
-		
-		     <div >
+		<div class="clearfix  margin20 view">
+				     
+				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/soft/mac/page0">
+		                  <input id="keyword" placeholder="Mac软件板块上线啦~"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
+		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="submit">
+		                </form>
+		                 
+		</div>
 		     
-		        <form class="form-inline padding20" id="J_ser_from" method="post" accept-charset="UTF-8" action="/soft/mac/page0">
-                  <input id="keyword" placeholder="Mac软件板块上线啦~"    value="${keyword }"	class="form-control input-lg  border-light-1 bg-lyellow grid98 radius-0" name="keyword" type="text">
-                  <input id="bdcsMain" data-activetext="搜索 ››" class="form-control btn btn-hero " value="搜索" type="submit">
-                </form>
-                 
-                
-              </div>
 		
 		
 			<div  class="row">
@@ -91,6 +90,8 @@
 					</c:if>
 				</div>
 				<div  class="col-md-4 ">
+				
+					
 				 
 					 
 					 <!-- hot  --> 
@@ -100,7 +101,7 @@
 						</div>
 						<c:forEach var="z" items="${hot_list }">
 						        
-						        <div class="col-md-12 margin5" >
+						        <div class="col-md-12 margin-t10" >
 						              <div class="col-xs-2 avatar">
 					        		
 					        			<span class="text-${ fn:toLowerCase(fn:substring( z.title ,0,1)) }">${ fn:toUpperCase(fn:substring(z.title ,0,1))   }</span>
@@ -122,7 +123,7 @@
 					 
 					 
 					   <!-- tags  -->
-					<div  class="clearfix sidebar radius-5 ">
+					<div  class="clearfix sidebar radius-10 ">
 						<div  class="clearfix border-bottom">
 							<h4><span  class=" glyphicon glyphicon-tags margin5"></span> 标签</h4>
 						</div>
@@ -149,7 +150,7 @@
 					 </div>
 					 
 					  <!-- month  --> 
-					 <div  class="clearfix sidebar radius-5 ">
+					 <div  class="clearfix sidebar radius-10 ">
 						<div  class="clearfix border-bottom">
 							<h4><span  class=" glyphicon glyphicon-time margin5"></span> 月份</h4>
 						</div>

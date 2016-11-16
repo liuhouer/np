@@ -639,6 +639,57 @@ public class HTMLParserUtil
 		}
 	}
 	
+	
+	/**
+	 * 读取网络图片到硬盘
+	 */
+	public static HashMap<String,String> webPic2Disk(String weburl,String localpath,String date){
+		HashMap<String,String> map  = new HashMap<String, String>();
+		String path = "";
+		String name = "";
+				try{
+		    		URL   url   =   new   URL(weburl); 
+		    		URLConnection   uc   =   url.openConnection(); 
+		    		InputStream   is   =   uc.getInputStream(); 
+		    		
+		    		name = weburl.substring(weburl.lastIndexOf("/")+1, weburl.length());
+		    		
+		    		path = localpath;//"/Users/zhangyang/Pictures/";
+		    		
+		    		date = date+"/";
+		    		
+		    		map.put("key", name);
+		    		path = path+date;
+		    		
+		    		File filepath = new File(path);  
+		    		if(!filepath.exists() && !filepath.isDirectory()){  
+		    			filepath.mkdirs();  
+			        }  
+		    		
+		    		File file2 = new File(path+name);
+		    		map.put("localpath", path+name);
+		    		if(file2.exists()){
+		    			
+		    		}else{
+		    			FileOutputStream   out   =   new   FileOutputStream(path+name); 
+			    		System.out.println("写入中..."+path+name);
+			    		
+			    		
+			    		int   i1=0; 
+			    		while   ((i1=is.read())!=-1)   { 
+			    			out.write(i1); 
+			    		} 
+		    		}
+//		    		if(name.endsWith(".png")||name.endsWith(".jpg")||name.endsWith(".ico")||name.endsWith(".gif")){
+			    		
+//		    		}
+		    		is.close();
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+		return map;
+	}
+	
 	/**
 	 * 解析七牛URL为markdown格式
 	 * @return 
@@ -920,26 +971,36 @@ public class HTMLParserUtil
 								
 						System.out.println("tag===================="+tag);
 						
+						
 						//计算标签编码、
 						String tagcode = "005";
 						if(tag.contains("应用")){
 							tagcode = "001";
+							tag = "系统、应用软件";
 						}else if(tag.contains("开发")){
 							tagcode = "002";
+							tag = "开发、设计软件";
 						}else if(tag.contains("媒体")){
 							tagcode = "003";
+							tag = "媒体软件";
 						}else if(tag.contains("安全")){
 							tagcode = "004";
+							tag = "网络、安全软件";
 						}else if(tag.contains("其他")){
 							tagcode = "005";
+							tag = "其他软件";
 						}else if(tag.contains("游戏")){
 							tagcode = "006";
+							tag = "游戏一箩筐";
 						}else if(tag.contains("限免")){
 							tagcode = "007";
+							tag = "限免软件";
 						}else if(tag.contains("疑难")){
 							tagcode = "008";
+							tag = "疑难杂症";
 						}else{
 							tagcode = "005";
+							tag = "其他软件";
 						}
 						System.out.println("tagcode===================="+tagcode);
 						
@@ -949,22 +1010,6 @@ public class HTMLParserUtil
 						System.out.println("code===================="+code);
 						
 						
-						//文章
-						StringBuilder sb = new StringBuilder();
-						
-						Document doc_ = Jsoup.connect(aurl).get();
-						Elements article_alls = doc_.select("div[class=entry-content] p");
-						if(!article_alls.isEmpty()){
-							for (int i1 = 0; i1 < article_alls.size(); i1++) {
-								String p1 = article_alls.get(i1).html();
-								if(!p1.contains("本文链接") && !p1.contains("转载声明") ){
-									sb.append("<p>"+p1+"</p>");
-								}
-							}
-						}
-					
-						String text = sb.toString().replaceAll("小子", "小布");
-						System.out.println("article============="+text);
 						
 						
 						//日期
@@ -983,6 +1028,45 @@ public class HTMLParserUtil
 						String year = month.substring(0, month.lastIndexOf("-"));
 						System.out.println("year===================="+year);
 						
+						
+						
+
+						//文章
+						StringBuilder sb = new StringBuilder();
+						
+						Document doc_ = Jsoup.connect(aurl).get();
+						Elements article_alls = doc_.select("div[class=entry-content] p");
+						if(!article_alls.isEmpty()){
+							for (int i1 = 0; i1 < article_alls.size(); i1++) {
+								
+								Elements imgs = article_alls.get(i1).select("img");
+								for (int j = 0; j < imgs.size(); j++) {
+									String weburl = imgs.get(j).attr("src");
+									//web图片上传到七牛
+									
+									//-------------开始--------------------------------
+									
+									HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, "D:\\BZ\\soft\\" ,date);
+									
+									String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
+									
+									//-------------结束--------------------------------
+									
+									imgs.get(j).attr("src", rs);
+								}
+								
+								
+								String p1 = article_alls.get(i1).html();
+								if(!p1.contains("本文链接") && !p1.contains("转载声明") ){
+									sb.append("<p>"+p1+"</p>");
+								}
+							}
+						}
+					
+						String text = sb.toString().replaceAll("小子", "小布");
+						System.out.println("article============="+text);
+						
+						
 						//简介
 						Elements briefs = article.select("div[class=entry-content] p");
 						
@@ -990,6 +1074,22 @@ public class HTMLParserUtil
 						
 						if(!briefs.isEmpty()){
 							for (int i1 = 0; i1 < briefs.size(); i1++) {
+								
+								Elements imgs = briefs.get(i1).select("img");
+								for (int j = 0; j < imgs.size(); j++) {
+									String weburl = imgs.get(j).attr("src");
+									//web图片上传到七牛
+									
+									//-------------开始--------------------------------
+									
+									HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, "D:\\BZ\\soft\\",date);
+									
+									String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
+									
+									//-------------结束--------------------------------
+									
+									imgs.get(j).attr("src", rs);
+								}
 								String p1 = briefs.get(i1).html();
 								if(!p1.contains("继续阅读") ){
 									sb2.append("<p>"+p1+"</p>");
@@ -1043,8 +1143,8 @@ public class HTMLParserUtil
 //	    		url2markdown();
 //	    		String cutString = CutString("荒烟蔓草的年头，就连分手都很沉默", 12);	    
 //	    		System.out.println(cutString);
-	    		retSoft(1);
-	    		
+//	    		retSoft(1);
+//	    		webPic2Disk("http://www.sdifenzhou.com/wp-content/uploads/2016/02/Fantastical2.jpg", "D:\\BZ\\soft\\" );
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
