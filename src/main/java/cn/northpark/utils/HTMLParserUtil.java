@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -992,7 +993,7 @@ public class HTMLParserUtil
 						}else if(tag.contains("游戏")){
 							tagcode = "006";
 							tag = "游戏一箩筐";
-						}else if(tag.contains("限免")){
+						}else if(tag.contains("限时免费")){
 							tagcode = "007";
 							tag = "限免软件";
 						}else if(tag.contains("疑难")){
@@ -1046,7 +1047,7 @@ public class HTMLParserUtil
 									
 									//-------------开始--------------------------------
 									
-									HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, "D:\\BZ\\soft\\" ,date);
+									HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
 									
 									String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
 									
@@ -1082,7 +1083,7 @@ public class HTMLParserUtil
 									
 									//-------------开始--------------------------------
 									
-									HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, "D:\\BZ\\soft\\",date);
+									HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(),date);
 									
 									String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
 									
@@ -1129,6 +1130,30 @@ public class HTMLParserUtil
 		return list;	
 	}
 	
+	
+	 /**
+	  * 根据操作系统获取本地存储文件夹
+	 * @return
+	 */
+	public static String getLocalFolderByOS(){
+		
+		  String rs = "D:\\BZ\\soft\\";
+		  try {
+			  Properties prop = System.getProperties();
+			  String os = prop.getProperty("os.name");
+		      if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
+		        	
+		      }else{  //linux || mac osx
+		    	  rs = "/mnt/apk/soft/";
+		      }
+		  } catch (Exception e) {
+			// TODO: handle exception
+			  rs = "D:\\BZ\\soft\\";
+		  }
+		  
+		return rs;
+		  
+	  }
 	
 	
 	
