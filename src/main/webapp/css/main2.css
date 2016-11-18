@@ -574,7 +574,7 @@ a.btn {
 .cutline {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 3;
+	-webkit-line-clamp: 2;
 	overflow: hidden;
 }
 
@@ -1514,3 +1514,26 @@ a.project-card-link {
 }
 
 /*---//movies--*/
+
+/* 文章页面 */
+
+.post_article p{
+	 letter-spacing: normal;
+	margin: 0 20px 5px 0;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	font-family: -apple-system, "Helvetica Neue", Arial, "PingFang SC",
+		"lucida grande", "lucida sans unicode", lucida, helvetica,
+		"Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei",
+		sans-serif;
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	word-break: break-word;
+	color: #2f2f2f;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 1.7;
+	}

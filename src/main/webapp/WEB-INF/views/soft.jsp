@@ -13,9 +13,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title>NorthPark / Mac软件</title>
-<meta name="description" content="NorthPark-Mac软件">
-<meta name="keywords" content="NorthPark-Mac软件">
+<title>Mac软件 | NorthPark</title>
+<meta name="description" content="Mac软件|NorthPark">
+<meta name="keywords" content="Mac软件|NorthPark">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 </head>
 

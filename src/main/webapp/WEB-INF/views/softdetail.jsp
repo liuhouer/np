@@ -13,10 +13,14 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title>NorthPark / ${article.title}</title>
+<title>${article.title} | NorthPark</title>
 <meta name="description" content="${article.title}">
 <meta name="keywords" content="${article.title}">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
+<style type="text/css">
+    /* 自定义评论  */
+	#ds-thread #ds-reset .ds-powered-by{display:none;}
+</style>
 </head>
 
 <body >
@@ -30,7 +34,7 @@
 					<div class="col-md-12">
 						<div class="col-sm-10  col-md-offset-1 ">
 							<div class="clearfix bg-white margin-t10 margin-b10 padding20 " id="J_white_div">
-								<div class="row margin10">
+								<div class="row margin10 post_article">
 									<div class="thumbnail border-0 center">
 										<p>
 											<small class="green-text">
@@ -93,7 +97,7 @@
 								
 								<div id="comment">
 								<!-- 多说评论框 start -->
-								<div class="ds-thread" data-thread-key="${article.retcode }" data-title="NorthPark / ${article.title}" data-url="/soft/${article.retcode }.html"></div>
+								<div class="ds-thread" data-thread-key="${article.retcode }" data-title="${article.title} | NorthPark" data-url="/soft/${article.retcode }.html"></div>
 								<!-- 多说评论框 end -->
 								
 								</div>

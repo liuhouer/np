@@ -5,7 +5,7 @@
 				<div class="row">
 				
 					<c:forEach items="${list }" var="s" varStatus="ss">
-					<div class="col-sm-4 " >
+					<div class="col-sm-6" >
 					<div class="clearfix bg-white margin-t10 margin-b10 padding20" >
 								<div class="row">
 									<div class="col-sm-4">
@@ -18,15 +18,14 @@
 												<img src="${s.img }" class="imgbreath">
 											</c:if>
 											</a>
-											<p><label class="bold-text cutline ">${s.title}</label></p>
-											<p class="cutline boldlabel margin-t10 ">${s.title}</p>
+											<p><label class="bold-text cutline " title="${s.title}">${s.title}</label></p>
 											
 											<div class="clearfix visible-xs"><hr></div>
 										</div>
 									</div>
 									
 									<div class="col-sm-8">
-										<p><small class="label label-gray">${s.date }</small> &nbsp; <br><br>
+										<p><small class="label label-gray">${s.date }</small> <a href="/romeo/${s.id }.html#comment"><small class="label label-gray ds-thread-count" data-thread-key="romeo${s.id }"></a></small><br><br>
 										
 										
 										<a href="/romeo/${s.id }.html" class="no-decoration" title="${s.title}">${s.title}</a> ：</p>
@@ -52,3 +51,17 @@
 					
 		  	</div>
 
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"jellyband"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+		</script>
+	<!-- 多说公共JS代码 end -->		

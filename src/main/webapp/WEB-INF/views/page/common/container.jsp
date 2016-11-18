@@ -12,6 +12,7 @@
                             <a target="_blank"  href="http://shop.NorthPark.cn" title="NorthPark商城">NorthPark商城</a>
 							<a target="_blank"  href="/movies" title="最新热映电影BT|云盘">NorthPark影院</a>
 							<a target="_blank"  class="aend" href="/cm/xbjt" title="原创音乐播放器">小布静听</a>
+                        
                         </p2>
                     </div>
         </div>
@@ -26,3 +27,13 @@
 <script src="/js/main2.js"></script>    
 <script src="/js/page/seltab.js"></script> 
 <script src="/js/page/common.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-87600630-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

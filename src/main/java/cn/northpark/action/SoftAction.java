@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.rubyeye.xmemcached.MemcachedClient;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -209,7 +207,7 @@ public class SoftAction {
 			String currentpage = page;
 			//排序条件
 			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-			order.put("postdate,id", "desc");
+			order.put("UNIX_TIMESTAMP(postdate)", "desc");
 			
 			//获取pageview
 			PageView<Soft> p = getPageView(currentpage, whereSql);
@@ -276,7 +274,7 @@ public class SoftAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("postdate,id", "desc");
+		order.put("UNIX_TIMESTAMP(postdate)", "desc");
 		
 		//获取pageview
 		PageView<Soft> p = getPageView(currentpage, whereSql);
