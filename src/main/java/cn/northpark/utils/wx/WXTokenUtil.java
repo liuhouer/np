@@ -17,6 +17,8 @@ import javax.net.ssl.TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.northpark.utils.HttpRequestUtils;
+import cn.northpark.utils.json.JsonUtil;
 import cn.northpark.utils.wx.model.AccessToken;
 import cn.northpark.utils.wx.model.MyX509TrustManager;
 import cn.northpark.utils.wx.model.SNSUserInfo;
@@ -277,6 +279,7 @@ public class WXTokenUtil {
 		catch (Exception e) {
 			// TODO: handle exception
 			log.error("https request error:{}", e);
+			e.printStackTrace();
 		}
 		
 		return jsonObject;
@@ -473,7 +476,7 @@ public class WXTokenUtil {
 		requestUrl = requestUrl.replace("TYPE", type);
 		
 		// 获取网页授权凭证
-		JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
+		JSONObject jsonObject = JsonUtil.json2map(HttpRequestUtils.sendGet(requestUrl));
 		System.out.println("get xingzuoyunshi===="+jsonObject);
 		return jsonObject;
 		
@@ -482,23 +485,25 @@ public class WXTokenUtil {
 	
 	////////////////////////////////////////////////////////////
 	public static void main(String[] args){
-		String ret = "";
-		String msg = "{\"action\":\"long2short\",\"long_url\":\"http://www.lvzheng.com\"}";
-		String request = "";
-		try {
-			request = "https://api.weixin.qq.com/cgi-bin/shorturl?access_token="+new WXTokenUtil().getWeixinToken("wx00ea855aaf1152af", "07a6dd9789e28772f6de32a2ec057fc0");
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			ret = sendMessaeg(request,msg);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		JSONObject jo = JSONObject.parseObject(ret);
-		System.out.println(jo.getString("short_url")); 
+//		String ret = "";
+//		String msg = "{\"action\":\"long2short\",\"long_url\":\"http://www.lvzheng.com\"}";
+//		String request = "";
+//		try {
+//			request = "https://api.weixin.qq.com/cgi-bin/shorturl?access_token="+new WXTokenUtil().getWeixinToken("wx00ea855aaf1152af", "07a6dd9789e28772f6de32a2ec057fc0");
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		try {
+//			ret = sendMessaeg(request,msg);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		JSONObject jo = JSONObject.parseObject(ret);
+//		System.out.println(jo.getString("short_url")); 
+//		
+		getXZYS("摩羯座", "today");
 	}
 
 }  
