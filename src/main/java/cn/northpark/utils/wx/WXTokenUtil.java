@@ -446,6 +446,39 @@ public class WXTokenUtil {
 	}
 
 	
+	/**
+	 * @获取星座运势
+	 * 
+	 * @param xzname
+	 * @param type
+	 * @return
+	 */
+	public static JSONObject getXZYS(String xzname,String type){
+		/*
+		 * 请求参数说明：
+			名称	              类型	      必填	说明
+		 	key	       string	是	应用APPKEY(应用详细页查询)
+		 	
+		 	consName   string	是	星座名称，如:白羊座
+		 	type	   string	是	运势类型：today,tomorrow,week,nextweek,month,year
+		 	
+			返回参数说明：
+			名称	类型	说明
+		 	error_code	int	返回码
+		 	reason	string	返回说明
+		 * 
+		 * */
+		String requestUrl ="http://web.juhe.cn:8080/constellation/getAll?key=66e02b4dcb5c30c871d34df9ee02f4bd&consName=CONSNAME&type=TYPE";
+		requestUrl = requestUrl.replace("CONSNAME", xzname);
+		requestUrl = requestUrl.replace("TYPE", type);
+		
+		// 获取网页授权凭证
+		JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
+		System.out.println("get xingzuoyunshi===="+jsonObject);
+		return jsonObject;
+		
+	}
+	
 	
 	////////////////////////////////////////////////////////////
 	public static void main(String[] args){
