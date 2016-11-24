@@ -26,13 +26,15 @@
 	
 <div class="clearfix maincontent grayback">
 	<div class="container">
-		    <div class="view margin-t20"  style="margin-top:100px; " >
-                <form class=" form-inline margin-t20"  method="post">
-                  <input id="keyword" placeholder="约不出来怎么办"    value="${keyword }"	class="form-control input-lg  border-light-1 bg-lyellow grid98 radius-0" name="keyword" type="text">
-                  <input data-activetext="搜索 ››" id="J_search" class="form-control btn btn-hero " value="搜索" type="button">
-                </form>
-              </div>
+		    
 		<div class="mainbody" id="J_maincontent"  >
+		
+             <div class="view clearfix  ">
+                <form class=" form-search " action="/movies/search" method="post" accept-charset="UTF-8">
+                  <input id="keyword" placeholder="约不出来怎么办"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
+                  <input data-activetext="搜索 ››" id="J_search"  class=" btn btn-hero " value="搜索" type="button">
+                </form>
+              </div> 
 			
 			<div id="J_progress" class="center padding-t20"></div>
 
@@ -46,5 +48,7 @@
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
 <script src="/js/page/eq.js"></script>
+				
+	
 
 </body></html>

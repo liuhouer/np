@@ -29,10 +29,10 @@
 		<div class="mainbody" style="margin-top:80px; ">
 		
 		
-		     <div class="view ">
-                <form class=" form-inline margin-t20" action="/movies/search" method="post">
-                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="form-control input-lg  border-light-1 bg-lyellow grid98 radius-0" name="keyword" type="text">
-                  <input data-activetext="搜索 ››" class="form-control btn btn-hero " value="搜索" type="submit">
+		     <div class="view clearfix  ">
+                <form class=" form-search " action="/movies/search" method="post" accept-charset="UTF-8">
+                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
+                  <input data-activetext="搜索 ››" class=" btn btn-hero " value="搜索" type="submit">
                 </form>
               </div>
 		

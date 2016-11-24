@@ -14,97 +14,91 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title>NorthPark / 文章</title>
-<meta name="description" content="${user.username}生命中的最爱: NorthPark / 记住美好,保留回忆,分享最爱。">
-<meta name="keywords" content="NorthPark">
-<%@ include file="/WEB-INF/views/page/common/common.jsp"%>
+<title>${model.title} | NorthPark </title>
+<meta name="description" content="${model.title} | NorthPark">
+<meta name="keywords" content="${model.title} | NorthPark">
 
 <style type="text/css">
-.aboutWrapper {
-    background-image: url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/64876897.jpg);
-    background-repeat: no-repeat;
-    background-position: center top;
-}
-
-.reservationsWrapper {
-    margin-top: 70px;
-}
-
-.aboutWrapper {
-    background-color: #ebebeb;
-    padding-bottom: 40px;
-    position: relative;
-    margin-bottom: 350px;
-}
-
-.aboutWrapper:before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    bottom: -100px;
-    background-image: url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/34631260.jpg);
-    max-width: 100%;
-    left: 0;
-    height: 291px;
-    width: 100%;
-}
-
+    /* 自定义评论  */
+	#ds-thread #ds-reset .ds-powered-by{display:none;}
 </style>
+<%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 </head>
 
 <body >
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
-
-
+	
 	<div class="clearfix maincontent grayback">
-	<div class="container">
-		<div class="mainbody" id="J_maincontent"  style="margin-top:150px; ">
-			
-			<div class="col-sm-10 col-xs-10 col-sm-offset-1 col-xs-offset-1 center" >
-							
-							<div class="aboutWrapper reservationsWrapper">
-							  <div class="row-fluid client_info_holder animationStart section_featured_texts">
-							    <div class="clearfix margin-b10 center" >
-								<div class="row">
+			<div class="container mainbody">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-sm-8  col-md-offset-2 ">
+							<div class="clearfix bg-white margin-t10 margin-b10 padding20 " id="J_white_div">
+								<div class="row margin10 post_article">
+									<div class="thumbnail border-0 center">
+										<p>
+											<small class="green-text">
+												<font size="5">
+													${model.title}
+												</font>
+											</small>
+										</p>
+										
+										<p>
+										<a class="common-a" title="${article.postdate}" >
+											${model.date }
+										</a>
+									</p>
 									
-									<div class="col-sm-8 col-xs-10 col-xs-offset-1 col-sm-offset-2 ">
-										<div class=" border-0 margin-t10">
-											<a title="${model.title}">
+											<hr>
+									</div>
+									<p class="margin-t10">
+										    <a title="${model.title}">
 												<img src="${model.img }" >
 											</a>
-											<p><label class="bold-text">${model.title}</label></p>
+									</p>
+									
+									<p id="content_">
 											
-											<div class="clearfix visible-xs"><hr></div>
-											<p><small class="label label-gray">${model.date }</small> &nbsp; <br><br>
-											
-											
-											<p >
-											
-											${model.article }
-											</p>
-										</div>
-
+										${model.article }
+									</p>
+									<div class="clearfix visible-xs">
+											<hr>
 									</div>
 								</div>
+								
+								<div id="comment">
+									<!-- 多说评论框 start -->
+									<div class="ds-thread" data-thread-key="romeo${model.id }" data-title="${model.title} | NorthPark" data-url="/romeo/${model.id }.html"></div>
+									<!-- 多说评论框 end -->
+								
+								</div>
+								
 							</div>
-							  </div>
-							  
-							
-							</div>
-							
+						</div>
 					</div>
-
-		   
-		  	
-		  	
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
 
-   			 
+
 	
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp"%>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"jellyband"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+		</script>
+	<!-- 多说公共JS代码 end -->					
 
 </body></html>    

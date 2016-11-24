@@ -206,7 +206,7 @@ public class SoftAction {
 			String currentpage = page;
 			//排序条件
 			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-			order.put("postdate,id", "desc");
+			order.put("UNIX_TIMESTAMP(postdate)", "desc");
 			
 			//获取pageview
 			PageView<Soft> p = getPageView(currentpage, whereSql);
@@ -272,7 +272,7 @@ public class SoftAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("postdate,id", "desc");
+		order.put("UNIX_TIMESTAMP(postdate)", "desc");
 		
 		//获取pageview
 		PageView<Soft> p = getPageView(currentpage, whereSql);

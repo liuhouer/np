@@ -81,7 +81,7 @@ public class EmailUtils {
 			HtmlEmail email = new HtmlEmail();
 			email.setAuthentication(myEmail, myPassword);
 			email.setHostName(host);
-			email.addTo(to, "toEmail");           //对方 邮件+对方名字
+			email.addTo(to, toEmail);           //对方 邮件+对方名字
 			email.setFrom(myEmail,"northpark官方");// 我方 邮件+我方显示名字 
 			email.setSubject(subject);// 标题  
 			// 注意，发送内容时，后面这段会让中文正常显示，否则乱码
@@ -516,6 +516,6 @@ public class EmailUtils {
 	}
 	
 	public static void main(String[] args ) {
-		emailUtil.ThanksReg("1007136434@qq.com");
+		EmailUtils.ThanksReg("1007136434@qq.com");
 	}
 }

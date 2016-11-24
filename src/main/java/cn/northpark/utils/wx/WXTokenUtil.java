@@ -17,6 +17,8 @@ import javax.net.ssl.TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.northpark.utils.HttpRequestUtils;
+import cn.northpark.utils.json.JsonUtil;
 import cn.northpark.utils.wx.model.AccessToken;
 import cn.northpark.utils.wx.model.MyX509TrustManager;
 import cn.northpark.utils.wx.model.SNSUserInfo;
@@ -277,6 +279,7 @@ public class WXTokenUtil {
 		catch (Exception e) {
 			// TODO: handle exception
 			log.error("https request error:{}", e);
+			e.printStackTrace();
 		}
 		
 		return jsonObject;
@@ -446,26 +449,61 @@ public class WXTokenUtil {
 	}
 
 	
+	/**
+	 * @获取星座运势
+	 * 
+	 * @param xzname
+	 * @param type
+	 * @return
+	 */
+	public static JSONObject getXZYS(String xzname,String type){
+		/*
+		 * 请求参数说明：
+			名称	              类型	      必填	说明
+		 	key	       string	是	应用APPKEY(应用详细页查询)
+		 	
+		 	consName   string	是	星座名称，如:白羊座
+		 	type	   string	是	运势类型：today,tomorrow,week,nextweek,month,year
+		 	
+			返回参数说明：
+			名称	类型	说明
+		 	error_code	int	返回码
+		 	reason	string	返回说明
+		 * 
+		 * */
+		String requestUrl ="http://web.juhe.cn:8080/constellation/getAll?key=66e02b4dcb5c30c871d34df9ee02f4bd&consName=CONSNAME&type=TYPE";
+		requestUrl = requestUrl.replace("CONSNAME", xzname);
+		requestUrl = requestUrl.replace("TYPE", type);
+		
+		// 获取网页授权凭证
+		JSONObject jsonObject = JsonUtil.json2map(HttpRequestUtils.sendGet(requestUrl));
+		System.out.println("get xingzuoyunshi===="+jsonObject);
+		return jsonObject;
+		
+	}
+	
 	
 	////////////////////////////////////////////////////////////
 	public static void main(String[] args){
-		String ret = "";
-		String msg = "{\"action\":\"long2short\",\"long_url\":\"http://www.lvzheng.com\"}";
-		String request = "";
-		try {
-			request = "https://api.weixin.qq.com/cgi-bin/shorturl?access_token="+new WXTokenUtil().getWeixinToken("wx00ea855aaf1152af", "07a6dd9789e28772f6de32a2ec057fc0");
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			ret = sendMessaeg(request,msg);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		JSONObject jo = JSONObject.parseObject(ret);
-		System.out.println(jo.getString("short_url")); 
+//		String ret = "";
+//		String msg = "{\"action\":\"long2short\",\"long_url\":\"http://www.lvzheng.com\"}";
+//		String request = "";
+//		try {
+//			request = "https://api.weixin.qq.com/cgi-bin/shorturl?access_token="+new WXTokenUtil().getWeixinToken("wx00ea855aaf1152af", "07a6dd9789e28772f6de32a2ec057fc0");
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		try {
+//			ret = sendMessaeg(request,msg);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		JSONObject jo = JSONObject.parseObject(ret);
+//		System.out.println(jo.getString("short_url")); 
+//		
+		getXZYS("摩羯座", "today");
 	}
 
 }  
