@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.rubyeye.xmemcached.MemcachedClient;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +23,6 @@ import cn.northpark.model.Soft;
 import cn.northpark.query.SoftQuery;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
-import cn.northpark.utils.XMemcachedUtil;
 import cn.northpark.utils.safe.WAQ;
 
 
@@ -262,7 +259,6 @@ public class SoftAction {
 	public String tagsearchpage(ModelMap map, @PathVariable String page,@PathVariable String tagscode,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
-		session.removeAttribute("tabs");
 		String result="/soft";
 		//防止sql注入
 		tagscode = WAQ.forSQL().escapeSql(tagscode);
@@ -311,6 +307,7 @@ public class SoftAction {
 		//获取标签
 		List<Map<String, Object>> tags = softManager.querySqlMap("select count(tags) as num,tags,tagscode from bc_soft group by tags order by num desc");
 		
+		
 		request.getSession().setAttribute("soft_tags", tags);
 		
 		//获取热门文章
@@ -325,9 +322,6 @@ public class SoftAction {
 		
 		request.getSession().setAttribute("date_list", datelist);
 		
-	    XMemcachedUtil.put("SOFT_soft_tags", tags, 3600 * 1000 *2);
-	    XMemcachedUtil.put("SOFT_hot_list", hotlist, 3600 * 1000 *2);
-	    XMemcachedUtil.put("SOFT_date_list", datelist, 3600 * 1000 *2);
 		
 	}
 	
