@@ -45,7 +45,6 @@ import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.URLUtil;
 import cn.northpark.utils.json.JsonUtil;
 import cn.northpark.utils.safe.WAQ;
 
@@ -342,8 +341,6 @@ public class UserAction {
 		
 		@RequestMapping("/cm/pcentral")
 		public String pcentral(ModelMap map,HttpServletRequest request) {
-			//获取域名
-			 URLUtil.getDomain(request);
 
 			 String rs = "/myself";
 			User user   = (User) request.getSession().getAttribute("user");
@@ -453,8 +450,6 @@ public class UserAction {
 		@RequestMapping("/cm/detail/{userid}")
 		public String detail(ModelMap map, @PathVariable String userid ,HttpServletRequest request) {
 			try{
-			//获取域名
-			 URLUtil.getDomain(request);
 			User user = userManager.findUser(Integer.parseInt(userid));
 			map.put("MyInfo", user);
 			
@@ -491,8 +486,6 @@ public class UserAction {
 		@RequestMapping("/people/{tail_slug}")
 		public String people(ModelMap map, @PathVariable String tail_slug ,HttpServletRequest request) {
 			try{
-			//获取域名
-			 URLUtil.getDomain(request);
 			User user = null;
 			List<User> ul = userManager.findByCondition(" where tail_slug = '"+tail_slug+"' ").getResultlist();
 			if(ul!=null){
@@ -775,8 +768,6 @@ public class UserAction {
 		@RequestMapping(value="/love")
 		public String list(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session,String userid) {
-			//获取域名
-			//URLUtil.getDomain(request);
 			session.removeAttribute("tabs");
 			session.setAttribute("tabs","pic");
 			String currentpage = request.getParameter("currentpage");

@@ -23,6 +23,7 @@ import cn.northpark.model.Soft;
 import cn.northpark.query.SoftQuery;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.XMemcachedUtil;
 import cn.northpark.utils.safe.WAQ;
 
 
@@ -304,22 +305,36 @@ public class SoftAction {
 	 * @param map
 	 */
 	private void getTags(ModelMap map,HttpServletRequest request) {
-		//获取标签
-		List<Map<String, Object>> tags = softManager.querySqlMap("select count(tags) as num,tags,tagscode from bc_soft group by tags order by num desc");
+		List<Map<String, Object>> tags = null;
+		List<Soft> hotlist  =null;
+		List<Soft> datelist = null;
 		
+		tags = (List<Map<String, Object>>) XMemcachedUtil.get("soft_tags");
 		
+		hotlist = (List<Soft>) XMemcachedUtil.get("hot_list");
+		
+		datelist = (List<Soft>) XMemcachedUtil.get("date_list");
+		
+		if(tags==null || hotlist==null || datelist==null){
+			//获取标签
+			 tags = softManager.querySqlMap("select count(tags) as num,tags,tagscode from bc_soft group by tags order by num desc");
+			
+			XMemcachedUtil.put("soft_tags", tags, 1000 * 60 *2);
+			
+			//获取热门文章
+			String hotsql = "select * from bc_soft order by postdate desc limit 0,10";
+			hotlist = softManager.querySql(hotsql);
+			
+			XMemcachedUtil.put("hot_list", hotlist, 1000 * 60 *2);
+			
+			//获取月份排序
+			String datesql = "select * from bc_soft group by month order by id,month desc";
+			datelist = softManager.querySql(datesql);
+			
+			XMemcachedUtil.put("date_list", datelist, 1000 * 60 *2);
+		}
 		request.getSession().setAttribute("soft_tags", tags);
-		
-		//获取热门文章
-		String hotsql = "select * from bc_soft order by postdate desc limit 0,10";
-		List<Soft> hotlist = softManager.querySql(hotsql);
-		
 		request.getSession().setAttribute("hot_list", hotlist);
-		
-		//获取月份排序
-		String datesql = "select * from bc_soft group by month order by id,month desc";
-		List<Soft> datelist = softManager.querySql(datesql);
-		
 		request.getSession().setAttribute("date_list", datelist);
 		
 		
