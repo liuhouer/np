@@ -18,6 +18,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -43,6 +44,9 @@ import org.jsoup.select.Elements;
 
 public class HTMLParserUtil
 {
+	
+	private static final Logger LOGGER = Logger
+			.getLogger(HTMLParserUtil.class);
 
 	/**
 	 * 按字节长度截取字符串(支持截取带HTML代码样式的字符串)
@@ -1042,18 +1046,25 @@ public class HTMLParserUtil
 								
 								Elements imgs = article_alls.get(i1).select("img");
 								for (int j = 0; j < imgs.size(); j++) {
-									String weburl = imgs.get(j).attr("src");
-									//web图片上传到七牛
+									try {
+										String weburl = imgs.get(j).attr("src");
+										//web图片上传到七牛
+										
+										//-------------开始--------------------------------
+										
+										HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
+										
+										String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
+										
+										//-------------结束--------------------------------
+										
+										imgs.get(j).attr("src", rs);
+									} catch (Exception e) {
+										// TODO: handle exception
+										LOGGER.error("ret pic exception===>"+e.toString());
+										continue;
+									}
 									
-									//-------------开始--------------------------------
-									
-									HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
-									
-									String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
-									
-									//-------------结束--------------------------------
-									
-									imgs.get(j).attr("src", rs);
 								}
 								
 								
@@ -1078,18 +1089,28 @@ public class HTMLParserUtil
 								
 								Elements imgs = briefs.get(i1).select("img");
 								for (int j = 0; j < imgs.size(); j++) {
-									String weburl = imgs.get(j).attr("src");
-									//web图片上传到七牛
 									
-									//-------------开始--------------------------------
+									try {
+										
+										String weburl = imgs.get(j).attr("src");
+										//web图片上传到七牛
+										
+										//-------------开始--------------------------------
+										
+										HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(),date);
+										
+										String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
+										
+										//-------------结束--------------------------------
+										
+										imgs.get(j).attr("src", rs);
+									} catch (Exception e) {
+										// TODO: handle exception
+										LOGGER.error("ret pic exception===>"+e.toString());
+										continue;
+									}
 									
-									HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(),date);
 									
-									String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
-									
-									//-------------结束--------------------------------
-									
-									imgs.get(j).attr("src", rs);
 								}
 								String p1 = briefs.get(i1).html();
 								if(!p1.contains("继续阅读") ){
