@@ -450,32 +450,36 @@ public class UserAction {
 		@RequestMapping("/cm/detail/{userid}")
 		public String detail(ModelMap map, @PathVariable String userid ,HttpServletRequest request) {
 			try{
+				
 			User user = userManager.findUser(Integer.parseInt(userid));
 			map.put("MyInfo", user);
 			
 			//查询个人歌词最爱历史
 			String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ? order by c.updatedate desc" ;
 
-			List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
-			for (int i = 0; i < list.size(); i++) {
-				//--批量处理时间
-				list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));;
-			
+			if(user!=null){
+				List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
+				for (int i = 0; i < list.size(); i++) {
+					//--批量处理时间
+					list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));;
+				
+				}
+				map.addAttribute("Lovelist", list);
+				 //取得当前用户对作者的关注状态
+		         User lo_user = (User) request.getSession().getAttribute("user");
+		         if(lo_user!=null){
+		        	 String follow_id = String.valueOf(lo_user.getId());
+		        	 String author_id = userid;
+		        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
+		        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
+		        		 if(nums>0){
+		        			 map.put("gz", "ygz");
+		        		 }
+		        	 }
+		        	 
+		         }
 			}
-			map.addAttribute("Lovelist", list);
-			 //取得当前用户对作者的关注状态
-	         User lo_user = (User) request.getSession().getAttribute("user");
-	         if(lo_user!=null){
-	        	 String follow_id = String.valueOf(lo_user.getId());
-	        	 String author_id = userid;
-	        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
-	        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
-	        		 if(nums>0){
-	        			 map.put("gz", "ygz");
-	        		 }
-	        	 }
-	        	 
-	         }
+			
 	         
 			}catch(Exception e){
 				e.printStackTrace();
@@ -486,6 +490,8 @@ public class UserAction {
 		@RequestMapping("/people/{tail_slug}")
 		public String people(ModelMap map, @PathVariable String tail_slug ,HttpServletRequest request) {
 			try{
+			
+				tail_slug = WAQ.forSQL().escapeSql(tail_slug);	
 			User user = null;
 			List<User> ul = userManager.findByCondition(" where tail_slug = '"+tail_slug+"' ").getResultlist();
 			if(ul!=null){
@@ -497,29 +503,32 @@ public class UserAction {
 			//查询个人歌词最爱历史
 			String sql =  "select c.*,b.id as userlyricsid from bc_user a join  bc_user_lyrics b on a.id = b.userid join bc_lyrics c on b.lyricsid = c.id where a.id = ? order by c.updatedate desc" ;
 			
-
-			List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
-			for (int i = 0; i < list.size(); i++) {
+			if(user!=null){
+				List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
+				for (int i = 0; i < list.size(); i++) {
+					
+					//--批量处理时间
+					list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
+				}
+				map.addAttribute("Lovelist", list);
 				
-				//--批量处理时间
-				list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
+				
+				 //取得当前用户对作者的关注状态
+		         User lo_user = (User) request.getSession().getAttribute("user");
+		         if(lo_user!=null){
+		        	 String follow_id = String.valueOf(lo_user.getId());
+		        	 String author_id = String.valueOf(user.getId());
+		        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
+		        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
+		        		 if(nums>0){
+		        			 map.put("gz", "ygz");
+		        		 }
+		        	 }
+		        	 
+		         }
 			}
-			map.addAttribute("Lovelist", list);
 			
 			
-			 //取得当前用户对作者的关注状态
-	         User lo_user = (User) request.getSession().getAttribute("user");
-	         if(lo_user!=null){
-	        	 String follow_id = String.valueOf(lo_user.getId());
-	        	 String author_id = String.valueOf(user.getId());
-	        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
-	        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
-	        		 if(nums>0){
-	        			 map.put("gz", "ygz");
-	        		 }
-	        	 }
-	        	 
-	         }
 			}catch(Exception e){
 				e.printStackTrace();
 			}
