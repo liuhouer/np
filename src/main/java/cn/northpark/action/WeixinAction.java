@@ -10,16 +10,23 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import com.alibaba.fastjson.JSONObject;
+
+import cn.northpark.utils.json.JsonUtil;
+import cn.northpark.utils.wx.WXTokenUtil;
 import cn.northpark.utils.wx.qyh.ParamesAPI.ParamesAPI;
 import cn.northpark.utils.wx.qyh.encryption.AesException;
 import cn.northpark.utils.wx.qyh.encryption.WXBizMsgCrypt;
@@ -188,6 +195,39 @@ public class WeixinAction  extends MultiActionController  {
 		
 		return encryptMsg;
 	}
+	
+	
+	
+
+	//跳转星座页面
+	@RequestMapping(value="/astro")
+	public String astro(ModelMap map) {
+	    
+		
+		return "/astro";
+	}
+	
+	//获取星座数据
+	@RequestMapping(value="/getAstro")
+	public String getAstro(HttpServletRequest request,ModelMap map) {
+		String xzname = request.getParameter("xzname");
+		String type = request.getParameter("type");
+		if(StringUtils.isEmpty(xzname)){
+			xzname = "摩羯座";
+		}
+		if(StringUtils.isEmpty(type)){
+			xzname = "today";
+		}
+	    JSONObject data = WXTokenUtil.getXZYS(xzname, type);
+	    map.put("data", data);
+	    String jsonstr = JsonUtil.object2json(data);
+	    
+		
+		return "/page/astro/today";
+	}
+	
+	
+	
 	
 	
 
