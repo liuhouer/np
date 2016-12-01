@@ -3,6 +3,8 @@ package cn.northpark.utils.wx.qyh.service;
 import java.util.Date;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import cn.northpark.utils.wx.qyh.msg.MessageUtil;
 import cn.northpark.utils.wx.qyh.msg.Resp.TextMessage;
 
@@ -20,14 +22,14 @@ public class CoreService {
 	 * @param request
 	 * @return xml
 	 */
-	public static String processRequest(String request) {
+	public static String processRequest(String msg,HttpServletRequest request) {
 		// xml格式的消息数据
 		String respXml = null;
 		// 默认返回的文本消息内容
 		String respContent = "未知的消息类型！";
 		try {
 			// 调用parseXml方法解析请求消息
-			Map<String, String> requestMap = MessageUtil.parseXml(request);
+			Map<String, String> requestMap = MessageUtil.parseXml(msg);
 			// 发送方帐号
 			String fromUserName = requestMap.get("FromUserName");
 			// 开发者微信号
@@ -90,7 +92,22 @@ public class CoreService {
 				else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
 					// TODO 处理菜单点击事件
 					// 事件KEY值，与创建自定义菜单时指定的KEY值对应
+					/*
+					 *  
+					    ToUserName	企业号CorpID
+						FromUserName	成员UserID
+						CreateTime	消息创建时间 （整型）
+						MsgType	消息类型，event
+						Event	事件类型，view
+						EventKey	事件KEY值，设置的跳转URL
+						AgentID	应用代理ID
+						
+					 * */
 					String eventKey = requestMap.get("EventKey");
+					String wx_cop_userid   = requestMap.get("FromUserName");
+					String AgentID   = requestMap.get("AgentID");
+					//将用户userid设置到全局处理
+					request.getSession().setAttribute("wx_cop_userid", wx_cop_userid);
 					System.out.println("EventKey=" + eventKey);
 					respContent = "点击的菜单KEY:" + eventKey;
 				}

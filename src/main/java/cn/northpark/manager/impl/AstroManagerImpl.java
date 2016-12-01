@@ -8,87 +8,87 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.northpark.dao.SoftDao;
-import cn.northpark.manager.SoftManager;
-import cn.northpark.model.Soft;
+import cn.northpark.dao.AstroDao;
+import cn.northpark.manager.AstroManager;
+import cn.northpark.model.Astro;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
 
 /**
  * @author bruce
- * @date 2016-11-09
+ * @date 2016-12-01
  * @email zhangyang226@gmail.com
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
  * 
  */
-@Service("SoftManager")
-public class SoftManagerImpl implements SoftManager {
+@Service("AstroManager")
+public class AstroManagerImpl implements AstroManager {
 
     @Autowired
-	private SoftDao softDao;
+	private AstroDao astroDao;
 
 	@Override
-	public Soft findSoft(Integer id) {
-		return softDao.find(id);
+	public Astro findAstro(Integer id) {
+		return astroDao.find(id);
 	}
 
 	@Override
-	public List<Soft> findAll() {
-		return softDao.findAll();
+	public List<Astro> findAll() {
+		return astroDao.findAll();
 	}
 
 	@Override
-	public void addSoft(Soft soft) {
-		softDao.save(soft);
+	public void addAstro(Astro astro) {
+		astroDao.save(astro);
 	}
 
 	@Override
-	public boolean delSoft(Integer id) {
-		Soft soft = softDao.find(id);
-		softDao.delete(soft);
+	public boolean delAstro(Integer id) {
+		Astro astro = astroDao.find(id);
+		astroDao.delete(astro);
 		return true;
 	}
 
 	@Override
-	public boolean updateSoft(Soft soft) {
-		softDao.update(soft);
+	public boolean updateAstro(Astro astro) {
+		astroDao.update(astro);
 		return true;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-	public QueryResult<Soft> findByCondition(PageView<Soft> p,
+	public QueryResult<Astro> findByCondition(PageView<Astro> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = softDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = astroDao.findByCondition(p.getStartindex(),
 				p.getMaxresult(), wheresql, order);
 		return qrs;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-	public QueryResult<Soft> findByCondition(String wheresql) {
+	public QueryResult<Astro> findByCondition(String wheresql) {
 		// TODO Auto-generated method stub
-		QueryResult qrs = softDao.findByCondition(
+		QueryResult qrs = astroDao.findByCondition(
 				 wheresql);
 		return qrs;
 	}
 	
 	@Override
-	public List<Soft> querySql(String sql, Object... obj) {
+	public List<Astro> querySql(String sql, Object... obj) {
 		// TODO Auto-generated method stub
-		return softDao.querySql(sql, Soft.class, obj);
+		return astroDao.querySql(sql, Astro.class, obj);
 	}
 
 	@Override
-	public List<Soft> querySql(String sql) {
+	public List<Astro> querySql(String sql) {
 		// TODO Auto-generated method stub
-		return softDao.querySql(sql, Soft.class);
+		return astroDao.querySql(sql, Astro.class);
 	}
 
 	@Override
 	public PageView<List<Map<String, Object>>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView) {
 		// TODO Auto-generated method stub
-		return softDao.QuerySQLForMapList(sql, pageView);
+		return astroDao.QuerySQLForMapList(sql, pageView);
 	}
 	
 	/* (non-Javadoc)
@@ -97,22 +97,16 @@ public class SoftManagerImpl implements SoftManager {
 	@Override
 	public int countSql(String sql) {
 		// TODO Auto-generated method stub
-		return softDao.countSql(sql);
+		return astroDao.countSql(sql);
 	}
 
 	/* (non-Javadoc)
 	 * 根据hql查询条数
 	 */
 	@Override
-	public int countHql(Soft m, String wheresql) {
+	public int countHql(Astro m, String wheresql) {
 		// TODO Auto-generated method stub
-		return softDao.countHql(m.getClass(), wheresql);
-	}
-
-	@Override
-	public List<Map<String, Object>> querySqlMap(String sql) {
-		// TODO Auto-generated method stub
-		return softDao.querySql(sql);
+		return astroDao.countHql(m.getClass(), wheresql);
 	}
 }
 

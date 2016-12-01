@@ -271,6 +271,20 @@ public class TextMessage extends BaseMessage {
 		buffer.append("回复“?”显示主菜单");
 		return buffer.toString();
 	}
+	
+	/**
+	 * /获取推送的星座运势content
+	 * @return
+	 */
+	public static String GetAstro(String xzname) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("\ue42f ").append("\n\n");
+		buffer.append("\ue42f ").append("\n\n");
+		buffer.append("  输入:快递名称-单号").append("\n");
+		buffer.append("  提示:顺丰-575677355677").append("\n\n");
+		buffer.append("回复“?”显示主菜单");
+		return buffer.toString();
+	}
 
 	public static void main(String[] args) {
 		System.out.println(weixinJoke());

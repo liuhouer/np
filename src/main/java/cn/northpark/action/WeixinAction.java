@@ -3,6 +3,7 @@ package cn.northpark.action;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,9 +12,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +28,10 @@ import org.xml.sax.InputSource;
 
 import com.alibaba.fastjson.JSONObject;
 
+import cn.northpark.manager.AstroManager;
+import cn.northpark.model.Astro;
+import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.json.JsonUtil;
 import cn.northpark.utils.wx.WXTokenUtil;
 import cn.northpark.utils.wx.qyh.ParamesAPI.ParamesAPI;
@@ -37,7 +44,8 @@ import cn.northpark.utils.wx.qyh.service.CoreService;
 public class WeixinAction  extends MultiActionController  {
 
 	
-	
+	@Autowired
+	private AstroManager astroManager;
 	/**
 	 * @author jeyy - 验证企业号的请求
 	 * @param request
@@ -169,7 +177,7 @@ public class WeixinAction  extends MultiActionController  {
 			System.out.println("Msg打印结果：" + Msg);
 
 			// 调用核心业务类接收消息、处理消息
-			String respMessage = CoreService.processRequest(Msg);
+			String respMessage = CoreService.processRequest(Msg,request);
 
 			// respMessage打印结果
 			System.out.println("respMessage打印结果：" + respMessage);
@@ -201,8 +209,35 @@ public class WeixinAction  extends MultiActionController  {
 
 	//跳转星座页面
 	@RequestMapping(value="/astro")
-	public String astro(ModelMap map) {
+	public String astro(HttpServletRequest request,ModelMap map) {
 	    
+		String xzname = request.getParameter("xzname");
+		String type = request.getParameter("type");
+		
+		String wx_cop_userid = (String) request.getSession().getAttribute("wx_cop_userid");
+		
+		
+		if(StringUtils.isNotEmpty(wx_cop_userid)){
+			map.put("wx_cop_userid", wx_cop_userid);
+			List<Astro> list = astroManager.findByCondition(" where wx_cop_userid = '"+wx_cop_userid+"' ").getResultlist();
+			
+			if(!CollectionUtils.isEmpty(list)){
+				xzname = list.get(0).getXzname();
+			}
+		}
+		
+		if(StringUtils.isEmpty(xzname)){
+			xzname = "摩羯座";
+		}
+		if(StringUtils.isEmpty(type)){
+			type = "today";
+		}
+		
+		
+		
+		map.put("xzname", xzname);
+		map.put("type", type);
+		
 		
 		return "/astro";
 	}
@@ -216,16 +251,53 @@ public class WeixinAction  extends MultiActionController  {
 			xzname = "摩羯座";
 		}
 		if(StringUtils.isEmpty(type)){
-			xzname = "today";
+			type = "today";
 		}
+		
+		map.put("xzname", xzname);
+		map.put("type", type);
+		
 	    JSONObject data = WXTokenUtil.getXZYS(xzname, type);
 	    map.put("data", data);
-	    String jsonstr = JsonUtil.object2json(data);
 	    
 		
-		return "/page/astro/today";
+		return "/page/astro/"+type;
 	}
 	
+		//定制星座推送
+		@RequestMapping(value="/bindAstro")
+		@ResponseBody
+		public String bindAstro(HttpServletRequest request,ModelMap map) {
+			String xzname = request.getParameter("xzname");
+			String wx_cop_userid = request.getParameter("wx_cop_userid");
+			String type = request.getParameter("type");
+			
+			Astro model = null;
+			List<Astro> list = astroManager.findByCondition(" where wx_cop_userid = '"+wx_cop_userid+"' ").getResultlist();
+			if(!CollectionUtils.isEmpty(list)){
+				model = list.get(0);
+				if("cancel".equals(type)){
+					//取消绑定
+					model.setStatus("0");
+					astroManager.updateAstro(model);
+				}else{
+					//更新绑定
+					model.setXzname(xzname);
+					astroManager.updateAstro(model);
+				}
+				
+			}else{
+				//新用户绑定
+				model = new Astro();
+				model.setAddtime(TimeUtils.nowTime());
+				model.setStatus("1");
+				model.setWx_cop_userid(wx_cop_userid);
+				model.setXzname(xzname);
+				astroManager.addAstro(model);
+			}
+			
+			return "/page/astro/"+type;
+		}
 	
 	
 	

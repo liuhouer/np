@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.EqDao;
 import cn.northpark.manager.EqManager;
 import cn.northpark.model.Eq;
-import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
 

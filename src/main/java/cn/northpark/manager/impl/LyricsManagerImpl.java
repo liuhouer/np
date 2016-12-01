@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.LyricsDao;
 import cn.northpark.manager.LyricsManager;
 import cn.northpark.model.Lyrics;
-import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
 
