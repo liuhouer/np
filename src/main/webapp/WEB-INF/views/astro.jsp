@@ -150,10 +150,10 @@
 											<hr>
 							    </div>
 							   <%--  <c:if test="${wx_cop_userid !=null}"> --%>
-								    <div class="row padding20" id="J_order_xz" >
+								 <!--    <div class="row padding20" id="J_order_xz" >
 											<a class="btn btn-pink  no-decoration btn-xlg" style="display: block;" id="J_order_btn" >定制星座推送</a>
 												
-								    </div>
+								    </div> -->
 							    <%-- </c:if> --%>
 							    
 							    
@@ -251,7 +251,7 @@
 		
 		
 		//定制操作
-		$("#J_order_btn").click(function(){
+		/* $("#J_order_btn").click(function(){
 			var wx_cop_userid = "1111" //"${wx_cop_userid}";
 			var xzname = $("#J_xzname").val();
 			 $.ajax({
@@ -263,7 +263,7 @@
 	            	 art.dialog.tips("定制成功");
 	             }
 	         });
-		})
+		}) */
 		
 		
 	})
