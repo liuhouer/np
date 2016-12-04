@@ -18,6 +18,39 @@ import com.alibaba.fastjson.JSONArray;
 public class Message {
 	// 发送接口
 	public static String POST_URL = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=ACCESS_TOKEN";
+	
+	
+	
+	/**
+	* 企业接口向下属关注用户发送微信消息(实现方式二)
+	*
+	* @param touser
+	* 成员ID列表（消息接收者，多个接收者用‘|’分隔，最多支持1000个）。特殊情况：指定为@all，
+	* 则向关注该企业应用的全部成员发送
+	* @param toparty
+	* 部门ID列表，多个接收者用‘|’分隔，最多支持100个。当touser为@all时忽略本参数
+	* @param totag
+	* 标签ID列表，多个接收者用‘|’分隔。当touser为@all时忽略本参数
+	* @param content
+	* 消息内容
+	* @return
+	*/
+	public static String getSendJsonText(String touser, String toparty, String totag, String content) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("{");
+		sb.append("\"touser\":" + "\"" + touser + "\",");
+		sb.append("\"toparty\":" + "\"" + toparty + "\",");
+		sb.append("\"totag\":" + "\"" + totag + "\",");
+		sb.append("\"msgtype\":" + "\"" + "text" + "\",");
+		sb.append("\"agentid\":" + "\"" + "5" + "\",");
+		sb.append("\"text\":" + "{");
+		sb.append("\"content\":" + "\"" + content + "\"},");
+		sb.append("\"debug\":" + "\"" + "1" + "\"");
+		sb.append("}");
+		
+		return sb.toString();
+
+	}
 
 	/**
 	 * text消息

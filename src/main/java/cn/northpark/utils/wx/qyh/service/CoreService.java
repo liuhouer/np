@@ -73,23 +73,23 @@ public class CoreService {
 				// 事件类型
 				String eventType = requestMap.get("Event");
 				// 关注
-				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
+				if (eventType.equalsIgnoreCase(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
 					respContent = "谢谢您的关注！";
 				}
 				// 取消关注
-				else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
+				else if (eventType.equalsIgnoreCase(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
 					// TODO 取消订阅后用户不会再收到公众账号发送的消息，因此不需要回复
 				}
 				// 扫描带参数二维码
-				else if (eventType.equals(MessageUtil.EVENT_TYPE_SCAN)) {
+				else if (eventType.equalsIgnoreCase(MessageUtil.EVENT_TYPE_SCAN)) {
 					// TODO 处理扫描带参数二维码事件
 				}
 				// 上报地理位置
-				else if (eventType.equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) {
+				else if (eventType.equalsIgnoreCase(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) {
 					// TODO 处理上报地理位置事件
 				}
 				// 自定义菜单
-				else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
+				else if (eventType.equalsIgnoreCase(MessageUtil.EVENT_TYPE_CLICK)) {
 					// TODO 处理菜单点击事件
 					// 事件KEY值，与创建自定义菜单时指定的KEY值对应
 					/*

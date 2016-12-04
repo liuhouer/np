@@ -18,7 +18,7 @@ public class ParamesAPI {
 	// 管理组的凭证密钥，每个secret代表了对应用、通讯录、接口的不同权限；不同的管理组拥有不同的secret || -----jeyy's group
 	public static String secret = "x8rPuQV0InqrYIIZFQQgKLbhG1yq4cbnHmTfUQpb53f8XY1uSxTwaWtlSWQV_trq";
 	// OAuth2 回调地址
-	public static String REDIRECT_URI = "http://northpark.cn/wx/qyh/verfy";
+	public static String REDIRECT_URI = "http://northpark.cn/wx/qyh/getUserId";
 	
 	
 	//

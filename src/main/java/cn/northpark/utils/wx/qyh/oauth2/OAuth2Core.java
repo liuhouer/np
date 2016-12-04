@@ -34,6 +34,27 @@ public class OAuth2Core {
 		get_code_url = GET_CODE.replace("CORPID", ParamesAPI.corpId).replace("REDIRECT_URI", WeixinQyhUtil.URLEncoder(ParamesAPI.REDIRECT_URI));
 		return get_code_url;
 	}
+	
+	/**
+	 * 企业获取code地址处理
+	 * 
+	 * @param appid
+	 *            企业的CorpID
+	 * @param redirect_uri
+	 *            授权后重定向的回调链接地址，请使用urlencode对链接进行处理
+	 * @param response_type
+	 *            返回类型，此时固定为：code
+	 * @param scope
+	 *            应用授权作用域，此时固定为：snsapi_base
+	 * @param state
+	 *            重定向后会带上state参数，企业可以填写a-zA-Z0-9的参数值
+	 * @param #wechat_redirect 微信终端使用此参数判断是否需要带上身份信息 员工点击后，页面将跳转至 redirect_uri/?code=CODE&state=STATE，企业可根据code参数获得员工的userid
+	 * */
+	public static String getCode(String return_url) {
+		String get_code_url = "";
+		get_code_url = GET_CODE.replace("CORPID", ParamesAPI.corpId).replace("REDIRECT_URI", WeixinQyhUtil.URLEncoder(return_url));
+		return get_code_url;
+	}
 
 	public static String CODE_TO_USERINFO = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=ACCESS_TOKEN&code=CODE&agentid=AGENTID";
 
@@ -64,6 +85,17 @@ public class OAuth2Core {
 			System.out.println("获取授权失败了，●﹏●，自己找原因。。。");
 		}
 		return UserId;
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		
+		System.out.println(getCode("http://northpark.cn/wx/wxastro?type=today"));
+		System.out.println(getCode("http://northpark.cn/wx/wxastro?type=tommorrow"));
+		System.out.println(getCode("http://northpark.cn/wx/wxastro?type=week"));
+		System.out.println(getCode("http://northpark.cn/wx/wxastro?type=month"));
+		
 	}
 
 }

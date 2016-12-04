@@ -7,7 +7,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.commons.lang.StringUtils;
+
+import cn.northpark.utils.XMemcachedUtil;
 import cn.northpark.utils.wx.qyh.ParamesAPI.AccessToken;
+import cn.northpark.utils.wx.qyh.ParamesAPI.ParamesAPI;
 import cn.northpark.utils.wx.qyh.menu.Menu;
 
 import com.alibaba.fastjson.JSONObject;
@@ -67,6 +71,34 @@ public class WeixinQyhUtil {
 
 	// 获取access_token的接口地址（GET）
 	public final static String access_token_url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=CorpID&corpsecret=SECRET";
+	
+	
+	
+	
+	
+	String access_token = WeixinQyhUtil.getAccessToken(ParamesAPI.corpId, ParamesAPI.secret).getToken();
+	
+	
+	/**
+	 * 获取access_token从缓存
+	 */
+	public static String getAccessToken() {
+		String access_token ="";
+		access_token = (String) XMemcachedUtil.get("qyh_access_token");
+		
+		if(StringUtils.isEmpty(access_token)){
+			access_token = WeixinQyhUtil.getAccessToken(ParamesAPI.corpId, ParamesAPI.secret).getToken();
+			XMemcachedUtil.put("qyh_access_token", access_token, 1000 * 60 * 100);//100分钟
+		}
+
+		
+		
+		
+		return access_token;
+		
+	}
+
+	
 
 	/**
 	 * 获取access_token
