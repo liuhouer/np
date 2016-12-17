@@ -193,7 +193,7 @@
 	//禁止图片拉伸
 	$(function(){
 		$("img").each(function(){
-			$(this).css('max-width',($("#J_white_div").width()));
+			$(this).css('max-width',($(".bg-white").width()));
 		})
 	})
 	</script>
