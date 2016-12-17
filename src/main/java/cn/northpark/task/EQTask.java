@@ -74,7 +74,6 @@ public class EQTask {
     		e.printStackTrace();
     	}
 
-		
 		try {
 			
 			System.out.println("soft task==============start="+TimeUtils.getNowTime());
@@ -125,9 +124,21 @@ public class EQTask {
 			}
 			
 			
+			//重复记录每个只保留一条
+			
+			String delsoft_sql = "DELETE FROM bc_soft WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count FROM bc_soft GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
+			
+			EqManager.executeSql(delsoft_sql);
+			
 			logger.info("soft task==============end="+TimeUtils.getNowTime());
 			logger.trace("soft task==============end="+TimeUtils.getNowTime());
 			System.out.println("soft task==============end="+TimeUtils.getNowTime());
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		try {
 			
 			/////////////////////推送微信定时星座运势塔罗牌天气、、、、、、、、、、、、、、、、、、、、、、、、
 			

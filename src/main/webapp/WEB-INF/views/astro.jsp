@@ -12,7 +12,7 @@
 
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
-<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="shortcut icon" href="/img/lemon_favicon.png">
 <title>星座运势 | NorthPark</title>
 <meta name="description" content="星座运势">
 <meta name="keywords" content="星座运势">

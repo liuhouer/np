@@ -11,8 +11,8 @@
                             <a target="_blank"  href="http://blog.NorthPark.cn" title="NorthPark博客">NorthPark博客</a>
                             <a target="_blank"  href="http://shop.NorthPark.cn" title="NorthPark商城">NorthPark商城</a>
 							<a target="_blank"  href="/movies" title="最新热映电影BT|云盘">NorthPark影院</a>
-							<a target="_blank"  href="/cm/xbjt" title="原创音乐播放器">小布静听</a>
-							<a target="_blank"  href="/wx/astro" title="星座运势、人性化的美少女塔罗牌消息私人订制"  class="aend" >星座美少女</a>
+							<a target="_blank"  href="/cm/xbjt" title="原创音乐播放器" class="aend">小布静听</a>
+							<!-- <a target="_blank"  href="/wx/astro" title="星座运势、人性化的美少女塔罗牌消息私人订制"  class="aend" >星座美少女</a> -->
                         
                         </p2>
                     </div>

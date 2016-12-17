@@ -189,6 +189,14 @@
 	
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	
+	<script type="text/javascript">
+	//禁止图片拉伸
+	$(function(){
+		$("img").each(function(){
+			$(this).css('max-width',($("#J_white_div").width()));
+		})
+	})
+	</script>
 	
 	<script type="text/javascript">
 	  /*  ##set query param */
