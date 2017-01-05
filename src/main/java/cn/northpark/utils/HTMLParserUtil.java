@@ -1117,6 +1117,9 @@ public class HTMLParserUtil
                         Elements divs = li.select("div[class=thumbnail]");
 
                         String title = divs.get(0).select("a").get(0).attr("title");
+                        
+                        String retcode = MD5Utils.encoding(title);
+                        
                         String aurl =  divs.get(0).select("a").get(0).attr("href");
 
                         String date =  li.select("span[class=info_date info_ico]").get(0).text();
@@ -1154,18 +1157,26 @@ public class HTMLParserUtil
 
                                 }
                                 //基本介绍
-                                String preText = article_alls.get(0).select("p").get(0).html();
-                                preText = "<p>"+preText +"</p>";
-                                preText +=  "<p>"+ article_alls.get(0).select("p").get(1).html()+"</p>";
-
-                                //电影介绍
-                                String markText = article_alls.get(0).select("div[id=link-report]").get(0).select("p").get(0).html();
+//                                String preText = article_alls.get(0).select("p").get(0).html();
+//                                preText = "<p>"+preText +"</p>";
+//                                preText +=  "<p>"+ article_alls.get(0).select("p").get(1).html()+"</p>";
+//
+//                                //电影介绍
+//                                String markText = article_alls.get(0).select("div[id=link-report]").get(0).select("p").get(0).html();
                                 //下载地址
-                                String downText = article_alls.get(0).select("div[id=link-report]").get(0).select("h2").get(0).select("a").get(0).attr("href");
+//                                String downText = article_alls.get(0).select("div[id=link-report]").get(0).select("h2").get(0).select("a").get(0).attr("href");
 
                                 desc = "#电影简介\n";
 
-                                desc +=desc+preText+markText;
+//                              desc +=desc+preText+markText;
+                                
+                                //删除社交代码
+                                article_alls.get(0).select("#sociables").remove();
+                                article_alls.get(0).select("#wp-connect-share-css").remove();
+                                
+                                desc += article_alls.get(0).html();
+                                
+                                desc = desc.replaceAll("<!-- 社会化分享按钮 来自 WordPress连接微博 插件 -->", "");
                                 System.out.println("desc==============>"+desc);
 
                         }
@@ -1174,6 +1185,7 @@ public class HTMLParserUtil
                         map.put("aurl", aurl);
                         map.put("date", date);
                         map.put("article", desc);
+                        map.put("retcode", retcode);
                         list.add(map);
                     }
                 }

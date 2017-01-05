@@ -28,6 +28,9 @@ public class Movies implements Serializable{
 
 	@Column(length = 2000)
 	private String moviename;
+	
+	@Column(length = 255)
+	private String retcode;
 
 	@Column()
 	private String description;
@@ -57,6 +60,15 @@ public class Movies implements Serializable{
 		this.path = path;
 	}
 
+	
+	public String getRetcode() {
+		return retcode;
+	}
+
+	public void setRetcode(String retcode) {
+		this.retcode = retcode;
+	}
+	
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
