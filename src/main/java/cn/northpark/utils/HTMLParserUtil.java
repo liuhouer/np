@@ -18,11 +18,21 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.ParseException;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.util.CollectionUtils;
 
 /**
  * <p>
@@ -1105,7 +1115,10 @@ public class HTMLParserUtil
         // TODO Auto-generated method stub
         List<Map<String, String>> list = new ArrayList<Map<String,String>>();
         try{
-                Document doc = Jsoup.connect("http://www.vip588660.com/page/"+index+"/").get();
+	        	String url = "http://www.vip588660.com/page/"+index+"/";
+	        	
+	        	String html = pickData(url);
+                Document doc = Jsoup.parse(html);
                 Element  ul   = doc.select("ul[class=masonry clearfix]").get(0);
                 Elements lis  = ul.select("li[class=post box row ");
                 if(!lis.isEmpty()){
@@ -1123,14 +1136,43 @@ public class HTMLParserUtil
                         String aurl =  divs.get(0).select("a").get(0).attr("href");
 
                         String date =  li.select("span[class=info_date info_ico]").get(0).text();
+                        
+                        
+                        String tag = "";
+                        String tagcode = "";
+                        Elements tags = li.select("span[class=info_category info_ico]").get(0).select("a");
+                        if(!CollectionUtils.isEmpty(tags)){
+                        	for (int j = 0; j < tags.size(); j++) {
+								Element taga = tags.get(j);
+								String hrefa = taga.attr("href");
+								if(StringUtils.isNotEmpty(hrefa)){
+									tagcode+=hrefa.substring(hrefa.lastIndexOf("/")+1)+",";
+								}
+								tag+=taga.text()+",";
+							}
+                        }
+                        
+                        
+                        if(StringUtils.isNotEmpty(tag) && tag.endsWith(",")){
+                        	tag  =  tag.substring(0, tag.length()-1);
+                        }
+                        if(StringUtils.isNotEmpty(tagcode) && tagcode.endsWith(",")){
+                        	tagcode  =  tagcode.substring(0, tagcode.length()-1);
+                        }
+                        
 
                         System.out.println("title==============>"+title);
                         System.out.println("aurl==============>"+aurl);
                         System.out.println("date==============>"+date);
+                        System.out.println("tag==============>"+tag);
+                        System.out.println("tagcode==============>"+tagcode);
 
                         String desc = "";
 
-                        Document doc_ = Jsoup.connect(aurl).get();
+                        String html_ = pickData(aurl);
+                        System.out.println("html_==============>"+html_);
+
+                        Document doc_ = Jsoup.parse(html_);
                         Elements article_alls = doc_.select("div[id=post_content]");
                         if(!article_alls.isEmpty()){
 
@@ -1170,9 +1212,13 @@ public class HTMLParserUtil
 
 //                              desc +=desc+preText+markText;
                                 
-                                //删除社交代码
+                                //删除社交代码\脚本代码、播放代码、播放样式
                                 article_alls.get(0).select("#sociables").remove();
                                 article_alls.get(0).select("#wp-connect-share-css").remove();
+                                article_alls.get(0).select("div[class=MinePlayer]").remove();
+                                article_alls.get(0).select("div[class=MineBottomList]").remove();
+                                article_alls.get(0).select("#minevideo-css").remove();
+                                article_alls.get(0).select("script").remove();
                                 
                                 desc += article_alls.get(0).html();
                                 
@@ -1186,6 +1232,8 @@ public class HTMLParserUtil
                         map.put("date", date);
                         map.put("article", desc);
                         map.put("retcode", retcode);
+                        map.put("tag", tag);
+                        map.put("tagcode", tagcode);
                         list.add(map);
                     }
                 }
@@ -1247,6 +1295,54 @@ public class HTMLParserUtil
 
       }
 
+    
+    public static int geneViewNum(){
+    	int max=59000;
+    	int min=1000;
+    	Random random = new Random();
+    	int s = random.nextInt(max)%(max-min+1) + min;
+    	System.out.println(s);
+		return s;
+    }
+	
+    
+    /**
+     * httpclient获取网页内容html
+     * TODO jsoup解析
+     */
+    private static String pickData(String url) {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        try {
+            HttpGet httpget = new HttpGet(url);
+            CloseableHttpResponse response = httpclient.execute(httpget);
+            try {
+                // 获取响应实体
+                HttpEntity entity = response.getEntity();
+                // 打印响应状态
+                if (entity != null) {
+                    return EntityUtils.toString(entity);
+                }
+            } finally {
+                response.close();
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭连接,释放资源
+            try {
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+    
+    
       public static void main(String[] args) {
             try {
                 //retMeizitu();
@@ -1261,7 +1357,18 @@ public class HTMLParserUtil
 //                retSoft(1);
 //                webPic2Disk("http://www.sdifenzhou.com/wp-content/uploads/2016/02/Fantastical2.jpg", "D:\\BZ\\soft\\" );
 
-                retMovies(1);
+//                retMovies(78);
+//                String url = "http://www.vip588660.com/page/"+77+"/";
+////                url = "http://northpark.cn/soft/mac/page77";
+//                String pickData = pickData(url);
+//                System.out.println(pickData);
+//            	 String tag  =  "1,2,3,4,5,6,";
+//            	 if(tag.endsWith(",")){
+//                 	tag  =  tag.substring(0, tag.length()-1);
+//                 	System.out.println(tag);
+//                 }
+            	
+            
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

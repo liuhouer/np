@@ -156,6 +156,24 @@ public class PinyinUtil {
     	return str;
     }
     
+    
+    /**
+     * 取得中文翻译的首字母
+     * @return
+     * @throws Exception
+     */
+    public static String getFanyi1(String ZW)  { 
+    	String str = "";
+    	char c[] = ZW.toCharArray();
+    	for (int i = 0; i < c.length; i++) {
+			
+    		str+=paraseCharToPinyin(c[i]);
+		}
+    	str = str.toLowerCase();
+    	System.out.println("汉语_____>"+str);
+    	return str.substring(0, 1);
+    }
+    
     /**
      * 取得中文翻译的邮箱
      * @return
@@ -177,5 +195,7 @@ public class PinyinUtil {
     	
 		
     	getFanyiEmail();
+    	
+    	getFanyi1("香草天空");
 	}
 }

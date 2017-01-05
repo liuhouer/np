@@ -49,9 +49,11 @@
 											
 											<%-- <p><small class="red-text">￥${s.price}</small></p> --%>
 											
-											
+											<c:if test="${s.path!=null && s.path!=''}">
 											
 											<p><small class="label red-text">下载地址<p><small class="red-text">${s.path}</small></p></small> </p> &nbsp;
+											
+											</c:if>
 											
 											<p> 
 											 <button class="clearfix btn btn-gray btn-xs click2show" onclick="showtoggle('${s.id}')" > <span class="glyphicon glyphicon-yen">donate</span> &nbsp; </button>

@@ -1,5 +1,8 @@
 package cn.northpark.test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -18,12 +21,15 @@ import cn.northpark.manager.AstroManager;
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
+import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Astro;
 import cn.northpark.model.Eq;
 import cn.northpark.model.Movies;
 import cn.northpark.model.Soft;
+import cn.northpark.model.Tags;
 import cn.northpark.task.EQTask;
 import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.wx.WXTokenUtil;
 import cn.northpark.utils.wx.qyh.WeixinQyhUtil;
@@ -52,6 +58,9 @@ public class TestEQTask {
 	
 	@Autowired
 	public AstroManager astroManager;
+	
+	@Autowired
+	public  TagsManager tagsManager;
 		
 
 
@@ -166,73 +175,131 @@ public class TestEQTask {
 			
 			//TODO ..爬虫电影代码
 			
-				try {
-				
-				System.out.println("movies task==============start="+TimeUtils.getNowTime());
-				logger.info("movies task==============start="+TimeUtils.getNowTime());
-				Map<String,String> map = null;
-					
-				
-				for (int k = 1; k <= 418; k++) {
-					try {
-						
-						List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
-						
-						
-						if(!CollectionUtils.isEmpty(list)){
-							for (int i = 0; i < list.size(); i++) {
-								try {
-									map  = list.get(i);
-									
-									String title = map.get("title");
-									String aurl = map.get("aurl");
-									String date = map.get("date");
-									String article = map.get("article");
-								    String retcode = map.get("retcode");
-
-									
-									
-
-									//是不存在的电影
-									int flag = moviesManager.countHql(new Movies(), " where o.retcode= '"+retcode+"' ");
-									
-									if(flag<=0){
-										
-
-										Movies model = new Movies();
-										model.setMoviename(title);
-										model.setAddtime(date);
-										model.setDescription(article);
-										model.setPath("");
-										model.setPrice(1);
-										model.setRetcode(retcode);
-										moviesManager.addMovies(model);
-									}
-								} catch (Exception e) {
-									// TODO: handle exception
-									continue;
-								}
-								
-							}
-						}
-					} catch (Exception e) {
-						// TODO: handle exception
-						continue;
-					}
-					
+//				try {
+//				
+//				System.out.println("movies task==============start="+TimeUtils.getNowTime());
+//				logger.info("movies task==============start="+TimeUtils.getNowTime());
+//				Map<String,String> map = null;
+//					
+//				
+//				for (int k = 77; k <= 100; k++) {
+//					try {
+//						
+//						List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
+//						
+//						
+//						if(!CollectionUtils.isEmpty(list)){
+//							for (int i = 0; i < list.size(); i++) {
+//								try {
+//									map  = list.get(i);
+//									
+//									String title = map.get("title");
+//									String aurl = map.get("aurl");
+//									String date = map.get("date");
+//									String article = map.get("article");
+//								    String retcode = map.get("retcode");
+//								    String tag = map.get("tag");
+//								    String tagcode = map.get("tagcode");
+//									
+//
+//									//是不存在的电影
+//									int flag = moviesManager.countHql(new Movies(), " where o.retcode= '"+retcode+"' ");
+//									
+//									if(flag<=0){
+//										
+//
+//										Movies model = new Movies();
+//										model.setMoviename(title);
+//										model.setAddtime(date);
+//										model.setDescription(article);
+//										model.setPath("");
+//										model.setPrice(1);
+//										model.setRetcode(retcode);
+//										model.setTag(tag);
+//										model.setTagcode(tagcode);
+//										moviesManager.addMovies(model);
+//									}
+//								} catch (Exception e) {
+//									// TODO: handle exception
+//									continue;
+//								}
+//								
+//							}
+//						}
+//					} catch (Exception e) {
+//						// TODO: handle exception
+//						continue;
+//					}
+//					
+//				}
+//				
+//				
+//				
+//				
+//				logger.info("soft task==============end="+TimeUtils.getNowTime());
+//				logger.trace("soft task==============end="+TimeUtils.getNowTime());
+//				System.out.println("soft task==============end="+TimeUtils.getNowTime());
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//			}
+			
+			   
+			 	List<Movies> findAll = moviesManager.findAll();
+			 	
+			 	for (Movies m: findAll) {
+					m.setColor(PinyinUtil.getFanyi1(m.getMoviename()));
+					moviesManager.updateMovies(m);
 				}
 				
 				
 				
-				
-				logger.info("soft task==============end="+TimeUtils.getNowTime());
-				logger.trace("soft task==============end="+TimeUtils.getNowTime());
-				System.out.println("soft task==============end="+TimeUtils.getNowTime());
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			
 				//TODO ..爬虫电影代码
+			
+			
+			//插入标签库=======================================================
+			
+//			System.out.println("tag-->"+"tagcode--->");
+//			
+//			HashSet<String> tagset = new HashSet<String>();
+//			
+//			List<Map<String,String> > movie_taglist  =  new ArrayList<Map<String,String>>();
+//			
+//			//获取标签
+//			List<Map<String, Object>> tags111 = moviesManager.querySqlMap("select tag,tagcode   from bc_movies group by tag ");
+//			if(!CollectionUtils.isEmpty(tags111)){
+//				for (int i = 0; i < tags111.size(); i++) {
+//					Map<String, Object> map111 = tags111.get(i);
+//					Object object111 = map111.get("tag");
+//					if(object111!=null){
+//						String tags222 = String.valueOf(object111) ;
+//						String tagscode222 = String.valueOf(map111.get("tagcode"));
+//						String[] tag222 = tags222.split(",");
+//						String[] tagcode222 = tagscode222.split(",");
+//						
+//						for (int j = 0; j < tag222.length; j++) {
+//							if(tagset.add(tag222[j])){
+//								Map<String,String> movietag = new HashMap<String, String>();
+//								movietag.put("tag", tag222[j]);
+//								movietag.put("tagcode", tagcode222[j]);
+//								
+//								
+//								System.out.println(tag222[j]+"      "+tagcode222[j]);
+//								Tags model =  new Tags();
+//								model.setTag(tag222[j]);
+//								model.setTagcode(tagcode222[j]);
+//								tagsManager.addTags(model);
+//								movie_taglist.add(movietag);
+//							}
+//						}
+//					}
+//					
+//				}
+//				
+//			}
+//			
+			
+			//插入标签库=======================================================
+			
 			
 			
 //			logger.info("send wx astro msg task==============start="+TimeUtils.getNowTime());

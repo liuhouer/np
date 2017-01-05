@@ -2,6 +2,7 @@
 package cn.northpark.manager;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.northpark.model.Movies;
 import cn.northpark.utils.PageView;
@@ -59,6 +60,13 @@ public interface MoviesManager {
 	 * @return int
 	 */
 	public  int countHql(Movies m,String wheresql);
+
+	
+	/**
+	 * 根据sql语句查询map集合
+	 * @return
+	 */
+	public List<Map<String, Object>> querySqlMap(String sql);
 	
 	
 }
