@@ -2,6 +2,10 @@
 
 buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2015年12月29日19:04:33 maven版本
 
+## 2017年1月5日
+- 影视窝改版上线~~
+- TODO. 继续爬虫剩下的资源，调整样式和格式
+
 ## 2016-12-26 16:56:02
 - 添加 夏目友人帐资源1-5季全集
 
