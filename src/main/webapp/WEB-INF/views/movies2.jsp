@@ -13,9 +13,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title>解忧影视窝  | NorthPark</title>
-<meta name="description" content="解忧影视窝|NorthPark">
-<meta name="keywords" content="解忧影视窝|NorthPark">
+<title>影视窝  | NorthPark</title>
+<meta name="description" content="影视窝|NorthPark">
+<meta name="keywords" content="影视窝|NorthPark">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 </head>
 

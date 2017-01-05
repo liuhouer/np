@@ -144,7 +144,6 @@ public class EqAction {
 		String result="/equp";
 		try {
 			session.removeAttribute("tabs");
-			session.setAttribute("tabs","equp");
 			String whereSql = eqQuery.getSql(condition);
 			
 			System.out.println("sql ---"+whereSql);
@@ -184,9 +183,7 @@ public class EqAction {
 	@RequestMapping(value="/romeo/page{page}")
 	public String listpage(ModelMap map,EqQueryCondition condition, @PathVariable String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
-		
 		session.removeAttribute("tabs");
-		session.setAttribute("tabs","equp");
 		String result="/equp";
 		String whereSql = eqQuery.getSql(condition);
 		

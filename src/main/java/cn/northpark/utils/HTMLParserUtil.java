@@ -1115,6 +1115,8 @@ public class HTMLParserUtil
         // TODO Auto-generated method stub
         List<Map<String, String>> list = new ArrayList<Map<String,String>>();
         try{
+        	
+        		System.out.println("page============================="+index+"============================页");
 	        	String url = "http://www.vip588660.com/page/"+index+"/";
 	        	
 	        	String html = pickData(url);
@@ -1170,7 +1172,7 @@ public class HTMLParserUtil
                         String desc = "";
 
                         String html_ = pickData(aurl);
-                        System.out.println("html_==============>"+html_);
+//                        System.out.println("html_==============>"+html_);
 
                         Document doc_ = Jsoup.parse(html_);
                         Elements article_alls = doc_.select("div[id=post_content]");
@@ -1357,7 +1359,7 @@ public class HTMLParserUtil
 //                retSoft(1);
 //                webPic2Disk("http://www.sdifenzhou.com/wp-content/uploads/2016/02/Fantastical2.jpg", "D:\\BZ\\soft\\" );
 
-//                retMovies(78);
+                retMovies(78);
 //                String url = "http://www.vip588660.com/page/"+77+"/";
 ////                url = "http://northpark.cn/soft/mac/page77";
 //                String pickData = pickData(url);

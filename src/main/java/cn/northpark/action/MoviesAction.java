@@ -131,7 +131,7 @@ public class MoviesAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("addtime,id", "desc");
+		order.put("UNIX_TIMESTAMP(addtime)", "desc");
 		
 		//获取pageview
 		PageView<Movies> p = getPageView(currentpage, whereSql);
@@ -197,7 +197,7 @@ public class MoviesAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("addtime,id", "desc");
+		order.put("UNIX_TIMESTAMP(addtime)", "desc");
 		
 		//获取pageview
 		PageView<Movies> p = getPageView(currentpage, whereSql);
@@ -249,6 +249,8 @@ public class MoviesAction {
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
 		session.removeAttribute("tabs");
+		session.setAttribute("tabs","movies");
+		
 		String result="/movies2";
 		String whereSql = "";
 		
@@ -256,7 +258,7 @@ public class MoviesAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("addtime,id", "desc");
+		order.put("UNIX_TIMESTAMP(addtime)", "desc");
 		
 		//获取pageview
 		PageView<Movies> p = getPageView(currentpage, whereSql);
