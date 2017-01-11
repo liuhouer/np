@@ -182,7 +182,7 @@
 ////				Map<String,String> map = null;
 ////					
 ////				
-////				for (int k = 154; k <= 200; k++) {
+////				for (int k = 161; k <= 200; k++) {
 ////					try {
 ////						
 ////						List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
@@ -245,7 +245,7 @@
 ////				// TODO: handle exception
 ////			}
 ////			
-//			   
+////			   
 //				
 //				
 //				//TODO ..爬虫电影代码
@@ -263,13 +263,13 @@
 ////					moviesManager.updateMovies(m);
 ////				}
 ////			 	
-//			 	List<Movies> resultlist = moviesManager.findByCondition(" where  addtime like '%2016-01%' and tag is not null ").getResultlist();
-//				
-//			 	for (Movies m: resultlist) {
-//			 		String addtime = m.getAddtime();
-//			 		m.setAddtime(addtime.replaceAll("2016", "2017"));
-//					moviesManager.updateMovies(m);
-//				}
+////			 	List<Movies> resultlist = moviesManager.findByCondition(" where  addtime like '%2016-01%' and tag is not null ").getResultlist();
+////				
+////			 	for (Movies m: resultlist) {
+////			 		String addtime = m.getAddtime();
+////			 		m.setAddtime(addtime.replaceAll("2016", "2017"));
+////					moviesManager.updateMovies(m);
+////				}
 //			 	
 //			//插入标签库=======================================================
 //			

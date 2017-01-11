@@ -14,9 +14,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title>NorthPark / 星际穿越</title>
-<meta name="description" content="${user.username}生命中的最爱: NorthPark / 记住美好,保留回忆,分享最爱。">
-<meta name="keywords" content="NorthPark">
+<title>星际穿越  | NorthPark</title>
+<meta name="description" content="NorthPark,文艺,小清新,Mac软件,影视窝,碎碎念,图册,情圣,情商提升">
+<meta name="keywords" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、最新的影视剧资源、大量提升男生情商的文章、大家吐槽的，喜爱的，心情日记的精神角落、图册互动等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 <link media="all" type="text/css" rel="stylesheet" href="/css/bu.css">
 
@@ -32,10 +32,10 @@
 				<div class="col-sm-6 col-sm-offset-3 margin-b20 margin-t20">
 					<div class="row margin-b20 margin-t20">
 						<p >
-							你所寻找的东西目前并不在这个地址。
+							电波达不到这个区域︿(￣︶￣)︿
 							</p>	
 							<p>
-							除非你找的就是这个错误页面，在这种情况下：恭喜！你真的找到了。
+							d=====(￣▽￣*)b除非你正要星际穿越  ，在这种情况下：恭喜！你真的找到了。
 							</p>	
 							<p>
 							 <span id="mes" style="cursor: pointer;"><font color="#49c7be"><img src='/img/loading.gif' style='width:16px;height:16px;' /> 返回首页</font></span> <!-- <span id="mes"><font color="blue">5</font></span> 秒钟后返回首页！ -->

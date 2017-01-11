@@ -13,9 +13,9 @@
 <meta name="author" content="www.qinco.net">
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title>NorthPark / 编辑我的档案</title>
-<meta name="description" content="NorthPark会让您记住每一件美好的事物，正是它们勾勒出了您最真实的生命轨迹.分享好东西，记录生命回忆，记住世界上最好的东西。">
-<meta name="keywords" content="NorthPark">
+<title>编辑我的档案  | NorthPark</title>
+<meta name="description" content="NorthPark,文艺,小清新,Mac软件,影视窝,碎碎念,图册,情圣,情商提升">
+<meta name="keywords" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、最新的影视剧资源、大量提升男生情商的文章、大家吐槽的，喜爱的，心情日记的精神角落、图册互动等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 <link media="all" type="text/css" rel="stylesheet" href="/css/bsorigin/bootstrap-datetimepicker.min.css">
 <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
