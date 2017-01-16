@@ -49,7 +49,7 @@
 								<div class="row margin5">
 										<div class="thumbnail border-0 center">
 											<p>
-											<a href="/movies/search?id=${s.id }">
+											<a href="/movies/search?id=${s.id }" oid="${s.id }">
 												<small class="green-text">
 													<font size="5"><strong>${s.moviename}</strong></font> 
 												</small>

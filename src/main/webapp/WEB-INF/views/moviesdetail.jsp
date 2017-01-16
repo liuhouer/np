@@ -46,7 +46,7 @@
 								<div class="row">
 									<div class="col-sm-4">
 										<div class="thumbnail border-0 center">
-											<p><small class="green-text"><font size="5"><strong>${s.moviename}</strong></font> </small></p>
+											<p oid="${s.id }"><small class="green-text"><font size="5"><strong>${s.moviename}</strong></font> </small></p>
 											
 											
 											<%-- <p><small class="red-text">￥${s.price}</small></p> --%>

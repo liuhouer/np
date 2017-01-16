@@ -83,7 +83,7 @@ public class MoviesAction {
 	public String addItem(ModelMap map,Movies model) {
 		String rs = "success";
 		try {
-			model.setAddtime(TimeUtils.nowTime());
+			model.setAddtime(TimeUtils.nowdate());
 			moviesManager.addMovies(model);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -131,7 +131,7 @@ public class MoviesAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("UNIX_TIMESTAMP(addtime)", "desc");
+		order.put("hotindex,UNIX_TIMESTAMP(addtime)", "desc");
 		
 		//获取pageview
 		PageView<Movies> p = getPageView(currentpage, whereSql);
@@ -197,7 +197,7 @@ public class MoviesAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("UNIX_TIMESTAMP(addtime)", "desc");
+		order.put("hotindex,UNIX_TIMESTAMP(addtime)", "desc");
 		
 		//获取pageview
 		PageView<Movies> p = getPageView(currentpage, whereSql);
@@ -258,6 +258,7 @@ public class MoviesAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+		order.put("hotindex", "desc");
 		order.put("UNIX_TIMESTAMP(addtime)", "desc");
 		
 		//获取pageview
@@ -390,7 +391,7 @@ public class MoviesAction {
 			XMemcachedUtil.put("movies_tags", tags, 1000 * 60 *24 *7);
 			
 			//获取热门电影
-			String hotsql = "select * from bc_movies order by viewnum desc limit 0,50";
+			String hotsql = "select * from bc_movies order by hotindex,viewnum desc limit 0,50";
 			movies_hot_list = moviesManager.querySql(hotsql);
 			
 			XMemcachedUtil.put("movies_hot_list", movies_hot_list, 1000 * 60 *24 *7);
@@ -405,6 +406,7 @@ public class MoviesAction {
 	
 public static void main(String[] args) {
 	XMemcachedUtil.remove("movies_tags");
+	XMemcachedUtil.remove("movies_hot_list");
 }
 	public PageView<Movies> getPageView(String current,
 			String whereSql) {

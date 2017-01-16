@@ -62,6 +62,9 @@ public class Movies implements Serializable{
 	@Column(length = 255)
 	private String color;
 	
+	@Column(length = 11)
+	private Integer hotindex;
+	
 	@Transient
 	private List<Map<String,String>> taglist;
 	
@@ -166,6 +169,14 @@ public class Movies implements Serializable{
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public Integer getHotindex() {
+		return hotindex;
+	}
+
+	public void setHotindex(Integer hotindex) {
+		this.hotindex = hotindex;
 	}
 
 
