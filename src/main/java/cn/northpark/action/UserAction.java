@@ -61,6 +61,7 @@ public class UserAction {
       * 定向action'
       */
 	 private final String LIST_ACTION = "redirect:/love";
+	 private final String HOME_ACTION = "redirect:/";
 	 private final String LOGIN_ACTION = "redirect:/login";
 	 private final String REG_ACTION = "redirect:/signup";
 	 @Autowired	
@@ -663,7 +664,7 @@ public class UserAction {
 				}
 			}
 			
-			return LIST_ACTION+etc;
+			return HOME_ACTION+etc;
 		}
 		
 		

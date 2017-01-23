@@ -145,6 +145,8 @@ $("body").on('click', '.click2show', function() {
 $(function() {
     $(window).resize(function(){
         $('body').css('min-height',($(window).height()));
-        $('.maincontent ').css('min-height',($(window).height()-100));
+        $('.maincontent').css('min-height',($(window).height()-100));
+        $('body').css('overflowX','hidden');
+
     }).resize();
 });

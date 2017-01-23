@@ -40,7 +40,7 @@ function saves(){
         });
 	}else{
         	
-		$("#f1").attr("action","cm/saveEditInfo").submit();
+		$("#f1").attr("action","/cm/saveEditInfo").submit();
 	}
 
 	 
