@@ -85,6 +85,19 @@ public class DashAction {
 		}	
 		
 		
+		 /**
+		  * 
+		  * 关于Northpark
+		  */
+		@RequestMapping("/about.html")
+		public String about(HttpServletRequest request,HttpServletResponse response, ModelMap map) throws Exception {
+	 	  	
+		    
+			return "/about";
+		 	  	
+		}	
+		
+		
 				//异步获取首页的love数据 
 				@RequestMapping(value="/dash/getLove")
 				public String getLove(ModelMap map) {

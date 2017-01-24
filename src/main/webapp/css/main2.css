@@ -1537,3 +1537,18 @@ a.project-card-link {
 	font-weight: normal;
 	line-height: 1.7;
 	}
+	
+	
+	
+/* timeline */
+.timeline{background:url("/img/timeline/line4.png") repeat-y 50px 0;overflow:hidden;position:relative;height:100px;margin:20px 10px;width:520px;margin:40px auto 0 auto;}
+.timeline-date{overflow:hidden;position:relative;}
+.timeline-date h2{background:url("/img/timeline/icon9.png") no-repeat 10px 0;height:87px;margin-bottom:20px;}
+.timeline-date h2 span{color:#999999;display:inline-block;font-size:22px;margin:30px 0px 0 110px;}
+.timeline-date ul li{background:url("/img/timeline/icon7.png") no-repeat 42px 5px;zoom:1;height:70px;}
+.timeline-date ul li h3{float:left;text-align:right;font-size:14px;color:#878787;display:block;}	
+.timeline-date ul li h3 span{display:block;color:#ADADAD;font-size:12px;padding-left:15px;}	
+.timeline-date ul li dl{margin-top:-5px;}
+.timeline-date ul li dl.right{background:url() no-repeat 0 0;float:left;margin-left:35px;margin-top:-5px;display:block;background-color:#FFBB42;height:40px;width:336px;}	
+.timeline-date ul li dl span{display:block;font-size:16px;padding:0px 10px 0px 10px;color:#fff;line-height:40px;}	
+	

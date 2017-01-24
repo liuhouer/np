@@ -11,7 +11,7 @@
 		
 							<li>
 								<div class="slider-caption">
-								<img src="/img/index/slide05.jpg" alt="" />
+								<img src="https://www.tuchuang001.com/images/2017/01/23/slide05.jpg" alt="" />
 								 
 								 
 								 <span >
@@ -31,7 +31,7 @@
 							</li>
 								<li>
 									<div class="slider-caption">
-										<img src="/img/index/slide2.jpg" alt="" />
+										<img src="https://www.tuchuang001.com/images/2017/01/23/slide2.jpg" alt="" />
 										 
 										 <span style="">
 										 
@@ -47,7 +47,7 @@
 									</div>
 								<li>
 											<div class="slider-caption">
-										<img src="/img/index/slide3.jpg" alt="" />
+										<img src="https://www.tuchuang001.com/images/2017/01/23/slide3.jpg" alt="" />
 										 
 										 <span >
 										 
@@ -63,7 +63,7 @@
 									</div>
 								<li>
 													<div class="slider-caption">
-											<img src="/img/index/slide4.jpg" alt="" />
+											<img src="https://www.tuchuang001.com/images/2017/01/23/slide4.jpg" alt="" />
 											 
 											 <span >
 											 
