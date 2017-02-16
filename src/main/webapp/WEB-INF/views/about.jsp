@@ -224,10 +224,6 @@ ul{list-style:none outside none;}
 	</div>
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
-
-
-<script src='/js/jquery.eventFlow.js'></script>
-
 <script type="text/javascript">
 $(function(){
 	$(".timeline").eq(0).animate({
