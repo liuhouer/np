@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.text.*" 
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,6 +17,16 @@
 <meta name="keywords" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、最新的影视剧资源、大量提升男生情商的文章、大家吐槽的，喜爱的，心情日记的精神角落、图册互动等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
+
+<%
+
+		NumberFormat nf1 = NumberFormat.getNumberInstance();
+		DecimalFormat df2 = new DecimalFormat("0.00");
+		
+		NumberFormat f3 = new DecimalFormat("#,##0.00");  
+
+
+%>
 
 </head>
 
@@ -38,7 +48,7 @@
 
 					<div class="form-group ">
 						<label for="J_email" class="control-label">Email：</label> <input
-							id="J_email" placeholder="example@gmail.com"
+							id="J_email" placeholder="example@gmail.com" value=<%=f3.format(121212345.00) %>
 							class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
 							name="email" type="text">
 					</div>

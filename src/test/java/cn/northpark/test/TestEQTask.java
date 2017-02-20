@@ -182,7 +182,7 @@ public class TestEQTask {
 				Map<String,String> map = null;
 					
 				
-				for (int k = 1; k <= 2; k++) {
+				for (int k = 1; k <= 1; k++) {
 					try {
 						
 						List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
