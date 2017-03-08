@@ -15,6 +15,8 @@ public class BBB {
 			System.out.println(getNumKb(123996.22));
 			NumberFormat numberFormat1 = NumberFormat.getNumberInstance();
 			System.out.println(numberFormat1.format(11122.33)); //结果是11,122.33
+			
+			                      
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

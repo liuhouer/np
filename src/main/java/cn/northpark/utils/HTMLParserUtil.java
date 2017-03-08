@@ -1117,8 +1117,10 @@ public class HTMLParserUtil
         try{
         	
         		System.out.println("page============================="+index+"============================页");
-	        	//String url = "http://www.vip588660.com/page/"+index+"/";
-	        	String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
+	        	//String url = "http://www.vip588660.cm/page/"+index+"/";
+        		//String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
+	        	//String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
+	        	String url = "http://www.vip588660.com/category/dongman/page/"+index+"/";
 	        	
 	        	String html = pickData(url);
                 Document doc = Jsoup.parse(html);
@@ -1249,6 +1251,11 @@ public class HTMLParserUtil
 
         return list;
     }
+    
+    
+    /**
+     * 爬取某页面的电影图书资源
+     */
 
      /**
       * 根据操作系统获取本地存储文件夹

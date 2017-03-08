@@ -182,7 +182,8 @@ public class TestEQTask {
 				Map<String,String> map = null;
 					
 				
-				for (int k = 1; k <= 1; k++) {
+				
+				for (int k = 1; k <=44; k++) {
 					try {
 						
 						List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
@@ -233,6 +234,14 @@ public class TestEQTask {
 						continue;
 					}
 					
+					
+					try {
+					    Thread.sleep(1000*30);
+					    System.out.println("第"+k+"页================");
+					} catch (InterruptedException e) {
+					    // TODO Auo-generated catch block
+					    e.printStackTrace();
+					}
 				}
 				
 				
