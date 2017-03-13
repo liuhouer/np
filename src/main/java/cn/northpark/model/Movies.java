@@ -65,6 +65,10 @@ public class Movies implements Serializable{
 	@Column(length = 11)
 	private Integer hotindex;
 	
+	
+	@Column(length = 255)
+	private String displayed;
+	
 	@Transient
 	private List<Map<String,String>> taglist;
 	

@@ -67,7 +67,7 @@ public class TestEQTask {
 		public void runTask(){
 			
 			Logger logger = Logger.getLogger(EQTask.class);  
-//			System.out.println("情圣定时任务开始"+TimeUtils.getNowTime());
+			System.out.println("情圣定时任务开始"+TimeUtils.getNowTime());
 //			try {
 //
 //	    		Map<String, String> map = HTMLParserUtil.retTodayEq();
@@ -76,8 +76,9 @@ public class TestEQTask {
 //				String brief = map.get("brief");
 //				String date = map.get("date");
 //				String article = map.get("article");
+//				String retcode = map.get("retcode");
 //				//是不存在的文章
-//				int flag = EqManager.countHql(new Eq(), " where o.date= '"+date+"' ");
+//				int flag = EqManager.countHql(new Eq(), " where o.retcode= '"+retcode+"' ");
 //				
 //				if(flag<=0){
 //					//生成并且设置图片
@@ -92,11 +93,12 @@ public class TestEQTask {
 //		    		eq.setDate(date);
 //		    		eq.setTitle(title);
 //		    		eq.setImg(img);
+//		    		eq.setRetcode(retcode);
 //		    		EqManager.addEq(eq);
 //				}
 //				
 //				//去重
-//				String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM bc_eq GROUP BY date HAVING ( COUNT(date) > 1 )) AS p)" ;
+//				String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM bc_eq GROUP BY date HAVING ( COUNT(retcode) > 1 )) AS p)" ;
 //				
 //				EqManager.executeSql(delsql);
 //				
@@ -109,7 +111,7 @@ public class TestEQTask {
 //	    		// TODO: handle exception
 //	    		e.printStackTrace();
 //	    	}
-//
+
 //			
 //			try {
 //				
@@ -183,7 +185,7 @@ public class TestEQTask {
 					
 				
 				
-				for (int k = 1; k <=44; k++) {
+				for (int k = 1; k <=3; k++) {
 					try {
 						
 						List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
@@ -253,7 +255,7 @@ public class TestEQTask {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			
+//			
 			   
 				
 				

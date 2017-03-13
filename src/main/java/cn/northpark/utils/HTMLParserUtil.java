@@ -793,6 +793,10 @@ public class HTMLParserUtil
 
                 String title = titles.get(0).text();
                 title = title.replace("大卫", "");
+                
+                
+                String retcode = MD5Utils.encoding(title);
+                
                 String aurl = "http://www.aiweibang.com"+titles.get(0).select("a").get(0).attr("href");
 
 //                Elements dates = p.select("span[class=text]");
@@ -823,6 +827,7 @@ public class HTMLParserUtil
                 map.put("brief", brief);
                 map.put("date", date);
                 map.put("article", article);
+                map.put("retcode", retcode);
                 System.out.println(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
             }catch(Exception e){
@@ -1118,9 +1123,9 @@ public class HTMLParserUtil
         	
         		System.out.println("page============================="+index+"============================页");
 	        	//String url = "http://www.vip588660.cm/page/"+index+"/";
-        		//String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
+        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
 	        	//String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
-	        	String url = "http://www.vip588660.com/category/dongman/page/"+index+"/";
+//	        	String url = "http://www.vip588660.com/category/dongman/page/"+index+"/";
 	        	
 	        	String html = pickData(url);
                 Document doc = Jsoup.parse(html);

@@ -55,6 +55,10 @@ private static final long serialVersionUID = 1L;
 
 	@Column(length = 255)
 	private String article;
+	
+	@Column(length = 255)
+	private String retcode;
+	//爬虫pua的唯一编码
 
 
 	public Integer getId() {
@@ -103,6 +107,14 @@ private static final long serialVersionUID = 1L;
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public String getRetcode() {
+		return retcode;
+	}
+
+	public void setRetcode(String retcode) {
+		this.retcode = retcode;
 	}
 	
 	/*这里是mybatis部分代码
