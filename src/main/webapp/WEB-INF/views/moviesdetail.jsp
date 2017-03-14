@@ -102,6 +102,15 @@
     </c:if>
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	<script src="/js/page/movies.js"></script>
+	
+	<script type="text/javascript">
+	//禁止图片拉伸
+	$(function(){
+		$("img").each(function(){
+			$(this).css('max-width',400);
+		})
+	})
+	</script>
 
 
 

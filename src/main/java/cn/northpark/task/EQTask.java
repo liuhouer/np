@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.EqManager;
+import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
-import cn.northpark.model.Eq;
+import cn.northpark.model.Movies;
 import cn.northpark.model.Soft;
 import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
 
 
@@ -26,54 +28,59 @@ public class EQTask {
 	public EqManager EqManager;
 	@Autowired
 	public SoftManager softManager;
+	@Autowired
+	public MoviesManager moviesManager;
+	
 
 
 	public void runTask(){
 		
 		Logger logger = Logger.getLogger(EQTask.class);  
 		System.out.println("情圣定时任务开始"+TimeUtils.getNowTime());
-		try {
+//		try {
+//
+//    		Map<String, String> map = HTMLParserUtil.retTodayEq();
+//    		
+//    		String title = map.get("title");
+//			String brief = map.get("brief");
+//			String date = map.get("date");
+//			String article = map.get("article");
+//			//是不存在的文章
+//			int flag = EqManager.countHql(new Eq(), " where o.date= '"+date+"' ");
+//			
+//			if(flag<=0){
+//				//生成并且设置图片
+//				List<String> meizi = HTMLParserUtil.gegeMEIZITU();
+//				
+//				int index = HTMLParserUtil.getRandomOne(meizi);
+//				String img = meizi.get(index);
+//				
+//	    		Eq eq = new Eq();
+//	    		eq.setArticle(article);
+//	    		eq.setBrief(brief);
+//	    		eq.setDate(date);
+//	    		eq.setTitle(title);
+//	    		eq.setImg(img);
+//	    		EqManager.addEq(eq);
+//			}
+//			
+//			//去重
+//			String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM bc_eq GROUP BY date HAVING ( COUNT(date) > 1 )) AS p)" ;
+//			
+//			EqManager.executeSql(delsql);
+//			
+//			
+//			
+//			
+//			
+//
+//    	} catch (Exception e) {
+//    		// TODO: handle exception
+//    		e.printStackTrace();
+//    	}
 
-    		Map<String, String> map = HTMLParserUtil.retTodayEq();
-    		
-    		String title = map.get("title");
-			String brief = map.get("brief");
-			String date = map.get("date");
-			String article = map.get("article");
-			//是不存在的文章
-			int flag = EqManager.countHql(new Eq(), " where o.date= '"+date+"' ");
-			
-			if(flag<=0){
-				//生成并且设置图片
-				List<String> meizi = HTMLParserUtil.gegeMEIZITU();
-				
-				int index = HTMLParserUtil.getRandomOne(meizi);
-				String img = meizi.get(index);
-				
-	    		Eq eq = new Eq();
-	    		eq.setArticle(article);
-	    		eq.setBrief(brief);
-	    		eq.setDate(date);
-	    		eq.setTitle(title);
-	    		eq.setImg(img);
-	    		EqManager.addEq(eq);
-			}
-			
-			//去重
-			String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM bc_eq GROUP BY date HAVING ( COUNT(date) > 1 )) AS p)" ;
-			
-			EqManager.executeSql(delsql);
-			
-			
-			
-			
-			
-
-    	} catch (Exception e) {
-    		// TODO: handle exception
-    		e.printStackTrace();
-    	}
-
+		
+		//爬虫软件资源代码start---------------------------------------------------------------------
 		try {
 			
 			System.out.println("soft task==============start="+TimeUtils.getNowTime());
@@ -137,6 +144,95 @@ public class EQTask {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		
+		//爬虫软件资源代码end---------------------------------------------------------------------
+		
+		
+		//TODO ..爬虫电影代码
+		
+		try {
+		
+		System.out.println("movies task==============start="+TimeUtils.getNowTime());
+		logger.info("movies task==============start="+TimeUtils.getNowTime());
+		Map<String,String> map = null;
+			
+		
+		
+		for (int k = 1; k <=2; k++) {
+			try {
+				
+				List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
+				
+				
+				if(!CollectionUtils.isEmpty(list)){
+					for (int i = 0; i < list.size(); i++) {
+						try {
+							map  = list.get(i);
+							
+							String title = map.get("title");
+							String aurl = map.get("aurl");
+							String date = map.get("date");
+							String article = map.get("article");
+						    String retcode = map.get("retcode");
+						    String tag = map.get("tag");
+						    String tagcode = map.get("tagcode");
+							
+
+							//是不存在的电影
+							int flag = moviesManager.countHql(new Movies(), " where o.retcode= '"+retcode+"' ");
+							
+							if(flag<=0){
+								
+
+								Movies model = new Movies();
+								model.setMoviename(title);
+								model.setAddtime(date);
+								model.setDescription(article);
+								model.setPath("");
+								model.setPrice(1);
+								model.setRetcode(retcode);
+								model.setTag(tag);
+								model.setTagcode(tagcode);
+								model.setViewnum(HTMLParserUtil.geneViewNum());
+								model.setColor(PinyinUtil.getFanyi1(title.trim()));
+								moviesManager.addMovies(model);
+							}
+						} catch (Exception e) {
+							// TODO: handle exception
+							continue;
+						}
+						
+					}
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				continue;
+			}
+			
+			
+			try {
+			    Thread.sleep(1000*30);
+			    System.out.println("第"+k+"页================");
+			} catch (InterruptedException e) {
+			    // TODO Auo-generated catch block
+			    e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+		logger.info("movies task==============end="+TimeUtils.getNowTime());
+		System.out.println("movies task==============end="+TimeUtils.getNowTime());
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+//	
+	   
+		
+		
+		// ..爬虫电影代码end--
+		
 		
 		try {
 			

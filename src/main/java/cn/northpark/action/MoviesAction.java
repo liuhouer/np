@@ -252,7 +252,7 @@ public class MoviesAction {
 		session.setAttribute("tabs","movies");
 		
 		String result="/movies2";
-		String whereSql = "";
+		String whereSql = " where displayed is  null ";
 		
 		System.out.println("sql ---"+whereSql);
 		String currentpage = page;

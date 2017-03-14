@@ -1,8 +1,5 @@
 package cn.northpark.test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -14,28 +11,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.CollectionUtils;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 import cn.northpark.manager.AstroManager;
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.TagsManager;
-import cn.northpark.model.Astro;
-import cn.northpark.model.Eq;
 import cn.northpark.model.Movies;
-import cn.northpark.model.Soft;
-import cn.northpark.model.Tags;
 import cn.northpark.task.EQTask;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.wx.WXTokenUtil;
-import cn.northpark.utils.wx.qyh.WeixinQyhUtil;
-import cn.northpark.utils.wx.qyh.ParamesAPI.ParamesAPI;
-import cn.northpark.utils.wx.qyh.msg.Message;
-import cn.northpark.utils.wx.qyh.msg.Resp.TextMessage;
 
 /**
  * @author zhangyang

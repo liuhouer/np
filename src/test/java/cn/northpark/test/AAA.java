@@ -28,6 +28,7 @@ public class AAA {
          Scanner sc = new Scanner(System.in);
          int n = sc.nextInt();
          int result = NthPrime(n);
+         sc.close();
          System.out.println("第N个素数的值是:"+result);
     }
 
