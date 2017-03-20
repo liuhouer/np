@@ -69,12 +69,11 @@
 									</div>
 									
 									<div class="col-sm-8">
-										 <a 
-										
-										title="${s.moviename}的简介">${s.moviename}</a> 简介：</p>
+										<a  title="${s.moviename}的简介" href="/movies/search?id=${s.id }">${s.moviename}</a> 简介：</p>
 										<p id="brief_${ss.index}">
 										
 										  ${s.description }
+										   <label class="red-text">文章链接</label>：https://northpark.cn/movies/search?id=${s.id }
 										</p>
 
 									</div>

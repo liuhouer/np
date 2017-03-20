@@ -141,6 +141,45 @@ $("body").on('click', '.click2show', function() {
 });
 
 
+//复制内容自动添加版权信息 
+var Sys = {}; 
+   var ua = navigator.userAgent.toLowerCase(); 
+   if( window.ActiveXObject ) 
+   { 
+       document.body.oncopy=function() 
+       { 
+           event.returnValue = false; 
+           var t=document.selection.createRange().text; 
+           var s="\n\r\t 原文出自[northpark.cn]NorthPark-小清新的软件、影视、心情、图片互动公园, 转载请保留原文链接:"+location.href; 
+           clipboardData.setData('Text',t+'\r\n'+s); 
+       } 
+   } 
+   else 
+   { 
+       function addLink() 
+       { 
+           var body_element = document.getElementsByTagName('body')[0]; 
+           var selection; 
+           selection = window.getSelection(); 
+           var pagelink = "\n\r\t 原文出自[northpark.cn]NorthPark-小清新的软件、影视、心情、图片互动公园 ,转载请保留原文链接:"+document.location.href; 
+
+           var copytext = selection + pagelink; 
+           var newdiv = document.createElement('div'); 
+           newdiv.style.position='absolute'; 
+           newdiv.style.left='-99999px'; 
+           body_element.appendChild(newdiv); 
+           newdiv.innerHTML = copytext; 
+           selection.selectAllChildren(newdiv); 
+           window.setTimeout 
+           ( 
+               function() 
+               { 
+                   body_element.removeChild(newdiv); 
+               },0 
+           ); 
+       } 
+       document.oncopy = addLink; 
+   } 
 
 $(function() {
     $(window).resize(function(){
