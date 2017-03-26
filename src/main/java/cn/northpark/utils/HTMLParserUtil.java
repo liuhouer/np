@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -1258,6 +1259,164 @@ public class HTMLParserUtil
     }
     
     
+    
+    
+    /**
+     * 爬取1页的诗词
+     */
+    public static List<Map<String, String>> retPoem(Integer index) {
+        // TODO Auto-generated method stub
+        List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+        try{
+        	
+        		System.out.println("page============================="+index+"============================页");
+	        	//String url = "http://www.vip588660.cm/page/"+index+"/";
+//        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
+//	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
+	        	String url = "http://www.haoshici.com/"+index+"_E59490_0_0_0_0.html";
+	        	
+	        	
+	        	
+	        	String html = pickData(url);
+//	        	System.out.println("html_1==============>"+html);
+                Document doc = Jsoup.parse(html);
+                Elements lis  = doc.select("li[class=lst ");
+                if(!lis.isEmpty()){
+                    for (int i = 0; i < lis.size(); i++) {
+                        HashMap<String, String> map =new HashMap<String, String>();
+                        Element li  = lis.get(i);
+
+                        /**
+                         * 
+						  <li class="lst">
+								<a href="Lishangyin4.html" target="_top" title="七绝">
+									<span class="bigger">
+										《初入武夷》
+									</span>
+								</a>
+								<span class="_11px">
+									（唐代李商隐作品）
+								</span>
+								<br>
+								<a href="Lishangyin4.html" target="_top" title="">
+									未到名山梦已新，千峰拔地玉嶙峋。幔亭一夜风吹雨，似与游人洗俗尘。
+								</a>
+							</li>
+                         * 
+                         * 
+                         * */
+                        //获取相关信息
+                        Elements a_s = li.select("a");
+
+                        //诗词类型【五言、七言、绝句】
+                        String types = a_s.get(0).attr("title");
+                        
+                        //诗词名
+                        String title = a_s.get(0).select("span").get(0).text();
+                        
+                        //生成代码
+                        String retcode = MD5Utils.encoding(title+types);
+                        
+                        //作者
+                        String author = li.select("span[class=_11px]").get(0).text();
+                        
+                        author = author.replaceAll("唐代", "").replaceAll("作品", "");
+                        
+                        //内容
+                        String content  = a_s.get(1).text();
+                        
+                        //详情url
+                        String detail_url = "http://www.haoshici.com/"+a_s.get(1).attr("href");
+                        
+
+                        System.out.println("title==============>"+title);
+                        System.out.println("detail_url==============>"+detail_url);
+                        System.out.println("author==============>"+author);
+                        System.out.println("content==============>"+content);
+                        System.out.println("types==============>"+types);
+
+                        //图片赏析
+                        String pic_poem = "";
+                        
+                        //文字赏析
+                        String enjoys = "";
+                        String desc = "";
+
+
+                        String html_ = pickData(detail_url);
+//                        System.out.println("html_==============>"+html_);
+
+                        Document doc_ = Jsoup.parse(html_);
+                        Elements article_alls = doc_.select("div[class=middle]");
+                        if(!article_alls.isEmpty()){
+
+                                Elements imgs = article_alls.get(0).select("img");
+                                String date = TimeUtils.nowdate();
+                                for (int j = 0; j < imgs.size(); j++) {
+                                    try {
+                                        String weburl = imgs.get(j).attr("src");
+                                        System.out.println(weburl);
+                                        //web图片上传到七牛
+                                        if(StringUtils.isNotEmpty(weburl)&&!weburl.contains("verify.php")){
+                                        	 //-------------开始--------------------------------
+                                        	
+                                        	if(!weburl.startsWith("http://www.haoshici.com")){
+                                        		weburl="http://www.haoshici.com/"+weburl ; 
+                                        	}
+
+                                            HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOSMovies() ,date);
+
+                                            String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "movies/"+date+"/"+map22.get("key"));
+
+                                            //-------------结束--------------------------------
+
+                                            imgs.get(j).attr("src", rs);
+                                            
+                                            pic_poem = rs;
+                                        }
+                                       
+                                        
+                                    } catch (Exception e) {
+                                        // TODO: handle exception
+                                        LOGGER.error("ret movies pic exception===>"+e.toString());
+                                        continue;
+                                    }
+
+                                }
+
+                                //诗词赏析
+                                   enjoys = article_alls.get(0).select("p[class=explanation]").html();
+
+                                   System.out.println("enjoys==============>"+enjoys);                                
+
+                                   
+                        }
+
+                        
+                        
+                        map.put("title", title);
+                        map.put("detail_url", detail_url);
+                        map.put("author", author);
+                        map.put("content", content);
+                        map.put("types", types);
+                        map.put("enjoys", enjoys);
+                        map.put("pic_poem", pic_poem);
+                        map.put("retcode", retcode);
+                        
+                        list.add(map);
+                    }
+                }
+
+//                System.out.println(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        return list;
+    }
+    
+    
     /**
      * 爬取某页面的电影图书资源
      */
@@ -1324,18 +1483,23 @@ public class HTMLParserUtil
     /**
      * httpclient获取网页内容html
      * TODO jsoup解析
+     * @throws URISyntaxException 
      */
-    private static String pickData(String url) {
+    private static String pickData(String url) throws URISyntaxException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
             HttpGet httpget = new HttpGet(url);
+            
+            httpget.addHeader( "User-Agent", "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31");   
+            String charset = "UTF-8";   
+            httpget.setURI( new java.net.URI(url));  
             CloseableHttpResponse response = httpclient.execute(httpget);
             try {
                 // 获取响应实体
                 HttpEntity entity = response.getEntity();
                 // 打印响应状态
                 if (entity != null) {
-                    return EntityUtils.toString(entity);
+                    return EntityUtils.toString(entity,charset);
                 }
             } finally {
                 response.close();
@@ -1372,7 +1536,7 @@ public class HTMLParserUtil
 //                retSoft(1);
 //                webPic2Disk("http://www.sdifenzhou.com/wp-content/uploads/2016/02/Fantastical2.jpg", "D:\\BZ\\soft\\" );
 
-                retMovies(78);
+//                retMovies(78);
 //                String url = "http://www.vip588660.com/page/"+77+"/";
 ////                url = "http://northpark.cn/soft/mac/page77";
 //                String pickData = pickData(url);
@@ -1384,6 +1548,8 @@ public class HTMLParserUtil
 //                 }
             	
             
+            	
+            	retPoem(1);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

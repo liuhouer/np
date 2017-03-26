@@ -1,6 +1,5 @@
 
 package cn.northpark.query;
-import cn.northpark.model.Tags;
 import cn.northpark.query.condition.TagsQueryCondition;
 /**
  * @author bruce

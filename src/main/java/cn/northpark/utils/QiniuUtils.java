@@ -1,14 +1,12 @@
 package cn.northpark.utils;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
-import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 
 public class QiniuUtils {

@@ -1,14 +1,14 @@
 
 package cn.northpark.query;
-import cn.northpark.query.condition.AstroQueryCondition;
+import cn.northpark.query.condition.PoemEnjoyQueryCondition;
 /**
  * @author bruce
- * @date 2016-12-01
+ * @date 2017-03-25
  * @email zhangyang226@gmail.com
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
  * 
  */
  
-public interface AstroQuery {
-	public String getSql(AstroQueryCondition astroQueryCondition);
+public interface PoemEnjoyQuery {
+	public String getSql(PoemEnjoyQueryCondition poemenjoyQueryCondition);
 }

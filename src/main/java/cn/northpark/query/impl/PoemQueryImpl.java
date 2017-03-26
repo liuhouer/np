@@ -2,22 +2,22 @@
 package cn.northpark.query.impl;
 import org.springframework.stereotype.Service;
 
-import cn.northpark.query.TagsQuery;
-import cn.northpark.query.condition.TagsQueryCondition;
+import cn.northpark.query.PoemQuery;
+import cn.northpark.query.condition.PoemQueryCondition;
 
 /**
  * @author bruce
- * @date 2017-01-05
+ * @date 2017-03-25
  * @email zhangyang226@gmail.com
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
  * 
  */
  
-@Service("TagsQuery")
-public class TagsQueryImpl implements TagsQuery {
+@Service("PoemQuery")
+public class PoemQueryImpl implements PoemQuery {
 
 	@Override
-	public String getSql(TagsQueryCondition tagsQueryCondition) {
+	public String getSql(PoemQueryCondition poemQueryCondition) {
 		StringBuilder sql = new StringBuilder(" where 1=1");
 		
         
