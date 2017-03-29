@@ -277,7 +277,7 @@ public class TestEQTask {
 					
 				
 				
-				for (int k = 1; k <=845; k++) {
+				for (int k = 1; k <=191; k++) {
 					try {
 						
 						List<Map<String, String>> list = HTMLParserUtil.retPoem(k);
@@ -292,10 +292,12 @@ public class TestEQTask {
 								   String title       =  map.get("title"      );
 			                       String author      =  map.get("author"     );
 			                       String content     =  map.get("content"    );
+			                       String content1    =  map.get("content1"    );
 			                       String types       =  map.get("types"      );
 			                       String enjoys      =  map.get("enjoys"     );
 			                       String pic_poem    =  map.get("pic_poem"   );
 			                       String retcode     =  map.get("retcode"   );
+			                       String detail_url  =  map.get("detail_url"    );
 
 									//是不存在的诗词
 									int flag = poemManager.countHql(new Poem(), " where o.retcode= '"+retcode+"' ");
@@ -309,8 +311,10 @@ public class TestEQTask {
 										p.setPic_poem(pic_poem);
 										p.setRetcode(retcode);
 										p.setTitle(title);
-										p.setYears("唐代");
+										p.setYears("南北朝");
 										p.setTypes(types);
+										p.setContent1(content1);
+										p.setReturl(detail_url);
 										
 										poemManager.addPoem(p);
 										

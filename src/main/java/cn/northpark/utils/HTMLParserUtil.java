@@ -1273,7 +1273,9 @@ public class HTMLParserUtil
 	        	//String url = "http://www.vip588660.cm/page/"+index+"/";
 //        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
 //	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
-	        	String url = "http://www.haoshici.com/"+index+"_E59490_0_0_0_0.html";
+//	        	String url = "http://www.haoshici.com/"+index+"_E59490_0_0_0_0.html";
+//        		String url = "http://www.haoshici.com/"+index+"_E5AE8B_0_0_0_0.html";
+        		String url = "http://www.haoshici.com/"+index+"_E58583_0_0_0_0.html";
 	        	
 	        	
 	        	
@@ -1313,14 +1315,15 @@ public class HTMLParserUtil
                         
                         //诗词名
                         String title = a_s.get(0).select("span").get(0).text();
-                        
-                        //生成代码
-                        String retcode = MD5Utils.encoding(title+types);
+                      
                         
                         //作者
                         String author = li.select("span[class=_11px]").get(0).text();
                         
                         author = author.replaceAll("唐代", "").replaceAll("作品", "");
+                        
+                        
+                       
                         
                         //内容
                         String content  = a_s.get(1).text();
@@ -1328,6 +1331,9 @@ public class HTMLParserUtil
                         //详情url
                         String detail_url = "http://www.haoshici.com/"+a_s.get(1).attr("href");
                         
+                        
+                        //生成代码
+                        String retcode = MD5Utils.encoding(title+types+author+detail_url);
 
                         System.out.println("title==============>"+title);
                         System.out.println("detail_url==============>"+detail_url);
@@ -1341,6 +1347,8 @@ public class HTMLParserUtil
                         //文字赏析
                         String enjoys = "";
                         String desc = "";
+                      //诗词内容
+                        String content1  = "";
 
 
                         String html_ = pickData(detail_url);
@@ -1387,7 +1395,11 @@ public class HTMLParserUtil
                                 //诗词赏析
                                    enjoys = article_alls.get(0).select("p[class=explanation]").html();
 
-                                   System.out.println("enjoys==============>"+enjoys);                                
+                                   System.out.println("enjoys==============>"+enjoys);    
+                                   
+                                   //诗词内容
+                                   content1 = article_alls.get(0).select("p[class=poetry]").get(0).html();
+                                   System.out.println("content1==============>"+content1);    
 
                                    
                         }
@@ -1402,6 +1414,7 @@ public class HTMLParserUtil
                         map.put("enjoys", enjoys);
                         map.put("pic_poem", pic_poem);
                         map.put("retcode", retcode);
+                        map.put("content1", content1);
                         
                         list.add(map);
                     }
@@ -1549,7 +1562,7 @@ public class HTMLParserUtil
             	
             
             	
-            	retPoem(1);
+            	retPoem(26);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

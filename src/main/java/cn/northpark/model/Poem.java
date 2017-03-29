@@ -50,13 +50,12 @@ private static final long serialVersionUID = 1L;
 	@Column(length = 255)
 	private String author;
 
-	@Column(length = 255)
+	//诗词内容摘要...
+	@Column(length = 0)
 	private String content;
 
 	@Column(length = 255)
 	private String createtime;
-	
-	
 	
 	@Column(length = 0)
 	private String enjoys;
@@ -70,6 +69,15 @@ private static final long serialVersionUID = 1L;
 	
 	@Column(length = 255)
 	private String types;
+	
+	
+	//诗词内容
+	@Column(length = 0)
+	private String content1;
+	
+	//爬取单页面的url
+	@Column(length = 255)
+	private String returl;
 	
 	
 
@@ -151,6 +159,22 @@ private static final long serialVersionUID = 1L;
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public String getContent1() {
+		return content1;
+	}
+
+	public void setContent1(String content1) {
+		this.content1 = content1;
+	}
+
+	public String getReturl() {
+		return returl;
+	}
+
+	public void setReturl(String returl) {
+		this.returl = returl;
 	}
 	
 	/*这里是mybatis部分代码
