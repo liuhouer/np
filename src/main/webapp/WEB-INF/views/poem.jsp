@@ -86,7 +86,9 @@
     -webkit-writing-mode: vertical-rl; 
     margin: 3px 0 0 44px;
     line-height: 1.8;
-    text-indent: 30px;
+    float: right;
+    padding-right: 50px;
+    padding-top: -50px;
 }
 
 .font1{
