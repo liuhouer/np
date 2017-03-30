@@ -1,12 +1,18 @@
 
 package cn.northpark.action;
+import java.util.LinkedHashMap;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cn.northpark.manager.PoemManager;
@@ -17,11 +23,6 @@ import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.LinkedHashMap;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 
 /**
  * @author bruce
@@ -31,82 +32,26 @@ import javax.servlet.http.HttpSession;
  * 
  */
 @Controller
-@RequestMapping("/poemAction")
+@RequestMapping("/poem")
 @SessionAttributes({ "list", "poem" })
 public class PoemAction {
 
- private final String LIST_ACTION = "redirect:/poemAction/findAll";
  @Autowired	
  private PoemManager poemManager;
  @Autowired	
  private PoemQuery poemQuery;
 
-	
-	@RequestMapping("/toAdd")
-	public String toAdd(ModelMap map) {
-		//List<Poem> Pidlist = poemManager.findAll();
-		//map.addAttribute("Pidlist",Pidlist);
-		return "admin/poem/poemAdd";
-	}
-	
-	@RequestMapping("/toEdit")
-	public String toEdit(HttpServletRequest request, @RequestParam("id") Integer id,ModelMap map) {
-		//String id = request.getParameter("id");
-		//List<Poem> Pidlist = poemManager.findAll();
-		//map.addAttribute("Pidlist",Pidlist);
-		if(null!=id && 0!=id){
-			Poem model = poemManager.findPoem(id);
-			map.put("model", model);
-		}
-		return "admin/poem/poemEdit";
-	}
-	
-	@RequestMapping("/remove")
-	public String remove(@RequestParam("id") Integer id) {
-		this.poemManager.delPoem(id);
-		return LIST_ACTION;
-	}
-	
-	@RequestMapping("/removes")
-	public String removes(@RequestParam("ids") String ids) {
-		String[] str = ids.split(",");
-		for(String s :str){
-			this.poemManager.delPoem(Integer.parseInt(s));
-		}
-		return LIST_ACTION;
-	}
-	
-	@RequestMapping("/update")
-	public String update(Poem model) {
-		this.poemManager.updatePoem(model);
-		return LIST_ACTION;
-	}
-	
+    @RequestMapping(value="/index.html")
+	public String index(ModelMap map,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) {
 
-	@RequestMapping("/addPoem")
-	public String addPoem(Poem poem) {
-		this.poemManager.addPoem(poem);
-		return LIST_ACTION;
-	}
-
-	@RequestMapping("/findPoem")
-	private String findPoem(@RequestParam("id") Integer id, ModelMap map) {
-		Poem poem = this.poemManager.findPoem(id);
-		map.addAttribute("poem", poem);
-		return "findresult";
-	}
-
-	@RequestMapping("/delPoem")
-	public String delPoem(@RequestParam("id") Integer id) {
-		this.poemManager.delPoem(id);
-		return LIST_ACTION;
-	}
-
-	@RequestMapping("/updatePoem")
-	public String updatePoem(@RequestParam("id") Integer id) {
-		Poem poem = this.poemManager.findPoem(id);
-		this.poemManager.updatePoem(poem);
-		return LIST_ACTION;
+    	String sql = "select * from bc_poem order by rand() limit 1";
+    	List<Poem> list = poemManager.querySql(sql);
+    	if(!CollectionUtils.isEmpty(list)){
+    		request.setAttribute("poem", list.get(0));
+    	}
+    	
+		return "/poem";
 	}
 
 	@RequestMapping(value="/findAll")
