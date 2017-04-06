@@ -606,6 +606,31 @@ a.btn {
 	color: white;
 }
 
+.touming{
+	background:rgba(238, 238, 238, 0.18)!important;
+	filter:Alpha(opacity=60); background:#fff;
+	z-index: 5;
+}
+
+.touming p{
+	  position: relative; /*实现IE文字不透明*/ 
+	  font-size: 20px;
+	line-height: 1.67;
+	font-weight: 400;
+	letter-spacing: normal;
+	margin: 0 20px 5px 0;
+	vertical-align: top;
+	margin-top: 0px;
+	margin-right: 20px;
+	margin-bottom: 5px;
+	padding: 0px;
+	-webkit-font-smoothing: antialiased;
+	/* color: rgb(153, 153, 153); */
+	/* color: #E071A4 */
+	z-index: 5;
+}
+
+
 .imgbreath {
 	display: block;
 	/* width: 210px;

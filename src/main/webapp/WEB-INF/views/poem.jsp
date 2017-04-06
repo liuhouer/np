@@ -18,125 +18,367 @@
 <meta name="keywords" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、最新的影视剧资源、大量提升男生情商的文章、大家吐槽的，喜爱的，心情日记的精神角落、图册互动等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
+ 
+ 
  <style type="text/css">
- /*通用样式*/
+*{margin:0;padding:0;}
+
+.slideshow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slideshow-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: no-repeat 50% 50%;
+  background-size: cover;
+  -webkit-animation-name: kenburns;
+          animation-name: kenburns;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-duration: 64s;
+          animation-duration: 64s;
+  opacity: 1;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+.slideshow-image:nth-child(1) {
+  -webkit-animation-name: kenburns-1;
+          animation-name: kenburns-1;
+  z-index: 3;
+}
+.slideshow-image:nth-child(2) {
+  -webkit-animation-name: kenburns-2;
+          animation-name: kenburns-2;
+  z-index: 2;
+}
+.slideshow-image:nth-child(3) {
+  -webkit-animation-name: kenburns-3;
+          animation-name: kenburns-3;
+  z-index: 1;
+}
+.slideshow-image:nth-child(4) {
+  -webkit-animation-name: kenburns-4;
+          animation-name: kenburns-4;
+  z-index: 0;
+}
 
 
 
-/*content*/
-.content{
-    position: relative;
-    margin: 40px 0 0 -21px;
-    width: 900px; 
-    height: 460px;
-}
-.l-pic-index{
-	/*display:none;*/
-    position: absolute;
-    left: 400px;
-    top: 1px;
-    z-index:2;
-    width:50px;
-    height:460px;
-    background: url("/img/poem/j1.png") no-repeat right 0;
-}
-.r-pic-index{
-	/*display:none;*/
-    position: absolute;
-    right: 400px;
-    top: 0;
-    z-index: 2;
-    width:50px;
-    *width:82px;
-    height:460px;
-    background: url("/img/poem/j4.png") no-repeat left 0;
-}
-.l-bg-index{
-    position: absolute;
-    top: -3px;
-    left: 430px;
-    z-index: 1;
-    width: 25px;
-    height: 459px;
-    background: url("/img/poem/j2.png") right 0 no-repeat;
-}
-.r-bg-index{
-    position: absolute;
-    top:-4px;
-    right: 430px;
-    z-index: 1;
-    width: 25px;
-    height: 459px;
-    background: url("/img/poem/j3.png") 0 0 no-repeat;
-}
-.main-index{
-    display: none;
-    overflow: hidden;
-    zoom:1;
-    position: absolute;
-    z-index: 5;
-    width:530px;
-    height:280px;
-    left:145px;
-    top:90px;
-    color: #2e2e2e;
-     text-align: right;
-}
-.intro-text{
-    -webkit-writing-mode: vertical-rl; 
-    margin: 3px 0 0 44px;
-    line-height: 1.8;
-    float: right;
-    padding-right: 50px;
-    padding-top: -50px;
+@-webkit-keyframes kenburns-1 {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  1.5625% {
+    opacity: 1;
+  }
+  23.4375% {
+    opacity: 1;
+  }
+  26.5625% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  98.4375% {
+    opacity: 0;
+    -webkit-transform: scale(1.21176);
+            transform: scale(1.21176);
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-.font1{
-	font-size: 14px;
-    line-height: 1.67;
-    font-weight: 400;
-    letter-spacing: normal;
-    vertical-align: top;
-    color: black; 
- }
- </style>
+@keyframes kenburns-1 {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  1.5625% {
+    opacity: 1;
+  }
+  23.4375% {
+    opacity: 1;
+  }
+  26.5625% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  98.4375% {
+    opacity: 0;
+    -webkit-transform: scale(1.21176);
+            transform: scale(1.21176);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes kenburns-2 {
+  23.4375% {
+    opacity: 1;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  26.5625% {
+    opacity: 1;
+  }
+  48.4375% {
+    opacity: 1;
+  }
+  51.5625% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+}
+@keyframes kenburns-2 {
+  23.4375% {
+    opacity: 1;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  26.5625% {
+    opacity: 1;
+  }
+  48.4375% {
+    opacity: 1;
+  }
+  51.5625% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+}
+@-webkit-keyframes kenburns-3 {
+  48.4375% {
+    opacity: 1;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  51.5625% {
+    opacity: 1;
+  }
+  73.4375% {
+    opacity: 1;
+  }
+  76.5625% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+}
+@keyframes kenburns-3 {
+  48.4375% {
+    opacity: 1;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  51.5625% {
+    opacity: 1;
+  }
+  73.4375% {
+    opacity: 1;
+  }
+  76.5625% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+}
+@-webkit-keyframes kenburns-4 {
+  73.4375% {
+    opacity: 1;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  76.5625% {
+    opacity: 1;
+  }
+  98.4375% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes kenburns-4 {
+  73.4375% {
+    opacity: 1;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  76.5625% {
+    opacity: 1;
+  }
+  98.4375% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+
+
+</style>
 </head>
 
 <body >
 
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
-	 
 	
+	
+	
+
 <div class="clearfix maincontent grayback" >
-	<div class="container">
+
+					
+
+	<div class="container" style="z-index: 6">
+	  
 		<div class="mainbody" style="margin-top:80px; ">
-		
 		
 		     
 		
 		
 			<div  class="row">
 				<div  class="col-md-12">
-						<div class="content">
-							<div class="l-pic-index"></div>
-							<div class="r-pic-index"></div>
-							<div class="l-bg-index"></div>
-							<div class="r-bg-index"></div>
-							<div class="main-index">
-								<!-- <h1 class="title"><img src="./img/intro-title.png" alt=""></h1> -->
-								<p class="intro-text ">
-								    ${poem.title } <br>
-								    ${poem.author }<br>
-									${poem.content1 }
-									</p>
-								</p>
-							</div>
+				
+						  
+						<!-- 你可以添加个多“.slideshow-image”项目, 记得修改CSS -->
+						<div class="slideshow">
+							<div class="slideshow-image" style="background-image: url('/img/poem/1.jpg')"></div>
+							<div class="slideshow-image" style="background-image: url('/img/poem/2.jpg')"></div>
+							<div class="slideshow-image" style="background-image: url('/img/poem/3.jpg')"></div>
+							<div class="slideshow-image" style="background-image: url('/img/poem/4.jpg')"></div>
 						</div>
+					
+					
+					       <div class="col-sm-8  col-md-offset-2 clearfix bg-white margin-t10 margin-b10 padding20 touming center">
+								<div class="row ">
+									 <!-- 文字区不需要请连css部分代码一并删除 -->
+									 <p >${poem.title }</p>
+									 <p style="font-style: italic;">${poem.author }</p>
+									 <p >${poem.content1 }</p>
+										   
+											
+											
 
-					</div>
+										
+
+								</div>
+							</div>
+
+				</div>
 					
 			</div>	
-			<div  class="row">	
+			
+			
+			<div  class="row">
+				<div  class="col-md-8">
+					<c:forEach items="${list }" var="s" varStatus="ss">
+					
+						<div class="col-sm-12 ">
+							<div class="clearfix bg-white margin-t10 margin-b10 padding20 ">
+								<div class="row margin5">
+										<div class="thumbnail border-0 center">
+											<p>
+											<a href="/poem/enjoy/${s.id }.html">
+												<small class="green-text">
+													 <font size="5"><strong>${s.title}</strong></font> 
+												</small>
+											</a>
+											</p>
+											
+											
+											<div class="clearfix visible-xs"><hr></div>
+										</div>
+
+										<p >
+											
+												
+												<c:if test="${s.pic_poem!='' }"><img 
+												title="${s.title}" alt="${s.title}" src="${s.pic_poem }" ></c:if>
+												
+												
+												
+										</p>
+										<p>  
+										
+										收录于：<a class="common-a-right"  title="${s.author}" >${s.author}</a>
+										
+										       <a class="common-a-right"  title="${s.years}" href="/poem/tag/${s.years }">${s.years}</a>
+										       
+										       <a class="common-a"  title="${s.types}" href="/poem/tag/${s.types }">${s.types}</a>
+										
+
+										</p>
+										<p id="brief_${ss.index}">
+										
+										  ${s.content }
+										</p>
+										
+										<p>
+										<a class="btn btn-warning margin-t10" href="/poem/enjoy/${s.id }.html">
+										  Read More
+										 <span class="glyphicon  glyphicon-circle-arrow-right padding5"></span>
+				   						 </a>
+										</p>
+
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+					<c:if test="${pagein!='no' }">
+						<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
+					</c:if>
+				</div>
+				
 				<div  class="col-md-4 ">
 				
 					<div class="clearfix  margin20 view">
@@ -171,6 +413,10 @@
 					 
 					 
 				</div>
+				
+					
+				 
+					
 			</div>
 		  	
 		  	
@@ -209,17 +455,6 @@
 	
 	
 	
-	<script>
-	 $(document).ready(function(){
-	        //卷轴展开效果
-	        $(".l-pic-index").animate({'left':'96px','top':'-4px'},1300);
-	        $(".r-pic-index").animate({'right':'-23px','top':'-5px'},1450);
-	        $(".l-bg-index").animate({'width':'433px','left':'73px'},1500);
-	        $(".r-bg-index").animate({'width':'433px','right':'-38px'},1500,function(){
-	            $(".main-index").fadeIn(800);
-	        });
-	    });
-	</script>
 	
 
 
