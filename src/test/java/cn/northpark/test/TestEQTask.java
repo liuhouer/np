@@ -269,96 +269,111 @@ public class TestEQTask {
 				
 				//TODO ..爬虫诗词代码
 				
-				try {
-				
-				System.out.println("poem task==============start="+TimeUtils.getNowTime());
-				logger.info("poem task==============start="+TimeUtils.getNowTime());
-				Map<String,String> map = null;
-					
-				
-				
-				for (int k = 1; k <=191; k++) {
-					try {
-						
-						List<Map<String, String>> list = HTMLParserUtil.retPoem(k);
-						
-						
-						if(!CollectionUtils.isEmpty(list)){
-							for (int i = 0; i < list.size(); i++) {
-								try {
-									map  = list.get(i);
-									
-								    
-								   String title       =  map.get("title"      );
-			                       String author      =  map.get("author"     );
-			                       String content     =  map.get("content"    );
-			                       String content1    =  map.get("content1"    );
-			                       String types       =  map.get("types"      );
-			                       String enjoys      =  map.get("enjoys"     );
-			                       String pic_poem    =  map.get("pic_poem"   );
-			                       String retcode     =  map.get("retcode"   );
-			                       String detail_url  =  map.get("detail_url"    );
-
-									//是不存在的诗词
-									int flag = poemManager.countHql(new Poem(), " where o.retcode= '"+retcode+"' ");
-									
-									if(flag<=0){
-										Poem p = new Poem();
-										p.setAuthor(author);
-										p.setContent(content);
-										p.setCreatetime(TimeUtils.nowTime());
-										p.setEnjoys(enjoys);
-										p.setPic_poem(pic_poem);
-										p.setRetcode(retcode);
-										p.setTitle(title);
-										p.setYears("南北朝");
-										p.setTypes(types);
-										p.setContent1(content1);
-										p.setReturl(detail_url);
-										
-										poemManager.addPoem(p);
-										
-										PoemEnjoy pe = new PoemEnjoy();
-										pe.setPoem_id(p.getId());
-										pe.setTitle(title);
-										pe.setEnjoying(enjoys);
-										poemenjoyManager.addPoemEnjoy(pe);
-
-									}
-								} catch (Exception e) {
-									// TODO: handle exception
-									continue;
-								}
-								
-							}
-						}
-					} catch (Exception e) {
-						// TODO: handle exception
-						continue;
-					}
-					
-					
-					try {
-					    Thread.sleep(1000*5);
-					    System.out.println("第"+k+"页================");
-					} catch (InterruptedException e) {
-					    // TODO Auo-generated catch block
-					    e.printStackTrace();
-					}
-				}
-				
-				
-				
-				
-				logger.info("poem task==============end="+TimeUtils.getNowTime());
-				logger.trace("poem task==============end="+TimeUtils.getNowTime());
-				System.out.println("poem task==============end="+TimeUtils.getNowTime());
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+//				try {
+//				
+//				System.out.println("poem task==============start="+TimeUtils.getNowTime());
+//				logger.info("poem task==============start="+TimeUtils.getNowTime());
+//				Map<String,String> map = null;
+//					
+//				
+//				
+//				for (int k = 1; k <=191; k++) {
+//					try {
+//						
+//						List<Map<String, String>> list = HTMLParserUtil.retPoem(k);
+//						
+//						
+//						if(!CollectionUtils.isEmpty(list)){
+//							for (int i = 0; i < list.size(); i++) {
+//								try {
+//									map  = list.get(i);
+//									
+//								    
+//								   String title       =  map.get("title"      );
+//			                       String author      =  map.get("author"     );
+//			                       String content     =  map.get("content"    );
+//			                       String content1    =  map.get("content1"    );
+//			                       String types       =  map.get("types"      );
+//			                       String enjoys      =  map.get("enjoys"     );
+//			                       String pic_poem    =  map.get("pic_poem"   );
+//			                       String retcode     =  map.get("retcode"   );
+//			                       String detail_url  =  map.get("detail_url"    );
+//
+//									//是不存在的诗词
+//									int flag = poemManager.countHql(new Poem(), " where o.retcode= '"+retcode+"' ");
+//									
+//									if(flag<=0){
+//										Poem p = new Poem();
+//										p.setAuthor(author);
+//										p.setContent(content);
+//										p.setCreatetime(TimeUtils.nowTime());
+//										p.setEnjoys(enjoys);
+//										p.setPic_poem(pic_poem);
+//										p.setRetcode(retcode);
+//										p.setTitle(title);
+//										p.setYears("南北朝");
+//										p.setTypes(types);
+//										p.setContent1(content1);
+//										p.setReturl(detail_url);
+//										
+//										poemManager.addPoem(p);
+//										
+//										PoemEnjoy pe = new PoemEnjoy();
+//										pe.setPoem_id(p.getId());
+//										pe.setTitle(title);
+//										pe.setEnjoying(enjoys);
+//										poemenjoyManager.addPoemEnjoy(pe);
+//
+//									}
+//								} catch (Exception e) {
+//									// TODO: handle exception
+//									continue;
+//								}
+//								
+//							}
+//						}
+//					} catch (Exception e) {
+//						// TODO: handle exception
+//						continue;
+//					}
+//					
+//					
+//					try {
+//					    Thread.sleep(1000*5);
+//					    System.out.println("第"+k+"页================");
+//					} catch (InterruptedException e) {
+//					    // TODO Auo-generated catch block
+//					    e.printStackTrace();
+//					}
+//				}
+//				
+//				
+//				
+//				
+//				logger.info("poem task==============end="+TimeUtils.getNowTime());
+//				logger.trace("poem task==============end="+TimeUtils.getNowTime());
+//				System.out.println("poem task==============end="+TimeUtils.getNowTime());
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//			}
 //			
 			   
-				
+			   //批量处理诗词标签
+			   int count = poemManager.countSql("select * from bc_poem ");
+			   
+			   int pagecount = count % 100+1;
+			   
+			   
+			   //按照页码更新数据
+			   for (int i = 0; i < pagecount; i++) {
+				   List<Poem> lst100 = poemManager.querySql(" select * from bc_poem limit "+i*100+",100");
+				   //按照分页更新数据
+				   for (Poem p:lst100) {
+					
+				  }
+			   }
+			   
+			   
 				
 				//TODO ..爬虫诗词代码
 //			

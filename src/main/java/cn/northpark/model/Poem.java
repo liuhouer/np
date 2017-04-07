@@ -48,6 +48,9 @@ private static final long serialVersionUID = 1L;
 	private String years;
 
 	@Column(length = 255)
+	private String years_en;
+
+	@Column(length = 255)
 	private String author;
 
 	//诗词内容摘要...
