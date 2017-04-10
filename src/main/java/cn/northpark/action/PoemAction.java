@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cn.northpark.manager.PoemManager;
+import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Poem;
+import cn.northpark.model.Tags;
 import cn.northpark.query.PoemQuery;
 import cn.northpark.query.condition.PoemQueryCondition;
 import cn.northpark.utils.PageView;
@@ -43,6 +45,9 @@ public class PoemAction {
  @Autowired	
  private PoemQuery poemQuery;
  
+ @Autowired	
+ private TagsManager tagManager;
+ 
  
  
  /**
@@ -58,41 +63,33 @@ public class PoemAction {
 	public String index(ModelMap map,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) {
 
+	
+	//查询诗词
+	request.getSession().removeAttribute("poem");
  	String sql = "select * from bc_poem order by rand() limit 1";
  	List<Poem> list = poemManager.querySql(sql);
  	if(!CollectionUtils.isEmpty(list)){
- 		request.setAttribute("poem", list.get(0));
+ 		request.getSession().setAttribute("poem", list.get(0));
  	}
  	
+ 	//查询标签
+ 	List<Tags> years_tag = tagManager.findByCondition(" where tagtype = 2 ").getResultlist();
  	
+	List<Tags> types_tag = tagManager.findByCondition(" where tagtype = 3 ").getResultlist();
  	
+	request.getSession().setAttribute("years_tag", years_tag);
+	request.getSession().setAttribute("types_tag", types_tag);
  	
  	//get the page  data
-		String result="/poem"; 
 		String whereSql = "";
 		
-		//搜索
-		String keyword = request.getParameter("keyword");
-		
-		map.put("keyword", keyword);
-		if(StringUtils.isNotEmpty(keyword)){
-			keyword = WAQ.forSQL().escapeSql(keyword);
-			if(keyword.contains(" ")){
-				String keyword2 = keyword.replaceAll(" ", "");
-				whereSql+= " where title like '%"+keyword+"%' or title like '%"+keyword2+"%' " ;
-			}else{
-				whereSql+= " where title like '%"+keyword+"%' " ;
-			}
-		
-			
-		}
 
-		System.out.println("sql ---"+whereSql);
+
 		String page  = "0" ;
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("id", "asc");
+		order.put("rand()", "asc");
 		
 		//获取pageview
 		PageView<Poem> p = getPageView(currentpage, whereSql);
@@ -130,7 +127,7 @@ public class PoemAction {
     	
     	try {
 			Poem poem = poemManager.findPoem(Integer.parseInt(id));
-			map.put("poem", poem);
+			map.put("poem_enjoy", poem);
     		
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -143,15 +140,20 @@ public class PoemAction {
 	}
 
     
+    /**
+     * 
+     * 列表页面
+     * @param map
+     * @param page
+     * @param request
+     * @param response
+     * @param session
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value="/page{page}")
 	public String listpage(ModelMap map, @PathVariable String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
-    	
-    	String sql = "select * from bc_poem order by rand() limit 1";
-    	List<Poem> list = poemManager.querySql(sql);
-    	if(!CollectionUtils.isEmpty(list)){
-    		request.setAttribute("poem", list.get(0));
-    	}
     	
 		
 		String result="/poem";
@@ -166,8 +168,12 @@ public class PoemAction {
 			if(keyword.contains(" ")){
 				String keyword2 = keyword.replaceAll(" ", "");
 				whereSql+= " where title like '%"+keyword+"%' or title like '%"+keyword2+"%' " ;
+				whereSql+= " or author like '%"+keyword+"%' or author like '%"+keyword2+"%' " ;
+				whereSql+= " or content1 like '%"+keyword+"%' or content1 like '%"+keyword2+"%' " ;
 			}else{
 				whereSql+= " where title like '%"+keyword+"%' " ;
+				whereSql+= " or author like '%"+keyword+"%' " ;
+				whereSql+= " or content1 like '%"+keyword+"%' " ;
 			}
 		
 			
@@ -177,7 +183,7 @@ public class PoemAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("id", "asc");
+		order.put("rand()", "asc");
 		
 		//获取pageview
 		PageView<Poem> p = getPageView(currentpage, whereSql);
@@ -205,6 +211,132 @@ public class PoemAction {
 		return result;
 	}
     
+    
+    
+
+	/**
+	 * 按照朝代计算
+	 * @param map
+	 * @param retcode
+	 * @param requestk
+	 * @return
+	 */
+	@RequestMapping("/dynasty/{tagscode}")
+	public String tagsearch(ModelMap map, @PathVariable String tagscode ,HttpServletRequest request) {
+		String rs = "redirect:/poem/dynasty/"+tagscode+"/page0";
+		return rs;
+	}
+	
+	/**
+	 * 按照朝代分页计算
+	 * @param map
+	 * @param retcode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/dynasty/{tagscode}/page{page}")
+	public String tagsearchpage(ModelMap map, @PathVariable String page,@PathVariable String tagscode,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws IOException {
+		
+		String result="/poem";
+		//防止sql注入
+		tagscode = WAQ.forSQL().escapeSql(tagscode);
+ 		String whereSql = " where years_code = '"+tagscode+"' ";
+ 		
+ 		map.put("seltag", tagscode);
+		
+		
+		
+		System.out.println("sql ---"+whereSql);
+		String currentpage = page;
+		//排序条件
+		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+		order.put("id", "asc");
+		
+		//获取pageview
+		PageView<Poem> p = getPageView(currentpage, whereSql);
+		QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
+		List<Poem> resultlist = qr.getResultlist();
+		int pages = 0;
+		try {
+			 pages = Integer.parseInt(page)+1;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			pages = 1;
+		}
+		map.put("page", pages);
+		
+		map.addAttribute("pageView", p);
+		map.addAttribute("list", resultlist);
+		map.addAttribute("actionUrl","/poem/dynasty/"+tagscode);
+		
+
+		return result;
+	}
+	
+	
+	/**
+	 * 按照诗词类型计算
+	 * @param map
+	 * @param retcode
+	 * @param requestk
+	 * @return
+	 */
+	@RequestMapping("/types/{tagscode}")
+	public String typessearch(ModelMap map, @PathVariable String tagscode ,HttpServletRequest request) {
+		String rs = "redirect:/poem/types/"+tagscode+"/page0";
+		return rs;
+	}
+	
+	/**
+	 * 按照诗词类型分页计算
+	 * @param map
+	 * @param retcode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/types/{tagscode}/page{page}")
+	public String typessearchpage(ModelMap map, @PathVariable String page,@PathVariable String tagscode,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws IOException {
+		
+		String result="/poem";
+		//防止sql注入
+		tagscode = WAQ.forSQL().escapeSql(tagscode);
+ 		String whereSql = " where types_code = '"+tagscode+"' ";
+ 		
+ 		map.put("seltag", tagscode);
+		
+		
+		
+		System.out.println("sql ---"+whereSql);
+		String currentpage = page;
+		//排序条件
+		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+		order.put("id", "asc");
+		
+		//获取pageview
+		PageView<Poem> p = getPageView(currentpage, whereSql);
+		QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
+		List<Poem> resultlist = qr.getResultlist();
+		int pages = 0;
+		try {
+			 pages = Integer.parseInt(page)+1;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			pages = 1;
+		}
+		map.put("page", pages);
+		
+		map.addAttribute("pageView", p);
+		map.addAttribute("list", resultlist);
+		map.addAttribute("actionUrl","/poem/types/"+tagscode);
+		
+
+		return result;
+	}
+	
     
 	@RequestMapping(value="/findAll")
 	public String findAll(ModelMap map,PoemQueryCondition condition,HttpServletRequest request,

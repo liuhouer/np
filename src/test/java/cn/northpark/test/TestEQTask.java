@@ -359,19 +359,33 @@ public class TestEQTask {
 //			
 			   
 			   //批量处理诗词标签
-			   int count = poemManager.countSql("select * from bc_poem ");
-			   
-			   int pagecount = count % 100+1;
-			   
-			   
-			   //按照页码更新数据
-			   for (int i = 0; i < pagecount; i++) {
-				   List<Poem> lst100 = poemManager.querySql(" select * from bc_poem limit "+i*100+",100");
-				   //按照分页更新数据
-				   for (Poem p:lst100) {
-					
-				  }
-			   }
+//			try {
+//				int count = poemManager.countSql("select * from bc_poem ");
+//				
+//				System.out.println("count______>"+count);
+//				   
+//				   int pagecount = count / 1000+1;
+//				   
+//				   
+//				   
+//				   
+//				   //按照页码更新数据
+//				   for (int i = 0; i < pagecount; i++) {
+//					   List<Poem> lst100 = poemManager.querySql(" select * from bc_poem limit "+i*1000+",100");
+//					   //按照分页更新数据
+//					   for (Poem p:lst100) {
+//						  String types = p.getTypes();
+//						  String types_code   = PinyinUtil.paraseStringToPinyin(types).toLowerCase();
+//						  System.out.println("types_code------》"+types_code);
+//						  p.setTypes_code(types_code);
+//						  poemManager.updatePoem(p);
+//					  }
+//				   }
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				e.printStackTrace();
+//			}
+//			   
 			   
 			   
 				

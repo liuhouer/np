@@ -352,9 +352,9 @@
 										
 										收录于：<a class="common-a-right"  title="${s.author}" >${s.author}</a>
 										
-										       <a class="common-a-right"  title="${s.years}" href="/poem/tag/${s.years }">${s.years}</a>
+										       <a class="common-a-right"  title="${s.years}" href="/poem/dynasty/${s.years_code }">${s.years}</a>
 										       
-										       <a class="common-a"  title="${s.types}" href="/poem/tag/${s.types }">${s.types}</a>
+										       <a class="common-a"  title="${s.types}" href="/poem/types/${s.types_code }">${s.types}</a>
 										
 
 										</p>
@@ -383,7 +383,7 @@
 				
 					<div class="clearfix  margin20 view">
 				     
-				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/movies/search">
+				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/poem/page0">
 		                  <input id="keyword" placeholder="诗词名句"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
 		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="submit">
 		                </form>
@@ -394,9 +394,24 @@
 					 <!-- hot  --> 
 					 <div  class="clearfix sidebar radius-5 ">
 						<div  class="clearfix border-bottom">
-							<h4><span  class=" glyphicon glyphicon-leaf margin5"></span> 热门</h4>
+							<h4><span  class=" glyphicon glyphicon-leaf margin5"></span> 朝代</h4>
 						</div>
-						
+						<c:forEach var="z" items="${years_tag }">
+						        
+						        <div class="col-md-10 margin5" >
+						            <c:if test="${z.tagcode == seltag }">
+						             <span  class="glyphicon glyphicon-arrow-right margin5"></span>
+						             <a style="color: #45d0c6;" href="/poem/dynasty/${z.tagcode}" title="${z.tag }">${z.tag } </a>
+						            </c:if>
+						            <c:if test="${z.tagcode != seltag }">
+						             <span  class="glyphicon glyphicon-tree-conifer margin5"></span>
+						             <a href="/poem/dynasty/${z.tagcode}" title="${z.tag }">${z.tag } </a>
+						            </c:if>
+						           
+				        			
+				        			
+				        		</div>
+						</c:forEach>
 						
 					 </div> 
 					 
@@ -404,9 +419,24 @@
 					   <!-- tags  -->
 					<div  class="clearfix sidebar radius-10 ">
 						<div  class="clearfix border-bottom">
-							<h4><span  class=" glyphicon glyphicon-tags margin5"></span> 标签</h4>
+							<h4><span  class=" glyphicon glyphicon-tags margin5"></span> 词牌类别</h4>
 						</div>
-		
+					<c:forEach var="z" items="${types_tag }">
+						        
+						        <div class="col-md-10 margin5" >
+						            <c:if test="${z.tagcode == seltag }">
+						             <span  class="glyphicon glyphicon-arrow-right margin5"></span>
+						             <a style="color: #45d0c6;" href="/poem/types/${z.tagcode}" title="${z.tag }">${z.tag } </a>
+						            </c:if>
+						            <c:if test="${z.tagcode != seltag }">
+						             <span  class="glyphicon glyphicon-tag  margin5"></span>
+						             <a href="/poem/types/${z.tagcode}" title="${z.tag }">${z.tag } </a>
+						            </c:if>
+						           
+				        			
+				        			
+				        		</div>
+						</c:forEach>
 						
 						
 					 </div>
@@ -450,6 +480,7 @@
 	    }
 		
 	
+	    
 	
 	</script>
 	

@@ -302,10 +302,10 @@
 					       <div class="col-sm-8  col-md-offset-2 clearfix bg-white margin-t10 margin-b10 padding20 touming center">
 								<div class="row ">
 									 <!-- 文字区不需要请连css部分代码一并删除 -->
-									 <p >${poem.title }</p>
-									 <p style="font-style: italic;">${poem.author }</p>
-									 <p >${poem.content1 }</p>
-									 <p >${poem.enjoys }</p>	   
+									 <p >${poem_enjoy.title }</p>
+									 <p style="font-style: italic;">${poem_enjoy.author }</p>
+									 <p >${poem_enjoy.content1 }</p>
+									 <p >${poem_enjoy.enjoys }</p>	   
 											
 											
 

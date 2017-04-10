@@ -48,7 +48,7 @@ private static final long serialVersionUID = 1L;
 	private String years;
 
 	@Column(length = 255)
-	private String years_en;
+	private String years_code;
 
 	@Column(length = 255)
 	private String author;
@@ -72,6 +72,9 @@ private static final long serialVersionUID = 1L;
 	
 	@Column(length = 255)
 	private String types;
+	
+	@Column(length = 255)
+	private String types_code;
 	
 	
 	//诗词内容
@@ -178,6 +181,22 @@ private static final long serialVersionUID = 1L;
 
 	public void setReturl(String returl) {
 		this.returl = returl;
+	}
+
+	public String getYears_code() {
+		return years_code;
+	}
+
+	public void setYears_code(String years_code) {
+		this.years_code = years_code;
+	}
+
+	public String getTypes_code() {
+		return types_code;
+	}
+
+	public void setTypes_code(String types_code) {
+		this.types_code = types_code;
 	}
 	
 	/*这里是mybatis部分代码
