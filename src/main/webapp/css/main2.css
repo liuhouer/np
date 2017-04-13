@@ -76,7 +76,7 @@ hr {
 	letter-spacing: normal;
 	display: inline-block;
 	margin: 0 20px 5px 0;
-	vertical-align: top;
+	vertical-align: bottom;
 	margin-top: 0px;
 	margin-right: 20px;
 	margin-bottom: 5px;
@@ -1576,4 +1576,14 @@ a.project-card-link {
 .timeline-date ul li dl{margin-top:-5px;}
 .timeline-date ul li dl.right{background:url() no-repeat 0 0;float:left;margin-left:35px;margin-top:-5px;display:block;background-color:#FFBB42;height:40px;width:336px;}	
 .timeline-date ul li dl span{display:block;font-size:16px;padding:0px 10px 0px 10px;color:#fff;line-height:40px;}	
-	
+
+
+
+/* 绿色的徽章 */
+
+.green-badge{
+	background-color: #45d0c6;
+	margin-left: 2px;
+	vertical-align: super;
+	line-height: 5px;
+}	

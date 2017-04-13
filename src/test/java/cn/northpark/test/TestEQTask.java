@@ -173,91 +173,91 @@ public class TestEQTask {
 			
 			//TODO ..爬虫电影代码
 			
-//				try {
-//				
-//				System.out.println("movies task==============start="+TimeUtils.getNowTime());
-//				logger.info("movies task==============start="+TimeUtils.getNowTime());
-//				Map<String,String> map = null;
-//					
-//				
-//				
-//				for (int k = 1; k <=3; k++) {
-//					try {
-//						
-//						List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
-//						
-//						
-//						if(!CollectionUtils.isEmpty(list)){
-//							for (int i = 0; i < list.size(); i++) {
-//								try {
-//									map  = list.get(i);
-//									
-//									String title = map.get("title");
-//									String aurl = map.get("aurl");
-//									String date = map.get("date");
-//									String article = map.get("article");
-//								    String retcode = map.get("retcode");
-//								    String tag = map.get("tag");
-//								    String tagcode = map.get("tagcode");
-//									
-//
-//									//是不存在的电影
-//									int flag = moviesManager.countHql(new Movies(), " where o.retcode= '"+retcode+"' ");
-//									
-//									if(flag<=0){
-//										
-//
-//										Movies model = new Movies();
-//										model.setMoviename(title);
-//										model.setAddtime(date);
-//										model.setDescription(article);
-//										model.setPath("");
-//										model.setPrice(1);
-//										model.setRetcode(retcode);
-//										model.setTag(tag);
-//										model.setTagcode(tagcode);
-//										model.setViewnum(HTMLParserUtil.geneViewNum());
-//										model.setColor(PinyinUtil.getFanyi1(title.trim()));
-//										moviesManager.addMovies(model);
-//									}
-//								} catch (Exception e) {
-//									// TODO: handle exception
-//									continue;
-//								}
-//								
-//							}
-//						}
-//					} catch (Exception e) {
-//						// TODO: handle exception
-//						continue;
-//					}
-//					
-//					
-//					try {
-//					    Thread.sleep(1000*30);
-//					    System.out.println("第"+k+"页================");
-//					} catch (InterruptedException e) {
-//					    // TODO Auo-generated catch block
-//					    e.printStackTrace();
-//					}
-//				}
-//				
-//				
-//				
-//				//重复记录每个只保留一条
-//				
-//				String delmovie_sql = "DELETE FROM bc_movies "
-//						+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count "
-//						+ "FROM bc_movies GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
-//				
-//				EqManager.executeSql(delmovie_sql);
-//				
-//				logger.info("soft task==============end="+TimeUtils.getNowTime());
-//				logger.trace("soft task==============end="+TimeUtils.getNowTime());
-//				System.out.println("soft task==============end="+TimeUtils.getNowTime());
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//			}
+				try {
+				
+				System.out.println("movies task==============start="+TimeUtils.getNowTime());
+				logger.info("movies task==============start="+TimeUtils.getNowTime());
+				Map<String,String> map = null;
+					
+				
+				
+				for (int k = 1; k <=10; k++) {
+					try {
+						
+						List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
+						
+						
+						if(!CollectionUtils.isEmpty(list)){
+							for (int i = 0; i < list.size(); i++) {
+								try {
+									map  = list.get(i);
+									
+									String title = map.get("title");
+									String aurl = map.get("aurl");
+									String date = map.get("date");
+									String article = map.get("article");
+								    String retcode = map.get("retcode");
+								    String tag = map.get("tag");
+								    String tagcode = map.get("tagcode");
+									
+
+									//是不存在的电影
+									int flag = moviesManager.countHql(new Movies(), " where o.retcode= '"+retcode+"' ");
+									
+									if(flag<=0){
+										
+
+										Movies model = new Movies();
+										model.setMoviename(title);
+										model.setAddtime(date);
+										model.setDescription(article);
+										model.setPath("");
+										model.setPrice(1);
+										model.setRetcode(retcode);
+										model.setTag(tag);
+										model.setTagcode(tagcode);
+										model.setViewnum(HTMLParserUtil.geneViewNum());
+										model.setColor(PinyinUtil.getFanyi1(title.trim()));
+										moviesManager.addMovies(model);
+									}
+								} catch (Exception e) {
+									// TODO: handle exception
+									continue;
+								}
+								
+							}
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						continue;
+					}
+					
+					
+					try {
+					    Thread.sleep(1000*30);
+					    System.out.println("第"+k+"页================");
+					} catch (InterruptedException e) {
+					    // TODO Auo-generated catch block
+					    e.printStackTrace();
+					}
+				}
+				
+				
+				
+				//重复记录每个只保留一条
+				
+				String delmovie_sql = "DELETE FROM bc_movies "
+						+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count "
+						+ "FROM bc_movies GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
+				
+				EqManager.executeSql(delmovie_sql);
+				
+				logger.info("movies task==============end="+TimeUtils.getNowTime());
+				logger.trace("movies task==============end="+TimeUtils.getNowTime());
+				System.out.println("movies task==============end="+TimeUtils.getNowTime());
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 //			
 			   
 				

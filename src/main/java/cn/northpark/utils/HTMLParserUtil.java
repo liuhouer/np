@@ -1125,8 +1125,8 @@ public class HTMLParserUtil
         		System.out.println("page============================="+index+"============================页");
 	        	//String url = "http://www.vip588660.cm/page/"+index+"/";
 //        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
-//	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
-	        	String url = "http://www.vip588660.com/category/dongman/page/"+index+"/";
+	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
+//	        	String url = "http://www.vip588660.com/category/dongman/page/"+index+"/";
 	        	
 	        	String html = pickData(url);
                 Document doc = Jsoup.parse(html);

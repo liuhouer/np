@@ -107,6 +107,7 @@
 	$(function(){
 		$("img").each(function(){
 			$(this).css('max-width',400);
+			$(this).css('max-width',($(".bg-white").width()));
 		})
 	})
 	</script>
