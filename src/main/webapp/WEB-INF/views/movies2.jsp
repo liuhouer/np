@@ -29,12 +29,20 @@
 	<div class="container">
 		<div class="mainbody" style="margin-top:80px; ">
 		
+		
 		<div class="clearfix  margin20 view">
+		           
 				     
 				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/movies/search">
 		                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
 		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="submit">
 		                </form>
+		                
+		                
+		            <div  class="row  padding-t20 padding10">
+						<input class="btn tag-node " oid="hot"  type="button" value="热门排序">
+						<input class="btn tag-node " oid="latest"  type="button" value="上新排序">
+				    </div>
 		                 
 		</div>
 		     
@@ -42,10 +50,11 @@
 		
 			<div  class="row">
 				<div  class="col-md-8">
+				    
 					<c:forEach items="${list }" var="s" varStatus="ss">
 					
 						<div class="col-sm-12">
-							<div class="clearfix bg-white margin-t10 margin-b10 padding20 ">
+							<div class="clearfix bg-white margin-b10 padding20 ">
 								<div class="row margin5">
 										<div class="thumbnail border-0 center">
 											<p>
@@ -101,7 +110,7 @@
 					 <!-- hot  --> 
 					 <div  class="clearfix sidebar radius-5 ">
 						<div  class="clearfix border-bottom">
-							<h4><span  class=" glyphicon glyphicon-leaf margin5"></span> 热门</h4>
+							<h4><span  class=" glyphicon glyphicon-leaf margin5"></span> 随便看看</h4>
 						</div>
 						<c:forEach var="z" items="${movies_hot_list }">
 						        
@@ -173,6 +182,18 @@
 		$("img").each(function(){
 			$(this).css('max-width',($(".bg-white").width()));
 		})
+		
+		
+		//设置标签颜色,绑定动作按钮
+		$(".tag-node").each(function(){
+			$(this).css("backgroundColor",getRandomColor());
+			$(this).css("color","#fff");
+			
+			$(this).click(function(){
+				var oid = $(this).attr("oid");
+				window.location.href="/movies/page0?orderby="+oid;
+			})
+		});
 	})
 	</script>
 	
@@ -185,8 +206,35 @@
 	    		$(this).attr("href",href+"?keyword="+keyword);
 	    	})
 	    }
+	    
+	    var orderby = "${orderby}";
+	    if(orderby){
+	    	$("#pageForm a").each(function(){
+	    		var href = $(this).attr("href");
+	    		$(this).attr("href",href+"?orderby="+orderby);
+	    	});
+	    	
+	    	//设置选中的标签格式
+	    	$(".tag-node").each(function(){
+	    		if($(this).attr("oid")==orderby){
+	    			$(this).css("border-radius",'0px');
+	    		}
+				
+			});
+	    }
 		
 	
+	    //1、随机色的函数-rgb
+        function getRandomColor(){
+            var rgb='rgb('+Math.floor(Math.random()*255)+','
+                     +Math.floor(Math.random()*255)+','
+                     +Math.floor(Math.random()*255)+')';
+            console.log(rgb);
+            return rgb;
+        }
+	    
+	    
+	    
 	
 	</script>
 	

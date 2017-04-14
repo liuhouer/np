@@ -131,7 +131,7 @@ public class MoviesAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("hotindex,UNIX_TIMESTAMP(addtime)", "desc");
+		order.put("hotindex,id", "desc");
 		
 		//获取pageview
 		PageView<Movies> p = getPageView(currentpage, whereSql);
@@ -258,8 +258,19 @@ public class MoviesAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("hotindex", "desc");
-		order.put("UNIX_TIMESTAMP(addtime)", "desc");
+		String orderby = request.getParameter("orderby");
+		if(StringUtils.isNotEmpty(orderby)){
+			if("hot".equals(orderby)){
+				order.put("hotindex", "desc");
+			}else if("latest".equals(orderby)){
+				order.put("id", "desc");
+			}
+			map.put("orderby", orderby);
+		}else{
+			order.put("hotindex", "desc");
+			order.put("id", "desc");
+		}
+		
 		
 		//获取pageview
 		PageView<Movies> p = getPageView(currentpage, whereSql);
@@ -359,7 +370,7 @@ public class MoviesAction {
 		}
 		
 		
-		List<Movies> list =  moviesManager.findByCondition(wheresql+" order by addtime desc ").getResultlist();
+		List<Movies> list =  moviesManager.findByCondition(wheresql+" order by id desc ").getResultlist();
 		map.addAttribute("list", list);
 		
 		map.put("search", "search");
@@ -388,13 +399,13 @@ public class MoviesAction {
 			//获取标签
 			
 			tags = tagsManager.findByCondition(" where tagtype = '1' ").getResultlist();
-			XMemcachedUtil.put("movies_tags", tags, 1000 * 60 *24 *7);
+			XMemcachedUtil.put("movies_tags", tags, 1000 * 60 *24 );
 			
 			//获取热门电影
-			String hotsql = "select * from bc_movies order by hotindex,viewnum desc limit 0,50";
+			String hotsql = "select * from bc_movies order by rand() desc limit 0,70";
 			movies_hot_list = moviesManager.querySql(hotsql);
 			
-			XMemcachedUtil.put("movies_hot_list", movies_hot_list, 1000 * 60 *24 *7);
+			XMemcachedUtil.put("movies_hot_list", movies_hot_list, 1000 * 60 *24);
 			
 		}
 		request.getSession().setAttribute("movies_tags", tags);
