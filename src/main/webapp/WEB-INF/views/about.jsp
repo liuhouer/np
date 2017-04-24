@@ -59,6 +59,12 @@ ul{list-style:none outside none;}
 													<span>2017年</span>
 												</h2>
 												<li>
+													<h3>4.24<span>2017</span></h3>
+													<dl class="right">
+														<span>【音乐播放器】alpha功能上线</span>
+													</dl>
+												</li>
+												<li>
 													<h3>4.10<span>2017</span></h3>
 													<dl class="right">
 														<span>网站【诗词秀】功能上线</span>
