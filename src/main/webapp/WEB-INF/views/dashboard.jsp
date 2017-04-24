@@ -175,12 +175,15 @@
 
 		
 	</div>
+
 	
+
 	<!-- load css -->
 	<%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 	<link rel="stylesheet" href="/css/font-awesome.css">
 	<link media="all" type="text/css" rel="stylesheet" href="/css/flexslider.css">
 	<link type="text/css" rel="stylesheet" href="/css/jquery.mmenu.all.css" />
+	
 	
 	<!-- load js -->
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
@@ -189,6 +192,8 @@
      <script type="text/javascript" src="/js/jquery.mmenu.min.all.js"></script>
 	 <script type="text/javascript" src="/js/jquery.flexslider.js"></script>
 	 <script type="text/javascript" src="/js/o-script.js"></script>
+	 <script src="/js/jquery.marquee.min.js"></script>
+
 </body>
 
 </html>    

@@ -30,6 +30,8 @@
 <script src="/js/main2.js"></script>    
 <script src="/js/page/seltab.js"></script> 
 <script src="/js/page/common.js"></script>
+<script src="/js/playlist.js"></script>	 
+<script src="/js/player.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
