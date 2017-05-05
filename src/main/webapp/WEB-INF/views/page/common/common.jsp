@@ -6,11 +6,11 @@
 <link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrapValidator.min.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
-<link rel="stylesheet" href="/css/player.css">
+<!-- <link rel="stylesheet" href="/css/player.css"> -->
 <input  type="hidden" id="J_tab_name" value="${ tabs}"/>
 
 <!--bruce music player loading -->
-<div id="QPlayer">
+<!-- <div id="QPlayer">
 		<div id="pContent">
 			<div id="player">
 				<span class="cover"></span>
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<ol id="playlist"></ol>
-</div>
+</div> -->
 
 
 

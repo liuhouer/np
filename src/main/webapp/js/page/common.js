@@ -142,7 +142,7 @@ $("body").on('click', '.click2show', function() {
 
 
 //复制内容自动添加版权信息 
-var Sys = {}; 
+/*var Sys = {}; 
    var ua = navigator.userAgent.toLowerCase(); 
    if( window.ActiveXObject ) 
    { 
@@ -179,7 +179,7 @@ var Sys = {};
            ); 
        } 
        document.oncopy = addLink; 
-   } 
+   } */
 
 $(function() {
     $(window).resize(function(){
