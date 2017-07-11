@@ -58,13 +58,13 @@
 											</c:if>
 											
 											<c:if test="${user!=null }">
-										       	 <c:if test="${user.email == '654714226@qq.com' }">
+										       	 <c:if test="${user.email == '654714226@qq.com' || user.email == 'qhdsoft@126.com' || user.email == 'woaideni@qq.com'}">
 										       	 <span  class=" glyphicon glyphicon-arrow-up margin10"></span>
 										       	  <a class="common-a-right"  title="置顶" href="" onclick="handup('${s.id}')">置顶</a>
-										       	 </c:if>
 										       	 <span  class=" glyphicon glyphicon-eye-close margin10"></span>
 										       	  <a class="common-a-right"  title="隐藏" href="" onclick="hideup('${s.id}')">大尺度隐藏</a>
-										    </c:if>
+										       	 </c:if>
+										       </c:if>
 											<p> 
 											 <button class="clearfix btn btn-gray btn-xs click2show" onclick="showtoggle('${s.id}')" > <span class="glyphicon glyphicon-yen">donate</span> &nbsp; </button>
 											 
