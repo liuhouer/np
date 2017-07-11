@@ -57,6 +57,14 @@
 											
 											</c:if>
 											
+											<c:if test="${user!=null }">
+										       	 <c:if test="${user.email == '654714226@qq.com' }">
+										       	 <span  class=" glyphicon glyphicon-arrow-up margin10"></span>
+										       	  <a class="common-a-right"  title="置顶" href="" onclick="handup('${s.id}')">置顶</a>
+										       	 </c:if>
+										       	 <span  class=" glyphicon glyphicon-eye-close margin10"></span>
+										       	  <a class="common-a-right"  title="隐藏" href="" onclick="hideup('${s.id}')">大尺度隐藏</a>
+										    </c:if>
 											<p> 
 											 <button class="clearfix btn btn-gray btn-xs click2show" onclick="showtoggle('${s.id}')" > <span class="glyphicon glyphicon-yen">donate</span> &nbsp; </button>
 											 
@@ -110,6 +118,40 @@
 			$(this).css('max-width',($(".bg-white").width()));
 		})
 	})
+	
+	
+	 function handup(id){
+   	 $.ajax({
+            url:"/movies/handup",
+            type:"post",
+            data:{"id":id},
+            success:function(msg){
+                if(msg=="success"){
+                    art.dialog.tips('置顶成功');
+                }else{
+               	 art.dialog.tips('error happened.');
+                }            
+            }
+        });
+
+   }
+   
+   function hideup(id){
+   	 $.ajax({
+            url:"/movies/hideup",
+            type:"post",
+            data:{"id":id},
+            success:function(msg){
+                if(msg=="success"){
+                    art.dialog.tips('隐藏成功');
+                    window.location.href = window.location.href;
+                }else{
+               	 art.dialog.tips('error happened.');
+                }            
+            }
+        });
+
+   }
 	</script>
 
 

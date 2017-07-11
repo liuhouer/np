@@ -69,6 +69,8 @@ public class Movies implements Serializable{
 	@Column(length = 255)
 	private String displayed;
 	
+	
+
 	@Transient
 	private List<Map<String,String>> taglist;
 	
@@ -183,5 +185,13 @@ public class Movies implements Serializable{
 		this.hotindex = hotindex;
 	}
 
+	
+	public String getDisplayed() {
+		return displayed;
+	}
+
+	public void setDisplayed(String displayed) {
+		this.displayed = displayed;
+	}
 
 }

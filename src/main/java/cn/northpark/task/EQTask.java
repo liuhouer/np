@@ -11,7 +11,6 @@ import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Movies;
-import cn.northpark.model.Soft;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
@@ -81,69 +80,69 @@ public class EQTask {
 
 		
 		//爬虫软件资源代码start---------------------------------------------------------------------
-		try {
-			
-			System.out.println("soft task==============start="+TimeUtils.getNowTime());
-			logger.info("soft task==============start="+TimeUtils.getNowTime());
-			Map<String,String> map = null;
-				
-			List<Map<String, String>> list = HTMLParserUtil.retSoft(1);
-			
-			
-			if(!CollectionUtils.isEmpty(list)){
-				for (int i = 0; i < list.size(); i++) {
-					map  = list.get(i);
-					
-					String title = map.get("title");
-					String aurl = map.get("aurl");
-					String brief = map.get("brief");
-					String date = map.get("date");
-					String article = map.get("article");
-					String tag = map.get("tag");
-					String code = map.get("code");
-					String os = map.get("os");
-					String month  = map.get("month");
-					String year  = map.get("year");
-					String tagcode = map.get("tagcode");
-					
-					
-
-					//是不存在的文章
-					int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
-					
-					if(flag<=0){
-						
-			    		Soft model = new Soft();
-			    		model.setBrief(brief);
-			    		model.setContent(article);
-			    		model.setOs(os);
-			    		model.setPostdate(date);
-			    		model.setRetcode(code);
-			    		model.setReturl(aurl);
-			    		model.setTags(tag);
-			    		model.setTitle(title);
-			    		model.setMonth(month);
-			    		model.setYear(year);
-			    		model.setTagscode(tagcode);
-			    		softManager.addSoft(model);
-					}
-				}
-			}
-			
-			
-			//重复记录每个只保留一条
-			
-			String delsoft_sql = "DELETE FROM bc_soft WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count FROM bc_soft GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
-			
-			EqManager.executeSql(delsoft_sql);
-			
-			logger.info("soft task==============end="+TimeUtils.getNowTime());
-			logger.trace("soft task==============end="+TimeUtils.getNowTime());
-			System.out.println("soft task==============end="+TimeUtils.getNowTime());
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+//		try {
+//			
+//			System.out.println("soft task==============start="+TimeUtils.getNowTime());
+//			logger.debug("soft task==============start="+TimeUtils.getNowTime());
+//			Map<String,String> map = null;
+//				
+//			List<Map<String, String>> list = HTMLParserUtil.retSoft(1);
+//			
+//			
+//			if(!CollectionUtils.isEmpty(list)){
+//				for (int i = 0; i < list.size(); i++) {
+//					map  = list.get(i);
+//					
+//					String title = map.get("title");
+//					String aurl = map.get("aurl");
+//					String brief = map.get("brief");
+//					String date = map.get("date");
+//					String article = map.get("article");
+//					String tag = map.get("tag");
+//					String code = map.get("code");
+//					String os = map.get("os");
+//					String month  = map.get("month");
+//					String year  = map.get("year");
+//					String tagcode = map.get("tagcode");
+//					
+//					
+//
+//					//是不存在的文章
+//					int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
+//					
+//					if(flag<=0){
+//						
+//			    		Soft model = new Soft();
+//			    		model.setBrief(brief);
+//			    		model.setContent(article);
+//			    		model.setOs(os);
+//			    		model.setPostdate(date);
+//			    		model.setRetcode(code);
+//			    		model.setReturl(aurl);
+//			    		model.setTags(tag);
+//			    		model.setTitle(title);
+//			    		model.setMonth(month);
+//			    		model.setYear(year);
+//			    		model.setTagscode(tagcode);
+//			    		softManager.addSoft(model);
+//					}
+//				}
+//			}
+//			
+//			
+//			//重复记录每个只保留一条
+//			
+//			String delsoft_sql = "DELETE FROM bc_soft WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count FROM bc_soft GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
+//			
+//			EqManager.executeSql(delsoft_sql);
+//			
+//			logger.debug("soft task==============end="+TimeUtils.getNowTime());
+//			logger.trace("soft task==============end="+TimeUtils.getNowTime());
+//			System.out.println("soft task==============end="+TimeUtils.getNowTime());
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
 		
 		//爬虫软件资源代码end---------------------------------------------------------------------
 		
@@ -153,7 +152,7 @@ public class EQTask {
 		try {
 		
 		System.out.println("movies task==============start="+TimeUtils.getNowTime());
-		logger.info("movies task==============start="+TimeUtils.getNowTime());
+		logger.debug("movies task==============start="+TimeUtils.getNowTime());
 		Map<String,String> map = null;
 			
 		
@@ -222,7 +221,7 @@ public class EQTask {
 		
 		
 		
-		logger.info("movies task==============end="+TimeUtils.getNowTime());
+		logger.debug("movies task==============end="+TimeUtils.getNowTime());
 		System.out.println("movies task==============end="+TimeUtils.getNowTime());
 	} catch (Exception e) {
 		// TODO: handle exception
@@ -238,7 +237,7 @@ public class EQTask {
 			
 			/////////////////////推送微信定时星座运势塔罗牌天气、、、、、、、、、、、、、、、、、、、、、、、、
 			
-//			logger.info("send wx astro msg task==============start="+TimeUtils.getNowTime());
+//			logger.debug("send wx astro msg task==============start="+TimeUtils.getNowTime());
 //			try {
 //				List<Astro> astrolist = astroManager.findByCondition(" where status = 1").getResultlist();
 //				if(!CollectionUtils.isEmpty(astrolist)){
@@ -272,7 +271,7 @@ public class EQTask {
 //						int result = WeixinQyhUtil.PostMessage(access_token, "POST", POST_URL, jsostr);
 //						System.out.println("jsonstr--"+jsostr);
 //						System.out.println("result--"+result);
-//						logger.info("send wx astro msg info log result==============="+result);
+//						logger.debug("send wx astro msg info log result==============="+result);
 //						// 打印结果
 //						if (0 == result) {
 //							System.out.println("操作成功");
@@ -284,7 +283,7 @@ public class EQTask {
 //			} catch (Exception e) {
 //				// TODO: handle exception
 //			}
-//			logger.info("send wx astro msg task==============end="+TimeUtils.getNowTime());
+//			logger.debug("send wx astro msg task==============end="+TimeUtils.getNowTime());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

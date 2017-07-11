@@ -49,6 +49,71 @@ public class MoviesAction {
  private TagsManager  tagsManager;
  
  
+     /**
+     * @author Bruce
+	 * 置顶的方法
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping("/movies/handup")
+	@ResponseBody
+	public String handup(HttpServletRequest request) {
+		String rs = "success";
+		try {
+			String id = request.getParameter("id");
+			
+			String max_hot_sql_id =  "select max(hotindex) as hotindex from bc_movies ";
+			List<Map<String, Object>> list = moviesManager.querySqlMap(max_hot_sql_id);
+			Integer hotindex = 0 ;
+			if(!CollectionUtils.isEmpty(list)){
+				hotindex = (Integer) list.get(0).get("hotindex");
+				hotindex++;
+			}
+			if(hotindex>0){
+				Movies m = moviesManager.findMovies(Integer.parseInt(id));
+				if(m!=null){
+					m.setHotindex(hotindex);
+					moviesManager.updateMovies(m);
+				}
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			rs = "ex";
+		}
+		return rs;
+	}
+	
+	
+	
+	/**
+	 * 隐藏电影的方法
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping("/movies/hideup")
+	@ResponseBody
+	public String hideup(HttpServletRequest request) {
+		String rs = "success";
+		try {
+			String id = request.getParameter("id");
+			
+				Movies m = moviesManager.findMovies(Integer.parseInt(id));
+				if(m!=null){
+					m.setDisplayed("N");
+					moviesManager.updateMovies(m);
+				}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			rs = "ex";
+		}
+		return rs;
+	}
+ 
+ 
 	/**
 	 * 跳转后台添加
 	 * @param map
