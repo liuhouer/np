@@ -317,7 +317,7 @@ public class SoftAction {
 		
 		if(tags==null || hotlist==null || datelist==null){
 			//获取标签
-			 tags = softManager.querySqlMap("select count(tags) as num,tags,tagscode from bc_soft group by tags order by num desc");
+			 tags = softManager.querySqlMap("select count(tags) as num,tags,tagscode from bc_soft group by tags,tagscode order by num desc");
 			
 			XMemcachedUtil.put("soft_tags", tags, 1000 * 60 *2);
 			
@@ -328,7 +328,7 @@ public class SoftAction {
 			XMemcachedUtil.put("hot_list", hotlist, 1000 * 60 *2);
 			
 			//获取月份排序
-			String datesql = "select * from bc_soft group by month order by id,month desc";
+			String datesql = "select * from bc_soft group by month,id order by id,month desc";
 			datelist = softManager.querySql(datesql);
 			
 			XMemcachedUtil.put("date_list", datelist, 1000 * 60 *2);

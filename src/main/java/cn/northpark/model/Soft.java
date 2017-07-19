@@ -174,7 +174,7 @@ private static final long serialVersionUID = 1L;
 	
 	/*这里是mybatis部分代码
 	
-	id,retcode,brief,content,postdate,os,tags,returl,	
+	id,retcode,brief,content,month,year,tagscode,title,postdate,os,tags,returl,	
 
 		#{id},	#{retcode},	#{brief},	#{content},	#{postdate},	#{os},	#{tags},	#{returl},	
 	<update id="updateModel" parameterType="com.mai.app.entity.Soft">

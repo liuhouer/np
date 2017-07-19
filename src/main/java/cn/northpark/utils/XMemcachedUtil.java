@@ -37,7 +37,7 @@ public class XMemcachedUtil {
 	static {
 		try {
 			builder = new XMemcachedClientBuilder(
-					AddrUtil.getAddresses("123.56.129.117:11111"));
+					AddrUtil.getAddresses("182.254.152.240:11211"));
 			builder.setSessionLocator(new KetamaMemcachedSessionLocator());
 			builder.setConnectionPoolSize(3);
 			client = builder.build();
@@ -148,7 +148,7 @@ public class XMemcachedUtil {
 	
 
 	public static void status() {
-		String[] hosts = { "123.56.129.117" };
+		String[] hosts = { "182.254.152.240" };
 		try {
 			for (String host : hosts) {
 				Map<String, String> map = client.stats(new InetSocketAddress(
