@@ -30,8 +30,8 @@
 			<div class="row margin-b20 margin-t20">
 				<div class="col-sm-6 col-sm-offset-3 margin-b20 margin-t20">
 					<div class="row margin-b20 margin-t20">
-							<h1>buci-web</h1>
-							<p>buci fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2015年12月29日19:04:33 maven版本</p><h2>
+							<h1>np-web</h1>
+							<p>np fix to elegance and add some new function fix serval bugs VERSION v3.1  - 2015年12月29日19:04:33 maven版本</p><h2>
 							2015年12月29日19:04:33 maven版本</h2><ul>
 							<li>
 							改进个人中心访问加载速度</li><li>
@@ -74,7 +74,7 @@
 							liuhouer committed on 23 Dec 2015
 							</li>50da727  
 							</h2><li>
-							Merge branch 'master' of github.com:liuhouer/buci
+							Merge branch 'master' of github.com:liuhouer/np
 							liuhouer committed on 23 Dec 2015
 							</li>c4470d0  
 							</h2><li>

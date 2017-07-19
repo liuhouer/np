@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>cn.northpark.buci-web</groupId>
-  <artifactId>buci-web</artifactId>
+  <groupId>cn.northpark.np-web</groupId>
+  <artifactId>np-web</artifactId>
   <packaging>war</packaging>
   <version>3.5.0-SNAPSHOT</version>
-  <name>buci-web Maven Webapp</name>
+  <name>np-web Maven Webapp</name>
   <url>http://maven.apache.org</url>
   
   <properties>
@@ -290,7 +290,7 @@
     
   </dependencies>
   <build>
-    <finalName>buci-web</finalName>
+    <finalName>np-web</finalName>
     
     <plugins>
             <plugin>

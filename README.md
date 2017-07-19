@@ -1,4 +1,4 @@
-# buci-web
+# np-web
 
 ## 2017年7月11日
 - 添加管理员一键置顶热门电影、+隐藏大尺度电影的功能
@@ -79,7 +79,7 @@
 
 ## 2016-03-24
 
-- buci3.2版本之前的存档分支。ID策略为UUID。
+- np3.2版本之前的存档分支。ID策略为UUID。
 - 下个版本在主干，ID策略改为native。
 - 完成uuid--->native重构
 
@@ -124,9 +124,9 @@
 
 
 
-# buci
+# np
 ***之前的***
--  buci fix to elegance and add some new function fix serval bugs VERSION v3.0 2015-12-01 11:56:55
+-  np fix to elegance and add some new function fix serval bugs VERSION v3.0 2015-12-01 11:56:55
 
 
 -  1月3日 休息了几天。。。回家没有了雾霾，暂时的安静
