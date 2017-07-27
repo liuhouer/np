@@ -930,7 +930,7 @@ public class HTMLParserUtil
         // TODO Auto-generated method stub
         List<Map<String, String>> list = new ArrayList<Map<String,String>>();
         try{
-                Document doc = Jsoup.connect("http://www.sdifenzhou.com/archives/category/black-apple/apple-software/page/"+index+"/").get();
+                Document doc = Jsoup.connect("http://www.sdifen.com/category/black-apple/apple-software/page/"+index+"/").get();
                 Elements articles   = doc.select("article");
                 if(!articles.isEmpty()){
                     for (int i = 0; i < articles.size(); i++) {
