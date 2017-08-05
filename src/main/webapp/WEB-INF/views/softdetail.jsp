@@ -96,10 +96,33 @@
 								</div>
 								
 								<div id="comment">
-								<!-- 多说评论框 start -->
+								<%-- <!-- 多说评论框 start -->
 								<div class="ds-thread" data-thread-key="${article.retcode }" data-title="${article.title} | NorthPark" data-url="/soft/${article.retcode }.html"></div>
-								<!-- 多说评论框 end -->
+								<!-- 多说评论框 end --> --%>
 								
+								<!-- 来必力City版安装代码 -->
+								<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzgzNy80NDEz">
+								<script type="text/javascript">
+								   (function(d, s) {
+								       var j, e = d.getElementsByTagName(s)[0];
+								
+								       if (typeof LivereTower === 'function') { return; }
+								
+								       j = d.createElement(s);
+								       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+								       j.async = true;
+								
+								       e.parentNode.insertBefore(j, e);
+								   })(document, 'script');
+								   
+								   
+								 //删除评论多余的代码
+									
+								   $("#wrapper").find("div[id='footer']").remove();
+								</script>
+								</div>
+								<!-- City版安装代码已完成 -->
+									
 								</div>
 								
 							</div>
@@ -122,10 +145,14 @@
 			$(this).css('max-width',($("#J_white_div").width()));
 		})
 	})
+	
 	</script>
+	
+
+	
 
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	var duoshuoQuery = {short_name:"jellyband"};
 		(function() {
 			var ds = document.createElement('script');
@@ -135,8 +162,8 @@
 			(document.getElementsByTagName('head')[0] 
 			 || document.getElementsByTagName('body')[0]).appendChild(ds);
 		})();
-		</script>
+		</script> -->
 	<!-- 多说公共JS代码 end -->						
 	
-
+	
 </body></html>

@@ -67,7 +67,7 @@
 										     
 										     <a class="common-a-right"  title="${s.os}" href="/soft/${s.os }">${s.os}</a>
 										     
-										     <a href="/soft/${s.retcode }.html#comment" class="ds-thread-count common-a" data-thread-key="${s.retcode }" data-count-type="comments"></a>
+										    <%--  <a href="/soft/${s.retcode }.html#comment" class=" reply-count count-text common-a" data-thread-key="${s.retcode }" data-count-type="comments"></a> --%>
 										</p>
 										<p id="brief_${ss.index}">
 										
@@ -211,19 +211,5 @@
 	
 	
 	</script>
-	
-	<!-- 多说js加载开始，一个页面只需要加载一次 -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"jellyband"};
-	(function() {
-	    var ds = document.createElement('script');
-	    ds.type = 'text/javascript';ds.async = true;
-	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-	    ds.charset = 'UTF-8';
-	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说js加载结束，一个页面只需要加载一次 -->
-
 
 </body></html>
