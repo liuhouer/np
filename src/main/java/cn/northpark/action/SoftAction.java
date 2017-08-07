@@ -1,6 +1,7 @@
 
 package cn.northpark.action;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +75,9 @@ public class SoftAction {
 		
 		//搜索
 		String keyword = request.getParameter("keyword");
-		
+		if(StringUtils.isNotEmpty(keyword)){
+		  keyword = URLDecoder.decode(keyword, "UTF-8");
+		}
 		map.put("keyword", keyword);
 		if(StringUtils.isNotEmpty(keyword)){
 			keyword = WAQ.forSQL().escapeSql(keyword);
