@@ -2,7 +2,37 @@
     pageEncoding="UTF-8"%>
 
 <div class="col-md-12 margin-t10" >
-						            
+						            <div class="col-xs-10 clearfix border-bottom">
+				        			    <p>
+					        		    <span  class="glyphicon glyphicon-time margin5"></span>
+						                 2017-08-13 01:31
+						                 </p>
+						                 
+						                 <p>
+						                 <span  class="glyphicon  glyphicon-phone margin5"></span>
+						                
+						                
+						                544510*5
+						                </p>
+						                <p>
+						                 <span  class="glyphicon glyphicon-user margin5"></span>
+										*梓涵
+										</p>
+										<p>
+										<span  class="glyphicon glyphicon-barcode margin5"></span>
+									    20170813210***217537854
+										</p>
+										<p>
+										 <span  class="glyphicon glyphicon-link margin5"></span>
+										 <a href="https://zihanedric.github.io/" target="_blank">https://zihanedric.github.io</a>
+									     
+										</p>
+										<p>
+										 <span  class="glyphicon  margin5">￥</span>
+									          100.00
+										</p>
+					        			 
+				        			 </div>
 				        			  <div class="col-xs-10 clearfix border-bottom">
 				        			    <p>
 					        		    <span  class="glyphicon glyphicon-time margin5"></span>
