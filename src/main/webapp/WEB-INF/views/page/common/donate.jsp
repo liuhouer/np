@@ -24,8 +24,9 @@
 										</p>
 										<p>
 										 <span  class="glyphicon glyphicon-link margin5"></span>
+
 										 <a href="https://zihanedric.github.io/" target="_blank">https://zihanedric.github.io</a>
-									     
+
 										</p>
 										<p>
 										 <span  class="glyphicon  margin5">￥</span>
