@@ -432,6 +432,8 @@ public class MoviesAction {
 				
 				map.put("keyword", findMovies.getMoviename());
 			}
+			
+			map.put("searchbyid", "searchbyid");
 		}
 		
 		

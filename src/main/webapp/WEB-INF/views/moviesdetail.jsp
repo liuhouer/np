@@ -44,8 +44,8 @@
 					<div class="col-sm-12 ">
 					<div class="clearfix bg-white margin-t10 margin-b10 padding20">
 								<div class="row">
-									<div class="col-sm-4">
-										<div class="thumbnail border-0 center">
+								
+								       <div class="thumbnail border-0 center">
 											<p oid="${s.id }"><small class="green-text"><font size="5"><strong>${s.moviename}</strong></font> </small></p>
 											
 											
@@ -65,35 +65,120 @@
 										       	  <a class="common-a-right"  title="隐藏" href="" onclick="hideup('${s.id}')">大尺度隐藏</a>
 										       	 </c:if>
 										       </c:if>
-											<p> 
-											 <button class="clearfix btn btn-gray btn-xs click2show" onclick="showtoggle('${s.id}')" > <span class="glyphicon glyphicon-yen">donate</span> &nbsp; </button>
-											 
-											 </p>
-											<p id="donate_${s.id}" style="display: none">
-												<img src="/img/donate.png" style="width: 160px;height: 200px" />
-											</p>
+											
+
 											<div class="clearfix visible-xs"><hr></div>
+											
+											
+											
 										</div>
-									</div>
 									
-									<div class="col-sm-8">
-										<a  title="${s.moviename}的简介" href="/movies/search?id=${s.id }">${s.moviename}</a> 简介：</p>
-										<p id="brief_${ss.index}">
+										<div class="col-sm-8  col-md-offset-2 ">
 										
-										  ${s.description }
-										   <label class="red-text">文章链接</label>：https://northpark.cn/movies/search?id=${s.id }
-										</p>
+											<a  title="${s.moviename}的简介" href="/movies/search?id=${s.id }">${s.moviename}</a> 简介：</p>
+											<p id="brief_${ss.index}">
+											
+											  ${s.description }
+											  <%--  <label class="red-text">文章链接</label>：https://northpark.cn/movies/search?id=${s.id } --%>
+											</p>
+											
+											<div class="clearfix visible-xs">
+											<hr>
+									    </div>
+									
+      
+        								<!-- 打赏 -->	
+										<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+										  <div class="margin10">生活不止苟且,还有我喜爱的海岸.</div>
+										  <button id="rewardButton" ,="" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}" style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+										    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onmouseout="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; color: rgb(255, 255, 255); font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 35px; line-height: 75px; font-family: microsofty; background: rgb(236, 96, 0);">赏</span>
+										  </button>
+										  <div id="QR" style="display: none;">
+										    
+										      <div id="wechat" style="display: inline-block">
+										        <a href="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/wxpay.jpg" class="fancybox" rel="group"><img id="wechat_qr" src="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/wxpay.jpg" alt="Bruce WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"></a>
+										        <p>微信打赏</p>
+										      </div>
+										    
+										    
+										      <div id="alipay" style="display: inline-block">
+										        <a href="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/alipay.png" class="fancybox" rel="group"><img id="alipay_qr" src="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/alipay.png" alt="Bruce Alipay" style="width: 200px; max-width: 100%; display: inline-block"></a>
+										        <p>支付宝打赏</p>
+										      </div>
+										    
+										  </div>
+										</div>
+										<!-- 打赏 -->	
+										
+										
+										<div class="clearfix visible-xs">
+											<hr>
+									    </div>
+										
+										<c:if test="${searchbyid =='searchbyid'}">
+		  	 
+							  	        <!-- 评论 -->
+													<div id="comment"  class="clearfix bg-white">
+													<%-- <!-- 多说评论框 start -->
+													<div class="ds-thread" data-thread-key="${article.retcode }" data-title="${article.title} | NorthPark" data-url="/soft/${article.retcode }.html"></div>
+													<!-- 多说评论框 end --> --%>
+													
+													<!-- 来必力City版安装代码 -->
+													<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzgzNy80NDEz">
+													<script type="text/javascript">
+													   (function(d, s) {
+													       var j, e = d.getElementsByTagName(s)[0];
+													
+													       if (typeof LivereTower === 'function') { return; }
+													
+													       j = d.createElement(s);
+													       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+													       j.async = true;
+													
+													       e.parentNode.insertBefore(j, e);
+													   })(document, 'script');
+													   
+													   
+													 //删除评论多余的代码
+														
+													   $("#wrapper").find("div[id='footer']").remove();
+													</script>
+													</div>
+													<!-- City版安装代码已完成 -->
+														
+													</div>
+							<!-- 评论 -->
+							  	
+							  	</c:if>
+										
+										</div>
+										
+										
+										
+										
+										
 
 									</div>
+									
+									
+									
+										      
 								</div>
+								
+								
+								
+								
 							</div>
 					</div>
 					</c:forEach>
 					
 						 
 					
-		  	</div>
 
+		  	
+		  	
+		  	
+		  	
 		  	
 		  	
 		</div>
@@ -101,12 +186,6 @@
 </div>
 
 	
-	<!-- <script>document.forms['alipaysubmit'].submit();</script> -->
-
-    <c:if test="${search !='search'}">
-    
-		<%@ include file="/WEB-INF/views/page/common/fenye.jsp"%>
-    </c:if>
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	<script src="/js/page/movies.js"></script>
 	

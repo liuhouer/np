@@ -1,5 +1,7 @@
 package cn.northpark.test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AAA {
@@ -30,6 +32,12 @@ public class AAA {
          int result = NthPrime(n);
          sc.close();
          System.out.println("第N个素数的值是:"+result);
+         sc.getClass().getName();
+         System.out.println(sc.getClass());
+         System.out.println(sc.getClass().getName());
+         
+         ArrayList<String> a = new ArrayList<String>();
+         List<String> b = (List<String> )a ;
     }
 
 }
