@@ -503,7 +503,13 @@ public class WXTokenUtil {
 //		JSONObject jo = JSONObject.parseObject(ret);
 //		System.out.println(jo.getString("short_url")); 
 //		
-		getXZYS("摩羯座", "today");
+//		getXZYS("摩羯座", "today");
+		
+		String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+		
+		JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
+	
 	}
 
+	
 }  
