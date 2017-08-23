@@ -785,7 +785,17 @@ public class HTMLParserUtil
         // TODO Auto-generated method stub
                 HashMap<String, String> map =new HashMap<String, String>();
         try{
-                Document doc = Jsoup.connect("http://www.aiweibang.com/u/10608?page=1").get();
+        	
+        	
+        	Map<String, String> cookies = null;  
+        	cookies = new HashMap<String, String>();  
+        	        cookies.put("Hm_lpvt_45cdb9a58c4dd401ed07126f3c04d3c4", "1503493436");  
+        	        cookies.put("Hm_lvt_45cdb9a58c4dd401ed07126f3c04d3c4", "1503493289");  
+        	        cookies.put("UM_distinctid", "15e0f2f4da8354-0f5f0bc6d98a36-8383667-144000-15e0f2f4da990a");  
+        	        cookies.put("awbYHQXTK", "hWXM8jexf8P1LNW3PFuVLLX8J4EXXRS2IRZvviQiyDO6fRYegdRbNQinU3li6qQuEamjLifVKZTABzvVBynOWw==");  
+        	        cookies.put("SERVERID", "21d5ef70aa6a66998ee914f10589f164|1503493432|1503493286");
+        	        cookies.put("ft", "1");
+                Document doc = Jsoup.connect("http://www.aiweibang.com/u/10608?page=1").cookies(cookies).get();
                 Elements info   = doc.select("div[class=info]");
                 Element p  = info.get(0);
 
@@ -805,7 +815,7 @@ public class HTMLParserUtil
 //                String date = dates.get(0).text();
 
                 //文章
-                Document doc_ = Jsoup.connect(aurl).get();
+                Document doc_ = Jsoup.connect(aurl).cookies(cookies).get();
                 Elements articles = doc_.select("div[class=innertext]");
                 String article = articles.get(0).html();
                 article = article.replace("大卫","<情圣>").replace("<p>请回复：<span style=\"background-color: rgb(255, 251, 0);\">千万别追女神</span></p>", "").replace("<p>请回复：<span style=\"background-color: rgb(255, 255, 0);\">千万别追女神</span></p>", "").replace("<p>你想学习正确的追女孩技巧，早日抱得美人归吗？</p>", "").replace("<p>你想得到<情圣>的帮助，解决棘手的情感问题吗？</p>", "");
@@ -1538,7 +1548,7 @@ public class HTMLParserUtil
       public static void main(String[] args) {
             try {
                 //retMeizitu();
-                //retTodayEq();
+                retTodayEq();
 //                List<Map<String, String>> retEQArticle = retEQArticle();
 //                System.out.println(retEQArticle.size());
 //                readPic2Disk();
