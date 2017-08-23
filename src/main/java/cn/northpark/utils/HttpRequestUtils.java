@@ -6,8 +6,25 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
+import com.alibaba.fastjson.JSONObject;
+
+import cn.northpark.utils.json.JsonUtil;
 
 public class HttpRequestUtils {
 	
@@ -140,6 +157,10 @@ public class HttpRequestUtils {
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+            conn.setConnectTimeout(20000);  
+            conn.setReadTimeout(300000);  
+            
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -176,4 +197,58 @@ public class HttpRequestUtils {
         }
         return result;
     }    
+    
+    
+    public static String doPost2(String url,Map<String,String> map,String charset){  
+        HttpClient httpClient = null;  
+        HttpPost httpPost = null;  
+        String result = null;  
+        try{  
+            httpClient = new SSLClient();  
+            httpPost = new HttpPost(url);  
+            //设置参数  
+            List<NameValuePair> list = new ArrayList<NameValuePair>();  
+            Iterator iterator = map.entrySet().iterator();  
+            while(iterator.hasNext()){  
+                Entry<String,String> elem = (Entry<String, String>) iterator.next();  
+                list.add(new BasicNameValuePair(elem.getKey(),elem.getValue()));  
+            }  
+            if(list.size() > 0){  
+                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(list,charset);  
+                httpPost.setEntity(entity);  
+            }  
+            HttpResponse response = httpClient.execute(httpPost);  
+            if(response != null){  
+                HttpEntity resEntity = response.getEntity();  
+                if(resEntity != null){  
+                    result = EntityUtils.toString(resEntity,charset);  
+                }  
+            }  
+        }catch(Exception ex){  
+            ex.printStackTrace();  
+        }  
+        return result;  
+    }  
+    
+
+
+    
+    public static void main(String[] args) {
+        //发送 GET 请求
+        String s=sendGet("http://localhost:8080/com.auditing/api/audit-histories", "");
+        System.out.println(s);
+        
+        //发送 POST 请求
+//        String sr=sendPost("http://localhost:8080/com.auditing/api/audit-histories/remarks", "fourthCategoryId='8871'&auditHistoryDetailBId='575'&auditHistoryDetailBremarks='哈哈'&fourthCategoryRemarks=''");
+//        System.out.println(sr);
+        
+        JSONObject json2map = JsonUtil.json2map("{\"fourthCategoryId\":8871,\"fourthCategoryRemarks\":\"\",\"auditHistoryDetailBId\":575,\"auditHistoryDetailBremarks\":\"哈啊啊哈哈哈哈哈哈哈啊\"}");
+        Map map = new HashMap<String, String>();
+        map.put("fourthCategoryId", "8871");
+        map.put("fourthCategoryRemarks", "");
+        map.put("auditHistoryDetailBId", "575");
+        map.put("auditHistoryDetailBremarks", "哈啊");
+        String x = doPost2("http://localhost:8080/com.auditing/api/audit-histories/remarks", map, "UTF-8");
+        System.out.println(x);
+    }
 }

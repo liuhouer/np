@@ -148,8 +148,12 @@ public class DashAction {
 				 */
 				public void pushMovies2Map(ModelMap map) {
 					//取出热门电影
-						String msql = "select * from bc_movies order by id desc limit 1,9";
-						List<Movies> movieslist = moviesManager.querySql(msql);
+
+
+						String msql = "select id,moviename from bc_movies order by rand() limit 1,45";
+						List<Map<String, Object>> movieslist = moviesManager.querySqlMap(msql);
+
+
 						map.addAttribute("movieslist", movieslist==null?"":movieslist);
 				}
 

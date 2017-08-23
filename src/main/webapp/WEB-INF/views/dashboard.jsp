@@ -12,6 +12,7 @@
 <meta http-equiv="Content-Language" content="zh-CN">
 <meta name="author" content="bruce">
 <meta name="google-site-verification" content="Av5O436-yp3doL_sBZPluCUvSVYJywMpFGjVDi8Qu7k" />
+<meta name="baidu-site-verification" content="qNA02NAxQL"/>
 <link rel="shortcut icon" href="/img/favicon.ico">
 <title>NorthPark-小清新的软件、影视、心情、图片互动公园</title>
 <meta name="description" content="NorthPark,文艺,小清新,Mac软件,影视窝,碎碎念,图册,情圣,情商提升">
