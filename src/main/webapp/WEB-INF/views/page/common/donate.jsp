@@ -2,6 +2,39 @@
     pageEncoding="UTF-8"%>
 
 <div class="col-md-12 margin-t10" >
+
+<div class="col-xs-10 clearfix border-bottom">
+				        			    <p>
+					        		    <span  class="glyphicon glyphicon-time margin5"></span>
+						                 2017-08-29 22:00
+						                 </p>
+						                 
+						                 <p>
+						                 <span  class="glyphicon  glyphicon-phone margin5"></span>
+						                
+						                
+						                2751874403
+						                </p>
+						                <p>
+						                 <span  class="glyphicon glyphicon-user margin5"></span>
+										Billvampire
+										</p>
+										<p>
+										<span  class="glyphicon glyphicon-barcode margin5"></span>
+									    20170829210***205016276
+										</p>
+										<p>
+										 <span  class="glyphicon glyphicon-link margin5"></span>
+
+										 <a href="http://billvampire.github.io/" target="_blank">http://billvampire.github.io/</a>
+
+										</p>
+										<p>
+										 <span  class="glyphicon  margin5">￥</span>
+									          99.00
+										</p>
+					        			 
+				        			 </div>
 						            <div class="col-xs-10 clearfix border-bottom">
 				        			    <p>
 					        		    <span  class="glyphicon glyphicon-time margin5"></span>
