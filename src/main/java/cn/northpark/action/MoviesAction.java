@@ -262,7 +262,7 @@ public class MoviesAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("hotindex,UNIX_TIMESTAMP(addtime)", "desc");
+		order.put("hotindex,id", "desc");
 		
 		//获取pageview
 		PageView<Movies> p = getPageView(currentpage, whereSql);
