@@ -37,7 +37,7 @@ public interface MoviesManager {
 	 * sql
 	 * @return
 	 */
-	public List<Movies> querySql(String sql);
+	public List<Map<String, Object>> querySql(String sql);
 	
 	
 	/**

@@ -454,11 +454,11 @@ public class MoviesAction {
 	 */
 	private void getTags(ModelMap map,HttpServletRequest request) {
 		List<Tags> tags = null;
-		List<Movies> movies_hot_list  =null;
+		List<Map<String,Object>> movies_hot_list  =null;
 		
-		tags = (List<Tags>) XMemcachedUtil.get("movies_tags");
+		tags = (List<Tags>) request.getSession().getAttribute("movies_tags");
 		
-		movies_hot_list = (List<Movies>) XMemcachedUtil.get("movies_hot_list");
+		movies_hot_list = (List<Map<String, Object>>) request.getSession().getAttribute("movies_hot_list");
 		
 		
 		
@@ -469,7 +469,7 @@ public class MoviesAction {
 			XMemcachedUtil.put("movies_tags", tags, 1000 * 60 *24 );
 			
 			//获取热门电影
-			String hotsql = "select * from bc_movies order by rand() desc limit 0,70";
+			String hotsql = "select id,moviename,color from bc_movies order by rand() desc limit 0,70";
 			movies_hot_list = moviesManager.querySql(hotsql);
 			
 			XMemcachedUtil.put("movies_hot_list", movies_hot_list, 1000 * 60 *24);
@@ -483,8 +483,8 @@ public class MoviesAction {
 	
 	
 public static void main(String[] args) {
-	XMemcachedUtil.remove("movies_tags");
 	XMemcachedUtil.remove("movies_hot_list");
+	XMemcachedUtil.remove("movies_tags");
 }
 	public PageView<Movies> getPageView(String current,
 			String whereSql) {
