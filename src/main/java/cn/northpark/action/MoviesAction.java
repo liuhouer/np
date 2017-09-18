@@ -466,13 +466,11 @@ public class MoviesAction {
 			//获取标签
 			
 			tags = tagsManager.findByCondition(" where tagtype = '1' ").getResultlist();
-			XMemcachedUtil.put("movies_tags", tags, 1000 * 60 *24 );
 			
 			//获取热门电影
 			String hotsql = "select id,moviename,color from bc_movies order by rand() desc limit 0,70";
 			movies_hot_list = moviesManager.querySql(hotsql);
 			
-			XMemcachedUtil.put("movies_hot_list", movies_hot_list, 1000 * 60 *24);
 			
 		}
 		request.getSession().setAttribute("movies_tags", tags);
