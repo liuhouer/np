@@ -35,6 +35,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.util.CollectionUtils;
 
+import cn.northpark.manager.MoviesManager;
+import cn.northpark.manager.SoftManager;
+import cn.northpark.model.Movies;
+import cn.northpark.model.Soft;
+
 /**
  * <p>
  * Title: northpark.cn
@@ -53,11 +58,13 @@ import org.springframework.util.CollectionUtils;
  * @version 1.0
  */
 
+
 public class HTMLParserUtil
 {
 
     private static final Logger LOGGER = Logger
             .getLogger(HTMLParserUtil.class);
+    
 
     /**
      * 按字节长度截取字符串(支持截取带HTML代码样式的字符串)
@@ -946,6 +953,20 @@ public class HTMLParserUtil
                     for (int i = 0; i < articles.size(); i++) {
                         HashMap<String, String> map =new HashMap<String, String>();
                         Element article  = articles.get(i);
+                        
+                        //code
+                        String code = article.attr("id");
+
+                        System.out.println("code===================="+code);
+                        
+                        //判断code在系统不存在再去处理后面的事
+                        
+                        SoftManager softManager = (SoftManager)SpringContextUtils.getBean("SoftManager");
+                        int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
+    					
+    					if(flag<=0){
+    						
+    					
 
                         //标题
                         Elements titles = article.select("h1[class=entry-title]");
@@ -996,11 +1017,7 @@ public class HTMLParserUtil
                         }
                         System.out.println("tagcode===================="+tagcode);
 
-                        //code
-                        String code = article.attr("id");
-
-                        System.out.println("code===================="+code);
-
+                      
                         //日期
                          Elements dates = article.select("time[class=entry-date]");
                         String date = dates.get(0).text();
@@ -1112,6 +1129,8 @@ public class HTMLParserUtil
                         map.put("year", year);
                         map.put("tagcode", tagcode);
                         list.add(map);
+    					
+    					}
                     }
                 }
 
@@ -1134,8 +1153,8 @@ public class HTMLParserUtil
         	
         		System.out.println("page============================="+index+"============================页");
 	        	//String url = "http://www.vip588660.cm/page/"+index+"/";
-//        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
-	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
+        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
+//	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
 //	        	String url = "http://www.vip588660.com/category/dongman/page/"+index+"/";
 	        	
 	        	String html = pickData(url);
@@ -1153,6 +1172,14 @@ public class HTMLParserUtil
                         String title = divs.get(0).select("a").get(0).attr("title");
                         
                         String retcode = MD5Utils.encoding(title);
+                        
+                        
+                        //判断code在系统不存在再去处理后面的事
+                        
+                        MoviesManager moviesManager = (MoviesManager)SpringContextUtils.getBean("MoviesManager");
+                        int flag = moviesManager.countHql(new Movies(), " where o.retcode= '"+retcode+"' ");
+    					
+    					if(flag<=0){
                         
                         String aurl =  divs.get(0).select("a").get(0).attr("href");
 
@@ -1256,6 +1283,8 @@ public class HTMLParserUtil
                         map.put("tag", tag);
                         map.put("tagcode", tagcode);
                         list.add(map);
+    					}
+    					
                     }
                 }
 
@@ -1344,6 +1373,8 @@ public class HTMLParserUtil
                         
                         //生成代码
                         String retcode = MD5Utils.encoding(title+types+author+detail_url);
+                        
+                       
 
                         System.out.println("title==============>"+title);
                         System.out.println("detail_url==============>"+detail_url);
@@ -1427,8 +1458,8 @@ public class HTMLParserUtil
                         map.put("content1", content1);
                         
                         list.add(map);
+    					}
                     }
-                }
 
 //                System.out.println(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 

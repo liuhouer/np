@@ -81,69 +81,69 @@ public class EQTask {
 
 		
 		//爬虫软件资源代码start---------------------------------------------------------------------
-		try {
-			
-			System.out.println("soft task==============start="+TimeUtils.getNowTime());
-			logger.debug("soft task==============start="+TimeUtils.getNowTime());
-			Map<String,String> map = null;
-				
-			List<Map<String, String>> list = HTMLParserUtil.retSoft(1);
-			
-			
-			if(!CollectionUtils.isEmpty(list)){
-				for (int i = 0; i < list.size(); i++) {
-					map  = list.get(i);
-					
-					String title = map.get("title");
-					String aurl = map.get("aurl");
-					String brief = map.get("brief");
-					String date = map.get("date");
-					String article = map.get("article");
-					String tag = map.get("tag");
-					String code = map.get("code");
-					String os = map.get("os");
-					String month  = map.get("month");
-					String year  = map.get("year");
-					String tagcode = map.get("tagcode");
-					
-					
-
-					//是不存在的文章
-					int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
-					
-					if(flag<=0){
-						
-			    		Soft model = new Soft();
-			    		model.setBrief(brief);
-			    		model.setContent(article);
-			    		model.setOs(os);
-			    		model.setPostdate(date);
-			    		model.setRetcode(code);
-			    		model.setReturl(aurl);
-			    		model.setTags(tag);
-			    		model.setTitle(title);
-			    		model.setMonth(month);
-			    		model.setYear(year);
-			    		model.setTagscode(tagcode);
-			    		softManager.addSoft(model);
-					}
-				}
-			}
-			
-			
-			//重复记录每个只保留一条
-			
-			String delsoft_sql = "DELETE FROM bc_soft WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count FROM bc_soft GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
-			
-			EqManager.executeSql(delsoft_sql);
-			
-			logger.debug("soft task==============end="+TimeUtils.getNowTime());
-			logger.trace("soft task==============end="+TimeUtils.getNowTime());
-			System.out.println("soft task==============end="+TimeUtils.getNowTime());
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+//		try {
+//			
+//			System.out.println("soft task==============start="+TimeUtils.getNowTime());
+//			logger.debug("soft task==============start="+TimeUtils.getNowTime());
+//			Map<String,String> map = null;
+//				
+//			List<Map<String, String>> list = HTMLParserUtil.retSoft(1);
+//			
+//			
+//			if(!CollectionUtils.isEmpty(list)){
+//				for (int i = 0; i < list.size(); i++) {
+//					map  = list.get(i);
+//					
+//					String title = map.get("title");
+//					String aurl = map.get("aurl");
+//					String brief = map.get("brief");
+//					String date = map.get("date");
+//					String article = map.get("article");
+//					String tag = map.get("tag");
+//					String code = map.get("code");
+//					String os = map.get("os");
+//					String month  = map.get("month");
+//					String year  = map.get("year");
+//					String tagcode = map.get("tagcode");
+//					
+//					
+//
+//					//是不存在的文章
+//					int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
+//					
+//					if(flag<=0){
+//						
+//			    		Soft model = new Soft();
+//			    		model.setBrief(brief);
+//			    		model.setContent(article);
+//			    		model.setOs(os);
+//			    		model.setPostdate(date);
+//			    		model.setRetcode(code);
+//			    		model.setReturl(aurl);
+//			    		model.setTags(tag);
+//			    		model.setTitle(title);
+//			    		model.setMonth(month);
+//			    		model.setYear(year);
+//			    		model.setTagscode(tagcode);
+//			    		softManager.addSoft(model);
+//					}
+//				}
+//			}
+//			
+//			
+//			//重复记录每个只保留一条
+//			
+//			String delsoft_sql = "DELETE FROM bc_soft WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count FROM bc_soft GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
+//			
+//			EqManager.executeSql(delsoft_sql);
+//			
+//			logger.debug("soft task==============end="+TimeUtils.getNowTime());
+//			logger.trace("soft task==============end="+TimeUtils.getNowTime());
+//			System.out.println("soft task==============end="+TimeUtils.getNowTime());
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
 		
 		//爬虫软件资源代码end---------------------------------------------------------------------
 		
@@ -295,6 +295,9 @@ public class EQTask {
 		System.out.println("情圣定时任务结束"+TimeUtils.getNowTime());
 	}
 	
+	
+	
+	//tools===========================================================================================================================
 	
 	
 }

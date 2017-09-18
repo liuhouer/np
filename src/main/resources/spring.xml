@@ -11,5 +11,8 @@
 	
 	<!-- 扫描service自动注入为bean -->
 	<context:component-scan base-package="cn.northpark.*.impl" />
+	
+	<!--Spring中bean获取的工具类-->
+    <bean id="springContextUtils" class="cn.northpark.utils.SpringContextUtils" />
 
 </beans>

@@ -18,9 +18,11 @@
 //import cn.northpark.manager.PoemManager;
 //import cn.northpark.manager.SoftManager;
 //import cn.northpark.manager.TagsManager;
+//import cn.northpark.model.Movies;
 //import cn.northpark.model.Soft;
 //import cn.northpark.task.EQTask;
 //import cn.northpark.utils.HTMLParserUtil;
+//import cn.northpark.utils.PinyinUtil;
 //import cn.northpark.utils.TimeUtils;
 //
 ///**
@@ -106,62 +108,62 @@
 ////	    	}
 //
 ////			
-//			try {
-//				
-//				System.out.println("soft task==============start="+TimeUtils.getNowTime());
-//				logger.info("soft task==============start="+TimeUtils.getNowTime());
-//				Map<String,String> map = null;
-//					
-//				List<Map<String, String>> list = HTMLParserUtil.retSoft(3);
-//				
-//				
-//				if(!CollectionUtils.isEmpty(list)){
-//					for (int i = 0; i < list.size(); i++) {
-//						map  = list.get(i);
-//						
-//						String title = map.get("title");
-//						String aurl = map.get("aurl");
-//						String brief = map.get("brief");
-//						String date = map.get("date");
-//						String article = map.get("article");
-//						String tag = map.get("tag");
-//						String code = map.get("code");
-//						String os = map.get("os");
-//						String month  = map.get("month");
-//						String year  = map.get("year");
-//						String tagcode = map.get("tagcode");
-//						
-//						
-//
-//						//是不存在的文章
-//						int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
-//						
-//						if(flag<=0){
-//							
-//				    		Soft model = new Soft();
-//				    		model.setBrief(brief);
-//				    		model.setContent(article);
-//				    		model.setOs(os);
-//				    		model.setPostdate(date);
-//				    		model.setRetcode(code);
-//				    		model.setReturl(aurl);
-//				    		model.setTags(tag);
-//				    		model.setTitle(title);
-//				    		model.setMonth(month);
-//				    		model.setYear(year);
-//				    		model.setTagscode(tagcode);
-//				    		softManager.addSoft(model);
-//						}
-//					}
-//				}
-//				
-//				
-//				logger.info("soft task==============end="+TimeUtils.getNowTime());
-//				logger.trace("soft task==============end="+TimeUtils.getNowTime());
-//				System.out.println("soft task==============end="+TimeUtils.getNowTime());
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//			}
+////			try {
+////				
+////				System.out.println("soft task==============start="+TimeUtils.getNowTime());
+////				logger.info("soft task==============start="+TimeUtils.getNowTime());
+////				Map<String,String> map = null;
+////					
+////				List<Map<String, String>> list = HTMLParserUtil.retSoft(3);
+////				
+////				
+////				if(!CollectionUtils.isEmpty(list)){
+////					for (int i = 0; i < list.size(); i++) {
+////						map  = list.get(i);
+////						
+////						String title = map.get("title");
+////						String aurl = map.get("aurl");
+////						String brief = map.get("brief");
+////						String date = map.get("date");
+////						String article = map.get("article");
+////						String tag = map.get("tag");
+////						String code = map.get("code");
+////						String os = map.get("os");
+////						String month  = map.get("month");
+////						String year  = map.get("year");
+////						String tagcode = map.get("tagcode");
+////						
+////						
+////
+////						//是不存在的文章
+////						int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
+////						
+////						if(flag<=0){
+////							
+////				    		Soft model = new Soft();
+////				    		model.setBrief(brief);
+////				    		model.setContent(article);
+////				    		model.setOs(os);
+////				    		model.setPostdate(date);
+////				    		model.setRetcode(code);
+////				    		model.setReturl(aurl);
+////				    		model.setTags(tag);
+////				    		model.setTitle(title);
+////				    		model.setMonth(month);
+////				    		model.setYear(year);
+////				    		model.setTagscode(tagcode);
+////				    		softManager.addSoft(model);
+////						}
+////					}
+////				}
+////				
+////				
+////				logger.info("soft task==============end="+TimeUtils.getNowTime());
+////				logger.trace("soft task==============end="+TimeUtils.getNowTime());
+////				System.out.println("soft task==============end="+TimeUtils.getNowTime());
+////			} catch (Exception e) {
+////				// TODO: handle exception
+////			}
 //			
 ////			
 ////
@@ -170,92 +172,92 @@
 //			
 //			//TODO ..爬虫电影代码
 //			
-////				try {
-////				
-////				System.out.println("movies task==============start="+TimeUtils.getNowTime());
-////				logger.info("movies task==============start="+TimeUtils.getNowTime());
-////				Map<String,String> map = null;
-////					
-////				
-////				
-////				for (int k = 1; k <=10; k++) {
-////					try {
-////						
-////						List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
-////						
-////						
-////						if(!CollectionUtils.isEmpty(list)){
-////							for (int i = 0; i < list.size(); i++) {
-////								try {
-////									map  = list.get(i);
-////									
-////									String title = map.get("title");
-////									String aurl = map.get("aurl");
-////									String date = map.get("date");
-////									String article = map.get("article");
-////								    String retcode = map.get("retcode");
-////								    String tag = map.get("tag");
-////								    String tagcode = map.get("tagcode");
-////									
-////
-////									//是不存在的电影
-////									int flag = moviesManager.countHql(new Movies(), " where o.retcode= '"+retcode+"' ");
-////									
-////									if(flag<=0){
-////										
-////
-////										Movies model = new Movies();
-////										model.setMoviename(title);
-////										model.setAddtime(date);
-////										model.setDescription(article);
-////										model.setPath("");
-////										model.setPrice(1);
-////										model.setRetcode(retcode);
-////										model.setTag(tag);
-////										model.setTagcode(tagcode);
-////										model.setViewnum(HTMLParserUtil.geneViewNum());
-////										model.setColor(PinyinUtil.getFanyi1(title.trim()));
-////										moviesManager.addMovies(model);
-////									}
-////								} catch (Exception e) {
-////									// TODO: handle exception
-////									continue;
-////								}
-////								
-////							}
-////						}
-////					} catch (Exception e) {
-////						// TODO: handle exception
-////						continue;
-////					}
-////					
-////					
-////					try {
-////					    Thread.sleep(1000*30);
-////					    System.out.println("第"+k+"页================");
-////					} catch (InterruptedException e) {
-////					    // TODO Auo-generated catch block
-////					    e.printStackTrace();
-////					}
-////				}
-////				
-////				
-////				
-////				//重复记录每个只保留一条
-////				
-////				String delmovie_sql = "DELETE FROM bc_movies "
-////						+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count "
-////						+ "FROM bc_movies GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
-////				
-////				EqManager.executeSql(delmovie_sql);
-////				
-////				logger.info("movies task==============end="+TimeUtils.getNowTime());
-////				logger.trace("movies task==============end="+TimeUtils.getNowTime());
-////				System.out.println("movies task==============end="+TimeUtils.getNowTime());
-////			} catch (Exception e) {
-////				// TODO: handle exception
-////			}
-////			
+//				try {
+//				
+//				System.out.println("movies task==============start="+TimeUtils.getNowTime());
+//				logger.info("movies task==============start="+TimeUtils.getNowTime());
+//				Map<String,String> map = null;
+//					
+//				
+//				
+//				for (int k = 1; k <=10; k++) {
+//					try {
+//						
+//						List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
+//						
+//						
+//						if(!CollectionUtils.isEmpty(list)){
+//							for (int i = 0; i < list.size(); i++) {
+//								try {
+//									map  = list.get(i);
+//									
+//									String title = map.get("title");
+//									String aurl = map.get("aurl");
+//									String date = map.get("date");
+//									String article = map.get("article");
+//								    String retcode = map.get("retcode");
+//								    String tag = map.get("tag");
+//								    String tagcode = map.get("tagcode");
+//									
+//
+//									//是不存在的电影
+//									int flag = moviesManager.countHql(new Movies(), " where o.retcode= '"+retcode+"' ");
+//									
+//									if(flag<=0){
+//										
+//
+//										Movies model = new Movies();
+//										model.setMoviename(title);
+//										model.setAddtime(date);
+//										model.setDescription(article);
+//										model.setPath("");
+//										model.setPrice(1);
+//										model.setRetcode(retcode);
+//										model.setTag(tag);
+//										model.setTagcode(tagcode);
+//										model.setViewnum(HTMLParserUtil.geneViewNum());
+//										model.setColor(PinyinUtil.getFanyi1(title.trim()));
+//										moviesManager.addMovies(model);
+//									}
+//								} catch (Exception e) {
+//									// TODO: handle exception
+//									continue;
+//								}
+//								
+//							}
+//						}
+//					} catch (Exception e) {
+//						// TODO: handle exception
+//						continue;
+//					}
+//					
+//					
+//					try {
+//					    Thread.sleep(1000*30);
+//					    System.out.println("第"+k+"页================");
+//					} catch (InterruptedException e) {
+//					    // TODO Auo-generated catch block
+//					    e.printStackTrace();
+//					}
+//				}
+//				
+//				
+//				
+//				//重复记录每个只保留一条
+//				
+//				String delmovie_sql = "DELETE FROM bc_movies "
+//						+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count "
+//						+ "FROM bc_movies GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
+//				
+//				EqManager.executeSql(delmovie_sql);
+//				
+//				logger.info("movies task==============end="+TimeUtils.getNowTime());
+//				logger.trace("movies task==============end="+TimeUtils.getNowTime());
+//				System.out.println("movies task==============end="+TimeUtils.getNowTime());
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//			}
+//			
 //			   
 //				
 //				
@@ -505,69 +507,71 @@
 //		}
 //		
 //		
-//		public void soft(Integer index){
-//          try {
-//				
-//				System.out.println("soft task==============start="+TimeUtils.getNowTime());
-//				Map<String,String> map = null;
-//					
-//				List<Map<String, String>> list = HTMLParserUtil.retSoft(index);
-//				
-//				
-//				if(!CollectionUtils.isEmpty(list)){
-//					for (int i = 0; i < list.size(); i++) {
-//						map  = list.get(i);
-//						
-//						String title = map.get("title");
-//						String aurl = map.get("aurl");
-//						String brief = map.get("brief");
-//						String date = map.get("date");
-//						String article = map.get("article");
-//						String tag = map.get("tag");
-//						String code = map.get("code");
-//						String os = map.get("os");
-//						String month  = map.get("month");
-//						String year  = map.get("year");
-//						String tagcode = map.get("tagcode");
-//						
-//						
-//
-//						//是不存在的文章
-//						int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
-//						
-//						if(flag<=0){
-//							
-//				    		Soft model = new Soft();
-//				    		model.setBrief(brief);
-//				    		model.setContent(article);
-//				    		model.setOs(os);
-//				    		model.setPostdate(date);
-//				    		model.setRetcode(code);
-//				    		model.setReturl(aurl);
-//				    		model.setTags(tag);
-//				    		model.setTitle(title);
-//				    		model.setMonth(month);
-//				    		model.setYear(year);
-//				    		model.setTagscode(tagcode);
-//				    		softManager.addSoft(model);
-//						}
-//					}
-//				}
-//				
-//				System.out.println("soft task==============end="+TimeUtils.getNowTime());
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//			}
-//		}
+//		
+//	//测试多页	
+////		public void soft(Integer index){
+////          try {
+////				
+////				System.out.println("soft task==============start="+TimeUtils.getNowTime());
+////				Map<String,String> map = null;
+////					
+////				List<Map<String, String>> list = HTMLParserUtil.retSoft(index);
+////				
+////				
+////				if(!CollectionUtils.isEmpty(list)){
+////					for (int i = 0; i < list.size(); i++) {
+////						map  = list.get(i);
+////						
+////						String title = map.get("title");
+////						String aurl = map.get("aurl");
+////						String brief = map.get("brief");
+////						String date = map.get("date");
+////						String article = map.get("article");
+////						String tag = map.get("tag");
+////						String code = map.get("code");
+////						String os = map.get("os");
+////						String month  = map.get("month");
+////						String year  = map.get("year");
+////						String tagcode = map.get("tagcode");
+////						
+////						
+////
+////						//是不存在的文章
+////						int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
+////						
+////						if(flag<=0){
+////							
+////				    		Soft model = new Soft();
+////				    		model.setBrief(brief);
+////				    		model.setContent(article);
+////				    		model.setOs(os);
+////				    		model.setPostdate(date);
+////				    		model.setRetcode(code);
+////				    		model.setReturl(aurl);
+////				    		model.setTags(tag);
+////				    		model.setTitle(title);
+////				    		model.setMonth(month);
+////				    		model.setYear(year);
+////				    		model.setTagscode(tagcode);
+////				    		softManager.addSoft(model);
+////						}
+////					}
+////				}
+////				
+////				System.out.println("soft task==============end="+TimeUtils.getNowTime());
+////			} catch (Exception e) {
+////				// TODO: handle exception
+////			}
+////		}
 //	
 //	
 //	@Test
 //	public void save() {
-////		runTask();
-//		for (int i = 1; i < 65; i++) {
-//			soft(i);
-//		}
+//		runTask();
 //		
+////		for (int i = 1; i < 65; i++) {
+////			soft(i);
+////		}
 //	}
 //	
 //}
