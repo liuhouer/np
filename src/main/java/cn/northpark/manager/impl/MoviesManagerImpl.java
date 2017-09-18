@@ -73,9 +73,9 @@ public class MoviesManagerImpl implements MoviesManager {
 	}
 	
 	@Override
-	public List<Movies> querySql(String sql) {
+	public List<Map<String, Object>> querySql(String sql) {
 		// TODO Auto-generated method stub
-		return moviesDao.querySql(sql, Movies.class);
+		return moviesDao.querySql(sql);
 	}
 
 	/* (non-Javadoc)
