@@ -3,7 +3,40 @@
 
 <div class="col-md-12 margin-t10" >
 
-<div class="col-xs-10 clearfix border-bottom">
+									<div class="col-xs-10 clearfix border-bottom">
+				        			    <p>
+					        		    <span  class="glyphicon glyphicon-time margin5"></span>
+						                 2017-09-20 16:52:12
+						                 </p>
+						                 
+						                 <p>
+						                
+						                <p>
+						                 <span  class="glyphicon glyphicon-user margin5"></span>
+										匿名用户
+										</p>
+										<p>
+										<span  class="glyphicon glyphicon-barcode margin5"></span>
+									    10000503012***267214285
+										</p>
+										<p>
+										 <span  class="glyphicon glyphicon-comment margin5"></span>
+									   WinclonePro5.5MacCN
+										</p>
+										<p>
+										 <span  class="glyphicon glyphicon-link margin5"></span>
+
+										 <a href="https://northpark.cn/soft/post-14058.html" target="_blank">Winclone Pro 5.5 Mac中文破解版</a>
+
+										</p>
+										<p>
+										 <span  class="glyphicon  margin5">￥</span>
+									         3.00
+										</p>
+					        			 
+				        			 </div>	
+
+								<div class="col-xs-10 clearfix border-bottom">
 				        			    <p>
 					        		    <span  class="glyphicon glyphicon-time margin5"></span>
 						                 2017-08-29 22:00
