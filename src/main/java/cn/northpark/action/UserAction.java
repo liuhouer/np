@@ -722,13 +722,13 @@ public class UserAction {
 				session.setAttribute("user", user);
 				map.put("user", user);
 				//发送邮件
-				try {
-					
-					EmailUtils.ThanksReg(email);
-				} catch (Exception e) {
-					// TODO: handle exception
-					e.printStackTrace();
-				}
+//				try {
+//					
+//					EmailUtils.ThanksReg(email);
+//				} catch (Exception e) {
+//					// TODO: handle exception
+//					e.printStackTrace();
+//				}
 				return LIST_ACTION;
 			}
 		}

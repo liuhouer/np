@@ -1,20 +1,25 @@
 package cn.northpark.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.HtmlEmail;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author Administrator
  *
  */
 public class EmailUtils {
-	private static Logger log =LoggerFactory.getLogger(EmailUtils.class);
+	private static final Logger LOGGER = Logger
+	            .getLogger(EmailUtils.class);
 	public static final EmailUtils emailUtil = new EmailUtils();
 	
 	/**
@@ -69,16 +74,35 @@ public class EmailUtils {
 	public static void ThanksReg(String toEmail) {
 		try {
 
+			//smtp.qq.com || smtp.163.com
 			String host = "smtp.163.com";
 			String myEmail = "qhdsoftware@163.com";
 			String myName = "northpark";
-			String myPassword = Base64Util.JIEMI("YnJ1Y2UxMzQwMDAwMDA=");
+			String myPassword = "bruce134";
 			// 接收者邮箱
 			String to = toEmail;
 			String subject = "欢迎加入Northpark";
 			String mailConent = "~~~~^_^~~~~Welcome";
+			
+			//开启ssl加密
+//			Properties prop = new Properties();
+//			// 设置SMTP发送服务器的名字：163的如下："smtp.163.com"
+//			prop.setProperty("mail.smtp.host", host);
+//			// 设置SMTP发送服务器的端口
+//			prop.setProperty("mail.smtp.port", "25");
+//			// 设置是否需要认证
+//			prop.setProperty("mail.smtp.auth", "true");
+//			// 开启TLS加密方式
+//			prop.setProperty("mail.smtp.starttls.enable", "true");
+//			// 添加信任的服务器
+//			prop.setProperty("mail.smtp.ssl.trust", host);
+//			// 进行认证并获取需要的session
+//			DefaultAuthenticator defaultAuthenticator = 
+//			        new DefaultAuthenticator(myName, myPassword);
+//			Session session = Session.getInstance(prop,defaultAuthenticator);
 
 			HtmlEmail email = new HtmlEmail();
+//			email.setMailSession(session);
 			email.setAuthentication(myEmail, myPassword);
 			email.setHostName(host);
 			email.addTo(to, toEmail);           //对方 邮件+对方名字
@@ -102,10 +126,12 @@ public class EmailUtils {
 			// 发送
 			email.send();
 			System.err.println("邮件发送成功");
+			LOGGER.debug("邮件发送成功");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			System.err.println("邮件发送失败");
+			LOGGER.debug("邮件发送失败",e);
 		}
 
 	}
@@ -120,10 +146,11 @@ public class EmailUtils {
 	public static void changePwd(String toEmail, String usrId, String authCode,HttpServletRequest request) {
 		try {
 
-			String host = "smtp.163.com";
-			String myEmail = "qhdsoftware@163.com";
-			String myName = "小布";
-			String myPassword = Base64Util.JIEMI("YnJ1Y2UxMzQwMDAwMDA=");
+			//smtp.qq.com || smtp.163.com
+			String host = "smtp.qq.com";
+			String myEmail = "654714226@qq.com";
+			String myName = "northpark";
+			String myPassword = Base64Util.JIEMI("emhhbmd5YW5nMjI2QDAwMDAwMA==");
 			// 接收者邮箱
 			String to = toEmail;
 			String subject = "~~~~(>_<)~~~~找回northpark的密码";
@@ -308,10 +335,10 @@ public class EmailUtils {
 					+ "云路团队<br/><br/>" + "</p>" + "</body></html>");
 
 			email.send();
-			log.debug("邮件发送成功");
+			LOGGER.debug("邮件发送成功");
 
 		} catch (Exception e) {
-			log.debug("邮件发送失败" + e);
+			LOGGER.debug("邮件发送失败" + e);
 		}
 	}
         
@@ -361,10 +388,10 @@ public class EmailUtils {
 					+ "云路团队<br/><br/>" + "</p>" + "</body></html>");
 
 			email.send();
-			log.debug("邮件发送成功");
+			LOGGER.debug("邮件发送成功");
 
 		} catch (Exception e) {
-			log.debug("邮件发送失败" + e);
+			LOGGER.debug("邮件发送失败" + e);
 		}
 	}
 
@@ -510,12 +537,36 @@ public class EmailUtils {
 			email.send();
 			return true;
 		} catch (Exception  e) {
-			log.error("发送面试邀请邮件失败！邮件地址："+ toEmail, e);
+			LOGGER.error("发送面试邀请邮件失败！邮件地址："+ toEmail, e);
 			return false;
 		}
 	}
 	
 	public static void main(String[] args ) {
-		EmailUtils.ThanksReg("1007136434@qq.com");
+		
+		List<String> list  = new ArrayList<String>();
+		list.add("qhdsoft@yeah.net");
+		list.add("870300572@qq.com");
+		list.add("2572684952@qq.com");
+		list.add("goooob@126.com");
+		list.add("843664866@qq.com");
+		list.add("heartlead@gmail.com");
+		list.add("kevinlin1997@yahoo.com.tw");
+		list.add("1358726405@qq.com");
+		list.add("18374819636@163.com");
+		list.add("40367288@qq.com");
+		list.add("651001768@qq.com");
+		list.add("elsa7788@outlook.com");
+		list.add("mengda1027@qq.com");
+		list.add("49611084@qq.com");
+		list.add("knightli@foxmail.com");
+		list.add("973741142@qq.com");
+		list.add("232475782@qq.com");
+		
+		
+		for (int i = 0; i < list.size(); i++) {
+			
+			EmailUtils.ThanksReg(list.get(i));
+		}
 	}
 }

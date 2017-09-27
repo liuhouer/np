@@ -162,7 +162,7 @@ public class Base64Util{
 	 public static void main(String[] args) throws UnsupportedEncodingException {
 		 Base64Util bs = new Base64Util();
 //		 System.out.println(bs.JIAMI("bruce134"));
-		    String s = "UFI5NDMzNDMwMDAwMDA=";
+		    String s = "bruce134";
 	        System.out.println("加密前：" + s);
 	        System.out.println("加密后：" + JIAMI(s));
 	        System.out.println("解密后：" + JIEMI(s));
