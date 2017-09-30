@@ -147,6 +147,7 @@
 		$("img").each(function(){
 			$(this).css('max-width',($("#J_white_div").width()));
 		})
+		
 	})
 	
 	</script>

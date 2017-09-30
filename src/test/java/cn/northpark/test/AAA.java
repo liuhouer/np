@@ -1,6 +1,7 @@
 package cn.northpark.test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,6 +23,30 @@ public class AAA {
         }
         return i;
     }
+	
+	
+	
+	/**
+	 * @param str
+	 * @param x
+	 * @return
+	 * 定义一个char［］，无限大，但是遇到0，则停止，写一个程序，
+	 * 使用递归的方式，计算某个字符在这个数组中出现的次数
+	 */
+	int n=0;
+	int i=0;
+	public int count(String str[],String x){
+		do{
+			if(str[i].equals(x)){
+				n++;
+				String[] temp=Arrays.copyOfRange(str, i+1, str.length);
+				count(temp, x);
+			}
+			i++;
+		}while(str[i]=="0");
+		
+		return n;
+	}
     /**
      * @param args
      */

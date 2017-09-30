@@ -31,9 +31,9 @@
 		
 		
 		     <div class="view clearfix  ">
-                <form class=" form-search " action="/movies/search" method="post" accept-charset="UTF-8">
+                <form class=" form-search " action="/movies/search" id="J_ser_from" method="post" accept-charset="UTF-8">
                   <input id="keyword" placeholder="电影名"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
-                  <input data-activetext="搜索 ››" class=" btn btn-hero " value="搜索" type="submit">
+                  <input data-activetext="搜索 ››" class=" btn btn-hero " value="搜索" type="submit" id="J_ser_btn">
                 </form>
               </div>
 		
@@ -189,49 +189,6 @@
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	<script src="/js/page/movies.js"></script>
 	
-	<script type="text/javascript">
-	//禁止图片拉伸
-	$(function(){
-		$("img").each(function(){
-			$(this).css('max-width',400);
-			$(this).css('max-width',($(".bg-white").width()));
-		})
-	})
-	
-	
-	 function handup(id){
-   	 $.ajax({
-            url:"/movies/handup",
-            type:"post",
-            data:{"id":id},
-            success:function(msg){
-                if(msg=="success"){
-                    art.dialog.tips('置顶成功');
-                }else{
-               	 art.dialog.tips('error happened.');
-                }            
-            }
-        });
-
-   }
-   
-   function hideup(id){
-   	 $.ajax({
-            url:"/movies/hideup",
-            type:"post",
-            data:{"id":id},
-            success:function(msg){
-                if(msg=="success"){
-                    art.dialog.tips('隐藏成功');
-                    window.location.href = window.location.href;
-                }else{
-               	 art.dialog.tips('error happened.');
-                }            
-            }
-        });
-
-   }
-	</script>
 
 
 

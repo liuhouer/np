@@ -32,7 +32,7 @@
 				     
 				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/soft/mac/page0">
 		                  <input id="keyword" placeholder="Mac软件板块上线啦~"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
-		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="submit">
+		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="submit" id="J_ser_btn">
 		                </form>
 		                 
 		</div>
@@ -204,6 +204,16 @@
 	$(function(){
 		$("img").each(function(){
 			$(this).css('max-width',($(".bg-white").width()));
+		})
+		
+		//搜索
+		$("#J_ser_btn").click(function(){
+			$("#J_ser_btn").attr('disabled',true);
+			if($("#keyword").val() && $("#keyword").val()!="${keyword }"){
+				
+				$("#J_ser_from").submit();
+			}
+			setTimeout("$('#J_ser_btn').removeAttr('disabled')",5000); //设置5秒后提交按钮 显示  
 		})
 	})
 	</script>
