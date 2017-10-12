@@ -33,7 +33,6 @@
      <!-- 定义自动注入 -->   
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>    
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-   
     
     <!-- 定义拦截器 -->
 	<mvc:interceptors>  

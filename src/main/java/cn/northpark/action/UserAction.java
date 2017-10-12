@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,6 +39,7 @@ import cn.northpark.model.User;
 import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
 import cn.northpark.query.condition.UserLyricsQueryCondition;
+import cn.northpark.utils.AddressUtils;
 import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
@@ -76,7 +78,7 @@ public class UserAction {
 	 private ResetManager resetManager;
 
 	 
-	 
+	    Logger logger = Logger.getLogger(UserAction.class);  
 	 	
 	 
 	 	/**
@@ -325,9 +327,21 @@ public class UserAction {
 	 	 * @return
 	 	 */
 	 	@RequestMapping("/building")
-		public String building(ModelMap map) {
+		public String building(ModelMap map,HttpServletRequest request) {
+	 		
+	 		//记录访问者的IP、记录访问者的url请求路径，打印到日志里去
+	 		String IP = AddressUtils.getIpAddr(request);
+	 		String queryString = request.getQueryString();
+	 		String url = request.getRequestURI();
+	 		if(StringUtils.isNotBlank(queryString)){
+	 			url = url+"?"+queryString;
+	 		}
+	 		logger.error("IP:"+IP+"|||URL:"+url+"|||TIME:"+TimeUtils.nowTime());
 			return "/building";
 		}
+	 	
+	 	
+	 	
 	 	
 	 	/**
 	 	 * 500错误

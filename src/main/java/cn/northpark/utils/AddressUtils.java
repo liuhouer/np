@@ -10,6 +10,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author bruce
  * @date 2016年7月29日
@@ -203,6 +205,33 @@ public class AddressUtils {
 		}
 		return outBuffer.toString();
 	}
+	
+	
+	/**
+ 	 * 获取IP
+ 	 * @param beat
+ 	 * @return
+ 	 */
+ 	public static String getIpAddr(HttpServletRequest beat) {
+         String ip = beat.getHeader("X-Forwarded-For");
+         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+             ip = beat.getHeader("Proxy-Client-IP");
+         }
+         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+             ip = beat.getHeader("WL-Proxy-Client-IP");
+         }
+         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+             ip = beat.getHeader("HTTP_CLIENT_IP");
+         }
+         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+             ip = beat.getHeader("HTTP_X_FORWARDED_FOR");
+         }
+         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+             ip = beat.getRemoteAddr();
+         }
+         return ip;
+     }
+	
 	// 测试
 	public static void main(String[] args) {
 		AddressUtils addressUtils = new AddressUtils();
