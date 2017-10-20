@@ -53,11 +53,7 @@ import cn.northpark.utils.TimeUtils;
 @SessionAttributes({ "list", "lyrics" })
 public class LyricsAction {
 
- private final String LIST_ACTION = "redirect:/lyrics/findAll";
  private final String LIST_ACTION2 = "redirect:/cm/pcentral";
- private final String LOGIN_ACTION = "redirect:/login";
-
- 
  
  @Autowired	
  private LyricsManager lyricsManager;
@@ -382,7 +378,7 @@ public class LyricsAction {
 	@RequestMapping("/delLyrics")
 	public String delLyrics(@RequestParam("id") Integer id) {
 		this.lyricsManager.delLyrics(id);
-		return LIST_ACTION;
+		return "redirect:/lyrics/findAll";
 	}
 
 	
