@@ -68,73 +68,73 @@ public class EqAction {
 		return "/page/eq/article";
 	}
 	
-	/**
-	 * 爬虫生成情圣养成日记
-	 * @param map
-	 * @return
-	 */
-	@RequestMapping("/romeo/geneArt")
-	public String geneArt(ModelMap map) {
-		try {
-			
-			List<Map<String, String>> retList = HTMLParserUtil.retEQArticle();
-			
-			for(int i=0;i<retList.size();i++){
-				Map<String, String> map_ = retList.get(i);
-				Eq model = new Eq();
-				model.setTitle(map_.get("title"));
-				model.setImg(map_.get("img") );
-				model.setBrief(map_.get("brief"));
-				model.setDate(map_.get("date"));
-				model.setArticle(map_.get("article"));
-				eqManager.addEq(model);
-			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		return "admin/eq/eqAdd";
-	}
-	
-	/**
-	 * 爬虫更新meizutu
-	 * @param map
-	 * @return
-	 */
-	@RequestMapping("/romeo/meizitu")
-	@ResponseBody
-	public String meizitu(ModelMap map) {
-		try {
-			List<String> meizi = new ArrayList<String>();
-			
-			for (int i = 1; i <= 10; i++) {
-				String img = "/img/eq/tumblr_o"+i+".png";
-				meizi.add(img);
-			}
-			
-			List<Eq> list  = eqManager.findAll();
-			for(Eq eq: list){
-				
-//				//保证图片不重复
-//				do {
-//					index = getRandomOne(meizi);
-//				} while (setindex.add(index));
+//	/**
+//	 * 爬虫生成情圣养成日记
+//	 * @param map
+//	 * @return
+//	 */
+//	@RequestMapping("/romeo/geneArt")
+//	public String geneArt(ModelMap map) {
+//		try {
+//			
+//			List<Map<String, String>> retList = HTMLParserUtil.retEQArticle();
+//			
+//			for(int i=0;i<retList.size();i++){
+//				Map<String, String> map_ = retList.get(i);
+//				Eq model = new Eq();
+//				model.setTitle(map_.get("title"));
+//				model.setImg(map_.get("img") );
+//				model.setBrief(map_.get("brief"));
+//				model.setDate(map_.get("date"));
+//				model.setArticle(map_.get("article"));
+//				eqManager.addEq(model);
+//			}
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+//		return "admin/eq/eqAdd";
+//	}
+//	
+//	/**
+//	 * 爬虫更新meizutu
+//	 * @param map
+//	 * @return
+//	 */
+//	@RequestMapping("/romeo/meizitu")
+//	@ResponseBody
+//	public String meizitu(ModelMap map) {
+//		try {
+//			List<String> meizi = new ArrayList<String>();
+//			
+//			for (int i = 1; i <= 10; i++) {
+//				String img = "/img/eq/tumblr_o"+i+".png";
+//				meizi.add(img);
+//			}
+//			
+//			List<Eq> list  = eqManager.findAll();
+//			for(Eq eq: list){
 //				
-				int index = getRandomOne(meizi);
-				//执行更新
-				String img = meizi.get(index);
-				eq.setImg(img);
-				eqManager.updateEq(eq);
-			}
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		return "meizitu  success";
-	}
+////				//保证图片不重复
+////				do {
+////					index = getRandomOne(meizi);
+////				} while (setindex.add(index));
+////				
+//				int index = getRandomOne(meizi);
+//				//执行更新
+//				String img = meizi.get(index);
+//				eq.setImg(img);
+//				eqManager.updateEq(eq);
+//			}
+//			
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+//		return "meizitu  success";
+//	}
 
 	
 	

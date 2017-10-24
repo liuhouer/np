@@ -20,7 +20,6 @@ import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.NoteManager;
 import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.model.Eq;
-import cn.northpark.model.Movies;
 import cn.northpark.query.NoteQuery;
 import cn.northpark.query.condition.NoteQueryCondition;
 import cn.northpark.utils.HTMLParserUtil;

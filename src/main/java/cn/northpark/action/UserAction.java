@@ -33,7 +33,6 @@ import cn.northpark.manager.UserFollowManager;
 import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.manager.UserManager;
 import cn.northpark.manager.UserprofileManager;
-import cn.northpark.model.QQinfo;
 import cn.northpark.model.Reset;
 import cn.northpark.model.User;
 import cn.northpark.model.UserFollow;
@@ -936,71 +935,71 @@ public class UserAction {
 	}
 	
 	
-	/**
-	 * 绑定注册/登录用户信息
-	 */
-	@RequestMapping(value = "/cm/qq/add" )
-	@ResponseBody
-	public String qqAdd(HttpServletRequest request, HttpServletResponse response, HttpSession session, String openId,String qqinfo) {
-		String result = "success";
-		System.out.println(openId);
-		if(StringUtils.isEmpty(openId)){
-			openId = (String) session.getAttribute("openId");
-		}
-		List<User> list = userManager.findByCondition(" where qq_openid = '"+openId+"' ").getResultlist();
-		if(list!=null){
-			if(list.size()==0){
-
-				System.out.println(qqinfo);
-				if(StringUtils.isNotEmpty(qqinfo)){
-					QQinfo qqinfom = JsonUtil.json2Model(qqinfo, QQinfo.class);
-					//添加user
-					User userm = new User();
-					userm.setDate_joined(TimeUtils.nowTime());
-					userm.setHeadpath(qqinfom.getFigureurl_qq_2());
-					userm.setLast_login(TimeUtils.nowTime());
-					userm.setQq_info(qqinfo);
-					userm.setQq_openid(openId);
-					userm.setUsername("qq_"+qqinfom.getNickname());
-					userManager.addUser(userm);
-					//添加详情
-					Userprofile upm=new Userprofile();
-					upm.setCity(qqinfom.getCity());
-					upm.setGender(qqinfom.getGender());
-					upm.setYear_of_birth(qqinfom.getYear());
-					upm.setUser_id(userm.getId());
-					userprofileManager.addUserprofile(upm);
-				}
-				
-				
-				
-			}else{
-				session.setAttribute("user", list.get(0));
-			}
-		}
-		
-		return result;
-	}
-	
-	/**
-	 * 判断登录用户信息【存在登陆成功，取出用户信息】【不存在，存放qqopenid，等待绑定信息】
-	 */
-	@RequestMapping(value = "/cm/qq/flag" )
-	@ResponseBody
-	public String qqFlag(HttpServletRequest request, HttpServletResponse response, HttpSession session, String openId) {
-		String result = "0";
-		System.out.println(openId);
-		List<User> list = userManager.findByCondition(" where qq_openid = '"+openId+"' ").getResultlist();
-		session.setAttribute("openId", openId);
-		if(list!=null){
-			if(list.size()>0){
-				User user = list.get(0);
-				session.setAttribute("user", user);
-				result = "1";
-			}
-		}
-		return result;
-	}
+//	/**
+//	 * 绑定注册/登录用户信息
+//	 */
+//	@RequestMapping(value = "/cm/qq/add" )
+//	@ResponseBody
+//	public String qqAdd(HttpServletRequest request, HttpServletResponse response, HttpSession session, String openId,String qqinfo) {
+//		String result = "success";
+//		System.out.println(openId);
+//		if(StringUtils.isEmpty(openId)){
+//			openId = (String) session.getAttribute("openId");
+//		}
+//		List<User> list = userManager.findByCondition(" where qq_openid = '"+openId+"' ").getResultlist();
+//		if(list!=null){
+//			if(list.size()==0){
+//
+//				System.out.println(qqinfo);
+//				if(StringUtils.isNotEmpty(qqinfo)){
+//					QQinfo qqinfom = JsonUtil.json2Model(qqinfo, QQinfo.class);
+//					//添加user
+//					User userm = new User();
+//					userm.setDate_joined(TimeUtils.nowTime());
+//					userm.setHeadpath(qqinfom.getFigureurl_qq_2());
+//					userm.setLast_login(TimeUtils.nowTime());
+//					userm.setQq_info(qqinfo);
+//					userm.setQq_openid(openId);
+//					userm.setUsername("qq_"+qqinfom.getNickname());
+//					userManager.addUser(userm);
+//					//添加详情
+//					Userprofile upm=new Userprofile();
+//					upm.setCity(qqinfom.getCity());
+//					upm.setGender(qqinfom.getGender());
+//					upm.setYear_of_birth(qqinfom.getYear());
+//					upm.setUser_id(userm.getId());
+//					userprofileManager.addUserprofile(upm);
+//				}
+//				
+//				
+//				
+//			}else{
+//				session.setAttribute("user", list.get(0));
+//			}
+//		}
+//		
+//		return result;
+//	}
+//	
+//	/**
+//	 * 判断登录用户信息【存在登陆成功，取出用户信息】【不存在，存放qqopenid，等待绑定信息】
+//	 */
+//	@RequestMapping(value = "/cm/qq/flag" )
+//	@ResponseBody
+//	public String qqFlag(HttpServletRequest request, HttpServletResponse response, HttpSession session, String openId) {
+//		String result = "0";
+//		System.out.println(openId);
+//		List<User> list = userManager.findByCondition(" where qq_openid = '"+openId+"' ").getResultlist();
+//		session.setAttribute("openId", openId);
+//		if(list!=null){
+//			if(list.size()>0){
+//				User user = list.get(0);
+//				session.setAttribute("user", user);
+//				result = "1";
+//			}
+//		}
+//		return result;
+//	}
 	
 	/////////////////////////////////////////失效的方法和工具方法、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
 

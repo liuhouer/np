@@ -338,27 +338,6 @@ public class PoemAction {
 	}
 	
     
-	@RequestMapping(value="/findAll")
-	public String findAll(ModelMap map,PoemQueryCondition condition,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) {
-		String whereSql = poemQuery.getSql(condition);
-		
-		PageView<Poem> pageView = getPageView(null, whereSql);
-		
-
-		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("createtime", "desc");
-
-		QueryResult<Poem> qrs = this.poemManager.findByCondition(pageView,
-				whereSql, order);
-		List<Poem> list = qrs.getResultlist();
-		map.addAttribute("pageView", pageView);
-		map.put("condition", condition);
-		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","poemAction/findAll" );
-
-		return "admin/poem/poemList";
-	}
 
 	private PageView<Poem> getPageView(String page,
 			String whereSql) {

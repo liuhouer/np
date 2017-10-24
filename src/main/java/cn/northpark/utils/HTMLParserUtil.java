@@ -41,21 +41,7 @@ import cn.northpark.model.Movies;
 import cn.northpark.model.Soft;
 
 /**
- * <p>
- * Title: northpark.cn
- * </p>
- * <p>
- * Description:
- * </p>
- * <p>
- * Copyright: Copyright (c) 2006
- * </p>
- * <p>
- * Company:
- * </p>
- *
  * @author bruce
- * @version 1.0
  */
 
 
