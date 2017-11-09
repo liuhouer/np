@@ -25,12 +25,13 @@
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/org.jdom/jdom -->
-	<!-- jdom -->
-	<dependency>
-	    <groupId>org.jdom</groupId>
-	    <artifactId>jdom</artifactId>
-	    <version>2.0.2</version>
-	</dependency>
+	
+		 <!-- jdom -->
+      <dependency>
+          <groupId>org.jdom</groupId>
+          <artifactId>jdom</artifactId>
+          <version>2.0.2</version>
+      </dependency>
 		
     
     <!-- spring -->
@@ -58,18 +59,8 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+		
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-			<scope>test</scope>
-		</dependency>
 
 		<!-- 使用SpringMVC需配置 -->
 		<dependency>
@@ -92,19 +83,9 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-ehcache</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
+		
 
-		<!-- 二级缓存ehcache -->
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<version>2.9.0</version>
-		</dependency>
-
+		
 		<!-- log4j -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -120,18 +101,12 @@
 		</dependency>
 
 		
-		<!-- commons-dbcp -->
-		<dependency>
-		    <groupId>commons-dbcp</groupId>
-		    <artifactId>commons-dbcp</artifactId>
-		    <version>1.4</version>
-		</dependency>
 		
-		<!-- commons-pool -->
+		<!-- alibaba druid pool -->
 		<dependency>
-		    <groupId>commons-pool</groupId>
-		    <artifactId>commons-pool</artifactId>
-		    <version>1.6</version>
+	     <groupId>com.alibaba</groupId>
+	     <artifactId>druid</artifactId>
+	     <version>1.1.5</version>
 		</dependency>
 
 		<!-- json -->
@@ -141,23 +116,7 @@
 			<version>1.2.3</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
+		
 
 		<!-- aop -->
 		<dependency>
@@ -216,12 +175,7 @@
 			<version>2.5.0</version>
 		</dependency>
 		
-		<!-- 二维码ß -->
-		<dependency>
-			<groupId>com.google.zxing</groupId>
-			<artifactId>core</artifactId>
-			<version>3.2.1</version>
-		</dependency>
+		
     
     	<!-- 编码解码 -->
 		<dependency>
@@ -252,11 +206,7 @@
 			<version>2.6.2</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>commons-httpclient</artifactId>
-			<version>3.0.1</version>
-		</dependency>
+		
 		
 		<!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
 		<dependency>
@@ -265,6 +215,7 @@
 		    <version>3.3</version>
 		</dependency>
 		
+		<!--sftp应用  -->
 		<dependency>
 			<groupId>com.jcraft</groupId>
 			<artifactId>jsch</artifactId>
@@ -278,12 +229,8 @@
 		    <version>7.2.1</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
-		<dependency>
-		    <groupId>com.thoughtworks.xstream</groupId>
-		    <artifactId>xstream</artifactId>
-		    <version>1.4.9</version>
-		</dependency>
+		
+		
 		
 		
     

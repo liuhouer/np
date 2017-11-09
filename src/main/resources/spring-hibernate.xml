@@ -11,38 +11,52 @@
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
 	
-	<!-- 使用org.apache.commons.dbcp.BasicDataSource   
-         说明:这是一种推荐说明的数据源配置方式，它真正使用了连接池技术 -->   
-	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+     <!-- 替换成aibaba druid pool 2017年11月9日-->  
+	 <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		destroy-method="close">
+		
+		 <!-- 基本属性 url、user、password -->
 		<property name="driverClassName" value="${jdbc.driver}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
-		<!--maxActive: 最大连接数量 -->
-		<property name="maxActive" value="100" />
-		<!--minIdle: 最小空闲连接 -->
-		<property name="minIdle" value="3" />
-		<!--maxIdle: 最大空闲连接 -->
-		<property name="maxIdle" value="16" />
-		<!--initialSize: 初始化连接 -->
-		<property name="initialSize" value="10" />
-		<!-- 连接被泄露时是否打印 -->
-		<property name="logAbandoned" value="true" />
-		<!--removeAbandoned: 是否自动回收超时连接 -->
-		<property name="removeAbandoned" value="true" />
-		<!--removeAbandonedTimeout: 超时时间(以秒数为单位) -->
-		<property name="removeAbandonedTimeout" value="10" />
-		<!--maxWait: 超时等待时间以毫秒为单位 1000等于60秒 -->
-		<property name="maxWait" value="1000" />
-		<!-- 在空闲连接回收器线程运行期间休眠的时间值,以毫秒为单位. -->
-		<property name="timeBetweenEvictionRunsMillis" value="10000" />
-		<!-- 在每次空闲连接回收器线程(如果有)运行时检查的连接数量 -->
-		<property name="numTestsPerEvictionRun" value="10" />
-		<!-- 1000 * 60 * 30 连接在池中保持空闲而不被空闲连接回收器线程 -->
-		<property name="minEvictableIdleTimeMillis" value="10000" />
-		<property name="validationQuery" value="SELECT NOW() FROM DUAL" />
+		
+		
+		 <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="1" />
+        <property name="minIdle" value="1" /> 
+        <property name="maxActive" value="20" />
+        
+         <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        
+        <property name="validationQuery" value="SELECT 'x'" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        
+        
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="false" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+        
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="wall,stat" /> 
+       
+       
+        <!-- 
+        
+        	通常来说，只需要修改initialSize、minIdle、maxActive。
+
+			如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。分库分表较多的数据库，建议配置为false。
+         -->
+		
 	</bean>  
+	
+	
 
 	<!-- 配置hibernate的SessionFactory -->
 	<bean id="sessionFactory"
