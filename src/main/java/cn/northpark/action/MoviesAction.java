@@ -34,7 +34,6 @@ import cn.northpark.model.User;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
 import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.XMemcachedUtil;
 import cn.northpark.utils.safe.WAQ;
 
 @Controller
@@ -480,10 +479,6 @@ public class MoviesAction {
 	}
 	
 	
-public static void main(String[] args) {
-	XMemcachedUtil.remove("movies_hot_list");
-	XMemcachedUtil.remove("movies_tags");
-}
 	public PageView<Movies> getPageView(String current,
 			String whereSql) {
 		PageView<Movies> pageView = new PageView<Movies>();
