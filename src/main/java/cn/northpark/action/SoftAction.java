@@ -308,12 +308,12 @@ public class SoftAction {
 	 */
 	private void getTags(ModelMap map,HttpServletRequest request) {
 		List<Map<String, Object>> tags = null;
-		List<Soft> hotlist  =null;
+		List<Map<String, Object>> hotlist  =null;
 		List<Map<String, Object>> datelist = null;
 		
 		tags = (List<Map<String, Object>>) request.getSession().getAttribute("soft_tags");
 		
-		hotlist = (List<Soft>) request.getSession().getAttribute("hot_list");
+		hotlist = (List<Map<String, Object>>) request.getSession().getAttribute("hot_list");
 		
 		datelist = (List<Map<String, Object>>) request.getSession().getAttribute("date_list");
 		
@@ -323,8 +323,8 @@ public class SoftAction {
 			
 			
 			//获取热门文章
-			String hotsql = "select * from bc_soft order by postdate desc limit 0,10";
-			hotlist = softManager.querySql(hotsql);
+			String hotsql = "select retcode,title from bc_soft order by postdate desc limit 0,10";
+			hotlist = softManager.querySqlMap(hotsql);
 			
 			
 			//获取月份排序

@@ -53,10 +53,10 @@
 										<div class="col-xs-4 col-sm-2 center"
 											<c:if test="${MyInfo.id!=null }">onmouseover="addSpan('delspan${ss.index }')" onmouseout="rmSpan('delspan${ss.index }')"</c:if>>
 											<c:if test="${MyInfo.id!=null }">
-												<span id="delspan${ss.index }"
+												<span id="delspan${ss.index }" 
 													onclick="removes('${s.id}','${s.userlyricsid }')"></span>
 											</c:if>
-											<a  href="lyrics/toEdit/${s.id}"
+											<a  
 												title="${s.title }" class="thumbnail border-0"> <img
 												src="/bruce/${s.albumImg }" alt="${s.title }">
 												<p>${s.title }</p>

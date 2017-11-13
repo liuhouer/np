@@ -71,18 +71,6 @@ public class DashAction {
 		}	
 		
 		
-		 /**
-		  * 
-		  * 网站地图
-		  */
-		@RequestMapping("/sitemap.xml")
-		public String sitemap(HttpServletRequest request,HttpServletResponse response, ModelMap map) throws Exception {
-	 	  	
-		    
-			return "/sitemap.xml";
-		 	  	
-		}	
-		
 		
 		 /**
 		  * 

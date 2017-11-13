@@ -78,28 +78,28 @@ public class LyricsAction {
 		return result;
 	}
 	
-	@RequestMapping("/toEdit/{id}")
-	public String toEdit(HttpServletRequest request, @PathVariable("id") Integer id,ModelMap map,String userid) {
-		String result ="/page/user/lyricEdit";
-		
-		if(StringUtils.isEmpty(userid)){
-            User u = (User) request.getSession().getAttribute("user");
-            userid = String.valueOf(u.getId());
-        } 
-		if(StringUtils.isEmpty(userid)){
-			result ="redirect:/lyrics/toView/"+id;
-		}
-		map.put("userid", userid);
-		if(null!=id && 0!=id){
-			Lyrics model = lyricsManager.findLyrics(id);
-			map.put("model", model);
-			String imgpath = model.getAlbumImg(); 
-			if(!StringUtils.isEmpty(imgpath)){
-				map.put("imgp", imgpath);
-			}
-		}
-		return result;
-	}
+//	@RequestMapping("/toEdit/{id}")
+//	public String toEdit(HttpServletRequest request, @PathVariable("id") Integer id,ModelMap map,String userid) {
+//		String result ="/page/user/lyricEdit";
+//		
+//		if(StringUtils.isEmpty(userid)){
+//            User u = (User) request.getSession().getAttribute("user");
+//            userid = String.valueOf(u.getId());
+//        } 
+//		if(StringUtils.isEmpty(userid)){
+//			result ="redirect:/lyrics/toView/"+id;
+//		}
+//		map.put("userid", userid);
+//		if(null!=id && 0!=id){
+//			Lyrics model = lyricsManager.findLyrics(id);
+//			map.put("model", model);
+//			String imgpath = model.getAlbumImg(); 
+//			if(!StringUtils.isEmpty(imgpath)){
+//				map.put("imgp", imgpath);
+//			}
+//		}
+//		return result;
+//	}
 	
 	@RequestMapping("/toView/{id}")
 	public String toView(HttpServletRequest request, @PathVariable("id") Integer id,ModelMap map) {
