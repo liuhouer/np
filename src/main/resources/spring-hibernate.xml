@@ -93,16 +93,21 @@
 	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 		<!-- 配置详细事务处理语义 -->
 		<tx:attributes>
-			<tx:method name="insert*" propagation="REQUIRED" />
-			<tx:method name="update*" propagation="REQUIRED" />
-			<tx:method name="delete*" propagation="REQUIRED" />
-
-			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
-			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
-			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
-			<tx:method name="load*" propagation="SUPPORTS" read-only="true" />
-
-			<!-- 其他采用默认事务方式 -->
+			
+			<!-- 对insert,update,delete 开头的方法进行事务管理,只要有异常就回滚 -->
+			<tx:method name="insert*" propagation="REQUIRED"
+				rollback-for="java.lang.Throwable" />
+			<tx:method name="update*" propagation="REQUIRED"
+				rollback-for="java.lang.Throwable" />
+			<tx:method name="delete*" propagation="REQUIRED"
+				rollback-for="java.lang.Throwable" />
+			<!-- select,count开头的方法,开启只读,提高数据库访问性能 -->
+			<tx:method name="select*" read-only="true" />
+			<tx:method name="count*" read-only="true" />
+			<tx:method name="get*"   read-only="true" />
+			<tx:method name="find*"  read-only="true" />
+			<tx:method name="load*"  read-only="true" />
+			<!-- 对其他方法 使用默认的事务管理 -->
 			<tx:method name="*" />
 
 		</tx:attributes>
@@ -112,7 +117,7 @@
 	<aop:config>
 		<!-- 配置切入点 -->
 		<aop:pointcut id="transactionPointcut"
-			expression="execution(* cn.northpark.manager..*Impl.*(..))" />
+			expression="execution(* cn.northpark.manager.*.*(..))" />
 		<!-- 指定在txAdvice切入点应用txAdvice事务增强处理 -->
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />

@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,11 +41,8 @@ import cn.northpark.model.LyricsComment;
 import cn.northpark.model.User;
 import cn.northpark.model.UserLyrics;
 import cn.northpark.query.LyricsQuery;
-import cn.northpark.query.condition.LyricsQueryCondition;
 import cn.northpark.utils.FileUtils;
 import cn.northpark.utils.MyConstant;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
 import cn.northpark.utils.ScriptTools;
 import cn.northpark.utils.TimeUtils;
 
@@ -71,36 +69,19 @@ public class LyricsAction {
  @Autowired	
  private UserFollowManager userfollowManager;
 	
+ 	/**
+ 	 * 跳转到添加最爱页面
+ 	 * @return
+ 	 */
  	@CheckLogin
 	@RequestMapping("/add")
-	public String toAdd(ModelMap map,String userid,HttpServletRequest request,HttpServletResponse response) {
+	public String toAdd() {
 		String result = "/page/user/lyricAdd";
 		return result;
 	}
 	
-//	@RequestMapping("/toEdit/{id}")
-//	public String toEdit(HttpServletRequest request, @PathVariable("id") Integer id,ModelMap map,String userid) {
-//		String result ="/page/user/lyricEdit";
-//		
-//		if(StringUtils.isEmpty(userid)){
-//            User u = (User) request.getSession().getAttribute("user");
-//            userid = String.valueOf(u.getId());
-//        } 
-//		if(StringUtils.isEmpty(userid)){
-//			result ="redirect:/lyrics/toView/"+id;
-//		}
-//		map.put("userid", userid);
-//		if(null!=id && 0!=id){
-//			Lyrics model = lyricsManager.findLyrics(id);
-//			map.put("model", model);
-//			String imgpath = model.getAlbumImg(); 
-//			if(!StringUtils.isEmpty(imgpath)){
-//				map.put("imgp", imgpath);
-//			}
-//		}
-//		return result;
-//	}
-	
+//
+
 	@RequestMapping("/toView/{id}")
 	public String toView(HttpServletRequest request, @PathVariable("id") Integer id,ModelMap map) {
 		if(null!=id && 0!=id){
@@ -179,6 +160,16 @@ public class LyricsAction {
 	
 	
 
+	/**
+	 * 
+	 * 保存最爱
+	 * @param lyrics
+	 * @param userid
+	 * @param request
+	 * @param file
+	 * @param map
+	 * @return
+	 */
 	@RequestMapping("/addLyrics")
 	public String addLyrics(Lyrics lyrics,String userid,HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile[] file,ModelMap map) {
 		
@@ -226,7 +217,7 @@ public class LyricsAction {
 	public String getMoreZan(HttpServletRequest request,HttpServletResponse response, String lyricsid,ModelMap map) {
 		response.setContentType("text/html; charset=UTF-8");  
 		//取得zan的人的列表
-		String sql  = "select b.* from bc_lyrics_zan a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' ";
+		String sql  = "select b.id,b.tail_slug,b.username from bc_lyrics_zan a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' ";
 		List<Map<String, Object>> zanList = lyricszanManager.mixSqlQuery(sql);
 
 		StringBuilder sb = new StringBuilder();   
@@ -307,15 +298,22 @@ public class LyricsAction {
 		return "/page/zancmt/loadcomment";
 	}
 	
+	
+	/**
+	 * 最爱主题页面-评论、爱上列表、点赞列表
+	 * @param request
+	 * @param lyricsid
+	 * @param map
+	 * @param userid
+	 * @return
+	 */
 	@RequestMapping("/comment/{lyricsid}.html")
 	public String comment(HttpServletRequest request, @PathVariable Integer lyricsid,ModelMap map,String userid) {
 		 String result ="/zancmmet";
 		 String by_id = "";
 		 List<UserLyrics> list = userlyricsManager.findByCondition(" where lyricsid = '"+lyricsid+"'").getResultlist();
-		 if(list!=null){
-			 if(list.size()>0){
+		 if(!CollectionUtils.isEmpty( list)){
 				 by_id =  String.valueOf(list.get(0).getUserid());
-			 }
 		 }
 		 //取得歌词/图片的信息 
 		 Lyrics lyrics = lyricsManager.findLyrics(lyricsid);
@@ -329,7 +327,7 @@ public class LyricsAction {
          }
          
          //取得zan的人的列表
-         String sql  = "select b.* from bc_lyrics_zan a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' limit 0 , 10 ";
+         String sql  = "select b.id,b.tail_slug,b.username  from bc_lyrics_zan a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' limit 0 , 10 ";
          List<Map<String, Object>> zanList = lyricszanManager.mixSqlQuery(sql);
          map.put("zanList", zanList);
          
@@ -367,20 +365,7 @@ public class LyricsAction {
    		 return result;
 	}
 	
-	
 
-	@RequestMapping("/findLyrics")
-	private String findLyrics(@RequestParam("id") Integer id, ModelMap map) {
-		Lyrics lyrics = this.lyricsManager.findLyrics(id);
-		map.addAttribute("lyrics", lyrics);
-		return "findresult";
-	}
-
-	@RequestMapping("/delLyrics")
-	public String delLyrics(@RequestParam("id") Integer id) {
-		this.lyricsManager.delLyrics(id);
-		return "redirect:/lyrics/findAll";
-	}
 
 	
 	@RequestMapping(value="/downloadLrc")
@@ -444,64 +429,7 @@ public class LyricsAction {
 		return rs;
 		
 	}
-	@RequestMapping(value="/findAll")
-	public String findAll(ModelMap map,LyricsQueryCondition condition,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) {
-		String whereSql = lyricsQuery.getSql(condition);
-		
-		PageView<Lyrics> pageView = getPageView(null, whereSql);
-		
+	
 
-//		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-//		order.put("createtime", "desc");
-
-		QueryResult<Lyrics> qrs = this.lyricsManager.findByCondition(pageView,
-				whereSql, null);
-		List<Lyrics> list = qrs.getResultlist();
-		map.addAttribute("pageView", pageView);
-		map.put("condition", condition);
-		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","/lyrics/findAll" );
-
-		return "/page/user/lyricList";
-	}
-
-	private PageView<Lyrics> getPageView(String page,
-			String whereSql) {
-		PageView<Lyrics> pageView = new PageView<Lyrics>();
-		int currentpage = 0; //当前页码
-		int pages = 0; //总页数
-		int n = this.lyricsManager.countHql(new Lyrics(), whereSql);
-		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
-        if(n % maxresult==0)
-       {
-          pages = n / maxresult ;
-       }else{
-          pages = n / maxresult + 1;
-       }
-        if(StringUtils.isEmpty(page)){
-           currentpage = 0;
-        }else{
-           currentpage = Integer.parseInt(page);
-           
-           if(currentpage<0)
-           {
-              currentpage = 0;
-           }
-           if(currentpage>=pages)
-           {
-              currentpage = pages - 1;
-           }
-        }
-		int startindex = currentpage*maxresult;
-		int endindex = startindex+maxresult-1;
-		pageView.setStartindex(startindex);
-		pageView.setEndindex(endindex);
-		pageView.setTotalrecord(this.lyricsManager.findAll().size());
-		pageView.setCurrentpage(currentpage);
-		pageView.setTotalpage(pages);
-		pageView.setMaxresult(maxresult);
-		return pageView;
-	}
 
 }

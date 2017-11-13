@@ -72,5 +72,11 @@ public class UserFollowManagerImpl implements UserFollowManager {
 		// TODO Auto-generated method stub
 		return userfollowDao.querySql(sql);
 	}
+
+	@Override
+	public List<Map<String, Object>> querySql(String sql, Object... obj) {
+		// TODO Auto-generated method stub
+		return userfollowDao.querySql(sql, obj);
+	}
 }
 

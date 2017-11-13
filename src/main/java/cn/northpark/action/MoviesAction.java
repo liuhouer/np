@@ -123,13 +123,9 @@ public class MoviesAction {
 	public String toAdd(ModelMap map,HttpServletRequest request) {
 		String rs = "/page/admin/movies/moviesAdd";
 		User user = (User) request.getSession().getAttribute("user");
-		if(user==null){
-			rs = "/login2";
-		}else{
 			if(!user.getEmail().equals("654714226@qq.com") && !user.getEmail().equals("qhdsoft@126.com")){
 				rs = "/login2";
 			}
-		}
 		
 		return rs;
 	}
@@ -301,16 +297,23 @@ public class MoviesAction {
 	 */
 	@RequestMapping(value="/movies")
 	public String list() {
-//		String  sql = "select * from bc_movies   order by addtime desc limit 0,200 ";
-//		List<Movies> list =  moviesManager.querySql(sql);
-//		map.addAttribute("list", list);
 
 		return "redirect:/movies/page0";
 	}
 	
+	/**
+	 * 电影分页列表
+	 * @param map
+	 * @param page
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/movies/page{page}")
 	public String listpage(ModelMap map, @PathVariable String page,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) throws IOException {
+			 HttpSession session) throws IOException {
 		
 		session.removeAttribute("tabs");
 		session.setAttribute("tabs","movies");

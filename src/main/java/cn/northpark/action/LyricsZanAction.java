@@ -38,6 +38,13 @@ public class LyricsZanAction {
  private LyricsManager lyricsManager;
  
  
+ 	/**
+ 	 * 最爱的主题点赞操作
+ 	 * @param lyricsid
+ 	 * @param userid
+ 	 * @param request
+ 	 * @return
+ 	 */
  	@RequestMapping("/zan")
  	@ResponseBody
 	public String zan(String lyricsid,String userid,HttpServletRequest request) {
@@ -75,6 +82,14 @@ public class LyricsZanAction {
 		return msg;
 	}
  	
+ 	/**
+ 	 * 最爱的主题评论保存
+ 	 * @param comment
+ 	 * @param userid
+ 	 * @param lyricsid
+ 	 * @param request
+ 	 * @return
+ 	 */
  	@RequestMapping("/addComment")
  	@ResponseBody
 	public String addComment(String comment,String userid,String lyricsid,HttpServletRequest request) {

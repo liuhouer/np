@@ -22,7 +22,6 @@ import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Poem;
 import cn.northpark.model.Tags;
 import cn.northpark.query.PoemQuery;
-import cn.northpark.query.condition.PoemQueryCondition;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
 import cn.northpark.utils.safe.WAQ;

@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.northpark.model.Soft;
 import cn.northpark.model.UserFollow;
 import cn.northpark.utils.PageView;
 import cn.northpark.utils.QueryResult;
@@ -27,6 +28,12 @@ public interface UserFollowManager {
 			String wheresql);
 	
 	public List<Map<String,Object>> getFansList(String sql);
+	
+	/**
+	 * sql+
+	 * @return
+	 */
+	public List<Map<String,Object>> querySql(String sql,Object... obj);
 }
 
 

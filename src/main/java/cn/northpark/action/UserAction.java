@@ -113,7 +113,7 @@ public class UserAction {
 	 	@RequestMapping("/cm/emailFlag")
 	 	@ResponseBody
 		public String emailFlag(HttpServletRequest request, HttpServletResponse response,ModelMap map,String email) {
-	 		int num = userManager.findByCondition(" where email = '"+email+"' ").getResultlist().size();
+	 		int num = userManager.countHql(new User(), " where email = '"+email+"' " );
 	 		String msg = "exist";//存在；
 			if(num<=0){
 				msg = "notexist";//不存在	     
@@ -133,7 +133,7 @@ public class UserAction {
 	 	@RequestMapping("/cm/tailFlag")
 	 	@ResponseBody
 		public String tailFlag(HttpServletRequest request, HttpServletResponse response,ModelMap map,String tail) {
-	 		int num = userManager.findByCondition(" where tail_slug = '"+tail+"' ").getResultlist().size();
+	 		int num = userManager.countHql(new User()," where tail_slug = '"+tail+"' ");
 	 		String msg = "exist";//存在；
 			if(num<=0){
 				msg = "notexist";//不存在	     
@@ -152,10 +152,8 @@ public class UserAction {
 				throws ParseException {
 			    String userid = "";
 			    List<User> list = userManager.findByCondition(" where email = '"+email+"' ").getResultlist();
-			    if(list!=null){
-			    	if(list.size()>0){
+			    if(!CollectionUtils.isEmpty(list)){
 			    		userid = String.valueOf(list.get(0).getId());
-			    	}
 			    }
 				Reset reset = new Reset();
 				reset.setCreated_time(TimeUtils.nowTime());
@@ -186,8 +184,7 @@ public class UserAction {
 			String result = "false";
 			List<cn.northpark.model.Reset> gtList = resetManager.findByCondition(" where user_id='"+userid+"' and auth_code='"+auth_code+"' order by created_time desc").getResultlist();
 			try {
-				if (gtList != null) {
-				 if(gtList.size()>0){
+				if (!CollectionUtils.isEmpty(gtList)) {
 					 Reset gtmodel = gtList.get(0);
 					if (gtmodel.getAuth_code().equals(auth_code)) {// Email认证通过
 						if (StringUtils.isNotEmpty(gtmodel.getInvalid_time())) {// 设置了失效时间
@@ -224,7 +221,6 @@ public class UserAction {
 							}
 						}
 					}
-				 }
 				} else {// 已失效，重新获取验证码
 					result = "invalid";
 				}
@@ -264,8 +260,11 @@ public class UserAction {
 	 		String msg = "success";
 	 		
 	 		try {
-	 			int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
-		 		if(nums==0){
+	 			
+	 			String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
+	 			List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id,follow_id);
+		 		String nums = (String) ygznums_list.get(0).get("nums");
+	 			if(Integer.parseInt(nums)==0){
 		 			UserFollow uf = new UserFollow();
 			 		uf.setAuthor_id(Integer.parseInt(author_id));
 			 		uf.setFollow_id(Integer.parseInt(follow_id));
@@ -436,8 +435,7 @@ public class UserAction {
 			//查询该用户的粉丝列表
 			List<Map<String,Object>> fanlist = new ArrayList<Map<String,Object>>();
 			List<UserFollow> fan_list = userfollowManager.findByCondition(" where author_id = '"+userid+"' ").getResultlist();
-			if(fan_list!=null){
-				if(fan_list.size()>0){
+			if(!CollectionUtils.isEmpty(fan_list)){
 					for (int i = 0; i < fan_list.size(); i++) {
 						Map<String,Object> map_ = new HashMap<String,Object>();
 						String u_id = String.valueOf(fan_list.get(i).getFollow_id());
@@ -450,7 +448,6 @@ public class UserAction {
 						map_.put("follow", ff);
 						fanlist.add(map_);
 					}
-				}
 			}
 			map.put("fanlist", fanlist);
 			
@@ -460,8 +457,11 @@ public class UserAction {
 	        	 String follow_id = String.valueOf(lo_user.getId());
 	        	 String author_id = userid;
 	        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
-	        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
-	        		 if(nums>0){
+	        		 
+	        		 String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
+	 	 			List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id,follow_id);
+	 		 		String nums = (String) ygznums_list.get(0).get("nums");
+	        		 if(Integer.parseInt(nums)>0){
 	        			 map.put("gz", "ygz");
 	        		 }
 	        	 }
@@ -505,8 +505,11 @@ public class UserAction {
 		        	 String follow_id = String.valueOf(lo_user.getId());
 		        	 String author_id = userid;
 		        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
-		        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
-		        		 if(nums>0){
+		        		
+		        		 String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
+		 	 			List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id,follow_id);
+		 		 		String nums = (String) ygznums_list.get(0).get("nums");
+		        		 if(Integer.parseInt(nums)>0){
 		        			 map.put("gz", "ygz");
 		        		 }
 		        	 }
@@ -535,10 +538,8 @@ public class UserAction {
 				tail_slug = WAQ.forSQL().escapeSql(tail_slug);	
 			User user = null;
 			List<User> ul = userManager.findByCondition(" where tail_slug = '"+tail_slug+"' ").getResultlist();
-			if(ul!=null){
-				if(ul.size()>0){
+			if(!CollectionUtils.isEmpty(ul)){
 					user = ul.get(0);
-				}
 			}
 			map.put("MyInfo", user);
 			//查询个人歌词最爱历史
@@ -560,8 +561,11 @@ public class UserAction {
 		        	 String follow_id = String.valueOf(lo_user.getId());
 		        	 String author_id = String.valueOf(user.getId());
 		        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
-		        		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
-		        		 if(nums>0){
+		        		 
+		        		 String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
+		 	 			List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id,follow_id);
+		 		 		String nums = (String) ygznums_list.get(0).get("nums");
+		        		 if(Integer.parseInt(nums)>0){
 		        			 map.put("gz", "ygz");
 		        		 }
 		        	 }

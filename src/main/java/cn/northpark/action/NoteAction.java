@@ -55,6 +55,11 @@ public class NoteAction {
 	
 	
 
+	/**
+	 * 添加碎碎念保存
+	 * @param note
+	 * @return
+	 */
 	@RequestMapping("/addNote")
 	public String addNote(Note note) {
 		String rs= LIST_ACTION;
@@ -115,59 +120,22 @@ public class NoteAction {
 
 	
 	
+	/**
+	 * 查看某人的碎碎念列表
+	 * @param userid
+	 * @return
+	 */
 	@RequestMapping(value="/viewNotes/{userid}")
-	public String viewNotes(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session, @PathVariable String userid) {
-		//condition.setOpened("yes");
-		String result="/spacenote";
-		if(StringUtils.isNotEmpty(userid)){
-			condition.setUserid(userid);
-			map.addAttribute("userid",userid);
-			User user = userManager.findUser(Integer.parseInt(userid));
-			map.put("MyInfo", user);
-		}else{
-			condition.setUserid("空");
-			map.addAttribute("userid","");
-		}
-		String whereSql = noteQuery.getSql(condition);
-		
-		PageView<Note> pageView = getPageView(null, whereSql);
-		
-
-		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("createtime", "desc");
-
-		QueryResult<Note> qrs = this.noteManager.findByCondition(pageView,
-				whereSql, order);
-		List<Note> list = qrs.getResultlist();
-		for (int i = 0; i < list.size(); i++) {
-			if(list.get(i).getCreatetime().contains("-")){
-				String t = list.get(i).getCreatetime().substring(0, 10);
-				list.get(i).setCreatetime(t);
-			}
-		}
-		map.addAttribute("pageView", pageView);
-		map.put("condition", condition);
-		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","/note/viewNotes/"+userid );
-		
-		//取得当前用户对作者的关注状态
-        User lo_user = (User) request.getSession().getAttribute("user");
-        if(lo_user!=null){
-       	 String follow_id = String.valueOf(lo_user.getId());
-       	 String author_id = userid;
-       	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
-       		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
-       		 if(nums>0){
-       			 map.put("gz", "ygz");
-       		 }
-       	 }
-       	 
-        }
-
-		return result;
+	public String viewNotes(@PathVariable String userid) {
+				
+		  return "redirect:/note/viewNotes/"+userid+"/page0";
 	}
 	
+	/**
+	 * 查看某人的碎碎念列表 分页
+	 * @param userid
+	 * @return
+	 */
 	@RequestMapping(value="/viewNotes/{userid}/page{page}")
 	public String viewNotesPages(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session, @PathVariable String userid, @PathVariable String page) {
@@ -221,6 +189,17 @@ public class NoteAction {
 		return result;
 	}
 
+	/**
+	 * 查看自己的所有碎碎念 列表 -分页
+	 * @param map
+	 * @param condition
+	 * @param page
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @param userid
+	 * @return
+	 */
 	@RequestMapping(value="/findAll/page{page}")
 	public String findAllpages(ModelMap map,NoteQueryCondition condition,@PathVariable String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,String userid) {
@@ -266,51 +245,27 @@ public class NoteAction {
 		return result;
 	}
 	
+	
+	/**
+	 * 查看自己的所有碎碎念 列表 -分页
+	 * @return
+	 */
 	@RequestMapping(value="/findAll")
-	public String findAll(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session,String userid) {
-		//condition.setOpened("yes");
-		
-		 //取得当前用户
-        User user = (User) request.getSession().getAttribute("user");
-        if(user!=null){
-        	userid = String.valueOf(user.getId());
-        }
-		String result="/note";
-		if(StringUtils.isNotEmpty(userid)){
-			condition.setUserid(userid);
-			map.addAttribute("userid",userid);
-			map.put("MyInfo", user);
-		}else{
-			condition.setUserid("空");
-			map.addAttribute("userid","");
-		}
-		String whereSql = noteQuery.getSql(condition);
-		
-		PageView<Note> pageView = getPageView(null, whereSql);
-		
-
-		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("createtime", "desc");
-
-		QueryResult<Note> qrs = this.noteManager.findByCondition(pageView,
-				whereSql, order);
-		List<Note> list = qrs.getResultlist();
-		for (int i = 0; i < list.size(); i++) {
-			if(list.get(i).getCreatetime().contains("-")){
-				String t = list.get(i).getCreatetime().substring(0, 10);
-				list.get(i).setCreatetime(t);
-			}
-		}
-		map.addAttribute("pageView", pageView);
-		map.put("condition", condition);
-		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","/note/findAll" );
-
-		return result;
+	public String findAll() {
+		return "redirect:/note/findAll/page0";
 	}
 	
 	
+	/**
+	 * 查看碎碎念 广场列表
+	 * @param map
+	 * @param condition
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/list")
 	public String list_(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
@@ -335,6 +290,19 @@ public class NoteAction {
 
 		return result;
 	}
+	
+	
+
+	/**
+	 * 查看碎碎念 广场列表
+	 * @param map
+	 * @param condition
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/list/page{page}")
 	public String list(ModelMap map,NoteQueryCondition condition, @PathVariable String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
