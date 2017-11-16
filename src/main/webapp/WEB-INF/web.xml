@@ -12,7 +12,18 @@ id="WebApp_ID" version="2.5">
 		<param-value>classpath:spring.xml,classpath:spring-hibernate.xml</param-value>
 	</context-param>
 
-  <!-- 字符集配置 UTF8 -->
+	<!-- 监听servletContext，启动contextConfigLocation中的spring配置信息 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- 防止spring内存溢出监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+
+
+  <!--  编码过滤器 -->
   <filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -45,44 +56,55 @@ id="WebApp_ID" version="2.5">
 	    <filter-name>openSession</filter-name>
 	    <url-pattern>/*</url-pattern>
 	  </filter-mapping>
+	  
+	  
+	  
+	  <!-- spring session filter -->
+		<filter>
+			<filter-name>springSessionRepositoryFilter</filter-name>
+			<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		</filter>
+		<filter-mapping>
+			<filter-name>springSessionRepositoryFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+		</filter-mapping>
+	  
+	  
+	   <!-- 配置 alibaba _filter -->
+	  <filter>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+		<init-param>
+			<param-name>exclusions</param-name>
+			<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,/fonts/*</param-value>
+		</init-param>
+	  </filter>
+		<filter-mapping>
+			<filter-name>DruidWebStatFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+		</filter-mapping>
 	
-	<!-- 监听servletContext，启动contextConfigLocation中的spring配置信息 -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
 	
-	<!-- 防止spring内存溢出监听器 -->
-	<listener>
-		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-	</listener>
-	
-  <servlet>
-    <description>spring mvc servlet</description>
-    
-    <servlet-name>np</servlet-name>
-    
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    
-    <init-param>
+	<!-- SpringMVC配置 -->
+	<servlet>
+		<servlet-name>springServlet</servlet-name>
+		<description>spring mvc servlet</description>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<!-- 此处配置的是SpringMVC的配置文件 -->
 			<param-value>classpath:spring-mvc.xml</param-value>
-	</init-param>
-	
-    <init-param>
-      <param-name>listings</param-name>
-      <param-value>true</param-value>
-    </init-param>
-    
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>np</servlet-name>
-    <url-pattern>*.do</url-pattern>
-    <url-pattern>*.action</url-pattern>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
+		</init-param>
+		<init-param>
+			<param-name>listings</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
   
   <!-- 配置 alibaba _StatViewServlet配置 -->
   <servlet>
@@ -104,18 +126,9 @@ id="WebApp_ID" version="2.5">
       <url-pattern>/druid/*</url-pattern>
   </servlet-mapping>
   
-  <filter>
-  	<filter-name>DruidWebStatFilter</filter-name>
-  	<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
-  	<init-param>
-  		<param-name>exclusions</param-name>
-  		<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,/fonts/*</param-value>
-  	</init-param>
-  </filter>
-  <filter-mapping>
-  	<filter-name>DruidWebStatFilter</filter-name>
-  	<url-pattern>/*</url-pattern>
-  </filter-mapping>
+  
+  
+  
   
  
   

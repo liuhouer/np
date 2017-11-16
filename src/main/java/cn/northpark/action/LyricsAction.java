@@ -369,7 +369,6 @@ public class LyricsAction {
 
 	
 	@RequestMapping(value="/downloadLrc")
-	@ResponseBody
 	public String downloadLrc(ModelMap map,String id,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		String lrcpath ="";
@@ -421,7 +420,7 @@ public class LyricsAction {
 				}
 		    	  
 		      }else{
-		    	  ScriptTools.alert(request, response, "歌词已丢失");
+		    	  ScriptTools.alert(request, response, "the lrc file has lost");
 				   rs = "/page/user/lyricView";
 		      }
 			}
