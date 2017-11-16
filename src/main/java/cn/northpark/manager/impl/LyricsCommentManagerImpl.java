@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.LyricsCommentDao;
 import cn.northpark.manager.LyricsCommentManager;
 import cn.northpark.model.LyricsComment;
-import cn.northpark.utils.MyConstant;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @Service("LyricsCommentManager")
 public class LyricsCommentManagerImpl implements LyricsCommentManager {
@@ -53,7 +53,7 @@ public class LyricsCommentManagerImpl implements LyricsCommentManager {
 	@Override
 	public QueryResult<LyricsComment> findByCondition(PageView<LyricsComment> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = lyricscommentDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = lyricscommentDao.findByCondition(p.getFirstResult(),
 				MyConstant.MAXRESULT, wheresql, order);
 		return qrs;
 	}
@@ -80,7 +80,7 @@ public class LyricsCommentManagerImpl implements LyricsCommentManager {
 	}
 
 	@Override
-	public PageView<List<Map<String, Object>>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView) {
+	public List<Map<String, Object>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView) {
 		// TODO Auto-generated method stub
 		return lyricscommentDao.QuerySQLForMapList(sql, pageView);
 	}

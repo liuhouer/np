@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.ResetDao;
 import cn.northpark.manager.ResetManager;
 import cn.northpark.model.Reset;
-import cn.northpark.utils.MyConstant;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @Service("ResetManager")
 public class ResetManagerImpl implements ResetManager {
@@ -52,7 +52,7 @@ public class ResetManagerImpl implements ResetManager {
 	@Override
 	public QueryResult<Reset> findByCondition(PageView<Reset> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = resetDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = resetDao.findByCondition(p.getFirstResult(),
 				MyConstant.MAXRESULT, wheresql, order);
 		return qrs;
 	}

@@ -1,9 +1,13 @@
-package cn.northpark.utils;
+package cn.northpark.utils.page;
 
 import java.util.List;
 
 public class QueryResult<T> {
 
+	public QueryResult() {
+
+	}
+	
 	private List<T> resultlist;
 
 	private Long totalrecord;

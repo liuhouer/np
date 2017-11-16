@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import cn.northpark.model.LyricsZan;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 public interface LyricsZanManager {
 	

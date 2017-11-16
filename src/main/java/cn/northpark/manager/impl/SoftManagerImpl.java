@@ -11,12 +11,13 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.SoftDao;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Soft;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
+
 
 /**
  * @author bruce
- * @date 2016-11-09
+ * @date 2017-01-05
  * @email zhangyang226@gmail.com
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
  * 
@@ -59,7 +60,7 @@ public class SoftManagerImpl implements SoftManager {
 	@Override
 	public QueryResult<Soft> findByCondition(PageView<Soft> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = softDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = softDao.findByCondition(p.getFirstResult(),
 				p.getMaxresult(), wheresql, order);
 		return qrs;
 	}
@@ -86,7 +87,7 @@ public class SoftManagerImpl implements SoftManager {
 	}
 
 	@Override
-	public PageView<List<Map<String, Object>>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView) {
+	public List<Map<String, Object>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView) {
 		// TODO Auto-generated method stub
 		return softDao.QuerySQLForMapList(sql, pageView);
 	}

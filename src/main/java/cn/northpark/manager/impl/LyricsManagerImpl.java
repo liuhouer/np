@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.LyricsDao;
 import cn.northpark.manager.LyricsManager;
 import cn.northpark.model.Lyrics;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @Service("LyricsManager")
 public class LyricsManagerImpl implements LyricsManager {
@@ -51,7 +51,7 @@ public class LyricsManagerImpl implements LyricsManager {
 	@Override
 	public QueryResult<Lyrics> findByCondition(PageView<Lyrics> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = lyricsDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = lyricsDao.findByCondition(p.getFirstResult(),
 				p.getMaxresult(), wheresql, order);
 		return qrs;
 	}

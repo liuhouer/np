@@ -30,11 +30,11 @@ import cn.northpark.model.Note;
 import cn.northpark.model.User;
 import cn.northpark.query.NoteQuery;
 import cn.northpark.query.condition.NoteQueryCondition;
-import cn.northpark.utils.MyConstant;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.json.JsonUtil;
+import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @Controller
 @RequestMapping("/note")

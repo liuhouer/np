@@ -31,9 +31,10 @@ import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Movies;
 import cn.northpark.model.Tags;
 import cn.northpark.model.User;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
 
 @Controller
@@ -194,9 +195,12 @@ public class MoviesAction {
 		order.put("hotindex,id", "desc");
 		
 		//获取pageview
-		PageView<Movies> p = getPageView(currentpage, whereSql);
-		QueryResult<Movies> qr = this.moviesManager.findByCondition(p, whereSql, order);
+		PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+		QueryResult<Movies> qr = this.moviesManager.findByCondition(pageview, whereSql, order);
 		List<Movies> resultlist = qr.getResultlist();
+		
+		//生成分页信息
+		pageview.setQueryResult(qr);
 		
 		//处理标签列表
 		handleTag(resultlist);
@@ -211,7 +215,7 @@ public class MoviesAction {
 		}
 		map.put("page", pages);
 		
-		map.addAttribute("pageView", p);
+		map.addAttribute("pageView", pageview);
 		map.addAttribute("list", resultlist);
 		map.addAttribute("actionUrl","/movies/date/"+tagscode);
 		
@@ -260,9 +264,12 @@ public class MoviesAction {
 		order.put("hotindex,id", "desc");
 		
 		//获取pageview
-		PageView<Movies> p = getPageView(currentpage, whereSql);
-		QueryResult<Movies> qr = this.moviesManager.findByCondition(p, whereSql, order);
+		PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+		QueryResult<Movies> qr = this.moviesManager.findByCondition(pageview, whereSql, order);
 		List<Movies> resultlist = qr.getResultlist();
+		
+		//生成分页信息
+		pageview.setQueryResult(qr);
 		
 		//处理标签列表
 		handleTag(resultlist);
@@ -277,7 +284,7 @@ public class MoviesAction {
 		}
 		map.put("page", pages);
 		
-		map.addAttribute("pageView", p);
+		map.addAttribute("pageView",pageview);
 		map.addAttribute("list", resultlist);
 		map.addAttribute("actionUrl","/movies/tag/"+tagscode);
 		
@@ -340,10 +347,12 @@ public class MoviesAction {
 		
 		
 		//获取pageview
-		PageView<Movies> p = getPageView(currentpage, whereSql);
-		QueryResult<Movies> qr = this.moviesManager.findByCondition(p, whereSql, order);
+		PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+		QueryResult<Movies> qr = this.moviesManager.findByCondition(pageview, whereSql, order);
 		List<Movies> resultlist = qr.getResultlist();
 		
+		//生成分页信息
+		pageview.setQueryResult(qr);
 		//处理标签列表
 		handleTag(resultlist);
 		
@@ -357,7 +366,7 @@ public class MoviesAction {
 		}
 		map.put("page", pages);
 		
-		map.addAttribute("pageView", p);
+		map.addAttribute("pageView", pageview);
 		map.addAttribute("list", resultlist);
 		map.addAttribute("actionUrl","/movies");
 		
@@ -452,6 +461,12 @@ public class MoviesAction {
 	
 	/**
 	 * 获取标签模块
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 * @param map
 	 */
 	private void getTags(ModelMap map,HttpServletRequest request) {
@@ -482,43 +497,5 @@ public class MoviesAction {
 	}
 	
 	
-	public PageView<Movies> getPageView(String current,
-			String whereSql) {
-		PageView<Movies> pageView = new PageView<Movies>();
-		int currentpage = 0; //当前页码
-		int pages = 0; //总页数
-		//总条数
-		int n = moviesManager.countHql(new Movies(), whereSql);
-		int maxresult = 6; /** 每页显示记录数**/
-        if(n % maxresult==0)
-       {
-          pages = n / maxresult ;
-       }else{
-          pages = n / maxresult + 1;
-       }
-        if(StringUtils.isEmpty(current)){
-           currentpage = 0;
-        }else{
-           currentpage = Integer.parseInt(current);
-           
-           if(currentpage<0)
-           {
-              currentpage = 0;
-           }
-           if(currentpage>=pages)
-           {
-              currentpage = pages - 1;
-           }
-        }
-		int startindex = currentpage*maxresult;
-		int endindex = startindex+maxresult-1;
-		pageView.setStartindex(startindex);
-		pageView.setEndindex(endindex);
-		pageView.setTotalrecord(n);
-		pageView.setCurrentpage(currentpage);
-		pageView.setTotalpage(pages);
-		pageView.setMaxresult(maxresult);
-		return pageView;
-	}
 
 }

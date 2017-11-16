@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import cn.northpark.model.Tags;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 /**
  * @author bruce
@@ -50,7 +50,7 @@ public interface TagsManager {
 	 * sqlmap
 	 * @return
 	 */
-	public PageView<List<Map<String, Object>>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView);
+	public List<Map<String, Object>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView);
 
 	
 	/**

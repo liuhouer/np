@@ -12,9 +12,9 @@ import cn.northpark.dao.LyricsCommentDao;
 import cn.northpark.dao.LyricsZanDao;
 import cn.northpark.manager.LyricsZanManager;
 import cn.northpark.model.LyricsZan;
-import cn.northpark.utils.MyConstant;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @Service("LyricsZanManager")
 public class LyricsZanManagerImpl implements LyricsZanManager {
@@ -56,7 +56,7 @@ public class LyricsZanManagerImpl implements LyricsZanManager {
 	@Override
 	public QueryResult<LyricsZan> findByCondition(PageView<LyricsZan> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = lyricszanDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = lyricszanDao.findByCondition(p.getFirstResult(),
 				MyConstant.MAXRESULT, wheresql, order);
 		return qrs;
 	}

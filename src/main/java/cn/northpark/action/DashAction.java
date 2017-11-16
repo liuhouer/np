@@ -23,8 +23,8 @@ import cn.northpark.model.Eq;
 import cn.northpark.query.NoteQuery;
 import cn.northpark.query.condition.NoteQueryCondition;
 import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.PageView;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.page.PageView;
 
 
 /**
@@ -198,7 +198,7 @@ public class DashAction {
 					//取出一部分love数据
 					PageView<List<Map<String, Object>>> lovepageView = this.userlyricsManager.getMixMapData("0","");
 					
-					List<Map<String, Object>> lovelist = lovepageView.getMapRecords();
+					List<Map<String, Object>> lovelist = lovepageView.getRecords();
 					if(!CollectionUtils.isEmpty(lovelist)){
 						for (int i = 0; i < lovelist.size(); i++) {
 							Map<String, Object> map2 = lovelist.get(i);

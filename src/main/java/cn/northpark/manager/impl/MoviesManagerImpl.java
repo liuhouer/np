@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.MoviesDao;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.model.Movies;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @Service("MoviesManager")
 public class MoviesManagerImpl implements MoviesManager {
@@ -52,7 +52,7 @@ public class MoviesManagerImpl implements MoviesManager {
 	@Override
 	public QueryResult<Movies> findByCondition(PageView<Movies> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = moviesDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = moviesDao.findByCondition(p.getFirstResult(),
 				p.getMaxresult(), wheresql, order);
 		return qrs;
 	}

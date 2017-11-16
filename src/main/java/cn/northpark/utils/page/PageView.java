@@ -1,10 +1,10 @@
-package cn.northpark.utils;
+package cn.northpark.utils.page;
 
 import java.util.List;
 import java.util.Map;
 
 public class PageView<T> {
-////	用一个PageView封装了分页数据（从QueryResult里List拿出来的），
+//  用一个PageView封装了分页数据（从QueryResult里List拿出来的），
 //	页码开始索引和结束索引（是一个封装了开始索引和结束索引的类PageIndex，这两个字段就像是百度搜索下端的页码开始和结束索引），
 //	总页数totalpage（通过总记录数totalrecord和每页最大记录数maxresult计得），
 //	每页记录数maxresult（使用默认值），
@@ -15,6 +15,9 @@ public class PageView<T> {
 	
 	/** 分页数据 **/
 	private List<T> records;
+	
+	/** Map结构分页数据 **/
+	private List<Map<String,Object>> maprecords;
 
 
 	/** 页码开始索引和结束索引 **/
@@ -43,6 +46,10 @@ public class PageView<T> {
 	 */
 	public PageView( int currentpage,int maxresult) {
 		this.maxresult = maxresult;
+		//兼容错误
+		if(currentpage<=0){
+			currentpage = 1;
+		}
 		this.currentpage = currentpage;
 	}
 	
@@ -106,14 +113,9 @@ public class PageView<T> {
 	
 	
 	
-	public PageIndex getPageindex() {
-		return pageindex;
-	}
 	
 	
-	public int getTotalpage() {
-		return totalpage;
-	}
+	
 	
 	/**
 	 * 设置总页数和pageindex
@@ -124,7 +126,15 @@ public class PageView<T> {
 		this.pageindex = PageIndex.getPageIndex(pagecode, currentpage, totalpage);
 	}
 	
+	public PageIndex getPageindex() {
+		return pageindex;
+	}
 	
+	
+	
+	public int getTotalpage() {
+		return totalpage;
+	}
 	
 	public int getMaxresult() {
 		return maxresult;
@@ -135,6 +145,16 @@ public class PageView<T> {
 	}
 	public void setCurrentpage(int currentpage) {
 		this.currentpage = currentpage;
+	}
+
+	public List<Map<String, Object>> getMaprecords() {
+		return maprecords;
+	}
+
+	public void setMaprecords(List<Map<String, Object>> maprecords) {
+		//设置总条数
+		setTotalrecord(maprecords.size());
+		this.maprecords = maprecords;
 	}
 	
 

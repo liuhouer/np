@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.UserFollowDao;
 import cn.northpark.manager.UserFollowManager;
 import cn.northpark.model.UserFollow;
-import cn.northpark.utils.MyConstant;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @Service("UserFollowManager")
 public class UserFollowManagerImpl implements UserFollowManager {
@@ -53,7 +53,7 @@ public class UserFollowManagerImpl implements UserFollowManager {
 	@Override
 	public QueryResult<UserFollow> findByCondition(PageView<UserFollow> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = userfollowDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = userfollowDao.findByCondition(p.getFirstResult(),
 				MyConstant.MAXRESULT, wheresql, order);
 		return qrs;
 	}

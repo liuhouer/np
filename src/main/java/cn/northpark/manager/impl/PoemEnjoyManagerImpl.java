@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.PoemEnjoyDao;
 import cn.northpark.manager.PoemEnjoyManager;
 import cn.northpark.model.PoemEnjoy;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 /**
  * @author bruce
@@ -59,7 +59,7 @@ public class PoemEnjoyManagerImpl implements PoemEnjoyManager {
 	@Override
 	public QueryResult<PoemEnjoy> findByCondition(PageView<PoemEnjoy> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = poemenjoyDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = poemenjoyDao.findByCondition(p.getFirstResult(),
 				p.getMaxresult(), wheresql, order);
 		return qrs;
 	}
@@ -86,7 +86,7 @@ public class PoemEnjoyManagerImpl implements PoemEnjoyManager {
 	}
 
 	@Override
-	public PageView<List<Map<String, Object>>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView) {
+	public List<Map<String, Object>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView) {
 		// TODO Auto-generated method stub
 		return poemenjoyDao.QuerySQLForMapList(sql, pageView);
 	}

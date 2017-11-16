@@ -12,8 +12,9 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.NoteDao;
 import cn.northpark.manager.NoteManager;
 import cn.northpark.model.Note;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @Service("NoteManager")
 public class NoteManagerImpl implements NoteManager {
@@ -53,7 +54,7 @@ public class NoteManagerImpl implements NoteManager {
 	@Override
 	public QueryResult<Note> findByCondition(PageView<Note> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = noteDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = noteDao.findByCondition(p.getFirstResult(),
 				p.getMaxresult(), wheresql, order);
 		return qrs;
 	}
@@ -71,66 +72,18 @@ public class NoteManagerImpl implements NoteManager {
 	public PageView<List<Map<String, Object>>> findmixByCondition(String currentpage,String wheresql) {
 		// TODO Auto-generated method stub
 		
-		PageView<List<Map<String, Object>>> pageview = setPageviewParam(
-				currentpage, wheresql);
+		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage),MyConstant.MAXRESULT);
 		
 		
-		pageview = noteDao.QuerySQLForMapList(wheresql, pageview);
+		List<Map<String, Object>> list = noteDao.QuerySQLForMapList(wheresql, pageview);
+		
+		
+		pageview.setQueryResult(new QueryResult<List<Map<String,Object>>>(list));
+		
 		return pageview;
 		
 	}
 
-	/**
-	 * @param currentpage
-	 * @param wheresql
-	 * @return
-	 * @throws NumberFormatException
-	 */
-	private PageView<List<Map<String, Object>>> setPageviewParam(
-			String currentpage, String wheresql) throws NumberFormatException {
-		String sql = wheresql;
-		
-		//设置pageview参数
-		PageView<List<Map<String, Object>>> pageview=new PageView<List<Map<String, Object>>>();
-		int pages = 0; // 总页数
-		int n =  noteDao.countSql(sql);
-		int maxresult = pageview.getMaxresult();
-		/** 每页显示记录数 **/
-		if (n % maxresult == 0) {
-			pages = n / maxresult;
-		} else {
-			pages = n / maxresult + 1;
-		}
-		if (StringUtils.isEmpty(currentpage)) {
-			currentpage = "0";
-		} else {
-            try {//胡乱把currentpage写成英文，捕捉异常
-            	if (Integer.parseInt(currentpage) >= pages) {
-    				currentpage = pages - 1 +"";
-    			}
-    			if (Integer.parseInt(currentpage) < 0) {
-    				currentpage = "0";
-    			}
-			} catch (Exception e) {
-				// TODO: handle exception
-				currentpage = "0";
-			}
-			
-		}
-		int startindex = Integer.parseInt(currentpage) * maxresult;
-		int endindex = startindex + maxresult - 1;
-		pageview.setStartindex(startindex);
-		pageview.setEndindex(endindex);
-		pageview.setTotalrecord(n);
-		pageview.setCurrentpage(Integer.parseInt(currentpage));
-		pageview.setTotalpage(pages);
-		pageview.setMaxresult(maxresult);
-		//设置pageview参数 end
-		
-		
-		
-		return pageview;
-	}
 
 	@Override
 	public int findmixCount(String whereSql) {
@@ -160,7 +113,14 @@ public class NoteManagerImpl implements NoteManager {
 	public PageView<List<Map<String, Object>>> findmixPageByCondition(
 			String currentpage, String wheresql) {
 		// TODO Auto-generated method stub
-		return setPageviewParam(currentpage, wheresql);
+		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage),MyConstant.MAXRESULT);
+		
+		
+		List<Map<String, Object>> list = noteDao.QuerySQLForMapList(wheresql, pageview);
+		
+		
+		pageview.setQueryResult(new QueryResult<List<Map<String,Object>>>(list));
+		return pageview;
 	}
 
 	/* (non-Javadoc)

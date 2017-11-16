@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.UserprofileDao;
 import cn.northpark.manager.UserprofileManager;
 import cn.northpark.model.Userprofile;
-import cn.northpark.utils.MyConstant;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @Service("UserprofileManager")
 public class UserprofileManagerImpl implements UserprofileManager {
@@ -52,7 +52,7 @@ public class UserprofileManagerImpl implements UserprofileManager {
 	@Override
 	public QueryResult<Userprofile> findByCondition(PageView<Userprofile> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = userprofileDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = userprofileDao.findByCondition(p.getFirstResult(),
 				MyConstant.MAXRESULT, wheresql, order);
 		return qrs;
 	}

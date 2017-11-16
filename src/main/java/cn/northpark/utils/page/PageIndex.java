@@ -1,4 +1,4 @@
-package cn.northpark.utils;
+package cn.northpark.utils.page;
 
 /**
  * 计算首页和尾页的页码

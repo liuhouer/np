@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.UserLyricsDao;
 import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.model.UserLyrics;
-import cn.northpark.utils.MyConstant;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @Service("UserLyricsManager")
 public class UserLyricsManagerImpl implements UserLyricsManager {
@@ -54,7 +54,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 	@Override
 	public QueryResult<UserLyrics> findByCondition(PageView<UserLyrics> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = userlyricsDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = userlyricsDao.findByCondition(p.getFirstResult(),
 				MyConstant.MAXRESULT, wheresql, order);
 		return qrs;
 	}
@@ -82,68 +82,14 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
 		       sql+=" order by a.updatedate desc";
 		
-		PageView<List<Map<String, Object>>> pageview = setPageviewParam(
-				currentpage, userid,sql);
-		pageview = userlyricsDao.QuerySQLForMapList(sql, pageview);
+		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage),MyConstant.MAXRESULT);
+		List<Map<String, Object>> list  = userlyricsDao.QuerySQLForMapList(sql, pageview);
+		pageview.setQueryResult(new QueryResult<List<Map<String,Object>>>(list));
 		return pageview;
 		
 		
 	}
 
-	/**
-	 * @param currentpage
-	 * @param userid
-	 * @return
-	 * @throws NumberFormatException
-	 */
-	private PageView<List<Map<String, Object>>> setPageviewParam(
-			String currentpage, String userid,String sql) throws NumberFormatException {
-		
-		System.out.println(sql);
-		//设置pageview参数
-		PageView<List<Map<String, Object>>> pageview=new PageView<List<Map<String, Object>>>();
-		
-		int pages = 0; // 总页数
-		//总条数
-		int n = userlyricsDao.countSql(sql);
-		
-		int maxresult = pageview.getMaxresult();
-		/** 每页显示记录数 **/
-		if (n % maxresult == 0) {
-			pages = n / maxresult;
-		} else {
-			pages = n / maxresult + 1;
-		}
-		if (StringUtils.isEmpty(currentpage)) {
-			currentpage = "0";
-		} else {
-            try {//胡乱把currentpage写成英文，捕捉异常
-            	if (Integer.parseInt(currentpage) >= pages) {
-    				currentpage = pages - 1 +"";
-    			}
-    			if (Integer.parseInt(currentpage) < 0) {
-    				currentpage = "0";
-    			}
-			} catch (Exception e) {
-				// TODO: handle exception
-				currentpage = "0";
-			}
-			
-		}
-		int startindex = Integer.parseInt(currentpage) * maxresult;
-		int endindex = startindex + maxresult - 1;
-		pageview.setStartindex(startindex);
-		pageview.setEndindex(endindex);
-		pageview.setTotalrecord(n);
-		pageview.setCurrentpage(Integer.parseInt(currentpage));
-		pageview.setTotalpage(pages);
-		pageview.setMaxresult(maxresult);
-		//设置pageview参数 end
-		
-		
-		
-		return pageview;
-	}
 
 	@Override
 	public PageView<List<Map<String, Object>>> getMixMapPage(
@@ -162,8 +108,9 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 		       sql+=" order by a.updatedate desc";
 		
 		//只设置分页信息
-		PageView<List<Map<String, Object>>> pageview = setPageviewParam(
-				currentpage, userid,sql);
+		       PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage),MyConstant.MAXRESULT);
+				List<Map<String, Object>> list  = userlyricsDao.QuerySQLForMapList(sql, pageview);
+				pageview.setQueryResult(new QueryResult<List<Map<String,Object>>>(list));
 		return pageview;
 	}
 

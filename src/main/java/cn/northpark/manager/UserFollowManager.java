@@ -6,8 +6,8 @@ import java.util.Map;
 
 import cn.northpark.model.Soft;
 import cn.northpark.model.UserFollow;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 public interface UserFollowManager {
 	

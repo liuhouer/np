@@ -5,8 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @SuppressWarnings("hiding")
 public interface HibernateDao<T, PK extends Serializable> {
@@ -61,7 +61,7 @@ public interface HibernateDao<T, PK extends Serializable> {
 	public <T extends Serializable> List<T> querySql(String sql, Class<T> clazz, Object... obj);
 	
 	
-	public PageView<List<Map<String, Object>>> QuerySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) ;
+	public List<Map<String, Object>> QuerySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) ;
 	
 	
 	

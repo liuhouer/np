@@ -1,4 +1,4 @@
-package cn.northpark.utils;
+package cn.northpark.utils.page;
 
 /**
  * 封装分页时的常量:每页显示的记�?

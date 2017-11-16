@@ -4,8 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import cn.northpark.model.Userprofile;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 public interface UserprofileManager {
 	

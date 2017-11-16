@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import cn.northpark.model.LyricsComment;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 public interface LyricsCommentManager {
 	
@@ -43,7 +43,7 @@ public interface LyricsCommentManager {
 	 * 根据自己写的sql查询返回map
 	 * @return
 	 */
-	public PageView<List<Map<String, Object>>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView);
+	public List<Map<String, Object>> querySqlMap(String sql,PageView<List<Map<String,Object>>> pageView);
 
 	
 	/**

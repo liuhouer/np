@@ -42,9 +42,9 @@ import cn.northpark.model.User;
 import cn.northpark.model.UserLyrics;
 import cn.northpark.query.LyricsQuery;
 import cn.northpark.utils.FileUtils;
-import cn.northpark.utils.MyConstant;
 import cn.northpark.utils.ScriptTools;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.page.MyConstant;
 
 @Controller
 @RequestMapping("/lyrics")

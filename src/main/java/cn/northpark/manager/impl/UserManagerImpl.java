@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.UserDao;
 import cn.northpark.manager.UserManager;
 import cn.northpark.model.User;
-import cn.northpark.utils.MyConstant;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @Service("UserManager")
 public class UserManagerImpl implements UserManager {
@@ -53,7 +53,7 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	public QueryResult<User> findByCondition(PageView<User> p,
 			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = userDao.findByCondition(p.getStartindex(),
+		QueryResult qrs = userDao.findByCondition(p.getFirstResult(),
 				MyConstant.MAXRESULT, wheresql, order);
 		return qrs;
 	}

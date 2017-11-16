@@ -21,9 +21,9 @@ import cn.northpark.manager.EqManager;
 import cn.northpark.model.Eq;
 import cn.northpark.query.EqQuery;
 import cn.northpark.query.condition.EqQueryCondition;
-import cn.northpark.utils.MyConstant;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
+import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
 
 
@@ -142,29 +142,23 @@ public class EqAction {
 			session.removeAttribute("tabs");
 			String whereSql = eqQuery.getSql(condition);
 			
+			
+			//定义pageview
+			PageView<Eq> pageview  =  new PageView<Eq>(1, MyConstant.MAXRESULT); 
+			
 			System.out.println("sql ---"+whereSql);
 			
 			//排序条件
 			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
 			order.put("date", "desc");
 			
-			//获取pageview
-			PageView<Eq> p = getPageView(null, whereSql);
-//			QueryResult<Eq> qr = this.eqManager.findByCondition(p, whereSql, order);
-//			List<Eq> resultlist = qr.getResultlist();
-			int pages = 0;
-			try {
-				pages = Integer.parseInt(page)+1;
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-				pages = 1;
-			}
-			map.put("page", pages);
 			
-			map.addAttribute("pageView", p);
-			map.put("condition", condition);
-//			map.addAttribute("list", resultlist);
+			QueryResult<Eq> qr = this.eqManager.findByCondition(pageview, whereSql, order);
+			List<Eq> resultlist = qr.getResultlist();
+			//触发生成页码等等
+			pageview.setQueryResult(qr);
+			map.addAttribute("pageView", pageview);
+			map.addAttribute("list", resultlist);
 			map.addAttribute("actionUrl","/romeo");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -179,33 +173,29 @@ public class EqAction {
 	@RequestMapping(value="/romeo/page{page}")
 	public String listpage(ModelMap map,EqQueryCondition condition, @PathVariable String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
-		session.removeAttribute("tabs");
+
 		String result="/equp";
+		session.removeAttribute("tabs");
 		String whereSql = eqQuery.getSql(condition);
 		
+		
+		
+		//定义pageview
+		PageView<Eq> pageview  =  new PageView<Eq>(Integer.parseInt(page), MyConstant.MAXRESULT); 
+		
 		System.out.println("sql ---"+whereSql);
-		String currentpage = page;
+		
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
 		order.put("date", "desc");
 		
-		//获取pageview
-		PageView<Eq> p = getPageView(currentpage, whereSql);
-//		QueryResult<Eq> qr = this.eqManager.findByCondition(p, whereSql, order);
-//		List<Eq> resultlist = qr.getResultlist();
-		int pages = 0;
-		try {
-			 pages = Integer.parseInt(page)+1;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			pages = 1;
-		}
-		map.put("page", pages);
 		
-		map.addAttribute("pageView", p);
-		map.put("condition", condition);
-//		map.addAttribute("list", resultlist);
+		QueryResult<Eq> qr = this.eqManager.findByCondition(pageview, whereSql, order);
+		List<Eq> resultlist = qr.getResultlist();
+		//触发生成页码等等
+		pageview.setQueryResult(qr);
+		map.addAttribute("pageView", pageview);
+		map.addAttribute("list", resultlist);
 		map.addAttribute("actionUrl","/romeo");
 		
 		
@@ -224,12 +214,12 @@ public class EqAction {
 				keyword = WAQ.forSQL().escapeSql(keyword);
 				whereSql+=" and title like '%"+keyword+"%' ";
 			}
-			PageView<Eq> p = getPageView(currentpage, whereSql);
+			PageView<Eq> pageview  =  new PageView<Eq>(Integer.parseInt(currentpage), MyConstant.MAXRESULT); 
 			//排序条件
 			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
 			order.put("date", "desc");
 			
-			QueryResult<Eq> qr = this.eqManager.findByCondition(p, whereSql, order);
+			QueryResult<Eq> qr = this.eqManager.findByCondition(pageview, whereSql, order);
 			List<Eq> resultlist = qr.getResultlist();
 			map.addAttribute("list", resultlist==null?"":resultlist);
 			
@@ -238,44 +228,6 @@ public class EqAction {
 		}
 	
 	
-	public PageView<Eq> getPageView(String current,
-			String whereSql) {
-		PageView<Eq> pageView = new PageView<Eq>();
-		int currentpage = 0; //当前页码
-		int pages = 0; //总页数
-		//总条数
-		int n = eqManager.countHql(new Eq(), whereSql);
-		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
-        if(n % maxresult==0)
-       {
-          pages = n / maxresult ;
-       }else{
-          pages = n / maxresult + 1;
-       }
-        if(StringUtils.isEmpty(current)){
-           currentpage = 0;
-        }else{
-           currentpage = Integer.parseInt(current);
-           
-           if(currentpage<0)
-           {
-              currentpage = 0;
-           }
-           if(currentpage>=pages)
-           {
-              currentpage = pages - 1;
-           }
-        }
-		int startindex = currentpage*maxresult;
-		int endindex = startindex+maxresult-1;
-		pageView.setStartindex(startindex);
-		pageView.setEndindex(endindex);
-		pageView.setTotalrecord(n);
-		pageView.setCurrentpage(currentpage);
-		pageView.setTotalpage(pages);
-		pageView.setMaxresult(maxresult);
-		return pageView;
-	}
 
 	
 	/**

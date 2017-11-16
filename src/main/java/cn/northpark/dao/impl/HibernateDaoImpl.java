@@ -16,9 +16,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.northpark.dao.HibernateDao;
-import cn.northpark.utils.PageView;
-import cn.northpark.utils.QueryResult;
 import cn.northpark.utils.ReflectManager;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 
 @SuppressWarnings({ "unchecked", "hiding" })
 public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
@@ -212,7 +212,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 
 		QueryResult<T> queryResult = new QueryResult<T>();
 		queryResult.setResultlist(query.list());
-		//queryResult.setTotalrecord((long) query.list().size());
+		queryResult.setTotalrecord((long) query.list().size());
 
 		sessionFactory.getCurrentSession().flush();
 		return queryResult;
@@ -227,15 +227,11 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 	 * @return PageView<List<Map<String, Object>>>
 	 */
 	@SuppressWarnings("rawtypes")
-	public PageView<List<Map<String, Object>>> QuerySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
-		int totalCount = pageView.getTotalrecord();
-			if (totalCount >= 1) {
-				String resultQueryString = (new StringBuilder(" select t.* from (")).append(sql).append(") as t LIMIT " +((pageView.getCurrentpage()) * pageView.getMaxresult() )+ "," + pageView.getMaxresult()).toString();
+	public List<Map<String, Object>> QuerySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
+				String resultQueryString = (new StringBuilder(" select t.* from (")).append(sql).append(") as t LIMIT " +pageView.getFirstResult()+ "," + pageView.getMaxresult()).toString();
 				List<Map<String, Object>> resultlist = querySql(resultQueryString);
-				pageView.setMapRecords(resultlist);
 				sessionFactory.getCurrentSession().flush();
-			}
-		return pageView;
+		return resultlist;
 	}
 	
 	
@@ -258,6 +254,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		sessionFactory.getCurrentSession().flush();
 		return query.list();
 	}
+	
 	
 	/**
 	 * SQL查询操作
