@@ -54,7 +54,8 @@ public class LyricsZanAction {
             userid =  String.valueOf(u.getId());
         } 
  		String msg = "success";
-		int num = this.lyricszanManager.findByCondition(" where lyricsid='"+lyricsid+"' and userid = '"+userid+"' ").getResultlist().size();
+		int num = lyricszanManager.countHql(new LyricsZan(), " where lyricsid='"+lyricsid+"' and userid = '"+userid+"' ");
+   	 
 		if(num>0){
 			msg = "zanguole";
 		}else{

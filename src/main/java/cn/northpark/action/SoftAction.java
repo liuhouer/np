@@ -44,6 +44,10 @@ public class SoftAction {
  @Autowired	
  private SoftQuery softQuery;
  
+ /**
+ * 每页展示多少条mac数
+ */
+private static int SoftCount = 6;
  
  /**
 	 * 查询列表
@@ -59,12 +63,12 @@ public class SoftAction {
 		
 		//搜索
 
-				String rs = "redirect:/soft/mac/page0";
+				String rs = "redirect:/soft/mac/page/1";
 
 		return rs;
 	}
 	
-	@RequestMapping(value="/mac/page{page}")
+	@RequestMapping(value="/mac/page/{page}")
 	public String listpage(ModelMap map, @PathVariable String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
@@ -98,18 +102,12 @@ public class SoftAction {
 		order.put("UNIX_TIMESTAMP(postdate)", "desc");
 		
 		//获取pageview
-		PageView<Soft> p = getPageView(currentpage, whereSql);
-		QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
-		List<Soft> resultlist = qr.getResultlist();
-		int pages = 0;
-		try {
-			 pages = Integer.parseInt(page)+1;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			pages = 1;
-		}
-		map.put("page", pages);
+				PageView<Soft> p =  new PageView<Soft>(Integer.parseInt(currentpage), SoftCount);
+				QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
+				List<Soft> resultlist = qr.getResultlist();
+
+		//触发分页
+		p.setQueryResult(qr);
 		
 		map.addAttribute("pageView", p);
 		map.addAttribute("list", resultlist);
@@ -186,7 +184,7 @@ public class SoftAction {
 	 */
 	@RequestMapping("/month/{month}")
 	public String monthsearch(ModelMap map, @PathVariable String month ,HttpServletRequest request) {
-		return "redirect:/soft/month/"+month+"/page0";
+		return "redirect:/soft/month/"+month+"/page/1";
 	}
 	
 	/**
@@ -196,7 +194,7 @@ public class SoftAction {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/month/{month}/page{page}")
+	@RequestMapping("/month/{month}/page/{page}")
 	public String monthsearch(ModelMap map, @PathVariable String month , @PathVariable String page,HttpServletRequest request) {
 		String result="/soft";
 		try{
@@ -212,18 +210,12 @@ public class SoftAction {
 			order.put("UNIX_TIMESTAMP(postdate)", "desc");
 			
 			//获取pageview
-			PageView<Soft> p = getPageView(currentpage, whereSql);
+			PageView<Soft> p =  new PageView<Soft>(Integer.parseInt(currentpage), SoftCount);
 			QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
 			List<Soft> resultlist = qr.getResultlist();
-			int pages = 0;
-			try {
-				 pages = Integer.parseInt(page)+1;
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-				pages = 1;
-			}
-			map.put("page", pages);
+
+			//触发分页
+			p.setQueryResult(qr);
 			
 			map.addAttribute("pageView", p);
 			map.addAttribute("list", resultlist);
@@ -247,7 +239,7 @@ public class SoftAction {
 	 */
 	@RequestMapping("/tag/{tagscode}")
 	public String tagsearch(ModelMap map, @PathVariable String tagscode ,HttpServletRequest request) {
-		String rs = "redirect:/soft/tag/"+tagscode+"/page0";
+		String rs = "redirect:/soft/tag/"+tagscode+"/page/1";
 		return rs;
 	}
 	
@@ -258,7 +250,7 @@ public class SoftAction {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/tag/{tagscode}/page{page}")
+	@RequestMapping(value="/tag/{tagscode}/page/{page}")
 	public String tagsearchpage(ModelMap map, @PathVariable String page,@PathVariable String tagscode,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
@@ -278,18 +270,12 @@ public class SoftAction {
 		order.put("UNIX_TIMESTAMP(postdate)", "desc");
 		
 		//获取pageview
-		PageView<Soft> p = getPageView(currentpage, whereSql);
+		PageView<Soft> p =  new PageView<Soft>(Integer.parseInt(currentpage), SoftCount);
 		QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
 		List<Soft> resultlist = qr.getResultlist();
-		int pages = 0;
-		try {
-			 pages = Integer.parseInt(page)+1;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			pages = 1;
-		}
-		map.put("page", pages);
+
+		//触发分页
+		p.setQueryResult(qr);
 		
 		map.addAttribute("pageView", p);
 		map.addAttribute("list", resultlist);
@@ -339,42 +325,5 @@ public class SoftAction {
 		
 	}
 	
-	private PageView<Soft> getPageView(String page,
-			String whereSql) {
-		PageView<Soft> pageView = new PageView<Soft>();
-		int currentpage = 0; //当前页码
-		int pages = 0; //总页数
-		int n = this.softManager.countHql(new Soft(), whereSql);;
-		int maxresult = 6; /** 每页显示记录数**/
-        if(n % maxresult==0)
-       {
-          pages = n / maxresult ;
-       }else{
-          pages = n / maxresult + 1;
-       }
-        if(StringUtils.isEmpty(page)){
-           currentpage = 0;
-        }else{
-           currentpage = Integer.parseInt(page);
-           
-           if(currentpage<0)
-           {
-              currentpage = 0;
-           }
-           if(currentpage>=pages)
-           {
-              currentpage = pages - 1;
-           }
-        }
-		int startindex = currentpage*maxresult;
-		int endindex = startindex+maxresult-1;
-		pageView.setStartindex(startindex);
-		pageView.setEndindex(endindex);
-		pageView.setTotalrecord(n);
-		pageView.setCurrentpage(currentpage);
-		pageView.setTotalpage(pages);
-		pageView.setMaxresult(maxresult);
-		return pageView;
-	}
 
 }

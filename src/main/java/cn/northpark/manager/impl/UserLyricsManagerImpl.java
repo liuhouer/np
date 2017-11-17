@@ -69,7 +69,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 	}
 
 	@Override
-	public PageView<List<Map<String, Object>>> getMixMapData(String currentpage,String userid) {
+	public List<Map<String, Object>> getMixMapData(PageView<List<Map<String, Object>>> pageview ,String userid) {
 		String sql = " select a.id,a.title,a.artist,a.album,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
 	               
 				   + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '"+userid+"' )> 0 "
@@ -82,18 +82,15 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
 		       sql+=" order by a.updatedate desc";
 		
-		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage),MyConstant.MAXRESULT);
 		List<Map<String, Object>> list  = userlyricsDao.QuerySQLForMapList(sql, pageview);
-		pageview.setQueryResult(new QueryResult<List<Map<String,Object>>>(list));
-		return pageview;
+		return list;
 		
 		
 	}
 
-
 	@Override
 	public PageView<List<Map<String, Object>>> getMixMapPage(
-			String currentpage, String userid) {
+			PageView<List<Map<String, Object>>> pageview, String userid) {
 		// TODO Auto-generated method stub
 		String sql = " select a.id,a.title,a.artist,a.album,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
 	               
@@ -107,12 +104,17 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
 		       sql+=" order by a.updatedate desc";
 		
-		//只设置分页信息
-		       PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage),MyConstant.MAXRESULT);
-				List<Map<String, Object>> list  = userlyricsDao.QuerySQLForMapList(sql, pageview);
-				pageview.setQueryResult(new QueryResult<List<Map<String,Object>>>(list));
+		pageview  = userlyricsDao.QuerySQLCountForMapList(sql, pageview);
 		return pageview;
 	}
+
+	@Override
+	public List<Map<String, Object>> querySql(String sql, Object... obj) {
+		// TODO Auto-generated method stub
+		return userlyricsDao.querySql(sql, obj);
+	}
+
+
 
 }
 

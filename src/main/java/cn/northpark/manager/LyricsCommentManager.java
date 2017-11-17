@@ -66,6 +66,17 @@ public interface LyricsCommentManager {
 	 */
 	public  int countHql(LyricsComment m,String wheresql);
 	
+	
+	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview,String sql) ;
+	
+	/**
+	 * 获取分页结构不获取数据
+	 * @param pageview
+	 * @param userid
+	 * @return
+	 */
+	public PageView<List<Map<String, Object>>>  getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql);
+	
 }
 
 

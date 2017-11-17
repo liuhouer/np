@@ -36,6 +36,9 @@ public interface HibernateDao<T, PK extends Serializable> {
 	public <T extends Serializable> QueryResult<T> findByCondition(
 			int firstResult, int maxResults, String where,
 			LinkedHashMap<String, String> orderBy);
+	
+	
+	
 
 	public <T extends Serializable> QueryResult<T> findByCondition(String where);
 	
@@ -64,7 +67,14 @@ public interface HibernateDao<T, PK extends Serializable> {
 	public List<Map<String, Object>> QuerySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) ;
 	
 	
-	
+	/**
+	 * 
+	 * @desc  多表联合查询 只返回封装的pageview  by bruce 
+	 * @param sql
+	 * @param pageView
+	 * @return PageView<List<Map<String, Object>>>
+	 */
+	public PageView<List<Map<String, Object>>> QuerySQLCountForMapList(String sql, PageView<List<Map<String, Object>>> pageView) ;
 
 	/**
 	 * 根据sql语句查询条数

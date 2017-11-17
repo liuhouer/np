@@ -15,7 +15,7 @@ public interface MyConstant {
 	/**
 	 * 每页的页码数默认
 	 */
-	public int PAGECODE = 10;
+	public int PAGECODE = 5;
 	/**
 	 * 首页页码
 	 */

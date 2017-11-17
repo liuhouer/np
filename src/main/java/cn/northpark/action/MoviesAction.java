@@ -32,7 +32,6 @@ import cn.northpark.model.Movies;
 import cn.northpark.model.Tags;
 import cn.northpark.model.User;
 import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
@@ -48,6 +47,10 @@ public class MoviesAction {
  @Autowired	
  private TagsManager  tagsManager;
  
+ /**
+ * 每页展示多少条电影数
+ */
+private static int MoviesCount = 6;
  
      /**
      * @author Bruce
@@ -165,7 +168,7 @@ public class MoviesAction {
 	 */
 	@RequestMapping("/movies/date/{tagscode}")
 	public String datesearch(ModelMap map, @PathVariable String tagscode ,HttpServletRequest request) {
-		String rs = "redirect:/movies/date/"+tagscode+"/page0";
+		String rs = "redirect:/movies/date/"+tagscode+"/page/1";
 		return rs;
 	}
 	
@@ -176,7 +179,7 @@ public class MoviesAction {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/movies/date/{tagscode}/page{page}")
+	@RequestMapping(value="/movies/date/{tagscode}/page/{page}")
 	public String datelistpage(ModelMap map, @PathVariable String page,HttpServletRequest request,@PathVariable String tagscode,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
@@ -195,7 +198,7 @@ public class MoviesAction {
 		order.put("hotindex,id", "desc");
 		
 		//获取pageview
-		PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+		PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MoviesCount);
 		QueryResult<Movies> qr = this.moviesManager.findByCondition(pageview, whereSql, order);
 		List<Movies> resultlist = qr.getResultlist();
 		
@@ -205,15 +208,6 @@ public class MoviesAction {
 		//处理标签列表
 		handleTag(resultlist);
 		
-		int pages = 0;
-		try {
-			 pages = Integer.parseInt(page)+1;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			pages = 1;
-		}
-		map.put("page", pages);
 		
 		map.addAttribute("pageView", pageview);
 		map.addAttribute("list", resultlist);
@@ -234,7 +228,7 @@ public class MoviesAction {
 	 */
 	@RequestMapping("/movies/tag/{tagscode}")
 	public String tagsearch(ModelMap map, @PathVariable String tagscode ,HttpServletRequest request) {
-		String rs = "redirect:/movies/tag/"+tagscode+"/page0";
+		String rs = "redirect:/movies/tag/"+tagscode+"/page/1";
 		return rs;
 	}
 	
@@ -245,7 +239,7 @@ public class MoviesAction {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/movies/tag/{tagscode}/page{page}")
+	@RequestMapping(value="/movies/tag/{tagscode}/page/{page}")
 	public String taglistpage(ModelMap map, @PathVariable String page,HttpServletRequest request,@PathVariable String tagscode,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
@@ -264,7 +258,7 @@ public class MoviesAction {
 		order.put("hotindex,id", "desc");
 		
 		//获取pageview
-		PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+		PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MoviesCount);
 		QueryResult<Movies> qr = this.moviesManager.findByCondition(pageview, whereSql, order);
 		List<Movies> resultlist = qr.getResultlist();
 		
@@ -305,7 +299,7 @@ public class MoviesAction {
 	@RequestMapping(value="/movies")
 	public String list() {
 
-		return "redirect:/movies/page0";
+		return "redirect:/movies/page/1";
 	}
 	
 	/**
@@ -318,7 +312,7 @@ public class MoviesAction {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/movies/page{page}")
+	@RequestMapping(value="/movies/page/{page}")
 	public String listpage(ModelMap map, @PathVariable String page,HttpServletRequest request,
 			 HttpSession session) throws IOException {
 		
@@ -347,7 +341,7 @@ public class MoviesAction {
 		
 		
 		//获取pageview
-		PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+		PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MoviesCount);
 		QueryResult<Movies> qr = this.moviesManager.findByCondition(pageview, whereSql, order);
 		List<Movies> resultlist = qr.getResultlist();
 		

@@ -27,10 +27,16 @@ public interface NoteManager {
 			String wheresql);
 	
 	
-	public PageView<List<Map<String, Object>>> findmixByCondition(String currentpage,String wheresql) ;
+	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview,String wheresql) ;
 	
-	//只获取分页信息
-	public PageView<List<Map<String, Object>>> findmixPageByCondition(String currentpage,String wheresql) ;
+	/**
+	 * 获取分页结构不获取数据
+	 * @param pageview
+	 * @param userid
+	 * @return
+	 */
+	public PageView<List<Map<String, Object>>>  getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql);
+	
 
 	public int findmixCount(String whereSql);
 	

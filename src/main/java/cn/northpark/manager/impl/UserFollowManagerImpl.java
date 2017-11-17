@@ -78,5 +78,11 @@ public class UserFollowManagerImpl implements UserFollowManager {
 		// TODO Auto-generated method stub
 		return userfollowDao.querySql(sql, obj);
 	}
+
+	@Override
+	public int getCountByCondition(String wheresql) {
+		// TODO Auto-generated method stub
+		return userfollowDao.countHql(new UserFollow().getClass(), wheresql);
+	}
 }
 

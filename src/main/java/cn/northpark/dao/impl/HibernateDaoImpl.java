@@ -25,7 +25,29 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		HibernateDao<T, PK> {
 
 	private LinkedHashMap<String, Object> temp = new LinkedHashMap<String, Object>();
+	
+	protected SessionFactory sessionFactory;
+	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
 
+	@Resource(name = "sessionFactory")
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	private Class<?> t;
+
+	public HibernateDaoImpl() {
+		t = ReflectManager.getFirstGenericTypeSuperclass(this.getClass());
+	}
+	
+	
+
+	/* (non-Javadoc)保存
+	 * @see cn.northpark.dao.HibernateDao#save(java.io.Serializable)
+	 */
 	@Transactional(propagation = Propagation.REQUIRED)
 	public <T extends Serializable> PK save(T entity) {
 		PK pk = null;
@@ -34,6 +56,9 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		return pk;
 	}
 
+	/* (non-Javadoc)更新
+	 * @see cn.northpark.dao.HibernateDao#update(java.io.Serializable)
+	 */
 	@Transactional(propagation = Propagation.REQUIRED)
 	public <T extends Serializable> void update(T entity) {
 		// sessionFactory.getCurrentSession().update(entity);
@@ -41,27 +66,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 				sessionFactory.getCurrentSession().flush();
 	}
 
-	private <T extends Serializable> String getUpdateStr(
-			LinkedHashMap<String, T> update) {
-		StringBuilder updateStr = new StringBuilder();
-		int i = 1;
-		for (Map.Entry<String, T> entry : update.entrySet()) {
-			updateStr.append(entry.getKey()).append("=").append(":u").append(i)
-					.append(",");
-			this.temp.put("u" + i, entry.getValue());
-			i++;
-		}
-
-		updateStr.deleteCharAt(updateStr.length() - 1);
-
-		return updateStr.toString();
-	}
-
-	private void setUpdateParameter(Query query) {
-		for (Map.Entry<String, Object> entry : this.temp.entrySet()) {
-			query.setParameter(entry.getKey(), entry.getValue());
-		}
-	}
+	
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public <T extends Serializable> void update(LinkedHashMap<String, T> update) {
@@ -70,6 +75,9 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 
 	}
 
+	/* (non-Javadoc)g根据参数更新
+	 * @see cn.northpark.dao.HibernateDao#update(java.util.LinkedHashMap, java.lang.String, java.lang.Object[])
+	 */
 	@Transactional(propagation = Propagation.REQUIRED)
 	public <T extends Serializable> void update(
 			LinkedHashMap<String, T> update, String where, Object[] parameter) {
@@ -157,27 +165,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		return query.list();
 	}
 
-	private void setQueryParameter(Query query, Object[] parameter) {
-		if (parameter != null) {
-			for (int i = 0; i < parameter.length; i++) {
-				query.setParameter("p" + (i + 1), parameter[i]);
-			}
-		}
-
-	}
-
-	private String getOrderStr(LinkedHashMap<String, String> orderBy) {
-		StringBuilder orderStr = new StringBuilder();
-
-		for (String key : orderBy.keySet()) {
-			orderStr.append(key).append(" ").append(orderBy.get(key))
-					.append(",");
-		}
-
-		orderStr.deleteCharAt(orderStr.length() - 1);
-
-		return orderStr.toString();
-	}
+	
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public <T extends Serializable> QueryResult<T> findByCondition(
@@ -212,16 +200,22 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 
 		QueryResult<T> queryResult = new QueryResult<T>();
 		queryResult.setResultlist(query.list());
-		queryResult.setTotalrecord((long) query.list().size());
 
 		sessionFactory.getCurrentSession().flush();
+		
+		//查询count
+		
+		setTotalRecordByHql(where, entityName, queryResult);
+
+		
 		return queryResult;
 
 	}
 	
+	
 	/**
 	 * 
-	 * @desc  多表联合查询 包含分页 返回List<map>集合 by bruce 
+	 * @desc  多表联合查询 包含分页 只返回结果集List<map>集合 by bruce 
 	 * @param sql
 	 * @param pageView
 	 * @return PageView<List<Map<String, Object>>>
@@ -232,6 +226,22 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 				List<Map<String, Object>> resultlist = querySql(resultQueryString);
 				sessionFactory.getCurrentSession().flush();
 		return resultlist;
+	}
+	
+	
+	/**
+	 * 
+	 * @desc  多表联合查询 只返回封装的pageview  by bruce 
+	 * @param sql
+	 * @param pageView
+	 * @return PageView<List<Map<String, Object>>>
+	 */
+	@SuppressWarnings("rawtypes")
+	public PageView<List<Map<String, Object>>> QuerySQLCountForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
+		
+		        int countSql = countSql(sql);
+		        pageView.setTotalrecord(countSql);
+		return pageView;
 	}
 	
 	
@@ -298,30 +308,41 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		QueryResult<T> queryResult = new QueryResult<T>();
 
 		queryResult.setResultlist(query.list());
-		//queryResult.setTotalrecord((long) query.list().size());
-
 		
 		sessionFactory.getCurrentSession().flush();
+		
 		return queryResult;
 
 	}
 
-	protected SessionFactory sessionFactory;
+	/**
+	 * 根据where条件通过hql设置总条数
+	 * @param where
+	 * @param entityName
+	 * @param queryResult
+	 */
+	private <T extends Serializable> void setTotalRecordByHql(String where,
+			String entityName, QueryResult<T> queryResult) {
+		StringBuilder hql2 = new StringBuilder();
 
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
+		hql2.append("select count(*) from " + entityName + " as o");
+
+		if (StringUtils.isNotEmpty(where)) {
+			hql2.append(where);
+		}
+
+		Query query2 =sessionFactory.getCurrentSession().createQuery(hql2.toString());
+		
+		Long count = (Long)query2.uniqueResult();
+		
+		sessionFactory.getCurrentSession().flush();
+		
+		queryResult.setTotalrecord(count);
 	}
 
-	@Resource(name = "sessionFactory")
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+	
 
-	private Class<?> t;
-
-	public HibernateDaoImpl() {
-		t = ReflectManager.getFirstGenericTypeSuperclass(this.getClass());
-	}
+	
 	
 
 	/**
@@ -376,6 +397,54 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		
 		return nums;
 		
+	}
+	
+	
+	
+	//抽取的工具类====================================================================================
+	
+	private <T extends Serializable> String getUpdateStr(
+			LinkedHashMap<String, T> update) {
+		StringBuilder updateStr = new StringBuilder();
+		int i = 1;
+		for (Map.Entry<String, T> entry : update.entrySet()) {
+			updateStr.append(entry.getKey()).append("=").append(":u").append(i)
+					.append(",");
+			this.temp.put("u" + i, entry.getValue());
+			i++;
+		}
+
+		updateStr.deleteCharAt(updateStr.length() - 1);
+
+		return updateStr.toString();
+	}
+
+	private void setUpdateParameter(Query query) {
+		for (Map.Entry<String, Object> entry : this.temp.entrySet()) {
+			query.setParameter(entry.getKey(), entry.getValue());
+		}
+	}
+	
+	private void setQueryParameter(Query query, Object[] parameter) {
+		if (parameter != null) {
+			for (int i = 0; i < parameter.length; i++) {
+				query.setParameter("p" + (i + 1), parameter[i]);
+			}
+		}
+
+	}
+
+	private String getOrderStr(LinkedHashMap<String, String> orderBy) {
+		StringBuilder orderStr = new StringBuilder();
+
+		for (String key : orderBy.keySet()) {
+			orderStr.append(key).append(" ").append(orderBy.get(key))
+					.append(",");
+		}
+
+		orderStr.deleteCharAt(orderStr.length() - 1);
+
+		return orderStr.toString();
 	}
 
 }

@@ -47,6 +47,7 @@ import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.json.JsonUtil;
+import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.safe.WAQ;
 
@@ -812,33 +813,26 @@ public class UserAction {
 		 * @param session
 		 * @return
 		 */
-		@RequestMapping(value="/love/page{page}")
+		@RequestMapping(value="/love/page/{page}")
 		public String listpage(ModelMap map,UserLyricsQueryCondition condition,@PathVariable String page,HttpServletRequest request,
 				HttpServletResponse response, HttpSession session) {
 			
 			//获取域名+tab{selection}
 			session.removeAttribute("tabs");
 			session.setAttribute("tabs","pic");
-			String currentpage = page;
 			
 			User u = (User) session.getAttribute("user");
 			
 			String userid = (u==null?"":String.valueOf(u.getId()));
 			
-			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapPage(currentpage,userid);
+			//定义pageview
+			PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(page), MyConstant.MAXRESULT);
 			
-			List<Map<String, Object>> list = pageView.getMapRecords();
+			//获取分页结构不获取数据
 			
-			map.addAttribute("pageView", pageView);
-			int pages = 0;
-			try {
-				 pages = Integer.parseInt(page)+1;
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-				pages = 1;
-			}
-			map.put("page", pages);
+			pageview = this.userlyricsManager.getMixMapPage(pageview, userid);
+			
+			map.addAttribute("pageView", pageview);
 			map.put("condition", condition);
 			map.addAttribute("actionUrl","/love");
 			
@@ -861,17 +855,21 @@ public class UserAction {
 				 HttpSession session,String userid) {
 			session.removeAttribute("tabs");
 			session.setAttribute("tabs","pic");
-			String currentpage = request.getParameter("currentpage");
 			
 	        User u = (User) session.getAttribute("user");
 				
 			userid = (u==null?"":String.valueOf(u.getId()));
 
 			
-			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapPage(currentpage,userid);
+			//定义pageview
+			PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(1, MyConstant.MAXRESULT);
+			
+			//获取分页结构不获取数据
+			
+			pageview = this.userlyricsManager.getMixMapPage(pageview, userid);
 			
 			
-			map.addAttribute("pageView", pageView);
+			map.addAttribute("pageView", pageview);
 			map.put("condition", condition);
 			map.addAttribute("actionUrl","/love");
 			
@@ -897,9 +895,15 @@ public class UserAction {
 			userid = (u==null?"":String.valueOf(u.getId()));
 
 			
-			PageView<List<Map<String, Object>>> pageView = this.userlyricsManager.getMixMapData(currentpage,userid);
+			//定义pageview
+			PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
 			
-			List<Map<String, Object>> lovelist = pageView.getMapRecords();
+			
+			//获取分页数据
+			List<Map<String, Object>>  lovelist = this.userlyricsManager.getMixMapData(pageview,userid);
+			
+			
+			
 			if(!CollectionUtils.isEmpty(lovelist)){
 				for (int i = 0; i < lovelist.size(); i++) {
 					Map<String, Object> map2 = lovelist.get(i);

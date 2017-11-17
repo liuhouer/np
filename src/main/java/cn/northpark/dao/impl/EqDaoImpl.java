@@ -18,4 +18,5 @@ import cn.northpark.model.Eq;
 @Service("EqDao")
 public class EqDaoImpl extends HibernateDaoImpl<Eq, Serializable> implements EqDao {
 
+
 }

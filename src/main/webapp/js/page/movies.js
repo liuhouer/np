@@ -27,9 +27,10 @@
 		//搜索
 		$("#J_ser_btn").click(function(){
 			$("#J_ser_btn").attr('disabled',true);
+			alert($("#keyword").val());
+			alert("${keyword }");
 			if($("#keyword").val() && $("#keyword").val()!="${keyword }"){
-				
-				$("#J_ser_from").submit();
+				window.location.href = "/movies/search?keyword="+$("#keyword").val();
 			}
 			setTimeout("$('#J_ser_btn').removeAttr('disabled')",5000); //设置5秒后提交按钮 显示  
 		})

@@ -30,9 +30,9 @@
 		
 		<div class="clearfix  margin20 view">
 				     
-				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/soft/mac/page0">
+				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/soft/mac/page/1">
 		                  <input id="keyword" placeholder="Mac软件板块上线啦~"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
-		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="submit" id="J_ser_btn">
+		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="button" id="J_ser_btn">
 		                </form>
 		                 
 		</div>
@@ -211,7 +211,7 @@
 			$("#J_ser_btn").attr('disabled',true);
 			if($("#keyword").val() && $("#keyword").val()!="${keyword }"){
 				
-				$("#J_ser_from").submit();
+				window.location.href = "/soft/mac/page/1?keyword="+$("#keyword").val();
 			}
 			setTimeout("$('#J_ser_btn').removeAttr('disabled')",5000); //设置5秒后提交按钮 显示  
 		})

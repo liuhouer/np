@@ -37,14 +37,14 @@ import cn.northpark.manager.UserFollowManager;
 import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.manager.UserManager;
 import cn.northpark.model.Lyrics;
-import cn.northpark.model.LyricsComment;
+import cn.northpark.model.LyricsZan;
 import cn.northpark.model.User;
 import cn.northpark.model.UserLyrics;
 import cn.northpark.query.LyricsQuery;
 import cn.northpark.utils.FileUtils;
 import cn.northpark.utils.ScriptTools;
 import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.page.MyConstant;
+import cn.northpark.utils.page.PageView;
 
 @Controller
 @RequestMapping("/lyrics")
@@ -243,47 +243,19 @@ public class LyricsAction {
 		String page = request.getParameter("currentpage");
 		String lyricsid =    request.getParameter("lrcid");
 		
-		
-		map.put("tail", "false");
-		int currentpage = 1; //当前页码
-		int pages = 0; //总页数
-		int n = this.plManager.countHql(new LyricsComment(), " where lyricsid = "+lyricsid);
-		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
-        if(n % maxresult==0)
-       {
-          pages = n / maxresult ;
-       }else{
-          pages = n / maxresult + 1;
-       }
-        if(StringUtils.isEmpty(page)){
-           currentpage = 1;
-        }else{
-           currentpage = Integer.parseInt(page);
-           
-           if(currentpage<=1)
-           {
-              currentpage = 1;
-           }
-           if(currentpage>=pages)
-           {  
-              currentpage = pages;
-              map.put("tail", "tail");
-           }
-        }
-        
-        int startindex = (currentpage-1)*maxresult;
-		int endindex = startindex+maxresult-1;
-        
-        
-		
+
 		//取得 评论 的列表 
         String sql_  = "select b.username,b.tail_slug,b.email,b.headpath,b.headspan,b.headspanclass,a.* from bc_lyrics_comment a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' order by a.create_time desc";
         
-        sql_+=" limit "+startindex+" , "+endindex;
-        
-        
-        
-        List<Map<String, Object>> plList = lyricszanManager.mixSqlQuery(sql_);
+		//每页展示6条  获取分页信息
+		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), 6);
+		
+		pageview = this.plManager.getMixMapPage(pageview, sql_);
+		
+		
+		//  获取分页数据
+		List<Map<String, Object>> plList = this.plManager.findmixByCondition(pageview, sql_);
+		
         for (int i = 0; i < plList.size(); i++) {
 			
 			//批量处理时间
@@ -292,6 +264,14 @@ public class LyricsAction {
         
        
         map.put("plList", plList);
+        
+        map.put("pageview", pageview);
+        
+        
+        //分页到尽头结束了
+        if(pageview.getTotalpage()<=Integer.parseInt(page)){
+        	map.put("tail", "tail");
+        }
         
 		
 		
@@ -310,21 +290,19 @@ public class LyricsAction {
 	@RequestMapping("/comment/{lyricsid}.html")
 	public String comment(HttpServletRequest request, @PathVariable Integer lyricsid,ModelMap map,String userid) {
 		 String result ="/zancmmet";
-		 String by_id = "";
-		 List<UserLyrics> list = userlyricsManager.findByCondition(" where lyricsid = '"+lyricsid+"'").getResultlist();
-		 if(!CollectionUtils.isEmpty( list)){
-				 by_id =  String.valueOf(list.get(0).getUserid());
+		 
+		 //取得歌词/图片的信息 +取得上传者的信息+取得zan的人数+取得评论的条数
+		 String sqlmap = "SELECT u.tail_slug as by_tail_slug, u.id as by_id, u.username as by_username,"
+		 		+ " lrc.id as lrc_id, lrc.albumImg as lrc_albumImg, lrc.title as lrc_title,"
+		 		+ " lrc.updatedate as lrc_updatedate, lrc.zan as zanNum, lrc.pl as plNum "
+		 		+ "FROM bc_user_lyrics ul JOIN bc_user u ON ul.userid = u.id "
+		 		+ "join bc_lyrics lrc on lrc.id = ul.lyricsid where ul.lyricsid = ?";
+		 
+		 List<Map<String, Object>> querySql = userlyricsManager.querySql(sqlmap, lyricsid);
+		
+		 if(!CollectionUtils.isEmpty(querySql)){
+			 map.put("datamap", querySql.get(0));
 		 }
-		 //取得歌词/图片的信息 
-		 Lyrics lyrics = lyricsManager.findLyrics(lyricsid);
-		 
-		 map.put("lrc", lyrics);
-		 
-		 //取得上传者的信息
-         if(StringUtils.isNotEmpty(by_id)){
-        	 User  by =  userManager.findUser(Integer.parseInt(by_id));
-        	 map.put("by", by);
-         }
          
          //取得zan的人的列表
          String sql  = "select b.id,b.tail_slug,b.username  from bc_lyrics_zan a join bc_user b on a.userid = b.id where a.lyricsid = '"+lyricsid+"' limit 0 , 10 ";
@@ -333,13 +311,6 @@ public class LyricsAction {
          
          
          
-         //取得zan的人数
-         int zanNum = lyricszanManager.getZanNumByLRC(String.valueOf(lyricsid));
-         map.put("zanNum", zanNum);
-         
-         //取得评论的条数
-         int plNum = lyricszanManager.getCommentNumByLRC(String.valueOf(lyricsid));
-         map.put("plNum", plNum);
          
          //取得谁爱上谁的一个列表
          String sql_2  = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,b.headspan,b.headspanclass,c.id as lyricsid,c.title from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id order by c.updatedate desc limit 0 , 50 ";
@@ -354,7 +325,7 @@ public class LyricsAction {
          if(user!=null){
         	 Integer uid =  user.getId();
 
-        	 Integer num = lyricszanManager.findByCondition(" where userid="+uid+" and lyricsid="+lyricsid).getResultlist().size();
+        	 Integer num = lyricszanManager.countHql(new LyricsZan(), " where userid="+uid+" and lyricsid="+lyricsid);
         	 
         	 if(num>0){
         		 map.put("yizan", "yizan");

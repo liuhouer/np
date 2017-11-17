@@ -31,6 +31,17 @@ public interface LyricsZanManager {
 	public int getZanNumByLRC(String lyricsid);
 	
 	public List<Map<String,Object>> mixSqlQuery(String sql);
+	
+	
+	/**
+	 * 根据实体查询条数
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * 
+	 * @return int
+	 */
+	public  int countHql(LyricsZan lyricszan,String wheresql);
 }
 
 

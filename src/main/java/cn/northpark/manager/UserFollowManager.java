@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.northpark.model.Soft;
 import cn.northpark.model.UserFollow;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
@@ -34,6 +33,13 @@ public interface UserFollowManager {
 	 * @return
 	 */
 	public List<Map<String,Object>> querySql(String sql,Object... obj);
+
+	/**
+	 * 根据wheresql计算条数
+	 * @param string
+	 * @return
+	 */
+	public int getCountByCondition(String wheresql);
 }
 
 

@@ -24,6 +24,7 @@ import cn.northpark.query.NoteQuery;
 import cn.northpark.query.condition.NoteQueryCondition;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 
 
@@ -171,8 +172,8 @@ public class DashAction {
 						notecondition.setOpened("yes");
 						String noteSql = noteQuery.getMixSql(notecondition);
 						noteSql =  noteSql.replace("order by a.createtime desc", "order by a.id ");
-						PageView<List<Map<String, Object>>> notepageView = this.noteManager.findmixByCondition("0",noteSql);
-						List<Map<String, Object>> notelist = notepageView.getMapRecords();
+						PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(1, 16);
+						List<Map<String, Object>> notelist = this.noteManager.findmixByCondition(pageview,noteSql);
 						
 						for (int i = 0; i < notelist.size(); i++) {
 							//时间处理
@@ -185,7 +186,7 @@ public class DashAction {
 						}
 						
 						
-						map.addAttribute("notelist", notepageView.getMapRecords()==null?"":notelist);
+						map.addAttribute("notelist", notelist);
 				}
 
 
@@ -196,9 +197,9 @@ public class DashAction {
 				 */
 				public void pushLove2Map(ModelMap map) {
 					//取出一部分love数据
-					PageView<List<Map<String, Object>>> lovepageView = this.userlyricsManager.getMixMapData("0","");
+					PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(1, MyConstant.MAXRESULT);
+					List<Map<String, Object>> lovelist = this.userlyricsManager.getMixMapData(pageview,"");
 					
-					List<Map<String, Object>> lovelist = lovepageView.getRecords();
 					if(!CollectionUtils.isEmpty(lovelist)){
 						for (int i = 0; i < lovelist.size(); i++) {
 							Map<String, Object> map2 = lovelist.get(i);
@@ -216,7 +217,7 @@ public class DashAction {
 					}
 					
 					
-					map.addAttribute("lovelist", lovelist==null?"":lovelist);
+					map.addAttribute("lovelist", lovelist);
 				}	
 	 	
 

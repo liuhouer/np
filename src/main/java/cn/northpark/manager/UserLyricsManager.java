@@ -27,12 +27,23 @@ public interface UserLyricsManager {
 			String wheresql);
 	
 
-	public PageView<List<Map<String, Object>>> getMixMapData(String currentpage, String userid);
+	public List<Map<String, Object>> getMixMapData(PageView<List<Map<String, Object>>> pageview, String userid);
 	
 	
-	//只获取Page分页信息,不获取数据
-	public PageView<List<Map<String, Object>>> getMixMapPage(String currentpage, String userid);
+	/**
+	 * 获取分页结构不获取数据
+	 * @param pageview
+	 * @param userid
+	 * @return
+	 */
+	public PageView<List<Map<String, Object>>>  getMixMapPage(PageView<List<Map<String, Object>>> pageview, String userid);
 	
+	
+	/**
+	 * sql+
+	 * @return
+	 */
+	public List<Map<String,Object>> querySql(String sql,Object... obj);
 }
 
 

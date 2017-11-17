@@ -89,7 +89,7 @@ public class PageView<T> {
 	
 	/**
 	 * 
-	 * 设置总页数
+	 * 设置总条数+总页数
 	 * @param totalrecord
 	 */
 	public void setTotalrecord(int totalrecord) {
@@ -132,6 +132,10 @@ public class PageView<T> {
 	
 	
 	
+	/**
+	 * 获取总页数
+	 * @return
+	 */
 	public int getTotalpage() {
 		return totalpage;
 	}
@@ -152,8 +156,6 @@ public class PageView<T> {
 	}
 
 	public void setMaprecords(List<Map<String, Object>> maprecords) {
-		//设置总条数
-		setTotalrecord(maprecords.size());
 		this.maprecords = maprecords;
 	}
 	

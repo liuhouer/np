@@ -22,6 +22,7 @@ import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Poem;
 import cn.northpark.model.Tags;
 import cn.northpark.query.PoemQuery;
+import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
@@ -84,25 +85,19 @@ public class PoemAction {
 		
 
 
-		String page  = "0" ;
-		String currentpage = page;
+		String currentpage = "1";
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
 		order.put("rand()", "asc");
 		
 		//获取pageview
-		PageView<Poem> p = getPageView(currentpage, whereSql);
+		PageView<Poem> p =  new PageView<Poem>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
 		QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
+		
+		//触发分页
+		p.setQueryResult(qr);
+		
 		List<Poem> resultlist = qr.getResultlist();
-		int pages = 0;
-		try {
-			 pages = Integer.parseInt(page)+1;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			pages = 1;
-		}
-		map.put("page", pages);
 		
 		map.addAttribute("pageView", p);
 		map.addAttribute("list", resultlist);
@@ -150,7 +145,7 @@ public class PoemAction {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value="/page{page}")
+    @RequestMapping(value="/page/{page}")
 	public String listpage(ModelMap map, @PathVariable String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
     	
@@ -179,24 +174,18 @@ public class PoemAction {
 		}
 
 		System.out.println("sql ---"+whereSql);
-		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
 		order.put("rand()", "asc");
 		
+
 		//获取pageview
-		PageView<Poem> p = getPageView(currentpage, whereSql);
+		PageView<Poem> p =  new PageView<Poem>(Integer.parseInt(page), MyConstant.MAXRESULT);
 		QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
+		//触发分页
+		p.setQueryResult(qr);
+				
 		List<Poem> resultlist = qr.getResultlist();
-		int pages = 0;
-		try {
-			 pages = Integer.parseInt(page)+1;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			pages = 1;
-		}
-		map.put("page", pages);
 		
 		map.addAttribute("pageView", p);
 		map.addAttribute("list", resultlist);
@@ -222,7 +211,7 @@ public class PoemAction {
 	 */
 	@RequestMapping("/dynasty/{tagscode}")
 	public String tagsearch(ModelMap map, @PathVariable String tagscode ,HttpServletRequest request) {
-		String rs = "redirect:/poem/dynasty/"+tagscode+"/page0";
+		String rs = "redirect:/poem/dynasty/"+tagscode+"/page/1";
 		return rs;
 	}
 	
@@ -233,7 +222,7 @@ public class PoemAction {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/dynasty/{tagscode}/page{page}")
+	@RequestMapping(value="/dynasty/{tagscode}/page/{page}")
 	public String tagsearchpage(ModelMap map, @PathVariable String page,@PathVariable String tagscode,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
@@ -253,19 +242,12 @@ public class PoemAction {
 		order.put("id", "asc");
 		
 		//获取pageview
-		PageView<Poem> p = getPageView(currentpage, whereSql);
+		PageView<Poem> p =  new PageView<Poem>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
 		QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
 		List<Poem> resultlist = qr.getResultlist();
-		int pages = 0;
-		try {
-			 pages = Integer.parseInt(page)+1;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			pages = 1;
-		}
-		map.put("page", pages);
-		
+
+		//触发分页
+		p.setQueryResult(qr);
 		map.addAttribute("pageView", p);
 		map.addAttribute("list", resultlist);
 		map.addAttribute("actionUrl","/poem/dynasty/"+tagscode);
@@ -284,7 +266,7 @@ public class PoemAction {
 	 */
 	@RequestMapping("/types/{tagscode}")
 	public String typessearch(ModelMap map, @PathVariable String tagscode ,HttpServletRequest request) {
-		String rs = "redirect:/poem/types/"+tagscode+"/page0";
+		String rs = "redirect:/poem/types/"+tagscode+"/page/1";
 		return rs;
 	}
 	
@@ -295,7 +277,7 @@ public class PoemAction {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/types/{tagscode}/page{page}")
+	@RequestMapping(value="/types/{tagscode}/page/{page}")
 	public String typessearchpage(ModelMap map, @PathVariable String page,@PathVariable String tagscode,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
@@ -315,19 +297,12 @@ public class PoemAction {
 		order.put("id", "asc");
 		
 		//获取pageview
-		PageView<Poem> p = getPageView(currentpage, whereSql);
+		PageView<Poem> p =  new PageView<Poem>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
 		QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
 		List<Poem> resultlist = qr.getResultlist();
-		int pages = 0;
-		try {
-			 pages = Integer.parseInt(page)+1;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			pages = 1;
-		}
-		map.put("page", pages);
 		
+		//触发分页
+		p.setQueryResult(qr);
 		map.addAttribute("pageView", p);
 		map.addAttribute("list", resultlist);
 		map.addAttribute("actionUrl","/poem/types/"+tagscode);
@@ -338,42 +313,5 @@ public class PoemAction {
 	
     
 
-	private PageView<Poem> getPageView(String page,
-			String whereSql) {
-		PageView<Poem> pageView = new PageView<Poem>();
-		int currentpage = 0; //当前页码
-		int pages = 0; //总页数
-		int n = this.poemManager.countHql(new Poem(), whereSql);;
-		int maxresult = 12; /** 每页显示记录数**/
-        if(n % maxresult==0)
-       {
-          pages = n / maxresult ;
-       }else{
-          pages = n / maxresult + 1;
-       }
-        if(StringUtils.isEmpty(page)){
-           currentpage = 0;
-        }else{
-           currentpage = Integer.parseInt(page);
-           
-           if(currentpage<0)
-           {
-              currentpage = 0;
-           }
-           if(currentpage>=pages)
-           {
-              currentpage = pages - 1;
-           }
-        }
-		int startindex = currentpage*maxresult;
-		int endindex = startindex+maxresult-1;
-		pageView.setStartindex(startindex);
-		pageView.setEndindex(endindex);
-		pageView.setTotalrecord(n);
-		pageView.setCurrentpage(currentpage);
-		pageView.setTotalpage(pages);
-		pageView.setMaxresult(maxresult);
-		return pageView;
-	}
 
 }

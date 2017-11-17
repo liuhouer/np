@@ -128,7 +128,7 @@ public class NoteAction {
 	@RequestMapping(value="/viewNotes/{userid}")
 	public String viewNotes(@PathVariable String userid) {
 				
-		  return "redirect:/note/viewNotes/"+userid+"/page0";
+		  return "redirect:/note/viewNotes/"+userid+"/page/1";
 	}
 	
 	/**
@@ -136,7 +136,7 @@ public class NoteAction {
 	 * @param userid
 	 * @return
 	 */
-	@RequestMapping(value="/viewNotes/{userid}/page{page}")
+	@RequestMapping(value="/viewNotes/{userid}/page/{page}")
 	public String viewNotesPages(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session, @PathVariable String userid, @PathVariable String page) {
 		//condition.setOpened("yes");
@@ -152,22 +152,28 @@ public class NoteAction {
 		}
 		String whereSql = noteQuery.getSql(condition);
 		
-		PageView<Note> pageView = getPageView(page, whereSql);
+		//定义pageview
+		PageView<Note> pageview  =  new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT); 
 		
-		request.setAttribute("page", page);
+		
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
 		order.put("createtime", "desc");
 
-		QueryResult<Note> qrs = this.noteManager.findByCondition(pageView,
+		QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,
 				whereSql, order);
+		
 		List<Note> list = qrs.getResultlist();
+		
 		for (int i = 0; i < list.size(); i++) {
 			if(list.get(i).getCreatetime().contains("-")){
 				String t = list.get(i).getCreatetime().substring(0, 10);
 				list.get(i).setCreatetime(t);
 			}
 		}
-		map.addAttribute("pageView", pageView);
+		//触发分页计算
+		pageview.setQueryResult(qrs);
+		
+		map.addAttribute("pageView", pageview);
 		map.put("condition", condition);
 		map.addAttribute("list", list);
 		map.addAttribute("actionUrl","/note/viewNotes/"+userid );
@@ -178,7 +184,7 @@ public class NoteAction {
        	 String follow_id = String.valueOf(lo_user.getId());
        	 String author_id = userid;
        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
-       		 int nums = userfollowManager.findByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ").getResultlist().size();
+       		int nums = userfollowManager.getCountByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ");
        		 if(nums>0){
        			 map.put("gz", "ygz");
        		 }
@@ -200,7 +206,7 @@ public class NoteAction {
 	 * @param userid
 	 * @return
 	 */
-	@RequestMapping(value="/findAll/page{page}")
+	@RequestMapping(value="/findAll/page/{page}")
 	public String findAllpages(ModelMap map,NoteQueryCondition condition,@PathVariable String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,String userid) {
 		//condition.setOpened("yes");
@@ -221,15 +227,19 @@ public class NoteAction {
 		}
 		String whereSql = noteQuery.getSql(condition);
 		
-		request.setAttribute("page", page);
-		PageView<Note> pageView = getPageView(page, whereSql);
 		
-
+		//定义pageview
+		PageView<Note> pageview  =  new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT); 
+		
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
 		order.put("createtime", "desc");
 
-		QueryResult<Note> qrs = this.noteManager.findByCondition(pageView,
+		QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,
 				whereSql, order);
+		
+		//触发分页计算
+		pageview.setQueryResult(qrs);
+		
 		List<Note> list = qrs.getResultlist();
 		for (int i = 0; i < list.size(); i++) {
 			if(list.get(i).getCreatetime().contains("-")){
@@ -237,7 +247,8 @@ public class NoteAction {
 				list.get(i).setCreatetime(t);
 			}
 		}
-		map.addAttribute("pageView", pageView);
+		
+		map.addAttribute("pageView", pageview);
 		map.put("condition", condition);
 		map.addAttribute("list", list);
 		map.addAttribute("actionUrl","/note/findAll" );
@@ -252,7 +263,7 @@ public class NoteAction {
 	 */
 	@RequestMapping(value="/findAll")
 	public String findAll() {
-		return "redirect:/note/findAll/page0";
+		return "redirect:/note/findAll/page/1";
 	}
 	
 	
@@ -267,23 +278,26 @@ public class NoteAction {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/list")
-	public String list_(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
+	public String noteplazz(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
 		session.removeAttribute("tabs");
 		session.setAttribute("tabs","note");
 		condition.setOpened("yes");
 		String result="/story";
-		String whereSql = noteQuery.getMixSql(condition);
+		String sql = noteQuery.getMixSql(condition);
 		
-		System.out.println("sql ---"+whereSql);
-		String currentpage = "0";
+		System.out.println("sql ---"+sql);
 		
-		PageView<List<Map<String, Object>>> pageView = this.noteManager.findmixPageByCondition(currentpage,whereSql);
-		map.put("page", "1");
-		map.addAttribute("pageView", pageView);
+		//定义pageview
+		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(1,MyConstant.MAXRESULT);
+		
+		//获取分页结构不获取数据
+		
+		pageview = this.noteManager.getMixMapPage(pageview, sql);
+		
+		map.addAttribute("pageView", pageview);
 		map.put("condition", condition);
-//		map.addAttribute("list", list);
 		map.addAttribute("actionUrl","/note/list");
 		
 		
@@ -303,33 +317,28 @@ public class NoteAction {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/list/page{page}")
-	public String list(ModelMap map,NoteQueryCondition condition, @PathVariable String page,HttpServletRequest request,
+	@RequestMapping(value="/list/page/{page}")
+	public String noteplazzpage(ModelMap map,NoteQueryCondition condition, @PathVariable String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		
 		session.removeAttribute("tabs");
 		session.setAttribute("tabs","note");
 		condition.setOpened("yes");
 		String result="/story";
-		String whereSql = noteQuery.getMixSql(condition);
+		String sql = noteQuery.getMixSql(condition);
 		
-		System.out.println("sql ---"+whereSql);
-		String currentpage = page;
+		System.out.println("sql ---"+sql);
+		int currentpage = Integer.parseInt(page);
 		
-		PageView<List<Map<String, Object>>> pageView = this.noteManager.findmixPageByCondition(currentpage,whereSql);
-		int pages = 0;
-		try {
-			 pages = Integer.parseInt(page)+1;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			pages = 1;
-		}
-		map.put("page", pages);
+		//定义pageview
+		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(currentpage,MyConstant.MAXRESULT);
 		
-		map.addAttribute("pageView", pageView);
+		//获取分页结构不获取数据
+		
+		pageview = this.noteManager.getMixMapPage(pageview, sql);
+		
+		map.addAttribute("pageView", pageview);
 		map.put("condition", condition);
-//		map.addAttribute("list", list);
 		map.addAttribute("actionUrl","/note/list");
 		
 		
@@ -340,15 +349,21 @@ public class NoteAction {
 	
 	//异步分页查询story数据
 	@RequestMapping(value="/storyquery")
-	public String lovequery(ModelMap map,HttpServletRequest request,NoteQueryCondition condition, HttpSession session,String userid) {
+	public String noteplazzquery(ModelMap map,HttpServletRequest request,NoteQueryCondition condition, HttpSession session,String userid) {
 		String currentpage = request.getParameter("currentpage");
 		
 		condition.setOpened("yes");
 		
-		String whereSql = noteQuery.getMixSql(condition);
+		String sql = noteQuery.getMixSql(condition);
 		
-		PageView<List<Map<String, Object>>> pageView = this.noteManager.findmixByCondition(currentpage,whereSql);
-		List<Map<String, Object>> list = pageView.getMapRecords();
+		//定义pageview
+		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage),MyConstant.MAXRESULT);
+		
+		
+		//根据分页仅仅获取数据 
+		List<Map<String, Object>> list = this.noteManager.findmixByCondition(pageview,sql);
+		
+		
 		
 		for (int i = 0; i < list.size(); i++) {
 			//时间处理
@@ -360,8 +375,7 @@ public class NoteAction {
 			
 		}
 		
-		
-		map.addAttribute("list", pageView.getMapRecords()==null?"":list);
+		map.addAttribute("list", list);
 		
 		
 		return "/page/story/storydata";
@@ -399,42 +413,5 @@ public class NoteAction {
 		return JsonUtil.map2json(rsmap);
 	}
 
-	private PageView<Note> getPageView(String page,
-			String whereSql) {
-		PageView<Note> pageView = new PageView<Note>();
-		int currentpage = 0; //当前页码
-		int pages = 0; //总页数
-		int n = this.noteManager.countHql(new Note(), whereSql);
-		int maxresult = MyConstant.MAXRESULT; /** 每页显示记录数**/
-        if(n % maxresult==0)
-       {
-          pages = n / maxresult ;
-       }else{
-          pages = n / maxresult + 1;
-       }
-        if(StringUtils.isEmpty(page)){
-           currentpage = 0;
-        }else{
-           currentpage = Integer.parseInt(page);
-           
-           if(currentpage<0)
-           {
-              currentpage = 0;
-           }
-           if(currentpage>=pages)
-           {
-              currentpage = pages - 1;
-           }
-        }
-		int startindex = currentpage*maxresult;
-		int endindex = startindex+maxresult-1;
-		pageView.setStartindex(startindex);
-		pageView.setEndindex(endindex);
-		pageView.setTotalrecord(n);
-		pageView.setCurrentpage(currentpage);
-		pageView.setTotalpage(pages);
-		pageView.setMaxresult(maxresult);
-		return pageView;
-	}
 	
 }

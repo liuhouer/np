@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,18 +68,13 @@ public class NoteManagerImpl implements NoteManager {
 	}
 
 	@Override
-	public PageView<List<Map<String, Object>>> findmixByCondition(String currentpage,String wheresql) {
+	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String,Object>>> pageview,String sql) {
 		// TODO Auto-generated method stub
 		
-		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage),MyConstant.MAXRESULT);
 		
+		List<Map<String, Object>> list = noteDao.QuerySQLForMapList(sql, pageview);
 		
-		List<Map<String, Object>> list = noteDao.QuerySQLForMapList(wheresql, pageview);
-		
-		
-		pageview.setQueryResult(new QueryResult<List<Map<String,Object>>>(list));
-		
-		return pageview;
+		return list;
 		
 	}
 
@@ -109,19 +103,6 @@ public class NoteManagerImpl implements NoteManager {
 		return noteDao.countHql(note.getClass(), wheresql);
 	}
 
-	@Override
-	public PageView<List<Map<String, Object>>> findmixPageByCondition(
-			String currentpage, String wheresql) {
-		// TODO Auto-generated method stub
-		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage),MyConstant.MAXRESULT);
-		
-		
-		List<Map<String, Object>> list = noteDao.QuerySQLForMapList(wheresql, pageview);
-		
-		
-		pageview.setQueryResult(new QueryResult<List<Map<String,Object>>>(list));
-		return pageview;
-	}
 
 	/* (non-Javadoc)
 	 * @see cn.northpark.manager.NoteManager#querySql(java.lang.String)
@@ -131,6 +112,14 @@ public class NoteManagerImpl implements NoteManager {
 		// TODO Auto-generated method stub
 		return noteDao.querySql(sql, Note.class);
 		
+	}
+
+	@Override
+	public PageView<List<Map<String, Object>>> getMixMapPage(
+			PageView<List<Map<String, Object>>> pageview, String sql) {
+		// TODO Auto-generated method stub
+		
+		return noteDao.QuerySQLCountForMapList(sql, pageview);
 	}
 }
 

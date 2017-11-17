@@ -34,23 +34,23 @@
 	    <div  class="container">
 	    	
 <div  class="mainbody padding10"  style="margin-top:5em;">
-        <input  type="hidden" id="J_lrcid" value="${ lrc.id}"/>
+        <input  type="hidden" id="J_lrcid" value="${ datamap.lrc_id}"/>
         <input  type="hidden" id="J_uid" value="${ user.id}"/>
 		<input  type="hidden" id="J_yizan" value="${yizan }"/>
 		<div  class="row">
 		<div  class="col-md-8">
 		
-			<h2  class="margin0">${ lrc.title} &nbsp; 
+			<h2  class="margin0">${ datamap.lrc_title} &nbsp; 
 				<small><span  class="glyphicon glyphicon-user"></span> 由<a  
 				
-				<c:if test="${by.tail_slug==null || by.tail_slug==''}">
-			    href="/cm/detail/${by.id}" 
+				<c:if test="${datamap.by_tail_slug==null || datamap.by_tail_slug==''}">
+			    href="/cm/detail/${datamap.by_id}" 
 			    </c:if>
-			    <c:if test="${by.tail_slug!=null }">
-			    href="/people/${by.tail_slug }" 
+			    <c:if test="${datamap.by_tail_slug!=null }">
+			    href="/people/${datamap.by_tail_slug }" 
 			    </c:if>
 				
-				title="花菜菜的最爱">${by.username }</a>创建</small>
+				title="花菜菜的最爱">${datamap.by_username }</a>创建</small>
 			</h2>
 			<hr>
 		
@@ -58,7 +58,7 @@
 				<div  class="col-sm-7 ">
 
 					<div  class="clearfix"  style="position:relative">
-						<div  class="clearfix"  id="mainThumb"><img  class="img-responsive img-full"  src="/bruce/${lrc.albumImg }"  alt="${ lrc.title}"></div>
+						<div  class="clearfix"  id="mainThumb"><img  class="img-responsive img-full"  src="/bruce/${datamap.lrc_albumImg }"  alt="${ datamap.lrc_title}"></div>
 
 											</div>
 
@@ -68,8 +68,8 @@
 				<div  class="col-sm-5">
 
 					<div  class="clearfix">
-						<h7><label class="control-label iteminfo ">${lrc.updatedate }</label> </h7>
-						<h4><span  class="glyphicon glyphicon-heart"></span> ${zanNum }人最爱</h4>
+						<h7><label class="control-label iteminfo ">${datamap.lrc_updatedate }</label> </h7>
+						<h4><span  class="glyphicon glyphicon-heart"></span> ${datamap.zanNum }人最爱</h4>
 						<p  class="pline">
 						 
 						  <div id="J_zan_div" class="pline">
@@ -98,7 +98,7 @@
 				    
 				    
 				    </a></h2>
-					<input type="hidden" id="by_id" value="${by.id }"/>
+					<input type="hidden" id="by_id" value="${datamap.by_id }"/>
 					
 					
 					
@@ -108,7 +108,7 @@
 			<a  name="comments"></a>
 			<div  class="clearfix margin-t20">
 
-				<h4><span  class="glyphicon glyphicon-comment"></span> ${plNum }条回忆</h4>
+				<h4><span  class="glyphicon glyphicon-comment"></span> ${datamap.plNum }条回忆</h4>
 				<hr>
                         <c:if test="${user!=null }">
 						   <div  class="row">
@@ -152,9 +152,7 @@
 						</div>
 						<button  class="btn btn-default btn-lg margin-b20"  id="loadStuffCommentBtn"  data-htmlboxid="stuffCommentBox"  rel="938" >加载更多 <span  class="glyphicon glyphicon-chevron-down"></span></button>
 						<input  type="hidden"  id="comment_id_from"  value="1">
-						<input  type="hidden"  id="comment_perpage"  value="12">
-						<input  type="hidden"  id="auto_loading"  value="no">
-						<input  type="hidden"  id="J_lrc_id"  value="${lrc.id }">
+						<input  type="hidden"  id="J_lrc_id"  value="${datamap.lrc_id }">
 						<input  type="hidden"  id="J_tail"  value="${tail }">
 					</div>
 								

@@ -383,9 +383,9 @@
 				
 					<div class="clearfix  margin20 view">
 				     
-				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/poem/page0">
+				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/poem/page/1">
 		                  <input id="keyword" placeholder="诗词名句"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
-		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="submit">
+		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="button" id="J_ser_btn">
 		                </form>
 		                 
 				   </div>
@@ -470,6 +470,18 @@
 	</script>
 	
 	<script type="text/javascript">
+	
+	  $(function(){
+		  //搜索事件处理
+		  $("#J_ser_btn").click(function(){
+			  var keyword = $("#keyword").val(); 
+			    if(keyword){
+			    	window.location.href = "/poem/page/1?keyword="+keyword;
+			    }
+		  })
+	  })
+	  
+	  
 	  /*  ##set query param */
 	    var keyword = $("#keyword").val(); 
 	    if(keyword){

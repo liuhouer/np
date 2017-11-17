@@ -6,23 +6,6 @@
 
 
 $(function(){
-	var pagenow = parseInt($("#pagenow").val())-1;
-	 $.ajax({
-			url:"/romeo/equery",
-			type:"post",
-			data:{"currentpage":pagenow},
-			beforeSend:beforeSend, //发送请求
-	        complete:complete,
-			success:function(data){
-				if(data){
-					$("#J_maincontent").append(data);
-				}			
-			}
-		});
-	 
-	 
-	 
-	 
 	 
 	 //搜索点击事件
 	 $("#J_search").click(function(){

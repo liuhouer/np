@@ -35,7 +35,7 @@
 				     
 				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/movies/search">
 		                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
-		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="submit" id="J_ser_btn">
+		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="button" id="J_ser_btn">
 		                </form>
 		                
 		                
@@ -205,7 +205,7 @@
 			
 			$(this).click(function(){
 				var oid = $(this).attr("oid");
-				window.location.href="/movies/page0?orderby="+oid;
+				window.location.href="/movies/page/1?orderby="+oid;
 			})
 		});
 		
@@ -214,6 +214,17 @@
 	</script>
 	
 	<script type="text/javascript">
+	
+	 $(function(){
+		  //搜索事件处理
+		  $("#J_ser_btn").click(function(){
+			  var keyword = $("#keyword").val(); 
+			    if(keyword){
+			    	window.location.href = "/movies/search?keyword="+keyword;
+			    }
+		  })
+	  })
+	  
 	  /*  ##set query param */
 	    var keyword = $("#keyword").val(); 
 	    if(keyword){

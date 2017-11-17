@@ -102,5 +102,19 @@ public class LyricsCommentManagerImpl implements LyricsCommentManager {
 		// TODO Auto-generated method stub
 		return lyricscommentDao.countHql(m.getClass(), wheresql);
 	}
+
+	@Override
+	public List<Map<String, Object>> findmixByCondition(
+			PageView<List<Map<String, Object>>> pageview, String sql) {
+		// TODO Auto-generated method stub
+		return lyricscommentDao.QuerySQLForMapList(sql, pageview);
+	}
+
+	@Override
+	public PageView<List<Map<String, Object>>> getMixMapPage(
+			PageView<List<Map<String, Object>>> pageview, String sql) {
+		// TODO Auto-generated method stub
+		return lyricscommentDao.QuerySQLCountForMapList(sql, pageview);
+	}
 }
 
