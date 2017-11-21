@@ -14,7 +14,7 @@
 <meta name="keywords" content="NorthPark">
 <meta name="author" content="bruce">
 <meta name="robots" content="index,follow,archive">
-<title>NorthPark / 添加我的最爱</title>
+<title>添加我的最爱 | NorthPark / </title>
 <%@ include file="../common/common.jsp"%>
 <style type="text/css">
 #preview{width:200px;height:200px;border:0;overflow:hidden;top: 25%;position: relative;}

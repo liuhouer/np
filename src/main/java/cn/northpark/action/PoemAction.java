@@ -190,7 +190,7 @@ public class PoemAction {
 		map.addAttribute("pageView", p);
 		map.addAttribute("list", resultlist);
 		map.addAttribute("actionUrl","/poem");
-		
+		map.addAttribute("page", page);
 		
 		//获取标签模块
 		//getTags(map,request);

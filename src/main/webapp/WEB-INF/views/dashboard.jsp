@@ -14,9 +14,9 @@
 <meta name="google-site-verification" content="Av5O436-yp3doL_sBZPluCUvSVYJywMpFGjVDi8Qu7k" />
 <meta name="baidu-site-verification" content="qNA02NAxQL"/>
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title>NorthPark-小清新的软件、影视、心情、图片互动公园</title>
-<meta name="description" content="NorthPark,文艺,小清新,Mac软件,影视窝,碎碎念,图册,情圣,情商提升">
-<meta name="keywords" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、最新的影视剧资源、大量提升男生情商的文章、大家吐槽的，喜爱的，心情日记的精神角落、图册互动等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
+<title>NorthPark-Mac软件|影视窝|碎碎念|最爱主题图册|情商提升-充满文艺范和小清新的互动公园</title>
+<meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
+<meta name="description" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
 <!-- /**
  *
  * ━━━━━━神兽出没━━━━━━

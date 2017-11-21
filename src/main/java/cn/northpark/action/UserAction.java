@@ -835,7 +835,7 @@ public class UserAction {
 			map.addAttribute("pageView", pageview);
 			map.put("condition", condition);
 			map.addAttribute("actionUrl","/love");
-			
+			map.addAttribute("page", page);
 			
 			return "/welcome";
 		}

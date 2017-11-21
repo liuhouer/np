@@ -138,7 +138,7 @@ public class EqAction {
 		map.addAttribute("pageView", pageview);
 		map.addAttribute("list", resultlist);
 		map.addAttribute("actionUrl","/romeo");
-		
+		map.addAttribute("page", page);
 		
 
 		return result;

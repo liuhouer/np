@@ -12,34 +12,16 @@
 <meta http-equiv="Content-Language" content="zh-CN">
 <meta name="author" content="www.qinco.net">
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title>记住美好,保留回忆,分享最爱。 | NorthPark</title>
-<meta name="description" content="NorthPark,文艺,小清新,Mac软件,影视窝,碎碎念,图册,情圣,情商提升">
-<meta name="keywords" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、最新的影视剧资源、大量提升男生情商的文章、大家吐槽的，喜爱的，心情日记的精神角落、图册互动等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
-<!-- /**
- *
- * ━━━━━━神兽出没━━━━━━
- * 　　　┏┓　　　┏┓
- * 　　┏┛┻━━━┛┻┓
- * 　　┃　　　　　　　┃
- * 　　┃　　　━　　　┃
- * 　　┃　┳┛　┗┳　┃
- * 　　┃　　　　　　　┃
- * 　　┃　　　┻　　　┃
- * 　　┃　　　　　　　┃
- * 　　┗━┓　　　┏━┛Code is far away from bug with the animal protecting
- * 　　　　┃　　　┃    神兽保佑,代码无bug
- * 　　　　┃　　　┃
- * 　　　　┃　　　┗━━━┓
- * 　　　　┃　　　　　　　┣┓
- * 　　　　┃　　　　　　　┏┛
- * 　　　　┗┓┓┏━┳┓┏┛
- * 　　　　　┃┫┫　┃┫┫
- * 　　　　　┗┻┛　┗┻┛
- *
- * ━━━━━━感觉萌萌哒━━━━━━
- */ -->
-
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
+<c:if test="${page==null || page==''}">
+<title>最爱主题图册-记住美好,保留回忆,分享最爱。 | NorthPark</title>
+</c:if>
+<c:if test="${page!=null && page!=''}">
+<title>最爱主题图册::第${page}页-记住美好,保留回忆,分享最爱。 | NorthPark</title>
+</c:if>
+<meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
+<meta name="description" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
+
 
 
 </head>

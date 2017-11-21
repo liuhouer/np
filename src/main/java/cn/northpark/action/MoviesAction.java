@@ -350,15 +350,7 @@ private static int MoviesCount = 6;
 		//处理标签列表
 		handleTag(resultlist);
 		
-		int pages = 0;
-		try {
-			 pages = Integer.parseInt(page)+1;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			pages = 1;
-		}
-		map.put("page", pages);
+		map.put("page", page);
 		
 		map.addAttribute("pageView", pageview);
 		map.addAttribute("list", resultlist);

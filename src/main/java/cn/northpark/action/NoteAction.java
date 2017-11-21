@@ -340,7 +340,7 @@ public class NoteAction {
 		map.addAttribute("pageView", pageview);
 		map.put("condition", condition);
 		map.addAttribute("actionUrl","/note/list");
-		
+		map.addAttribute("page", page);
 		
 
 		return result;

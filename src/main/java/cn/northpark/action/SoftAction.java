@@ -112,7 +112,7 @@ private static int SoftCount = 6;
 		map.addAttribute("pageView", p);
 		map.addAttribute("list", resultlist);
 		map.addAttribute("actionUrl","/soft/mac");
-		
+		map.addAttribute("page", page);
 		
 		//获取标签模块
 		getTags(map,request);
@@ -220,7 +220,7 @@ private static int SoftCount = 6;
 			map.addAttribute("pageView", p);
 			map.addAttribute("list", resultlist);
 			map.addAttribute("actionUrl","/soft/month/"+month);
-			
+			map.addAttribute("page", page);
 
 		}catch(Exception e){
 			e.printStackTrace();
@@ -280,7 +280,7 @@ private static int SoftCount = 6;
 		map.addAttribute("pageView", p);
 		map.addAttribute("list", resultlist);
 		map.addAttribute("actionUrl","/soft/tag/"+tagscode);
-		
+		map.addAttribute("page", page);
 
 		return result;
 	}
