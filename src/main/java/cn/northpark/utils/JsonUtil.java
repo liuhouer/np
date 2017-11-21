@@ -1,4 +1,4 @@
-package cn.northpark.utils.json;
+package cn.northpark.utils;
 
 import java.io.Serializable;
 import java.util.List;

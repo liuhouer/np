@@ -116,6 +116,14 @@ public class EqAction {
 		//定义pageview
 		PageView<Eq> pageview  =  new PageView<Eq>(Integer.parseInt(page), MyConstant.MAXRESULT); 
 		
+		String keyword = request.getParameter("keyword");
+		if(StringUtils.isNotEmpty(keyword)){
+			keyword = WAQ.forSQL().escapeSql(keyword);
+			whereSql+=" and title like '%"+keyword+"%' ";
+			
+			map.addAttribute("keyword", keyword);
+			
+		}
 		System.out.println("sql ---"+whereSql);
 		
 		//排序条件
@@ -135,25 +143,6 @@ public class EqAction {
 
 		return result;
 	}
-	
-	//异步分页查询eq数据
-		@RequestMapping(value="/romeo/equery")
-		public String lovequery(ModelMap map,HttpServletRequest request,EqQueryCondition condition,  HttpSession session,String keyword) {
-			
-			String whereSql = eqQuery.getSql(condition);
-			
-			if(StringUtils.isNotEmpty(keyword)){
-				keyword = WAQ.forSQL().escapeSql(keyword);
-				whereSql+=" and title like '%"+keyword+"%' ";
-			}
-			
-			QueryResult<Eq> qr = this.eqManager.findByCondition( whereSql);
-			List<Eq> resultlist = qr.getResultlist();
-			map.addAttribute("list", resultlist==null?"":resultlist);
-			
-			
-			return "/page/eq/eqdata";
-		}
 	
 	
 

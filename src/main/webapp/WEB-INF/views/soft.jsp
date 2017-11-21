@@ -224,7 +224,7 @@
 	    if(keyword){
 	    	$("#pageForm a").each(function(){
 	    		var href = $(this).attr("href");
-	    		$(this).attr("href",href+"?keyword="+encodeURI(encodeURI(keyword)));
+	    		$(this).attr("href",href+"?keyword="+keyword);
 	    	})
 	    }
 		
