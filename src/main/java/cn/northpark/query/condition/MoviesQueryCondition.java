@@ -6,6 +6,12 @@ import java.io.Serializable;
 public class MoviesQueryCondition implements Serializable {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3528809416231998885L;
+
+
 	private String id;
   
 

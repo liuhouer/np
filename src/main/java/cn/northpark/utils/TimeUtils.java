@@ -42,7 +42,7 @@ public class TimeUtils {
 					str = TimeUtils.format(date);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
-					str = str;
+					e.printStackTrace();
 				}
 				
 			return str;
@@ -296,7 +296,7 @@ public class TimeUtils {
 			long s = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
 			String pastTime = "" + day + "天" + hour + "小时" + min + "分" + s + "秒";
 
-			return String.valueOf(l);
+			return pastTime;
 		}
 
 		/**

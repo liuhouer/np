@@ -13,6 +13,12 @@ import java.io.Serializable;
 public class SoftQueryCondition implements Serializable {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5919273115588028669L;
+
+
 	private Integer id;
   
 

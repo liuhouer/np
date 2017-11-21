@@ -357,8 +357,6 @@ public class LyricsAction {
 				String os = prop.getProperty("os.name");
 				System.out.println(os);
 				String qianzhui = "e:/bruce/album";
-				String fileName="";
-				String newName="";
 		         if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
 		        	 qianzhui = "e:/bruce/album";
 		         }else{
@@ -368,7 +366,6 @@ public class LyricsAction {
 		         lrcpath=qianzhui+"/"+filename;
 				}
 				//此时判断操作系统进行查找---end
-		      String filedownload = "/要下载的文件名";//即将下载的文件的相对路径
 		      String filedisplay = lyrics.getTitle() +".lrc";//下载文件时显示的文件保存名称
 		      File lrc = new File(lrcpath);
 		      if(lrc.exists()){

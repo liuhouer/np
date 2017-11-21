@@ -13,6 +13,12 @@ import java.io.Serializable;
 public class TagsQueryCondition implements Serializable {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7387479825801384094L;
+
+
 	private Integer id;
   
 

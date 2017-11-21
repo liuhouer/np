@@ -220,7 +220,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 	 * @param pageView
 	 * @return PageView<List<Map<String, Object>>>
 	 */
-	@SuppressWarnings("rawtypes")
 	public List<Map<String, Object>> QuerySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
 				String resultQueryString = (new StringBuilder(" select t.* from (")).append(sql).append(") as t LIMIT " +pageView.getFirstResult()+ "," + pageView.getMaxresult()).toString();
 				List<Map<String, Object>> resultlist = querySql(resultQueryString);
@@ -236,7 +235,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 	 * @param pageView
 	 * @return PageView<List<Map<String, Object>>>
 	 */
-	@SuppressWarnings("rawtypes")
 	public PageView<List<Map<String, Object>>> QuerySQLCountForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
 		
 		        int countSql = countSql(sql);
@@ -254,7 +252,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 	 *            参数列表(顺序对应SQL)
 	 * @return List<Map<String, Object>>
 	 */
-	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> querySql(String sql, Object... obj) {
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 		for (int i = 0; i < obj.length; i++)
@@ -273,7 +270,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 	 *            返回Model.clazz
 	 * @return List<Model>
 	 */
-	@SuppressWarnings("unchecked")
 	public <T extends Serializable> List<T> querySql(String sql, Class<T> clazz, Object... obj) {
 		SQLQuery  query = sessionFactory.getCurrentSession().createSQLQuery(sql);
 		for (int i = 0; i < obj.length; i++)
@@ -361,7 +357,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 		
 		int n = 0;
 		if (countlist != null && countlist.size() > 0) {
-			n = Integer.valueOf(((Map)countlist.get(0)).get("total").toString());
+			n = Integer.valueOf(((Map<String, Object>)countlist.get(0)).get("total").toString());
 		}
 		
 		return n;
