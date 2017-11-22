@@ -136,10 +136,28 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 
 
 //下拉查看更多的事件
+
 $("body").on('click', '.click2show', function() {
-	$(this).hide();
+	if($(this).data('dismiss'))
+		$($(this).data('dismiss')).hide();
+	else
+		$(this).hide();
+	$($(this).data('target')).removeClass('hidden');
 });
 
+
+$("body").on('click', '.click2hide', function() {
+	$($(this).data('target')).slideDown();
+});
+
+$("body").on('click', '.click2toggle', function() {
+	$($(this).data('target')).slideToggle();
+});
+
+$("body").on('click', '.click2flip', function() {
+	$($(this).data('hide')).slideUp();
+	$($(this).data('show')).slideDown();
+});
 
 //复制内容自动添加版权信息 
 /*var Sys = {}; 
