@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.northpark.interceptor.CheckLogin;
@@ -52,8 +51,6 @@ import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.safe.WAQ;
 
 @Controller
-@RequestMapping("")
-@SessionAttributes({ "list", "User" })
 public class UserAction {
 
      /**
@@ -78,7 +75,7 @@ public class UserAction {
 	 private ResetManager resetManager;
 
 	 
-	    Logger logger = Logger.getLogger(UserAction.class);  
+	     private static final Logger LOGGER = Logger.getLogger(UserAction.class);  
 	 	
 	 
 	 	/**
@@ -226,7 +223,7 @@ public class UserAction {
 					result = "invalid";
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				LOGGER.error("commonAction------>",e);
 				result = "exception";
 			} finally {
 				map.addAttribute("msg", result);
@@ -335,7 +332,7 @@ public class UserAction {
 	 		if(StringUtils.isNotBlank(queryString)){
 	 			url = url+"?"+queryString;
 	 		}
-	 		logger.error("IP:"+IP+"|||URL:"+url+"|||TIME:"+TimeUtils.nowTime());
+	 		LOGGER.error("IP:"+IP+"|||URL:"+url+"|||TIME:"+TimeUtils.nowTime());
 			return "/building";
 		}
 	 	
@@ -469,7 +466,7 @@ public class UserAction {
 	        	 
 	         }
 		}catch(Exception e){
-			e.printStackTrace();
+			LOGGER.error("commonAction------>",e);
 			
 		}
 			return "/spacefans";
@@ -520,7 +517,7 @@ public class UserAction {
 			
 	         
 			}catch(Exception e){
-				e.printStackTrace();
+				LOGGER.error("commonAction------>",e);
 			}
 			return "/space";
 		}
@@ -576,7 +573,7 @@ public class UserAction {
 			
 			
 			}catch(Exception e){
-				e.printStackTrace();
+				LOGGER.error("commonAction------>",e);
 			}
 			return "/space";
 		}
@@ -713,7 +710,7 @@ public class UserAction {
 			Enumeration<?> e = session.getAttributeNames();
 			while (e.hasMoreElements()) {
 				String sessionName = (String) e.nextElement();
-				System.out.println("存在的session有：" + sessionName);
+				LOGGER.debug("存在的session有：" + sessionName);
 					session.removeAttribute(sessionName);
 
 			}
@@ -744,7 +741,7 @@ public class UserAction {
 						response.addCookie(cookie); 
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				LOGGER.error("commonAction------>",e);
 			}
 
 		}
@@ -796,7 +793,7 @@ public class UserAction {
 //					EmailUtils.ThanksReg(email);
 //				} catch (Exception e) {
 //					// TODO: handle exception
-//					e.printStackTrace();
+//					LOGGER.error("commonAction------>",e);
 //				}
 				return LIST_ACTION;
 			}

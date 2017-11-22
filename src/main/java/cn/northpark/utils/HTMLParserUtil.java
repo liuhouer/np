@@ -2,14 +2,12 @@ package cn.northpark.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -35,8 +33,6 @@ import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
-import cn.northpark.model.Movies;
-import cn.northpark.model.Soft;
 
 /**
  * @author bruce

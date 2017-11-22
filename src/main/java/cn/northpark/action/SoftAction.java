@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Soft;
@@ -36,13 +36,15 @@ import cn.northpark.utils.safe.WAQ;
  */
 @Controller
 @RequestMapping("/soft")
-@SessionAttributes({ "list", "soft" })
 public class SoftAction {
 
  @Autowired	
  private SoftManager softManager;
  @Autowired	
  private SoftQuery softQuery;
+ 
+ private static final Logger LOGGER = Logger
+         .getLogger(SoftAction.class);
  
  /**
  * 每页展示多少条mac数
@@ -95,7 +97,7 @@ private static int SoftCount = 6;
 			
 		}
 
-		System.out.println("sql ---"+whereSql);
+		LOGGER.debug("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -142,7 +144,7 @@ private static int SoftCount = 6;
 			}
 			
 		}catch(Exception e){
-			e.printStackTrace();
+			LOGGER.error("softAction------>",e);
 			
 		}
 		return "/softdetail";
@@ -168,7 +170,7 @@ private static int SoftCount = 6;
 			
 
 		}catch(Exception e){
-			e.printStackTrace();
+			LOGGER.error("softAction------>",e);
 			
 		}
 		return "/soft";
@@ -203,7 +205,7 @@ private static int SoftCount = 6;
 			
 			map.put("selmonth", month);
 			
-			System.out.println("sql ---"+whereSql);
+			LOGGER.debug("sql ---"+whereSql);
 			String currentpage = page;
 			//排序条件
 			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -223,7 +225,7 @@ private static int SoftCount = 6;
 			map.addAttribute("page", page);
 
 		}catch(Exception e){
-			e.printStackTrace();
+			LOGGER.error("softAction------>",e);
 			
 		}
 		return result;
@@ -263,7 +265,7 @@ private static int SoftCount = 6;
 		
 		
 		
-		System.out.println("sql ---"+whereSql);
+		LOGGER.debug("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

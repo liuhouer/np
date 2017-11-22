@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cn.northpark.manager.EqManager;
 import cn.northpark.model.Eq;
@@ -35,8 +35,6 @@ import cn.northpark.utils.safe.WAQ;
  * 
  */
 @Controller
-@RequestMapping("")
-@SessionAttributes({ "list", "eq" })
 public class EqAction {
 
  @Autowired	
@@ -44,7 +42,8 @@ public class EqAction {
  @Autowired	
  private EqQuery eqQuery;
 
- 
+ private static final Logger LOGGER = Logger
+         .getLogger(EqAction.class);
  
  /**
 	 * 阅读文章页面|||通用的样式
@@ -59,7 +58,8 @@ public class EqAction {
 			map.addAttribute("model", eq);
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			LOGGER.error("eqacton------>",e);
+			LOGGER.error("eqacton------>",e);
 		}
 		return "/page/eq/article";
 	}
@@ -77,7 +77,7 @@ public class EqAction {
 			//定义pageview
 			PageView<Eq> pageview  =  new PageView<Eq>(1, MyConstant.MAXRESULT); 
 			
-			System.out.println("sql ---"+whereSql);
+			LOGGER.debug("sql ---"+whereSql);
 			
 			//排序条件
 			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -95,7 +95,7 @@ public class EqAction {
 			map.addAttribute("actionUrl","/romeo");
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			LOGGER.error("eqacton------>",e);
 		}
 		
 		
@@ -124,7 +124,7 @@ public class EqAction {
 			map.addAttribute("keyword", keyword);
 			
 		}
-		System.out.println("sql ---"+whereSql);
+		LOGGER.debug("sql ---"+whereSql);
 		
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

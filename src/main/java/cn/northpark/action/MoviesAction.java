@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +24,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cn.northpark.interceptor.CheckLogin;
 import cn.northpark.manager.MoviesManager;
@@ -37,8 +37,6 @@ import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
 
 @Controller
-@RequestMapping("")
-@SessionAttributes({ "list", "movies" })
 public class MoviesAction {
 
  @Autowired	
@@ -47,6 +45,9 @@ public class MoviesAction {
  @Autowired	
  private TagsManager  tagsManager;
  
+ 
+ private static final Logger LOGGER = Logger
+         .getLogger(MoviesAction.class);
  /**
  * 每页展示多少条电影数
  */
@@ -82,7 +83,7 @@ private static int MoviesCount = 6;
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			LOGGER.error("moviesacton------>",e);
 			rs = "ex";
 		}
 		return rs;
@@ -110,7 +111,7 @@ private static int MoviesCount = 6;
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			LOGGER.error("moviesacton------>",e);
 			rs = "ex";
 		}
 		return rs;
@@ -151,7 +152,7 @@ private static int MoviesCount = 6;
 			moviesManager.addMovies(model);
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			LOGGER.error("moviesacton------>",e);
 			rs = "ex";
 		}
 		return rs;
@@ -191,7 +192,7 @@ private static int MoviesCount = 6;
 		map.put("seldate", tagscode);
 				
 		
-		System.out.println("sql ---"+whereSql);
+		LOGGER.debug("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -251,7 +252,7 @@ private static int MoviesCount = 6;
 		map.put("seltag", tagscode);
 				
 		
-		System.out.println("sql ---"+whereSql);
+		LOGGER.debug("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -322,7 +323,7 @@ private static int MoviesCount = 6;
 		String result="/movies2";
 		String whereSql = " where displayed is  null ";
 		
-		System.out.println("sql ---"+whereSql);
+		LOGGER.debug("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

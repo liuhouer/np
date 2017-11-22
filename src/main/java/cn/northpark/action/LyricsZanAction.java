@@ -7,11 +7,11 @@ package cn.northpark.action;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cn.northpark.manager.LyricsCommentManager;
 import cn.northpark.manager.LyricsManager;
@@ -25,7 +25,6 @@ import cn.northpark.utils.TimeUtils;
 
 @Controller
 @RequestMapping("/zanAction")
-@SessionAttributes({ "list", "lyricszan" })
 public class LyricsZanAction {
 
  @Autowired	
@@ -37,6 +36,9 @@ public class LyricsZanAction {
  @Autowired	
  private LyricsManager lyricsManager;
  
+ 
+ private static final Logger LOGGER = Logger
+         .getLogger(LyricsZanAction.class);
  
  	/**
  	 * 最爱的主题点赞操作
@@ -78,6 +80,7 @@ public class LyricsZanAction {
 			} catch (Exception e) {
 				// TODO: handle exception
 				msg = "exception";
+				LOGGER.error("zanacton------>",e);
 			}
 		}
 		return msg;
@@ -123,6 +126,7 @@ public class LyricsZanAction {
 			} catch (Exception e) {
 				// TODO: handle exception
 				msg = "exception";
+				LOGGER.error("zanacton------>",e);
 			}
 		return msg;
 	}

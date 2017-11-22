@@ -36,7 +36,6 @@ import cn.northpark.utils.page.PageView;
  * @date 2016-10-08 去掉缓存|内存占用有点大
  */
 @Controller
-@RequestMapping("")
 public class DashAction {
 
 	 @Autowired	

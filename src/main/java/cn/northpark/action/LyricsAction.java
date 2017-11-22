@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,7 +27,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.northpark.interceptor.CheckLogin;
@@ -37,7 +37,6 @@ import cn.northpark.manager.UserFollowManager;
 import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.manager.UserManager;
 import cn.northpark.model.Lyrics;
-import cn.northpark.model.LyricsZan;
 import cn.northpark.model.User;
 import cn.northpark.model.UserLyrics;
 import cn.northpark.query.LyricsQuery;
@@ -48,11 +47,13 @@ import cn.northpark.utils.page.PageView;
 
 @Controller
 @RequestMapping("/lyrics")
-@SessionAttributes({ "list", "lyrics" })
 public class LyricsAction {
 
  
  private final String LIST_ACTION2 = "redirect:/cm/pcentral";
+ 
+ private static final Logger LOGGER = Logger
+         .getLogger(LyricsAction.class);
  
  @Autowired	
  private LyricsManager lyricsManager;
@@ -233,7 +234,7 @@ public class LyricsAction {
 			sb.append(str);
 		}
 		
-		System.out.println(sb.toString());
+		LOGGER.debug(sb.toString());
 		return sb.toString();
 	}
 	
@@ -355,7 +356,7 @@ public class LyricsAction {
 				Properties prop = System.getProperties();
 
 				String os = prop.getProperty("os.name");
-				System.out.println(os);
+				LOGGER.debug(os);
 				String qianzhui = "e:/bruce/album";
 		         if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
 		        	 qianzhui = "e:/bruce/album";
