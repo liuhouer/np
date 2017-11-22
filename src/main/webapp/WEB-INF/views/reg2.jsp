@@ -40,10 +40,10 @@
 		</div>
 		<div class="navbar-collapse collapse mainhead-collapse">
 			<ul class="nav mainhead-nav">
-				<li><a href="/movies" title="丰富的网盘资源，最新的热剧尽在我的小窝">影视窝</a></li>
-				<li><a href="/soft/mac" title="丰富的mac软件资源">Mac软件</a></li>
-				<li><a href="/love" title="一张图片，爱满满的">最爱</a></li>
-				<li><a href="/note/list" title="一段歌词，一段回忆">碎碎念</a></li>
+				<li><a href="/movies" title="包含最新的影视剧资源">影视窝</a></li>
+				<li><a href="/soft/mac" title="丰富的Mac软件资源">Mac软件</a></li>
+				<li><a href="/love" title="最爱主题图册">最爱</a></li>
+				<li><a href="/note/list" title="碎碎念的精神角落">碎碎念</a></li>
 				<li class="active"><a href="/login" title="已有账号，去登录NorthPark">注册</a></li>
 			</ul>
 		</div>

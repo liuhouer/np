@@ -24,10 +24,10 @@
 		<div class="navbar-collapse collapse mainhead-collapse">
 			<ul class="nav mainhead-nav" id="J_tabs">
 				
-				<li cname="movies"><a href="/movies" title="丰富的网盘资源，最新的热剧尽在我的小窝">影视窝</a></li>
-				<li cname="soft"><a href="/soft/mac" title="丰富的mac软件资源">Mac软件</a></li>
-				<li cname="pic"><a href="/love" title="一张图片，爱满满的">最爱</a></li>
-				<li cname="note"><a href="/note/list" title="一段歌词，一段回忆">碎碎念</a></li>
+				<li cname="movies"><a href="/movies" title="包含最新的影视剧资源">影视窝</a></li>
+				<li cname="soft"><a href="/soft/mac" title="丰富的Mac软件资源">Mac软件</a></li>
+				<li cname="pic"><a href="/love" title="最爱主题图册">最爱</a></li>
+				<li cname="note"><a href="/note/list" title="碎碎念的精神角落">碎碎念</a></li>
 				<li cname="pcenter">
 				<a id="J_log_info_r" title="登录-个人中心" <c:if test="${user!=null }"> href="/cm/pcentral"</c:if><c:if test="${user==null }">href="/login"</c:if>><c:if test="${user!=null }">我自己</c:if><c:if test="${user==null }">登陆</c:if></a>
 				</li>
