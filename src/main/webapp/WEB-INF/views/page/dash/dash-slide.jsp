@@ -11,11 +11,11 @@
 		
 							<li>
 								<div class="slider-caption">
-								<img src="/img/index/slide05.jpg" alt="" />
+								<img src="/img/index/slide05.jpg" alt="最爱主题图册" />
 								 
 								 
 								 <span >
-								 <h1>Love</h1>
+								 <h1>最爱主题图册</h1>
 								 <p>
 								 <br>
 								 <br>
@@ -31,7 +31,7 @@
 							</li>
 								<li>
 									<div class="slider-caption">
-										<img src="/img/index/slide2.jpg" alt="" />
+										<img src="/img/index/slide2.jpg" alt="碎碎念的精神角落" />
 										 
 										 <span style="">
 										 
@@ -47,11 +47,11 @@
 									</div>
 								<li>
 											<div class="slider-caption">
-										<img src="/img/index/slide3.jpg" alt="" />
+										<img src="/img/index/slide3.jpg" alt="情圣时刻" />
 										 
 										 <span >
 										 
-										<h1>情圣日记</h1>
+										<h1>情商提升</h1>
 										<p>
 											Maecenas fermentum est ut elementum vulputate. Ut vel consequat
 											urna. Ut aliquet <br>
@@ -63,11 +63,11 @@
 									</div>
 								<li>
 													<div class="slider-caption">
-											<img src="/img/index/slide4.jpg" alt="" />
+											<img src="/img/index/slide4.jpg" alt="影视窝-最新热映电影、BT、云盘、火热资源" />
 											 
 											 <span >
 											 
-											 <h1>热映电影</h1>
+											 <h1>影视窝</h1>
 												<p>
 													最新热映电影、BT、云盘、火热资源
 													<br>

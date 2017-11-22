@@ -13,6 +13,7 @@
 <meta name="author" content="bruce">
 <meta name="google-site-verification" content="Av5O436-yp3doL_sBZPluCUvSVYJywMpFGjVDi8Qu7k" />
 <meta name="baidu-site-verification" content="qNA02NAxQL"/>
+<meta name="msvalidate.01" content="B11539DE5DB069595F60D57A3EDCDBE9" /><!-- bing -->
 <link rel="shortcut icon" href="/img/favicon.ico">
 <title>NorthPark-Mac软件|影视窝|碎碎念|最爱主题图册|情商提升-充满文艺范和小清新的互动公园</title>
 <meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
