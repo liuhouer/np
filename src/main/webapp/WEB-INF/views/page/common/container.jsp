@@ -27,7 +27,6 @@
 <script src="/js/artDialog/artDialog.js?skin=default"></script> 
 <script src="/js/artDialog/jquery.artDialog.js?skin=default"></script>
 <script src="/js/artDialog/plugins/iframeTools.js"></script>
-<script src="/js/main2.js"></script>    
 <script src="/js/page/seltab.js"></script> 
 <script src="/js/page/common.js"></script>
 <!-- <script src="/js/playlist.js"></script>	 

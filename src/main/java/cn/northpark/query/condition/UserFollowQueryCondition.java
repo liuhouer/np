@@ -6,6 +6,12 @@ import java.io.Serializable;
 public class UserFollowQueryCondition implements Serializable {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3118574764260128924L;
+
+
 	private String id;
   
 

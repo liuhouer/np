@@ -15,8 +15,8 @@ public class UserprofileDaoImpl extends HibernateDaoImpl<Userprofile, Serializab
 	@Override
 	public Userprofile getModelByUserid(String userid) {
 		// TODO Auto-generated method stub
-		String sql = "select * from bc_userprofile where user_id='"+userid+"' ";
-		List<Userprofile> list = sessionFactory.getCurrentSession().createSQLQuery(sql).addEntity(Userprofile.class).list();
+		String sql = "select * from bc_userprofile where user_id=?";
+		List<Userprofile> list = querySql(sql, Userprofile.class, userid);
 		if(list.size()>0){
 			return (Userprofile) list.get(0);
 		}else{

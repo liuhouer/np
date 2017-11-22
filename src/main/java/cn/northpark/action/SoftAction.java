@@ -292,6 +292,7 @@ private static int SoftCount = 6;
 	 * 获取标签模块
 	 * @param map
 	 */
+	@SuppressWarnings("unchecked")
 	private void getTags(ModelMap map,HttpServletRequest request) {
 		List<Map<String, Object>> tags = null;
 		List<Map<String, Object>> hotlist  =null;

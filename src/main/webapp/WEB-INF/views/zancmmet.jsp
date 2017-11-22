@@ -105,7 +105,6 @@
 					
 				</div>
 			</div>
-			<a  name="comments"></a>
 			<div  class="clearfix margin-t20">
 
 				<h4><span  class="glyphicon glyphicon-comment"></span> ${datamap.plNum }条回忆</h4>

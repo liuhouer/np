@@ -160,7 +160,6 @@ public class Base64Util{
 	 //加密机制  密码+000000 base64加密
 	 //解密机制  base64解密 除去000000
 	 public static void main(String[] args) throws UnsupportedEncodingException {
-		 Base64Util bs = new Base64Util();
 //		 System.out.println(bs.JIAMI("bruce134"));
 		    String s = "bruce134";
 	        System.out.println("加密前：" + s);

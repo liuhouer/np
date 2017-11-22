@@ -6,6 +6,12 @@ import java.io.Serializable;
 public class LyricsCommentQueryCondition implements Serializable {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 792822500028637535L;
+
+
 	private String id;
   
 

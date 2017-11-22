@@ -6,6 +6,12 @@ import java.io.Serializable;
 public class UserprofileQueryCondition implements Serializable {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4122965977872844272L;
+
+
 	private String id;
   
 

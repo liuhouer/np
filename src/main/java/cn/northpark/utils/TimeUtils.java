@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
 
@@ -200,8 +201,8 @@ public class TimeUtils {
 		 */
 		public static String N_MonthDate(int n) {
 			Calendar c = Calendar.getInstance();
-			c.add(c.MONTH, n);
-			return "" + c.get(c.YEAR) + "-" + (c.get(c.MONTH) + 1) + "-" + c.get(c.DATE);
+			c.add(GregorianCalendar.MONTH, n);
+			return "" + c.get(GregorianCalendar.YEAR) + "-" + (c.get(GregorianCalendar.MONTH) + 1) + "-" + c.get(GregorianCalendar.DATE);
 		}
 		
 		/**
@@ -209,8 +210,8 @@ public class TimeUtils {
 		 */
 		public static String N_YearDate(int n) {
 			Calendar c = Calendar.getInstance();
-			c.add(c.YEAR, n);
-			return "" + c.get(c.YEAR) + "-" + (c.get(c.MONTH) + 1) + "-" + c.get(c.DATE);
+			c.add(GregorianCalendar.YEAR, n);
+			return "" + c.get(GregorianCalendar.YEAR) + "-" + (c.get(GregorianCalendar.MONTH) + 1) + "-" + c.get(GregorianCalendar.DATE);
 		}
 
 		
@@ -219,8 +220,8 @@ public class TimeUtils {
 		 */
 		public static String N_YearTime(int n) {
 			Calendar c = Calendar.getInstance();
-			c.add(c.YEAR, n);
-			return "" + c.get(c.YEAR) + "-" + (c.get(c.MONTH) + 1) + "-" + c.get(c.DATE)+" "+c.get(c.HOUR)+":"+c.get(c.MINUTE)+":"+c.get(c.SECOND);
+			c.add(GregorianCalendar.YEAR, n);
+			return "" + c.get(GregorianCalendar.YEAR) + "-" + (c.get(GregorianCalendar.MONTH) + 1) + "-" + c.get(GregorianCalendar.DATE)+" "+c.get(GregorianCalendar.HOUR)+":"+c.get(GregorianCalendar.MINUTE)+":"+c.get(GregorianCalendar.SECOND);
 		}
 		/**
 		 * @author bruce
@@ -586,6 +587,6 @@ public class TimeUtils {
 	    public static void main(String[] args) {
 	    	//System.out.println(getWorkDateTime(11));;
 	    	
-	    	System.out.println(parse2EnglishDate(nowdate()));
+	    	System.out.println(N_MonthDate(1));
 		}
 }

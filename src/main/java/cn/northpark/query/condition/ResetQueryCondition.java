@@ -6,6 +6,12 @@ import java.io.Serializable;
 public class ResetQueryCondition implements Serializable {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9009427486691408121L;
+
+
 	private String id;
   
 

@@ -78,8 +78,6 @@ public class PinyinUtil {
 		return result.toString();
 	}
 	
-	private static Random ran = new Random();
-    private final static int delta = 0x9fa5 - 0x4e00 + 1;
      
     
     /**

@@ -3,12 +3,9 @@ package cn.northpark.utils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.log4j.Logger;
@@ -34,12 +31,10 @@ public class EmailUtils {
 
 			String host = "smtp.163.com";
 			String myEmail = "qhdsoftware@163.com";
-			String myName = "小布";
 			String myPassword = Base64Util.JIEMI("MTM0ODM3MjQwNTEwMDAwMDA=");
 			// 接收者邮箱
 			String to = toEmail;
 			String subject = "日志分析";
-			String mailConent = "日志分析";
 
 			HtmlEmail email = new HtmlEmail();
 			email.setAuthentication(myEmail, myPassword);
@@ -77,12 +72,10 @@ public class EmailUtils {
 			//smtp.qq.com || smtp.163.com
 			String host = "smtp.163.com";
 			String myEmail = "qhdsoftware@163.com";
-			String myName = "northpark";
 			String myPassword = "bruce134";
 			// 接收者邮箱
 			String to = toEmail;
 			String subject = "欢迎加入Northpark";
-			String mailConent = "~~~~^_^~~~~Welcome";
 			
 			//开启ssl加密
 //			Properties prop = new Properties();
@@ -143,18 +136,16 @@ public class EmailUtils {
 	 * @param usrId
 	 * @param authCode
 	 */
-	public static void changePwd(String toEmail, String usrId, String authCode,HttpServletRequest request) {
+	public  void changePwd(String toEmail, String usrId, String authCode,HttpServletRequest request) {
 		try {
 
 			//smtp.qq.com || smtp.163.com
 			String host = "smtp.qq.com";
 			String myEmail = "654714226@qq.com";
-			String myName = "northpark";
 			String myPassword = Base64Util.JIEMI("emhhbmd5YW5nMjI2QDAwMDAwMA==");
 			// 接收者邮箱
 			String to = toEmail;
 			String subject = "~~~~(>_<)~~~~找回northpark的密码";
-			String mailConent = "~~~~(>_<)~~~~找回密码";
 
 			HtmlEmail email = new HtmlEmail();
 			email.setAuthentication(myEmail, myPassword);
@@ -410,15 +401,12 @@ public class EmailUtils {
 			String face_detail) {
 		try {
 
-			EmailUtils as = new EmailUtils();
 			String host = "smtp.qq.com";
 			String myEmail = "waiter@yunlu.info";
-			String myName = "云路科技";
 			String myPassword = MD5Utils.decodePwd("ACE-4E80-8WXVubHUyMDEqA1AF250F-5");
 			// 接收者邮箱
 			String to = toEmail;
 			String subject = "岗位面试邀请提醒";
-			String mailConent = "岗位面试邀请提醒";
 
 			HtmlEmail email = new HtmlEmail();
 			email.setAuthentication(myEmail, myPassword);
@@ -478,15 +466,12 @@ public class EmailUtils {
 	public static void emailBindApproval(String toEmail, String userid, String authcode,HttpServletRequest request) {
 		try {
 
-			EmailUtils as = new EmailUtils();
 			String host = "smtp.qq.com";
 			String myEmail = "waiter@yunlu.info";
-			String myName = "云路科技";
 			String myPassword = MD5Utils.decodePwd("ACE-4E80-8WXVubHUyMDEqA1AF250F-5");
 			// 接收者邮箱
 			String to = toEmail;
 			String subject = "云路认证";
-			String mailConent = "云路认证";
 
 			HtmlEmail email = new HtmlEmail();
 			email.setAuthentication(myEmail, myPassword);

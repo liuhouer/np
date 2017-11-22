@@ -236,7 +236,6 @@ import sun.misc.BASE64Encoder;
 	     */  
 	    public static String receiveContent(HttpServletRequest request)  
 	    {  
-	        int a = 0;  
 	         byte[] b = new byte[4096];  
 	        String result="";  
 	        try  
@@ -283,7 +282,7 @@ import sun.misc.BASE64Encoder;
 	    }  
 	    
 	 // 写文件
-		private void writerTxt() {
+	    public void writerTxt() {
 			BufferedWriter fw = null;
 			try {
 				File file = new File("D://text.txt");
@@ -306,7 +305,7 @@ import sun.misc.BASE64Encoder;
 		}
 
 		// 读文件
-		private static void readTxt() {
+		public static void readTxt() {
 			String filePath = "/Users/zhangyang/Downloads/start.txt"; // 文件和该类在同个目录下
 			BufferedReader reader = null;
 			try {
@@ -377,11 +376,17 @@ import sun.misc.BASE64Encoder;
 			//写入文件
 			FileInputStream in = new FileInputStream(new_pic);
 			FileOutputStream bos = new FileOutputStream(flist.get(i)); 
-			int count = 0 ;
 			byte[] buffer = new byte[1024];  
 			int len = 0;  
 			while (-1 != (len = in.read(buffer, 0, 1024))) {  
 				bos.write(buffer, 0, len);  
+			}
+			try {
+				in.close();
+				bos.close();
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
 			}
 		}
 

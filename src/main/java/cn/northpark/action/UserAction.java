@@ -461,7 +461,7 @@ public class UserAction {
 	        		 
 	        		 String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
 	 	 			List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id,follow_id);
-	 		 		String nums = (String) ygznums_list.get(0).get("nums");
+	 	 			String nums =  ygznums_list.get(0).get("nums").toString();
 	        		 if(Integer.parseInt(nums)>0){
 	        			 map.put("gz", "ygz");
 	        		 }
@@ -509,7 +509,7 @@ public class UserAction {
 		        		
 		        		 String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
 		 	 			List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id,follow_id);
-		 		 		String nums = (String) ygznums_list.get(0).get("nums");
+		 	 			String nums =  ygznums_list.get(0).get("nums").toString();
 		        		 if(Integer.parseInt(nums)>0){
 		        			 map.put("gz", "ygz");
 		        		 }
@@ -565,7 +565,7 @@ public class UserAction {
 		        		 
 		        		 String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
 		 	 			List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id,follow_id);
-		 		 		String nums = (String) ygznums_list.get(0).get("nums");
+		 		 		String nums =  ygznums_list.get(0).get("nums").toString();
 		        		 if(Integer.parseInt(nums)>0){
 		        			 map.put("gz", "ygz");
 		        		 }

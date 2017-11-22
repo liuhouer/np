@@ -455,6 +455,7 @@ private static int MoviesCount = 6;
 	 * 
 	 * @param map
 	 */
+	@SuppressWarnings("unchecked")
 	private void getTags(ModelMap map,HttpServletRequest request) {
 		List<Tags> tags = null;
 		List<Map<String,Object>> movies_hot_list  =null;

@@ -13,6 +13,12 @@ import java.io.Serializable;
 public class PoemQueryCondition implements Serializable {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2788790233106085625L;
+
+
 	private Integer id;
   
 

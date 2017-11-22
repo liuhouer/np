@@ -11,7 +11,6 @@ import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Movies;
-import cn.northpark.model.Soft;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
@@ -170,7 +169,7 @@ public class EQTask {
 							map  = list.get(i);
 							
 							String title = map.get("title");
-							String aurl = map.get("aurl");
+//							String aurl = map.get("aurl");
 							String date = map.get("date");
 							String article = map.get("article");
 						    String retcode = map.get("retcode");
