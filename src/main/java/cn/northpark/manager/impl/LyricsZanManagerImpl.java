@@ -90,9 +90,9 @@ public class LyricsZanManagerImpl implements LyricsZanManager {
 	}
 
 	@Override
-	public int countHql(LyricsZan lyricszan, String wheresql) {
+	public int countHql(String wheresql) {
 		// TODO Auto-generated method stub
-		return lyricszanDao.countHql(lyricszan.getClass(), wheresql);
+		return lyricszanDao.countHql(LyricsZan.class, wheresql);
 	}
 }
 

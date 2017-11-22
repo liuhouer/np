@@ -25,6 +25,7 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import sun.misc.BASE64Decoder;
@@ -40,6 +41,8 @@ import sun.misc.BASE64Encoder;
 	 *
 	 */
 	public class FileUtils {  
+		
+		private static final Logger LOGGER = Logger.getLogger(FileUtils.class);
 		
 		 /**
 		 * 头像
@@ -66,8 +69,7 @@ import sun.misc.BASE64Encoder;
 		 */
 		public static void removeOldFile(String oldpath, MultipartFile[] file) {
 			if (file.length >= 1) {
-				System.out.println(file[0].getOriginalFilename()
-						+ "------------------------------------------------》》");
+				LOGGER.debug(file[0].getOriginalFilename()+ "------------------------------------------------》》");
 				
 				Properties prop = System.getProperties();
 
@@ -78,16 +80,14 @@ import sun.misc.BASE64Encoder;
 		         }else{
 		        	 path = "/mnt/apk/";
 		         }
-				if (StringUtils.isNotEmpty(file[0].getOriginalFilename())) {// 新上传了图片才把以前的删除
-					if (StringUtils.isNotEmpty(oldpath)) {
+				if (StringUtils.isNotEmpty(file[0].getOriginalFilename()) && StringUtils.isNotEmpty(oldpath)) {// 新上传了图片才把以前的删除
 						File f = new File(path+oldpath);
-						System.out.println("要删除文件的绝对路径是：" + f.getAbsolutePath());
+						LOGGER.debug("要删除文件的绝对路径是：" + f.getAbsolutePath());
 						if (f.exists()) {
 							f.delete();
 						} else {
-							System.out.println("文件已经丢失!");
+							LOGGER.error("文件已经丢失!");
 						}
-					}
 				}
 			}
 		}
@@ -100,7 +100,7 @@ import sun.misc.BASE64Encoder;
 		 * @return 保存的路径数值集合
 		 */
 		public static List<String> commonUpload(MultipartFile[] file ,String suffix)  {
-		    System.out.println("-------------------------------------->开始");  
+		    LOGGER.debug("-------------------------------------->开始");  
 		    
 		    List<String> list = new ArrayList<String>();
 		    Properties prop = System.getProperties();
@@ -133,7 +133,7 @@ import sun.misc.BASE64Encoder;
 			        try {  
 			            file[i].transferTo(targetFile);  
 			        } catch (Exception e) {  
-			            e.printStackTrace();  
+			            LOGGER.error("上传文件异常------->", e);
 			            continue;
 			        }  
 			        tail_path = "/"+suffix+"/"+newName;
@@ -142,8 +142,8 @@ import sun.misc.BASE64Encoder;
 	        	}
 		        
 			}
-	         
-	         System.out.println("-------------------------------------->结束");
+	         System.gc();
+	         LOGGER.debug("-------------------------------------->结束");
 			return list;
 		 
 		 }
@@ -168,10 +168,10 @@ import sun.misc.BASE64Encoder;
 	                is=urlconn.getInputStream();  
 	            } catch (MalformedURLException e) {  
 	                // TODO Auto-generated catch block  
-	                e.printStackTrace();  
+	                LOGGER.error("------->", e);;  
 	            } catch (IOException e) {  
 	                // TODO Auto-generated catch block  
-	                e.printStackTrace();  
+	                LOGGER.error("------->", e);;  
 	            }  
 	        }  
 	        int n=0;  
@@ -187,7 +187,7 @@ import sun.misc.BASE64Encoder;
 	            is.close();  
 	        } catch (IOException e) {  
 	            // TODO Auto-generated catch block  
-	            e.printStackTrace();  
+	            LOGGER.error("------->", e);;  
 	        }  
 	        return filecontent;  
 	    }  
@@ -222,10 +222,10 @@ import sun.misc.BASE64Encoder;
 	              
 	        } catch (MalformedURLException e) {  
 	            // TODO Auto-generated catch block  
-	            e.printStackTrace();  
+	            LOGGER.error("------->", e);;  
 	        } catch (IOException e) {  
 	            // TODO Auto-generated catch block  
-	            e.printStackTrace();  
+	            LOGGER.error("------->", e);;  
 	        }  
 	          
 	    }  
@@ -250,7 +250,7 @@ import sun.misc.BASE64Encoder;
 	        }  
 	        catch(Exception e)  
 	        {  
-	        e.printStackTrace();  
+	        LOGGER.error("------->", e);;  
 	        }  
 	        return  result;  
 	    }  
@@ -273,10 +273,10 @@ import sun.misc.BASE64Encoder;
 	              
 	        } catch (FileNotFoundException e) {  
 	            // TODO Auto-generated catch block  
-	            e.printStackTrace();  
+	            LOGGER.error("------->", e);;  
 	        } catch (IOException e) {  
 	            // TODO Auto-generated catch block  
-	            e.printStackTrace();  
+	            LOGGER.error("------->", e);;  
 	        }  
 	          
 	    }  
@@ -292,13 +292,13 @@ import sun.misc.BASE64Encoder;
 				fw.append("我又写入的内容");
 				fw.flush(); // 全部写入缓存中的内容
 			} catch (Exception e) {
-				e.printStackTrace();
+				LOGGER.error("------->", e);;
 			} finally {
 				if (fw != null) {
 					try {
 						fw.close();
 					} catch (IOException e) {
-						e.printStackTrace();
+						LOGGER.error("------->", e);;
 					}
 				}
 			}
@@ -314,17 +314,17 @@ import sun.misc.BASE64Encoder;
 				while ((str = reader.readLine()) != null) {
 					long lo = Long.valueOf(str.trim());
 					String time = TimeUtils.longToString(lo);
-					System.out.println(str+"------->"+time);
+					LOGGER.debug(str+"------->"+time);
 				}
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				LOGGER.error("------->", e);;
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOGGER.error("------->", e);;
 			} finally {
 				try {
 					reader.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					LOGGER.error("------->", e);;
 				}
 			}
 		}
@@ -333,7 +333,7 @@ import sun.misc.BASE64Encoder;
 			 List<String> filelist = new ArrayList<String>();
 			  File[] fs = dir.listFiles();
 			  for(int i=0; i<fs.length; i++){
-			    //System.out.println(fs[i].getAbsolutePath());
+			    //LOGGER.debug(fs[i].getAbsolutePath());
 			    if(fs[i].isDirectory()){
 			    	try{
 			    		showAllFiles(fs[i]);
@@ -356,7 +356,7 @@ import sun.misc.BASE64Encoder;
 			List<String> flist = showAllFiles(root);
 			for (int i = 0; i < flist.size(); i++) {
 				if(MD5Utils.encoding(new FileInputStream(flist.get(i))).equals(pic1)){//替换图片
-					System.out.println(i+"---"+flist.get(i));
+					LOGGER.debug(i+"---"+flist.get(i));
 					String new_pic = getRandomPic(flist);
 					
 					writeFile(flist, i, new_pic);  
@@ -386,7 +386,7 @@ import sun.misc.BASE64Encoder;
 				bos.close();
 			} catch (Exception e) {
 				// TODO: handle exception
-				e.printStackTrace();
+				LOGGER.error("------->", e);;
 			}
 		}
 
@@ -422,72 +422,10 @@ import sun.misc.BASE64Encoder;
 				   getRandomPic(list);
 			   }
 			}catch(Exception e){
-				e.printStackTrace();
+				LOGGER.error("------->", e);;
 			}
 			return path;
 		}
-	    
-		
-	
-		
-		
-//			   	 File root = new File("/mnt/apk/album");
-//		   	     showAllFiles(root);
-		
-		//replaceFiles();
-		
-		
-		
-		
-		//写入文件
-//				FileInputStream in = new FileInputStream("/Users/zhangyang/Documents/lvzheng_pc.access.log.2016-04-25");
-//				FileOutputStream bos = new FileOutputStream("/mnt/apk/album/1449928675112.jpg"); 
-//				int count = 0 ;
-//				byte[] buffer = new byte[1024];  
-//				int len = 0;  
-//				while (-1 != (len = in.read(buffer, 0, 1024))) {  
-//					bos.write(buffer, 0, len);  
-//				}
-//	    		
-//	    		System.out.println(MD5Utils.encoding( new FileInputStream("/mnt/apk/album/1449928592939.jpg")));
-//	    		System.out.println(MD5Utils.encoding( new FileInputStream("/mnt/apk/album/1449928750567.jpg")));
-		
-		
-		
-		
-//	    public static void main(String[] args) {
-//	    	try{
-//	    		
-//				List<trackVO> tlist = new ArrayList<trackVO>();
-//				List<String> list = ReadFile("/Users/zhangyang/Documents/lvzheng_pc.access.log.2016-04-25");
-//				//System.out.println(JsonContext);
-//				for (int i = 0; i < list.size(); i++) {
-//					
-//					//System.out.println(list.get(i));
-//					trackVO model =  JsonUtil.jsonUtil.jsonToModel(list.get(i), trackVO.class);
-//					tlist.add(model);
-//					
-//					
-//				}
-//				
-//				
-//				 //实现统计逻辑
-//				 
-//				 Map<String, Integer> m = getCount(tlist,"pageUrl");
-//				 
-//				 
-//				 //打印统计结果|发送邮件
-//				 String rs = printMap(m);
-//				 
-//				 
-//				 EmailUtils.emailUtil.analyseLog("duqingxiang92@163.com", rs);
-//				 
-//	    		
-//	    		
-//	    	}catch(Exception e){
-//	    		e.printStackTrace();
-//	    	}
-//		}
 	    
 	    
 		/**

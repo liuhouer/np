@@ -325,7 +325,7 @@ public class LyricsAction {
          if(user!=null){
         	 Integer uid =  user.getId();
 
-        	 Integer num = lyricszanManager.countHql(new LyricsZan(), " where userid="+uid+" and lyricsid="+lyricsid);
+        	 Integer num = lyricszanManager.countHql( " where userid="+uid+" and lyricsid="+lyricsid);
         	 
         	 if(num>0){
         		 map.put("yizan", "yizan");

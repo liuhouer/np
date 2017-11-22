@@ -104,9 +104,9 @@ public class PoemEnjoyManagerImpl implements PoemEnjoyManager {
 	 * 根据hql查询条数
 	 */
 	@Override
-	public int countHql(PoemEnjoy m, String wheresql) {
+	public int countHql(String wheresql) {
 		// TODO Auto-generated method stub
-		return poemenjoyDao.countHql(m.getClass(), wheresql);
+		return poemenjoyDao.countHql(PoemEnjoy.class, wheresql);
 	}
 }
 

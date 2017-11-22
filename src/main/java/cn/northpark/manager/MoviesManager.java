@@ -59,7 +59,7 @@ public interface MoviesManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(Movies m,String wheresql);
+	public  int countHql(String wheresql);
 
 	
 	/**

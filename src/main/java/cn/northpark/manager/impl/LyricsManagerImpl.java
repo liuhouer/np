@@ -78,9 +78,9 @@ public class LyricsManagerImpl implements LyricsManager {
 	 * @see cn.northpark.manager.LyricsManager#countHql(cn.northpark.model.Lyrics, java.lang.String)
 	 */
 	@Override
-	public int countHql(Lyrics m, String wheresql) {
+	public int countHql(String wheresql) {
 		// TODO Auto-generated method stub
-		return lyricsDao.countHql(m.getClass(), wheresql);
+		return lyricsDao.countHql(Lyrics.class, wheresql);
 	}
 
 }

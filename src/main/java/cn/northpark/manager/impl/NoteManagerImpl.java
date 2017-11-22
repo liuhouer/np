@@ -97,9 +97,9 @@ public class NoteManagerImpl implements NoteManager {
 	 * @see cn.northpark.manager.NoteManager#countHql(cn.northpark.model.User, java.lang.String)
 	 */
 	@Override
-	public int countHql(Note note, String wheresql) {
+	public int countHql(String wheresql) {
 		// TODO Auto-generated method stub
-		return noteDao.countHql(note.getClass(), wheresql);
+		return noteDao.countHql(Note.class, wheresql);
 	}
 
 

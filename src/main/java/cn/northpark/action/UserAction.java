@@ -114,7 +114,7 @@ public class UserAction {
 	 	@RequestMapping("/cm/emailFlag")
 	 	@ResponseBody
 		public String emailFlag(HttpServletRequest request, HttpServletResponse response,ModelMap map,String email) {
-	 		int num = userManager.countHql(new User(), " where email = '"+email+"' " );
+	 		int num = userManager.countHql( " where email = '"+email+"' " );
 	 		String msg = "exist";//存在；
 			if(num<=0){
 				msg = "notexist";//不存在	     
@@ -134,7 +134,7 @@ public class UserAction {
 	 	@RequestMapping("/cm/tailFlag")
 	 	@ResponseBody
 		public String tailFlag(HttpServletRequest request, HttpServletResponse response,ModelMap map,String tail) {
-	 		int num = userManager.countHql(new User()," where tail_slug = '"+tail+"' ");
+	 		int num = userManager.countHql(" where tail_slug = '"+tail+"' ");
 	 		String msg = "exist";//存在；
 			if(num<=0){
 				msg = "notexist";//不存在	     
@@ -762,7 +762,7 @@ public class UserAction {
 			String pwd = user.getPassword();
 			email = WAQ.forSQL().escapeSql(email);
 			pwd = WAQ.forSQL().escapeSql(pwd);
-			int num = userManager.countHql(user, " where email= '"+email+"' ");
+			int num = userManager.countHql( " where email= '"+email+"' ");
 			if(num>0){
 				map.put("reged", "reged");
 				return REG_ACTION;

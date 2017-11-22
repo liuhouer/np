@@ -105,9 +105,9 @@ public class SoftManagerImpl implements SoftManager {
 	 * 根据hql查询条数
 	 */
 	@Override
-	public int countHql(Soft m, String wheresql) {
+	public int countHql(String wheresql) {
 		// TODO Auto-generated method stub
-		return softDao.countHql(m.getClass(), wheresql);
+		return softDao.countHql(Soft.class, wheresql);
 	}
 
 	@Override

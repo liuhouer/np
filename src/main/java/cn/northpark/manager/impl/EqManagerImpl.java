@@ -104,9 +104,9 @@ public class EqManagerImpl implements EqManager {
 	 * @see cn.northpark.manager.EqManager#countHql(cn.northpark.model.Eq, java.lang.String)
 	 */
 	@Override
-	public int countHql(Eq eq, String wheresql) {
+	public int countHql( String wheresql) {
 		// TODO Auto-generated method stub
-		return eqDao.countHql(eq.getClass(), wheresql);
+		return eqDao.countHql(Eq.class, wheresql);
 	}
 
 	/* (non-Javadoc)

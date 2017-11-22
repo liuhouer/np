@@ -64,7 +64,7 @@ public interface LyricsCommentManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(LyricsComment m,String wheresql);
+	public  int countHql(String wheresql);
 	
 	
 	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview,String sql) ;

@@ -59,7 +59,7 @@ public interface NoteManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(Note note,String wheresql);
+	public  int countHql(String wheresql);
 	
 	/**
 	 * sql

@@ -57,7 +57,7 @@ public interface UserManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(User user,String wheresql);
+	public  int countHql(String wheresql);
 	
 }
 

@@ -12,6 +12,8 @@ import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author bruce
  * @date 2016年7月29日
@@ -21,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
  *  根据IP地址获取详细的地域信息
  */
 public class AddressUtils {
+	  private static final Logger LOGGER = Logger
+	            .getLogger(AddressUtils.class);
 
 	/**
 	 * 
@@ -39,7 +43,7 @@ public class AddressUtils {
 		String returnStr = this.getResult(urlStr, content, encodingString);
 		if (returnStr != null) {
 			// 处理返回的省市区信息
-			System.out.println(returnStr);
+			LOGGER.debug(returnStr);
 			String[] temp = returnStr.split(",");
 			if(temp.length<3){
 				return "0";//无效IP，局域网测试
@@ -82,7 +86,7 @@ public class AddressUtils {
 				}
 			}
 			
-			 System.out.println(country+"="+area+"="+region+"="+city+"="+county+"="+isp);
+			 LOGGER.debug(country+"="+area+"="+region+"="+city+"="+county+"="+isp);
 			return region;
 		}
 		return null;
@@ -125,7 +129,7 @@ public class AddressUtils {
 			reader.close();
 			return buffer.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("AddressUtils------->", e);;
 		} finally {
 			if (connection != null) {
 				connection.disconnect();// 关闭连接
@@ -242,9 +246,9 @@ public class AddressUtils {
 			address = addressUtils.getAddresses("ip="+ip, "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("AddressUtils------->", e);;
 		}
-		System.out.println(address);
+		LOGGER.debug(address);
 		// 输出结果为：广东省,广州市,越秀区
 	}
 }  

@@ -8,6 +8,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 /**
  时间工具类
  @since 2014-05-23
@@ -26,6 +28,8 @@ public class TimeUtils {
       private static final String ONE_DAY_AGO = "天前";  
       private static final String ONE_MONTH_AGO = "月前";  
       private static final String ONE_YEAR_AGO = "年前";  
+      private static final Logger LOGGER = Logger
+	            .getLogger(TimeUtils.class);
 		
 		
 		//格式化时间串成为  几天前 几秒前 几小时前  几分钟前 几年前sth.....
@@ -43,7 +47,7 @@ public class TimeUtils {
 					str = TimeUtils.format(date);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.error("TimeUtils------->", e);;
 				}
 				
 			return str;
@@ -169,7 +173,7 @@ public class TimeUtils {
 			try {
 				date = dateFormat.parse(source);
 			} catch (ParseException e) {
-				e.printStackTrace();
+				LOGGER.error("TimeUtils------->", e);;
 				date = new Date();
 			}
 			if(null == date) return 0;
@@ -332,7 +336,7 @@ public class TimeUtils {
 			try {
 				date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(specifiedDay);
 			} catch (ParseException e) {
-				e.printStackTrace();
+				LOGGER.error("TimeUtils------->", e);;
 			}
 			c.setTime(date);
 			int day = c.get(Calendar.DATE);
@@ -353,7 +357,7 @@ public class TimeUtils {
 			try {
 				date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(specifiedDay);
 			} catch (ParseException e) {
-				e.printStackTrace();
+				LOGGER.error("TimeUtils------->", e);;
 			}
 			c.setTime(date);
 			int day = c.get(Calendar.DATE);
@@ -375,7 +379,7 @@ public class TimeUtils {
 			try {
 				date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(specifiedDay);
 			} catch (ParseException e) {
-				e.printStackTrace();
+				LOGGER.error("TimeUtils------->", e);;
 			}
 			c.setTime(date);
 			int day = c.get(Calendar.DATE);
@@ -397,7 +401,7 @@ public class TimeUtils {
 			try {
 				date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(specifiedDay);
 			} catch (ParseException e) {
-				e.printStackTrace();
+				LOGGER.error("TimeUtils------->", e);;
 			}
 			c.setTime(date);
 			int minute = c.get(Calendar.MINUTE);
@@ -431,7 +435,7 @@ public class TimeUtils {
 	        Date date= new Date(time);  
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
 	        String dateString = formatter.format(date);  
-	        //System.out.println("TIME:::"+dateString);  
+	        //LOGGER.debug("TIME:::"+dateString);  
 	        return dateString;  
 	    }  
 	    
@@ -445,7 +449,7 @@ public class TimeUtils {
 	        Date date= new Date(time);  
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
 	        String dateString = formatter.format(date);  
-	        System.out.println("TIME:::"+dateString);  
+	        LOGGER.debug("TIME:::"+dateString);  
 	        return dateString;  
 	    }  
 	    
@@ -580,13 +584,13 @@ public class TimeUtils {
 				result = sum + result;
 
 			}
-			System.out.print(result);
+			LOGGER.debug(result);
 			return result;
 		}
 		
 	    public static void main(String[] args) {
-	    	//System.out.println(getWorkDateTime(11));;
+	    	//LOGGER.debug(getWorkDateTime(11));;
 	    	
-	    	System.out.println(N_MonthDate(1));
+	    	LOGGER.debug(N_MonthDate(1));
 		}
 }

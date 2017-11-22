@@ -104,9 +104,9 @@ public class TagsManagerImpl implements TagsManager {
 	 * 根据hql查询条数
 	 */
 	@Override
-	public int countHql(Tags m, String wheresql) {
+	public int countHql(String wheresql) {
 		// TODO Auto-generated method stub
-		return tagsDao.countHql(m.getClass(), wheresql);
+		return tagsDao.countHql(Tags.class, wheresql);
 	}
 }
 

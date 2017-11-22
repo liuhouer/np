@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
@@ -45,177 +43,18 @@ import cn.northpark.model.Soft;
  */
 
 
-public class HTMLParserUtil
-{
+public class HTMLParserUtil{
 
     private static final Logger LOGGER = Logger
             .getLogger(HTMLParserUtil.class);
     
 
 
-    public static String replaceHtml(String html){
-        try{
-            String content ="";
-            String regEx="<.+?>"; //表示标签
-            Pattern p=Pattern.compile(regEx);
-            Matcher m=p.matcher(html);
-            content = m.replaceAll("");
-            return content;
-        }catch (Exception e) {
-            return "";
-        }
-    }
 
-    public String replaceHtmAndTrim(String html){
-        try{
-            String content ="";
-            String regEx="<.+?>"; //表示标签
-            Pattern p=Pattern.compile(regEx);
-            Matcher m=p.matcher(html);
-            content = m.replaceAll("");
-            //处理空格
-            content=  content.replaceAll(">\\s*<", "><").replaceAll("\n|\r|\rn|\nr|\t", "");
-            return content;
-        }catch (Exception e) {
-            return "";
-        }
-    }
 
-    /**
-     * 取出html中除img，p，br以外标签。
-     */
-    public String htmlTextSimple(String inputString) {
-        String htmlStr = inputString; // 含html标签的字符串
-        String textStr = "";
-        htmlStr = htmlStr.replaceAll("(?is)<!DOCTYPE.*?>", "");
-        htmlStr = htmlStr.replaceAll("(?is)<!--.*?-->", "");                // remove html comment
-        htmlStr = htmlStr.replaceAll("(?is)<script.*?>.*?</script>", ""); // remove javascript
-        htmlStr = htmlStr.replaceAll("(?is)<style.*?>.*?</style>", "");   // remove css
-        htmlStr = htmlStr.replaceAll("&.{2,5};|&#.{2,5};", " ");            // remove special char
-        htmlStr = htmlStr.replaceAll("(?is)<(?!img|br|p|/p).*?>", "");          // 保留img,br,p标签
-        textStr = htmlStr;
-        return textStr;
-    }
 
-    /**
-     * 取出html中除img，p，br以外标签。
-     */
-    public String removedHtmlTagAndTrim(String inputString) {
-        String htmlStr = inputString; // 含html标签的字符串
-        String textStr = "";
-        htmlStr = htmlStr.replaceAll("(?is)<!DOCTYPE.*?>", "");
-        htmlStr = htmlStr.replaceAll("(?is)<!--.*?-->", "");                // remove html comment
-        htmlStr = htmlStr.replaceAll("(?is)<script.*?>.*?</script>", ""); // remove javascript
-        htmlStr = htmlStr.replaceAll("(?is)<style.*?>.*?</style>", "");   // remove css
-        htmlStr = htmlStr.replaceAll("&.{2,5};|&#.{2,5};", " ");            // remove special char
-        htmlStr = htmlStr.replaceAll("(?is)<.*?>", "");          // 保留img,br,p标签
-        textStr = htmlStr;
-        return textStr;
-    }
 
-    /**
-     * 将html按指定tag标签截取
-     */
-    public void splitByTag(String tag){
-        Pattern pattern = Pattern.compile("<img[^>]*>");
-        Matcher m = pattern.matcher(tag);
-        while(m.find()){
-            for(int i=0;i<m.groupCount();i++){
-                 System.out.println(m.group(i));
-            }
-        }
-    }
 
-     public static String GetNoteContent(String html) {
-            //String html = "<ul><li>1.hehe</li><li>2.hi</li><li>3.hei</li></ul>";
-            String ss = ">[^<]+<";
-            String temp = null;
-            Pattern pa = Pattern.compile(ss);
-            Matcher ma = null;
-            ma = pa.matcher(html);
-            String result = null;
-            while(ma.find()){
-                temp = ma.group();
-                if(temp!=null){
-                    System.out.println(temp);
-                    if(temp.startsWith(">")){
-                        temp = temp.substring(1);
-                    }
-                    if(temp.endsWith("<")){
-                        temp = temp.substring(0, temp.length()-1);
-                    }
-                    if(!temp.equalsIgnoreCase("")){
-                        if(result==null){
-                            result = temp;
-                        }
-                        else{
-                            result+="____"+temp;
-                        }
-                    }
-                }
-            }
-            return result;
-        }
-
-    public static String GetContent(String html) {
-        //String html = "<ul><li>1.hehe</li><li>2.hi</li><li>3.hei</li></ul>";
-        String ss = ">[^<]+<";
-        String temp = null;
-        Pattern pa = Pattern.compile(ss);
-        Matcher ma = null;
-        ma = pa.matcher(html);
-        String result = null;
-        while(ma.find()){
-            temp = ma.group();
-            if(temp!=null){
-                if(temp.startsWith(">")){
-                    temp = temp.substring(1);
-                }
-                if(temp.endsWith("<")){
-                    temp = temp.substring(0, temp.length()-1);
-                }
-                if(!temp.equalsIgnoreCase("")){
-                    if(result==null){
-                        result = temp;
-                    }
-                    else{
-                        result+="____"+temp;
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
-    public static String GetLabel(String html) {
-        //String html = "<ul><li>1.hehe</li><li>2.hi</li><li>3.hei</li></ul>";
-        String ss = "<[^>]+>";
-        String temp = null;
-        Pattern pa = Pattern.compile(ss);
-        Matcher ma = null;
-        ma = pa.matcher(html);
-        String result = null;
-        while(ma.find()){
-            temp = ma.group();
-            if(temp!=null){
-                if(temp.startsWith(">")){
-                    temp = temp.substring(1);
-                }
-                if(temp.endsWith("<")){
-                    temp = temp.substring(0, temp.length()-1);
-                }
-                if(!temp.equalsIgnoreCase("")){
-                    if(result==null){
-                        result = temp;
-                    }
-                    else{
-                        result+="____"+temp;
-                    }
-                }
-            }
-        }
-        return result;
-    }
 
     /**
      *
@@ -232,7 +71,7 @@ public class HTMLParserUtil
             Document doc = Jsoup.connect(url).get();
 
             String title = doc.title();
-            System.out.println("title ||---  "+title);
+            LOGGER.debug("title ||---  "+title);
             Elements notes   = doc.select(classname);
 
             for(Element p : notes){
@@ -240,14 +79,14 @@ public class HTMLParserUtil
                        String note = p.html();
                        list.add(note);
                        //String note2 = p.text();
-                       System.out.println(note);
-                       //System.out.println(note2);
+                       LOGGER.debug(note);
+                       //LOGGER.debug(note2);
 
             }
 
         } catch (Exception e) {
             // TODO: handle exception
-            e.printStackTrace();
+            LOGGER.error("HTMLPARSERutils------->", e);;
         }
         return list;
 
@@ -268,148 +107,26 @@ public class HTMLParserUtil
             Document doc = Jsoup.connect(url).get();
 
             String title = doc.title();
-            System.out.println(title);
+            LOGGER.debug(title);
             Elements notes   = doc.select("img");
 
             for(Element p : notes){
 
                 String uri = p.absUrl("src");
-                System.out.println(uri);
+                LOGGER.debug(uri);
                 list.add(uri);
 
             }
 
         } catch (Exception e) {
             // TODO: handle exception
-            e.printStackTrace();
+            LOGGER.error("HTMLPARSERutils------->", e);;
         }
         return list;
 
     }
 
-    /**
-     * 爬虫获取红包添加到缓存
-     * @throws IOException
-     */
-//    public static void retQuan() throws IOException {
-//        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-//        Document doc = Jsoup.connect("http://quan.liuguofa.com/").get();
-//
-//        Elements tr   = doc.select("tr");
-//
-//        for(Element p : tr){
-//
-//            HashMap<String, String> map =new HashMap<String, String>();
-//            Elements td = p.select("td");
-//
-//            Element url = td.get(0);
-//            String from = td.get(1).html();
-//            String time = td.get(2).html();
-//            String authorIP = td.get(3).html();
-//
-//            Elements al = url.select("a");
-//            String path = al.attr("href");
-//            String title = al.attr("title");
-//
-//
-//            map.put("from", from);
-//            map.put("publishtime", time);
-//            map.put("authorIP", authorIP);
-//            map.put("path", path);
-//            map.put("title", title);
-//            map.put("id", SpiderAction.getInt6()+"");
-//
-//            System.out.println(path+"\t\r"+from+"\t\r"+time+"\t\r"+authorIP+"\t\r"+title+"\t\r"+"-----------------");
-//
-//            list.add(map);
-//
-//
-//        }
-//
-//        //处理List集合
-//        for (int i = 0; i < list.size(); i++) {
-//            String path = list.get(i).get("path");
-//            if(StringUtils.isNotEmpty(path)){
-//                String url = "http://quan.liuguofa.com"+path;
-//                Document doc_mt = Jsoup.connect(url).get();
-//
-//                Elements iframe = doc_mt.select("iframe");
-//                String path_mt =  iframe.attr("src");
-//                list.get(i).put("path_mt", path_mt);
-//
-//                list.get(i).put("addtime",TimeUtils.nowTime());
-//            }
-//        }
-//
-//        list.remove(0);
-//
-//        //更新redis缓存
-//        System.out.println(list);
-//        JedisUtil.remove("B_quan");
-//        JedisUtil.addList("B_quan",list);
-//    }
 
-    /**
-     * @throws IOException
-     */
-    public static List<String> readsong() throws IOException {
-
-        List<String> urilist = new ArrayList<String>();
-        for (int i = 1; i <= 6; i++) {
-            File in = new File("/Users/zhangyang/Downloads/a"+i+".html");
-
-            Document doc = Jsoup.parse(in, "UTF-8", "");
-//            String title = doc.title();
-//            System.out.println(title);
-            Elements notes   = doc.select("a");
-            for(Element p : notes){
-
-                       String links = p.attr("href");
-                       //System.out.println(links);
-                       if(links.startsWith("http://www.xukaiqiang.com/article/")){
-                           urilist.add(links);
-                       }
-
-            }
-        }
-
-            HashSet<String> v = new HashSet<String>();
-            v.addAll(urilist);
-            List<String> list = new ArrayList<String>();
-            list.addAll(v);
-            for (String s:list) {
-                System.out.println(s);
-            }
-            return list;
-
-    }
-    //情圣文章分析------------------------------------------------------------------------------------------------
-
-    //    <div class="info">
-    //    <div class="title">
-    //        <a title="情圣大卫：怎么判断她是不是喜欢你？" href="/yuedu/18984480.html" target="_blank">情圣大卫：怎么判断她是不是喜欢你？</a>
-    //    </div>
-    //    <div class="summary">
-    //
-    //        <div class="pic">
-    //            <div class="picinner">
-    //                <a title="情圣大卫：怎么判断她是不是喜欢你？" href="/yuedu/18984480.html" target="_blank">
-    //                    <img src="http://awb.img1.xmtbang.com/wechatmsg2015/article201503/20150325/thumb/5b2201bdb5c74368a6f8632c095a5d96.jpg" onerror="this.parentNode.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode.parentNode)" original="http://awb.img1.xmtbang.com/wechatmsg2015/article201503/20150325/thumb/5b2201bdb5c74368a6f8632c095a5d96.jpg" alt="情圣大卫：怎么判断她是不是喜欢你？" style="display: inline;">
-    //                </a>
-    //            </div>
-    //        </div>
-    //
-    //        <div class="text">女人的好感信号，你分辨的出来吗？</div>
-    //    </div>
-    //    <div class="clear h"></div>
-    //    <div class="ifooter">
-    //        <span class="text">2015-03-24</span>
-    //        <span class="fav-operate">
-    //            <a class="favarticle " href="javascript:;" data-articleid="18984480">收藏，稍后阅读</a>
-    //            <a class="unfavarticle undis" href="http://u.aiweibang.com/fav/article" target="_blank">已收藏</a>
-    //        </span>
-    //    </div>
-    //</div>
 
     /**
      * 爬虫获取情圣的文章
@@ -465,12 +182,12 @@ public class HTMLParserUtil
                 map.put("brief", brief);
                 map.put("date", date);
                 map.put("article", article);
-                //System.out.println(title+"\t\r"+aurl+"\t\r"+img+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
                 list.add(map);
 
                 }
             }catch (Exception e) {
+            	 LOGGER.error("HTMLPARSERutils------->", e);;
                 continue;
             }
         }
@@ -492,12 +209,12 @@ public class HTMLParserUtil
                 for(Element p : pics){
 //                    index++;
                     list.add(p.attr("src"));
-                    //System.out.println(index+ p.attr("src"));
+                    //LOGGER.debug(index+ p.attr("src"));
                 }
                 list.remove(list.size()-1);
                 //session.setAttribute("meizutu", list);
             }catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.error("HTMLPARSERutils------->", e);;
             }
         return list;
     }
@@ -531,7 +248,7 @@ public class HTMLParserUtil
                     }
                     if(name.endsWith(".png")||name.endsWith(".jpg")||name.endsWith(".ico")||name.endsWith(".gif")){
                         FileOutputStream   out   =   new   FileOutputStream(path+name);
-                        System.out.println("写入中..."+path+name);
+                        LOGGER.debug("写入中..."+path+name);
                         int   i1=0;
                         while   ((i1=is.read())!=-1)   {
                             out.write(i1);
@@ -541,13 +258,13 @@ public class HTMLParserUtil
                     }
                     is.close();
                 }catch(Exception e){
-                    e.printStackTrace();
+                    LOGGER.error("HTMLPARSERutils------->", e);;
                     continue;
                 }
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error("HTMLPARSERutils------->", e);;
         }
     }
 
@@ -583,7 +300,7 @@ public class HTMLParserUtil
 
                     }else{
                         FileOutputStream   out   =   new   FileOutputStream(path+name);
-                        System.out.println("写入中..."+path+name);
+                        LOGGER.debug("写入中..."+path+name);
 
                         int   i1=0;
                         while   ((i1=is.read())!=-1)   {
@@ -593,12 +310,9 @@ public class HTMLParserUtil
                         out.close();
                         
                     }
-//                    if(name.endsWith(".png")||name.endsWith(".jpg")||name.endsWith(".ico")||name.endsWith(".gif")){
-
-//                    }
                     is.close();
                 }catch(Exception e){
-                    e.printStackTrace();
+                    LOGGER.error("HTMLPARSERutils------->", e);;
                 }
         return map;
     }
@@ -627,71 +341,16 @@ public class HTMLParserUtil
 
                 list.addAll(v);
                 for (String s:list) {
-                    System.out.println(s);
+                    LOGGER.debug(s);
                 }
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error("HTMLPARSERutils------->", e);;
         }
         return list;
     }
 
-        /**
-         * 爬取5年来。。。。。。。。。
-         */
-        public static Map<Integer, String> retV2Romeo() {
-            // TODO Auto-generated method stub
-            HashMap<Integer, String> map =new HashMap<Integer, String>();
-            try{
-
-                    Document doc = Jsoup.connect("http://www.yi-see.com/art_18165_584.html").get();
-
-                    Elements as  = doc.select("a");
-
-                    //catch the map <"index",article>
-                    for (int j = 0; j < as.size(); j++) {
-                        System.out.println(as.get(j).html());
-                        if(as.get(j).html().contains("节")){
-                            String href  =  as.get(j).attr("href");
-                            Document doc2 = Jsoup.connect("http://www.yi-see.com/"+href).get();
-                            Elements elements =doc2.select("div[class=ART]");
-                            String article = elements.get(0).html();
-                            map.put(Integer.parseInt(as.get(j).html().replace("第", "").replace("节", "")), article);
-                        }
-                    }
-
-                    //sort the map
-                    Object[]   key   =     map.keySet().toArray();
-                    Arrays.sort(key);
-
-                    String filePath = "C:\\Users\\bruce\\Downloads\\Text\\5yearv2romeo.txt";
-                    FileWriter writer = new FileWriter(filePath, true);
-                    System.out.println("写入start....");
-                    try {
-
-                            for   (int   i   =   0;   i   <   key.length;   i++)   {
-
-                                        //打开一个写文件器，构造函数中的第二个参数true表示以追加形式写文件
-
-                                        writer.write(map.get(key[i]));
-                                        writer.write("---------------------------------------"+"<br>");
-
-                            }
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }finally{
-                        writer.close();
-                    }
-
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-
-            System.out.println("写入end....");
-            return map;
-        }
 
     /**
      * 爬取今日情圣的文章
@@ -754,10 +413,10 @@ public class HTMLParserUtil
                 map.put("date", date);
                 map.put("article", article);
                 map.put("retcode", retcode);
-                System.out.println(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+                LOGGER.debug(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
             }catch(Exception e){
-                e.printStackTrace();
+                LOGGER.error("HTMLPARSERutils------->", e);;
             }
 
         return map;
@@ -865,12 +524,12 @@ public class HTMLParserUtil
                         //code
                         String code = article.attr("id");
 
-                        System.out.println("code===================="+code);
+                        LOGGER.debug("code===================="+code);
                         
                         //判断code在系统不存在再去处理后面的事
                         
                         SoftManager softManager = (SoftManager)SpringContextUtils.getBean("SoftManager");
-                        int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
+                        int flag = softManager.countHql( " where o.retcode= '"+code+"' ");
     					
     					if(flag<=0){
     						
@@ -880,7 +539,7 @@ public class HTMLParserUtil
                         Elements titles = article.select("h1[class=entry-title]");
 
                         String title = titles.get(0).text();
-                        System.out.println("title===================="+title);
+                        LOGGER.debug("title===================="+title);
 
                         String aurl = titles.get(0).select("a").get(0).attr("href");
 
@@ -891,7 +550,7 @@ public class HTMLParserUtil
                         String tag = tags.get(0).text();
                         tag = tag.replaceAll("发表在", "").replaceAll(" ", "");
 
-                        System.out.println("tag===================="+tag);
+                        LOGGER.debug("tag===================="+tag);
 
                         //计算标签编码、
                         String tagcode = "005";
@@ -923,7 +582,7 @@ public class HTMLParserUtil
                             tagcode = "005";
                             tag = "其他软件";
                         }
-                        System.out.println("tagcode===================="+tagcode);
+                        LOGGER.debug("tagcode===================="+tagcode);
 
                       
                         //日期
@@ -931,15 +590,15 @@ public class HTMLParserUtil
                         String date = dates.get(0).text();
                         date=date.replaceAll(" ", "");
                         date=date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
-                        System.out.println("date===================="+date);
+                        LOGGER.debug("date===================="+date);
 
                         //月
                         String month = date.substring(0, date.lastIndexOf("-"));
-                        System.out.println("month===================="+month);
+                        LOGGER.debug("month===================="+month);
 
                         //年
                         String year = month.substring(0, month.lastIndexOf("-"));
-                        System.out.println("year===================="+year);
+                        LOGGER.debug("year===================="+year);
 
                         //文章
                         StringBuilder sb = new StringBuilder();
@@ -980,7 +639,7 @@ public class HTMLParserUtil
                         }
 
                         String text = sb.toString().replaceAll("小子", "小布");
-                        System.out.println("article============="+text);
+                        LOGGER.debug("article============="+text);
 
                         //简介
                         Elements briefs = article.select("div[class=entry-content] p");
@@ -1023,7 +682,7 @@ public class HTMLParserUtil
 
                         String brief = sb2.toString().replaceAll("小子", "小布");
 
-                        System.out.println("brief===================="+brief);
+                        LOGGER.debug("brief===================="+brief);
 
                         map.put("title", title);
                         map.put("aurl", aurl);
@@ -1042,10 +701,10 @@ public class HTMLParserUtil
                     }
                 }
 
-//                System.out.println(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                LOGGER.debug(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
             }catch(Exception e){
-                e.printStackTrace();
+                LOGGER.error("HTMLPARSERutils------->", e);;
             }
 
         return list;
@@ -1059,7 +718,7 @@ public class HTMLParserUtil
         List<Map<String, String>> list = new ArrayList<Map<String,String>>();
         try{
         	
-        		System.out.println("page============================="+index+"============================页");
+        		LOGGER.debug("page============================="+index+"============================页");
 	        	//String url = "http://www.vip588660.cm/page/"+index+"/";
 //        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
 	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
@@ -1085,7 +744,7 @@ public class HTMLParserUtil
                         //判断code在系统不存在再去处理后面的事
                         
                         MoviesManager moviesManager = (MoviesManager)SpringContextUtils.getBean("MoviesManager");
-                        int flag = moviesManager.countHql(new Movies(), " where o.retcode= '"+retcode+"' ");
+                        int flag = moviesManager.countHql(" where o.retcode= '"+retcode+"' ");
     					
     					if(flag<=0){
                         
@@ -1117,16 +776,16 @@ public class HTMLParserUtil
                         }
                         
 
-                        System.out.println("title==============>"+title);
-                        System.out.println("aurl==============>"+aurl);
-                        System.out.println("date==============>"+date);
-                        System.out.println("tag==============>"+tag);
-                        System.out.println("tagcode==============>"+tagcode);
+                        LOGGER.debug("title==============>"+title);
+                        LOGGER.debug("aurl==============>"+aurl);
+                        LOGGER.debug("date==============>"+date);
+                        LOGGER.debug("tag==============>"+tag);
+                        LOGGER.debug("tagcode==============>"+tagcode);
 
                         String desc = "";
 
                         String html_ = pickData(aurl);
-//                        System.out.println("html_==============>"+html_);
+//                        LOGGER.debug("html_==============>"+html_);
 
                         Document doc_ = Jsoup.parse(html_);
                         Elements article_alls = doc_.select("div[id=post_content]");
@@ -1179,7 +838,7 @@ public class HTMLParserUtil
                                 desc += article_alls.get(0).html();
                                 
                                 desc = desc.replaceAll("<!-- 社会化分享按钮 来自 WordPress连接微博 插件 -->", "");
-                                System.out.println("desc==============>"+desc);
+                                LOGGER.debug("desc==============>"+desc);
 
                         }
 
@@ -1196,10 +855,10 @@ public class HTMLParserUtil
                     }
                 }
 
-//                System.out.println(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                LOGGER.debug(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
             }catch(Exception e){
-                e.printStackTrace();
+                LOGGER.error("HTMLPARSERutils------->", e);;
             }
 
         return list;
@@ -1216,7 +875,7 @@ public class HTMLParserUtil
         List<Map<String, String>> list = new ArrayList<Map<String,String>>();
         try{
         	
-        		System.out.println("page============================="+index+"============================页");
+        		LOGGER.debug("page============================="+index+"============================页");
 	        	//String url = "http://www.vip588660.cm/page/"+index+"/";
 //        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
 //	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
@@ -1227,7 +886,7 @@ public class HTMLParserUtil
 	        	
 	        	
 	        	String html = pickData(url);
-//	        	System.out.println("html_1==============>"+html);
+//	        	LOGGER.debug("html_1==============>"+html);
                 Document doc = Jsoup.parse(html);
                 Elements lis  = doc.select("li[class=lst ");
                 if(!lis.isEmpty()){
@@ -1284,11 +943,11 @@ public class HTMLParserUtil
                         
                        
 
-                        System.out.println("title==============>"+title);
-                        System.out.println("detail_url==============>"+detail_url);
-                        System.out.println("author==============>"+author);
-                        System.out.println("content==============>"+content);
-                        System.out.println("types==============>"+types);
+                        LOGGER.debug("title==============>"+title);
+                        LOGGER.debug("detail_url==============>"+detail_url);
+                        LOGGER.debug("author==============>"+author);
+                        LOGGER.debug("content==============>"+content);
+                        LOGGER.debug("types==============>"+types);
 
                         //图片赏析
                         String pic_poem = "";
@@ -1300,7 +959,7 @@ public class HTMLParserUtil
 
 
                         String html_ = pickData(detail_url);
-//                        System.out.println("html_==============>"+html_);
+//                        LOGGER.debug("html_==============>"+html_);
 
                         Document doc_ = Jsoup.parse(html_);
                         Elements article_alls = doc_.select("div[class=middle]");
@@ -1311,7 +970,7 @@ public class HTMLParserUtil
                                 for (int j = 0; j < imgs.size(); j++) {
                                     try {
                                         String weburl = imgs.get(j).attr("src");
-                                        System.out.println(weburl);
+                                        LOGGER.debug(weburl);
                                         //web图片上传到七牛
                                         if(StringUtils.isNotEmpty(weburl)&&!weburl.contains("verify.php")){
                                         	 //-------------开始--------------------------------
@@ -1343,11 +1002,11 @@ public class HTMLParserUtil
                                 //诗词赏析
                                    enjoys = article_alls.get(0).select("p[class=explanation]").html();
 
-                                   System.out.println("enjoys==============>"+enjoys);    
+                                   LOGGER.debug("enjoys==============>"+enjoys);    
                                    
                                    //诗词内容
                                    content1 = article_alls.get(0).select("p[class=poetry]").get(0).html();
-                                   System.out.println("content1==============>"+content1);    
+                                   LOGGER.debug("content1==============>"+content1);    
 
                                    
                         }
@@ -1368,10 +1027,10 @@ public class HTMLParserUtil
     					}
                     }
 
-//                System.out.println(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                LOGGER.debug(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
             }catch(Exception e){
-                e.printStackTrace();
+                LOGGER.error("HTMLPARSERutils------->", e);;
             }
 
         return list;
@@ -1436,7 +1095,7 @@ public class HTMLParserUtil
     	int min=1000;
     	Random random = new Random();
     	int s = random.nextInt(max)%(max-min+1) + min;
-    	System.out.println(s);
+    	LOGGER.debug(s);
 		return s;
     }
 	
@@ -1466,17 +1125,17 @@ public class HTMLParserUtil
                 response.close();
             }
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            LOGGER.error("HTMLPARSERutils------->", e);;
         } catch (ParseException e) {
-            e.printStackTrace();
+            LOGGER.error("HTMLPARSERutils------->", e);;
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("HTMLPARSERutils------->", e);;
         } finally {
             // 关闭连接,释放资源
             try {
                 httpclient.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error("HTMLPARSERutils------->", e);;
             }
         }
         return null;
@@ -1488,12 +1147,12 @@ public class HTMLParserUtil
                 //retMeizitu();
                 retTodayEq();
 //                List<Map<String, String>> retEQArticle = retEQArticle();
-//                System.out.println(retEQArticle.size());
+//                LOGGER.debug(retEQArticle.size());
 //                readPic2Disk();
 //                retV2Romeo();
 //                url2markdown();
 //                String cutString = CutString("荒烟蔓草的年头，就连分手都很沉默", 12);
-//                System.out.println(cutString);
+//                LOGGER.debug(cutString);
 //                retSoft(1);
 //                webPic2Disk("http://www.sdifenzhou.com/wp-content/uploads/2016/02/Fantastical2.jpg", "D:\\BZ\\soft\\" );
 
@@ -1501,20 +1160,20 @@ public class HTMLParserUtil
 //                String url = "http://www.vip588660.com/page/"+77+"/";
 ////                url = "http://northpark.cn/soft/mac/page77";
 //                String pickData = pickData(url);
-//                System.out.println(pickData);
+//                LOGGER.debug(pickData);
 //            	 String tag  =  "1,2,3,4,5,6,";
 //            	 if(tag.endsWith(",")){
 //                 	tag  =  tag.substring(0, tag.length()-1);
-//                 	System.out.println(tag);
+//                 	LOGGER.debug(tag);
 //                 }
             	
             
             	
 //            	retPoem(26);
-            	System.out.println(MD5Utils.encoding("速度与激情8"));
+            	LOGGER.debug(MD5Utils.encoding("速度与激情8"));
             } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                LOGGER.error("HTMLPARSERutils------->", e);;
             }
         }
 

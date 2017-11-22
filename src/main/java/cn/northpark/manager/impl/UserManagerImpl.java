@@ -99,9 +99,9 @@ public class UserManagerImpl implements UserManager {
 	 * @see cn.northpark.manager.UserManager#countHql(cn.northpark.model.User, java.lang.String)
 	 */
 	@Override
-	public int countHql(User user, String wheresql) {
+	public int countHql(String wheresql) {
 		// TODO Auto-generated method stub
-		return userDao.countHql(user.getClass(), wheresql);
+		return userDao.countHql(User.class, wheresql);
 	}
 
 }

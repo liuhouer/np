@@ -44,7 +44,7 @@ public interface LyricsManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(Lyrics m,String wheresql);
+	public  int countHql(String wheresql);
 	
 }
 

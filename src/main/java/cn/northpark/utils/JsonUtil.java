@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -11,7 +13,9 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 
 public class JsonUtil {
 	public static final JsonUtil jsonUtil = new JsonUtil();
-	
+	private static final Logger LOGGER = Logger
+            .getLogger(JsonUtil.class);
+
 	
 	//以下是常用的方法==========================================================================================================
 	
@@ -139,6 +143,6 @@ public class JsonUtil {
 	
 		JSONObject map = json2map(json);
 		
-		System.out.println(map);
+		LOGGER.debug(map);
 	}
 }

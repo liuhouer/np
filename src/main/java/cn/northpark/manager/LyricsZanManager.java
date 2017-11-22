@@ -41,7 +41,7 @@ public interface LyricsZanManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(LyricsZan lyricszan,String wheresql);
+	public  int countHql(String wheresql);
 }
 
 

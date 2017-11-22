@@ -72,7 +72,7 @@ public interface PoemManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(Poem m,String wheresql);
+	public  int countHql(String wheresql);
 	
 
 	

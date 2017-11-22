@@ -91,9 +91,9 @@ public class MoviesManagerImpl implements MoviesManager {
 	 * @see cn.northpark.manager.MoviesManager#countHql(cn.northpark.model.Movies, java.lang.String)
 	 */
 	@Override
-	public int countHql(Movies m, String wheresql) {
+	public int countHql( String wheresql) {
 		// TODO Auto-generated method stub
-		return moviesDao.countHql(m.getClass(), wheresql);
+		return moviesDao.countHql(Movies.class, wheresql);
 	}
 
 	

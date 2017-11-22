@@ -72,7 +72,7 @@ public interface EqManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(Eq eq,String wheresql);
+	public  int countHql(String wheresql);
 	
 	
 	/**

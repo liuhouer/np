@@ -3,6 +3,8 @@ package cn.northpark.utils;
 import java.util.Date;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -16,6 +18,10 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
  *
  */
 public class PinyinUtil {
+	
+
+	private static final Logger LOGGER = Logger
+            .getLogger(PinyinUtil.class);
 	/**
 	 * 获得汉语拼音的输出格式
 	 * 
@@ -102,7 +108,7 @@ public class PinyinUtil {
     		str = new String(b, "GB2312"); 
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			LOGGER.error("pinyinUtils------->", e);;
 		}
     	return str; 
     } 
@@ -132,7 +138,7 @@ public class PinyinUtil {
     	for (int i = 0; i < 8; i++) {
 			str+= String.valueOf(chars.charAt((int)(Math.random() * 26)));
 		}
-    	 System.out.println("english--"+str);
+    	 LOGGER.debug("english--"+str);
     	return str;
     }
     
@@ -150,7 +156,7 @@ public class PinyinUtil {
     		str+=paraseCharToPinyin(c[i]);
 		}
     	str = str.toLowerCase();
-    	System.out.println("汉语pinyin"+str);
+    	LOGGER.debug("汉语pinyin"+str);
     	return str;
     }
     
@@ -168,7 +174,7 @@ public class PinyinUtil {
     		str+=paraseCharToPinyin(c[i]);
 		}
     	str = str.toLowerCase();
-    	System.out.println("汉语_____>"+str);
+    	LOGGER.debug("汉语_____>"+str);
     	return str.substring(0, 1);
     }
     
@@ -185,7 +191,7 @@ public class PinyinUtil {
     		str+=paraseCharToPinyin(c[i]);
 		}
     	str = str.toLowerCase()+"@qq.com";
-    	System.out.println("email----"+str);
+    	LOGGER.debug("email----"+str);
     	return str;
     }
     

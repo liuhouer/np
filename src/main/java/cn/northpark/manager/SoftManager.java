@@ -78,7 +78,7 @@ public interface SoftManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(Soft m,String wheresql);
+	public  int countHql(String wheresql);
 	
 
 	

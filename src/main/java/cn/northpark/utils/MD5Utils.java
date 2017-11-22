@@ -4,9 +4,15 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.security.MessageDigest;
 
+import org.apache.log4j.Logger;
+
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 public class MD5Utils {
+	
+	private static final Logger LOGGER = Logger
+            .getLogger(MD5Utils.class);
+
 	// 0的ASCII码
 	private static final int ASCII_0 = 48;
 	// 9的ASCII码
@@ -42,7 +48,7 @@ public class MD5Utils {
 			return toHexString(mdTemp.digest());
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Md5Utils------->", e);;
 		}
 
 		return encodingStr;
@@ -153,6 +159,6 @@ public class MD5Utils {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(MD5Utils.encoding("bruce134"));
+		LOGGER.debug(MD5Utils.encoding("bruce134"));
 	}
 }

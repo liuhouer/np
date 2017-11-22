@@ -178,7 +178,7 @@ public class EQTask {
 							
 
 							//是不存在的电影
-							int flag = moviesManager.countHql(new Movies(), " where o.retcode= '"+retcode+"' ");
+							int flag = moviesManager.countHql(" where o.retcode= '"+retcode+"' ");
 							
 							if(flag<=0){
 								

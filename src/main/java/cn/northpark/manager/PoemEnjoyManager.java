@@ -72,7 +72,7 @@ public interface PoemEnjoyManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(PoemEnjoy m,String wheresql);
+	public  int countHql(String wheresql);
 	
 
 	

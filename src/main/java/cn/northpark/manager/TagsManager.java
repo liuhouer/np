@@ -72,7 +72,7 @@ public interface TagsManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(Tags m,String wheresql);
+	public  int countHql(String wheresql);
 	
 
 	
