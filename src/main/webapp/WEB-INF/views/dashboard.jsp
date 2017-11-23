@@ -122,7 +122,7 @@
 						<div class="container">
 						<div class="clearfix center logbox gray-text">
 						   <h2>
-							情圣日记
+							情圣时刻
 						   </h2>		
 						</div>
 						<hr class="smallhr">

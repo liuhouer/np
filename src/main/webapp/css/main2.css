@@ -1179,6 +1179,15 @@ a.project-card-link {
 	text-transform: uppercase;
 }
 
+.slider-caption h2 {
+	text-shadow: 1px 1px #777;
+	font-size: 30px;
+	padding-bottom: 10px;
+	font-weight: 500;
+	color: #45d0c6;
+	text-transform: uppercase;
+}
+
 .slider-caption p {
 	font-size: 18px;
 	font-weight: 300;
