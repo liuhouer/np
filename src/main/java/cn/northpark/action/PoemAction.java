@@ -173,7 +173,7 @@ public class PoemAction {
 			
 		}
 
-		LOGGER.debug("sql ---"+whereSql);
+		LOGGER.info("sql ---"+whereSql);
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
 		order.put("rand()", "asc");
@@ -235,7 +235,7 @@ public class PoemAction {
 		
 		
 		
-		LOGGER.debug("sql ---"+whereSql);
+		LOGGER.info("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -290,7 +290,7 @@ public class PoemAction {
 		
 		
 		
-		LOGGER.debug("sql ---"+whereSql);
+		LOGGER.info("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

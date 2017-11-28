@@ -43,7 +43,7 @@ public class AddressUtils {
 		String returnStr = this.getResult(urlStr, content, encodingString);
 		if (returnStr != null) {
 			// 处理返回的省市区信息
-			LOGGER.debug(returnStr);
+			LOGGER.info(returnStr);
 			String[] temp = returnStr.split(",");
 			if(temp.length<3){
 				return "0";//无效IP，局域网测试
@@ -86,7 +86,7 @@ public class AddressUtils {
 				}
 			}
 			
-			 LOGGER.debug(country+"="+area+"="+region+"="+city+"="+county+"="+isp);
+			 LOGGER.info(country+"="+area+"="+region+"="+city+"="+county+"="+isp);
 			return region;
 		}
 		return null;
@@ -248,7 +248,7 @@ public class AddressUtils {
 			// TODO Auto-generated catch block
 			LOGGER.error("AddressUtils------->", e);;
 		}
-		LOGGER.debug(address);
+		LOGGER.info(address);
 		// 输出结果为：广东省,广州市,越秀区
 	}
 }  

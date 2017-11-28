@@ -31,8 +31,8 @@ public class QiniuUtils {
 	 * DefaultPutRet putret = bucketManager.fetch(originalUrl, BUCKET_NAME,
 	 * "testimage");
 	 * 
-	 * LOGGER.debug(putret.key);
-	 * LOGGER.debug("succeed upload image"); } catch (QiniuException e1) {
+	 * LOGGER.info(putret.key);
+	 * LOGGER.info("succeed upload image"); } catch (QiniuException e1) {
 	 * e1.printStackTrace(); }
 	 */
 	
@@ -73,9 +73,9 @@ public class QiniuUtils {
             //调用put方法上传
             Response res = uploadManager.put(FilePath, key, getUpToken());
             //打印返回的信息
-            LOGGER.debug(res.bodyString());
+            LOGGER.info(res.bodyString());
             rs = BUCKET_HOST_NAME + (String) res.jsonToMap().get("key");
-            LOGGER.debug("rs==="+rs);
+            LOGGER.info("rs==="+rs);
         } catch (QiniuException e) {
             Response r = e.response;
             // 请求失败时打印的异常的信息

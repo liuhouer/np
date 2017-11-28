@@ -47,11 +47,6 @@ public class HTMLParserUtil{
 
 
 
-
-
-
-
-
     /**
      *
      * 获取class元素内容
@@ -67,7 +62,7 @@ public class HTMLParserUtil{
             Document doc = Jsoup.connect(url).get();
 
             String title = doc.title();
-            LOGGER.debug("title ||---  "+title);
+            LOGGER.info("title ||---  "+title);
             Elements notes   = doc.select(classname);
 
             for(Element p : notes){
@@ -75,8 +70,8 @@ public class HTMLParserUtil{
                        String note = p.html();
                        list.add(note);
                        //String note2 = p.text();
-                       LOGGER.debug(note);
-                       //LOGGER.debug(note2);
+                       LOGGER.info(note);
+                       //LOGGER.info(note2);
 
             }
 
@@ -103,13 +98,13 @@ public class HTMLParserUtil{
             Document doc = Jsoup.connect(url).get();
 
             String title = doc.title();
-            LOGGER.debug(title);
+            LOGGER.info(title);
             Elements notes   = doc.select("img");
 
             for(Element p : notes){
 
                 String uri = p.absUrl("src");
-                LOGGER.debug(uri);
+                LOGGER.info(uri);
                 list.add(uri);
 
             }
@@ -205,7 +200,7 @@ public class HTMLParserUtil{
                 for(Element p : pics){
 //                    index++;
                     list.add(p.attr("src"));
-                    //LOGGER.debug(index+ p.attr("src"));
+                    //LOGGER.info(index+ p.attr("src"));
                 }
                 list.remove(list.size()-1);
                 //session.setAttribute("meizutu", list);
@@ -244,7 +239,7 @@ public class HTMLParserUtil{
                     }
                     if(name.endsWith(".png")||name.endsWith(".jpg")||name.endsWith(".ico")||name.endsWith(".gif")){
                         FileOutputStream   out   =   new   FileOutputStream(path+name);
-                        LOGGER.debug("写入中..."+path+name);
+                        LOGGER.info("写入中..."+path+name);
                         int   i1=0;
                         while   ((i1=is.read())!=-1)   {
                             out.write(i1);
@@ -296,7 +291,7 @@ public class HTMLParserUtil{
 
                     }else{
                         FileOutputStream   out   =   new   FileOutputStream(path+name);
-                        LOGGER.debug("写入中..."+path+name);
+                        LOGGER.info("写入中..."+path+name);
 
                         int   i1=0;
                         while   ((i1=is.read())!=-1)   {
@@ -337,7 +332,7 @@ public class HTMLParserUtil{
 
                 list.addAll(v);
                 for (String s:list) {
-                    LOGGER.debug(s);
+                    LOGGER.info(s);
                 }
 
         } catch (IOException e) {
@@ -409,7 +404,7 @@ public class HTMLParserUtil{
                 map.put("date", date);
                 map.put("article", article);
                 map.put("retcode", retcode);
-                LOGGER.debug(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
             }catch(Exception e){
                 LOGGER.error("HTMLPARSERutils------->", e);;
@@ -509,18 +504,19 @@ public class HTMLParserUtil{
     public static List<Map<String, String>> retSoft(Integer index) {
         // TODO Auto-generated method stub
         List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+        HashMap<String, String> map = null;
         try{
                 Document doc = Jsoup.connect("http://www.sdifen.com/category/black-apple/apple-software/page/"+index+"/").get();
                 Elements articles   = doc.select("article");
                 if(!articles.isEmpty()){
                     for (int i = 0; i < articles.size(); i++) {
-                        HashMap<String, String> map =new HashMap<String, String>();
+                        
                         Element article  = articles.get(i);
                         
                         //code
                         String code = article.attr("id");
 
-                        LOGGER.debug("code===================="+code);
+                        LOGGER.info("code===================="+code);
                         
                         //判断code在系统不存在再去处理后面的事
                         
@@ -529,14 +525,13 @@ public class HTMLParserUtil{
     					
     					if(flag<=0){
     						
-    					
+    				    map =new HashMap<String, String>();
 
                         //标题
                         Elements titles = article.select("h1[class=entry-title]");
 
                         String title = titles.get(0).text();
-                        LOGGER.debug("title===================="+title);
-
+                        LOGGER.info("title===================="+title);
                         String aurl = titles.get(0).select("a").get(0).attr("href");
 
                         //标签tags
@@ -546,8 +541,7 @@ public class HTMLParserUtil{
                         String tag = tags.get(0).text();
                         tag = tag.replaceAll("发表在", "").replaceAll(" ", "");
 
-                        LOGGER.debug("tag===================="+tag);
-
+                        LOGGER.info("tag===================="+tag);
                         //计算标签编码、
                         String tagcode = "005";
                         if(tag.contains("应用")){
@@ -578,24 +572,20 @@ public class HTMLParserUtil{
                             tagcode = "005";
                             tag = "其他软件";
                         }
-                        LOGGER.debug("tagcode===================="+tagcode);
-
+                        LOGGER.info("tagcode===================="+tagcode);
                       
                         //日期
                          Elements dates = article.select("time[class=entry-date]");
                         String date = dates.get(0).text();
                         date=date.replaceAll(" ", "");
                         date=date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
-                        LOGGER.debug("date===================="+date);
-
+                        LOGGER.info("date===================="+date);
                         //月
                         String month = date.substring(0, date.lastIndexOf("-"));
-                        LOGGER.debug("month===================="+month);
-
+                        LOGGER.info("month===================="+month);
                         //年
                         String year = month.substring(0, month.lastIndexOf("-"));
-                        LOGGER.debug("year===================="+year);
-
+                        LOGGER.info("year===================="+year);
                         //文章
                         StringBuilder sb = new StringBuilder();
 
@@ -635,8 +625,7 @@ public class HTMLParserUtil{
                         }
 
                         String text = sb.toString().replaceAll("小子", "小布");
-                        LOGGER.debug("article============="+text);
-
+                        LOGGER.info("article============="+text);
                         //简介
                         Elements briefs = article.select("div[class=entry-content] p");
 
@@ -678,8 +667,7 @@ public class HTMLParserUtil{
 
                         String brief = sb2.toString().replaceAll("小子", "小布");
 
-                        LOGGER.debug("brief===================="+brief);
-
+                        LOGGER.info("brief===================="+brief);
                         map.put("title", title);
                         map.put("aurl", aurl);
                         map.put("brief", brief);
@@ -697,7 +685,7 @@ public class HTMLParserUtil{
                     }
                 }
 
-//                LOGGER.debug(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
             }catch(Exception e){
                 LOGGER.error("HTMLPARSERutils------->", e);;
@@ -709,26 +697,29 @@ public class HTMLParserUtil{
     /**
      * 爬取1页的电影图书资源
      */
-    public static List<Map<String, String>> retMovies(Integer index) {
+    public static List<Map<String, String>> retMovies(Integer index,String rettype) {
         // TODO Auto-generated method stub
         List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+        HashMap<String, String> map =null;
         try{
         	
-        		LOGGER.debug("page============================="+index+"============================页");
+        		LOGGER.info("page============================="+index+"============================页");
 	        	//String url = "http://www.vip588660.cm/page/"+index+"/";
 //        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
-	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
+//	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
 //	        	String url = "http://www.vip588660.com/category/dongman/page/"+index+"/";
+        		
+        		String url = rettype+index+"/";
 	        	
 	        	String html = pickData(url);
+	        	
                 Document doc = Jsoup.parse(html);
                 Element  ul   = doc.select("ul[class=masonry clearfix]").get(0);
                 Elements lis  = ul.select("li[class=post box row ");
                 if(!lis.isEmpty()){
                     for (int i = 0; i < lis.size(); i++) {
-                        HashMap<String, String> map =new HashMap<String, String>();
                         Element li  = lis.get(i);
-
+                       
                         //获取相关信息
                         Elements divs = li.select("div[class=thumbnail]");
 
@@ -744,6 +735,8 @@ public class HTMLParserUtil{
     					
     					if(flag<=0){
                         
+    					map = new HashMap<String, String>();
+    						
                         String aurl =  divs.get(0).select("a").get(0).attr("href");
 
                         String date =  li.select("span[class=info_date info_ico]").get(0).text();
@@ -772,16 +765,17 @@ public class HTMLParserUtil{
                         }
                         
 
-                        LOGGER.debug("title==============>"+title);
-                        LOGGER.debug("aurl==============>"+aurl);
-                        LOGGER.debug("date==============>"+date);
-                        LOGGER.debug("tag==============>"+tag);
-                        LOGGER.debug("tagcode==============>"+tagcode);
+                        LOGGER.info("title==============>"+title);
+                        LOGGER.info("aurl==============>"+aurl);
+                        LOGGER.info("date==============>"+date);
+                        LOGGER.info("tag==============>"+tag);
+                        LOGGER.info("tagcode==============>"+tagcode);
+                        
 
                         String desc = "";
 
                         String html_ = pickData(aurl);
-//                        LOGGER.debug("html_==============>"+html_);
+//                        LOGGER.info("html_==============>"+html_);
 
                         Document doc_ = Jsoup.parse(html_);
                         Elements article_alls = doc_.select("div[id=post_content]");
@@ -834,8 +828,7 @@ public class HTMLParserUtil{
                                 desc += article_alls.get(0).html();
                                 
                                 desc = desc.replaceAll("<!-- 社会化分享按钮 来自 WordPress连接微博 插件 -->", "");
-                                LOGGER.debug("desc==============>"+desc);
-
+                                LOGGER.info("desc==============>"+desc);
                         }
 
                         map.put("title", title);
@@ -851,7 +844,7 @@ public class HTMLParserUtil{
                     }
                 }
 
-//                LOGGER.debug(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
             }catch(Exception e){
                 LOGGER.error("HTMLPARSERutils------->", e);;
@@ -871,7 +864,7 @@ public class HTMLParserUtil{
         List<Map<String, String>> list = new ArrayList<Map<String,String>>();
         try{
         	
-        		LOGGER.debug("page============================="+index+"============================页");
+        		LOGGER.info("page============================="+index+"============================页");
 	        	//String url = "http://www.vip588660.cm/page/"+index+"/";
 //        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
 //	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
@@ -882,7 +875,7 @@ public class HTMLParserUtil{
 	        	
 	        	
 	        	String html = pickData(url);
-//	        	LOGGER.debug("html_1==============>"+html);
+//	        	LOGGER.info("html_1==============>"+html);
                 Document doc = Jsoup.parse(html);
                 Elements lis  = doc.select("li[class=lst ");
                 if(!lis.isEmpty()){
@@ -939,11 +932,12 @@ public class HTMLParserUtil{
                         
                        
 
-                        LOGGER.debug("title==============>"+title);
-                        LOGGER.debug("detail_url==============>"+detail_url);
-                        LOGGER.debug("author==============>"+author);
-                        LOGGER.debug("content==============>"+content);
-                        LOGGER.debug("types==============>"+types);
+                        LOGGER.info("title==============>"+title);
+                        LOGGER.info("detail_url==============>"+detail_url);
+                        LOGGER.info("author==============>"+author);
+                        LOGGER.info("content==============>"+content);
+                        LOGGER.info("types==============>"+types);
+                        
 
                         //图片赏析
                         String pic_poem = "";
@@ -955,7 +949,7 @@ public class HTMLParserUtil{
 
 
                         String html_ = pickData(detail_url);
-//                        LOGGER.debug("html_==============>"+html_);
+//                        LOGGER.info("html_==============>"+html_);
 
                         Document doc_ = Jsoup.parse(html_);
                         Elements article_alls = doc_.select("div[class=middle]");
@@ -966,7 +960,7 @@ public class HTMLParserUtil{
                                 for (int j = 0; j < imgs.size(); j++) {
                                     try {
                                         String weburl = imgs.get(j).attr("src");
-                                        LOGGER.debug(weburl);
+                                        LOGGER.info(weburl);
                                         //web图片上传到七牛
                                         if(StringUtils.isNotEmpty(weburl)&&!weburl.contains("verify.php")){
                                         	 //-------------开始--------------------------------
@@ -998,12 +992,11 @@ public class HTMLParserUtil{
                                 //诗词赏析
                                    enjoys = article_alls.get(0).select("p[class=explanation]").html();
 
-                                   LOGGER.debug("enjoys==============>"+enjoys);    
+                                   LOGGER.info("enjoys==============>"+enjoys);    
                                    
                                    //诗词内容
                                    content1 = article_alls.get(0).select("p[class=poetry]").get(0).html();
-                                   LOGGER.debug("content1==============>"+content1);    
-
+                                   LOGGER.info("content1==============>"+content1);    
                                    
                         }
 
@@ -1023,7 +1016,7 @@ public class HTMLParserUtil{
     					}
                     }
 
-//                LOGGER.debug(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
             }catch(Exception e){
                 LOGGER.error("HTMLPARSERutils------->", e);;
@@ -1091,7 +1084,7 @@ public class HTMLParserUtil{
     	int min=1000;
     	Random random = new Random();
     	int s = random.nextInt(max)%(max-min+1) + min;
-    	LOGGER.debug(s);
+    	LOGGER.info(s);
 		return s;
     }
 	
@@ -1141,14 +1134,14 @@ public class HTMLParserUtil{
       public static void main(String[] args) {
             try {
                 //retMeizitu();
-                retTodayEq();
+//                retTodayEq();
 //                List<Map<String, String>> retEQArticle = retEQArticle();
-//                LOGGER.debug(retEQArticle.size());
+//                LOGGER.info(retEQArticle.size());
 //                readPic2Disk();
 //                retV2Romeo();
 //                url2markdown();
 //                String cutString = CutString("荒烟蔓草的年头，就连分手都很沉默", 12);
-//                LOGGER.debug(cutString);
+//                LOGGER.info(cutString);
 //                retSoft(1);
 //                webPic2Disk("http://www.sdifenzhou.com/wp-content/uploads/2016/02/Fantastical2.jpg", "D:\\BZ\\soft\\" );
 
@@ -1156,17 +1149,17 @@ public class HTMLParserUtil{
 //                String url = "http://www.vip588660.com/page/"+77+"/";
 ////                url = "http://northpark.cn/soft/mac/page77";
 //                String pickData = pickData(url);
-//                LOGGER.debug(pickData);
+//                LOGGER.info(pickData);
 //            	 String tag  =  "1,2,3,4,5,6,";
 //            	 if(tag.endsWith(",")){
 //                 	tag  =  tag.substring(0, tag.length()-1);
-//                 	LOGGER.debug(tag);
+//                 	LOGGER.info(tag);
 //                 }
             	
             
             	
 //            	retPoem(26);
-            	LOGGER.debug(MD5Utils.encoding("速度与激情8"));
+            	LOGGER.info(MD5Utils.encoding("速度与激情8"));
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 LOGGER.error("HTMLPARSERutils------->", e);;

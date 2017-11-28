@@ -7,7 +7,20 @@ public class BC_Constant {
 	
 	public static final String Domain = "northpark.cn";
 	
-public static String WX_url_menu_create = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+	/**
+	 * 爬虫电视剧资源
+	 */
+	public static final String RET_dianshiju = "http://www.vip588660.com/category/dianshiju/page/";
+	/**
+	 * 爬虫电影资源
+	 */
+	public static final String RET_dianying = "http://www.vip588660.com/category/movie/page/";
+	/**
+	 * 爬虫动漫源
+	 */
+	public static final String RET_dongman = "http://www.vip588660.com/category/dongman/page/";
+	
+	public static String WX_url_menu_create = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 	
 	public static String WX_url_get_access_token = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	

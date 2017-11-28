@@ -192,7 +192,7 @@ private static int MoviesCount = 6;
 		map.put("seldate", tagscode);
 				
 		
-		LOGGER.debug("sql ---"+whereSql);
+		LOGGER.info("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -252,7 +252,7 @@ private static int MoviesCount = 6;
 		map.put("seltag", tagscode);
 				
 		
-		LOGGER.debug("sql ---"+whereSql);
+		LOGGER.info("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -323,7 +323,7 @@ private static int MoviesCount = 6;
 		String result="/movies2";
 		String whereSql = " where displayed is  null ";
 		
-		LOGGER.debug("sql ---"+whereSql);
+		LOGGER.info("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

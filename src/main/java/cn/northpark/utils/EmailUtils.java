@@ -47,11 +47,11 @@ public class EmailUtils {
 			// email.attach(attachment);
 			// 发送
 			email.send();
-			LOGGER.debug("邮件发送成功");
+			LOGGER.info("邮件发送成功");
 		} catch (Exception e) {
 			// TODO: handle exception
 			LOGGER.error("EmailUtils------->", e);;
-			LOGGER.debug("邮件发送失败");
+			LOGGER.info("邮件发送失败");
 		}
 
 	}
@@ -116,7 +116,7 @@ public class EmailUtils {
 			// email.attach(attachment);
 			// 发送
 			email.send();
-			LOGGER.debug("邮件发送成功");
+			LOGGER.info("邮件发送成功");
 		} catch (Exception e) {
 			// TODO: handle exception
 			LOGGER.error("邮件发送失败");
@@ -181,7 +181,7 @@ public class EmailUtils {
 			// email.attach(attachment);
 			// 发送
 			email.send();
-			LOGGER.debug("邮件发送成功");
+			LOGGER.info("邮件发送成功");
 		} catch (Exception e) {
 			// TODO: handle exception
 			LOGGER.error("邮件发送失败");

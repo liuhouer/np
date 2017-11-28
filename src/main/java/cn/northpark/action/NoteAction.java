@@ -288,7 +288,7 @@ public class NoteAction {
 		String result="/story";
 		String sql = noteQuery.getMixSql(condition);
 		
-		LOGGER.debug("sql ---"+sql);
+		LOGGER.info("sql ---"+sql);
 		
 		//定义pageview
 		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(1,MyConstant.MAXRESULT);
@@ -328,7 +328,7 @@ public class NoteAction {
 		String result="/story";
 		String sql = noteQuery.getMixSql(condition);
 		
-		LOGGER.debug("sql ---"+sql);
+		LOGGER.info("sql ---"+sql);
 		int currentpage = Integer.parseInt(page);
 		
 		//定义pageview

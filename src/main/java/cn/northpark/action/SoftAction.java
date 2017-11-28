@@ -97,7 +97,7 @@ private static int SoftCount = 6;
 			
 		}
 
-		LOGGER.debug("sql ---"+whereSql);
+		LOGGER.info("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -205,7 +205,7 @@ private static int SoftCount = 6;
 			
 			map.put("selmonth", month);
 			
-			LOGGER.debug("sql ---"+whereSql);
+			LOGGER.info("sql ---"+whereSql);
 			String currentpage = page;
 			//排序条件
 			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -265,7 +265,7 @@ private static int SoftCount = 6;
 		
 		
 		
-		LOGGER.debug("sql ---"+whereSql);
+		LOGGER.info("sql ---"+whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

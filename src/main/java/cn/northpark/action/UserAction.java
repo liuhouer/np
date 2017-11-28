@@ -710,7 +710,7 @@ public class UserAction {
 			Enumeration<?> e = session.getAttributeNames();
 			while (e.hasMoreElements()) {
 				String sessionName = (String) e.nextElement();
-				LOGGER.debug("存在的session有：" + sessionName);
+				LOGGER.info("存在的session有：" + sessionName);
 					session.removeAttribute(sessionName);
 
 			}

@@ -435,7 +435,7 @@ public class TimeUtils {
 	        Date date= new Date(time);  
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
 	        String dateString = formatter.format(date);  
-	        //LOGGER.debug("TIME:::"+dateString);  
+	        //LOGGER.info("TIME:::"+dateString);  
 	        return dateString;  
 	    }  
 	    
@@ -449,7 +449,7 @@ public class TimeUtils {
 	        Date date= new Date(time);  
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
 	        String dateString = formatter.format(date);  
-	        LOGGER.debug("TIME:::"+dateString);  
+	        LOGGER.info("TIME:::"+dateString);  
 	        return dateString;  
 	    }  
 	    
@@ -584,13 +584,13 @@ public class TimeUtils {
 				result = sum + result;
 
 			}
-			LOGGER.debug(result);
+			LOGGER.info(result);
 			return result;
 		}
 		
 	    public static void main(String[] args) {
-	    	//LOGGER.debug(getWorkDateTime(11));;
+	    	//LOGGER.info(getWorkDateTime(11));;
 	    	
-	    	LOGGER.debug(N_MonthDate(1));
+	    	LOGGER.info(N_MonthDate(1));
 		}
 }

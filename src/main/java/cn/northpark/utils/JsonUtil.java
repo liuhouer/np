@@ -143,6 +143,6 @@ public class JsonUtil {
 	
 		JSONObject map = json2map(json);
 		
-		LOGGER.debug(map);
+		LOGGER.info(map);
 	}
 }

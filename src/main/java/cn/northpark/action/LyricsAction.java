@@ -234,7 +234,7 @@ public class LyricsAction {
 			sb.append(str);
 		}
 		
-		LOGGER.debug(sb.toString());
+		LOGGER.info(sb.toString());
 		return sb.toString();
 	}
 	
@@ -356,7 +356,7 @@ public class LyricsAction {
 				Properties prop = System.getProperties();
 
 				String os = prop.getProperty("os.name");
-				LOGGER.debug(os);
+				LOGGER.info(os);
 				String qianzhui = "e:/bruce/album";
 		         if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
 		        	 qianzhui = "e:/bruce/album";

@@ -158,18 +158,18 @@ public class Base64Util{
 			a = (int) (Math.random() * 10000+min);
 		} while (m.contains(a));
 		m.add(a);
-		LOGGER.debug(a);
+		LOGGER.info(a);
 		return a;
 	}
 
 	//加密机制  密码+000000 base64加密
 	//解密机制  base64解密 除去000000
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		//		 LOGGER.debug(bs.JIAMI("bruce134"));
+		//		 LOGGER.info(bs.JIAMI("bruce134"));
 		String s = "bruce134";
-		LOGGER.debug("加密前：" + s);
-		LOGGER.debug("加密后：" + JIAMI(s));
-		LOGGER.debug("解密后：" + JIEMI(s));
+		LOGGER.info("加密前：" + s);
+		LOGGER.info("加密后：" + JIAMI(s));
+		LOGGER.info("解密后：" + JIEMI(s));
 
 	}
 }

@@ -138,7 +138,7 @@ public class PinyinUtil {
     	for (int i = 0; i < 8; i++) {
 			str+= String.valueOf(chars.charAt((int)(Math.random() * 26)));
 		}
-    	 LOGGER.debug("english--"+str);
+    	 LOGGER.info("english--"+str);
     	return str;
     }
     
@@ -156,7 +156,7 @@ public class PinyinUtil {
     		str+=paraseCharToPinyin(c[i]);
 		}
     	str = str.toLowerCase();
-    	LOGGER.debug("汉语pinyin"+str);
+    	LOGGER.info("汉语pinyin"+str);
     	return str;
     }
     
@@ -174,7 +174,7 @@ public class PinyinUtil {
     		str+=paraseCharToPinyin(c[i]);
 		}
     	str = str.toLowerCase();
-    	LOGGER.debug("汉语_____>"+str);
+    	LOGGER.info("汉语_____>"+str);
     	return str.substring(0, 1);
     }
     
@@ -191,7 +191,7 @@ public class PinyinUtil {
     		str+=paraseCharToPinyin(c[i]);
 		}
     	str = str.toLowerCase()+"@qq.com";
-    	LOGGER.debug("email----"+str);
+    	LOGGER.info("email----"+str);
     	return str;
     }
     

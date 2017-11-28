@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
+import cn.northpark.constant.BC_Constant;
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
@@ -30,11 +31,13 @@ public class EQTask {
 	@Autowired
 	public MoviesManager moviesManager;
 	
+	private static final Logger LOGGER = Logger
+            .getLogger(EQTask.class);
+
 
 
 	public void runTask(){
 		
-		Logger logger = Logger.getLogger(EQTask.class);  
 		System.out.println("情圣定时任务开始"+TimeUtils.getNowTime());
 //		try {
 //
@@ -83,7 +86,7 @@ public class EQTask {
 //		try {
 //			
 //			System.out.println("soft task==============start="+TimeUtils.getNowTime());
-//			logger.debug("soft task==============start="+TimeUtils.getNowTime());
+//			LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
 //			Map<String,String> map = null;
 //				
 //			List<Map<String, String>> list = HTMLParserUtil.retSoft(1);
@@ -136,8 +139,8 @@ public class EQTask {
 //			
 //			EqManager.executeSql(delsoft_sql);
 //			
-//			logger.debug("soft task==============end="+TimeUtils.getNowTime());
-//			logger.trace("soft task==============end="+TimeUtils.getNowTime());
+//			LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
+//			LOGGER.trace("soft task==============end="+TimeUtils.getNowTime());
 //			System.out.println("soft task==============end="+TimeUtils.getNowTime());
 //		} catch (Exception e) {
 //			// TODO: handle exception
@@ -152,7 +155,7 @@ public class EQTask {
 		try {
 		
 		System.out.println("movies task==============start="+TimeUtils.getNowTime());
-		logger.debug("movies task==============start="+TimeUtils.getNowTime());
+		LOGGER.info("movies task==============start="+TimeUtils.getNowTime());
 		Map<String,String> map = null;
 			
 		
@@ -160,7 +163,7 @@ public class EQTask {
 		for (int k = 1; k <=2; k++) {
 			try {
 				
-				List<Map<String, String>> list = HTMLParserUtil.retMovies(k);
+				List<Map<String, String>> list = HTMLParserUtil.retMovies(k,BC_Constant.RET_dianying);
 				
 				
 				if(!CollectionUtils.isEmpty(list)){
@@ -221,7 +224,7 @@ public class EQTask {
 		
 		
 		
-		logger.debug("movies task==============end="+TimeUtils.getNowTime());
+		LOGGER.info("movies task==============end="+TimeUtils.getNowTime());
 		System.out.println("movies task==============end="+TimeUtils.getNowTime());
 	} catch (Exception e) {
 		// TODO: handle exception
@@ -237,7 +240,7 @@ public class EQTask {
 			
 			/////////////////////推送微信定时星座运势塔罗牌天气、、、、、、、、、、、、、、、、、、、、、、、、
 			
-//			logger.debug("send wx astro msg task==============start="+TimeUtils.getNowTime());
+//			LOGGER.info("send wx astro msg task==============start="+TimeUtils.getNowTime());
 //			try {
 //				List<Astro> astrolist = astroManager.findByCondition(" where status = 1").getResultlist();
 //				if(!CollectionUtils.isEmpty(astrolist)){
@@ -271,7 +274,7 @@ public class EQTask {
 //						int result = WeixinQyhUtil.PostMessage(access_token, "POST", POST_URL, jsostr);
 //						System.out.println("jsonstr--"+jsostr);
 //						System.out.println("result--"+result);
-//						logger.debug("send wx astro msg info log result==============="+result);
+//						LOGGER.info("send wx astro msg info log result==============="+result);
 //						// 打印结果
 //						if (0 == result) {
 //							System.out.println("操作成功");
@@ -283,7 +286,7 @@ public class EQTask {
 //			} catch (Exception e) {
 //				// TODO: handle exception
 //			}
-//			logger.debug("send wx astro msg task==============end="+TimeUtils.getNowTime());
+//			LOGGER.info("send wx astro msg task==============end="+TimeUtils.getNowTime());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

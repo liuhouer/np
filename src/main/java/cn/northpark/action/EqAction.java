@@ -77,7 +77,7 @@ public class EqAction {
 			//定义pageview
 			PageView<Eq> pageview  =  new PageView<Eq>(1, MyConstant.MAXRESULT); 
 			
-			LOGGER.debug("sql ---"+whereSql);
+			LOGGER.info("sql ---"+whereSql);
 			
 			//排序条件
 			LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -124,7 +124,7 @@ public class EqAction {
 			map.addAttribute("keyword", keyword);
 			
 		}
-		LOGGER.debug("sql ---"+whereSql);
+		LOGGER.info("sql ---"+whereSql);
 		
 		//排序条件
 		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

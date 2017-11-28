@@ -69,7 +69,7 @@ import sun.misc.BASE64Encoder;
 		 */
 		public static void removeOldFile(String oldpath, MultipartFile[] file) {
 			if (file.length >= 1) {
-				LOGGER.debug(file[0].getOriginalFilename()+ "------------------------------------------------》》");
+				LOGGER.info(file[0].getOriginalFilename()+ "------------------------------------------------》》");
 				
 				Properties prop = System.getProperties();
 
@@ -82,7 +82,7 @@ import sun.misc.BASE64Encoder;
 		         }
 				if (StringUtils.isNotEmpty(file[0].getOriginalFilename()) && StringUtils.isNotEmpty(oldpath)) {// 新上传了图片才把以前的删除
 						File f = new File(path+oldpath);
-						LOGGER.debug("要删除文件的绝对路径是：" + f.getAbsolutePath());
+						LOGGER.info("要删除文件的绝对路径是：" + f.getAbsolutePath());
 						if (f.exists()) {
 							f.delete();
 						} else {
@@ -100,7 +100,7 @@ import sun.misc.BASE64Encoder;
 		 * @return 保存的路径数值集合
 		 */
 		public static List<String> commonUpload(MultipartFile[] file ,String suffix)  {
-		    LOGGER.debug("-------------------------------------->开始");  
+		    LOGGER.info("-------------------------------------->开始");  
 		    
 		    List<String> list = new ArrayList<String>();
 		    Properties prop = System.getProperties();
@@ -143,7 +143,7 @@ import sun.misc.BASE64Encoder;
 		        
 			}
 	         System.gc();
-	         LOGGER.debug("-------------------------------------->结束");
+	         LOGGER.info("-------------------------------------->结束");
 			return list;
 		 
 		 }
@@ -314,7 +314,7 @@ import sun.misc.BASE64Encoder;
 				while ((str = reader.readLine()) != null) {
 					long lo = Long.valueOf(str.trim());
 					String time = TimeUtils.longToString(lo);
-					LOGGER.debug(str+"------->"+time);
+					LOGGER.info(str+"------->"+time);
 				}
 			} catch (FileNotFoundException e) {
 				LOGGER.error("------->", e);;
@@ -333,7 +333,7 @@ import sun.misc.BASE64Encoder;
 			 List<String> filelist = new ArrayList<String>();
 			  File[] fs = dir.listFiles();
 			  for(int i=0; i<fs.length; i++){
-			    //LOGGER.debug(fs[i].getAbsolutePath());
+			    //LOGGER.info(fs[i].getAbsolutePath());
 			    if(fs[i].isDirectory()){
 			    	try{
 			    		showAllFiles(fs[i]);
@@ -356,7 +356,7 @@ import sun.misc.BASE64Encoder;
 			List<String> flist = showAllFiles(root);
 			for (int i = 0; i < flist.size(); i++) {
 				if(MD5Utils.encoding(new FileInputStream(flist.get(i))).equals(pic1)){//替换图片
-					LOGGER.debug(i+"---"+flist.get(i));
+					LOGGER.info(i+"---"+flist.get(i));
 					String new_pic = getRandomPic(flist);
 					
 					writeFile(flist, i, new_pic);  

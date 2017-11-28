@@ -159,6 +159,6 @@ public class MD5Utils {
 	}
 	
 	public static void main(String[] args) {
-		LOGGER.debug(MD5Utils.encoding("bruce134"));
+		LOGGER.info(MD5Utils.encoding("bruce134"));
 	}
 }
