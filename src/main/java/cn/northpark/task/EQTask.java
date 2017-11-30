@@ -38,7 +38,6 @@ public class EQTask {
 
 	public void runTask(){
 		
-		System.out.println("情圣定时任务开始"+TimeUtils.getNowTime());
 //		try {
 //
 //    		Map<String, String> map = HTMLParserUtil.retTodayEq();
@@ -154,7 +153,6 @@ public class EQTask {
 		
 		try {
 		
-		System.out.println("movies task==============start="+TimeUtils.getNowTime());
 		LOGGER.info("movies task==============start="+TimeUtils.getNowTime());
 		Map<String,String> map = null;
 			
@@ -217,7 +215,8 @@ public class EQTask {
 			    System.out.println("第"+k+"页================");
 			} catch (InterruptedException e) {
 			    // TODO Auo-generated catch block
-			    e.printStackTrace();
+			    
+			    LOGGER.error("movies task InterruptedException=============="+e);
 			}
 		}
 		
@@ -225,9 +224,9 @@ public class EQTask {
 		
 		
 		LOGGER.info("movies task==============end="+TimeUtils.getNowTime());
-		System.out.println("movies task==============end="+TimeUtils.getNowTime());
 	} catch (Exception e) {
 		// TODO: handle exception
+		LOGGER.error("movies task  Exception=============="+e);
 	}
 //	
 	   
@@ -294,7 +293,6 @@ public class EQTask {
 		
 
 		
-		System.out.println("情圣定时任务结束"+TimeUtils.getNowTime());
 	}
 	
 	

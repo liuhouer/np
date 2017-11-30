@@ -326,13 +326,13 @@ public class UserAction {
 		public String building(ModelMap map,HttpServletRequest request) {
 	 		
 	 		//记录访问者的IP、记录访问者的url请求路径，打印到日志里去
-	 		String IP = AddressUtils.getIpAddr(request);
-	 		String queryString = request.getQueryString();
-	 		String url = request.getRequestURI();
-	 		if(StringUtils.isNotBlank(queryString)){
-	 			url = url+"?"+queryString;
-	 		}
-	 		LOGGER.error("IP:"+IP+"|||URL:"+url+"|||TIME:"+TimeUtils.nowTime());
+//	 		String IP = AddressUtils.getIpAddr(request);
+//	 		String queryString = request.getQueryString();
+//	 		String url = request.getRequestURI();
+//	 		if(StringUtils.isNotBlank(queryString)){
+//	 			url = url+"?"+queryString;
+//	 		}
+//	 		LOGGER.error("IP:"+IP+"|||URL:"+url+"|||TIME:"+TimeUtils.nowTime());
 			return "/building";
 		}
 	 	
