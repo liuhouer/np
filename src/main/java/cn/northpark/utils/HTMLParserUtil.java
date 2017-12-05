@@ -121,59 +121,89 @@ public class HTMLParserUtil{
 
     /**
      * 爬虫获取情圣的文章
+     * loveUdavid
+     * ret_url:http://chuansong.me/account/loveUdavid?start=(i-1)*12
      * @throws IOException
      */
     public static List<Map<String,String>> retEQArticle() throws IOException {
         List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-        for(int i=1;i<=2;i++){
+        for(int i=7;i<=16;i++){
             try{
-            Document doc = Jsoup.connect("http://www.aiweibang.com/u/10608?page="+i).get();
-            Elements info   = doc.select("div[class=info]");
+            Document doc = Jsoup.connect("http://chuansong.me/account/loveudavid?start="+i*12)
+			            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+								.referrer("http://www.google.com") 
+								.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+            					.get();
+            Elements info   = doc.select("div[class=pagedlist_item]");
             for(Element p : info){
 
                 HashMap<String, String> map =new HashMap<String, String>();
                 //标题
-                Elements titles = p.select("div[class=title]");
+                Elements titles = p.select("a[class=question_link]");
 
                 String title = titles.get(0).text();
                 title = title.replace("大卫", "");
-                String aurl = "http://www.aiweibang.com"+titles.get(0).select("a").get(0).attr("href");
+                String aurl = "http://chuansong.me"+titles.get(0).select("a").get(0).attr("href");
 
-//                Elements dates = p.select("span[class=text]");
-//
-//                String date = dates.get(0).text();
+                Elements dates = p.select("span[class=timestamp]");
 
-                //文章
-                Document doc_ = Jsoup.connect(aurl).get();
-                Elements articles = doc_.select("div[class=innertext]");
-                String article = articles.get(0).html();
-                article = article.replace("大卫","<情圣>").replace("<p>请回复：<span style=\"background-color: rgb(255, 251, 0);\">千万别追女神</span></p>", "").replace("<p>请回复：<span style=\"background-color: rgb(255, 255, 0);\">千万别追女神</span></p>", "").replace("<p>你想学习正确的追女孩技巧，早日抱得美人归吗？</p>", "").replace("<p>你想得到<情圣>的帮助，解决棘手的情感问题吗？</p>", "");
-
-                //日期
-                Elements dates = doc_.select("span[class=activity-meta no-extra]");
                 String date = dates.get(0).text();
 
-//                if(!(date.equals("2016-07-20")) && !(date.equals("2016-07-23"))&& !(date.equals("2016-07-23"))){
-                if(!(date.equals("2016-08-01")) ){
-                    continue;
-                }
+                //文章
+                
+                
+                //休眠6秒
+                try {
+    			    Thread.sleep(1000*2);
+    			} catch (InterruptedException e) {
+    			    // TODO Auo-generated catch block
+    			    e.printStackTrace();
+    			}
+                Document doc_ = Jsoup.connect(aurl)
+					            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+										.referrer("http://www.google.com") 
+										.timeout(1000*5) //it's in milliseconds, so this means 5 seconds. 
+										.followRedirects(true)
+										.maxBodySize(1024*1024*3)    //3Mb Max
+										  //.ignoreContentType(true) //for download xml, json, etc
+				                		.get();
+                Elements articles = doc_.select("div[class=rich_media_content]");
+                String article = articles.get(0).html();
+                article = article.replace("大卫","<情圣>").replace("<p>请回复：<span style=\"background-color: rgb(255, 251, 0);\">千万别追女神</span></p>", "")
+                		.replace("<p>请回复：<span style=\"background-color: rgb(255, 255, 0);\">千万别追女神</span></p>", "")
+                		.replace("<p>你想学习正确的追女孩技巧，早日抱得美人归吗？</p>", "")
+                		.replace("<p>你想得到<情圣>的帮助，解决棘手的情感问题吗？</p>", "")
+                		.replace("<p><img class=\"\" data-ratio=\"0.736\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"1000\" src=\"http://img.chuansong.me/mmbiz/nMpCNia3hrN4BiaKeiadNc9Cd33C0g7Dt22pn0KOE54PowMzbygnmChH9lpBOLZEK1YvvNJtk1TOgiazP4VhibTAImw/0?wx_fmt=jpeg\" style=\"\"></p>", "")
+                		.replace("<p style=\"white-space: normal;text-align: center;\"><span style=\"color: rgb(255, 169, 0);\"><strong>长按图片赞赏，请<情圣>吃金拱门！</strong></span></p>","")
+                		.replace("<p style=\"white-space: normal;\"><br></p>","")
+                		.replace("<p style=\"white-space: normal;\"><img class=\"\" data-copyright=\"0\" data-ratio=\"1\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"1080\" src=\"http://img.chuansong.me/mmbiz_jpg/nMpCNia3hrN67eXCUbQySMmXpKibVaPsicm1KHjywtIvUXWFDlBqnIrZMhCJ1Z1rKg9qM8ETCGt2ypMClrkB1oNHw/0?wx_fmt=jpeg\"></p>", "")
+                		.replace("<p><img class=\"\" data-ratio=\"0.6826196473551638\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"794\" src=\"http://img.chuansong.me/mmbiz/nMpCNia3hrN4BiaKeiadNc9Cd33C0g7Dt22uCIbRO1q9t6uFJSzAmYjvmkkJSAw6ZN78QdqBcGf7hZ2UEFkzLXMGQ/0?wx_fmt=jpeg\" style=\"\"></p>", "")
+        				.replace("<img data-ratio=\"1\" data-w=\"20\" src=\"http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=https://res.wx.qq.com/mpres/htmledition/images/icon/common/emotion_panel/emoji_wx/2_06.png\" style=\"display:inline-block;width:20px;vertical-align:text-bottom;\">", "")
+        				
+                		
+                		;
 
-                //标题图
-                Elements pics = doc_.select("img");
-                String img = pics.get(0).attr("src");
+
 
                 //简介
-                Elements texts = p.select("div[class=text]");
-                String brief = texts.get(0).text();
-                brief = brief.replace("大卫", "");
+                Elements texts = doc_.select("p");
+                String brief = texts.get(3).text();
+                brief = brief.replace("大卫", "情圣");
+                
+                
+                // 生成码
+                String retcode = MD5Utils.encoding(title);
 
                 map.put("title", title);
                 map.put("aurl", aurl);
-                map.put("img", img);
                 map.put("brief", brief);
                 map.put("date", date);
                 map.put("article", article);
+                map.put("retcode", retcode);
 
+                
+                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+                
                 list.add(map);
 
                 }
@@ -181,6 +211,17 @@ public class HTMLParserUtil{
             	 LOGGER.error("HTMLPARSERutils------->", e);;
                 continue;
             }
+            
+            
+            
+            //休眠10秒
+            try {
+			    Thread.sleep(1000*5);
+			    LOGGER.info("第"+i+"页================");
+			} catch (InterruptedException e) {
+			    // TODO Auo-generated catch block
+			    e.printStackTrace();
+			}
         }
         return list;
     }
@@ -217,7 +258,8 @@ public class HTMLParserUtil{
         try {
             //retMeizitu();
 
-            Document doc = Jsoup.connect("http://orenogazoo.tumblr.com/").get();
+            Document doc = Jsoup.connect("http://orenogazoo.tumblr.com/")
+            					.get();
             //src
             Elements pics = doc.select("img");
             for(Element p : pics){
@@ -351,52 +393,53 @@ public class HTMLParserUtil{
                 HashMap<String, String> map =new HashMap<String, String>();
         try{
         	
-        	
-        	Map<String, String> cookies = null;  
-        	cookies = new HashMap<String, String>();  
-        	        cookies.put("Hm_lpvt_45cdb9a58c4dd401ed07126f3c04d3c4", "1503493436");  
-        	        cookies.put("Hm_lvt_45cdb9a58c4dd401ed07126f3c04d3c4", "1503493289");  
-        	        cookies.put("UM_distinctid", "15e0f2f4da8354-0f5f0bc6d98a36-8383667-144000-15e0f2f4da990a");  
-        	        cookies.put("awbYHQXTK", "hWXM8jexf8P1LNW3PFuVLLX8J4EXXRS2IRZvviQiyDO6fRYegdRbNQinU3li6qQuEamjLifVKZTABzvVBynOWw==");  
-        	        cookies.put("SERVERID", "21d5ef70aa6a66998ee914f10589f164|1503493432|1503493286");
-        	        cookies.put("ft", "1");
-                Document doc = Jsoup.connect("http://www.aiweibang.com/u/10608?page=1").cookies(cookies).get();
-                Elements info   = doc.select("div[class=info]");
-                Element p  = info.get(0);
+        	Document doc = Jsoup.connect("http://chuansong.me/account/loveudavid")
+        			.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+					.referrer("http://www.google.com") 
+					.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+        			.get();
+            Element info   = doc.select("div[class=pagedlist_item]").get(0);
 
                 //标题
-                Elements titles = p.select("div[class=title]");
+                Elements titles = info.select("a[class=question_link]");
 
                 String title = titles.get(0).text();
                 title = title.replace("大卫", "");
-                
-                
-                String retcode = MD5Utils.encoding(title);
-                
-                String aurl = "http://www.aiweibang.com"+titles.get(0).select("a").get(0).attr("href");
+                String aurl = "http://chuansong.me"+titles.get(0).select("a").get(0).attr("href");
 
-//                Elements dates = p.select("span[class=text]");
-//
-//                String date = dates.get(0).text();
+                Elements dates = info.select("span[class=timestamp]");
 
-                //文章
-                Document doc_ = Jsoup.connect(aurl).cookies(cookies).get();
-                Elements articles = doc_.select("div[class=innertext]");
-                String article = articles.get(0).html();
-                article = article.replace("大卫","<情圣>").replace("<p>请回复：<span style=\"background-color: rgb(255, 251, 0);\">千万别追女神</span></p>", "").replace("<p>请回复：<span style=\"background-color: rgb(255, 255, 0);\">千万别追女神</span></p>", "").replace("<p>你想学习正确的追女孩技巧，早日抱得美人归吗？</p>", "").replace("<p>你想得到<情圣>的帮助，解决棘手的情感问题吗？</p>", "");
-
-                //日期
-                Elements dates = doc_.select("span[class=activity-meta no-extra]");
                 String date = dates.get(0).text();
 
-                //标题图
-    //            Elements pics = doc_.select("img");
-    //            String img = pics.get(0).attr("src");
+                //文章
+                Document doc_ = Jsoup.connect(aurl)
+            			.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+    					.referrer("http://www.google.com") 
+    					.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+                		.get();
+                Elements articles = doc_.select("div[class=rich_media_content]");
+                String article = articles.get(0).html();
+                article = article.replace("大卫","<情圣>").replace("<p>请回复：<span style=\"background-color: rgb(255, 251, 0);\">千万别追女神</span></p>", "")
+                		.replace("<p>请回复：<span style=\"background-color: rgb(255, 255, 0);\">千万别追女神</span></p>", "")
+                		.replace("<p>你想学习正确的追女孩技巧，早日抱得美人归吗？</p>", "")
+                		.replace("<p>你想得到<情圣>的帮助，解决棘手的情感问题吗？</p>", "")
+                		.replace("<p><img class=\"\" data-ratio=\"0.736\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"1000\" src=\"http://img.chuansong.me/mmbiz/nMpCNia3hrN4BiaKeiadNc9Cd33C0g7Dt22pn0KOE54PowMzbygnmChH9lpBOLZEK1YvvNJtk1TOgiazP4VhibTAImw/0?wx_fmt=jpeg\" style=\"\"></p>", "")
+                		.replace("<p style=\"white-space: normal;text-align: center;\"><span style=\"color: rgb(255, 169, 0);\"><strong>长按图片赞赏，请<情圣>吃金拱门！</strong></span></p>","")
+                		.replace("<p style=\"white-space: normal;\"><br></p>","")
+                		.replace("<p style=\"white-space: normal;\"><img class=\"\" data-copyright=\"0\" data-ratio=\"1\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"1080\" src=\"http://img.chuansong.me/mmbiz_jpg/nMpCNia3hrN67eXCUbQySMmXpKibVaPsicm1KHjywtIvUXWFDlBqnIrZMhCJ1Z1rKg9qM8ETCGt2ypMClrkB1oNHw/0?wx_fmt=jpeg\"></p>", "")
+                		.replace("<p><img class=\"\" data-ratio=\"0.6826196473551638\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"794\" src=\"http://img.chuansong.me/mmbiz/nMpCNia3hrN4BiaKeiadNc9Cd33C0g7Dt22uCIbRO1q9t6uFJSzAmYjvmkkJSAw6ZN78QdqBcGf7hZ2UEFkzLXMGQ/0?wx_fmt=jpeg\" style=\"\"></p>", "")
+        				.replace("<img data-ratio=\"1\" data-w=\"20\" src=\"http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=https://res.wx.qq.com/mpres/htmledition/images/icon/common/emotion_panel/emoji_wx/2_06.png\" style=\"display:inline-block;width:20px;vertical-align:text-bottom;\">", "")
+        				
+                		
+                		;
+
 
                 //简介
-                Elements texts = p.select("div[class=text]");
-                String brief = texts.get(0).text();
-                brief = brief.replace("大卫", "");
+                Elements texts = doc_.select("p");
+                String brief = texts.get(3).text();
+                brief = brief.replace("大卫", "情圣");
+                // 生成码
+                String retcode = MD5Utils.encoding(title);
 
                 map.put("title", title);
                 map.put("aurl", aurl);
@@ -404,6 +447,7 @@ public class HTMLParserUtil{
                 map.put("date", date);
                 map.put("article", article);
                 map.put("retcode", retcode);
+
                 LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
             }catch(Exception e){
@@ -1159,7 +1203,8 @@ public class HTMLParserUtil{
             
             	
 //            	retPoem(26);
-            	LOGGER.info(MD5Utils.encoding("速度与激情8"));
+//            	LOGGER.info(MD5Utils.encoding("速度与激情8"));
+            	retEQArticle();
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 LOGGER.error("HTMLPARSERutils------->", e);;

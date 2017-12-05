@@ -20,7 +20,6 @@ import cn.northpark.model.Lyrics;
 import cn.northpark.model.LyricsComment;
 import cn.northpark.model.LyricsZan;
 import cn.northpark.model.User;
-import cn.northpark.query.LyricsZanQuery;
 import cn.northpark.utils.TimeUtils;
 
 @Controller
@@ -31,8 +30,6 @@ public class LyricsZanAction {
  private LyricsZanManager lyricszanManager;
  @Autowired	
  private  LyricsCommentManager  plManager;
- @Autowired	
- private LyricsZanQuery lyricszanQuery;
  @Autowired	
  private LyricsManager lyricsManager;
  

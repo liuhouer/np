@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Soft;
-import cn.northpark.query.SoftQuery;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
@@ -40,8 +39,6 @@ public class SoftAction {
 
  @Autowired	
  private SoftManager softManager;
- @Autowired	
- private SoftQuery softQuery;
  
  private static final Logger LOGGER = Logger
          .getLogger(SoftAction.class);

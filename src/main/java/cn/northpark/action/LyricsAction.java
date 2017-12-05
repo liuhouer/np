@@ -33,13 +33,11 @@ import cn.northpark.interceptor.CheckLogin;
 import cn.northpark.manager.LyricsCommentManager;
 import cn.northpark.manager.LyricsManager;
 import cn.northpark.manager.LyricsZanManager;
-import cn.northpark.manager.UserFollowManager;
 import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.manager.UserManager;
 import cn.northpark.model.Lyrics;
 import cn.northpark.model.User;
 import cn.northpark.model.UserLyrics;
-import cn.northpark.query.LyricsQuery;
 import cn.northpark.utils.FileUtils;
 import cn.northpark.utils.ScriptTools;
 import cn.northpark.utils.TimeUtils;
@@ -58,8 +56,6 @@ public class LyricsAction {
  @Autowired	
  private LyricsManager lyricsManager;
  @Autowired	
- private LyricsQuery lyricsQuery;
- @Autowired	
  private UserManager userManager;
  @Autowired	
  private UserLyricsManager userlyricsManager;
@@ -67,8 +63,6 @@ public class LyricsAction {
  private  LyricsCommentManager  plManager;
  @Autowired	
  private LyricsZanManager lyricszanManager;
- @Autowired	
- private UserFollowManager userfollowManager;
 	
  	/**
  	 * 跳转到添加最爱页面

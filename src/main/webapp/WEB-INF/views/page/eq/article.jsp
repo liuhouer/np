@@ -18,10 +18,6 @@
 <meta name="description" content="${model.title} | NorthPark">
 <meta name="keywords" content="${model.title} | NorthPark">
 
-<style type="text/css">
-    /* 自定义评论  */
-	#ds-thread #ds-reset .ds-powered-by{display:none;}
-</style>
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 </head>
@@ -68,12 +64,66 @@
 									</div>
 								</div>
 								
-								<div id="comment">
-									<!-- 多说评论框 start -->
-									<div class="ds-thread" data-thread-key="romeo${model.id }" data-title="${model.title} | NorthPark" data-url="/romeo/${model.id }.html"></div>
-									<!-- 多说评论框 end -->
 								
+								 <!-- 打赏 -->
+										<div>
+      
+        
+										<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+										  <div class="margin10">生活不止苟且,还有我喜爱的海岸.</div>
+										  <button id="rewardButton" ,="" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}" style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+										    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onmouseout="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; color: rgb(255, 255, 255); font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 35px; line-height: 75px; font-family: microsofty; background: rgb(236, 96, 0);">赏</span>
+										  </button>
+										  <div id="QR" style="display: none;">
+										    
+										      <div id="wechat" style="display: inline-block">
+										        <a href="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/wxpay.jpg" class="fancybox" rel="group"><img id="wechat_qr" src="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/wxpay.jpg" alt="Bruce WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"></a>
+										        <p>微信打赏</p>
+										      </div>
+										    
+										    
+										      <div id="alipay" style="display: inline-block">
+										        <a href="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/alipay.png" class="fancybox" rel="group"><img id="alipay_qr" src="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/alipay.png" alt="Bruce Alipay" style="width: 200px; max-width: 100%; display: inline-block"></a>
+										        <p>支付宝打赏</p>
+										      </div>
+										    
+										  </div>
+										</div>
+										
+										      
+										</div>
+										
+								 <!-- 打赏 -->
+								 
+								 
+								<!-- 评论 -->
+								<div id="comment">
+								
+								<!-- 来必力City版安装代码 -->
+								<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzgzNy80NDEz">
+								<script type="text/javascript">
+								   (function(d, s) {
+								       var j, e = d.getElementsByTagName(s)[0];
+								
+								       if (typeof LivereTower === 'function') { return; }
+								
+								       j = d.createElement(s);
+								       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+								       j.async = true;
+								
+								       e.parentNode.insertBefore(j, e);
+								   })(document, 'script');
+								   
+								   
+								 //删除评论多余的代码
+									
+								   $("#wrapper").find("div[id='footer']").remove();
+								</script>
 								</div>
+								<!-- City版安装代码已完成 -->
+									
+								</div>
+								<!-- 评论 -->
 								
 							</div>
 						</div>
@@ -87,18 +137,5 @@
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"jellyband"};
-		(function() {
-			var ds = document.createElement('script');
-			ds.type = 'text/javascript';ds.async = true;
-			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-			ds.charset = 'UTF-8';
-			(document.getElementsByTagName('head')[0] 
-			 || document.getElementsByTagName('body')[0]).appendChild(ds);
-		})();
-		</script>
-	<!-- 多说公共JS代码 end -->					
 
 </body></html>    

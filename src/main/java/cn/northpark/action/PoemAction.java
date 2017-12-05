@@ -21,7 +21,6 @@ import cn.northpark.manager.PoemManager;
 import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Poem;
 import cn.northpark.model.Tags;
-import cn.northpark.query.PoemQuery;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
@@ -41,8 +40,6 @@ public class PoemAction {
 
  @Autowired	
  private PoemManager poemManager;
- @Autowired	
- private PoemQuery poemQuery;
  
  @Autowired	
  private TagsManager tagManager;

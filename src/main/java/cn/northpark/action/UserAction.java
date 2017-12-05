@@ -38,7 +38,6 @@ import cn.northpark.model.User;
 import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
 import cn.northpark.query.condition.UserLyricsQueryCondition;
-import cn.northpark.utils.AddressUtils;
 import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
