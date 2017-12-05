@@ -31,6 +31,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.util.CollectionUtils;
 
+import cn.northpark.constant.BC_Constant;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 
@@ -46,76 +47,6 @@ public class HTMLParserUtil{
     
 
 
-
-    /**
-     *
-     * 获取class元素内容
-     * "div[class=clearfix hidden]"
-     * http://www.caimai.cc/story/page7/
-     * @param url
-     * @param classname
-     * @return List<String>
-     */
-    public static List<String> getClassCont(String url,String classname){
-        List<String> list = new ArrayList<String>();
-        try {
-            Document doc = Jsoup.connect(url).get();
-
-            String title = doc.title();
-            LOGGER.info("title ||---  "+title);
-            Elements notes   = doc.select(classname);
-
-            for(Element p : notes){
-
-                       String note = p.html();
-                       list.add(note);
-                       //String note2 = p.text();
-                       LOGGER.info(note);
-                       //LOGGER.info(note2);
-
-            }
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            LOGGER.error("HTMLPARSERutils------->", e);;
-        }
-        return list;
-
-    }
-
-    /**
-     *
-     * 获取图片地址的集合
-     * "div[class=clearfix hidden]"
-     * http://www.caimai.cc/story/page7/
-     * @param url
-     * @param classname
-     * @return List<String>
-     */
-    public static List<String> getImgUrl(String url){
-        List<String> list = new ArrayList<String>();
-        try {
-            Document doc = Jsoup.connect(url).get();
-
-            String title = doc.title();
-            LOGGER.info(title);
-            Elements notes   = doc.select("img");
-
-            for(Element p : notes){
-
-                String uri = p.absUrl("src");
-                LOGGER.info(uri);
-                list.add(uri);
-
-            }
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            LOGGER.error("HTMLPARSERutils------->", e);;
-        }
-        return list;
-
-    }
 
 
 
@@ -226,164 +157,9 @@ public class HTMLParserUtil{
         return list;
     }
 
-    /**
-     * //妹子图获取
-     * // http://huaban.com/from/meizitu.com/
-     * @throws IOException
-     */
-    public static List<String> retMeizitu() throws IOException {
-        List<String> list = new ArrayList<String>();
-            try{
-                Document doc = Jsoup.connect("http://huaban.com/from/meizitu.com/?inepv8xm&max=695360534&limit=300&wfl=1").get();
-                //src
-                Elements pics = doc.select("img");
-//                int index = 0;
-                for(Element p : pics){
-//                    index++;
-                    list.add(p.attr("src"));
-                    //LOGGER.info(index+ p.attr("src"));
-                }
-                list.remove(list.size()-1);
-                //session.setAttribute("meizutu", list);
-            }catch (Exception e) {
-                LOGGER.error("HTMLPARSERutils------->", e);;
-            }
-        return list;
-    }
+   
 
-    /**
-     * 读取网络图片到硬盘
-     */
-    public static void readPic2Disk(){
-        try {
-            //retMeizitu();
-
-            Document doc = Jsoup.connect("http://orenogazoo.tumblr.com/")
-            					.get();
-            //src
-            Elements pics = doc.select("img");
-            for(Element p : pics){
-                try{
-                    URL   url   =   new   URL(p.attr("src"));
-                    URLConnection   uc   =   url.openConnection();
-                    InputStream   is   =   uc.getInputStream();
-
-                    String name = p.attr("src").substring(p.attr("src").lastIndexOf("/")+1, p.attr("src").length());
-
-                    String path = "/Users/zhangyang/Pictures/";
-
-                    String date = TimeUtils.nowdate()+"/";
-                    path = path+date;
-
-                    File filepath = new File(path);
-                    if(!filepath.exists() && !filepath.isDirectory()){
-                        filepath.mkdirs();
-                    }
-                    if(name.endsWith(".png")||name.endsWith(".jpg")||name.endsWith(".ico")||name.endsWith(".gif")){
-                        FileOutputStream   out   =   new   FileOutputStream(path+name);
-                        LOGGER.info("写入中..."+path+name);
-                        int   i1=0;
-                        while   ((i1=is.read())!=-1)   {
-                            out.write(i1);
-                        }
-                        
-                        out.close();
-                    }
-                    is.close();
-                }catch(Exception e){
-                    LOGGER.error("HTMLPARSERutils------->", e);;
-                    continue;
-                }
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            LOGGER.error("HTMLPARSERutils------->", e);;
-        }
-    }
-
-    /**
-     * 读取网络图片到硬盘
-     */
-    public static HashMap<String,String> webPic2Disk(String weburl,String localpath,String date){
-        HashMap<String,String> map  = new HashMap<String, String>();
-        String path = "";
-        String name = "";
-                try{
-                    URL   url   =   new   URL(weburl);
-                    URLConnection   uc   =   url.openConnection();
-                    InputStream   is   =   uc.getInputStream();
-
-                    name = weburl.substring(weburl.lastIndexOf("/")+1, weburl.length());
-
-                    path = localpath;//"/Users/zhangyang/Pictures/";
-
-                    date = date+"/";
-
-                    map.put("key", name);
-                    path = path+date;
-
-                    File filepath = new File(path);
-                    if(!filepath.exists() && !filepath.isDirectory()){
-                        filepath.mkdirs();
-                    }
-
-                    File file2 = new File(path+name);
-                    map.put("localpath", path+name);
-                    if(file2.exists()){
-
-                    }else{
-                        FileOutputStream   out   =   new   FileOutputStream(path+name);
-                        LOGGER.info("写入中..."+path+name);
-
-                        int   i1=0;
-                        while   ((i1=is.read())!=-1)   {
-                            out.write(i1);
-                        }
-                        
-                        out.close();
-                        
-                    }
-                    is.close();
-                }catch(Exception e){
-                    LOGGER.error("HTMLPARSERutils------->", e);;
-                }
-        return map;
-    }
-
-    /**
-     * 解析七牛URL为markdown格式
-     * @return
-     */
-    public static List<String> url2markdown(){
-        List<String> urilist = new ArrayList<String>();
-        List<String> list = new ArrayList<String>();
-        try {
-                File in = new File("C:\\Users\\bruce\\Desktop\\111\\aaaa.html");
-
-                Document doc = Jsoup.parse(in, "UTF-8", "");
-                Elements notes   = doc.select("button[class=test_pic]");
-                for(Element p : notes){
-
-                String links = p.attr("cval");
-                urilist.add(links);
-
-                }
-
-                HashSet<String> v = new HashSet<String>();
-                v.addAll(urilist);
-
-                list.addAll(v);
-                for (String s:list) {
-                    LOGGER.info(s);
-                }
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            LOGGER.error("HTMLPARSERutils------->", e);;
-        }
-        return list;
-    }
-
+  
 
     /**
      * 爬取今日情圣的文章
@@ -457,93 +233,66 @@ public class HTMLParserUtil{
         return map;
     }
 
+   
+    
     /**
-     * 生成妹子图从N张动漫
+     * 爬取1页的优惠资源vps、优惠券、图书、影视、建站、网络资源、节日优惠...
+     * @param index
+     * @param retlink
      * @return
      */
-    public static List<String> gegeMEIZITU(){
-        List<String> meizi = new ArrayList<String>();
+    public static List<Map<String, String>> retCoupon(Integer index,String retlink) {
+        // TODO Auto-generated method stub
+        List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+        HashMap<String, String> map =null;
+        try{
+        	
+        		LOGGER.info("page============================="+index+"============================页");
+        		
+        		String url = retlink+index+"/";
+	        	
+	        	
+                Document doc = Jsoup.connect(url)
+			            			.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+			    					.referrer("http://www.google.com") 
+			    					.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+			            			.get();
+                
+                Elements  lis   = doc.select("article[class=excerpt-one]");
+                if(!lis.isEmpty()){
+                    for (int i = 0; i < lis.size(); i++) {
+                        Element li  = lis.get(i);
+                       
+                        //获取相关信息
+                        Element a = li.select("header").get(0).select("a").get(0);
 
-        for (int i = 1; i <= 18; i++) {
-            String img = "/img/eq/tumblr_o"+i+".png";
-            meizi.add(img);
-        }
-        return meizi;
-    }
-
-    /**
-     * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
-     * @return
-     */
-    public static Integer getRandomOne(List<?> list){
-
-        Random ramdom =  new Random();
-        int number = -1;
-        int max = list.size();
-
-        //size 为  10 ，取得类似0-9的区间数
-        number = Math.abs(ramdom.nextInt() % max  );
-
-        return number;
-
-    }
-
-    /**
-     * 字符串超长截取
-     * @param s
-     * @param length
-     * @return
-     * @throws Exception
-     */
-    public static String CutString(String s, int length){
-        String rs = "";
-        try {
-
-            byte[] bytes = s.getBytes("Unicode");
-            int n = 0; // 表示当前的字节数
-            int i = 2; // 要截取的字节数，从第3个字节开始
-            for (; i < bytes.length && n < length; i++)
-            {
-                // 奇数位置，如3、5、7等，为UCS2编码中两个字节的第二个字节
-                if (i % 2 == 1)
-                {
-                    n++; // 在UCS2第二个字节时n加1
-                }
-                else
-                {
-                    // 当UCS2编码的第一个字节不等于0时，该UCS2字符为汉字，一个汉字算两个字节
-                    if (bytes[i] != 0)
-                    {
-                        n++;
+                        String title = a.attr("title");
+                        
+                        String retcode = MD5Utils.encoding(title);
+                        
+                        String date = li.select("p[class=time]").get(0).text();
+                        
+                        String brief = li.select("p[class=note]").get(0).text();
+                        
+                        
+                        String tags = li.select("span[class=post-tags]").get(0).text();
+                        
+                        
                     }
                 }
-            }
-            // 如果i为奇数时，处理成偶数
-            if (i % 2 == 1)
+//                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
-            {
-                // 该UCS2字符是汉字时，去掉这个截一半的汉字
-                if (bytes[i - 1] != 0)
-                    i = i - 1;
-                // 该UCS2字符是字母或数字，则保留该字符
-                else
-                    i = i + 1;
+            }catch(Exception e){
+                LOGGER.error("HTMLPARSERutils------->", e);;
             }
 
-            rs = new String(bytes, 0, i, "Unicode");
-            if(!rs.equals(s)){
-                rs = rs +"...";
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-            rs = s;
-
-        }
-        return rs;
+        return list;
     }
+    
 
+   
     /**
-     * 爬取1页的内容
+     * 爬取1页的mac软件内容
      */
     public static List<Map<String, String>> retSoft(Integer index) {
         // TODO Auto-generated method stub
@@ -1071,9 +820,173 @@ public class HTMLParserUtil{
     
     
     /**
-     * 爬取某页面的电影图书资源
+     *	=====================================tools开始================================================================
      */
 
+    
+    /**
+     * 读取网络图片到硬盘
+     */
+    public static void readPic2Disk(){
+        try {
+            //retMeizitu();
+
+            Document doc = Jsoup.connect("http://orenogazoo.tumblr.com/")
+            					.get();
+            //src
+            Elements pics = doc.select("img");
+            for(Element p : pics){
+                try{
+                    URL   url   =   new   URL(p.attr("src"));
+                    URLConnection   uc   =   url.openConnection();
+                    InputStream   is   =   uc.getInputStream();
+
+                    String name = p.attr("src").substring(p.attr("src").lastIndexOf("/")+1, p.attr("src").length());
+
+                    String path = "/Users/zhangyang/Pictures/";
+
+                    String date = TimeUtils.nowdate()+"/";
+                    path = path+date;
+
+                    File filepath = new File(path);
+                    if(!filepath.exists() && !filepath.isDirectory()){
+                        filepath.mkdirs();
+                    }
+                    if(name.endsWith(".png")||name.endsWith(".jpg")||name.endsWith(".ico")||name.endsWith(".gif")){
+                        FileOutputStream   out   =   new   FileOutputStream(path+name);
+                        LOGGER.info("写入中..."+path+name);
+                        int   i1=0;
+                        while   ((i1=is.read())!=-1)   {
+                            out.write(i1);
+                        }
+                        
+                        out.close();
+                    }
+                    is.close();
+                }catch(Exception e){
+                    LOGGER.error("HTMLPARSERutils------->", e);;
+                    continue;
+                }
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            LOGGER.error("HTMLPARSERutils------->", e);;
+        }
+    }
+
+    /**
+     * 读取网络图片到硬盘
+     */
+    public static HashMap<String,String> webPic2Disk(String weburl,String localpath,String date){
+        HashMap<String,String> map  = new HashMap<String, String>();
+        String path = "";
+        String name = "";
+                try{
+                    URL   url   =   new   URL(weburl);
+                    URLConnection   uc   =   url.openConnection();
+                    InputStream   is   =   uc.getInputStream();
+
+                    name = weburl.substring(weburl.lastIndexOf("/")+1, weburl.length());
+
+                    path = localpath;//"/Users/zhangyang/Pictures/";
+
+                    date = date+"/";
+
+                    map.put("key", name);
+                    path = path+date;
+
+                    File filepath = new File(path);
+                    if(!filepath.exists() && !filepath.isDirectory()){
+                        filepath.mkdirs();
+                    }
+
+                    File file2 = new File(path+name);
+                    map.put("localpath", path+name);
+                    if(file2.exists()){
+
+                    }else{
+                        FileOutputStream   out   =   new   FileOutputStream(path+name);
+                        LOGGER.info("写入中..."+path+name);
+
+                        int   i1=0;
+                        while   ((i1=is.read())!=-1)   {
+                            out.write(i1);
+                        }
+                        
+                        out.close();
+                        
+                    }
+                    is.close();
+                }catch(Exception e){
+                    LOGGER.error("HTMLPARSERutils------->", e);;
+                }
+        return map;
+    }
+
+    /**
+     * 解析七牛URL为markdown格式
+     * @return
+     */
+    public static List<String> url2markdown(){
+        List<String> urilist = new ArrayList<String>();
+        List<String> list = new ArrayList<String>();
+        try {
+                File in = new File("C:\\Users\\bruce\\Desktop\\111\\aaaa.html");
+
+                Document doc = Jsoup.parse(in, "UTF-8", "");
+                Elements notes   = doc.select("button[class=test_pic]");
+                for(Element p : notes){
+
+                String links = p.attr("cval");
+                urilist.add(links);
+
+                }
+
+                HashSet<String> v = new HashSet<String>();
+                v.addAll(urilist);
+
+                list.addAll(v);
+                for (String s:list) {
+                    LOGGER.info(s);
+                }
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            LOGGER.error("HTMLPARSERutils------->", e);;
+        }
+        return list;
+    }
+
+    /**
+     * 生成妹子图从N张动漫
+     * @return
+     */
+    public static List<String> gegeMEIZITU(){
+        List<String> meizi = new ArrayList<String>();
+
+        for (int i = 1; i <= 18; i++) {
+            String img = "/img/eq/tumblr_o"+i+".png";
+            meizi.add(img);
+        }
+        return meizi;
+    }
+
+    /**
+     * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
+     * @return
+     */
+    public static Integer getRandomOne(List<?> list){
+
+        Random ramdom =  new Random();
+        int number = -1;
+        int max = list.size();
+
+        //size 为  10 ，取得类似0-9的区间数
+        number = Math.abs(ramdom.nextInt() % max  );
+
+        return number;
+
+    }
      /**
       * 根据操作系统获取本地存储文件夹
      * @return
@@ -1121,6 +1034,33 @@ public class HTMLParserUtil{
         return rs;
 
       }
+    
+    
+    
+    /**
+     * //妹子图获取
+     * // http://huaban.com/from/meizitu.com/
+     * @throws IOException
+     */
+    public static List<String> retMeizitu() throws IOException {
+        List<String> list = new ArrayList<String>();
+            try{
+                Document doc = Jsoup.connect("http://huaban.com/from/meizitu.com/?inepv8xm&max=695360534&limit=300&wfl=1").get();
+                //src
+                Elements pics = doc.select("img");
+//                int index = 0;
+                for(Element p : pics){
+//                    index++;
+                    list.add(p.attr("src"));
+                    //LOGGER.info(index+ p.attr("src"));
+                }
+                list.remove(list.size()-1);
+                //session.setAttribute("meizutu", list);
+            }catch (Exception e) {
+                LOGGER.error("HTMLPARSERutils------->", e);;
+            }
+        return list;
+    }
 
     
     public static int geneViewNum(){
@@ -1132,6 +1072,61 @@ public class HTMLParserUtil{
 		return s;
     }
 	
+    
+    /**
+     * 字符串超长截取
+     * @param s
+     * @param length
+     * @return
+     * @throws Exception
+     */
+    public static String CutString(String s, int length){
+        String rs = "";
+        try {
+
+            byte[] bytes = s.getBytes("Unicode");
+            int n = 0; // 表示当前的字节数
+            int i = 2; // 要截取的字节数，从第3个字节开始
+            for (; i < bytes.length && n < length; i++)
+            {
+                // 奇数位置，如3、5、7等，为UCS2编码中两个字节的第二个字节
+                if (i % 2 == 1)
+                {
+                    n++; // 在UCS2第二个字节时n加1
+                }
+                else
+                {
+                    // 当UCS2编码的第一个字节不等于0时，该UCS2字符为汉字，一个汉字算两个字节
+                    if (bytes[i] != 0)
+                    {
+                        n++;
+                    }
+                }
+            }
+            // 如果i为奇数时，处理成偶数
+            if (i % 2 == 1)
+
+            {
+                // 该UCS2字符是汉字时，去掉这个截一半的汉字
+                if (bytes[i - 1] != 0)
+                    i = i - 1;
+                // 该UCS2字符是字母或数字，则保留该字符
+                else
+                    i = i + 1;
+            }
+
+            rs = new String(bytes, 0, i, "Unicode");
+            if(!rs.equals(s)){
+                rs = rs +"...";
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            rs = s;
+
+        }
+        return rs;
+    }
+
     
     /**
      * httpclient获取网页内容html
@@ -1174,6 +1169,9 @@ public class HTMLParserUtil{
         return null;
     }
     
+    /**
+     *	=====================================tools结束================================================================
+     */
     
       public static void main(String[] args) {
             try {
@@ -1204,7 +1202,8 @@ public class HTMLParserUtil{
             	
 //            	retPoem(26);
 //            	LOGGER.info(MD5Utils.encoding("速度与激情8"));
-            	retEQArticle();
+//            	retEQArticle();
+            	retCoupon(1, BC_Constant.Coupon_VPS_7);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 LOGGER.error("HTMLPARSERutils------->", e);;
