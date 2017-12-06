@@ -20,6 +20,15 @@ public interface NoteManager {
 
 	public boolean updateNote(Note note);
 	
+	/**
+	 * 单表返回clazz
+	 * 同步：返回分页数据和分页结构
+	 *
+	 * @param p
+	 * @param wheresql
+	 * @param order
+	 * @return
+	 */
 	public QueryResult<Note> findByCondition(PageView<Note> p,
 			String wheresql, LinkedHashMap<String, String> order);
 
@@ -27,12 +36,23 @@ public interface NoteManager {
 			String wheresql);
 	
 	
-	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview,String wheresql) ;
+	/**
+	 * 多表关联mix
+	 * 
+	 * 异步：根据页码获取当前页数据
+	 *
+	 * @param pageview
+	 * @param sql
+	 * @return
+	 */
+	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview,String sql) ;
 	
 	/**
-	 * 获取分页结构不获取数据
+	 * 多表关联mix
+	 * 
+	 * 同步：获取分页结构不获取数据
 	 * @param pageview
-	 * @param userid
+	 * @param sql
 	 * @return
 	 */
 	public PageView<List<Map<String, Object>>>  getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql);

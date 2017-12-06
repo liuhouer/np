@@ -258,29 +258,95 @@ public class HTMLParserUtil{
 			    					.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
 			            			.get();
                 
-                Elements  lis   = doc.select("article[class=excerpt-one]");
+                Elements  lis   = doc.select("article[class=excerpt excerpt-one]");
                 if(!lis.isEmpty()){
                     for (int i = 0; i < lis.size(); i++) {
+                    	
+                    	map = new HashMap<>();
                         Element li  = lis.get(i);
                        
                         //获取相关信息
                         Element a = li.select("header").get(0).select("a").get(0);
+                        
+                        String aurl = a.attr("href");
 
                         String title = a.attr("title");
                         
                         String retcode = MD5Utils.encoding(title);
                         
-                        String date = li.select("p[class=time]").get(0).text();
+                        String date = li.select("p[class=text-muted time]").get(0).text();
+                        
+                        date = date.substring(date.length()-10, date.length());
                         
                         String brief = li.select("p[class=note]").get(0).text();
                         
                         
-                        String tags = li.select("span[class=post-tags]").get(0).text();
+                        String tags = li.select("span[class=post-tags]").text().replace("标签：", "").replace(" ", "").replace("/", ",");
+                        
+                        System.out.println(tags);
+                        
+                        //休眠2秒
+                        try {
+            			    Thread.sleep(1000*2);
+            			} catch (InterruptedException e) {
+            			    // TODO Auo-generated catch block
+            			    e.printStackTrace();
+            			}
+                        
+                        //正文信息
+                        Document doc2 = Jsoup.connect(aurl)
+		            			.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+		    					.referrer("http://www.google.com") 
+		    					.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+		            			.get();
                         
                         
+                        Element content = doc2.select("article[class=article-content]").get(0);
+                        
+                        content.select("p[class=post-copyright]").remove();
+                        
+                        
+                        //上传并且替换图片 开始===============================
+                        
+                        Elements imgs = content.select("img");
+                        for (int j = 0; j < imgs.size(); j++) {
+                            try {
+                                String weburl = imgs.get(j).attr("src");
+                                //web图片上传到七牛
+
+                                //-------------开始--------------------------------
+
+                                HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
+
+                                String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "vps/"+date+"/"+map22.get("key"));
+
+                                //-------------结束--------------------------------
+
+                                imgs.get(j).attr("src", rs);
+                            } catch (Exception e) {
+                                // TODO: handle exception
+                                LOGGER.error("ret pic exception===>"+e.toString());
+                                continue;
+                            }
+
+                        }
+                        //上传并且替换图片 结束===============================
+                        
+                        String article = content.html();
+                        
+                        map.put("aurl", aurl);
+                        map.put("title", title);
+                        map.put("retcode", retcode);
+                        map.put("date", date);
+                        map.put("brief", brief);
+                        map.put("article", article);
+                        map.put("tags", tags);
+                        
+                        list.add(map);
+                        
+                        LOGGER.info("\t\r"+"aurl--->"+aurl+"\t\r"+"title--->"+title+"\t\r"+"retcode--->"+retcode+"\t\r"+"date--->"+date+"\t\r"+"brief--->"+brief+"\t\r"+"article---->"+article+"\t\r"+"-----------------");
                     }
                 }
-//                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
             }catch(Exception e){
                 LOGGER.error("HTMLPARSERutils------->", e);;
