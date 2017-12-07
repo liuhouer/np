@@ -1,14 +1,19 @@
 package cn.northpark.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -65,6 +70,22 @@ private static final long serialVersionUID = 1L;
 
 	@Column(length = 11)
 	private String color;
+	
+
+
+	@Transient
+	private List<Map<String,String>> taglist;
+	
+	
+	
+
+	public List<Map<String, String>> getTaglist() {
+		return taglist;
+	}
+
+	public void setTaglist(List<Map<String, String>> taglist) {
+		this.taglist = taglist;
+	}
 
 
 	public Integer getId() {
@@ -87,6 +108,19 @@ private static final long serialVersionUID = 1L;
 	
 	public void setTags(String tags) {
 		this.tags = tags;
+		
+		//设置taglist
+		List<Map<String, String>> taglist2 = new ArrayList<Map<String,String>>();
+		if(StringUtils.isNotEmpty(tags)){
+			String[] tagarr = tags.split(",");
+			for (int i = 0; i < tagarr.length; i++) {
+				Map<String,String> map = new HashMap<String, String>();
+				map.put("tag", tagarr[i]);
+				taglist2.add(map);
+			}
+		}
+		
+		setTaglist(taglist2);
 	}
 	public String getBrief() {
 		return brief;	

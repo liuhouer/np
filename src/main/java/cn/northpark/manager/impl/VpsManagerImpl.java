@@ -128,6 +128,12 @@ public class VpsManagerImpl implements VpsManager {
 		
 		return vpsDao.QuerySQLCountForMapList(sql, pageview);
 	}
+
+	@Override
+	public List<Map<String, Object>> querySqlMap(String sql) {
+		// TODO Auto-generated method stub
+		return vpsDao.querySql(sql);
+	}
 	
 }
 

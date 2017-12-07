@@ -35,7 +35,6 @@ import cn.northpark.utils.safe.WAQ;
  * 
  */
 @Controller
-@RequestMapping("/vps")
 public class VpsAction {
 
 private static final Logger LOGGER = Logger
@@ -47,108 +46,43 @@ private static final Logger LOGGER = Logger
 
 	
 	/**
-	 * 查看列表
+	 * 查看全文
 	 * @param map
-	 * @param condition
+	 * @param retcode
 	 * @param request
-	 * @param response
-	 * @param session
 	 * @return
-	 * @throws IOException
 	 */
-	@RequestMapping(value="/list")
-	public String list1(ModelMap map,VpsQueryCondition condition,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) throws IOException {
-		
-		String result="/vps";
-		String sql = vpsQuery.getMixSql(condition);
-		
-		LOGGER.info("sql ---"+sql);
-		
-		//定义pageview
-		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(1,MyConstant.MAXRESULT);
-		
-		//获取分页结构不获取数据
-		
-		pageview = this.vpsManager.getMixMapPage(pageview, sql);
-		
-		map.addAttribute("pageView", pageview);
-		map.put("condition", condition);
-		map.addAttribute("actionUrl","/vps/list");
-		
-		
-
-		return result;
+	@RequestMapping("/vps/post-{id}.html")
+	public String softdetail(ModelMap map, @PathVariable Integer id ,HttpServletRequest request) {
+		try{
+			//根据retcode获取文章内容
+			Vps article = vpsManager.findVps(id);
+			if(null != article){
+				map.addAttribute("article", article);
+			}
+			
+		}catch(Exception e){
+			LOGGER.error("vpsAction------>",e);
+			
+		}
+		return "/vpsdetail";
 	}
 	
 	
-
 	/**
-	 * 查看列表分页
+	 * 列表页
 	 * @param map
 	 * @param condition
+	 * @param page
 	 * @param request
 	 * @param response
 	 * @param session
 	 * @return
-	 * @throws IOException
 	 */
-	@RequestMapping(value="/list/page/{page}")
-	public String list2(ModelMap map,VpsQueryCondition condition, @PathVariable String page,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) throws IOException {
-		
-		String result="/vps";
-		String sql = vpsQuery.getMixSql(condition);
-		
-		LOGGER.info("sql ---"+sql);
-		int currentpage = Integer.parseInt(page);
-		
-		//定义pageview
-		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(currentpage,MyConstant.MAXRESULT);
-		
-		//获取分页结构不获取数据
-		
-		pageview = this.vpsManager.getMixMapPage(pageview, sql);
-		
-		map.addAttribute("pageView", pageview);
-		map.put("condition", condition);
-		map.addAttribute("actionUrl","/vps/list");
-		map.addAttribute("page", page);
-		
-
-		return result;
-	}
-	
-	
-	
-	//异步分页查询数据
-	@RequestMapping(value="/query")
-	public String plazzquery(ModelMap map,HttpServletRequest request,VpsQueryCondition condition, HttpSession session,String userid) {
-		String currentpage = request.getParameter("currentpage");
-		
-		String sql = vpsQuery.getMixSql(condition);
-		
-		//定义pageview
-		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage),MyConstant.MAXRESULT);
-		
-		
-		//根据分页仅仅获取数据 
-		List<Map<String, Object>> list = this.vpsManager.findmixByCondition(pageview,sql);
-		
-		
-		
-		map.addAttribute("list", list);
-		
-		
-		return "/page/vps/vpsdata";
-	}
-	
-	
-	
-	@RequestMapping("/list3")
+	@RequestMapping("/vps")
 	public String list3(ModelMap map,VpsQueryCondition condition, String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)  {
-		String result="/equp";
+		String result="/vps";
 		try {
 			session.removeAttribute("tabs");
 			String whereSql = vpsQuery.getSql(condition);
@@ -167,12 +101,20 @@ private static final Logger LOGGER = Logger
 			QueryResult<Vps> qr = this.vpsManager.findByCondition(pageview, whereSql, order);
 			List<Vps> resultlist = qr.getResultlist();
 			
+			//触发标签设置
+			for (int i = 0; i < resultlist.size(); i++) {
+				resultlist.get(i).setTags(resultlist.get(i).getTags());
+			}
 			
 			//触发生成页码等等
 			pageview.setQueryResult(qr);
 			map.addAttribute("pageView", pageview);
 			map.addAttribute("list", resultlist);
 			map.addAttribute("actionUrl","/vps");
+			
+			List<Map<String, Object>> tagCloud = getTagCloud();
+			
+			map.addAttribute("tagCloud", tagCloud);
 		} catch (Exception e) {
 			// TODO: handle exception
 			LOGGER.error("eqacton------>",e);
@@ -183,6 +125,17 @@ private static final Logger LOGGER = Logger
 		return result;
 	}
 	
+	/**
+	 * 列表页 -分页
+	 * @param map
+	 * @param condition
+	 * @param page
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/vps/page/{page}")
 	public String list4(ModelMap map,VpsQueryCondition condition, @PathVariable String page,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
@@ -213,15 +166,150 @@ private static final Logger LOGGER = Logger
 		
 		QueryResult<Vps> qr = this.vpsManager.findByCondition(pageview, whereSql, order);
 		List<Vps> resultlist = qr.getResultlist();
+		
+		//触发标签设置
+		for (int i = 0; i < resultlist.size(); i++) {
+			resultlist.get(i).setTags(resultlist.get(i).getTags());
+		}
+		
 		//触发生成页码等等
 		pageview.setQueryResult(qr);
 		map.addAttribute("pageView", pageview);
 		map.addAttribute("list", resultlist);
-		map.addAttribute("actionUrl","/romeo");
+		map.addAttribute("actionUrl","/vps");
 		map.addAttribute("page", page);
 		
 
+		List<Map<String, Object>> tagCloud = getTagCloud();
+		
+		map.addAttribute("tagCloud", tagCloud);
 		return result;
+	}
+	
+	
+	
+	/**
+	 * 按照标签分页计算
+	 * @param map
+	 * @param retcode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/vps/tag/{tag}")
+	public String tag(ModelMap map, @PathVariable String tag,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws IOException {
+		
+		String result="/vps";
+		//防止sql注入
+		tag = WAQ.forSQL().escapeSql(tag);
+		String whereSql = " where tags like '%"+tag+"%' ";
+ 		
+ 		map.put("seltag", tag);
+		
+		
+		
+		LOGGER.info("sql ---"+whereSql);
+		//排序条件
+		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+		order.put("date", "desc");
+		
+		//获取pageview
+		PageView<Vps> p =  new PageView<Vps>(1, MyConstant.MAXRESULT);
+		QueryResult<Vps> qr = this.vpsManager.findByCondition(p, whereSql, order);
+		List<Vps> resultlist = qr.getResultlist();
+
+		//触发标签设置
+		for (int i = 0; i < resultlist.size(); i++) {
+			resultlist.get(i).setTags(resultlist.get(i).getTags());
+		}
+		//触发分页
+		p.setQueryResult(qr);
+		
+		map.addAttribute("pageView", p);
+		map.addAttribute("list", resultlist);
+		map.addAttribute("actionUrl","/vps/tag/"+tag);
+		
+		
+		List<Map<String, Object>> tagCloud = getTagCloud();
+		
+		map.addAttribute("tagCloud", tagCloud);
+
+		return result;
+	}
+	
+	/**
+	 * 按照标签分页计算
+	 * @param map
+	 * @param retcode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/vps/tag/{tag}/page/{page}")
+	public String tagsearchpage(ModelMap map, @PathVariable String page,@PathVariable String tag,HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws IOException {
+		
+		String result="/vps";
+		//防止sql注入
+		tag = WAQ.forSQL().escapeSql(tag);
+		String whereSql = " where tags like '%"+tag+"%' ";
+ 		
+ 		map.put("seltag", tag);
+		
+		
+		
+		LOGGER.info("sql ---"+whereSql);
+		String currentpage = page;
+		//排序条件
+		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+		order.put("date", "desc");
+		
+		//获取pageview
+		PageView<Vps> p =  new PageView<Vps>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+		QueryResult<Vps> qr = this.vpsManager.findByCondition(p, whereSql, order);
+		List<Vps> resultlist = qr.getResultlist();
+
+		//触发标签设置
+		for (int i = 0; i < resultlist.size(); i++) {
+			resultlist.get(i).setTags(resultlist.get(i).getTags());
+		}
+		//触发分页
+		p.setQueryResult(qr);
+		
+		map.addAttribute("pageView", p);
+		map.addAttribute("list", resultlist);
+		map.addAttribute("actionUrl","/vps/tag/"+tag);
+		map.addAttribute("page", page);
+		
+		
+		List<Map<String, Object>> tagCloud = getTagCloud();
+		
+		map.addAttribute("tagCloud", tagCloud);
+
+		return result;
+	}
+	
+	/**
+	 * 获取标签云
+	 * @return 
+	 */
+	private  List<Map<String, Object>> getTagCloud(){         
+		
+		String tagsql = "select  b.tag as tagscloud,count(b.tag) as nums from                   "
+		+"(                                                                                      "
+		+"select substring_index(substring_index(a.tags,',',b.help_topic_id+1),',',-1) as tag    "
+		+"from                                                                                   "
+		+"bc_vps a                                                                               "
+		+"join                                                                                   "
+		+"mysql.help_topic b                                                                     "
+		+"on b.help_topic_id < (length(a.tags) - length(replace(a.tags,',',''))+1)               "
+		+"where a.tags!=''                                                                       "
+		+"order by a.ID )  as b   group by b.tag order by nums desc      limit 0,110             "    ;
+		
+		
+		List<Map<String, Object>> rs = vpsManager.querySqlMap(tagsql);
+		
+		return rs;
+
 	}
 
 }

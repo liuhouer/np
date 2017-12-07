@@ -55,6 +55,11 @@ public interface VpsManager {
 	 */
 	public List<Vps> querySql(String sql);
 	
+	/**
+	 * 根据sql语句返回map结果集
+	 * @return
+	 */
+	public List<Map<String, Object>> querySqlMap(String sql);
 	
 
 	
