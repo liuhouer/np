@@ -25,7 +25,6 @@
 <meta name="description" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
 
 
-<link media="all" type="text/css" rel="stylesheet" href="/css/poem-enjoy.css">  
  
 </head>
 
@@ -40,7 +39,7 @@
 
 					
 
-	<div class="container" style="z-index: 6">
+	<div class="container" >
 	  
 		<div class="mainbody" style="margin-top:80px; ">
 		
@@ -51,14 +50,6 @@
 				<div  class="col-md-12">
 				
 						  
-						<!-- 你可以添加个多“.slideshow-image”项目, 记得修改CSS -->
-						<div class="slideshow">
-							<div class="slideshow-image" style="background-image: url('/img/poem/1.jpg')"></div>
-							<div class="slideshow-image" style="background-image: url('/img/poem/2.jpg')"></div>
-							<div class="slideshow-image" style="background-image: url('/img/poem/3.jpg')"></div>
-							<div class="slideshow-image" style="background-image: url('/img/poem/4.jpg')"></div>
-						</div>
-					
 					
 					       <div class="col-sm-8  col-md-offset-2 clearfix bg-white margin-t10 margin-b10 padding20 touming center">
 								<div class="row ">

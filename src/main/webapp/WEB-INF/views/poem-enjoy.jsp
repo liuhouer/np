@@ -19,7 +19,6 @@
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
  
-<link media="all" type="text/css" rel="stylesheet" href="/css/poem-enjoy.css"> 
 </head>
 
 <body >
@@ -28,13 +27,6 @@
 	
 	
 		  
-						<!-- 你可以添加个多“.slideshow-image”项目, 记得修改CSS -->
-						<div class="slideshow">
-							<div class="slideshow-image" style="background-image: url('/img/poem/1.jpg')"></div>
-							<div class="slideshow-image" style="background-image: url('/img/poem/2.jpg')"></div>
-							<div class="slideshow-image" style="background-image: url('/img/poem/3.jpg')"></div>
-							<div class="slideshow-image" style="background-image: url('/img/poem/4.jpg')"></div>
-						</div>
 
 <div class="clearfix maincontent grayback" >
 
