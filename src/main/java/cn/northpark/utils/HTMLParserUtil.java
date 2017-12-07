@@ -287,7 +287,7 @@ public class HTMLParserUtil{
                         
                         //休眠2秒
                         try {
-            			    Thread.sleep(1000*2);
+            			    Thread.sleep(500);
             			} catch (InterruptedException e) {
             			    // TODO Auo-generated catch block
             			    e.printStackTrace();

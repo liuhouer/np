@@ -198,7 +198,7 @@ public class PinyinUtil {
     public static void main(String[] args) throws Exception{
     	
 		
-    	getFanyiEmail();
+//    	getFanyiEmail();
     	
     	getFanyi1("香草天空");
 	}
