@@ -21,11 +21,70 @@
 <title>诗词秀::第${page}页  | NorthPark</title>
 </c:if>
 
+
+
 <meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
 <meta name="description" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
 
+<style>
 
- 
+*{margin:0;padding:0;list-style:none;border:0;}
+
+body{font-size:12px;font-family:Verdana, Geneva, sans-serif;}
+
+a{color:fff;text-decoration:none;}
+
+a:hover{text-decoration:underline;}
+
+
+
+/* carousel */
+
+.carousel{margin:20px auto;position:relative;height:340px;width:880px; overflow:hidden;}
+
+.carousel h2 a{color:#fff;}
+
+.carousel .backgrounds{height:340px;}
+
+.carousel .backgrounds .item{ width:880px; height:340px;float:left;position:relative;z-index:1;}
+
+.carousel .backgrounds .item_1{background:url(/img/poem/a1.png) no-repeat 0 0;}
+
+.carousel .backgrounds .item_2{background:url(/img/poem/a2.png) no-repeat 0 0;}
+
+.carousel .backgrounds .item_3{background:url(/img/poem/a3.png) no-repeat 0 0;}
+
+.carousel .panel{background:#000;color:#fff;position:absolute;right:0;top:0;height:340px;width:275px;z-index:10;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity:0.8;opacity:0.8;}
+
+.carousel .panel .paging{position:absolute;bottom:25px;left:25px;width:225px;text-align:center;}
+
+.carousel .panel .paging a{color:#4c4c4c;font-size:1.1em;}
+
+.carousel .panel .pause{position:absolute;right:20px;top:25px;display:block;width:18px;height:18px;background:url(/img/poem/carousel_pause_bg.gif) no-repeat 0 0;text-indent:-6000px;}
+
+.carousel .panel .play{position:absolute;right:20px;top:25px;display:block;width:18px;height:18px;background:url(/img/poem/carousel_play_bg.gif) no-repeat 0 0;text-indent:-6000px;}
+
+.carousel .panel .paging .next{position:absolute;right:0;bottom:0;display:block;width:18px;height:18px;background:url(/img/poem/carousel_next_bg.gif) no-repeat 0 0;text-indent:-6000px;}
+
+.carousel .panel .paging .previous{position:absolute;left:0;bottom:0;display:block;width:18px;height:18px;background:url(/img/poem/carousel_previous_bg.gif) no-repeat 0 0;text-indent:-6000px;}
+
+.carousel .panel .paging #numbers a{padding:0 5px 0 5px;}
+
+.carousel .panel .paging #numbers a.selected{color:#fff;}
+
+.carousel .panel .details_wrapper{position:absolute;top:20px;left:25px;width:225px;overflow:hidden;height:200px;}
+
+.carousel .panel .details_wrapper .details{height:200px;}
+
+.carousel .panel .details_wrapper .details .detail{width:225px;height:200px;float:left;}
+
+.carousel .panel .details_wrapper .details h2{font-size:1.9em;line-height:1.2em;margin:0 0 5px 0;}
+
+.carousel .panel .details_wrapper .details a.more{color:#fff;font-size:1.1em;}
+
+</style>
+
+
 </head>
 
 <body >
@@ -37,39 +96,113 @@
 
 <div class="clearfix maincontent grayback" >
 
+
+<div class="container" style="margin-top:80px; ">
+
+
+<div class="carousel">
+
+	<div class="panel">
+
+		<div class="details_wrapper">
+
+			<div class="details">
+
+				<div class="detail">
+
+					<h2 class="Lexia-Bold"><a href="#">${poem.title }</a></h2>
+
+					<!-- <a href="#" class="more">图片信息1</a> -->
+					 <p style="font-style: italic;">${poem.author }</p>
+									 <p >${poem.content1 }</p>
+
+				</div>
+
+				<div class="detail">
+
+					<h2 class="Lexia-Bold"><a href="#">${poem.title }</a></h2>
+
+					<!-- <a href="#" class="more">图片信息2</a> -->
+					 <p style="font-style: italic;">${poem.author }</p>
+									 <p >${poem.content1 }</p>
+
+				</div>
+
+				<div class="detail">
+
+					<h2 class="Lexia-Bold"><a href="#">${poem.title }</a></h2>
+
+					<!-- <a href="#" class="more">图片信息3</a> -->
+					 <p style="font-style: italic;">${poem.author }</p>
+									 <p >${poem.content1 }</p>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	
+
+		<div class="paging">
+
+			<div id="numbers"></div>
+
+			<a href="javascript:void(0);" class="previous" title="Previous" >Previous</a>
+
+			<a href="javascript:void(0);" class="next" title="Next">Next</a>
+
+		</div>
+
+	</div><!-- /panel -->
+
+	
+
+	<div class="backgrounds">
+
+		<div class="item item_1"><img src="/img/poem/a1.png"/></div>
+
+		<div class="item item_2"><img src="/img/poem/a2.png"/></div>
+
+		<div class="item item_3"><img src="/img/poem/a3.png"/></div>
+
+	</div>
+
+	
+
+</div>
+</div>
 					
 
 	<div class="container" >
 	  
-		<div class="mainbody" style="margin-top:80px; ">
+		<div class="mainbody" >
 		
-		     
+		    
 		
-		
-			<div  class="row">
+			<!-- <div  class="row">
 				<div  class="col-md-12">
-				
+							
+							
 						  
 					
-					       <div class="col-sm-8  col-md-offset-2 clearfix bg-white margin-t10 margin-b10 padding20 touming center">
-								<div class="row ">
-									 <!-- 文字区不需要请连css部分代码一并删除 -->
-									 <p >${poem.title }</p>
-									 <p style="font-style: italic;">${poem.author }</p>
-									 <p >${poem.content1 }</p>
-										   
+					       <div class="clearfix  margin-t10 margin-b10   center">
+
+								
+								
+								
+								
 											
 											
 
 										
 
-								</div>
 							</div>
 
 				</div>
 					
-			</div>	
-			
+			</div>	 
+			 -->
 			
 			<div  class="row">
 				<div  class="col-md-8">
@@ -212,13 +345,19 @@
 	
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	
+	
+	<script src="/js/easing.js" type="text/javascript"></script>
+
+<script src="/js/timers.js" type="text/javascript"></script>
+
+<script src="/js/dualSlider.js" type="text/javascript"></script> 
 	<script type="text/javascript">
-	//禁止图片拉伸
+	/* //禁止图片拉伸
 	$(function(){
 		$("img").each(function(){
 			$(this).css('max-width',($(".bg-white").width()));
 		})
-	})
+	}) */
 	</script>
 	
 	<script type="text/javascript">
@@ -248,9 +387,33 @@
 	
 	</script>
 	
+	<script type="text/javascript">
+
+$(document).ready(function(){
+
+
+
+	$(".carousel").dualSlider({
+
+		auto:true,
+
+		autoDelay: 6000,
+
+		easingCarousel: "swing",
+
+		easingDetails: "easeOutBack",
+
+		durationCarousel: 1000,
+
+		durationDetails: 500
+
+	});
+
 	
-	
-	
+
+});
+
+</script>
 
 
 </body></html>
