@@ -272,6 +272,8 @@ public class HTMLParserUtil{
 
                         String title = a.attr("title");
                         
+                        title = title.replace("-VPS推荐网", "");
+                        
                         String retcode = MD5Utils.encoding(title);
                         
                         String date = li.select("p[class=text-muted time]").get(0).text();
