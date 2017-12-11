@@ -107,13 +107,15 @@
 						</div>
 						<c:forEach var="z" items="${tagCloud }">
 						        
-						        <div class="col-md-10 margin5" >
+						        <div class="col-md-10 margin5 avatar" >
 						            <c:if test="${z.tagscloud == seltag }">
-						             <span  class="glyphicon glyphicon-arrow-right margin5"></span>
+						              <span class="text-${ fn:substring(z.color ,0,1)  }  glyphicon glyphicon-flag margin5">${ fn:toUpperCase(fn:substring(z.tagscloud ,0,1))   }</span>
+								
 						             <a style="color: #45d0c6;" href="/vps/tag/${z.tagscloud }" title="${z.tagscloud }">${z.tagscloud } </a>
 						            </c:if>
 						            <c:if test="${z.tagscloud != seltag }">
-						             <span  class="glyphicon glyphicon-tag margin5"></span>
+						              <span class="text-${ fn:substring(z.color ,0,1)  } margin5">${ fn:toUpperCase(fn:substring(z.tagscloud ,0,1))   }</span>
+								
 						             <a href="/vps/tag/${z.tagscloud }" title="${z.tagscloud }">${z.tagscloud } </a>
 						            </c:if>
 						           

@@ -58,6 +58,9 @@ private static final Logger LOGGER = Logger
 			//根据retcode获取文章内容
 			Vps article = vpsManager.findVps(id);
 			if(null != article){
+				//触发标签设置
+				article.setTags(article.getTags());
+				
 				map.addAttribute("article", article);
 			}
 			
@@ -292,9 +295,11 @@ private static final Logger LOGGER = Logger
 	 * 获取标签云
 	 * @return 
 	 */
-	private  List<Map<String, Object>> getTagCloud(){         
+	private  List<Map<String, Object>> getTagCloud(){  
 		
-		String tagsql = "select  b.tag as tagscloud,count(b.tag) as nums from                   "
+		//char(97+ceiling(rand()*25)) --随机字母（小写）
+		
+		String tagsql = "select  b.tag as tagscloud,round(rand()*(9)) AS color  ,count(b.tag) as nums from                   "
 		+"(                                                                                      "
 		+"select substring_index(substring_index(a.tags,',',b.help_topic_id+1),',',-1) as tag    "
 		+"from                                                                                   "
@@ -303,7 +308,7 @@ private static final Logger LOGGER = Logger
 		+"mysql.help_topic b                                                                     "
 		+"on b.help_topic_id < (length(a.tags) - length(replace(a.tags,',',''))+1)               "
 		+"where a.tags!=''                                                                       "
-		+"order by a.ID )  as b   group by b.tag order by nums desc      limit 0,110             "    ;
+		+"order by a.ID )  as b   group by b.tag order by nums desc      limit 0,50              "    ;
 		
 		
 		List<Map<String, Object>> rs = vpsManager.querySqlMap(tagsql);

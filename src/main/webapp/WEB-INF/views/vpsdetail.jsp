@@ -46,13 +46,14 @@
 										</div>
 									</div>
 									<p>
-										发表于：
-										<a class="common-a-right" title="${article.date}" href="/soft/date/${article.date }">
-											${article.date}
-										</a>
-										<a class="common-a-right" title="${article.tags}" href="/soft/tag/${article.tags }">
-											${article.tags}
-										</a>
+										发表于：<a class="common-a-right"  title="${article.date}" >${article.date}</a>
+										
+											<c:forEach items="${article.taglist }" var="t" varStatus="tt">
+											 
+										     <a class="common-a-right"  title="${t.tag}" href="/vps/tag/${t.tag}">${t.tag}</a>
+											 </c:forEach>
+										     
+										     
 									</p>
 									<p id="content_${article.retcode}">
 										${article.article }

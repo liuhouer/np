@@ -131,7 +131,7 @@ public class PinyinUtil {
      * @return
      * @throws Exception
      */
-    public static String getEnglish() throws Exception { 
+    public static String getEnglish(){ 
     	 String chars = "abcdefghijklmnopqrstuvwxyz";
     	 String str = "";;
     	 
@@ -142,6 +142,20 @@ public class PinyinUtil {
     	return str;
     }
     
+    
+    /**
+     * 取得随机一个字母
+     * @return
+     * @throws Exception
+     */
+    public static String getZIMU(){ 
+    	 String chars = "abcdefghijklmnopqrstuvwxyz";
+    	 String str = "";;
+    	 
+			str= String.valueOf(chars.charAt((int)(Math.random() * 26)));
+    	 LOGGER.info("zimu--"+str);
+    	return str;
+    }
     
     /**
      * 取得中文翻译的字母
