@@ -455,7 +455,7 @@ public class TimeUtils {
 	    
 	    
 	    /**
-		 * @desc 随机年07-15
+		 * @desc 随机年07-17
 		 * @return
 		 */
 		public static String getRandomYear(){
@@ -463,10 +463,10 @@ public class TimeUtils {
 			String a = "";
 			Random ramdom =  new Random();
 			int number = -1;
-			int max = 15;
+			int max = 18;
 			
 			//size 为  10 ，取得类似0-9的区间数
-			number = Math.abs(ramdom.nextInt() % max)+ 7 ;
+			number = Math.abs(ramdom.nextInt() % max) ;
 			
 			if(String.valueOf(number).length()==1){
 				a = "20"+0+""+number;
@@ -591,6 +591,6 @@ public class TimeUtils {
 	    public static void main(String[] args) {
 	    	//LOGGER.info(getWorkDateTime(11));;
 	    	
-	    	LOGGER.info(N_MonthDate(1));
+	    	LOGGER.info(getRandomDate());
 		}
 }

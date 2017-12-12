@@ -38,7 +38,106 @@ public class HTMLParserUtil{
     
 
 
+    
+    	
+    	/**
+         * 爬虫采麦的最爱信息
+         * loveUdavid
+         * ret_url:http://www.caimai.cc/love/page2
+         * http://www.caimai.cc/love/page397
+         * @throws IOException
+         */
+        public static List<Map<String,String>> retCaiMai() throws IOException {
+            List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+            for(int i=1;i<=1;i++){
+                try{
+                Document doc = Jsoup.connect("http://www.caimai.cc/love/page"+i)
+    			            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+    								.referrer("http://www.google.com") 
+    								.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+                					.get();
+                
+//                <div class="col-xs-6 col-sm-3 margin-b20 ">
+//				<div class="thumbnail radius-0 border-0 margin-b0">
+//					<a href="/love/jin-xiu-xian" title="金秀贤:我的最爱"><img src="http://caimai.qiniudn.com/cover/201405/65073-1400088152.jpg!l.jpg" alt="金秀贤"></a>
+//				</div>
+//				<div class="row margin-t0 iteminfo">
+//					<div class="col-xs-7 text-left">
+//													<a href="/love/jin-xiu-xian" title="金秀贤:我的最爱">金秀贤</a>
+//					</div>
+//					<div class="col-xs-5 text-right">
+//						<span class="glyphicon glyphicon-heart"></span> 15 
+//						<span class="hidden-sm hidden-xs"> &nbsp; 
+//							<span class="glyphicon glyphicon-comment"></span> 6
+//						</span>
+//					</div>
+//				</div>
+//			</div>
+                Elements info   = doc.select("div[class=col-xs-6 col-sm-3 margin-b20 ]");
+                for(Element p : info){
 
+                    HashMap<String, String> map =new HashMap<String, String>();
+                    //标题
+                    Elements titles = p.select("div[class=col-xs-7 text-left]");
+
+                    String title = titles.get(0).text();
+                    
+                    //标题的主题页面
+                    Elements elements = p.select("div[class=thumbnail radius-0 border-0 margin-b0]");
+                    
+                    Element a = elements.get(0).select("a").get(0);
+                    
+                    String aurl = a.attr("href");
+                    
+                    Element img = a.select("img").get(0);
+                    
+                    String date = TimeUtils.getRandomDate();
+                    //下载图片
+                    try {
+                        String weburl = img.attr("src");
+
+
+                        HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
+
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                        LOGGER.error("ret pic exception===>"+e.toString());
+                        continue;
+                    }
+
+                    
+
+                    //文章
+                    
+                    
+                    
+
+                    map.put("title", title);
+                    map.put("aurl", aurl);
+
+                    
+                    
+                    list.add(map);
+
+                    }
+                }catch (Exception e) {
+                	 LOGGER.error("HTMLPARSERutils------->", e);;
+                    continue;
+                }
+                
+                
+                
+                //休眠10秒
+                try {
+    			    Thread.sleep(1000*5);
+    			    LOGGER.info("第"+i+"页================");
+    			} catch (InterruptedException e) {
+    			    // TODO Auo-generated catch block
+    			    e.printStackTrace();
+    			}
+            }
+            return list;
+        }
 
 
     /**
