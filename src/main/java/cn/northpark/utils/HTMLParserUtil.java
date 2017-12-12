@@ -47,11 +47,10 @@ public class HTMLParserUtil{
          * http://www.caimai.cc/love/page397
          * @throws IOException
          */
-        public static List<Map<String,String>> retCaiMai() throws IOException {
+        public static List<Map<String,String>> retCaiMai(int index) throws IOException {
             List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-            for(int i=1;i<=1;i++){
                 try{
-                Document doc = Jsoup.connect("http://www.caimai.cc/love/page"+i)
+                Document doc = Jsoup.connect("http://www.caimai.cc/love/page"+index)
     			            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
     								.referrer("http://www.google.com") 
     								.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
@@ -73,14 +72,12 @@ public class HTMLParserUtil{
 //					</div>
 //				</div>
 //			</div>
+                //   `id`,  `title`, `titlecode`,  `updatedate`, `albumImg`, `zan`, `pl`
                 Elements info   = doc.select("div[class=col-xs-6 col-sm-3 margin-b20 ]");
                 for(Element p : info){
 
                     HashMap<String, String> map =new HashMap<String, String>();
-                    //标题
-                    Elements titles = p.select("div[class=col-xs-7 text-left]");
-
-                    String title = titles.get(0).text();
+                  
                     
                     //标题的主题页面
                     Elements elements = p.select("div[class=thumbnail radius-0 border-0 margin-b0]");
@@ -89,53 +86,51 @@ public class HTMLParserUtil{
                     
                     String aurl = a.attr("href");
                     
+                    String titlecode = aurl.replace("/love/", "");
+                    
+                    System.out.println(titlecode);
+                    
                     Element img = a.select("img").get(0);
                     
                     String date = TimeUtils.getRandomDate();
-                    //下载图片
-                    try {
-                        String weburl = img.attr("src");
-
-
-                        HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
-
-                    } catch (Exception e) {
-                        // TODO: handle exception
-                        LOGGER.error("ret pic exception===>"+e.toString());
-                        continue;
-                    }
-
                     
+                    //下载图片
+                    String weburl = img.attr("src");
+                    
+                    //标题
 
-                    //文章
+                    String title = img.attr("alt");
+                    System.out.println(title);
+
+                    HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS("album") ,date);
+                        
+                    String albumimg = map22.get("trimpath");
+
+                    //赞和评论
+                    String zan_pl = p.select("div[class=col-xs-5 text-right]").text();
+                    String zan = zan_pl.split("  ")[0];
+                    String pl  = zan_pl.split("  ")[1];
+                    System.out.println(zan_pl.split("  ")[0]);
+                    System.out.println(zan_pl.split("  ")[1]);
                     
                     
                     
 
                     map.put("title", title);
-                    map.put("aurl", aurl);
-
-                    
-                    
+                    map.put("titlecode", titlecode);
+                    map.put("albumImg", albumimg);
+                    map.put("zan", zan);
+                    map.put("pl", pl);
                     list.add(map);
 
                     }
                 }catch (Exception e) {
                 	 LOGGER.error("HTMLPARSERutils------->", e);;
-                    continue;
                 }
                 
                 
                 
-                //休眠10秒
-                try {
-    			    Thread.sleep(1000*5);
-    			    LOGGER.info("第"+i+"页================");
-    			} catch (InterruptedException e) {
-    			    // TODO Auo-generated catch block
-    			    e.printStackTrace();
-    			}
-            }
+               
             return list;
         }
 
@@ -1099,6 +1094,7 @@ public class HTMLParserUtil{
 
                     File file2 = new File(path+name);
                     map.put("localpath", path+name);
+                    map.put("trimpath",(path+name).replace("E:\\bruce\\", ""));
                     
                     
                     if(file2.exists()){
@@ -1223,6 +1219,30 @@ public class HTMLParserUtil{
         return rs;
 
       }
+    
+    /**
+     * 根据操作系统获取本地存储文件夹
+    * @return
+    */
+   public static String getLocalFolderByOS(String retType){
+
+         String rs = "E:\\bruce\\"+retType+"\\";
+         try {
+             Properties prop = System.getProperties();
+             String os = prop.getProperty("os.name");
+             if(os.startsWith("win") || os.startsWith("Win") ){// windows操作系统
+
+             }else{  //linux || mac osx
+                 rs = "/mnt/apk/"+retType+"/";
+             }
+         } catch (Exception e) {
+           // TODO: handle exception
+        	 LOGGER.error(e);
+         }
+
+       return rs;
+
+     }
 
      /**
       * 根据操作系统获取本地存储文件夹Movies
@@ -1376,7 +1396,8 @@ public class HTMLParserUtil{
 //            	retPoem(26);
 //            	LOGGER.info(MD5Utils.encoding("速度与激情8"));
 //            	retEQArticle();
-            	retCoupon(1, BC_Constant.Coupon_VPS_7);
+//            	retCoupon(1, BC_Constant.Coupon_VPS_7);
+            	retCaiMai(1);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 LOGGER.error("HTMLPARSERutils------->", e);;

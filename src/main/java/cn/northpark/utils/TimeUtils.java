@@ -461,17 +461,17 @@ public class TimeUtils {
 		public static String getRandomYear(){
 			
 			String a = "";
-			Random ramdom =  new Random();
-			int number = -1;
-			int max = 18;
+			Random random =  new Random();
+			int max=17;
+		    int min=14;
+
+		    int s = random.nextInt(max)%(max-min+1) + min;
 			
-			//size 为  10 ，取得类似0-9的区间数
-			number = Math.abs(ramdom.nextInt() % max) ;
 			
-			if(String.valueOf(number).length()==1){
-				a = "20"+0+""+number;
+			if(String.valueOf(s).length()==1){
+				a = "20"+0+""+s;
 			}else{
-				a = "20"+number+"";
+				a = "20"+s+"";
 			}
 			
 			return a;
@@ -485,16 +485,15 @@ public class TimeUtils {
 		public static String getRandomMonth(){
 			
 			String a = "";
-			Random ramdom =  new Random();
-			int number = -1;
-			int max = 12;
-			
-			//size 为  10 ，取得类似0-9的区间数
-			number = Math.abs(ramdom.nextInt() % max  );
-			if(String.valueOf(number).length()==1){
-				a = 0+""+number;
+			Random random =  new Random();
+			int max=12;
+		    int min=01;
+
+		    int s = random.nextInt(max)%(max-min+1) + min;
+			if(String.valueOf(s).length()==1){
+				a = 0+""+s;
 			}else{
-				a = number+"";
+				a = s+"";
 			}
 			
 			return a;
@@ -508,16 +507,15 @@ public class TimeUtils {
 		public static String getRandomDay(){
 			
 			String a = "";
-			Random ramdom =  new Random();
-			int number = -1;
-			int max = 30;
-			
-			//size 为  10 ，取得类似0-9的区间数
-			number = Math.abs(ramdom.nextInt() % max);
-			if(String.valueOf(number).length()==1){
-				a = 0+""+number;
+			Random random =  new Random();
+			int max=31;
+		    int min=01;
+
+		    int s = random.nextInt(max)%(max-min+1) + min;
+			if(String.valueOf(s).length()==1){
+				a = 0+""+s;
 			}else{
-				a = number+"";
+				a = s+"";
 			}
 			return a;
 	    
@@ -590,7 +588,8 @@ public class TimeUtils {
 		
 	    public static void main(String[] args) {
 	    	//LOGGER.info(getWorkDateTime(11));;
-	    	
-	    	LOGGER.info(getRandomDate());
+	    	for (int i = 0; i < 100; i++) {
+	    		LOGGER.info(getRandomDate());
+			}
 		}
 }

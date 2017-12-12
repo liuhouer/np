@@ -31,6 +31,9 @@ public class Lyrics implements Serializable{
 
 	@Column(length = 255)
 	private String title;
+	
+	@Column(length = 255)
+	private String titlecode;
 
 	@Column(length = 255)
 	private String artist;
@@ -162,6 +165,14 @@ public class Lyrics implements Serializable{
 
 	public void setPl(Integer pl) {
 		this.pl = pl;
+	}
+
+	public String getTitlecode() {
+		return titlecode;
+	}
+
+	public void setTitlecode(String titlecode) {
+		this.titlecode = titlecode;
 	}
 
 }
