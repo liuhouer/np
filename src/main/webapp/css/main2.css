@@ -5,6 +5,7 @@ body {
 	position: relative;
 }
 
+
 hr {
 	margin-top: 1em;
 	margin-bottom: 1em;
@@ -1596,3 +1597,11 @@ a.project-card-link {
 	vertical-align: super;
 	line-height: 5px;
 }	
+
+
+/* 让某元素自动换行 */
+
+.word-return{
+	word-wrap: break-word; 
+	word-break: normal; 
+}

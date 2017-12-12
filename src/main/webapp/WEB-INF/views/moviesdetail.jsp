@@ -191,7 +191,7 @@
 
    $(function(){
 		$("img").each(function(){
-			$(this).css('max-width',($(".bg-white").width()));
+			$(this).css('max-width',($(".bg-white").width()*0.618));
 		})
 		
 		

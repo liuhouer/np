@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -16,14 +15,6 @@ import java.util.Properties;
 import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -83,13 +74,14 @@ public class HTMLParserUtil{
                 //文章
                 
                 
-                //休眠6秒
+                //休眠
                 try {
-    			    Thread.sleep(1000*2);
+    			    Thread.sleep(500);
     			} catch (InterruptedException e) {
     			    // TODO Auo-generated catch block
     			    e.printStackTrace();
     			}
+                
                 Document doc_ = Jsoup.connect(aurl)
 					            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
 										.referrer("http://www.google.com") 
@@ -325,6 +317,9 @@ public class HTMLParserUtil{
                                 //-------------结束--------------------------------
 
                                 imgs.get(j).attr("src", rs);
+                                
+                                //删除原图src设置
+                                imgs.get(j).removeAttr("srcset");
                             } catch (Exception e) {
                                 // TODO: handle exception
                                 LOGGER.error("ret pic exception===>"+e.toString());
@@ -367,7 +362,13 @@ public class HTMLParserUtil{
         List<Map<String, String>> list = new ArrayList<Map<String,String>>();
         HashMap<String, String> map = null;
         try{
-                Document doc = Jsoup.connect("http://www.sdifen.com/category/black-apple/apple-software/page/"+index+"/").get();
+                Document doc =  Jsoup.connect("http://www.sdifen.com/category/black-apple/apple-software/page/"+index+"/")
+                		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+        				.referrer("http://www.google.com") 
+        				.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+        				.get();
+                
+               
                 Elements articles   = doc.select("article");
                 if(!articles.isEmpty()){
                     for (int i = 0; i < articles.size(); i++) {
@@ -450,7 +451,21 @@ public class HTMLParserUtil{
                         //文章
                         StringBuilder sb = new StringBuilder();
 
-                        Document doc_ = Jsoup.connect(aurl).get();
+                        
+                        
+                        //休眠
+                        try {
+            			    Thread.sleep(500);
+            			} catch (InterruptedException e) {
+            			    // TODO Auo-generated catch block
+            			    e.printStackTrace();
+            			}
+                        
+                        Document doc_ = Jsoup.connect(aurl)
+                        		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                				.referrer("http://www.google.com") 
+                				.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+                				.get();
                         Elements article_alls = doc_.select("div[class=entry-content] p");
                         if(!article_alls.isEmpty()){
                             for (int i1 = 0; i1 < article_alls.size(); i1++) {
@@ -572,9 +587,12 @@ public class HTMLParserUtil{
         		
         		String url = rettype+index+"/";
 	        	
-	        	String html = pickData(url);
 	        	
-                Document doc = Jsoup.parse(html);
+                Document doc = Jsoup.connect(url)
+                		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+        				.referrer("http://www.google.com") 
+        				.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+        				.get();
                 Element  ul   = doc.select("ul[class=masonry clearfix]").get(0);
                 Elements lis  = ul.select("li[class=post box row ");
                 if(!lis.isEmpty()){
@@ -635,10 +653,20 @@ public class HTMLParserUtil{
 
                         String desc = "";
 
-                        String html_ = pickData(aurl);
-//                        LOGGER.info("html_==============>"+html_);
-
-                        Document doc_ = Jsoup.parse(html_);
+                        
+                      //休眠
+                        try {
+            			    Thread.sleep(500);
+            			} catch (InterruptedException e) {
+            			    // TODO Auo-generated catch block
+            			    e.printStackTrace();
+            			}
+                        
+                        Document doc_ = Jsoup.connect(aurl)
+                        		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                				.referrer("http://www.google.com") 
+                				.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+                				.get();
                         Elements article_alls = doc_.select("div[id=post_content]");
                         if(!article_alls.isEmpty()){
 
@@ -664,15 +692,6 @@ public class HTMLParserUtil{
                                     }
 
                                 }
-                                //基本介绍
-//                                String preText = article_alls.get(0).select("p").get(0).html();
-//                                preText = "<p>"+preText +"</p>";
-//                                preText +=  "<p>"+ article_alls.get(0).select("p").get(1).html()+"</p>";
-//
-//                                //电影介绍
-//                                String markText = article_alls.get(0).select("div[id=link-report]").get(0).select("p").get(0).html();
-                                //下载地址
-//                                String downText = article_alls.get(0).select("div[id=link-report]").get(0).select("h2").get(0).select("a").get(0).attr("href");
 
                                 desc = "#电影简介\n";
 
@@ -735,9 +754,11 @@ public class HTMLParserUtil{
 	        	
 	        	
 	        	
-	        	String html = pickData(url);
-//	        	LOGGER.info("html_1==============>"+html);
-                Document doc = Jsoup.parse(html);
+                Document doc = Jsoup.connect(url)
+                		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+        				.referrer("http://www.google.com") 
+        				.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+        				.get();
                 Elements lis  = doc.select("li[class=lst ");
                 if(!lis.isEmpty()){
                     for (int i = 0; i < lis.size(); i++) {
@@ -809,10 +830,19 @@ public class HTMLParserUtil{
                         String content1  = "";
 
 
-                        String html_ = pickData(detail_url);
-//                        LOGGER.info("html_==============>"+html_);
-
-                        Document doc_ = Jsoup.parse(html_);
+                        //休眠
+                        try {
+            			    Thread.sleep(500);
+            			} catch (InterruptedException e) {
+            			    // TODO Auo-generated catch block
+            			    e.printStackTrace();
+            			}
+                        
+                        Document doc_ = Jsoup.connect(detail_url)
+                        		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                				.referrer("http://www.google.com") 
+                				.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+                				.get();
                         Elements article_alls = doc_.select("div[class=middle]");
                         if(!article_alls.isEmpty()){
 
@@ -1196,46 +1226,6 @@ public class HTMLParserUtil{
     }
 
     
-    /**
-     * httpclient获取网页内容html
-     * TODO jsoup解析
-     * @throws URISyntaxException 
-     */
-    private static String pickData(String url) throws URISyntaxException {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        try {
-            HttpGet httpget = new HttpGet(url);
-            
-            httpget.addHeader( "User-Agent", "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31");   
-            String charset = "UTF-8";   
-            httpget.setURI( new java.net.URI(url));  
-            CloseableHttpResponse response = httpclient.execute(httpget);
-            try {
-                // 获取响应实体
-                HttpEntity entity = response.getEntity();
-                // 打印响应状态
-                if (entity != null) {
-                    return EntityUtils.toString(entity,charset);
-                }
-            } finally {
-                response.close();
-            }
-        } catch (ClientProtocolException e) {
-            LOGGER.error("HTMLPARSERutils------->", e);;
-        } catch (ParseException e) {
-            LOGGER.error("HTMLPARSERutils------->", e);;
-        } catch (IOException e) {
-            LOGGER.error("HTMLPARSERutils------->", e);;
-        } finally {
-            // 关闭连接,释放资源
-            try {
-                httpclient.close();
-            } catch (IOException e) {
-                LOGGER.error("HTMLPARSERutils------->", e);;
-            }
-        }
-        return null;
-    }
     
     /**
      *	=====================================tools结束================================================================

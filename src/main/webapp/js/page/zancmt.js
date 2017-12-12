@@ -16,7 +16,6 @@ $(document).ready(function() {
             data:{"lyricsid":lrcid},
 
             success:function(data){
-             console.log(data);	
 			  //填充结果
 			  $("#J_zan_div").empty().prepend(data.replace(/(^")|("$)/g,''));
             }

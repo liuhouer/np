@@ -351,14 +351,6 @@ a:hover{text-decoration:underline;}
 <script src="/js/timers.js" type="text/javascript"></script>
 
 <script src="/js/dualSlider.js" type="text/javascript"></script> 
-	<script type="text/javascript">
-	/* //禁止图片拉伸
-	$(function(){
-		$("img").each(function(){
-			$(this).css('max-width',($(".bg-white").width()));
-		})
-	}) */
-	</script>
 	
 	<script type="text/javascript">
 	

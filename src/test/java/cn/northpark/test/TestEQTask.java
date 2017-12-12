@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.CollectionUtils;
 
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.manager.EqManager;
@@ -16,7 +20,8 @@ import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.TagsManager;
 import cn.northpark.manager.VpsManager;
-import cn.northpark.model.Eq;
+import cn.northpark.model.Movies;
+import cn.northpark.model.Soft;
 import cn.northpark.model.Vps;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.PinyinUtil;
@@ -113,67 +118,67 @@ public class TestEQTask {
 //			LOGGER.info("情圣定时任务结束"+TimeUtils.getNowTime());
 //			
 			
-			LOGGER.info("VPS任务开始"+TimeUtils.getNowTime());
-			try {
-
-				
-				for (int k = 2; k < 3; k++) {
-					List<Map<String, String>> lift = HTMLParserUtil.retCoupon(k, BC_Constant.Coupon_VPS_7);
-		    		for (int i = 0; i < lift.size(); i++) {
-		    			
-		    			String title = lift.get(i).get("title");
-						String brief = lift.get(i).get("brief");
-						String date = lift.get(i).get("date");
-						String article = lift.get(i).get("article");
-						String retcode = lift.get(i).get("retcode");
-						String returl = lift.get(i).get("aurl");
-						String tags = lift.get(i).get("tags");
-						//是不存在的文章
-						int flag = vpsManager.countHql(" where o.retcode= '"+retcode+"' ");
-						
-						if(flag<=0){
-				    		Vps model = new Vps();
-				    		model.setArticle(article);
-				    		model.setBrief(brief);
-				    		model.setDate(date);
-				    		model.setTitle(title);
-				    		model.setReturl(returl);
-				    		model.setTags(tags);
-				    		model.setColor(PinyinUtil.getFanyi1(model.getTitle()));
-				    		model.setRetcode(retcode);
-				    		vpsManager.addVps(model);
-						}
-						
-					}
-		    		
-		    		
-		    		//休眠
-		    		try {
-					    Thread.sleep(1000*1);
-					    LOGGER.info("第"+k+"页================");
-					} catch (InterruptedException e) {
-					    // TODO Auo-generated catch block
-					    e.printStackTrace();
-					}
-		    		
-				}
-	    		
-	    		
-	    		
-				
-				//去重
-				String delsql = "DELETE FROM bc_vps WHERE id IN (SELECT * FROM (SELECT id FROM bc_vps GROUP BY date HAVING ( COUNT(retcode) > 1 )) AS p)" ;
-				
-				vpsManager.executeSql(delsql);
-				
-				
-
-	    	} catch (Exception e) {
-	    		// TODO: handle exception
-	    		LOGGER.error("TestEQTask=======>"+e);
-	    	}
-
-			LOGGER.info("VPS任务结束"+TimeUtils.getNowTime());
+//			LOGGER.info("VPS任务开始"+TimeUtils.getNowTime());
+//			try {
+//
+//				
+//				for (int k = 1; k < 2; k++) {
+//					List<Map<String, String>> lift = HTMLParserUtil.retCoupon(k, BC_Constant.Coupon_VPS_7);
+//		    		for (int i = 0; i < lift.size(); i++) {
+//		    			
+//		    			String title = lift.get(i).get("title");
+//						String brief = lift.get(i).get("brief");
+//						String date = lift.get(i).get("date");
+//						String article = lift.get(i).get("article");
+//						String retcode = lift.get(i).get("retcode");
+//						String returl = lift.get(i).get("aurl");
+//						String tags = lift.get(i).get("tags");
+//						//是不存在的文章
+//						int flag = vpsManager.countHql(" where o.retcode= '"+retcode+"' ");
+//						
+//						if(flag<=0){
+//				    		Vps model = new Vps();
+//				    		model.setArticle(article);
+//				    		model.setBrief(brief);
+//				    		model.setDate(date);
+//				    		model.setTitle(title);
+//				    		model.setReturl(returl);
+//				    		model.setTags(tags);
+//				    		model.setColor(PinyinUtil.getFanyi1(model.getTitle()));
+//				    		model.setRetcode(retcode);
+//				    		vpsManager.addVps(model);
+//						}
+//						
+//					}
+//		    		
+//		    		
+//		    		//休眠
+//		    		try {
+//					    Thread.sleep(1000*1);
+//					    LOGGER.info("第"+k+"页================");
+//					} catch (InterruptedException e) {
+//					    // TODO Auo-generated catch block
+//					    e.printStackTrace();
+//					}
+//		    		
+//				}
+//	    		
+//	    		
+//	    		
+//				
+//				//去重
+//				String delsql = "DELETE FROM bc_vps WHERE id IN (SELECT * FROM (SELECT id FROM bc_vps GROUP BY date HAVING ( COUNT(retcode) > 1 )) AS p)" ;
+//				
+//				vpsManager.executeSql(delsql);
+//				
+//				
+//
+//	    	} catch (Exception e) {
+//	    		// TODO: handle exception
+//	    		LOGGER.error("TestEQTask=======>"+e);
+//	    	}
+//
+//			LOGGER.info("VPS任务结束"+TimeUtils.getNowTime());
 			
 //			
 //			try {
@@ -183,7 +188,7 @@ public class TestEQTask {
 //				
 //				
 //				
-//				for (int k = 1; k <= 10; k++) {
+//				for (int k = 1; k <= 1; k++) {
 //					List<Map<String, String>> list = HTMLParserUtil.retSoft(k);
 //					
 //					
@@ -248,8 +253,8 @@ public class TestEQTask {
 //			LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
 //			
 //			LOGGER.info("软件定时任务结束"+TimeUtils.getNowTime());
-//			
-//			
+			
+			
 			
 			
 			//TODO ..爬虫电影代码
@@ -261,10 +266,10 @@ public class TestEQTask {
 //					
 //				
 //				
-//				for (int k = 1; k <=20; k++) {
+//				for (int k = 1; k <=5; k++) {
 //					try {
 //						
-//						List<Map<String, String>> list = HTMLParserUtil.retMovies(k,BC_Constant.RET_dongman);
+//						List<Map<String, String>> list = HTMLParserUtil.retMovies(k,BC_Constant.RET_dianying);
 //						
 //						
 //						if(!CollectionUtils.isEmpty(list)){
@@ -576,6 +581,31 @@ public class TestEQTask {
 //			} catch (Exception e) {
 //				// TODO: handle exception
 //			}
+				
+				
+				
+				//批量更新vps的内容                         100条为单位
+				int Pagesize = 100;
+				int Pagenum = 1372 / 100 +1;
+				
+				for (int i = 0; i < Pagenum; i++) {
+					String sql = "select * from bc_vps where 1=1 limit "+i*Pagesize+","+Pagesize;
+					List<Vps> ls = vpsManager.querySql(sql);
+					
+					for (Vps v:ls) {
+						Document html = Jsoup.parse(v.getArticle());
+						Elements imgs = html.select("img");
+						for (int j = 0; j < imgs.size(); j++) {
+							imgs.get(j).removeAttr("srcset");
+						}
+//						System.out.println(html);
+						v.setArticle(html.html());
+						vpsManager.updateVps(v);
+					}
+				}
+				
+				
+				
 		}
 		
 		

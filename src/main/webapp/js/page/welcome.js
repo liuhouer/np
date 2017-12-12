@@ -51,9 +51,6 @@ $(function(){
 	 
 	 
 	 
-	 console.log("你瞅啥？");
-	 console.log("瞅你咋滴？");
-	 console.log("再瞅我就踢你哦~");
 })
 
 
