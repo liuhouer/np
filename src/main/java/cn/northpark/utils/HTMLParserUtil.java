@@ -1000,23 +1000,39 @@ public class HTMLParserUtil{
 
                     File file2 = new File(path+name);
                     map.put("localpath", path+name);
+                    
+                    
                     if(file2.exists()){
 
                     }else{
-                        FileOutputStream   out   =   new   FileOutputStream(path+name);
-                        LOGGER.info("写入中..."+path+name);
-
-                        int   i1=0;
-                        while   ((i1=is.read())!=-1)   {
-                            out.write(i1);
-                        }
+                    	
+                    	FileOutputStream   out   =   new   FileOutputStream(path+name);
+                    	try{
+                             LOGGER.info("写入中..."+path+name);
+                             //5秒内图片没有写完  停止
+                             int  timeoutMillis = 5;
+                             long maxTimeMillis = System.currentTimeMillis() + timeoutMillis;
+                         	 while (System.currentTimeMillis() < maxTimeMillis) {
+                         		int   i1=0;
+                                while   ((i1=is.read())!=-1)   {
+                                    out.write(i1);
+                                }
+                         	 }
+                         	 
+                    	}catch(Exception e){
+                    		LOGGER.error("HTMLPARSERutils------->", e);
+                    	}finally{
+                    		 out.flush();
+                    		 out.close();
+                    	}
+                       
                         
-                        out.close();
+                       
                         
                     }
                     is.close();
                 }catch(Exception e){
-                    LOGGER.error("HTMLPARSERutils------->", e);;
+                    LOGGER.error("HTMLPARSERutils------->", e);
                 }
         return map;
     }
