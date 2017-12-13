@@ -2,8 +2,10 @@
 package cn.northpark.manager;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.northpark.model.Lyrics;
+import cn.northpark.model.Vps;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 
@@ -45,6 +47,26 @@ public interface LyricsManager {
 	 * @return int
 	 */
 	public  int countHql(String wheresql);
+	
+	
+	/**
+	 * 根据sql语句预查询？？？
+	 * @return
+	 */
+	public List<Lyrics> querySql(String sql,Object... obj);
+	
+	/**
+	 * 根据sql语句查询
+	 * @return
+	 */
+	public List<Lyrics> querySql(String sql);
+	
+	/**
+	 * 根据sql语句返回map结果集
+	 * @return
+	 */
+	public List<Map<String, Object>> querySqlMap(String sql);
+	
 	
 }
 

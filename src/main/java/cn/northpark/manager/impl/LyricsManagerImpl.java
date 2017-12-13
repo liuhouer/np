@@ -3,6 +3,7 @@ package cn.northpark.manager.impl;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import cn.northpark.dao.LyricsDao;
 import cn.northpark.manager.LyricsManager;
 import cn.northpark.model.Lyrics;
+import cn.northpark.model.Vps;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 
@@ -81,6 +83,24 @@ public class LyricsManagerImpl implements LyricsManager {
 	public int countHql(String wheresql) {
 		// TODO Auto-generated method stub
 		return lyricsDao.countHql(Lyrics.class, wheresql);
+	}
+
+	@Override
+	public List<Lyrics> querySql(String sql, Object... obj) {
+		// TODO Auto-generated method stub
+		return lyricsDao.querySql(sql,Lyrics.class, obj);
+	}
+
+	@Override
+	public List<Lyrics> querySql(String sql) {
+		// TODO Auto-generated method stub
+		return lyricsDao.querySql(sql, Lyrics.class);
+	}
+
+	@Override
+	public List<Map<String, Object>> querySqlMap(String sql) {
+		// TODO Auto-generated method stub
+		return lyricsDao.querySql(sql);
 	}
 
 }

@@ -547,7 +547,9 @@ public class UserAction {
 				for (int i = 0; i < list.size(); i++) {
 					
 					//--批量处理时间
-					list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
+					if(StringUtils.isNotEmpty((String)list.get(i).get("updatedate"))){
+						list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
+					}
 				}
 				map.addAttribute("Lovelist", list);
 				
@@ -911,8 +913,10 @@ public class UserAction {
 					
 					//处理日期显示格式
 					String updatedate = (String) map2.get("updatedate");
-					String engDate = TimeUtils.parse2EnglishDate(updatedate);
-					map2.put("engDate", engDate);
+					if(StringUtils.isNotEmpty(updatedate)){
+						String engDate = TimeUtils.parse2EnglishDate(updatedate);
+						map2.put("engDate", engDate);
+					}
 				}
 			}
 			

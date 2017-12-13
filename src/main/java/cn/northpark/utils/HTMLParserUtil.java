@@ -22,7 +22,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.util.CollectionUtils;
 
-import cn.northpark.constant.BC_Constant;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 
@@ -56,22 +55,6 @@ public class HTMLParserUtil{
     								.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
                 					.get();
                 
-//                <div class="col-xs-6 col-sm-3 margin-b20 ">
-//				<div class="thumbnail radius-0 border-0 margin-b0">
-//					<a href="/love/jin-xiu-xian" title="金秀贤:我的最爱"><img src="http://caimai.qiniudn.com/cover/201405/65073-1400088152.jpg!l.jpg" alt="金秀贤"></a>
-//				</div>
-//				<div class="row margin-t0 iteminfo">
-//					<div class="col-xs-7 text-left">
-//													<a href="/love/jin-xiu-xian" title="金秀贤:我的最爱">金秀贤</a>
-//					</div>
-//					<div class="col-xs-5 text-right">
-//						<span class="glyphicon glyphicon-heart"></span> 15 
-//						<span class="hidden-sm hidden-xs"> &nbsp; 
-//							<span class="glyphicon glyphicon-comment"></span> 6
-//						</span>
-//					</div>
-//				</div>
-//			</div>
                 //   `id`,  `title`, `titlecode`,  `updatedate`, `albumImg`, `zan`, `pl`
                 Elements info   = doc.select("div[class=col-xs-6 col-sm-3 margin-b20 ]");
                 for(Element p : info){
@@ -135,6 +118,112 @@ public class HTMLParserUtil{
         }
 
 
+        /**
+         * 爬虫采麦的最爱主题关联信息  ------------根据主题页  获取作者信息  、、粉丝列表、、评论列表
+                    
+         * http://www.caimai.cc/love/xiang-ni-de-mei-yi-tian-lyz
+         * @throws IOException
+         */
+        public static Map<String, String> retCaiMaiZT(String titlecode) throws IOException {
+        	Map<String,String> map = new HashMap<>();
+                try{
+                Document doc = Jsoup.connect("http://www.caimai.cc/love/"+titlecode)
+    			            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+    								.referrer("http://www.google.com") 
+    								.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+                					.get();
+                
+                
+                //根据主题页  获取作者信息  、、粉丝列表、、评论列表
+                
+                Element author   = doc.select("h2[class=margin0]").get(0);
+                
+                Element author_info = author.select("a").get(0);
+                
+                String username = author_info.text();
+
+                String author_href = author_info.attr("href");
+                
+                String tailslug = author_href.replace("/", ""); 
+                
+                author_href = "http://www.caimai.cc"+author_href;
+
+                
+                Document doc2 = Jsoup.connect(author_href)
+	            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+						.referrer("http://www.google.com") 
+						.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+    					.get();
+                 
+                //头像
+                Element avatar = doc2.select("div[class=thumbnail bg-no border-0]").get(0).select("img").get(0);  
+                
+                
+                String courseware ="";
+                String date = "";
+                int size = doc2.select("h3[class=margin0]").size();
+                
+                if(size>=2){
+                	 courseware = doc2.select("h3[class=margin0]").get(0).text();  
+                     
+                     date = doc2.select("h3[class=margin0]").get(1).text().replace("加入时间：", "");  
+                }else{
+                	 date = doc2.select("h3[class=margin0]").get(0).text().replace("加入时间：", "");  
+                }
+                
+                
+                String meta = "";
+                Elements desc_element = doc2.select("p[class=margin0]");
+                
+                if(desc_element.size()>0){
+                	meta = desc_element.get(0).text();
+                }
+                
+                String headpath = ""; 
+                //下载图片
+                try {
+                    String weburl = avatar.attr("src");
+
+
+                    HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS("heads")  ,date);
+                    
+                    headpath = map22.get("trimpath");
+                    
+                    
+
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    LOGGER.error("ret pic exception===>"+e.toString());
+                }
+                
+                //作者用户信息
+                map.put("username", username); 
+                map.put("tailslug", tailslug); 
+                map.put("courseware", courseware); 
+                map.put("date", date); 
+                map.put("meta", meta); 
+                map.put("headpath", headpath); 
+                
+                
+                
+                //取得点赞的作者
+                
+                //取得评论的信息
+                    
+                    
+
+                }catch (Exception e) {
+                	 LOGGER.error("HTMLPARSERutils------->", e);;
+                }
+                
+                
+                
+            return map;
+        }
+        
+        
+        
+        
     /**
      * 爬虫获取情圣的文章
      * loveUdavid
