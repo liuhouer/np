@@ -37,6 +37,46 @@ public class HTMLParserUtil{
     
 
 
+    /**
+     * 爬虫采麦的最爱主题关联信息  ------------根据主题页  获取 粉丝列表、、
+                
+     * http://www.caimai.cc/love/xiang-ni-de-mei-yi-tian-lyz
+     * @throws IOException
+     */
+    public static String retCaiMaiZT_ZAN(String titlecode) throws IOException {
+    	StringBuilder sb =  new StringBuilder();
+            try{
+            Document doc = Jsoup.connect("http://www.caimai.cc/love/"+titlecode)
+			            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+								.referrer("http://www.google.com") 
+								.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+            					.get();
+            
+          
+            
+            //取得点赞的用户
+            Elements spans = doc.select("div[class=col-sm-5]").get(0).select("span");
+            
+            System.out.println(spans.size());
+            if(spans.size()>0){
+            	for(Element e:spans){
+            		Elements as = e.select("a");
+            		if(as.size()>0){
+            			Element a = as.get(0);
+            			String tailslug = a.attr("href").replace("/", "");
+            			sb.append("'").append(tailslug).append("',");
+            		}
+            	}
+            }
+            
+            }catch (Exception e) {
+            	 LOGGER.error("HTMLPARSERutils------->", e);;
+            }
+            
+            LOGGER.info(sb.toString().substring(0, sb.toString().lastIndexOf(",")));
+            
+        return sb.toString().substring(0, sb.toString().lastIndexOf(","));
+    }
     
     	
     	/**
@@ -204,13 +244,6 @@ public class HTMLParserUtil{
                 map.put("meta", meta); 
                 map.put("headpath", headpath); 
                 
-                
-                
-                //取得点赞的作者
-                
-                //取得评论的信息
-                    
-                    
 
                 }catch (Exception e) {
                 	 LOGGER.error("HTMLPARSERutils------->", e);;
@@ -1486,7 +1519,11 @@ public class HTMLParserUtil{
 //            	LOGGER.info(MD5Utils.encoding("速度与激情8"));
 //            	retEQArticle();
 //            	retCoupon(1, BC_Constant.Coupon_VPS_7);
-            	retCaiMai(1);
+//            	retCaiMai(1);
+            	
+            	String retCaiMaiZAN = retCaiMaiZT_ZAN("shui-jue");
+            	String sql2 = "select id from bc_user where tail_slug in ("+retCaiMaiZAN+")";
+            	System.out.println(sql2);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 LOGGER.error("HTMLPARSERutils------->", e);;

@@ -1,20 +1,18 @@
 package cn.northpark.test;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.LyricsManager;
+import cn.northpark.manager.LyricsZanManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.TagsManager;
@@ -22,14 +20,8 @@ import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.manager.UserManager;
 import cn.northpark.manager.UserprofileManager;
 import cn.northpark.manager.VpsManager;
-import cn.northpark.model.Lyrics;
-import cn.northpark.model.User;
-import cn.northpark.model.UserLyrics;
-import cn.northpark.model.Userprofile;
+import cn.northpark.model.LyricsZan;
 import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.PinyinUtil;
-import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.page.QueryResult;
 
 /**
  * @author zhangyang
@@ -68,6 +60,10 @@ public class TestEQTask {
 	
 	@Autowired
 	public UserprofileManager upManager;
+	
+	@Autowired
+	public LyricsZanManager lzManager;
+	
 //	@Autowired
 //	public  PoemManager poemManager;
 //	
@@ -665,7 +661,107 @@ public class TestEQTask {
 //			}
 				
 			
-			//插入主题的用户
+			//插入最爱主题的用户
+			
+//			String sql = "select  id,titlecode from bc_lyrics where updatedate is null order by id desc limit 4593,5000 ";
+//			
+//			List<Map<String, Object>> list = lyricsManager.querySqlMap(sql);
+//			
+//			for (Map<String, Object> m:list) {
+//				Integer lyricsid = (Integer) m.get("id");
+//				String titlecode = (String) m.get("titlecode");
+//				try {
+//					Map<String, String> retCaiMaiZT = HTMLParserUtil.retCaiMaiZT(titlecode);
+//					
+//					String username = retCaiMaiZT.get("username" );
+//					String tailslug = retCaiMaiZT.get("tailslug" );
+//					String courseware = retCaiMaiZT.get("courseware");
+//					String date =retCaiMaiZT.get("date");
+//					String meta =retCaiMaiZT.get("meta");
+//					String headpath =retCaiMaiZT.get("headpath");
+//					
+//					if(StringUtils.isNotEmpty(username)){
+//						
+//						int num = userManager.countHql(" where username = '"+username+"' ");
+//						int userid = 0;
+//						if(num<=0){
+//							User user = new User();
+//							int num_tail = userManager.countHql(" where tail_slug = '"+tailslug+"' ");
+//							if(num_tail>0){
+//								
+//								user.setTail_slug(tailslug+TimeUtils.getRandomDay());
+//							}else{
+//								user.setTail_slug(tailslug);
+//							}
+//							user.setUsername(username);
+//							user.setDate_joined(date);
+//							
+//							
+//							user.setEmail(tailslug+TimeUtils.getRandomDay()+"@qq.com");
+//							user.setPassword("MTIzNDU2MDAwMDAw");
+//							user.setHeadpath(headpath);
+//							if(StringUtils.isNotEmpty(username)){
+//								user.setHeadspan(username.substring(0,1).toUpperCase());
+//								user.setHeadspanclass("text-"+username.substring(0,1).toLowerCase());
+//							}
+//							userManager.addUser(user);
+//							
+//							userid = user.getId();
+//						}else{
+////							List<User> ul = userManager.findByCondition("  where username = '"+username+"' ").getResultlist();
+////							if(!CollectionUtils.isEmpty(ul)){
+////								User user = ul.get(0);
+////								userid = user.getId();
+////							}
+//							
+//							continue;
+//							
+//						}
+//						
+//						if(userid!=0){
+//							//更新或者添加profile
+//							Userprofile up = upManager.getModelByUserid(String.valueOf(userid));
+//							
+//							up.setMeta(meta);
+//							up.setCourseware(courseware);
+//							up.setUser_id(userid);
+//							if(up.getId()!=null){
+//								upManager.updateUserprofile(up);
+//								
+//							}else{
+//								upManager.addUserprofile(up);
+//							}
+//							
+//							
+//							//添加user lyrics关联
+//							UserLyrics ul = new UserLyrics();
+//							ul.setLyricsid(lyricsid);
+//							ul.setUserid(userid);
+//							ulManager.addUserLyrics(ul);
+//						}
+//						
+//						//
+//					}
+//					
+//					
+//					
+//					
+//					
+//					
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					continue;
+//				}
+//				
+//				
+//				
+//			}
+				
+				
+			
+			
+
+			//插入最爱主题的点赞用户
 			
 			String sql = "select  id,titlecode from bc_lyrics where updatedate is null order by id desc ";
 			
@@ -675,96 +771,30 @@ public class TestEQTask {
 				Integer lyricsid = (Integer) m.get("id");
 				String titlecode = (String) m.get("titlecode");
 				try {
-					Map<String, String> retCaiMaiZT = HTMLParserUtil.retCaiMaiZT(titlecode);
+					String retCaiMaiZAN = HTMLParserUtil.retCaiMaiZT_ZAN(titlecode);
 					
-					String username = retCaiMaiZT.get("username" );
-					String tailslug = retCaiMaiZT.get("tailslug" );
-					String courseware = retCaiMaiZT.get("courseware");
-					String date =retCaiMaiZT.get("date");
-					String meta =retCaiMaiZT.get("meta");
-					String headpath =retCaiMaiZT.get("headpath");
+					//拼接sql 查询userid列表；
+					String sql2 = "select id from bc_user where tail_slug in ("+retCaiMaiZAN+")";
 					
-					int num = userManager.countHql(" where username = '"+username+"' ");
-					int userid = 0;
-					if(num<=0){
-						User user = new User();
-						int num_tail = userManager.countHql(" where tail_slug = '"+tailslug+"' ");
-						if(num_tail>0){
-							
-							user.setTail_slug(tailslug+TimeUtils.getRandomDay());
-						}else{
-							user.setTail_slug(tailslug);
-						}
-						user.setUsername(username);
-						user.setDate_joined(date);
-						
-						
-						user.setEmail(tailslug+TimeUtils.getRandomDay()+"@qq.com");
-						user.setPassword("MTIzNDU2MDAwMDAw");
-						user.setHeadpath(headpath);
-						if(StringUtils.isNotEmpty(username)){
-							user.setHeadspan(username.substring(0,1).toUpperCase());
-							user.setHeadspanclass("text-"+username.substring(0,1).toLowerCase());
-						}
-						userManager.addUser(user);
-						
-						userid = user.getId();
-					}else{
-						List<User> ul = userManager.findByCondition("  where username = '"+username+"' ").getResultlist();
-						if(!CollectionUtils.isEmpty(ul)){
-							User user = ul.get(0);
-							userid = user.getId();
-						}
-						
+					
+					List<Map<String, Object>> useridlist = vpsManager.querySqlMap(sql2);
+					
+					for (int i = 0; i < useridlist.size(); i++) {
+						LyricsZan lz = new LyricsZan();
+						lz.setLyricsid(lyricsid);
+						lz.setUserid((Integer)useridlist.get(i).get("id"));
+						lzManager.addLyricsZan(lz);
 					}
 					
-					if(userid!=0){
-						//更新或者添加profile
-						Userprofile up = upManager.getModelByUserid(String.valueOf(userid));
-						
-						up.setMeta(meta);
-						up.setCourseware(courseware);
-						up.setUser_id(userid);
-						if(up.getId()!=null){
-							upManager.updateUserprofile(up);
-							
-						}else{
-							upManager.addUserprofile(up);
-						}
-						
-						
-						//添加user lyrics关联
-						UserLyrics ul = new UserLyrics();
-						ul.setLyricsid(lyricsid);
-						ul.setUserid(userid);
-						ulManager.addUserLyrics(ul);
-					}
-					
-					//
-					
-					
-					
-					
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+				}catch(Exception e){
 					e.printStackTrace();
 				}
+			}	
 				
 				
-				
-				 //休眠
-		              try {
-		  			    Thread.sleep(200);
-		  			} catch (InterruptedException e) {
-		  			    // TODO Auo-generated catch block
-		  			    e.printStackTrace();
-		  			}
-			}
-				
-				
-				
-				
+		
+		
+		
 		}
 		
 		

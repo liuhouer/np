@@ -209,11 +209,46 @@ public class PinyinUtil {
     	return str;
     }
     
+    
+    /**
+     * 取得中文字符串的首字母集合
+     * @return
+     * @throws Exception
+     */
+    public static String getFirstCharStr(String pianduan) throws Exception { 
+    	 StringBuffer sb = new StringBuffer();  
+         char[] input = pianduan.toCharArray();  
+         HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();  
+         format.setCaseType(HanyuPinyinCaseType.LOWERCASE);  
+         format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);  
+         if (input != null) {  
+             for (char c : input) {  
+                 if (c > 128) {  
+                     try {  
+                         String[] temp = PinyinHelper.toHanyuPinyinStringArray(c, format);  
+                         if (temp != null) {  
+                             sb.append(temp[0].charAt(0));  
+                         }  
+                     } catch (BadHanyuPinyinOutputFormatCombination e) {  
+                         e.printStackTrace();  
+                     }  
+                 } else {  
+                     sb.append(c);  
+                 }  
+             }  
+         }  
+         
+         LOGGER.info(sb.toString().replaceAll("\\W", "").trim());
+         return sb.toString().replaceAll("\\W", "").trim();  
+    }
+    
+    
+    
     public static void main(String[] args) throws Exception{
     	
 		
 //    	getFanyiEmail();
     	
-    	getFanyi1("香草天空");
+    	getFirstCharStr("香草天空");
 	}
 }
