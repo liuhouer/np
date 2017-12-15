@@ -99,7 +99,7 @@ public class UserManagerImpl implements UserManager {
 	 * @see cn.northpark.manager.UserManager#countHql(cn.northpark.model.User, java.lang.String)
 	 */
 	@Override
-	public int countHql(String wheresql) {
+	public synchronized int countHql(String wheresql) {
 		// TODO Auto-generated method stub
 		return userDao.countHql(User.class, wheresql);
 	}

@@ -1,148 +1,240 @@
 package cn.northpark.utils;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.serializer.JSONLibDataFormatSerializer;
+import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
 public class JsonUtil {
 	public static final JsonUtil jsonUtil = new JsonUtil();
 	private static final Logger LOGGER = Logger
-            .getLogger(JsonUtil.class);
+			.getLogger(JsonUtil.class);
 
-	
+
 	//以下是常用的方法==========================================================================================================
-	
-	
-	/**
-	 * 对象转换成json
-	 * 
-	 * @param obj
-	 *            Object对象
-	 * @return String
-	 */
-	public static String object2json(Object obj) {
-		return JSON.toJSONString(obj);
-	}
-	
-	/**
-	 * List转换成json(空值返回"")
-	 * 
-	 * @param obj
-	 *            List对象
-	 * @return String
-	 */
-	public static String list2json(List<?> list) {
-		return JSON.toJSONString(list, SerializerFeature.WriteNullListAsEmpty);
+
+	private static final SerializeConfig config;
+
+	static {
+		config = new SerializeConfig();
+		// compatible with the java.util.Date and the java.sql.Date
+		config.put(java.util.Date.class, new JSONLibDataFormatSerializer());
+		config.put(java.sql.Date.class, new JSONLibDataFormatSerializer());
 	}
 
 	/**
-	 * Map转换成json(空值返回"")
-	 * 
-	 * @param obj
-	 *            Map对象
-	 * @return String
+	 * set the default value of the object which the value is null
 	 */
-	public static String map2json(Map<String,Object> map) {
-		return JSON.toJSONString(map, SerializerFeature.WriteNullStringAsEmpty);
-	}
-	
+	private static final SerializerFeature[] features = {
+		SerializerFeature.WriteMapNullValue,
+		SerializerFeature.WriteNullListAsEmpty,
+		SerializerFeature.WriteNullBooleanAsFalse,
+		SerializerFeature.WriteNullStringAsEmpty,
+	};
+
 	/**
-	 * Json字符串转换成Model
-	 * 
-	 * @param json
-	 *            json字符串
-	 * @param clazz
-	 *            目标Model.class
-	 * @return 目标Model
+	 * list to json
+	 *
+	 * @param list
+	 *          the list that will transform to json string
+	 * @return
+	 *          the json string of list transform
 	 */
-	public static <T> T json2Model(String json, Class<T> clazz) {
-		return JSON.parseObject(json, clazz);
+	public static String list2json(List list) {
+		return JSON.toJSONString(list);
 	}
-	
+
 	/**
-	 * Json字符串转换成Model
-	 * 
-	 * @param json
-	 *            待转换的json字符串
-	 * @param clazz
-	 *            目标Model.class
-	 * @return List<Model>
+	 * map to json
+	 * @param map
+	 *          the map that will transform to json string
+	 * @return
+	 *          the json string of map transform
 	 */
-	public static <T extends Serializable> List<T> json2List(String json, Class<T> clazz) {
-		if(null == json || null == clazz) return null;
+	public static String map2json(Map map) {
+		return JSONObject.toJSONString(map);
+	}
+
+	/**
+	 * object array to json
+	 *
+	 * @param objects
+	 *          the object array that will transform to json string
+	 * @return
+	 *          the json string of array transform
+	 */
+	public static String array2json(Object[] objects) {
+		return JSON.toJSONString(objects);
+	}
+
+	/**
+	 * object to json
+	 *
+	 * @param object
+	 *          the object that will transform to json string
+	 * @return
+	 *          the json string of object
+	 */
+	public static String object2json(Object object) {
+		return JSON.toJSONString(object, config, features);
+	}
+
+
+	/**
+	 * json to list
+	 *
+	 * @param json
+	 *          the json string that will transform to list
+	 * @param clazz
+	 *          the class of the list's element
+	 * @param <T>
+	 *          the generic of the class
+	 * @return
+	 *          the list that json string transform
+	 */
+	public static <T> List<T> json2list(String json, Class<T> clazz) {
 		return JSON.parseArray(json, clazz);
 	}
 
-	
- 
-	/***
-	 * 把JSON文本parse为JSONObject或者JSONArray
-	 * 
-	 * @param text
+	/**
+	 * json to map
+	 *
+	 * @param json
+	 *          json string that will transform to map
 	 * @return
+	 *          the map fo json string
 	 */
-	public static Object json2Object(String text) {
-		return JSON.parse(text);
+	public static Map json2map(String json) {
+		return JSONObject.parseObject(json);
 	}
 
-	/***
-	 * 把JSON文本parse成JSONObject [Map]
-	 * 
-	 * @param text
+
+	/**
+	 * json string to object array
+	 *
+	 * @param json
+	 *          the json string will transform to object array
+	 * @param clazz
+	 *          the class of the json will transform
+	 * @param ts
+	 *          the real object array
+	 * @param <T>
+	 *          the real object
+	 * @return
+	 *          the object array of the json string
+	 *
+	 * @param json
+	 * @param clazz
+	 * @param ts
+	 * @param <T>
 	 * @return
 	 */
-	public static JSONObject json2map(String text) {
-		return JSON.parseObject(text);
+	public static <T> T[] json2array(String json, Class<T> clazz, T[] ts) {
+		return JSON.parseArray(json, clazz).toArray(ts);
 	}
 
-	/***
-	 * 把JSON文本parse成JSONArray
+	/**
+	 * json string to object
+	 *
+	 * @param json
+	 *          the json string that will transform to object
+	 * @param clazz
+	 *          the class that json will transform
+	 * @param <T>
+	 *          the object class
+	 * @return
+	 *          the object of json string
+	 */
+	public static <T> Object json2object(String json, Class<T> clazz) {
+		return JSON.parseObject(json, clazz);
+	}
+
+
+	/**
+	 * 用fastjson 将json字符串解析为一个 JavaBean
 	 * 
-	 * @param text
+	 * @param jsonString
+	 * @param cls
 	 * @return
 	 */
-	public  static JSONArray json2JsonArray(String text) {
-		return JSON.parseArray(text);
+	public static <T> T getJson(String jsonString, Class<T> cls) {
+		T t = null;
+		try {
+			t = JSON.parseObject(jsonString, cls);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return t;
 	}
 
-	/***
-	 * 将对象转化成map
+	/**
+	 * 用fastjson 将json字符串 解析成为一个 List<JavaBean> 及 List<String>
 	 * 
-	 * @param text
+	 * @param jsonString
+	 * @param cls
 	 * @return
 	 */
-	public static JSONObject obj2map(Object object) {
-		String str = JSON.toJSONString(object);
-		return JSON.parseObject(str);
+	public static <T> List<T> getArrayJson(String jsonString, Class<T> cls) {
+		List<T> list = new ArrayList<T>();
+		try {
+			list = JSON.parseArray(jsonString, cls);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
 	}
-
-	/***
-	 * 将JavaBean序列化为带格式的JSON文本
+	/**
+	 * 用fastjson 将json字符串 解析成为一个 List<JavaBean> 及 List<String>
 	 * 
-	 * @param text
+	 * @param jsonString
+	 * @param cls
 	 * @return
 	 */
-	public static String modelToFMTJson(Object object, boolean prettyFormat) {
-		return JSON.toJSONString(object, prettyFormat);
+	@SuppressWarnings("unchecked")
+	public static <T> List<T> getArrayJson(String jsonString) {
+		List<T> list = new ArrayList<T>();
+		try {
+			list = (List<T>) JSON.parseArray(jsonString);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
 	}
 
-	
-	
+	/**
+	 * 用fastjson 将jsonString 解析成 List<Map<String,Object>>
+	 * 
+	 * @param jsonString
+	 * @return
+	 */
+	public static List<Map<String, Object>> getListMap(String jsonString) {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		try {
+			// 两种写法
+			// list = JSON.parseObject(jsonString, new
+			// TypeReference<List<Map<String, Object>>>(){}.getType());
+
+			list = JSON.parseObject(jsonString, new TypeReference<List<Map<String, Object>>>() {
+			});
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+
 	//以上是常用的方法==========================================================================================================
-	
-	
+
+
 	public static void main(String[] args) {
-		String json = "{'subscribe':1,'openid':'oRYhMuA2O-86SJl1n_HQ_G3ueWOc','nickname':'周旭','sex ':1,'language':'zh_CN','city':'郑州','province':'河南','country':'中国','head imgurl':'http://wx.qlogo.cn/mmopen/LwcbhAmMnZAf2viaialRIfZYT0YHmTOR7AcKrK AwwEQpsIuhvraxN8r8dJOJfNfWkZVqiahicoHxS969cJ3qMl2rTA/0','subscribe_time':1478599840,'unionid':'omTTptybOJVz6LhFnQJcK6K_Cxhk','remark':'','groupid':101,'t agid_list':[101,103,111]}";
-	
-		JSONObject map = json2map(json);
-		
-		LOGGER.info(map);
+
 	}
 }

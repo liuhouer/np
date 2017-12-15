@@ -13,10 +13,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
+import org.jsoup.Connection.Response;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -36,6 +39,80 @@ public class HTMLParserUtil{
             .getLogger(HTMLParserUtil.class);
     
 
+    /**
+     * 爬虫采麦的最爱主题关联信息  ------------根据主题页  获取 评论列表、、
+                
+     * http://www.caimai.cc/love/xiang-ni-de-mei-yi-tian-lyz
+     * @throws IOException
+     */
+    public static synchronized List<Map<String, String>> retCaiMaiZT_PL(String titlecode) throws IOException {
+    	 List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+            try{
+            Document doc = Jsoup.connect("http://www.caimai.cc/love/"+titlecode)
+			            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+								.referrer("http://www.google.com") 
+								.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+            					.get();
+            
+          
+            
+            //取得评论
+            
+            String retid = doc.getElementById("loadStuffCommentBtn").attr("rel"); 
+            
+           String commenturl = "http://www.caimai.cc/do/loadstuffcomment?user_id=0&user_agent=538B9ABCD308&timestamp=1513240566&user_keychain=69D7D3053A75&comment_id_from=9999999999999&comment_perpage=1000&stuff_id="+retid;
+            
+           Response res = Jsoup.connect(commenturl)
+           			.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+					.referrer("http://www.google.com") 
+					.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+					.ignoreContentType(true)
+					.execute();
+           
+           Map<?, ?> map = JsonUtil.json2map(res.body());
+           
+           
+           Object object =  map.get("html");
+           
+           String htmljson = JsonUtil.object2json(object);
+           
+           Document doc2 = Jsoup.parse(htmljson);
+           
+           System.out.println(htmljson);
+           
+            Elements pls = doc2.select("div[class=row]");
+            
+            for (int i = 0; i < pls.size(); i++) {
+            	Element p = pls.get(i).select("div[class=col-xs-9 col-sm-10]").get(0).select("p").get(0);
+            	String comment  = replaceBlank(p.text());
+            	String tailslug = replaceBlank(p.select("a").get(0).attr("href").replace("/", ""));;
+            	String username = replaceBlank(p.select("a").get(0).text());
+            	Element p2 = pls.get(i).select("div[class=col-xs-9 col-sm-10]").get(0).select("p").get(1);
+            	String shijian = replaceBlank(p2.text());
+            	
+            	comment = comment.replace(username+"：", "");
+            	Map<String, String> map_ = new HashMap<String, String>();
+            	map_.put("username", username);
+            	map_.put("tailslug", tailslug);
+            	map_.put("comment", comment);
+            	map_.put("shijian", shijian);
+            	list.add(map_);
+            	System.out.println("username--->"+username);
+            	System.out.println("tailslug--->"+tailslug);
+            	System.out.println("comment---->"+comment);
+            	System.out.println("shijian---->"+shijian);
+            	System.out.println("---------------------------------------------");
+            	
+			}
+            
+            
+            }catch (Exception e) {
+            	 LOGGER.error("HTMLPARSERutils------->", e);;
+            }
+            
+            
+        return list;
+    }
 
     /**
      * 爬虫采麦的最爱主题关联信息  ------------根据主题页  获取 粉丝列表、、
@@ -1485,6 +1562,16 @@ public class HTMLParserUtil{
     
     
     /**
+     * 去除所有的\n\t\r
+     * @param str
+     * @return
+     */
+    public static String replaceBlank(String str) {  
+    	String temp = str.replace("n","").replace("r", "").replace("t", "").replaceAll("\\\\", "");
+        return temp;  
+    }  
+    
+    /**
      *	=====================================tools结束================================================================
      */
     
@@ -1521,9 +1608,13 @@ public class HTMLParserUtil{
 //            	retCoupon(1, BC_Constant.Coupon_VPS_7);
 //            	retCaiMai(1);
             	
-            	String retCaiMaiZAN = retCaiMaiZT_ZAN("shui-jue");
-            	String sql2 = "select id from bc_user where tail_slug in ("+retCaiMaiZAN+")";
-            	System.out.println(sql2);
+//            	String retCaiMaiZAN = retCaiMaiZT_ZAN("shui-jue");
+//            	String sql2 = "select id from bc_user where tail_slug in ("+retCaiMaiZAN+")";
+//            	System.out.println(sql2);
+            	
+            	 retCaiMaiZT_PL("shui-jue");
+            	 System.out.println(replaceBlank("\n\t\t\t\t丫丫的小贝壳屋：能够睡到自然醒就是一种幸福\n\t\t\t\t\t\t\t"));
+            	
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 LOGGER.error("HTMLPARSERutils------->", e);;
