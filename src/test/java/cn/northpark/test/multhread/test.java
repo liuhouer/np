@@ -1,18 +1,40 @@
+/***************************************************************************/
+/*                                                                         */
+/* 			Copyright (c) TAIKANG ASSET MANAGEMENT CO., LTD.               */
+/*                 泰康资产管理有限责任公司    版权所有		                   */
+/*                                                                         */
+/* PROPRIETARY RIGHTS of TAIKANG ASSET MANAGEMENT CO.,LTD. are involved in */
+/* the subject matter of this material.  All manufacturing, reproduction,  */
+/* use, and sales rights pertaining to this subject matter are governed by */
+/* the license agreement.  The recipient of this software implicitly  	   */
+/* accept the terms of the license.                                        */
+/* 本软件文档资料是泰康资产管理有限责任公司的资产,任何人士阅读使用必须获得         */
+/* 相应的书面授权,承担保密责任和接受相应的法律约束.                           */
+/*                                                                         */
+/***************************************************************************/
+/************************************************************
+  Copyright (C), TAIKANG ASSET MANAGEMENT. Co., Ltd.
+  FileName: ConnThread.java
+  Author: 张洋       Version : 1.0         Date:2017年11月8日
+  Description:     // 模块描述      
+  Version:         // 版本信息
+  History:         // 历史修改记录
+      <author>  <time>   <version >   <desc>
+***********************************************************/
 package cn.northpark.test.multhread;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-
-import org.quartz.JobExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import cn.northpark.utils.TimeUtils;
 
 public class test {
 
-	public static final Map<String,String> map  = new HashMap<String,String>();
-	public static final int CONN_COUNT  = 500;
+	
+	
+	
+	public static final int CONN_COUNT  = 1500;
 	/***
 	 * 
 	 * 张洋、胡彦伟，你们好： 请在流动性平台测试环境cmstest实现下述功能，用以测试： 1、
@@ -30,46 +52,53 @@ public class test {
 	 * 
 	 */
 
-
-
-	public static void main(String arg0) throws JobExecutionException {
-		// TODO Auto-generated method stub
+	
+	
+	
+	public static void main(String[] args) {
+		
+		ExecutorService executorService = Executors.newFixedThreadPool(200);
 		try {
 			//清空已有信息
-			map.clear();
-
+			
 			String start = TimeUtils.nowTime();
 			System.out.println("开始时间："+start);
-
+			
 			ArrayList<Runnable> threads = new ArrayList<Runnable>();
-
-			CountDownLatch latch = new CountDownLatch(CONN_COUNT);
-
+			
+			
 			for (int i = 1; i <= CONN_COUNT; i++) {
-				threads.add(new ConnThread(i,latch));
+				threads.add(new ConnThread(i));
 			}
-
-			// //开启线程
-			//500 个线程  每个线程查询三次
+			
+//			//开启线程
+			//测试线程池
 			for (Runnable r:threads) {
-				new Thread(r).start();
+				executorService.execute(r);
 			}
-
-			//调用await方法阻塞当前线程，等待子线程完成再继续
-			latch.await();
-
-			//释放连接
-			db.closeConn();
-
+			
+			
+			executorService.shutdown();
+			
+			while(!executorService.isTerminated()){
+				
+			}
+			
+			
+			executorService.shutdownNow();
+			
 			String end = TimeUtils.nowTime();
 			System.out.println("结束时间："+end);
-
-			System.out.println(map.size()+">>>>>"+map);
+			
+//			System.out.println(map.size()+">>>>>"+map);
 			System.out.println(TimeUtils.getPastTime(end, start));
-
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
+		
 	}
 }

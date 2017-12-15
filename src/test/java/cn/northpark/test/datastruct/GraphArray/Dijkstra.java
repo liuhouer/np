@@ -1,4 +1,4 @@
-package cn.northpark.test.datastruct.Graph;
+package cn.northpark.test.datastruct.GraphArray;
 
 /*
  *Dijkstra，最短路径算法 
