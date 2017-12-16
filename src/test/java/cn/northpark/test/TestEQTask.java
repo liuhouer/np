@@ -927,7 +927,7 @@ public class TestEQTask {
 			
 			try {
 				
-				String sql = "select  id from bc_lyrics where updatedate is null order by id desc ";
+				String sql = "select  id from bc_lyrics where updatedate is null order by id desc limit 0,200";
 				
 				List<Map<String, Object>> list = lyricsManager.querySqlMap(sql);
 				
@@ -944,21 +944,23 @@ public class TestEQTask {
 						int total = lyricsManager.findLyrics(lyricsid).getZan();
 						
 						int limitsize = total - yizannum;
+						System.out.println(limitsize);
+//						if(limitsize>=1){
 						
-						String userids = "select id from bc_user  where id not in (select userid from bc_lyrics_zan where lyricsid = ? ) order by rand() limit 0,? " ;
-						
-						List<Map<String, Object>> ls = userManager.querySqlMap(userids, lyricsid,limitsize);
-						
-						if(!CollectionUtils.isEmpty(ls)){
-							for (int i = 0; i < ls.size(); i++) {
-								 Integer userid = (Integer) ls.get(i).get("id");
-								 LyricsZan lz = new LyricsZan();
-								 lz.setLyricsid(lyricsid);
-								 lz.setUserid(userid);
-								 lzManager.addLyricsZan(lz);
-							}
-						}
-						
+//							String userids = "select id from bc_user  where id not in (select userid from bc_lyrics_zan where lyricsid = ? ) order by rand() limit 0,? " ;
+//							
+//							List<Map<String, Object>> ls = userManager.querySqlMap(userids, lyricsid,limitsize);
+//							
+//							if(!CollectionUtils.isEmpty(ls)){
+//								for (int i = 0; i < ls.size(); i++) {
+//									 Integer userid = (Integer) ls.get(i).get("id");
+//									 LyricsZan lz = new LyricsZan();
+//									 lz.setLyricsid(lyricsid);
+//									 lz.setUserid(userid);
+//									 lzManager.addLyricsZan(lz);
+//								}
+//							}
+//						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						LOGGER.error(e);

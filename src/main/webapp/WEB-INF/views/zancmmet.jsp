@@ -87,7 +87,7 @@
 							  </c:forEach>
 						  </div>
 						  <!-- >10个喜欢才有查看更多按钮 -->
-						  <c:if test="${zanNum > 10}">
+						  <c:if test="${datamap.zanNum > 10}">
 						  	<button id="J_lovers_box" class="btn btn-gray btn-xs click2show"  data-target=".lovers_box">查看更多 ›› </button>
 						  </c:if>
 						</p>

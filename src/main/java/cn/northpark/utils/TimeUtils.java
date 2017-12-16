@@ -588,8 +588,25 @@ public class TimeUtils {
 		
 	    public static void main(String[] args) {
 	    	//LOGGER.info(getWorkDateTime(11));;
-	    	for (int i = 0; i < 100; i++) {
-	    		LOGGER.info(getRandomDate());
-			}
+	    	String time = "8年前";
+	    	if(time.contains(ONE_YEAR_AGO)){
+	    		String delta = time.replace(ONE_YEAR_AGO, "");
+	    	}else if(time.contains(ONE_SECOND_AGO)){
+	    		String delta = time.replace(ONE_SECOND_AGO, "");
+	    	}else if(time.contains(ONE_MINUTE_AGO)){
+	    		String delta = time.replace(ONE_MINUTE_AGO, "");
+	    	}else if(time.contains(ONE_HOUR_AGO)){
+	    		String delta = time.replace(ONE_HOUR_AGO, "");
+	    	}else if(time.contains(ONE_HOUR_AGO)){
+	    		String delta = time.replace(ONE_HOUR_AGO, "");
+	    	}else if(time.contains("昨天")){
+	    		String delta = time.replace(ONE_SECOND_AGO, "");
+	    	}else if(time.contains(ONE_DAY_AGO)){
+	    		String delta = time.replace(ONE_DAY_AGO, "");
+	    	}else if(time.contains(ONE_MONTH_AGO)){
+	    		String delta = time.replace(ONE_MONTH_AGO, "");
+	    	}
+	    	
+	    	
 		}
 }

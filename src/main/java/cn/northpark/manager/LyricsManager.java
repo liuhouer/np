@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import cn.northpark.model.Lyrics;
-import cn.northpark.model.Vps;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 

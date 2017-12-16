@@ -210,8 +210,10 @@ public class DashAction {
 							
 							//处理日期显示格式
 							String updatedate = (String) map2.get("updatedate");
-							String engDate = TimeUtils.parse2EnglishDate(updatedate);
-							map2.put("engDate", engDate);
+							if(StringUtils.isNotEmpty(updatedate)){
+								String engDate = TimeUtils.parse2EnglishDate(updatedate);
+								map2.put("engDate", engDate);
+							}
 						}
 					}
 					
