@@ -59,6 +59,16 @@ public interface UserManager {
 	 */
 	public  int countHql(String wheresql);
 	
+	
+
+	/**
+	 * 根绝sql 预查寻返回list<map
+	 * @param sql
+	 * @param objects
+	 * @return
+	 */
+	public List<Map<String, Object>> querySqlMap(String sql, Object... objects);
+	
 }
 
 

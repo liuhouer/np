@@ -1,18 +1,15 @@
 package cn.northpark.test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.LyricsCommentManager;
@@ -25,9 +22,7 @@ import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.manager.UserManager;
 import cn.northpark.manager.UserprofileManager;
 import cn.northpark.manager.VpsManager;
-import cn.northpark.model.LyricsComment;
-import cn.northpark.model.User;
-import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.model.LyricsZan;
 import cn.northpark.utils.TimeUtils;
 
 /**
@@ -845,9 +840,94 @@ public class TestEQTask {
 //			}
 			
 			//插入醉爱主题评论信息 
+//			try {
+//				
+//				String sql = "select  id,titlecode from bc_lyrics where updatedate is null order by id desc limit 4000,6000";
+//				
+//				List<Map<String, Object>> list = lyricsManager.querySqlMap(sql);
+//				
+//				String start = TimeUtils.nowTime();
+//				System.out.println("开始时间："+start);
+//				
+//				
+//				//把所有需要执行的放进线程池中
+//				for (Map<String, Object> m:list) {
+//					Integer lyricsid = (Integer) m.get("id");
+//					String titlecode = (String) m.get("titlecode");
+//					
+//					try {
+//						
+//						
+//						System.out.println("titlecode------------->"+titlecode);
+//						
+//						List<Map<String, String>> retCaiMaiZT_PL = HTMLParserUtil.retCaiMaiZT_PL(titlecode);
+//						
+//						for (int i = 0; i < retCaiMaiZT_PL.size(); i++) {
+//							String username = retCaiMaiZT_PL.get(i).get("username");
+//							String tailslug = retCaiMaiZT_PL.get(i).get("tailslug");
+//							String comment = retCaiMaiZT_PL.get(i).get("comment");
+//							String shijian = retCaiMaiZT_PL.get(i).get("shijian");
+//							
+//							if(StringUtils.isNotEmpty(username)){
+//								System.out.println("username----------"+username);
+//								int num = userManager.countHql(" where username = '"+username+"' ");
+//								if(num<=0){//不存在插入用户
+//									User user = new User();
+//									user.setUsername(username);
+//									user.setTail_slug(tailslug+TimeUtils.getRandomDay());
+//									user.setEmail(tailslug+TimeUtils.getRandomDay()+"@qq.com");
+//									user.setPassword("MTIzNDU2MDAwMDAw");
+//									userManager.addUser(user);
+//									
+//									LyricsComment lc = new LyricsComment();
+//									lc.setComment(comment);
+//									lc.setLyricsid(lyricsid);
+//									lc.setUserid(user.getId());
+//									lc.setCreate_time(shijian);
+//									lcManager.addLyricsComment(lc);
+//									
+//								}else{
+//									User user = userManager.findByCondition(" where username = '"+username+"' ").getResultlist().get(0);
+//									Integer userid = user.getId();
+//									
+//									LyricsComment lc = new LyricsComment();
+//									lc.setComment(comment);
+//									lc.setLyricsid(lyricsid);
+//									lc.setUserid(userid);
+//									lc.setCreate_time(shijian);
+//									lcManager.addLyricsComment(lc);
+//									
+//								}
+//							}
+//						}
+//						
+//					} catch (Exception e) {
+//						// TODO Auto-generated catch block
+//						LOGGER.error(e);
+//						continue;
+//					}
+//				}
+//				
+//				
+//				
+//				String end = TimeUtils.nowTime();
+//				System.out.println("结束时间："+end);
+//				
+//				System.out.println(TimeUtils.getPastTime(end, start));
+//				
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//				
+			
+			
+			//插入点赞数据
+			
+			
 			try {
 				
-				String sql = "select  id,titlecode from bc_lyrics where updatedate is null order by id desc limit 0,2000";
+				String sql = "select  id from bc_lyrics where updatedate is null order by id desc ";
 				
 				List<Map<String, Object>> list = lyricsManager.querySqlMap(sql);
 				
@@ -858,48 +938,24 @@ public class TestEQTask {
 				//把所有需要执行的放进线程池中
 				for (Map<String, Object> m:list) {
 					Integer lyricsid = (Integer) m.get("id");
-					String titlecode = (String) m.get("titlecode");
 					
 					try {
+						int yizannum = lzManager.countHql(" where lyricsid = '"+lyricsid+"' ");
+						int total = lyricsManager.findLyrics(lyricsid).getZan();
 						
-						List<Map<String, String>> retCaiMaiZT_PL = HTMLParserUtil.retCaiMaiZT_PL(titlecode);
+						int limitsize = total - yizannum;
 						
-						for (int i = 0; i < retCaiMaiZT_PL.size(); i++) {
-							String username = retCaiMaiZT_PL.get(i).get("username");
-							String tailslug = retCaiMaiZT_PL.get(i).get("tailslug");
-							String comment = retCaiMaiZT_PL.get(i).get("comment");
-							String shijian = retCaiMaiZT_PL.get(i).get("shijian");
-							
-							if(StringUtils.isNotEmpty(username)){
-								System.out.println("username----------"+username);
-								int num = userManager.countHql(" where username = '"+username+"' ");
-								if(num<=0){//不存在插入用户
-									User user = new User();
-									user.setUsername(username);
-									user.setTail_slug(tailslug+TimeUtils.getRandomDay());
-									user.setEmail(tailslug+TimeUtils.getRandomDay()+"@qq.com");
-									user.setPassword("MTIzNDU2MDAwMDAw");
-									userManager.addUser(user);
-									
-									LyricsComment lc = new LyricsComment();
-									lc.setComment(comment);
-									lc.setLyricsid(lyricsid);
-									lc.setUserid(user.getId());
-									lc.setCreate_time(shijian);
-									lcManager.addLyricsComment(lc);
-									
-								}else{
-									User user = userManager.findByCondition(" where username = '"+username+"' ").getResultlist().get(0);
-									Integer userid = user.getId();
-									
-									LyricsComment lc = new LyricsComment();
-									lc.setComment(comment);
-									lc.setLyricsid(lyricsid);
-									lc.setUserid(userid);
-									lc.setCreate_time(shijian);
-									lcManager.addLyricsComment(lc);
-									
-								}
+						String userids = "select id from bc_user  where id not in (select userid from bc_lyrics_zan where lyricsid = ? ) order by rand() limit 0,? " ;
+						
+						List<Map<String, Object>> ls = userManager.querySqlMap(userids, lyricsid,limitsize);
+						
+						if(!CollectionUtils.isEmpty(ls)){
+							for (int i = 0; i < ls.size(); i++) {
+								 Integer userid = (Integer) ls.get(i).get("id");
+								 LyricsZan lz = new LyricsZan();
+								 lz.setLyricsid(lyricsid);
+								 lz.setUserid(userid);
+								 lzManager.addLyricsZan(lz);
 							}
 						}
 						
@@ -930,69 +986,11 @@ public class TestEQTask {
 		
 		
 	//测试多页	
-//		public void soft(Integer index){
-//          try {
-//				
-//				LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
-//				Map<String,String> map = null;
-//					
-//				List<Map<String, String>> list = HTMLParserUtil.retSoft(index);
-//				
-//				
-//				if(!CollectionUtils.isEmpty(list)){
-//					for (int i = 0; i < list.size(); i++) {
-//						map  = list.get(i);
-//						
-//						String title = map.get("title");
-//						String aurl = map.get("aurl");
-//						String brief = map.get("brief");
-//						String date = map.get("date");
-//						String article = map.get("article");
-//						String tag = map.get("tag");
-//						String code = map.get("code");
-//						String os = map.get("os");
-//						String month  = map.get("month");
-//						String year  = map.get("year");
-//						String tagcode = map.get("tagcode");
-//						
-//						
-//
-//						//是不存在的文章
-//						int flag = softManager.countHql(new Soft(), " where o.retcode= '"+code+"' ");
-//						
-//						if(flag<=0){
-//							
-//				    		Soft model = new Soft();
-//				    		model.setBrief(brief);
-//				    		model.setContent(article);
-//				    		model.setOs(os);
-//				    		model.setPostdate(date);
-//				    		model.setRetcode(code);
-//				    		model.setReturl(aurl);
-//				    		model.setTags(tag);
-//				    		model.setTitle(title);
-//				    		model.setMonth(month);
-//				    		model.setYear(year);
-//				    		model.setTagscode(tagcode);
-//				    		softManager.addSoft(model);
-//						}
-//					}
-//				}
-//				
-//				LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//			}
-//		}
 	
 	
 	@Test
 	public void save() {
 		runTask();
-		
-//		for (int i = 1; i < 65; i++) {
-//			soft(i);
-//		}
 	}
 	
 }

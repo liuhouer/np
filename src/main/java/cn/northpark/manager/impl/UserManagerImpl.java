@@ -104,5 +104,11 @@ public class UserManagerImpl implements UserManager {
 		return userDao.countHql(User.class, wheresql);
 	}
 
+	@Override
+	public List<Map<String, Object>> querySqlMap(String sql, Object... objects) {
+		// TODO Auto-generated method stub
+		return userDao.querySql(sql, objects);
+	}
+
 }
 
