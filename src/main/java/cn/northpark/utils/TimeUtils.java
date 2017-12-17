@@ -366,6 +366,47 @@ public class TimeUtils {
 			String dayAfter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
 			return dayAfter;
 		}
+		
+		
+		/**
+		 * @author bruce
+		 * @desc 取得某时间  前后N 天/月/年的时间,N=正负数，type=类型[D:DAY | M:MONTH |Y:YEAR |H:HOUR | MIN:minute | S:second]
+		 * @param specifiedDay
+		 * @return
+		 */
+		public static String getDateAfterOrBeforeN(String specifiedDay, int N,String type) {
+			Calendar c = Calendar.getInstance();
+			Date date = null;
+			try {
+				date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(specifiedDay);
+			} catch (ParseException e) {
+				LOGGER.error("TimeUtils------->", e);;
+			}
+			c.setTime(date);
+			
+			if("D".equals(type)){
+				int day = c.get(Calendar.DATE);
+				c.set(Calendar.DATE, day + N);
+			}else if("M".equals(type)){
+				int month = c.get(Calendar.MONTH);
+				c.set(Calendar.MONTH, month + N);
+			}else if("Y".equals(type)){
+				int year = c.get(Calendar.YEAR);
+				c.set(Calendar.YEAR, year + N);
+			}else if("H".equals(type)){
+				int hour = c.get(Calendar.HOUR);
+				c.set(Calendar.HOUR, hour + N);
+			}else if("MIN".equals(type)){
+				int minute = c.get(Calendar.MINUTE);
+				c.set(Calendar.MINUTE, minute + N);
+			}else if("S".equals(type)){
+				int second = c.get(Calendar.SECOND);
+				c.set(Calendar.SECOND, second + N);
+			}
+
+			String After = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
+			return After;
+		}
 
 		/**
 		 * @author bruce
@@ -588,24 +629,52 @@ public class TimeUtils {
 		
 	    public static void main(String[] args) {
 	    	//LOGGER.info(getWorkDateTime(11));;
-	    	String time = "8年前";
-	    	if(time.contains(ONE_YEAR_AGO)){
-	    		String delta = time.replace(ONE_YEAR_AGO, "");
-	    	}else if(time.contains(ONE_SECOND_AGO)){
-	    		String delta = time.replace(ONE_SECOND_AGO, "");
-	    	}else if(time.contains(ONE_MINUTE_AGO)){
-	    		String delta = time.replace(ONE_MINUTE_AGO, "");
-	    	}else if(time.contains(ONE_HOUR_AGO)){
-	    		String delta = time.replace(ONE_HOUR_AGO, "");
-	    	}else if(time.contains(ONE_HOUR_AGO)){
-	    		String delta = time.replace(ONE_HOUR_AGO, "");
-	    	}else if(time.contains("昨天")){
-	    		String delta = time.replace(ONE_SECOND_AGO, "");
-	    	}else if(time.contains(ONE_DAY_AGO)){
-	    		String delta = time.replace(ONE_DAY_AGO, "");
-	    	}else if(time.contains(ONE_MONTH_AGO)){
-	    		String delta = time.replace(ONE_MONTH_AGO, "");
-	    	}
+	    	  String time = 8+ONE_SECOND_AGO ;  
+//	          String time = 8+ONE_MINUTE_AGO ;  
+//	          String time = 8+ONE_HOUR_AGO ;  
+//	          String time = 8+ONE_DAY_AGO;  
+//	          String time = 8+ONE_MONTH_AGO;  
+//	          String time = 8+ONE_YEAR_AGO;  
+	          String dateAfterOrBeforeN= "";
+	  	    	if(time.contains(ONE_YEAR_AGO)){
+	  	    		String delta = time.replace(ONE_YEAR_AGO, "");
+	  	    		System.out.println(delta);
+	  	    		dateAfterOrBeforeN = TimeUtils.getDateAfterOrBeforeN(TimeUtils.nowTime(), Integer.parseInt("-"+delta), "Y");
+	  	    		
+	  	    	}else if(time.contains(ONE_SECOND_AGO)){
+	  	    		String delta = time.replace(ONE_SECOND_AGO, "");
+	  	    		System.out.println(delta);
+	  	    		dateAfterOrBeforeN = TimeUtils.getDateAfterOrBeforeN(TimeUtils.nowTime(), Integer.parseInt("-"+delta), "S");
+	  	    		
+	  	    	}else if(time.contains(ONE_MINUTE_AGO)){
+	  	    		String delta = time.replace(ONE_MINUTE_AGO, "");
+	  	    		System.out.println(delta);
+	  	    		dateAfterOrBeforeN = TimeUtils.getDateAfterOrBeforeN(TimeUtils.nowTime(), Integer.parseInt("-"+delta), "MIN");
+	  	    		
+	  	    	}else if(time.contains(ONE_HOUR_AGO)){
+	  	    		String delta = time.replace(ONE_HOUR_AGO, "");
+	  	    		System.out.println(delta);
+	  	    		dateAfterOrBeforeN = TimeUtils.getDateAfterOrBeforeN(TimeUtils.nowTime(), Integer.parseInt("-"+delta), "H");
+	  	    		
+	  	    	}else if(time.contains("昨天")){
+	  	    		String delta = "1";
+	  	    		System.out.println(delta);
+	  	    		dateAfterOrBeforeN = TimeUtils.getDateAfterOrBeforeN(TimeUtils.nowTime(), Integer.parseInt("-"+delta), "D");
+	  	    		
+	  	    	}else if(time.contains(ONE_DAY_AGO)){
+	  	    		String delta = time.replace(ONE_DAY_AGO, "");
+	  	    		System.out.println(delta);
+	  	    		dateAfterOrBeforeN = TimeUtils.getDateAfterOrBeforeN(TimeUtils.nowTime(), Integer.parseInt("-"+delta), "D");
+	  	    		
+	  	    	}else if(time.contains(ONE_MONTH_AGO)){
+	  	    		String delta = time.replace(ONE_MONTH_AGO, "");
+	  	    		System.out.println(delta);
+	  	    		dateAfterOrBeforeN = TimeUtils.getDateAfterOrBeforeN(TimeUtils.nowTime(), Integer.parseInt("-"+delta), "M");
+	  	    		
+	  	    	}
+	    	
+	    	
+	    	System.out.println(dateAfterOrBeforeN);
 	    	
 	    	
 		}
