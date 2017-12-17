@@ -29,11 +29,6 @@ function removes(obj){
 	      
 }
 
-function toEditInfo(){
-	$("#f1").submit();
-}
-
-
 function beforeSend(XMLHttpRequest){
 	  $("#showResult").append("<div><img src='/img/loading.gif' style='width:32px;height:32px;' /><div>");
 }

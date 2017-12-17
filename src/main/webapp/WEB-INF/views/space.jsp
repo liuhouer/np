@@ -59,7 +59,7 @@
 								<div class="col-md-10">
 									<div class="row">
 										<div class="col-xs-4 col-sm-2 center">
-											<a  href="/lyrics/toView/${s.id}"
+											<a  href="/lyrics/comment/${s.id}.html"
 												title="${s.title }" class="thumbnail border-0"> <img
 												src="/bruce/${s.albumImg }" alt="${s.title }">
 												<p>${s.title }</p>

@@ -51,7 +51,7 @@
 									</div>
 									<p class="margin-t10">
 										    <a title="${model.title}">
-												<img src="${model.img }" >
+												<img src="${model.img }" alt="${model.title}">
 											</a>
 									</p>
 									

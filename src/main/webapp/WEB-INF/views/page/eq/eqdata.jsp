@@ -12,10 +12,10 @@
 										<div class="thumbnail border-0 center">
 											<a title="${s.title}">
 											<c:if test="${s.img==null ||s.img==''}">
-												<img src="/img/davatar.jpg" class="imgbreath">
+												<img src="/img/davatar.jpg" class="imgbreath" alt="${s.title}">
 											</c:if>
 											<c:if test="${s.img!=null }">
-												<img src="${s.img }" class="imgbreath">
+												<img src="${s.img }" class="imgbreath" alt="${s.title}">
 											</c:if>
 											</a>
 											<p><label class="bold-text cutline " title="${s.title}">${s.title}</label></p>

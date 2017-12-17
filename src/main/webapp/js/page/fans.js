@@ -1,12 +1,4 @@
 	
-	function toEditInfo(){
-		$("#f1").submit();
-	}
-	
-	function toView(id){
-		$("#f2").attr("action","lyrics/toView.action?id="+id).submit();
-	}
-	
 	function addSpan(obj){
 		document.getElementById(obj).className = "span";
 	}

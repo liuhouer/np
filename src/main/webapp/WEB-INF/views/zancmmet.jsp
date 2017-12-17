@@ -147,7 +147,7 @@
 					
 					<div  class="row center">
 						<div  class="row margin-b20"  id="loadingAnimation" >
-							<img  src="/img/loading.gif" width="30"  height="30">			
+							<img alt="load comment of ${ datamap.lrc_title}" src="/img/loading.gif" width="30"  height="30">			
 						</div>
 						<button  class="btn btn-default btn-lg margin-b20"  id="loadStuffCommentBtn"  data-htmlboxid="stuffCommentBox"  rel="938" >加载更多 <span  class="glyphicon glyphicon-chevron-down"></span></button>
 						<input  type="hidden"  id="comment_id_from"  value="1">
@@ -172,7 +172,7 @@
 					        		<span class="${z.headspanclass }">${z.headspan }</span>
 								</c:if>
 								<c:if test="${z.headpath != null}">
-					        	<img  
+					        	<img  alt=""
 					        	    <c:choose>
 	   									<c:when test="${fn:contains(z.headpath ,'http://') }">src="${z.headpath }"</c:when>
 	                                    <c:otherwise>src="/bruce/${z.headpath }"</c:otherwise>

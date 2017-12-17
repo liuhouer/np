@@ -160,11 +160,11 @@ a:hover{text-decoration:underline;}
 
 	<div class="backgrounds">
 
-		<div class="item item_1"><img src="/img/poem/a1.png"/></div>
+		<div class="item item_1"><img alt="${poem.title }" src="/img/poem/a1.png"/></div>
 
-		<div class="item item_2"><img src="/img/poem/a2.png"/></div>
+		<div class="item item_2"><img alt="${poem.title }" src="/img/poem/a2.png"/></div>
 
-		<div class="item item_3"><img src="/img/poem/a3.png"/></div>
+		<div class="item item_3"><img alt="${poem.title }" src="/img/poem/a3.png"/></div>
 
 	</div>
 

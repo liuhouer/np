@@ -15,7 +15,7 @@
 								
 								</c:if>
 								<c:if test="${MyInfo.headpath!=null }">
-								<img alt="${MyInfo.username }的最爱" class="img-circle img-responsive "
+								<img alt="${MyInfo.username }" class="img-circle img-responsive "
 									<c:choose>
 	                                  <c:when test="${fn:contains(MyInfo.headpath ,'http://') }">src="${MyInfo.headpath}"</c:when>
 	                                  <c:otherwise>src="/bruce/${MyInfo.headpath }"</c:otherwise>

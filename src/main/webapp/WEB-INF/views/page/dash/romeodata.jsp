@@ -11,7 +11,7 @@
 									<div class="col-sm-5">
 										<div class="thumbnail border-1 center">
 											<a title="${s.title}">
-												<img src="${s.img }" >
+												<img src="${s.img }" alt="${s.title}" >
 											</a>
 											
 										</div>

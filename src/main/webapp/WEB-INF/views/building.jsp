@@ -38,7 +38,7 @@
 							d=====(￣▽￣*)b除非你正要星际穿越  ，在这种情况下：恭喜！你真的找到了。
 							</p>	
 							<p>
-							 <span id="mes" style="cursor: pointer;"><font color="#49c7be"><img src='/img/loading.gif' style='width:16px;height:16px;' /> 返回首页</font></span> <!-- <span id="mes"><font color="blue">5</font></span> 秒钟后返回首页！ -->
+							 <span id="mes" style="cursor: pointer;"><font color="#49c7be"><img src='/img/loading.gif' alt="星际穿越" style='width:16px;height:16px;' /> 返回首页</font></span> <!-- <span id="mes"><font color="blue">5</font></span> 秒钟后返回首页！ -->
 							</p>
 							<p>
 							<canvas id="c"></canvas>

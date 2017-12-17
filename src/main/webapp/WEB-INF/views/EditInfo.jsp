@@ -82,7 +82,7 @@
 											<div class="col-md-9 text-left">
 												<div class="row">
 													<div class="col-xs-3" id="preview">
-														<img id="imghead" <c:if test="${MyInfo.headpath==null }">
+														<img id="imghead" alt="avatar" <c:if test="${MyInfo.headpath==null }"> 
 														src="/img/davatar.jpg"
 														</c:if>
 														<c:if test="${MyInfo.headpath!=null }">

@@ -20,7 +20,7 @@
 											href="/people/${s.tail_slug}"
 											</c:if>
 											
-											title="${s.get('username')}:我的最爱">
+											title="${s.get('username')}:我的故事">
 											<c:if test="${s.get('headpath') ==null||s.get('headpath') ==''||s.get('headpath').length()==0}">
 												<span class=" imgbreath ${s.headspanclass }" alt="${s.get('username')}">${s.headspan }</span>
 											</c:if>
@@ -31,7 +31,7 @@
                                   				<c:otherwise>src="/bruce/${s.headpath }"</c:otherwise>
                                 			</c:choose> 
 											
-											 alt="${s.username}">
+											 alt="${s.username}的故事">
 											 </c:if>
 											</a>
 											<p><small class="gray-text">${s.username}</small></p>

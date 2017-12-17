@@ -67,7 +67,7 @@
 		    
             
             <div id="preview">
-				<img id="imghead" border=0 src="/bruce/${imgp }" width="200" height="200" />
+				<img id="imghead" border=0 src="/bruce/${imgp }" width="200" height="200"  alt="avatar"/>
 			</div>
 
 				<div class="form-group">

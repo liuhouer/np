@@ -72,7 +72,7 @@
 						<div class="clearfix hidden" id="searchResult"></div>
 
 						 <div id="preview" class="form-group " >
-							<img id="imghead" border=0 src="/img/head_180.jpg" width="200" height="200" />
+							<img id="imghead" border=0 src="/img/head_180.jpg" width="200" height="200" alt="avatar"/>
 						</div>
 						<div class="form-group">
 							<input disabled="disabled" id="formSubmit" data-activetext="添加 ››"

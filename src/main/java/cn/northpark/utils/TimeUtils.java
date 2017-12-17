@@ -635,7 +635,21 @@ public class TimeUtils {
 //	          String time = 8+ONE_DAY_AGO;  
 //	          String time = 8+ONE_MONTH_AGO;  
 //	          String time = 8+ONE_YEAR_AGO;  
-	          String dateAfterOrBeforeN= "";
+	          String dateAfterOrBeforeN = getTimeByFanyi(time);
+	    	
+	    	
+	    	System.out.println(dateAfterOrBeforeN);
+	    	
+	    	
+		}
+
+		/**
+		 * 根据 几年前|几秒前|几分钱|几天前|几个月前 分析出具体时间啊
+		 * @param time
+		 * @return
+		 */
+		public static String getTimeByFanyi(String time) {
+			String dateAfterOrBeforeN= "";
 	  	    	if(time.contains(ONE_YEAR_AGO)){
 	  	    		String delta = time.replace(ONE_YEAR_AGO, "");
 	  	    		System.out.println(delta);
@@ -672,10 +686,6 @@ public class TimeUtils {
 	  	    		dateAfterOrBeforeN = TimeUtils.getDateAfterOrBeforeN(TimeUtils.nowTime(), Integer.parseInt("-"+delta), "M");
 	  	    		
 	  	    	}
-	    	
-	    	
-	    	System.out.println(dateAfterOrBeforeN);
-	    	
-	    	
+			return dateAfterOrBeforeN;
 		}
 }
