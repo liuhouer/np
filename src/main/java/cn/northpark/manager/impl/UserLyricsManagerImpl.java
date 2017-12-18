@@ -69,7 +69,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
 	@Override
 	public List<Map<String, Object>> getMixMapData(PageView<List<Map<String, Object>>> pageview ,String userid) {
-		String sql = " select a.id,a.title,a.artist,a.album,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
+		String sql = " select a.id,a.title,a.titlecode,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
 	               
 				   + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '"+userid+"' )> 0 "
 	               +" then 'yizan' "
@@ -91,7 +91,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 	public PageView<List<Map<String, Object>>> getMixMapPage(
 			PageView<List<Map<String, Object>>> pageview, String userid) {
 		// TODO Auto-generated method stub
-		String sql = " select a.id,a.title,a.artist,a.album,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
+		String sql = " select a.id,a.title,a.titlecode,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
 	               
 				   + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '"+userid+"' )> 0 "
 	               +" then 'yizan' "

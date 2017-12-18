@@ -52,12 +52,6 @@ public class User implements Serializable{
 	private String headpath;
 	
 	@Column(length = 255)
-	private String wx_openid;
-
-	@Column(length = 2000)
-	private String wx_info;
-
-	@Column(length = 255)
 	private String qq_openid;
 
 	@Column(length = 2000)
@@ -65,23 +59,14 @@ public class User implements Serializable{
 	
 	@Column(length = 2000)
 	private String tail_slug;//自己的域名空间【字母代号】
+	
+	@Column(length = 255)
+	private String meta;// 个性签名
+	
+	@Column(length = 2000)
+	private String blogsite;//自己的个人页面
 
 
-	public String getWx_openid() {
-		return wx_openid;
-	}
-
-	public void setWx_openid(String wx_openid) {
-		this.wx_openid = wx_openid;
-	}
-
-	public String getWx_info() {
-		return wx_info;
-	}
-
-	public void setWx_info(String wx_info) {
-		this.wx_info = wx_info;
-	}
 
 	public String getQq_openid() {
 		return qq_openid;
@@ -178,5 +163,21 @@ public class User implements Serializable{
 
 	public void setHeadspan(String headspan) {
 		this.headspan = headspan;
+	}
+
+	public String getMeta() {
+		return meta;
+	}
+
+	public void setMeta(String meta) {
+		this.meta = meta;
+	}
+
+	public String getBlogsite() {
+		return blogsite;
+	}
+
+	public void setBlogsite(String blogsite) {
+		this.blogsite = blogsite;
 	}
 }

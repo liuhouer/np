@@ -26,8 +26,6 @@ public class Lyrics implements Serializable{
 	@Column(length = 6)	
 	private Integer id;
 
-	@Column(length = 32)
-	private String type;
 
 	@Column(length = 255)
 	private String title;
@@ -35,26 +33,9 @@ public class Lyrics implements Serializable{
 	@Column(length = 255)
 	private String titlecode;
 
-	@Column(length = 255)
-	private String artist;
-
-	@Column(length = 255)
-	private String album;
-
-	@Column(length = 32)
-	private String medialength;
-
-	@Column(length = 32)
-	private String rating;
-
-	@Column(length = 11)
-	private Integer downloads;
 
 	@Column(length = 255)
 	private String updatedate;
-
-	@Column(length = 255)
-	private String path;
 
 	@Column(length = 255)
 	private String albumImg;
@@ -67,13 +48,6 @@ public class Lyrics implements Serializable{
 	
 
 
-	public String getType() {
-		return type;	
-	}
-	
-	public void setType(String type) {
-		this.type = type;
-	}
 	public String getTitle() {
 		return title;	
 	}
@@ -81,41 +55,7 @@ public class Lyrics implements Serializable{
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getArtist() {
-		return artist;	
-	}
 	
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
-	public String getAlbum() {
-		return album;	
-	}
-	
-	public void setAlbum(String album) {
-		this.album = album;
-	}
-	public String getMedialength() {
-		return medialength;	
-	}
-	
-	public void setMedialength(String medialength) {
-		this.medialength = medialength;
-	}
-	public String getRating() {
-		return rating;	
-	}
-	
-	public void setRating(String rating) {
-		this.rating = rating;
-	}
-	public Integer getDownloads() {
-		return downloads;	
-	}
-	
-	public void setDownloads(Integer downloads) {
-		this.downloads = downloads;
-	}
 	public String getUpdatedate() {
 		return updatedate;	
 	}
@@ -123,13 +63,8 @@ public class Lyrics implements Serializable{
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
 	}
-	public String getPath() {
-		return path;	
-	}
+
 	
-	public void setPath(String path) {
-		this.path = path;
-	}
 	public String getAlbumImg() {
 		return albumImg;	
 	}

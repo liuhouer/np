@@ -17,10 +17,11 @@ import org.apache.log4j.Logger;
  *
  */
 public class TimeUtils {
-	  private static final long ONE_MINUTE = 60000L;  
-      private static final long ONE_HOUR = 3600000L;  
-      private static final long ONE_DAY = 86400000L;  
-      private static final long ONE_WEEK = 604800000L;  
+      private static final long ONE_MINUTE = 60L;  
+      private static final long ONE_HOUR   = 3600L;  
+      private static final long ONE_DAY    = 86400L;  
+      private static final long ONE_MONTH  = 2592000L;  
+      private static final long ONE_YEAR   = 31104000L;  
       
       private static final String ONE_SECOND_AGO = "秒前";  
       private static final String ONE_MINUTE_AGO = "分钟前";  
@@ -55,58 +56,85 @@ public class TimeUtils {
 		}
 		
 		//格式化时间串成为  几天前 几秒前 几小时前  几分钟前 几年前sth.....
-		public static String format(Date date) {  
-	        long delta = new Date().getTime() - date.getTime();  
-	        if (delta < 1L * ONE_MINUTE) {  
-	            long seconds = toSeconds(delta);  
-	            return (seconds <= 0 ? 1 : seconds) + ONE_SECOND_AGO;  
+		
+		 /** 
+	     * 距离今天多久 
+	     * @param date 
+	     * @return  
+	     * 
+	     */  
+	    public static String fromToday(Date date) {  
+	        Calendar calendar = Calendar.getInstance();  
+	        calendar.setTime(date);  
+	   
+	        long time = date.getTime() / 1000;  
+	        long now = new Date().getTime() / 1000;  
+	        long ago = now - time;  
+	        if(ago <= ONE_HOUR)  
+	            return ago / ONE_MINUTE + "分钟前";  
+	        else if (ago <= ONE_DAY)  
+	            return ago / ONE_HOUR + "小时"+ (ago % ONE_HOUR / ONE_MINUTE)  
+	                    +"分钟前";  
+	        else if (ago <= ONE_DAY * 2)  
+	            return"昨天" + calendar.get(Calendar.HOUR_OF_DAY) + "点"  
+	                    + calendar.get(Calendar.MINUTE) + "分";  
+	        else if (ago <= ONE_DAY * 3)  
+	            return"前天" + calendar.get(Calendar.HOUR_OF_DAY) + "点"  
+	                    + calendar.get(Calendar.MINUTE) + "分";  
+	        else if (ago <= ONE_MONTH) {  
+	            long day = ago / ONE_DAY;  
+	            return day + "天前"+ calendar.get(Calendar.HOUR_OF_DAY) + "点"  
+	                    + calendar.get(Calendar.MINUTE) + "分";  
+	        }else if (ago <= ONE_YEAR) {  
+	            long month = ago / ONE_MONTH;  
+	            long day = ago % ONE_MONTH / ONE_DAY;  
+	            return month + "个月"+ day + "天前"  
+	                    + calendar.get(Calendar.HOUR_OF_DAY) + "点"  
+	                    + calendar.get(Calendar.MINUTE) + "分";  
+	        }else{  
+	            long year = ago / ONE_YEAR;  
+	            int month = calendar.get(Calendar.MONTH) + 1;// JANUARY which is 0 so month+1  
+	            return year + "年前"+ month + "月"+ calendar.get(Calendar.DATE)  
+	                    +"日";  
 	        }  
-	        if (delta < 45L * ONE_MINUTE) {  
-	            long minutes = toMinutes(delta);  
-	            return (minutes <= 0 ? 1 : minutes) + ONE_MINUTE_AGO;  
+	   
+	    }  
+		
+	    
+	    /** 
+	     * 距离今天多久  简短的  只包含 年|月|日|小时|分 前的一种
+	     * @param date 
+	     * @return  
+	     * 
+	     */  
+	    public static String format(Date date) {  
+	        Calendar calendar = Calendar.getInstance();  
+	        calendar.setTime(date);  
+	   
+	        long time = date.getTime() / 1000;  
+	        long now = new Date().getTime() / 1000;  
+	        long ago = now - time;  
+	        if(ago <= ONE_MINUTE)  
+	            return ago  + ONE_SECOND_AGO;  
+	        else if(ago <= ONE_HOUR)  
+	            return ago / ONE_MINUTE + ONE_MINUTE_AGO;  
+	        else if (ago <= ONE_DAY)  
+	            return ago / ONE_HOUR + ONE_HOUR_AGO ;
+	        else if (ago <= ONE_DAY * 2)  
+	            return "昨天"; 
+	        else if (ago <= ONE_DAY * 3)  
+	            return"前天" ;
+	        else if (ago <= ONE_MONTH) {  
+	            long day = ago / ONE_DAY;  
+	            return day + ONE_DAY_AGO;  
+	        }else if (ago <= ONE_YEAR) {  
+	            long month = ago / ONE_MONTH;  
+	            return month + ONE_MONTH_AGO  ;
+	        }else{  
+	            long year = ago / ONE_YEAR;  
+	            return year + ONE_YEAR_AGO;  
 	        }  
-	        if (delta < 24L * ONE_HOUR) {  
-	            long hours = toHours(delta);  
-	            return (hours <= 0 ? 1 : hours) + ONE_HOUR_AGO;  
-	        }  
-	        if (delta < 48L * ONE_HOUR) {  
-	            return "昨天";  
-	        }  
-	        if (delta < 30L * ONE_DAY) {  
-	            long days = toDays(delta);  
-	            return (days <= 0 ? 1 : days) + ONE_DAY_AGO;  
-	        }  
-	        if (delta < 12L * 4L * ONE_WEEK) {  
-	            long months = toMonths(delta);  
-	            return (months <= 0 ? 1 : months) + ONE_MONTH_AGO;  
-	        } else {  
-	            long years = toYears(delta);  
-	            return (years <= 0 ? 1 : years) + ONE_YEAR_AGO;  
-	        }  
-	    }  
-	  
-	    private static long toSeconds(long date) {  
-	        return date / 1000L;  
-	    }  
-	  
-	    private static long toMinutes(long date) {  
-	        return toSeconds(date) / 60L;  
-	    }  
-	  
-	    private static long toHours(long date) {  
-	        return toMinutes(date) / 60L;  
-	    }  
-	  
-	    private static long toDays(long date) {  
-	        return toHours(date) / 24L;  
-	    }  
-	  
-	    private static long toMonths(long date) {  
-	        return toDays(date) / 30L;  
-	    }  
-	  
-	    private static long toYears(long date) {  
-	        return toMonths(date) / 365L;  
+	   
 	    }  
 		
 	    /**

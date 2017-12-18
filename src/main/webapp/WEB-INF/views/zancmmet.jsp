@@ -193,7 +193,7 @@
 										    </c:if>
 				        		
 				        		
-				        		 title="${z.username }的最爱">${z.username }</a> 爱上了 <a style="color: #45d0c6" title="${z.title }"  href="/lyrics/comment/${z.lyricsid }.html">${z.title }</a>
+				        		 title="${z.username }的最爱">${z.username }</a> 爱上了 <a style="color: #45d0c6" title="${z.title }"  href="/love/${z.titlecode }.html">${z.title }</a>
 				        	</div>
 				        </div>
 				</c:forEach>

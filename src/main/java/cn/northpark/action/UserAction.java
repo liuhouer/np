@@ -30,23 +30,18 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.northpark.interceptor.CheckLogin;
 import cn.northpark.manager.ResetManager;
 import cn.northpark.manager.UserFollowManager;
-import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.manager.UserManager;
 import cn.northpark.manager.UserprofileManager;
 import cn.northpark.model.Reset;
 import cn.northpark.model.User;
 import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
-import cn.northpark.query.condition.UserLyricsQueryCondition;
 import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
-import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.page.MyConstant;
-import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.safe.WAQ;
 
 @Controller
@@ -66,8 +61,6 @@ public class UserAction {
 	 private UserManager userManager;
 	 @Autowired	
 	 private UserprofileManager userprofileManager;
-	 @Autowired	
-	 private UserLyricsManager userlyricsManager;
 	 @Autowired	
 	 private UserFollowManager userfollowManager;
 	 @Autowired	
@@ -366,10 +359,13 @@ public class UserAction {
 					map.put("MyInfo", user);
 					
 					//查询个人歌词最爱历史
-					String sql =  "select c.updatedate,c.id,c.title,c.albumImg,b.id as userlyricsid from    bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id where b.userid = ? order by c.updatedate desc" ;
+					String sql =  "select c.updatedate,c.id,c.title,c.titlecode,c.albumImg,b.id as userlyricsid from    bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id where b.userid = ? order by c.updatedate desc" ;
 					
 					List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
 					for (int i = 0; i < list.size(); i++) {
+						
+						System.out.println(list.get(i).get("updatedate"));
+						System.out.println(TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
 						//--批量处理时间
 						list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
 						
@@ -486,7 +482,7 @@ public class UserAction {
 			map.put("MyInfo", user);
 			
 			//查询个人歌词最爱历史
-			String sql =  "select c.updatedate,c.id,c.title,c.albumImg,b.id as userlyricsid from    bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id where b.userid = ? order by c.updatedate desc" ;
+			String sql =  "select c.updatedate,c.id,c.title,c.titlecode,c.albumImg,b.id as userlyricsid from    bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id where b.userid = ? order by c.updatedate desc" ;
 
 			if(user!=null){
 				List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
@@ -540,7 +536,7 @@ public class UserAction {
 			}
 			map.put("MyInfo", user);
 			//查询个人歌词最爱历史
-			String sql =  "select c.updatedate,c.id,c.title,c.albumImg,b.id as userlyricsid from    bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id where b.userid = ? order by c.updatedate desc" ;
+			String sql =  "SELECT c.updatedate, c.id, c.title, c.titlecode, c.albumImg, b.id AS userlyricsid FROM bc_lyrics_zan d left join bc_lyrics c on d.lyricsid = c.id left join bc_user_lyrics b ON b.lyricsid = c.id WHERE d.userid = ? ORDER BY c.updatedate DESC" ;
 			
 			if(user!=null){
 				List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
@@ -588,10 +584,9 @@ public class UserAction {
 		@RequestMapping("/cm/toEditInfo")
 		@CheckLogin
 		public String toEditInfo(ModelMap map,HttpServletRequest request) {
-	              User u = (User) request.getSession().getAttribute("user");
 			
-			User user = userManager.findUser(u.getId());
-			map.put("MyInfo", user);
+	        User u = (User) request.getSession().getAttribute("user");
+			map.put("MyInfo", u);
 			Userprofile Duser = userprofileManager.getModelByUserid(String.valueOf(u.getId()));
 			map.put("Dinfo", Duser);
 			return "/EditInfo";
@@ -614,7 +609,21 @@ public class UserAction {
 		 * @return
 		 */
 		@RequestMapping("/cm/saveEditInfo")
-		public String saveEditInfo(HttpSession session,User model,ModelMap map,String oldpath, @RequestParam(value = "file", required = false) MultipartFile[] file,String new_password,String new_password_confirmation,String courseware,String year_of_birth,String user_slug) {
+		public String saveEditInfo(HttpSession session,ModelMap map,String username,String tail_slug,String year_of_birth,String courseware,String new_password,String new_password_confirmation, @RequestParam(value = "file", required = false) MultipartFile[] file) {
+			
+			
+			//获取当前user
+			User user = (User) session.getAttribute("user");
+			
+			String oldpath = user.getHeadpath();
+			
+			user.setUsername(username);
+			
+			user.setTail_slug(tail_slug);
+			
+			user.setBlogsite(courseware);
+			
+			
 			// 执行删除图片缓存
 			FileUtils.removeOldFile(oldpath, file);
 			
@@ -623,34 +632,27 @@ public class UserAction {
 	        //执行上传end
 
 			if(filelist.size()>0){
-				model.setHeadpath(filelist.get(0));
+				user.setHeadpath(filelist.get(0));
 			}else{
-				model.setHeadpath(oldpath);
+				user.setHeadpath(oldpath);
 			}
 		        
 		        //处理密码信息
 		        if(!StringUtils.isEmpty(new_password)&&!StringUtils.isEmpty(new_password_confirmation)&&new_password.equals(new_password_confirmation)){
-		        	model.setPassword(Base64Util.JIAMI(new_password));
+		        	user.setPassword(Base64Util.JIAMI(new_password));
 		        }
 		        //处理密码信息
-			   this.userManager.updateUser(model);
-			   session.setAttribute("user",model);
+			   userManager.updateUser(user);
+			   session.setAttribute("user",user);
 			  //保存User表信息-------结束
 			   
 			 //保存User明细表信息-------start
-            String userid = String.valueOf(model.getId());
-            Userprofile up = userprofileManager.getModelByUserid(userid);
-            if(StringUtils.isEmpty(String.valueOf(up.getUser_id()))){
-            	up.setUser_id(Integer.parseInt(userid));
-            }
+            Userprofile up = userprofileManager.getModelByUserid(String.valueOf(user.getId()));
             if (!StringUtils.isEmpty(courseware)) {
             	up.setCourseware(courseware);
 			}
             if (!StringUtils.isEmpty(year_of_birth)) {
             	up.setYear_of_birth(year_of_birth);
-			}
-            if (!StringUtils.isEmpty(user_slug)) {
-            	up.setUser_slug(user_slug);
 			}
             userprofileManager.updateUserprofile(up);
           //保存User明细表信息-------end
@@ -801,133 +803,7 @@ public class UserAction {
 		}
 
 		
-		/**
-		 * 最爱分页查询 【跳转】
-		 * @param map
-		 * @param condition
-		 * @param page
-		 * @param request
-		 * @param response
-		 * @param session
-		 * @return
-		 */
-		@RequestMapping(value="/love/page/{page}")
-		public String listpage(ModelMap map,UserLyricsQueryCondition condition,@PathVariable String page,HttpServletRequest request,
-				HttpServletResponse response, HttpSession session) {
-			
-			//获取域名+tab{selection}
-			session.removeAttribute("tabs");
-			session.setAttribute("tabs","pic");
-			
-			User u = (User) session.getAttribute("user");
-			
-			String userid = (u==null?"":String.valueOf(u.getId()));
-			
-			//定义pageview
-			PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(page), MyConstant.MAXRESULT);
-			
-			//获取分页结构不获取数据
-			
-			pageview = this.userlyricsManager.getMixMapPage(pageview, userid);
-			
-			map.addAttribute("pageView", pageview);
-			map.put("condition", condition);
-			map.addAttribute("actionUrl","/love");
-			map.addAttribute("page", page);
-			
-			return "/welcome";
-		}
 		
-		/**
-		 * 最爱查询 【跳转】
-		 * @param map
-		 * @param condition
-		 * @param request
-		 * @param response
-		 * @param session
-		 * @param userid
-		 * @return
-		 */
-		@RequestMapping(value="/love")
-		public String list(ModelMap map,UserLyricsQueryCondition condition,HttpServletRequest request,
-				 HttpSession session,String userid) {
-			session.removeAttribute("tabs");
-			session.setAttribute("tabs","pic");
-			
-	        User u = (User) session.getAttribute("user");
-				
-			userid = (u==null?"":String.valueOf(u.getId()));
-
-			
-			//定义pageview
-			PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(1, MyConstant.MAXRESULT);
-			
-			//获取分页结构不获取数据
-			
-			pageview = this.userlyricsManager.getMixMapPage(pageview, userid);
-			
-			
-			map.addAttribute("pageView", pageview);
-			map.put("condition", condition);
-			map.addAttribute("actionUrl","/love");
-			
-			
-			return "/welcome";
-		}
-		
-		
-		/**
-		 * 异步分页查询love'数据
-		 * @param map
-		 * @param request
-		 * @param session
-		 * @param userid
-		 * @return
-		 */
-		@RequestMapping(value="/lovequery")
-		public String lovequery(ModelMap map,HttpServletRequest request, HttpSession session,String userid) {
-			String currentpage = request.getParameter("currentpage");
-			
-	        User u = (User) session.getAttribute("user");
-				
-			userid = (u==null?"":String.valueOf(u.getId()));
-
-			
-			//定义pageview
-			PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
-			
-			
-			//获取分页数据
-			List<Map<String, Object>>  lovelist = this.userlyricsManager.getMixMapData(pageview,userid);
-			
-			
-			
-			if(!CollectionUtils.isEmpty(lovelist)){
-				for (int i = 0; i < lovelist.size(); i++) {
-					Map<String, Object> map2 = lovelist.get(i);
-					
-					//处理标题截断
-					String title = (String) map2.get("title");
-					String cutString = HTMLParserUtil.CutString(title, 12);
-					map2.put("cuttitle", cutString);
-					
-					//处理日期显示格式
-					String updatedate = (String) map2.get("updatedate");
-					if(StringUtils.isNotEmpty(updatedate)){
-						String engDate = TimeUtils.parse2EnglishDate(updatedate);
-						map2.put("engDate", engDate);
-					}
-				}
-			}
-			
-			
-			map.addAttribute("lovelist", lovelist);
-			
-			
-			return "/page/love/lovedata";
-		}
-		
-
 		
 		
 	/**

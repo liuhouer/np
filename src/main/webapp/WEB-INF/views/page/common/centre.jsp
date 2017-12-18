@@ -33,8 +33,12 @@
 							<h4 class="margin0"><small>http://NorthPark.cn/people/${MyInfo.tail_slug }</small></h4>
 							<p class="white-line"></p>
 
-							
-							<h3 class="margin0"><small>${MyInfo.email }</small></h3>
+							<c:if test="${MyInfo.meta!=null }">
+								<h3 class="margin0"><small>${MyInfo.meta }</small></h3>
+							</c:if>
+							<c:if test="${MyInfo.blogsite!=null }">
+								<h3 class="margin0"><small>${MyInfo.blogsite }</small></h3>
+							</c:if>
 							<h3 class="margin0"><small>加入时间：${MyInfo.date_joined }</small></h3>
 						 
 						 	<h2><a href="/note/findAll" class="btn btn-hero btn-lg">+ 添加碎碎念</a></h2>

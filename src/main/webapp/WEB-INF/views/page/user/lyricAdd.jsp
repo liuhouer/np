@@ -41,21 +41,6 @@
 							<hr>
 						</div>
 
-						<!-- <div class="form-group hidden">
-							<input id="artist" placeholder="艺术家 比如：周杰伦"
-								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-								name="artist" type="text" >
-						</div>
-						<div class="form-group hidden" >
-							<input id="album" placeholder="专辑 比如：依然范特西"
-								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-								name="album" type="text" >
-						</div>
-						<div class="form-group hidden">
-							<input id="medialength" placeholder="媒体长度 比如：00:04:25"
-								class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-								name="medialength" type="text" value="00:04:25">
-						</div> -->
 						<span style="color: #999; opacity: 1;">主题</span>
 						<div class="form-group padding-b20">
 							<input id="title" placeholder="暴雨中漫步"
@@ -67,8 +52,6 @@
 					        <input placeholder="专辑图片 选择一个你喜欢的图片" name="file" id="file1" type="file" onchange="previewImage(this)" accept=".jpg,.gif,.png,.ico,.bmp" 
 					        class="form-control   border-light-1 bg-lyellow grid98 radius-0"/> 
 					    </div>     
-						<!-- <span style="color: #999; opacity: 1;">歌词文件</span>
-						 		<input  placeholder="选择一个你喜欢的歌词" name="file" id="lrcid" type="file"  accept=".lrc"  class="border-light-1 bg-lyellow grid98 radius-0" />   -->
 						<div class="clearfix hidden" id="searchResult"></div>
 
 						 <div id="preview" class="form-group " >

@@ -9,7 +9,7 @@
 				   				<div class="col-xs-6 col-sm-3 margin-b20 ">
 							   			<div class="blog-post">
 			                                <div class="blog-thumb">
-			                                    <a href="/lyrics/comment/${s.id }.html" >
+			                                    <a href="/love/${s.titlecode }.html" >
 			                                       	<img class="imgbreath" width="257" height="193"
 					                                    <c:choose>
 																  <c:when test="${fn:contains(s.albumImg ,'http://') }">
@@ -27,14 +27,14 @@
 			                                <div class="blog-content">
 			                                    <div class="content-show">
 			                                        <h4>
-			                                       	 <a href="/lyrics/comment/${s.id }.html" >
+			                                       	 <a href="/love/${s.titlecode }.html" >
 			                                       	 ${s.cuttitle }
 			                                       	 </a></h4>
 			                                        <span>${s.engDate }</span>
 			                                    </div>
-			                                    <div class="content-hide" style="display: none;">
+			                                    <%-- <div class="content-hide" style="display: none;">
 			                                        <p>${s.album }<br>${s.artist }</p>
-			                                    </div>
+			                                    </div> --%>
 			                                </div>
 			                                
 			                                
