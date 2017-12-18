@@ -45,11 +45,6 @@
 												注册邮箱：
 											</label>
 											<div class="col-md-9 text-left">
-												<input type="hidden" name="id" value="${MyInfo.id }">
-												<input type="hidden" name="email" value="${MyInfo.email }">
-												<input type="hidden" name="password" value="${MyInfo.password }">
-												<input type="hidden" name="oldpath" value="${MyInfo.headpath }">
-												<input type="hidden" name="date_joined" value="${MyInfo.date_joined }">
 												<p id="email" class="input-lg padding0 control-label text-left">
 													${MyInfo.email }
 												</p>

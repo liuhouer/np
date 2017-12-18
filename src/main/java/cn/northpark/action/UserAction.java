@@ -364,8 +364,6 @@ public class UserAction {
 					List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
 					for (int i = 0; i < list.size(); i++) {
 						
-						System.out.println(list.get(i).get("updatedate"));
-						System.out.println(TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
 						//--批量处理时间
 						list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
 						
@@ -526,53 +524,74 @@ public class UserAction {
 		 */
 		@RequestMapping("/people/{tail_slug}")
 		public String people(ModelMap map, @PathVariable String tail_slug ,HttpServletRequest request) {
+			String rs = "/space";
 			try{
-			
-				tail_slug = WAQ.forSQL().escapeSql(tail_slug);	
-			User user = null;
-			List<User> ul = userManager.findByCondition(" where tail_slug = '"+tail_slug+"' ").getResultlist();
-			if(!CollectionUtils.isEmpty(ul)){
+				
+				 //取得当前用户
+		        User c_user = (User) request.getSession().getAttribute("user");
+		        
+		        
+		        
+		        tail_slug = WAQ.forSQL().escapeSql(tail_slug);	
+				User user = null;
+				List<User> ul = userManager.findByCondition(" where tail_slug = '"+tail_slug+"' ").getResultlist();
+				if(!CollectionUtils.isEmpty(ul)){
 					user = ul.get(0);
-			}
-			map.put("MyInfo", user);
-			//查询个人歌词最爱历史
-			String sql =  "SELECT c.updatedate, c.id, c.title, c.titlecode, c.albumImg, b.id AS userlyricsid FROM bc_lyrics_zan d left join bc_lyrics c on d.lyricsid = c.id left join bc_user_lyrics b ON b.lyricsid = c.id WHERE d.userid = ? ORDER BY c.updatedate DESC" ;
-			
-			if(user!=null){
-				List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
-				for (int i = 0; i < list.size(); i++) {
-					
-					//--批量处理时间
-					if(StringUtils.isNotEmpty((String)list.get(i).get("updatedate"))){
-						list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
-					}
 				}
-				map.addAttribute("Lovelist", list);
+				map.put("MyInfo", user);
+				
+		       
+		         
+				
+				//查询个人歌词最爱历史
+				String sql =  "SELECT c.updatedate, c.id, c.title, c.titlecode, c.albumImg, b.id AS userlyricsid FROM bc_lyrics_zan d left join bc_lyrics c on d.lyricsid = c.id left join bc_user_lyrics b ON b.lyricsid = c.id WHERE d.userid = ? ORDER BY c.updatedate DESC" ;
+
+				if(user!=null){
+					List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));
+					for (int i = 0; i < list.size(); i++) {
+
+						//--批量处理时间
+						if(StringUtils.isNotEmpty((String)list.get(i).get("updatedate"))){
+							list.get(i).put("updatedate", TimeUtils.formatToNear((String)list.get(i).get("updatedate")));
+						}
+					}
+					map.addAttribute("Lovelist", list);
+
+
+					
+				}
 				
 				
-				 //取得当前用户对作者的关注状态
-		         User lo_user = (User) request.getSession().getAttribute("user");
-		         if(lo_user!=null){
-		        	 String follow_id = String.valueOf(lo_user.getId());
-		        	 String author_id = String.valueOf(user.getId());
-		        	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
-		        		 
-		        		 String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
-		 	 			List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id,follow_id);
-		 		 		String nums =  ygznums_list.get(0).get("nums").toString();
-		        		 if(Integer.parseInt(nums)>0){
-		        			 map.put("gz", "ygz");
-		        		 }
-		        	 }
-		        	 
-		         }
-			}
-			
-			
+				//是本人 --跳个人中心
+				
+		        if(null!= c_user && c_user.getTail_slug().equals(tail_slug)){
+		        	//标签颜色筛选中
+		        	request.getSession().removeAttribute("tabs");
+					request.getSession().setAttribute("tabs","pcenter");
+					rs = "/myself";
+		        }else{
+		        	//取得当前用户对作者的关注状态
+					if(c_user!=null){
+						String follow_id = String.valueOf(c_user.getId());
+						String author_id = String.valueOf(user.getId());
+						if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
+
+							String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
+							List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id,follow_id);
+							String nums =  ygznums_list.get(0).get("nums").toString();
+							if(Integer.parseInt(nums)>0){
+								map.put("gz", "ygz");
+							}
+						}
+
+					}
+		        }
+
+
 			}catch(Exception e){
 				LOGGER.error("commonAction------>",e);
 			}
-			return "/space";
+			return rs;
 		}
 		
 		/**
@@ -581,7 +600,7 @@ public class UserAction {
 		 * @param request
 		 * @return
 		 */
-		@RequestMapping("/cm/toEditInfo")
+		@RequestMapping("/me/settings")
 		@CheckLogin
 		public String toEditInfo(ModelMap map,HttpServletRequest request) {
 			
@@ -786,6 +805,7 @@ public class UserAction {
 					user.setHeadspanclass(headspanclass);
 				}
 				user.setUsername(username);
+				user.setTail_slug(username+TimeUtils.getRandomDay());
 				user.setPassword(Base64Util.JIAMI(user.getPassword()));
 				this.userManager.addUser(user);
 				session.setAttribute("user", user);

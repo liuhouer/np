@@ -44,7 +44,7 @@
 			</ul>
 </div>
 		       <form id="f2" method="post"><input name="userid" type="hidden" value="${user.id }"/></form>
-		       <form action="/cm/toEditInfo" method="post" id="f1">
+		       <form action="/me/settings" method="post" id="f1">
                    <input name="userid" value="${user.id }" type="hidden">
                </form>
 				<div class="row bg-white margin-t10 margin-b10  ">

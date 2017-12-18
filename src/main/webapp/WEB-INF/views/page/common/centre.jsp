@@ -25,7 +25,7 @@
 								</c:if>
 								<br>
 							   </div>
-								<a href="/cm/toEditInfo" class="btn btn-gray btn-sm margin-t20"><span class="glyphicon glyphicon-pencil"></span> 编辑档案</a>
+								<a href="/me/settings" class="btn btn-gray btn-sm margin-t20"><span class="glyphicon glyphicon-pencil"></span> 编辑档案</a>
 							</div>
 						</div>
 						<div class="col-xs-8">
