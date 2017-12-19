@@ -36,7 +36,8 @@ public class HTMLParserUtil{
     private static final Logger LOGGER = Logger
             .getLogger(HTMLParserUtil.class);
     
-
+    	
+    	
     /**
      * 爬虫采麦的最爱主题关联信息  ------------根据主题页  获取 评论列表、、
                 
@@ -1612,6 +1613,7 @@ public class HTMLParserUtil{
             	
             	 retCaiMaiZT_PL("shui-jue");
             	 System.out.println(replaceBlank("\n\t\t\t\t丫丫的小贝壳屋：能够睡到自然醒就是一种幸福\n\t\t\t\t\t\t\t"));
+            	
             	
             } catch (Exception e) {
                 // TODO Auto-generated catch block

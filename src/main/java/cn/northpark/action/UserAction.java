@@ -253,8 +253,9 @@ public class UserAction {
 	 			
 	 			String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
 	 			List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id,follow_id);
-		 		String nums = (String) ygznums_list.get(0).get("nums");
-	 			if(Integer.parseInt(nums)==0){
+		 		Object nums =   ygznums_list.get(0).get("nums");
+		 		
+	 			if(Integer.valueOf(String.valueOf(nums))==0){
 		 			UserFollow uf = new UserFollow();
 			 		uf.setAuthor_id(Integer.parseInt(author_id));
 			 		uf.setFollow_id(Integer.parseInt(follow_id));
@@ -265,6 +266,8 @@ public class UserAction {
 			 		}
 		 		}
 			} catch (Exception e) {
+				
+				LOGGER.error("cm--follow--ex::"+e);
 				// TODO: handle exception
 				msg = "exp";
 			}
@@ -288,6 +291,7 @@ public class UserAction {
 	 			}
 			} catch (Exception e) {
 				// TODO: handle exception
+				LOGGER.error("cm--unfollow--ex::"+e);
 				msg = "exp";
 			}
 	 		
@@ -544,7 +548,7 @@ public class UserAction {
 		         
 				
 				//查询个人歌词最爱历史
-				String sql =  "SELECT c.updatedate, c.id, c.title, c.titlecode, c.albumImg, b.id AS userlyricsid FROM bc_lyrics_zan d left join bc_lyrics c on d.lyricsid = c.id left join bc_user_lyrics b ON b.lyricsid = c.id WHERE d.userid = ? ORDER BY c.updatedate DESC" ;
+				String sql =  "SELECT c.updatedate, c.id, c.title, c.titlecode, c.albumImg, b.id AS userlyricsid FROM bc_lyrics_zan d left join bc_lyrics c on d.lyricsid = c.id left join bc_user_lyrics b ON b.lyricsid = c.id WHERE d.userid = ? and c.id is not null ORDER BY c.updatedate DESC" ;
 
 				if(user!=null){
 					List<Map<String, Object>> list  = userManager.querySql(sql,String.valueOf(user.getId()));

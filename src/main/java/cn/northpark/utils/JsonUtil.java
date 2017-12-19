@@ -48,7 +48,7 @@ public class JsonUtil {
 	 * @return
 	 *          the json string of list transform
 	 */
-	public static String list2json(List list) {
+	public static String list2json(List<?> list) {
 		return JSON.toJSONString(list);
 	}
 
@@ -59,7 +59,7 @@ public class JsonUtil {
 	 * @return
 	 *          the json string of map transform
 	 */
-	public static String map2json(Map map) {
+	public static String map2json(Map<String,Object> map) {
 		return JSONObject.toJSONString(map);
 	}
 
@@ -227,6 +227,7 @@ public class JsonUtil {
 			});
 		} catch (Exception e) {
 			// TODO: handle exception
+			LOGGER.error(e);
 		}
 		return list;
 	}
