@@ -3,8 +3,6 @@ package cn.northpark.test;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.text.html.HTML;
-
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,9 +22,7 @@ import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.manager.UserManager;
 import cn.northpark.manager.UserprofileManager;
 import cn.northpark.manager.VpsManager;
-import cn.northpark.model.Lyrics;
-import cn.northpark.model.LyricsComment;
-import cn.northpark.model.LyricsZan;
+import cn.northpark.model.Soft;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.TimeUtils;
 
@@ -142,7 +138,7 @@ public class TestEQTask {
 //			try {
 //
 //				
-//				for (int k = 1; k < 2; k++) {
+//				for (int k = 1; k < 3; k++) {
 //					List<Map<String, String>> lift = HTMLParserUtil.retCoupon(k, BC_Constant.Coupon_VPS_7);
 //		    		for (int i = 0; i < lift.size(); i++) {
 //		    			
@@ -201,78 +197,87 @@ public class TestEQTask {
 //			LOGGER.info("VPS任务结束"+TimeUtils.getNowTime());
 			
 //			
-//			try {
-//				
-//				LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
-//				Map<String,String> map = null;
-//				
-//				
-//				
-//				for (int k = 1; k <= 1; k++) {
-//					List<Map<String, String>> list = HTMLParserUtil.retSoft(k);
-//					
-//					
-//					if(!CollectionUtils.isEmpty(list)){
-//						for (int i = 0; i < list.size(); i++) {
-//							map  = list.get(i);
-//							
-//							String title = map.get("title");
-//							String aurl = map.get("aurl");
-//							String brief = map.get("brief");
-//							String date = map.get("date");
-//							String article = map.get("article");
-//							String tag = map.get("tag");
-//							String code = map.get("code");
-//							String os = map.get("os");
-//							String month  = map.get("month");
-//							String year  = map.get("year");
-//							String tagcode = map.get("tagcode");
-//							
-//							
-//
-//							//是不存在的文章
-//							int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
-//							
-//							if(flag<=0){
-//								
-//					    		Soft model = new Soft();
-//					    		model.setBrief(brief);
-//					    		model.setContent(article);
-//					    		model.setOs(os);
-//					    		model.setPostdate(date);
-//					    		model.setRetcode(code);
-//					    		model.setReturl(aurl);
-//					    		model.setTags(tag);
-//					    		model.setTitle(title);
-//					    		model.setMonth(month);
-//					    		model.setYear(year);
-//					    		model.setTagscode(tagcode);
-//					    		softManager.addSoft(model);
-//							}
-//						}
-//					}
-//					
-//					
-//				
-//					try {
-//					    Thread.sleep(1000*5);
-//					    LOGGER.info("第"+k+"页================");
-//					} catch (InterruptedException e) {
-//					    // TODO Auo-generated catch block
-//					    e.printStackTrace();
-//					}
-//					
-//				}
-//				
-//				
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				LOGGER.info(e);
-//			}
-//				
-//			LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
-//			
-//			LOGGER.info("软件定时任务结束"+TimeUtils.getNowTime());
+			try {
+				
+				LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
+				Map<String,String> map = null;
+				
+				
+				
+				for (int k = 11; k <= 20; k++) {
+					
+					try {
+						
+						List<Map<String, String>> list = HTMLParserUtil.retSoft(k);
+						
+						
+						if(!CollectionUtils.isEmpty(list)){
+							for (int i = 0; i < list.size(); i++) {
+								map  = list.get(i);
+								
+								String title = map.get("title");
+								String aurl = map.get("aurl");
+								String brief = map.get("brief");
+								String date = map.get("date");
+								String article = map.get("article");
+								String tag = map.get("tag");
+								String code = map.get("code");
+								String os = map.get("os");
+								String month  = map.get("month");
+								String year  = map.get("year");
+								String tagcode = map.get("tagcode");
+								
+								
+
+								//是不存在的文章
+								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
+								
+								if(flag<=0){
+									
+						    		Soft model = new Soft();
+						    		model.setBrief(brief);
+						    		model.setContent(article);
+						    		model.setOs(os);
+						    		model.setPostdate(date);
+						    		model.setRetcode(code);
+						    		model.setReturl(aurl);
+						    		model.setTags(tag);
+						    		model.setTitle(title);
+						    		model.setMonth(month);
+						    		model.setYear(year);
+						    		model.setTagscode(tagcode);
+						    		softManager.addSoft(model);
+								}
+							}
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						LOGGER.error(e);
+						continue;
+					}
+					
+					
+					
+				
+					try {
+					    Thread.sleep(1000*5);
+					    LOGGER.info("第"+k+"页================");
+					} catch (InterruptedException e) {
+					    // TODO Auo-generated catch block
+					    e.printStackTrace();
+					}
+					
+				}
+				
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				LOGGER.info(e);
+			}
+				
+			LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
+			
+			LOGGER.info("软件定时任务结束"+TimeUtils.getNowTime());
 			
 			
 			
@@ -970,48 +975,54 @@ public class TestEQTask {
 		
 		
 			//更新网络图片  替换主题为空的图片
-			try {
-				
-				String sql = "select * from bc_lyrics where albumImg ='' order by updatedate desc";
-				
-				List<Lyrics> list = lyricsManager.querySql(sql);
-				
-				String start = TimeUtils.nowTime();
-				System.out.println("开始时间："+start);
-				
-				
-				//把所有需要执行的放进线程池中
-				for (Lyrics m:list) {
-					try {
-						String  title = m.getTitle();
-						String  titlecode = m.getTitlecode();
-						System.out.println(title);
-						String retPicByName = HTMLParserUtil.retPicByName(title, titlecode);
-						
-						m.setAlbumImg(retPicByName);
-						
-						lyricsManager.updateLyrics(m);
-					
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						LOGGER.error(e);
-						continue;
-					}
-					
-				}
-				
-				
-				
-				String end = TimeUtils.nowTime();
-				System.out.println("结束时间："+end);
-				
-				System.out.println(TimeUtils.getPastTime(end, start));
-				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
+//			try {
+//				
+//				String sql = "select * from bc_lyrics where albumImg ='' order by updatedate desc";
+//				
+//				List<Lyrics> list = lyricsManager.querySql(sql);
+//				
+//				String start = TimeUtils.nowTime();
+//				System.out.println("开始时间："+start);
+//				
+//				
+//				//把所有需要执行的放进线程池中
+//				for (Lyrics m:list) {
+//					try {
+//						String  title = m.getTitle();
+//						String  titlecode = m.getTitlecode();
+//						System.out.println(title);
+//						String retPicByName = HTMLParserUtil.retPicByName(title, titlecode);
+//						
+//						m.setAlbumImg(retPicByName);
+//						
+//						lyricsManager.updateLyrics(m);
+//					
+//					} catch (Exception e) {
+//						// TODO Auto-generated catch block
+//						LOGGER.error(e);
+//						continue;
+//					}
+//					
+//				}
+//				
+//				
+//				
+//				String end = TimeUtils.nowTime();
+//				System.out.println("结束时间："+end);
+//				
+//				System.out.println(TimeUtils.getPastTime(end, start));
+//				
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		
+			
+			
+			
+			
+			
+			
 		}
 		
 		
