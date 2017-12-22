@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,6 +15,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
+import org.ansj.domain.Result;
+import org.ansj.domain.Term;
+import org.ansj.splitWord.analysis.ToAnalysis;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Connection.Response;
@@ -37,6 +41,47 @@ public class HTMLParserUtil{
             .getLogger(HTMLParserUtil.class);
     
     	
+    /**
+     * 根据名字获取图片并且自动上传到服务器，返回上传地址
+                
+     * http://photopin.com/free-photos/%E6%96%87%E7%AB%A0
+     * @throws IOException
+     */
+    public static String retPicByName(String title,String titlecode) throws IOException {
+     StringBuilder sb =  new StringBuilder();
+            try{
+            	Result parse = ToAnalysis.parse(title);
+            	System.out.println(parse);
+            	
+            	List<Term> terms = parse.getTerms();
+            	
+            	String term = terms.get(terms.size()-1).getName();
+            	System.out.println(term);
+            Document doc = Jsoup.connect("http://photopin.com/free-photos/"+URLEncoder.encode(term))
+                                     .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                                          .referrer("http://www.google.com")
+                                          .ignoreHttpErrors(true)
+                                           .timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+                                     .get();
+            
+            
+            //取得第一张照片
+            Element img = doc.select("div[class=items-grid search-results]").select("img").get(0);
+            
+            //上传
+            HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(img.attr("src"), getLocalFolderByOS("album") ,titlecode);
+            
+            String albumimg = map22.get("trimpath");
+            sb.append(albumimg);
+            System.out.println(img.attr("src"));
+            System.out.println(albumimg);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            
+        return sb.toString();
+    }
+
     	
     /**
      * 爬虫采麦的最爱主题关联信息  ------------根据主题页  获取 评论列表、、
@@ -1611,9 +1656,20 @@ public class HTMLParserUtil{
 //            	String sql2 = "select id from bc_user where tail_slug in ("+retCaiMaiZAN+")";
 //            	System.out.println(sql2);
             	
-            	 retCaiMaiZT_PL("shui-jue");
-            	 System.out.println(replaceBlank("\n\t\t\t\t丫丫的小贝壳屋：能够睡到自然醒就是一种幸福\n\t\t\t\t\t\t\t"));
+//            	 retCaiMaiZT_PL("shui-jue");
+//            	 System.out.println(replaceBlank("\n\t\t\t\t丫丫的小贝壳屋：能够睡到自然醒就是一种幸福\n\t\t\t\t\t\t\t"));
+//            	
+//            	retPicByName("刘德华", "liu-de-hua");
+            	Result parse = ToAnalysis.parse("冬日里温暖的灯光");
+            	System.out.println(parse);
             	
+            	List<Term> terms = parse.getTerms();
+            	
+            	String term = terms.get(terms.size()-1).getName();
+            	System.out.println(term);
+            	for (Term t: terms) {
+					System.out.println(t.getName());
+				}
             	
             } catch (Exception e) {
                 // TODO Auto-generated catch block
