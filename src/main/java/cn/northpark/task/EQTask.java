@@ -82,7 +82,7 @@ public class EQTask {
 		LOGGER.info("VPS任务结束"+TimeUtils.getNowTime());
 		
 		//爬虫软件资源代码---2页---start---------------------------------------------------------------------
-		try {
+		/*try {
 			
 			LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
 			Map<String,String> map = null;
@@ -151,7 +151,7 @@ public class EQTask {
 			LOGGER.error("EQtask---->retsoft--->ex::"+e);
 		}
 			
-		LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
+		LOGGER.info("soft task==============end="+TimeUtils.getNowTime());*/
 		
 		
 		//爬虫软件资源代码end---------------------------------------------------------------------
