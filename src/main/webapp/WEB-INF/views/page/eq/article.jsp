@@ -55,7 +55,7 @@
 											</a>
 									</p>
 									
-									<p id="content_">
+									<p id="content_" >
 											
 										${model.article }
 									</p>
@@ -137,5 +137,14 @@
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 
+<script type="text/javascript">
 
+
+$(function(){
+		$("img").each(function(){
+			$(this).css('max-width',($(".bg-white").width()*0.618));
+		})
+		
+	}) 
+</script>
 </body></html>    

@@ -46,7 +46,7 @@ public class SoftAction {
  /**
  * 每页展示多少条mac数
  */
-private static int SoftCount = 6;
+private static int SoftCount = 10;
  
  /**
 	 * 查询列表

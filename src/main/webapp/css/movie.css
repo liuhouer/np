@@ -1,0 +1,29 @@
+/*左右滚动效果*/
+/*公共部分*/
+.wc1200{margin:0 auto;width:1200px;padding-top: 20px;background:#F7F7F7;}
+.fr{float:right;}
+.mt20{/*margin-top:20px;*/}
+.icon{background:url(/img/movies/icon.png) no-repeat 0 0;}
+
+.warp-pic-list li{float:left;display:inline;}
+.warp-pic-list .img_wrap{display:block;font-size:0;overflow:hidden;}
+.warp-pic-list .text-area{background-color:#f2f2f2;line-height:24px;}
+/*全局板块*/
+.row .hd{background:url(/img/movies/hd-line_01.jpg) no-repeat 0 50px;height:55px;}
+.row .hd .title{font:26px/40px "微软雅黑","Microsoft YaHei","黑体","SimHei";}
+/*全局页签*/
+.tab-T-3{width:66px;}
+.tab-T-3 li{width:12px;height:12px;font-size:0;background-color:#dfdfdf;float:left;
+margin-left:10px;cursor:pointer;display:inline;}
+.tab-T-3 li.cur{background-color:#d81c1b;}
+/**/
+.rowE .warp-pic-list{position:relative;width:1180px;height:180px;overflow:hidden;background:#F7F7F7;}
+.rowE .count li{margin-right:20px;width:220px;height:180px;}
+.rowE .count .img_wrap{width:220px;height:135px;}
+.rowE .count .img_wrap img{width:220px;}
+.rowE .btn{display:block;height:55px;position:absolute;top:60px;width:35px;z-index:200;cursor:pointer;}
+.rowE .prev{ background-position:0 -88px;left:0;}
+.rowE .prev:hover{background-position:0 -144px;}
+.rowE .next{ background-position:0 -200px;right:0;}
+.rowE .next:hover{background-position:0 -256px;}
+.qh_title{line-height: 23px;text-align: center;display: block;font-size: 16px;}

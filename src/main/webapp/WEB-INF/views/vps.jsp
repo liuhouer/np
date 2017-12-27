@@ -32,16 +32,9 @@
 	
 <div class="clearfix maincontent grayback" >
 	<div class="container">
-		<div class="mainbody" style="margin-top:80px; ">
+		<div class="mainbody" style="margin-top:100px; ">
 		
-		<div class="clearfix  margin20 view">
-				     
-				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/vps/mac/page/1">
-		                  <input id="keyword" placeholder="你享要的优惠啦~"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
-		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="button" id="J_ser_btn">
-		                </form>
-		                 
-		</div>
+		
 		     
 		
 		
@@ -52,7 +45,7 @@
 						<div class="col-sm-12">
 							<div class="clearfix bg-white margin-t10 margin-b10 padding20 ">
 								<div class="row margin5">
-										<div class="thumbnail border-0 center">
+										<div class="border-0 center">
 											<p>
 											<a href="/vps/post-${s.id }.html">
 												<small class="green-text">
@@ -98,6 +91,15 @@
 				</div>
 				<div  class="col-md-4 ">
 				
+				
+				<div class="clearfix  margin-t10 margin-b20 view">
+				     
+				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/vps/mac/page/1">
+		                  <input id="keyword" placeholder="你享要的优惠啦~"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
+		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="button" id="J_ser_btn">
+		                </form>
+		                 
+				</div>
 					 
 					 
 					   <!-- tags  -->

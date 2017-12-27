@@ -160,11 +160,11 @@ a:hover{text-decoration:underline;}
 
 	<div class="backgrounds">
 
-		<div class="item item_1"><img alt="${poem.title }" src="/img/poem/a1.png"/></div>
+		<div class="item item_1"><img alt="${poem.title }" src="/img/poem/1.jpg"/></div>
 
-		<div class="item item_2"><img alt="${poem.title }" src="/img/poem/a2.png"/></div>
+		<div class="item item_2"><img alt="${poem.title }" src="/img/poem/2.jpg"/></div>
 
-		<div class="item item_3"><img alt="${poem.title }" src="/img/poem/a3.png"/></div>
+		<div class="item item_3"><img alt="${poem.title }" src="/img/poem/3.jpg"/></div>
 
 	</div>
 
@@ -176,33 +176,8 @@ a:hover{text-decoration:underline;}
 
 	<div class="container" >
 	  
-		<div class="mainbody" >
+		<div class="mainbody" style="margin-top:20px; ">
 		
-		    
-		
-			<!-- <div  class="row">
-				<div  class="col-md-12">
-							
-							
-						  
-					
-					       <div class="clearfix  margin-t10 margin-b10   center">
-
-								
-								
-								
-								
-											
-											
-
-										
-
-							</div>
-
-				</div>
-					
-			</div>	 
-			 -->
 			
 			<div  class="row">
 				<div  class="col-md-8">
@@ -211,7 +186,7 @@ a:hover{text-decoration:underline;}
 						<div class="col-sm-12 ">
 							<div class="clearfix bg-white margin-t10 margin-b10 padding20 ">
 								<div class="row margin5">
-										<div class="thumbnail border-0 center">
+										<div class="border-0 center">
 											<p>
 											<a href="/poem/enjoy/${s.id }.html">
 												<small class="green-text">
@@ -266,7 +241,7 @@ a:hover{text-decoration:underline;}
 				
 				<div  class="col-md-4 ">
 				
-					<div class="clearfix  margin20 view">
+					<div class="clearfix  margin-t10 margin-b20 view">
 				     
 				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/poem/page/1">
 		                  <input id="keyword" placeholder="诗词名句"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">

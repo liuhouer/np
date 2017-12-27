@@ -63,7 +63,7 @@
 						<div class="col-sm-12">
 							<div class="clearfix bg-white margin-b10 padding20 ">
 								<div class="row margin5  word-return">
-										<div class="thumbnail border-0 center">
+										<div class="border-0 center">
 											<p>
 											<a href="/movies/search?id=${s.id }" oid="${s.id }">
 												<small class="green-text">

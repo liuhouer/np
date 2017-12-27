@@ -568,12 +568,6 @@ public class UserAction {
 				
 				//是本人 --跳个人中心
 				
-		        if(null!= c_user && c_user.getTail_slug().equals(tail_slug)){
-		        	//标签颜色筛选中
-		        	request.getSession().removeAttribute("tabs");
-					request.getSession().setAttribute("tabs","pcenter");
-					rs = "/myself";
-		        }else{
 		        	//取得当前用户对作者的关注状态
 					if(c_user!=null){
 						String follow_id = String.valueOf(c_user.getId());
@@ -589,7 +583,6 @@ public class UserAction {
 						}
 
 					}
-		        }
 
 
 			}catch(Exception e){

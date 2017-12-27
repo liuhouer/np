@@ -45,7 +45,7 @@
 					<div class="clearfix bg-white margin-t10 margin-b10 padding20">
 								<div class="row">
 								
-								       <div class="thumbnail border-0 center">
+								       <div class="border-0 center">
 											<p oid="${s.id }"><small class="green-text"><font size="5"><strong>${s.moviename}</strong></font> </small></p>
 											
 											

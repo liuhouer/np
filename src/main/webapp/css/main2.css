@@ -1507,12 +1507,14 @@ a.project-card-link {
 }
 
 .piclist li {
+	display:block;
 	background: #eee;
 	margin-right: 20px;
 	padding: 5px;
 	float: left;
 	list-style: none;
 	line-height: 115px;
+	width: 250px;
 }
 
 .swaplist {
@@ -1606,4 +1608,9 @@ a.project-card-link {
 .word-return{
 	word-wrap: break-word; 
 	word-break: normal; 
+}
+
+/*  */
+.form-search {
+	display: inline-flex;
 }

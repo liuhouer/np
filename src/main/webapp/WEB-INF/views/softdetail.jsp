@@ -33,7 +33,7 @@
 						<div class="col-sm-10  col-md-offset-1 ">
 							<div class="clearfix bg-white margin-t10 margin-b10 padding20 " id="J_white_div">
 								<div class="row margin10 post_article">
-									<div class="thumbnail border-0 center">
+									<div class="border-0 center">
 										<p>
 											<small class="green-text">
 												<font size="5">
