@@ -9,7 +9,7 @@
 					<div class="clearfix bg-white margin-t10 margin-b10 padding20" >
 								<div class="row">
 									<div class="col-sm-5">
-										<div class="thumbnail border-1 center">
+										<div class="thumbnail border-1 center" style="height:115px;">
 											<a title="${s.title}">
 												<img src="${s.img }" alt="${s.title}" >
 											</a>
@@ -25,14 +25,8 @@
 										<p id="brief_${ss.index}">
 										
 										${s.brief }
-										<%-- <c:if test="${s.brief!=s.article }">
-											<button class="clearfix btn btn-gray btn-xs click2show"  data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}"> &nbsp; <span class="glyphicon glyphicon-chevron-down"></span> &nbsp; </button>
-										</c:if> --%>
 										</p>
 										<p><a class="readmore  no-decoration" target="_blank" href="/romeo/${s.id }.html">READ MORE</a></p>
-											<%-- 	<div class="clearfix hidden" id="text_${ss.index}" >
-													${s.article }
-												</div> --%>
 
 									</div>
 								</div>

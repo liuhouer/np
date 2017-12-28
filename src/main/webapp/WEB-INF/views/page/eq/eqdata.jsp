@@ -9,7 +9,7 @@
 					<div class="clearfix bg-white margin-t10 margin-b10 padding20" >
 								<div class="row">
 									<div class="col-sm-4">
-										<div class="thumbnail border-0 center">
+										<div class="thumbnail border-0 center" style="">
 											<a title="${s.title}">
 											<c:if test="${s.img==null ||s.img==''}">
 												<img src="/img/davatar.jpg" class="imgbreath" alt="${s.title}">
