@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,6 +51,35 @@ public class HTMLParserUtil
 
     private static final Logger LOGGER = Logger
             .getLogger(HTMLParserUtil.class);
+    
+    
+    /**
+     * 爬虫采麦的最爱主题关联信息  ------------根据主题页  获取 粉丝列表、、
+                
+     * http://photopin.com/free-photos/%E6%96%87%E7%AB%A0
+     * @throws IOException
+     */
+    public static String retPicByName(String title,String titlecode) throws IOException {
+    	StringBuilder sb =  new StringBuilder();
+            try{
+            Document doc = Jsoup.connect("http://photopin.com/free-photos/"+URLEncoder.encode(title))
+			            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+								.referrer("http://www.google.com") 
+								.ignoreHttpErrors(true)
+								.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+            					.get();
+            
+            
+            //取得第一张照片
+            Element img = doc.select("div[class=items-grid search-results]").select("img").get(0);
+            sb.append(img.attr("src"));
+            System.out.println(img.attr("src"));
+            }catch(Exception e){
+            	e.printStackTrace();
+            }
+            
+        return sb.toString();
+    }
     
 
     /**
@@ -1565,7 +1595,7 @@ public class HTMLParserUtil
       public static void main(String[] args) {
             try {
                 //retMeizitu();
-                retTodayEq();
+//                retTodayEq();
 //                List<Map<String, String>> retEQArticle = retEQArticle();
 //                System.out.println(retEQArticle.size());
 //                readPic2Disk();
@@ -1590,7 +1620,8 @@ public class HTMLParserUtil
             
             	
 //            	retPoem(26);
-            	System.out.println(MD5Utils.encoding("速度与激情8"));
+//            	System.out.println(MD5Utils.encoding("速度与激情8"));
+                retPicByName("刘德华", "liu-de-hua");
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

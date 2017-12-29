@@ -208,6 +208,8 @@ public class DirectedGraph<T> implements GraphInterface<T>,java.io.Serializable{
 			vertex = vertex.getPredecessor();
 			path.push(vertex.getLabel());
 		}
+
+		
 		return pathLength;
 	}
 
