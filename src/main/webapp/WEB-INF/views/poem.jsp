@@ -321,11 +321,11 @@ a:hover{text-decoration:underline;}
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	
 	
-	<script src="/js/easing.js" type="text/javascript"></script>
+	<script src="/js/poem/easing.js" type="text/javascript"></script>
 
-<script src="/js/timers.js" type="text/javascript"></script>
+<script src="/js/poem/timers.js" type="text/javascript"></script>
 
-<script src="/js/dualSlider.js" type="text/javascript"></script> 
+<script src="/js/poem/dualSlider.js" type="text/javascript"></script> 
 	
 	<script type="text/javascript">
 	

@@ -1508,10 +1508,9 @@ a.project-card-link {
 }
 
 .piclist li {
-	display:block;
+	display:inline-block;
+	text-align:center;
 	background: #eee;
-	margin-right: 20px;
-	padding: 5px;
 	float: left;
 	list-style: none;
 	line-height: 115px;

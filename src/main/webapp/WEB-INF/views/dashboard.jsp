@@ -181,20 +181,13 @@
 
 	<!-- load css -->
 	<%@ include file="/WEB-INF/views/page/common/common.jsp"%>
-	<link rel="stylesheet" href="/css/font-awesome.css">
-	<link media="all" type="text/css" rel="stylesheet" href="/css/flexslider.css">
-	<link type="text/css" rel="stylesheet" href="/css/jquery.mmenu.all.css" />
-	<link rel="stylesheet" href="/css/movie.css">
+	<link rel="stylesheet" href="/css/font-awesome.css"><!-- 字体 -->
+	<link media="all" type="text/css" rel="stylesheet" href="/css/flexslider.css"><!-- 碎碎念轮播css -->
 	
 	<!-- load js -->
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
-	 <script src="/js/plugins.js"></script>
+	 <script type="text/javascript" src="/js/jquery.flexslider.js"></script><!-- 碎碎念轮播js -->
      <script src="/js/main.js"></script>
-     <script type="text/javascript" src="/js/jquery.mmenu.min.all.js"></script>
-	 <script type="text/javascript" src="/js/jquery.flexslider.js"></script>
-	 <script type="text/javascript" src="/js/o-script.js"></script>
-	 <script type="text/javascript" src="/js/scroll.1.3.js"></script>
-	 <script src="/js/jquery.marquee.min.js"></script>
 
 </body>
 

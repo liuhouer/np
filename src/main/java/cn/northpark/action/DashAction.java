@@ -139,19 +139,8 @@ public class DashAction {
 					//取出热门电影
 
 
-						String msql = "select id,moviename,description from bc_movies order by rand() limit 1,45";
+						String msql = "select id,moviename from bc_movies order by rand() limit 1,24";
 						List<Map<String, Object>> movieslist = moviesManager.querySqlMap(msql);
-
-						for (int i = 0; i < movieslist.size(); i++) {
-							String description = (String) movieslist.get(i).get("description");
-							Elements select = Jsoup.parse(description).select("img");
-							String img ="";
-							if(select.size()>0){
-								 img = select.get(0).attr("src");
-							}
-							
-							movieslist.get(i).put("img", img);
-						}
 
 						map.addAttribute("movieslist", movieslist==null?"":movieslist);
 				}
