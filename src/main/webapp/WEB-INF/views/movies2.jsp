@@ -37,7 +37,14 @@
 		<div class="mainbody" style="margin-top:80px; ">
 		
 		
-		<div class="col-sm-12">
+		
+		     
+		
+		
+			<div  class="row">
+				<div  class="col-md-8">
+				
+					<div class="col-sm-12">
 		           
 				     
 				    <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/movies/search">
@@ -51,12 +58,7 @@
 				    </div> 
 		            
 		                 
-		</div>
-		     
-		
-		
-			<div  class="row">
-				<div  class="col-md-8">
+					</div>
 				    
 					<c:forEach items="${list }" var="s" varStatus="ss">
 					

@@ -30,7 +30,6 @@
 	    line-height: 1.67;
 	    font-weight: 400;
 	    letter-spacing: normal;
-	    display: inline-block;
 	    margin: 0 20px 5px 0;
 	    vertical-align: bottom;
 	    margin-top: 0px;
@@ -56,7 +55,7 @@
 
 	<div class="container" >
 	  
-		<div class="mainbody" style="margin-top:80px; ">
+		<div class="mainbody" style="margin-top:120px; ">
 		
 		     
 		
@@ -67,7 +66,7 @@
 					
 					
 					
-					       <div class="col-sm-8  col-md-offset-2 clearfix  margin-t10 margin-b10 padding20  ">
+					       <div class="col-sm-8  col-md-offset-2 clearfix  margin-t20 margin-b10 padding20  ">
 								<div class="row ">
 									 <!-- 文字区不需要请连css部分代码一并删除 -->
 									 <p >${poem_enjoy.title }</p>
@@ -75,7 +74,6 @@
 									 <p >${poem_enjoy.content1 }</p>
 									 
 									 <%-- <p >${poem_enjoy.enjoys }</p>	    --%>
-											
 											
 
 										
