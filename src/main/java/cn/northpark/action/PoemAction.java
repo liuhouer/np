@@ -63,10 +63,10 @@ public class PoemAction {
 	
 	//查询诗词
 	request.getSession().removeAttribute("poem");
- 	String sql = "select * from bc_poem order by rand() limit 1";
+ 	String sql = "select * from bc_poem order by rand() limit 6";
  	List<Poem> list = poemManager.querySql(sql);
  	if(!CollectionUtils.isEmpty(list)){
- 		request.getSession().setAttribute("poem", list.get(0));
+ 		request.getSession().setAttribute("poem", list);
  	}
  	
  	//查询标签

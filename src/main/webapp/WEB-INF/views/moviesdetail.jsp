@@ -30,15 +30,16 @@
 		<div class="mainbody" style="margin-top:80px; ">
 		
 		
-		     <div class="view clearfix  ">
-                <form class=" form-search " action="/movies/search" id="J_ser_from" method="post" accept-charset="UTF-8">
-                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
-                  <input data-activetext="搜索 ››" class=" btn btn-hero " value="搜索" type="submit" id="J_ser_btn">
-                </form>
-              </div>
+		     
 		
 		
 			<div class="row">
+					  <div class="col-sm-12 ">
+		                <form class=" form-search " action="/movies/search" id="J_ser_from" method="post" accept-charset="UTF-8">
+		                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="width100 input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
+		                  <input data-activetext="搜索 ››" class=" btn btn-hero " value="搜索" type="submit" id="J_ser_btn">
+		                </form>
+		              </div>
 				
 					<c:forEach items="${list }" var="s" varStatus="ss">
 					<div class="col-sm-12 ">

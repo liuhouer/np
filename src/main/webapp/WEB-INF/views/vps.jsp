@@ -40,6 +40,15 @@
 		
 			<div  class="row">
 				<div  class="col-md-8">
+				
+					<div class="col-sm-12">
+				     
+				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/vps/mac/page/1">
+		                  <input id="keyword" placeholder="你享要的优惠啦~"    value="${keyword }"	class="width100 input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
+		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="button" id="J_ser_btn">
+		                </form>
+		                 
+					</div>
 					<c:forEach items="${list }" var="s" varStatus="ss">
 					
 						<div class="col-sm-12">
@@ -91,17 +100,6 @@
 				</div>
 				<div  class="col-md-4 ">
 				
-				
-				<div class="clearfix  margin-t10 margin-b20 view">
-				     
-				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/vps/mac/page/1">
-		                  <input id="keyword" placeholder="你享要的优惠啦~"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
-		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="button" id="J_ser_btn">
-		                </form>
-		                 
-				</div>
-					 
-					 
 					   <!-- tags  -->
 					<div  class="clearfix sidebar radius-10 ">
 						<div  class="clearfix border-bottom">

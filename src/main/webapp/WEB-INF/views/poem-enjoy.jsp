@@ -51,6 +51,7 @@
 									 <p >${poem_enjoy.title }</p>
 									 <p style="font-style: italic;">${poem_enjoy.author }</p>
 									 <p >${poem_enjoy.content1 }</p>
+									 <hr>
 									 <p >${poem_enjoy.enjoys }</p>	   
 											
 											
@@ -86,23 +87,6 @@
 		})
 	})
 	</script>
-	
-	<script type="text/javascript">
-	  /*  ##set query param */
-	    var keyword = $("#keyword").val(); 
-	    if(keyword){
-	    	$("#pageForm a").each(function(){
-	    		var href = $(this).attr("href");
-	    		$(this).attr("href",href+"?keyword="+keyword);
-	    	})
-	    }
-		
-	
-	
-	</script>
-	
-	
-	
 	
 
 

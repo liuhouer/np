@@ -1613,4 +1613,10 @@ a.project-card-link {
 /*  */
 .form-search {
 	display: inline-flex;
+	width: 100%;
+}
+
+/* 宽度100% */
+.width100 {
+	width: 100%;
 }

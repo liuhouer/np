@@ -11,19 +11,6 @@
 							<ul class="slides"
 								style="width: 1000%; transition-duration: 0.6s; transform: translate3d(-1500px, 0px, 0px);">
 								
-								<!-- <li class="clone" aria-hidden="true"
-									style="float: left; display: block; width: 750px;">
-									<div class="testimonails-content">
-										<p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae
-											enim et faucibus. Ut dignissim nec arcu nec hendrerit sed
-											arcu odio, sagittis vel diam in, malesuada malesuada risus.
-											Aenean a sem leo. Nam ultricies dolor et mi tempor, non
-											pulvinar felis sollicitudin.</p>
-										<h6 style="margin-top: 20px;">
-											Tanya - <a href="#">Creative Director</a>
-										</h6>
-									</div>
-								</li> -->
 								<c:forEach items="${notelist }" var="s" varStatus="ss">
 								
 								

@@ -9,7 +9,6 @@
                          </p1>
                          <p2> 
                             <a target="_blank"  href="http://blog.NorthPark.cn" rel="nofollow" title="NorthPark博客">NorthPark博客</a>
-                            <a target="_blank"  href="http://shop.NorthPark.cn" rel="nofollow" title="NorthPark商城">NorthPark商城</a>
                             <a target="_blank"  href="/poem/index.html" title="诗词秀" >诗词秀</a>
 							<a target="_blank"  href="/vps" title="享优惠" >享优惠<span class="badge green-badge">new</span></a>
 							<a target="_blank"  href="/romeo" title="情圣时刻">情商提升</a>
@@ -30,8 +29,6 @@
 <script src="/js/artDialog/plugins/iframeTools.js"></script>
 <script src="/js/page/seltab.js"></script> 
 <script src="/js/page/common.js"></script>
-<!-- <script src="/js/playlist.js"></script>	 
-<script src="/js/player.js"></script> -->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

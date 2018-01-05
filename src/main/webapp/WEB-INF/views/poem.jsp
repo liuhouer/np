@@ -21,69 +21,8 @@
 <title>诗词秀::第${page}页  | NorthPark</title>
 </c:if>
 
-
-
 <meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
 <meta name="description" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
-
-<style>
-
-*{margin:0;padding:0;list-style:none;border:0;}
-
-body{font-size:12px;font-family:Verdana, Geneva, sans-serif;}
-
-a{color:fff;text-decoration:none;}
-
-a:hover{text-decoration:underline;}
-
-
-
-/* carousel */
-
-.carousel{margin:20px auto;position:relative;height:340px;width:880px; overflow:hidden;}
-
-.carousel h2 a{color:#fff;}
-
-.carousel .backgrounds{height:340px;}
-
-.carousel .backgrounds .item{ width:880px; height:340px;float:left;position:relative;z-index:1;}
-
-.carousel .backgrounds .item_1{background:url(/img/poem/a1.png) no-repeat 0 0;}
-
-.carousel .backgrounds .item_2{background:url(/img/poem/a2.png) no-repeat 0 0;}
-
-.carousel .backgrounds .item_3{background:url(/img/poem/a3.png) no-repeat 0 0;}
-
-.carousel .panel{background:#000;color:#fff;position:absolute;right:0;top:0;height:340px;width:275px;z-index:10;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity:0.8;opacity:0.8;}
-
-.carousel .panel .paging{position:absolute;bottom:25px;left:25px;width:225px;text-align:center;}
-
-.carousel .panel .paging a{color:#4c4c4c;font-size:1.1em;}
-
-.carousel .panel .pause{position:absolute;right:20px;top:25px;display:block;width:18px;height:18px;background:url(/img/poem/carousel_pause_bg.gif) no-repeat 0 0;text-indent:-6000px;}
-
-.carousel .panel .play{position:absolute;right:20px;top:25px;display:block;width:18px;height:18px;background:url(/img/poem/carousel_play_bg.gif) no-repeat 0 0;text-indent:-6000px;}
-
-.carousel .panel .paging .next{position:absolute;right:0;bottom:0;display:block;width:18px;height:18px;background:url(/img/poem/carousel_next_bg.gif) no-repeat 0 0;text-indent:-6000px;}
-
-.carousel .panel .paging .previous{position:absolute;left:0;bottom:0;display:block;width:18px;height:18px;background:url(/img/poem/carousel_previous_bg.gif) no-repeat 0 0;text-indent:-6000px;}
-
-.carousel .panel .paging #numbers a{padding:0 5px 0 5px;}
-
-.carousel .panel .paging #numbers a.selected{color:#fff;}
-
-.carousel .panel .details_wrapper{position:absolute;top:20px;left:25px;width:225px;overflow:hidden;height:200px;}
-
-.carousel .panel .details_wrapper .details{height:200px;}
-
-.carousel .panel .details_wrapper .details .detail{width:225px;height:200px;float:left;}
-
-.carousel .panel .details_wrapper .details h2{font-size:1.9em;line-height:1.2em;margin:0 0 5px 0;}
-
-.carousel .panel .details_wrapper .details a.more{color:#fff;font-size:1.1em;}
-
-</style>
-
 
 </head>
 
@@ -97,90 +36,28 @@ a:hover{text-decoration:underline;}
 <div class="clearfix maincontent grayback" >
 
 
-<div class="container" style="margin-top:80px; ">
-
-
-<div class="carousel">
-
-	<div class="panel">
-
-		<div class="details_wrapper">
-
-			<div class="details">
-
-				<div class="detail">
-
-					<h2 class="Lexia-Bold"><a href="#">${poem.title }</a></h2>
-
-					<!-- <a href="#" class="more">图片信息1</a> -->
-					 <p style="font-style: italic;">${poem.author }</p>
-									 <p >${poem.content1 }</p>
-
-				</div>
-
-				<div class="detail">
-
-					<h2 class="Lexia-Bold"><a href="#">${poem.title }</a></h2>
-
-					<!-- <a href="#" class="more">图片信息2</a> -->
-					 <p style="font-style: italic;">${poem.author }</p>
-									 <p >${poem.content1 }</p>
-
-				</div>
-
-				<div class="detail">
-
-					<h2 class="Lexia-Bold"><a href="#">${poem.title }</a></h2>
-
-					<!-- <a href="#" class="more">图片信息3</a> -->
-					 <p style="font-style: italic;">${poem.author }</p>
-									 <p >${poem.content1 }</p>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	
-
-		<div class="paging">
-
-			<div id="numbers"></div>
-
-			<a href="javascript:void(0);" class="previous" title="Previous" >Previous</a>
-
-			<a href="javascript:void(0);" class="next" title="Next">Next</a>
-
-		</div>
-
-	</div><!-- /panel -->
-
-	
-
-	<div class="backgrounds">
-
-		<div class="item item_1"><img alt="${poem.title }" src="/img/poem/1.jpg"/></div>
-
-		<div class="item item_2"><img alt="${poem.title }" src="/img/poem/2.jpg"/></div>
-
-		<div class="item item_3"><img alt="${poem.title }" src="/img/poem/3.jpg"/></div>
-
-	</div>
-
-	
-
-</div>
-</div>
 					
 
 	<div class="container" >
 	  
-		<div class="mainbody" style="margin-top:20px; ">
+		<div class="mainbody" style="margin-top:80px; ">
+		
+		
+		
 		
 			
 			<div  class="row">
 				<div  class="col-md-8">
+				
+					<div class="col-sm-12">
+				     
+				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/poem/page/1">
+		                  <input id="keyword" placeholder="诗词名句"    value="${keyword }"	class="width100 input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
+		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="button" id="J_ser_btn">
+		                </form>
+		                 
+				   </div>
+				
 					<c:forEach items="${list }" var="s" varStatus="ss">
 					
 						<div class="col-sm-12 ">
@@ -241,16 +118,67 @@ a:hover{text-decoration:underline;}
 				
 				<div  class="col-md-4 ">
 				
-					<div class="clearfix  margin-t10 margin-b20 view">
-				     
-				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/poem/page/1">
-		                  <input id="keyword" placeholder="诗词名句"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
-		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="button" id="J_ser_btn">
-		                </form>
-		                 
-				   </div>
-				 
-					 
+					 <!-- 轮播开始 -->			
+				<div class="row padding-t20 ">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="testimonails-slider">
+
+						<div class="flex-viewport"
+							style="overflow: hidden; position: relative;">
+							<ul class="slides"
+								style="width: 1000%; transition-duration: 0.6s; transform: translate3d(-1500px, 0px, 0px);vertical-align: middle;">
+								
+								<c:forEach items="${poem }" var="s" varStatus="ss">
+								
+								<li class="center" 
+								
+								<c:if test="${ss.index % 3==0}"> 
+										class="clone" 
+								</c:if>
+								<c:if test="${ss.index %3 ==1 } ">
+										class="" 
+								</c:if>
+								<c:if test="${ss.index %3 ==2} ">
+										 class="flex-active-slide"
+								</c:if>
+								
+								aria-hidden="true" style="float: left; display: block; width: 750px;">
+									
+									<div class="testimonails-content avatar ">
+										<p class="text-color-${ fn:toLowerCase(fn:substring( s.retcode ,0,1))}">${s.title }</p>
+										<p class="text-color-${ fn:toLowerCase(fn:substring( s.retcode ,0,1))}">${s.content1 }</p>
+										<p>
+										<a 
+											
+											href="/poem/enjoy/${s.id }.html"
+											
+											title="${s.title}">
+											
+											
+											<span class=" imgbreath text-${ fn:toLowerCase(fn:substring( s.retcode ,0,1))}" alt="${s.title}">${ fn:toUpperCase(fn:substring( s.retcode ,0,1))}</span>
+											</a>
+										</p>
+										<h6 class="gray-text">
+											 ${s.author }
+										</h6>
+										<h6 class="gray-text">
+											 ${s.years }
+										</h6>
+									</div>
+								</li>
+								</c:forEach>
+								
+							</ul>
+						</div>
+						<ul class="flex-direction-nav">
+							<li><a class="flex-prev" href="#"></a></li>
+							<li><a class="flex-next" href="#"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+					 <!-- 轮播结束 -->
 					 <!-- hot  --> 
 					 <div  class="clearfix sidebar radius-5 ">
 						<div  class="clearfix border-bottom">
@@ -353,28 +281,26 @@ a:hover{text-decoration:underline;}
 	    
 	
 	</script>
-	
+	<link media="all" type="text/css" rel="stylesheet" href="/css/flexslider.css"><!-- 轮播css -->
+	<script type="text/javascript" src="/js/jquery.flexslider.js"></script><!-- 轮播js -->
 	<script type="text/javascript">
 
 $(document).ready(function(){
 
 
+	//激活动作
+	 $('.flexslider').flexslider({
+			prevText: '',
+			nextText: ''
+		});
 
-	$(".carousel").dualSlider({
-
-		auto:true,
-
-		autoDelay: 6000,
-
-		easingCarousel: "swing",
-
-		easingDetails: "easeOutBack",
-
-		durationCarousel: 1000,
-
-		durationDetails: 500
-
-	});
+	  $('.testimonails-slider').flexslider({
+	    animation: 'slide',
+	    slideshowSpeed: 5000,
+	    prevText: '',
+	    nextText: '',
+	    controlNav: false
+	  });
 
 	
 

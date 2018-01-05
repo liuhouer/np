@@ -37,19 +37,19 @@
 		<div class="mainbody" style="margin-top:80px; ">
 		
 		
-		<div class="clearfix  margin20 view">
+		<div class="col-sm-12">
 		           
 				     
-				        <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/movies/search">
-		                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
+				    <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/movies/search">
+		                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="width100 input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
 		                  <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="button" id="J_ser_btn">
-		                </form>
+		            </form>
 		                
-		                
-		            <div  class="row  padding-t20 padding10">
+		            <div  class="row   padding20">
 						<input class="btn tag-node " oid="hot"  type="button" value="热门排序">
 						<input class="btn tag-node " oid="latest"  type="button" value="上新排序">
-				    </div>
+				    </div> 
+		            
 		                 
 		</div>
 		     
