@@ -18,41 +18,63 @@
 <meta name="description" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
- 
+ <style>
+		
+		body{
+		background-color: #2D2D2D;
+		color:white; 
+		}
+		p{
+		
+		font-size: 24px;
+	    line-height: 1.67;
+	    font-weight: 400;
+	    letter-spacing: normal;
+	    display: inline-block;
+	    margin: 0 20px 5px 0;
+	    vertical-align: bottom;
+	    margin-top: 0px;
+	    margin-right: 20px;
+	    margin-bottom: 5px;
+	    padding: 0px;
+	    -webkit-font-smoothing: antialiased;
+	    color: rgb(153, 153, 153);
+		}
+	</style>
 </head>
 
 <body >
 
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	
-	
+	<!-- <div id="mydiv" style="height:500px;"></div> -->
 		  
 
-<div class="clearfix maincontent grayback" >
+<div id="mydiv"   >
 
 					
 
-	<div class="container" style="z-index: 6">
+	<div class="container" >
 	  
 		<div class="mainbody" style="margin-top:80px; ">
 		
 		     
 		
 		
-			<div  class="row">
+			<div  class="row" >
 				<div  class="col-md-12">
 				
 					
 					
 					
-					       <div class="col-sm-8  col-md-offset-2 clearfix bg-white margin-t10 margin-b10 padding20 touming center">
+					       <div class="col-sm-8  col-md-offset-2 clearfix  margin-t10 margin-b10 padding20  ">
 								<div class="row ">
 									 <!-- 文字区不需要请连css部分代码一并删除 -->
 									 <p >${poem_enjoy.title }</p>
 									 <p style="font-style: italic;">${poem_enjoy.author }</p>
 									 <p >${poem_enjoy.content1 }</p>
-									 <hr>
-									 <p >${poem_enjoy.enjoys }</p>	   
+									 
+									 <%-- <p >${poem_enjoy.enjoys }</p>	    --%>
 											
 											
 
@@ -78,7 +100,7 @@
     
 	
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
-	
+	<script type="text/javascript" src="/js/canvas-particle.js"></script>
 	<script type="text/javascript">
 	//禁止图片拉伸
 	$(function(){
@@ -86,8 +108,37 @@
 			$(this).css('max-width',($(".bg-white").width()*0.618));
 		})
 	})
-	</script>
 	
+	$(function() {
+	    $(window).resize(function(){
+	        $('body').css('min-height',($(window).height()));
+	        $('#mydiv').css('min-height',($(window).height()-100));
+	        $('body').css('overflowX','hidden');
+
+	    }).resize();
+	});
+	
+	</script>
+	<script type="text/javascript">
+		window.onload = function() {
+		    //配置
+		    var config = {
+		        vx: 4,	//小球x轴速度,正为右，负为左
+		        vy: 4,	//小球y轴速度
+		        height: 2,	//小球高宽，其实为正方形，所以不宜太大
+		        width: 2,
+		        count: 200,		//点个数
+		        color: "121, 162, 185", 	//点颜色
+		        stroke: "130,255,255", 		//线条颜色
+		        dist: 6000, 	//点吸附距离
+		        e_dist: 20000, 	//鼠标吸附加速距离
+		        max_conn: 10 	//点到点最大连接数
+		    }
+
+		    //调用
+		    CanvasParticle(config);
+		}
+	</script>
 
 
 </body></html>
