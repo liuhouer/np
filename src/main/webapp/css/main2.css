@@ -1620,3 +1620,21 @@ a.project-card-link {
 .width100 {
 	width: 100%;
 }
+
+
+.font-elegant{
+	font-size: 12px;
+    line-height: 1.67;
+    font-weight: 400;
+    letter-spacing: normal;
+    display: inline-block;
+    margin: 0 20px 5px 0;
+    vertical-align: bottom;
+    margin-top: 0px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    padding: 0px;
+    -webkit-font-smoothing: antialiased;
+    color: rgb(153, 153, 153);
+    font-style: italic;
+}

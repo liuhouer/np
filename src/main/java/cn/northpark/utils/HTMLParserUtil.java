@@ -650,6 +650,7 @@ public class HTMLParserUtil{
                                 //-------------结束--------------------------------
 
                                 imgs.get(j).attr("src", rs);
+                                imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                                 
                                 //删除原图src设置
                                 imgs.get(j).removeAttr("srcset");
@@ -818,6 +819,7 @@ public class HTMLParserUtil{
                                         //-------------结束--------------------------------
 
                                         imgs.get(j).attr("src", rs);
+                                        imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                                     } catch (Exception e) {
                                         // TODO: handle exception
                                         LOGGER.error("ret pic exception===>"+e.toString());
@@ -860,6 +862,7 @@ public class HTMLParserUtil{
                                         //-------------结束--------------------------------
 
                                         imgs.get(j).attr("src", rs);
+                                        imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                                     } catch (Exception e) {
                                         // TODO: handle exception
                                         LOGGER.error("ret pic exception===>"+e.toString());
@@ -1018,6 +1021,7 @@ public class HTMLParserUtil{
                                         //-------------结束--------------------------------
 
                                         imgs.get(j).attr("src", rs);
+                                        imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                                     } catch (Exception e) {
                                         // TODO: handle exception
                                         LOGGER.error("ret movies pic exception===>"+e.toString());
@@ -1200,6 +1204,8 @@ public class HTMLParserUtil{
                                             //-------------结束--------------------------------
 
                                             imgs.get(j).attr("src", rs);
+                                            
+                                            imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                                             
                                             pic_poem = rs;
                                         }

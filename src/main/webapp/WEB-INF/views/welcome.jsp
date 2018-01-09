@@ -29,7 +29,8 @@
 <body >
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	
-		 
+	 <!-- 页面标题 -->
+		<h1 class="font-elegant">最爱-主题图册</h1>	 	 
 	<div class="clearfix maincontent grayback" id="J_maincontent">
 
 

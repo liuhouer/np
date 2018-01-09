@@ -18,15 +18,6 @@
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
-<%
-
-		NumberFormat nf1 = NumberFormat.getNumberInstance();
-		DecimalFormat df2 = new DecimalFormat("0.00");
-		
-		NumberFormat f3 = new DecimalFormat("#,##0.00");  
-
-
-%>
 
 </head>
 
@@ -34,6 +25,7 @@
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 
 	<input  type="hidden" id="J_msg" value="${msg}"/>
+	<!-- 页面标题 -->
 	<div class="clearfix maincontent" >
 		<div class="container">
 		<div class="mainbody" style="margin-top:5em;">
@@ -42,13 +34,13 @@
             <div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
 
                 <div class="clearfix">
-                  <h4>忘记密码</h4>
+                   <h1 class="font-elegant">忘记密码</h1>	
                   <hr>
                 </div>
 
 					<div class="form-group ">
 						<label for="J_email" class="control-label">Email：</label> <input
-							id="J_email" placeholder="example@gmail.com" value=<%=f3.format(121212345.00) %>
+							id="J_email" placeholder="example@gmail.com" 
 							class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
 							name="email" type="text">
 					</div>

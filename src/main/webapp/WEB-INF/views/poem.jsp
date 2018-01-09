@@ -30,8 +30,8 @@
 
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	
-	
-	
+	<!-- 页面标题 -->
+	<h1  class="font-elegant">诗词秀</h1>
 
 <div class="clearfix maincontent grayback" >
 

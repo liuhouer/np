@@ -24,7 +24,8 @@
 
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	 
-	
+	 <!-- 页面标题 -->
+		<h1 class="font-elegant">${keyword }的搜索结果</h1>	 
 <div class="clearfix maincontent grayback" >
 	<div class="container">
 		<div class="mainbody" style="margin-top:80px; ">

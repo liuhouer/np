@@ -29,7 +29,9 @@
 
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	 
-	
+	 
+	 <!-- 页面标题 -->
+		<h1 class="font-elegant">情商提升</h1>	 
 <div class="clearfix maincontent grayback">
 	<div class="container">
 		    

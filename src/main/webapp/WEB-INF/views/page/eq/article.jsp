@@ -35,9 +35,10 @@
 									<div class="thumbnail border-0 center">
 										<p>
 											<small class="green-text">
-												<font size="5">
+												    <h1>
 													${model.title}
-												</font>
+												    
+												    </h1>
 											</small>
 										</p>
 										

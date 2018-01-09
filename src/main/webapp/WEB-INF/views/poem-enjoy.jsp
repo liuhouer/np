@@ -69,7 +69,7 @@
 					       <div class="col-sm-8  col-md-offset-2 clearfix  margin-t20 margin-b10 padding20  ">
 								<div class="row ">
 									 <!-- 文字区不需要请连css部分代码一并删除 -->
-									 <p >${poem_enjoy.title }</p>
+									 <h1><p >${poem_enjoy.title }</p></h1>
 									 <p style="font-style: italic;">${poem_enjoy.author }</p>
 									 <p >${poem_enjoy.content1 }</p>
 									 

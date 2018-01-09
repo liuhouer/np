@@ -30,16 +30,15 @@
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	 
 	
+				<!-- 页面标题 -->
+   				 <h1 class="font-elegant">优惠VPS、VPS测评</h1>	 
 <div class="clearfix maincontent grayback" >
 	<div class="container">
 		<div class="mainbody" style="margin-top:100px; ">
 		
-		
-		     
-		
-		
 			<div  class="row">
 				<div  class="col-md-8">
+				
 				
 					<div class="col-sm-12">
 				     

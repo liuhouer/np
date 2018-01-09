@@ -51,14 +51,18 @@
 		</div>
 	</div>
 </div>
-    
+	<!-- 页面标题 -->
+    <h1 class="font-elegant">Login</h1>	 
     <div class="clearfix maincontent margin-b10">
 	    <div class="container">
-	    	
+	   
+	    
           <!-- begin -->
 			<div id="login">
+			 
 			    <div class="wrapper">
 			        <div class="login">
+			   			
 			            <form id="loginForm"  action="/cm/login" method="post" class="container offset1 loginform">
 			                <div id="owl-login">
 			                    <div class="hand"></div>

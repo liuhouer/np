@@ -29,7 +29,8 @@
 
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	 
-	
+	 <!-- 页面标题 -->
+		<h1 class="font-elegant">${ datamap.lrc_title}</h1>	 
  <div  class="clearfix maincontent">
 	    <div  class="container">
 	    	

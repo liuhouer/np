@@ -30,7 +30,8 @@
 
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
 	 
-	
+	 <!-- 页面标题 -->
+		<h1 class="font-elegant">碎碎念-精神角落</h1>	 
 <div class="clearfix maincontent grayback" >
 	<div class="container">
 		<div class="mainbody padding-t20" id="J_maincontent" style="margin-top:70px;">

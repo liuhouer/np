@@ -33,6 +33,10 @@
 			<div class="row margin-b20 margin-t20">
 				<div class="col-sm-10 col-sm-offset-1 margin-b20 margin-t20">
 						<div class="row margin-b20 margin-t20">
+						<h2
+								style="margin-bottom: 16px; line-height: 1.225; font-size: 1.75em; font-weight: bold; padding-bottom: 0.3em; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); color: rgb(51, 51, 51); font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, freesans, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">
+								小布静听
+								</h2>
 							<h2
 								style="margin-bottom: 16px; line-height: 1.225; font-size: 1.75em; font-weight: bold; padding-bottom: 0.3em; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); color: rgb(51, 51, 51); font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, freesans, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Welcome
 								to the Blythe-Player-build- wiki!</h2>

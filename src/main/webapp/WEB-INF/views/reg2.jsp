@@ -50,6 +50,9 @@
 	</div>
 </div>
     
+    <!-- 页面标题 -->
+	<h1  class="font-elegant">Signup</h1>
+	
     <div class="clearfix maincontent ">
 	    <div class="container">
 	    	

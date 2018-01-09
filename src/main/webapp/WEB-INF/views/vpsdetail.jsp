@@ -36,9 +36,9 @@
 									<div class="border-0 center">
 										<p>
 											<small class="green-text">
-												<font size="5">
+												<h1>
 													<strong>${article.title}</strong>
-												</font>
+												</h1>
 											</small>
 										</p>
 										<div class="clearfix visible-xs">
