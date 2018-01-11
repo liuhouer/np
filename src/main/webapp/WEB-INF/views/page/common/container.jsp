@@ -9,7 +9,6 @@
                          </p1>
                          <p2> 
                             <a target="_blank"  href="http://blog.NorthPark.cn" rel="nofollow" title="NorthPark博客">NorthPark博客</a>
-                            <a target="_blank"  href="http://pan.NorthPark.cn"  rel="nofollow" title="NorthPark云盘">NorthPark云盘</a>
                             <a target="_blank"  href="/poem/index.html" title="诗词秀" >诗词秀</a>
 							<a target="_blank"  href="/vps" title="优惠vps、vps测评" >享优惠<span class="badge green-badge">new</span></a>
 							<a target="_blank"  href="/romeo" title="情圣时刻">情商提升</a>
