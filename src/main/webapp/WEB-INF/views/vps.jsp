@@ -15,14 +15,14 @@
 <link rel="shortcut icon" href="/img/favicon.ico">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 <c:if test="${page==null || page==''}">
-<title>享优惠  | NorthPark</title>
+<title>优惠VPS，国外服务器，国外主机，测评及优惠码  | NorthPark</title>
 </c:if>
 <c:if test="${page!=null && page!=''}">
-<title>享优惠 ::第${page}页  | NorthPark</title>
+<title>优惠VPS，国外服务器，国外主机，测评及优惠码 ::第${page}页  | NorthPark</title>
 </c:if>
 
-<meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
-<meta name="description" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
+<meta name="keywords" content="NorthPark,国外主机,国外VPS,国外服务器,VPS服务器,VPS主机,便宜VPS,美国VPS,美国主机,美国服务器,主机空间,主机推荐,VPS推荐,服务器推荐,虚拟主机,便宜服务器">
+<meta name="description" content="NorthPark-VPS板块包含了最新的国内外vps优惠信息~对于vps评测和建站非常具有参考价值">
 </head>
 
 <body >

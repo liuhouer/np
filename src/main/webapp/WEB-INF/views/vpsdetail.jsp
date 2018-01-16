@@ -50,7 +50,7 @@
 										
 											<c:forEach items="${article.taglist }" var="t" varStatus="tt">
 											 
-										     <a class="common-a-right"  title="${t.tag}" href="/vps/tag/${t.tag}">${t.tag}</a>
+										     <strong><a class="common-a-right"  title="${t.tag}" href="/vps/tag/${t.tag}">${t.tag}</a></strong>
 											 </c:forEach>
 										     
 										     

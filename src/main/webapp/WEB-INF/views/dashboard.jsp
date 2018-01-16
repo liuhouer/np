@@ -68,7 +68,7 @@
 					<div class="container">
 						<div class="clearfix center logbox gray-text">
 						   <h1>
-							NorthPark	
+							northpark center	
 						   </h1>
 						</div>
 					</div>
