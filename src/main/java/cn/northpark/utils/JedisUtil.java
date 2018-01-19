@@ -18,13 +18,17 @@ public class JedisUtil {
 
 
 	static{
-		JedisPoolConfig config = new JedisPoolConfig();  
+		JedisPoolConfig config = new JedisPoolConfig(); 
+		//设置 redis 连接池最大连接数量
+		config.setMaxTotal(10);
+		//设置 redis 连接池最大空闲连接数量
 		config.setMaxIdle(10);
+		//设置 redis 连接池最小空闲连接数量
 		config.setMinIdle(1);
 		config.setMaxWaitMillis(10*2000);
 		config.setTestOnBorrow(true);
-		config.setMaxTotal(10);
-		pool = new JedisPool(config, "123.56.129.117", 6379, 2000, "redisredis");
+		
+		pool = new JedisPool(config, "202.91.34.166", 6379);
 	}
 	
 
@@ -233,7 +237,7 @@ public class JedisUtil {
 	
 	/**
 	 * 放map
-	 * 个人感觉redis的Map存储很鸡肋，不建议使用
+	 * 
 	 * @param key
 	 * @param map
 	 */
@@ -250,7 +254,7 @@ public class JedisUtil {
 	}
 	/**
 	 * 根据key获取缓存中的Map ,然后再根据field(map中的key)获取value
-	 * 个人感觉redis的Map存储很鸡肋，不建议使用
+	 * 
 	 * @param key
 	 * @param field
 	 * @return
@@ -269,7 +273,7 @@ public class JedisUtil {
 	}
 	/**
 	 * 根据key获取缓存中的MapKeySet
-	 * 个人感觉redis的Map存储很鸡肋，不建议使用
+	 * 
 	 * @param key
 	 * @param field
 	 * @return
@@ -290,7 +294,7 @@ public class JedisUtil {
 	}
 	/**
 	 * 根据key获取缓存中的MapValues
-	 * 个人感觉redis的Map存储很鸡肋，不建议使用
+	 * 
 	 * @param key
 	 * @param field
 	 * @return
@@ -331,9 +335,10 @@ public class JedisUtil {
 	}
 	
 	public static void main(String[] args) {
-		JedisUtil.remove("movieslist");
-		JedisUtil.remove("lovelist");
-		JedisUtil.remove("eqlist");
-		JedisUtil.remove("notelist");
+		JedisUtil jedis = new JedisUtil();
+		jedis.putString("a", "a");
+		jedis.putString("b", "b");
+		System.out.println(jedis.getString("a"));
+
 	}
 }

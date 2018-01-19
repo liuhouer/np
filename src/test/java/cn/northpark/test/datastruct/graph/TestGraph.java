@@ -16,6 +16,7 @@ public class TestGraph {
 		graph.addVertex("3");graph.addVertex("4");
 		graph.addVertex("5");graph.addVertex("6");
 		graph.addVertex("7");graph.addVertex("8");
+		graph.addVertex("9");graph.addVertex("10");
 		System.out.println("Number of graph's vertex = " + graph.getNumberOfVertices());//5
 		
 		/*
@@ -23,10 +24,14 @@ public class TestGraph {
 		 *   <1,2>  <2,3>  <2,4>  <2,5>  <3,6>  <4,7> <5,8> 
 		 */
 		System.out.println("Adding edges...  添加边");
-		graph.addEdge("1", "2");graph.addEdge("2", "3");
-		graph.addEdge("2", "4");graph.addEdge("2", "5");
-		graph.addEdge("3", "6");graph.addEdge("4", "7");
-		graph.addEdge("5", "8");
+		graph.addEdge("2", "1");
+		graph.addEdge("3", "1");
+		graph.addEdge("4", "1");
+		graph.addEdge("5", "1");
+		graph.addEdge("6", "7");
+		graph.addEdge("6", "8");
+		graph.addEdge("8", "9");
+		graph.addEdge("7", "10");
 		System.out.println("Number of graph's edge = " + graph.getNumberOfEdges());//5
 		
 		System.out.println("vertexs between 3 and 4 has Edges? " + graph.hasEdge("3", "4"));//false
@@ -55,13 +60,13 @@ public class TestGraph {
 		System.out.println();
 		//计算顶点的最短路径
 		Stack<String> path = new Stack<String>();
-		graph.getShortestPath("1", "4", path);
+		graph.getShortestPath("6", "10", path);
 		
 		//打印路径
 		while(!path.isEmpty())
 					System.out.print(path.pop() + "---> ");
 		System.out.println();
-		graph.getShortestPath("1", "8", path);
+		graph.getShortestPath("6", "9", path);
 		
 		//打印路径
 				while(!path.isEmpty())
