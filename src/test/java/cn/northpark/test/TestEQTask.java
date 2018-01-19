@@ -209,7 +209,7 @@ public class TestEQTask {
 				
 				
 				
-				for (int k = 1; k <= 5; k++) {
+				for (int k = 1; k <= 10; k++) {
 					
 					try {
 						

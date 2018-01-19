@@ -39,7 +39,6 @@
 										<p>
 											扯淡、吐槽、心情、树洞……想说啥就说啥！... <br>
 											<br>NorthPark就是你的树洞。
-											volutpat.
 										</p>
 										<a href="/note/list">More Details</a>
 															
@@ -53,9 +52,8 @@
 										 
 										<h2>情商提升</h2>
 										<p>
-											Maecenas fermentum est ut elementum vulputate. Ut vel consequat
-											urna. Ut aliquet <br>
-											<br>ornare massa, quis dapibus quam condimentum id.
+											情商提升的技巧和讲解 <br>
+											<br>情圣专业讲解、解决各种各样的宅男问题.
 										</p>
 										<a href="/romeo">Get Ready</a>
 												

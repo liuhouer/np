@@ -15,7 +15,7 @@
 <meta name="msvalidate.01" content="B11539DE5DB069595F60D57A3EDCDBE9" /><!-- bing -->
 <meta name="baidu-site-verification" content="Q2uoAbFs22" /><!-- baidu -->
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title>NorthPark-Mac软件|影视窝|碎碎念|最爱主题图册|情商提升-充满文艺范和小清新的互动公园</title>
+<title>NorthPark中文网-Mac软件|影视窝|碎碎念|最爱主题图册|情商提升-充满文艺范和小清新的互动公园</title>
 <meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
 <meta name="description" content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
 <!-- /**
