@@ -1,13 +1,20 @@
 package cn.northpark.test.datastruct.Statck;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.util.CollectionUtils;
+
 import cn.northpark.utils.json.JsonUtil;
+
 
 /**主要的思想如下：
  * 程序从左到右的扫描表达式，提取出操作数，操作符，以及括号
@@ -44,6 +51,23 @@ public class PostfixEvaluator {
 		
 		tempStack = new Stack<TreeNode>();
 	}
+	
+	
+	/**
+	 * 初始化的操作符和反义操作符，用于去not操作时，替换变量的操作符号
+	 */
+	public final static Map map = new HashMap() {{    
+	    put("'>'", "<=");    
+	    put("'<'", ">=");    
+	    put("'>='", "<");    
+	    put("'<='", ">"); 
+	    put("'='", "!=");    
+	    put("'=='", "!="); 
+	    put("'!='", "=");    
+	    put("and", "or"); 
+	    put("or", "and"); 
+	    put("in", "not in"); 
+	}};  
 	
 	
 	
@@ -87,14 +111,14 @@ public class PostfixEvaluator {
 	     * @对给定的表达式进行处理
 	     * @字符存到字符栈
 	     * @内容存到内容栈
-	     *
+	     * @解析生成一棵多叉树保存对应的节点关系
 	     * @param expression
 	     */
 	    public  TreeHelper evaluateExpression(String expression) {
 	    	
 	    	//初始化一棵树
 			TreeHelper tree = new TreeHelper();
-			List<TreeNode> treeNodes = new ArrayList<TreeNode>();
+			Set<TreeNode> treeNodes = new HashSet<TreeNode>();
 
 	        expression = insertBlanks(expression);
 	        String[] tokens = expression.split(" ");
@@ -283,18 +307,28 @@ public class PostfixEvaluator {
             	}
             }
             
-            tree.setTempNodeList(treeNodes);
-	        tree.generateTree();
-	        System.out.println(JsonUtil.object2json(tree));
-	        //遍历树
-	        tree.getRoot().traverse();
+            List<TreeNode> treeNodesList = new ArrayList<TreeNode>(treeNodes);
+//            tree.setTempNodeList(treeNodesList);
+//	        tree.generateTree();
+//	        System.out.println(JsonUtils.objectToJson(tree));
 	        
-	        tree.sortTree(tree.getRoot());
+	        //去not
+	        treeNodesList =  removeNot(treeNodesList);
+	        
+	        TreeHelper tree2 = new TreeHelper();
+	        tree2.setTempNodeList(treeNodesList);
+	        tree2.generateTree();
+	        System.out.println(JsonUtil.object2json(tree2));
+	        //再次生成树打印
+	        //遍历树
+	        tree2.getRoot().traverse();
+	        
+//	        tree2.sortTree(tree.getRoot());
 			return tree;
 	    }
 	    
 	    //这个函数的作用就是处理栈中的两个数据，然后将栈中的两个数据运算之后将结果存储在栈中
-	    public void add2Tree(Stack<String> strStack, Stack<Character> opStack,List<TreeNode> treeNodes) {
+	    public void add2Tree(Stack<String> strStack, Stack<Character> opStack,Set<TreeNode> treeNodes) {
 	    	//把操作符当成父节点
     		//把表达式当成子节点集合
 	    	char op = opStack.pop(); //弹出一个操作符
@@ -360,10 +394,171 @@ public class PostfixEvaluator {
 	    	tempStack.add(treeNode2);
 	    	
 	    }
+	    
+	    
+	    /**
+	     * 去掉not语义
+	     * not下面的子节点往上移动一级
+	     * not下面的操作符分别转为反义的操作符
+	     *
+	     * @param expression
+	     * @return
+	     */
+	    public  List<TreeNode> removeNot(List<TreeNode> treeNodes) {
+	    	//改成多个!的写法
+	    	
+	    	//多个!的写法--------------------------------------start---------------------------------------------------------
+	    	List<Map<String,Integer>> list_not = new ArrayList<>();
+	    
+	    	//记录!节点的id和pid 存到容器
+	    	for (int i=0;i<treeNodes.size();i++) {
+	    		TreeNode treeNode = treeNodes.get(i);
+	    		String nodename =  treeNode.getNodeName();
+	    		if(StringUtils.equals(nodename, "!")){
+	    			Map<String,Integer> map = new HashMap<>();
+	    			int tanhao_id  = treeNode.getSelfId();
+	    			int tanhao_pid = treeNode.getParentId();
+	    			map.put("tanhao_id", tanhao_id);
+	    			map.put("tanhao_pid", tanhao_pid);
+	    			list_not.add(map);
+	    		}
+	    	}
+	    	
+	    	if(!CollectionUtils.isEmpty(list_not)){
+	    		for (int k = 0; k < list_not.size(); k++) {
+	    			
+	    			int tanhao_id = list_not.get(k).get("tanhao_id");
+	    			int tanhao_pid = list_not.get(k).get("tanhao_pid");
+	    			
+	    			//把！下面的节点进行递归修改反序操作符	
+	    	    	revertOpChar(treeNodes, tanhao_id);
+	    	    	
+	    	    	//删除!节点
+	    	    	for (int i=0;i<treeNodes.size();i++) {
+	    	    		TreeNode treeNode = treeNodes.get(i);
+	    	    		String nodename =  treeNode.getNodeName();
+	    	    		if(StringUtils.equals(nodename, "!")){
+	    	    			//删除!节点
+	    	    			treeNodes.remove(i);
+	    	    			break;
+	    	    		}
+	    	    	}
+
+	    	    	//把！下面的第一级节点提升一级，
+
+	    	    	for (int i=0;i<treeNodes.size();i++) {
+	    	    		TreeNode treeNode = treeNodes.get(i);
+	    	    		if(treeNode.getParentId() == tanhao_id){
+	    	    			treeNode.setParentId(tanhao_pid);//把这一级上移
+	    	    			break;
+	    	    		}
+	    	    	}
+				}
+	    	}
+	    	
+	    
+	    	//多个!的写法--------------------------------------end---------------------------------------------------------
+	    	
+	    	//单个!的写法--------------------------------------start---------------------------------------------------------
+//	    	int tanhao_id  = -1;
+//	    	int tanhao_pid = -1;
+//	    	
+//	    	//记录!节点的id和pid
+//	    	for (int i=0;i<treeNodes.size();i++) {
+//	    		TreeNode treeNode = treeNodes.get(i);
+//	    		String nodename =  treeNode.getNodeName();
+//	    		if(StringUtils.equals(nodename, "!")){
+//	    			tanhao_id  = treeNode.getSelfId();
+//	    			tanhao_pid = treeNode.getParentId();
+//	    			break;
+//	    		}
+//	    	}
+//	    	
+//	    	//把！下面的节点进行递归修改反序操作符	
+//	    	revertOpChar(treeNodes, tanhao_id);
+//	    	
+//	    	//删除!节点
+//	    	for (int i=0;i<treeNodes.size();i++) {
+//	    		TreeNode treeNode = treeNodes.get(i);
+//	    		String nodename =  treeNode.getNodeName();
+//	    		if(StringUtils.equals(nodename, "!")){
+//	    			//删除!节点
+//	    			treeNodes.remove(i);
+//	    			break;
+//	    		}
+//	    	}
+//
+//	    	//把！下面的第一级节点提升一级，
+//
+//	    	for (int i=0;i<treeNodes.size();i++) {
+//	    		TreeNode treeNode = treeNodes.get(i);
+//	    		if(treeNode.getParentId() == tanhao_id){
+//	    			treeNode.setParentId(tanhao_pid);//把这一级上移
+//	    			break;
+//	    		}
+//	    	}
+
+	    	//单个!的写法--------------------------------------end---------------------------------------------------------
+	    	
+	    	//判断nodename的操作符，进行替换 如果是定义的| & ！ 中 的一种 替换为and or not
+	    	//如果是其他的   根据关系查找对应图中的顶点 并且去重                                
+	    	//根据给定的顶点计算最短路径
+	    	//根据获取的最短路径的顶点去关系表获取er表、根据连接 的字段连接起来
+	    	//对应的er表是啥 去重放到表
+
+	    	return treeNodes;
+	    }
+
+
+	    	
+
+
+	/**
+	 * 描述：反转某个pid下面的所有操作符集合
+	 *
+	 * @param treeNodes
+	 * @param pid
+	 */
+	private List<TreeNode> revertOpChar(List<TreeNode> treeNodes, int pid){
+		Set<Integer> hashset = new HashSet<Integer>();
+		for (int i=0;i<treeNodes.size();i++) {
+			TreeNode treeNode = treeNodes.get(i);
+			if(treeNode.getParentId() == pid){
+				
+				
+				//更改为反义操作符
+				Set<Map.Entry<String, String>> set = map.entrySet();
+				for (Iterator<Map.Entry<String, String>> it = set.iterator(); it.hasNext();) {
+					Map.Entry<String, String> entry = (Map.Entry<String, String>) it.next();
+					String nodeName2 = treeNode.getNodeName();
+					System.out.println("nodeName2--->"+nodeName2);
+					if(nodeName2.contains(entry.getKey())){
+						
+						System.out.println(entry.getKey() + "--->" + entry.getValue());
+						nodeName2 = nodeName2.replace(entry.getKey(), entry.getValue());//替换字符串
+						treeNode.setNodeName(nodeName2);//更改为反义操作符
+						break;
+					}
+				}
+				
+				pid = treeNode.getSelfId();
+				if(hashset.add(pid)){
+					revertOpChar(treeNodes, pid);
+				}else{
+					break;
+				}
+			}
+			if(i==treeNodes.size()-1){
+				break;
+			}
+		}
+		
+		return treeNodes;
+	}
 
 	public static void main(String[] args) {
 		
-		 String expression = "c001=股票&(w003=A02|f008=1&Np066=display)";
+		 String expression = "c001=股票&(w003=A02|f008=1&Np066=display&!z5'<'0)|!zy'>='500w";
 		 
 		 //
 		 
@@ -384,7 +579,10 @@ public class PostfixEvaluator {
 	        //查看计算后的2个栈值
 	        PostfixEvaluator a = new PostfixEvaluator();
 	        
-	        a.evaluateExpression(expression);
+	        TreeHelper tree = a.evaluateExpression(expression);
+	        
+	        
+	        
 	        
 //	        //集合遍历方式  
 //            for (String x : strStack) {  
