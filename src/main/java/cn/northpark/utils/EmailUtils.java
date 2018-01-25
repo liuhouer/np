@@ -70,30 +70,13 @@ public class EmailUtils {
 			//smtp.qq.com || smtp.163.com
 			String host = "smtp.163.com";
 			String myEmail = "qhdsoftware@163.com";
-			String myPassword = "bruce134";
+			String myPassword = Base64Util.JIEMI("emhhbmd5YW5nMjI2MDAwMDAw");
 			// 接收者邮箱
 			String to = toEmail;
 			String subject = "欢迎加入Northpark";
 			
-			//开启ssl加密
-//			Properties prop = new Properties();
-//			// 设置SMTP发送服务器的名字：163的如下："smtp.163.com"
-//			prop.setProperty("mail.smtp.host", host);
-//			// 设置SMTP发送服务器的端口
-//			prop.setProperty("mail.smtp.port", "25");
-//			// 设置是否需要认证
-//			prop.setProperty("mail.smtp.auth", "true");
-//			// 开启TLS加密方式
-//			prop.setProperty("mail.smtp.starttls.enable", "true");
-//			// 添加信任的服务器
-//			prop.setProperty("mail.smtp.ssl.trust", host);
-//			// 进行认证并获取需要的session
-//			DefaultAuthenticator defaultAuthenticator = 
-//			        new DefaultAuthenticator(myName, myPassword);
-//			Session session = Session.getInstance(prop,defaultAuthenticator);
 
 			HtmlEmail email = new HtmlEmail();
-//			email.setMailSession(session);
 			email.setAuthentication(myEmail, myPassword);
 			email.setHostName(host);
 			email.addTo(to, toEmail);           //对方 邮件+对方名字
@@ -136,9 +119,9 @@ public class EmailUtils {
 		try {
 
 			//smtp.qq.com || smtp.163.com
-			String host = "smtp.qq.com";
-			String myEmail = "654714226@qq.com";
-			String myPassword = Base64Util.JIEMI("emhhbmd5YW5nMjI2QDAwMDAwMA==");
+			String host = "smtp.163.com";
+			String myEmail = "qhdsoftware@163.com";
+			String myPassword = Base64Util.JIEMI("emhhbmd5YW5nMjI2MDAwMDAw");
 			// 接收者邮箱
 			String to = toEmail;
 			String subject = "~~~~(>_<)~~~~找回northpark的密码";
@@ -146,7 +129,7 @@ public class EmailUtils {
 			HtmlEmail email = new HtmlEmail();
 			email.setAuthentication(myEmail, myPassword);
 			email.setHostName(host);
-			email.addTo(to, "toEmail");           //对方 邮件+对方名字
+			email.addTo(to, toEmail);           //对方 邮件+对方名字
 			email.setFrom(myEmail,"northpark官方");// 我方 邮件+我方显示名字 
 			email.setSubject(subject);// 标题  
 			String dm =  "northpark.cn";//URLUtil.getDomain(request);
@@ -174,7 +157,7 @@ public class EmailUtils {
 					+ "</a><br/><br/>"
 					+ "请注意，这是一次性链接。<br/>  "
 					+ "点击链接以后，密码将被修改为【 <font color=\"red\">"+authCode+"</font>  】,请牢记喔~尽快到个人信息页面修改<br/>  "
-					+ "如果不想重置密码，请忽略此邮件，您的密码不会改变。如有任何疑问或顾虑，请联系northpark。<br/><br/>" + "小布<br/><br/>"+"欢迎来我的博客"+"<a href=\"http://blog.northpark.cn\">果冻时刻</a>"+"<br/><br/>" 
+					+ "如果不想重置密码，请忽略此邮件，您的密码不会改变。如有任何疑问或顾虑，请联系northpark。<br/><br/>" + "小布<br/><br/>"+"欢迎来我的博客"+"<a href=\"http://blog.northpark.cn\">NorthPark博客</a>"+"<br/><br/>" 
 					+ "</div></div></div></div>"
 					+ "</body></html>"); /* 邮件内容 */
 			// 添加附件对象
@@ -211,21 +194,21 @@ public class EmailUtils {
 		List<String> list  = new ArrayList<String>();
 		list.add("qhdsoft@yeah.net");
 		list.add("870300572@qq.com");
-		list.add("2572684952@qq.com");
-		list.add("goooob@126.com");
-		list.add("843664866@qq.com");
-		list.add("heartlead@gmail.com");
-		list.add("kevinlin1997@yahoo.com.tw");
-		list.add("1358726405@qq.com");
-		list.add("18374819636@163.com");
-		list.add("40367288@qq.com");
-		list.add("651001768@qq.com");
-		list.add("elsa7788@outlook.com");
-		list.add("mengda1027@qq.com");
-		list.add("49611084@qq.com");
-		list.add("knightli@foxmail.com");
-		list.add("973741142@qq.com");
-		list.add("232475782@qq.com");
+//		list.add("2572684952@qq.com");
+//		list.add("goooob@126.com");
+//		list.add("843664866@qq.com");
+//		list.add("heartlead@gmail.com");
+//		list.add("kevinlin1997@yahoo.com.tw");
+//		list.add("1358726405@qq.com");
+//		list.add("18374819636@163.com");
+//		list.add("40367288@qq.com");
+//		list.add("651001768@qq.com");
+//		list.add("elsa7788@outlook.com");
+//		list.add("mengda1027@qq.com");
+//		list.add("49611084@qq.com");
+//		list.add("knightli@foxmail.com");
+//		list.add("973741142@qq.com");
+//		list.add("232475782@qq.com");
 		
 		
 		for (int i = 0; i < list.size(); i++) {
