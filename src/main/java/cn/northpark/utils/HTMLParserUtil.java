@@ -382,12 +382,12 @@ public class HTMLParserUtil{
      */
     public static List<Map<String,String>> retEQArticle() throws IOException {
         List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-        for(int i=1;i<=2;i++){
+        for(int i=0;i<=2;i++){
             try{
             Document doc = Jsoup.connect("http://chuansong.me/account/loveudavid?start="+i*12)
 			            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
 								.referrer("http://www.google.com") 
-								.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+								.timeout(20000) //it's in milliseconds, so this means 5 seconds.  
             					.get();
             Elements info   = doc.select("div[class=pagedlist_item]");
             for(Element p : info){
@@ -418,13 +418,17 @@ public class HTMLParserUtil{
                 Document doc_ = Jsoup.connect(aurl)
 					            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
 										.referrer("http://www.google.com") 
-										.timeout(1000*5) //it's in milliseconds, so this means 5 seconds. 
+										.timeout(20000) //it's in milliseconds, so this means 5 seconds. 
 										.followRedirects(true)
 										.maxBodySize(1024*1024*3)    //3Mb Max
 										  //.ignoreContentType(true) //for download xml, json, etc
 				                		.get();
                 Elements articles = doc_.select("div[class=rich_media_content]");
-                String article = articles.get(0).html();
+                Element article_ele = articles.get(0);
+                //去掉图片、去掉strong
+                article_ele.select("img").remove();
+                article_ele.select("strong").remove();
+                String article = article_ele.html();
                 article = article.replace("大卫","<情圣>").replace("<p>请回复：<span style=\"background-color: rgb(255, 251, 0);\">千万别追女神</span></p>", "")
                 		.replace("<p>请回复：<span style=\"background-color: rgb(255, 255, 0);\">千万别追女神</span></p>", "")
                 		.replace("<p>你想学习正确的追女孩技巧，早日抱得美人归吗？</p>", "")
