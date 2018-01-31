@@ -137,10 +137,11 @@
 						<div class="row sloganbox">
 							<div class="col-xs-8 col-xs-offset-2 center" style="font-family: 'Dorsa-Regular';">
 								
-								<p>Maecenas fermentum est ut elementum vulputate. Ut vel consequat
-								urna. Ut aliquet 
+
+
+								<p>情商提升的技巧和讲解 
 								</p>
-								<p>ornare massa, quis dapibus quam condimentum id.</p>
+								<p>情圣专业讲解、解决各种各样的宅男问题.</p>
 							</div>
 						</div>
 			
