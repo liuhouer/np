@@ -179,10 +179,10 @@ public class EQTask {
 				handleMoiveList(dianshiju);
 				
 				//动漫
-				List<Map<String, String>> dongman = HTMLParserUtil.retMovies(k,BC_Constant.RET_dongman);
-				
-				
-				handleMoiveList(dongman);
+//				List<Map<String, String>> dongman = HTMLParserUtil.retMovies(k,BC_Constant.RET_dongman);
+//				
+//				
+//				handleMoiveList(dongman);
 				
 				
 			} catch (Exception e) {
