@@ -28,6 +28,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mysql.jdbc.util.Base64Decoder;
+
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -267,7 +269,7 @@ import sun.misc.BASE64Encoder;
 	            FileOutputStream fos=new FileOutputStream(file);  
 	            String content=receiveContent(request);  
 	            BASE64Decoder base=new BASE64Decoder();  
-	            byte[] b=base.decodeBuffer(content);  
+	            byte[] b = base.decodeBuffer(content);
 	            fos.write(b);  
 	            fos.close();  
 	              

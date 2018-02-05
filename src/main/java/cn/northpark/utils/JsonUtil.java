@@ -112,7 +112,7 @@ public class JsonUtil {
 	 * @return
 	 *          the map fo json string
 	 */
-	public static Map json2map(String json) {
+	public static Map<String,Object> json2map(String json) {
 		return JSONObject.parseObject(json);
 	}
 
