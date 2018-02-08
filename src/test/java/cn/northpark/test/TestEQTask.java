@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.EqManager;
+import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Eq;
+import cn.northpark.model.Movies;
 import cn.northpark.model.Soft;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.TimeUtils;
@@ -37,8 +41,8 @@ public class TestEQTask {
 	@Autowired
 	public SoftManager softManager;
 //	
-//	@Autowired
-//	public MoviesManager moviesManager;
+	@Autowired
+	public MoviesManager moviesManager;
 //	
 //	
 //	@Autowired
@@ -74,6 +78,28 @@ public class TestEQTask {
 		public void runTask(){
 			
 			
+			
+			//处理图片的alt缺失
+//			int COUNT = moviesManager.countHql(" where 1=1");
+//			System.out.println(COUNT);
+//			int page_size = COUNT % 100 ==0 ? COUNT/100:COUNT/100+1;
+//			System.out.println(page_size);
+//			for (int i = 0; i < page_size; i++) {
+//				List<Movies> findByCondition = moviesManager.querySql(" select * from bc_movies where 1=? order by id desc limit "+i*100+",100 ",1);
+//				
+//				for (int i1 = 0; i1 < findByCondition.size(); i1++) {
+//					String article = findByCondition.get(i1).getDescription();
+//					String moviesname = findByCondition.get(i1).getMoviename();
+//					Document parse = Jsoup.parse(article);
+//					parse.select("img").attr("alt", moviesname);
+//					findByCondition.get(i).setDescription(parse.html());
+//					moviesManager.updateMovies(findByCondition.get(i1));
+//					
+//				}
+//			}
+			
+			
+			
 			//处理图片和strong的数据
 //			List<Eq> findByCondition = EqManager.querySql(" select * from bc_eq where 1=1 order by id desc limit 0,100 ");
 //			
@@ -87,58 +113,58 @@ public class TestEQTask {
 //				
 //			}
 			
-//			LOGGER.info("情圣定时任务开始"+TimeUtils.getNowTime());
-//			try {
-//
-//	    		List<Map<String, String>> lift = HTMLParserUtil.retEQArticle();
-//	    		for (int i = 0; i < lift.size(); i++) {
-//	    			
-//	    			String title = lift.get(i).get("title");
-//					String brief = lift.get(i).get("brief");
-//					String date = lift.get(i).get("date");
-//					String article = lift.get(i).get("article");
-//					String retcode = lift.get(i).get("retcode");
-//					//是不存在的文章
-//					int flag = EqManager.countHql(" where o.retcode= '"+retcode+"' ");
-//					
-//					if(flag<=0){
-//						//生成并且设置图片
-//						List<String> meizi = HTMLParserUtil.gegeMEIZITU();
-//						
-//						int index = HTMLParserUtil.getRandomOne(meizi);
-//						String img = meizi.get(index);
-//						
-//			    		Eq eq = new Eq();
-//			    		eq.setArticle(article);
-//			    		eq.setBrief(brief);
-//			    		eq.setDate(date);
-//			    		eq.setTitle(title);
-//			    		eq.setImg(img);
-//			    		eq.setRetcode(retcode);
-//			    		EqManager.addEq(eq);
-//					}
-//					
-//				}
-//	    		
-//	    		
-//				
-//				//去重
-//				String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM bc_eq GROUP BY date HAVING ( COUNT(retcode) > 1 )) AS p)" ;
-//				
-//				EqManager.executeSql(delsql);
-//				
-//				
-//				
-//				
-//				
-//
-//	    	} catch (Exception e) {
-//	    		// TODO: handle exception
-//	    		LOGGER.error("TestEQTask=======>"+e);
-//	    	}
-//
-//			LOGGER.info("情圣定时任务结束"+TimeUtils.getNowTime());
-////			
+			LOGGER.info("情圣定时任务开始"+TimeUtils.getNowTime());
+			try {
+
+	    		List<Map<String, String>> lift = HTMLParserUtil.retEQArticle();
+	    		for (int i = 0; i < lift.size(); i++) {
+	    			
+	    			String title = lift.get(i).get("title");
+					String brief = lift.get(i).get("brief");
+					String date = lift.get(i).get("date");
+					String article = lift.get(i).get("article");
+					String retcode = lift.get(i).get("retcode");
+					//是不存在的文章
+					int flag = EqManager.countHql(" where o.retcode= '"+retcode+"' ");
+					
+					if(flag<=0){
+						//生成并且设置图片
+						List<String> meizi = HTMLParserUtil.gegeMEIZITU();
+						
+						int index = HTMLParserUtil.getRandomOne(meizi);
+						String img = meizi.get(index);
+						
+			    		Eq eq = new Eq();
+			    		eq.setArticle(article);
+			    		eq.setBrief(brief);
+			    		eq.setDate(date);
+			    		eq.setTitle(title);
+			    		eq.setImg(img);
+			    		eq.setRetcode(retcode);
+			    		EqManager.addEq(eq);
+					}
+					
+				}
+	    		
+	    		
+				
+				//去重
+				String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM bc_eq GROUP BY date HAVING ( COUNT(retcode) > 1 )) AS p)" ;
+				
+				EqManager.executeSql(delsql);
+				
+				
+				
+				
+				
+
+	    	} catch (Exception e) {
+	    		// TODO: handle exception
+	    		LOGGER.error("TestEQTask=======>"+e);
+	    	}
+
+			LOGGER.info("情圣定时任务结束"+TimeUtils.getNowTime());
+//			
 //			
 //			LOGGER.info("VPS任务开始"+TimeUtils.getNowTime());
 //			try {
