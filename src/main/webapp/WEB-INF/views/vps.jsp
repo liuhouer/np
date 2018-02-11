@@ -68,11 +68,11 @@
 									
 										<p>  
 										
-										发表于：<a class="common-a-right"  title="${s.date}" >${s.date}</a>
+										发表于：<span class="common-a-right"  title="${s.date}" >${s.date}</span>
 										
-											<c:forEach items="${s.taglist }" var="t" varStatus="tt">
+											 <c:forEach items="${s.taglist }" var="t" varStatus="tt">
 											 
-										     <a class="common-a-right"  title="${t.tag}" href="/vps/tag/${t.tag}">${t.tag}</a>
+										    	 <strong><a class="common-a-right"  title="${t.tag}" href="/vps/tag/${t.tag}">${t.tag}</a></strong>
 											 </c:forEach>
 										     
 										     

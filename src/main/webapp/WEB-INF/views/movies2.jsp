@@ -67,7 +67,7 @@
 								<div class="row margin5  word-return">
 										<div class="border-0 center">
 											<p>
-											<a href="/movies/search?id=${s.id }" oid="${s.id }">
+											<a href="/movies/post-${s.id }.html" oid="${s.id }">
 												<small class="green-text">
 													<font size="5"><strong>${s.moviename}</strong></font> 
 												</small>
@@ -80,12 +80,12 @@
 									
 										<p>  
 										
-										发表于：<span  class=" glyphicon glyphicon-time margin10"></span><a class="common-a-right"  title="${s.addtime}" href="/movies/date/${s.addtime}">${s.addtime}</a>
+										发表于：<span  class=" glyphicon glyphicon-time margin10"></span><span class="common-a-right"  title="${s.addtime}" href="/movies/date/${s.addtime}">${s.addtime}</span>
 										
 										       <span  class=" glyphicon glyphicon-tags margin10"></span>
 										       
 										       <c:forEach items="${s.taglist }" var="y" varStatus="yy">
-										         <a class="common-a-right"  title="${y.tag}" href="/movies/tag/${y.tagcode }">${y.tag}</a>
+										         <strong><a class="common-a-right"  title="${y.tag}" href="/movies/tag/${y.tagcode }">${y.tag}</a></strong>
 										       </c:forEach>
 										       <c:if test="${user!=null }">
 										       	 <c:if test="${user.email == '654714226@qq.com' || user.email == 'qhdsoft@126.com' || user.email == 'woaideni@qq.com'}">
@@ -148,7 +148,7 @@
 				        			  </div>
 				        			   <div class="col-xs-10">
 					        		
-					        			 <a style="font-size: 14px;line-height: 32px;color: #888" href="/movies/search?id=${z.id }" title="${z.moviename }">${z.moviename } </a>
+					        			 <a style="font-size: 14px;line-height: 32px;color: #888" href="/movies/post-${z.id }.html" title="${z.moviename }">${z.moviename } </a>
 								
 				        			 </div>
 						             

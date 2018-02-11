@@ -9,7 +9,7 @@
 				
 						<ul class="piclist mainlist">
 							 <c:forEach items="${movieslist }" var="s" varStatus="ss">
-							 	<li  ><a  class="no-decoration" href="/movies/search?id=${s.id }" target="_blank"><img src="/img/index/movie${ss.index%11 +1}.png" />${s.moviename }</a></li>
+							 	<li  ><a  class="no-decoration" href="/movies/post-${s.id }.html" target="_blank"><img src="/img/index/movie${ss.index%11 +1}.png" />${s.moviename }</a></li>
 							 </c:forEach>
 				
 						</ul>

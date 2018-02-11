@@ -23,32 +23,19 @@
 <body >
 
 	<%@ include file="/WEB-INF/views/page/common/navigation.jsp"%>
-	 
-	 <!-- 页面标题 -->
-		<h1 class="font-elegant">${keyword }的搜索结果</h1>	 
+
 <div class="clearfix maincontent grayback" >
-	<div class="container">
-		<div class="mainbody" style="margin-top:80px; ">
-		
-		
-		     
-		
-		
+	<div class="container mainbody">
 			<div class="row">
-					  <div class="col-sm-8 col-md-offset-2">
-		                <form class=" form-search " action="/movies/search" id="J_ser_from" method="post" accept-charset="UTF-8">
-		                  <input id="keyword" placeholder="电影名"    value="${keyword }"	class="width100 input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0" name="keyword" type="text">
-		                  <input data-activetext="搜索 ››" class=" btn btn-hero " value="搜索" type="submit" id="J_ser_btn">
-		                </form>
-		              </div>
 				
 					<c:forEach items="${list }" var="s" varStatus="ss">
-					<div class="col-sm-8 col-md-offset-2">
-					<div class="clearfix bg-white margin-t10 margin-b10 padding20">
-								<div class="row">
+					<div class="col-md-12">
+					<div class="col-sm-10  col-md-offset-1 ">
+					<div class="clearfix bg-white margin-t10 margin-b10 padding20" id="J_white_div">
+								<div class="row margin10 post_article">
 								
 								       <div class="border-0 center">
-											<p oid="${s.id }"><small class="green-text"><font size="5"><strong>${s.moviename}</strong></font> </small></p>
+											<p oid="${s.id }"><h1><small class="green-text"><font size="5"><strong>${s.moviename}</strong></font> </small></h1></p>
 											
 											
 											<%-- <p><small class="red-text">￥${s.price}</small></p> --%>
@@ -75,9 +62,9 @@
 											
 										</div>
 									
-										<div class="col-sm-8  col-md-offset-2 ">
+										<div class="margin20">
 										
-											<a  title="${s.moviename}的简介" href="/movies/post-${s.id }.html">${s.moviename}</a> 简介：</p>
+											<%-- <a  title="${s.moviename}的简介" href="/movies/post-${s.id }.html">${s.moviename}</a> 简介：</p> --%>
 											<p id="brief_${ss.index}">
 											
 											  ${s.description }
@@ -85,8 +72,8 @@
 											</p>
 											
 											<div class="clearfix visible-xs">
-											<hr>
-									    </div>
+												<hr>
+									   		 </div>
 									
       
         								<!-- 打赏 -->	
@@ -117,13 +104,9 @@
 											<hr>
 									    </div>
 										
-										<c:if test="${searchbyid =='searchbyid'}">
 		  	 
 							  	        <!-- 评论 -->
 													<div id="comment"  class="clearfix bg-white">
-													<%-- <!-- 多说评论框 start -->
-													<div class="ds-thread" data-thread-key="${article.retcode }" data-title="${article.title} | NorthPark" data-url="/soft/${article.retcode }.html"></div>
-													<!-- 多说评论框 end --> --%>
 													
 													<!-- 来必力City版安装代码 -->
 													<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzgzNy80NDEz">
@@ -141,17 +124,13 @@
 													   })(document, 'script');
 													   
 													   
-													 //删除评论多余的代码
-														
-													   $("#wrapper").find("div[id='footer']").remove();
 													</script>
 													</div>
 													<!-- City版安装代码已完成 -->
 														
 													</div>
-							<!-- 评论 -->
+										<!-- 评论 -->
 							  	
-							  	</c:if>
 										
 										</div>
 										
@@ -171,18 +150,12 @@
 								
 								
 							</div>
+							</div>
+					</div>
 					</c:forEach>
 					
 						 
-					
-
 		  	
-		  	
-		  	
-		  	
-		  	
-		  	
-		</div>
 	</div>
 </div>
 
@@ -197,14 +170,9 @@
 		
 		
 		
-		//搜索
-		$("#J_ser_btn").click(function(){
-			$("#J_ser_btn").attr('disabled',true);
-			if($("#keyword").val() && $("#keyword").val()!="${keyword }"){
-				window.location.href = "/movies/search?keyword="+$("#keyword").val();
-			}
-			setTimeout("$('#J_ser_btn').removeAttr('disabled')",5000); //设置5秒后提交按钮 显示  
-		})
+		//删除评论多余的代码---来必力
+		
+		   $("#wrapper").find("div[id='footer']").remove();
 	})
 
  		function handup(id){

@@ -420,20 +420,6 @@ private static int MoviesCount = 6;
 			map.put("keyword", keyword);
 		}
 		
-		if(StringUtils.isNotEmpty(id)){
-			//sql注入处理
-			id = WAQ.forSQL().escapeSql(id);
-			wheresql = " where id = "+id;
-			
-			Movies findMovies = moviesManager.findMovies(Integer.parseInt(id));
-			if(findMovies!=null){
-				
-				map.put("keyword", findMovies.getMoviename());
-			}
-			
-			map.put("searchbyid", "searchbyid");
-		}
-		
 		
 		List<Movies> list =  moviesManager.findByCondition(wheresql+" order by id desc ").getResultlist();
 		map.addAttribute("list", list);
@@ -441,6 +427,36 @@ private static int MoviesCount = 6;
 		map.put("search", "search");
 		
 		return "/moviesdetail";
+	}
+	
+	
+	/**
+	 * 跳转到电影详情页面
+	 * @param map
+	 * @param condition
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/movies/post-{id}.html")
+	public String postdetail(ModelMap map,@PathVariable String id,HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+		String wheresql = " where 1=1 ";
+		
+		if(StringUtils.isNotEmpty(id)){
+			//sql注入处理
+			id = WAQ.forSQL().escapeSql(id);
+			wheresql = " where id = "+id;
+		}
+		
+		List<Movies> list =  moviesManager.findByCondition(wheresql+" order by id desc ").getResultlist();
+		if(!CollectionUtils.isEmpty(list)){
+			
+			map.put("keyword", list.get(0).getMoviename());
+		}
+		map.addAttribute("list", list);
+		
+		return "/movies-article";
 	}
 	
 	

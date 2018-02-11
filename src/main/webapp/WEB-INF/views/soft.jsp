@@ -69,11 +69,11 @@
 									
 										<p>  
 										
-										发表于：<a class="common-a-right"  title="${s.postdate}" href="/soft/date/${s.postdate }">${s.postdate}</a>
+										发表于：<strong><a class="common-a-right"  title="${s.postdate}" href="/soft/date/${s.postdate }">${s.postdate}</a></strong>
 										
-										     <a class="common-a-right"  title="${s.tags}" href="/soft/tag/${s.tagscode }">${s.tags}</a>
+										     <strong><a class="common-a-right"  title="${s.tags}" href="/soft/tag/${s.tagscode }">${s.tags}</a></strong>
 										     
-										     <a class="common-a-right"  title="${s.os}" href="/soft/${s.os }">${s.os}</a>
+										     <strong><a class="common-a-right"  title="${s.os}" href="/soft/${s.os }">${s.os}</a></strong>
 										     
 										    <%--  <a href="/soft/${s.retcode }.html#comment" class=" reply-count count-text common-a" data-thread-key="${s.retcode }" data-count-type="comments"></a> --%>
 										</p>

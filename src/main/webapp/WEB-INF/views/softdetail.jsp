@@ -47,15 +47,15 @@
 									</div>
 									<p>
 										发表于：
-										<a class="common-a-right" title="${article.postdate}" href="/soft/date/${article.postdate }">
+										<strong><a class="common-a-right" title="${article.postdate}" href="/soft/date/${article.postdate }">
 											${article.postdate}
-										</a>
-										<a class="common-a-right" title="${article.tags}" href="/soft/tag/${article.tagscode }">
+										</a></strong>
+										<strong><a class="common-a-right" title="${article.tags}" href="/soft/tag/${article.tagscode }">
 											${article.tags}
-										</a>
-										<a class="common-a" title="${article.os}" href="/soft/${article.os }">
+										</a></strong>
+										<strong><a class="common-a" title="${article.os}" href="/soft/${article.os }">
 											${article.os}
-										</a>
+										</a></strong>
 									</p>
 									<p id="content_${sarticle.index}">
 										${article.content }

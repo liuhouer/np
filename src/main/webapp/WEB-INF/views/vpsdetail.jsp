@@ -46,7 +46,7 @@
 										</div>
 									</div>
 									<p>
-										发表于：<a class="common-a-right"  title="${article.date}" >${article.date}</a>
+										发表于：<span class="common-a-right"  title="${article.date}" >${article.date}</span>
 										
 											<c:forEach items="${article.taglist }" var="t" varStatus="tt">
 											 
