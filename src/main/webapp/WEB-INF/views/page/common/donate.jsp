@@ -2,8 +2,81 @@
     pageEncoding="UTF-8"%>
 
 <div class="col-md-12 margin-t10" >
-
 									<div class="col-xs-10 clearfix border-bottom">
+				        			    <p>
+					        		    <span  class="glyphicon glyphicon-time margin5"></span>
+						                 2018-02-12 15:42
+						                 </p>
+						                 
+						                 <p>
+						                
+						                <p>
+						                 <span  class="glyphicon glyphicon-user margin5"></span>
+										韩锡勋哦哦
+										</p>
+										<p>
+										<span  class="glyphicon glyphicon-barcode margin5"></span>
+									    20180212210***247083668
+									    
+										</p>
+										<p>
+										 <span  class="glyphicon glyphicon-retweet margin5"></span>
+									           同学挺好的！山西的大学生！！
+										</p>
+										<p>
+										 <span  class="glyphicon glyphicon-comment margin5"></span>
+									           大哥人很好，支持
+										</p>
+										<p>
+										 <span  class="glyphicon glyphicon-link margin5"></span>
+
+										 <a href="http://hanxixun.github.io/" target="_blank">http://hanxixun.github.io/</a>
+
+										</p>
+										<p>
+										 <span  class="glyphicon  margin5">￥</span>
+									         99.00
+										</p>
+					        			 
+				        			 </div>	
+									<div class="col-xs-10 clearfix border-bottom">
+				        			    <p>
+					        		    <span  class="glyphicon glyphicon-time margin5"></span>
+						                 2018-01-09 22:30
+						                 </p>
+						                 
+						                 <p>
+						                
+						                <p>
+						                 <span  class="glyphicon glyphicon-user margin5"></span>
+										b***re
+										</p>
+										<p>
+										<span  class="glyphicon glyphicon-barcode margin5"></span>
+									    20180109210***234125769
+										</p>
+										<p>
+										 <span  class="glyphicon glyphicon-retweet margin5"></span>
+									           这位同学很谦虚好学，赞！
+										</p>
+										<p>
+										 <span  class="glyphicon glyphicon-comment margin5"></span>
+									           教导非常细心
+										</p>
+										<p>
+										 <span  class="glyphicon glyphicon-link margin5"></span>
+
+										 <a href="http://billvampire.github.io/" target="_blank">http://billvampire.github.io/</a>
+
+										</p>
+										<p>
+										 <span  class="glyphicon  margin5">￥</span>
+									         99.00
+										</p>
+					        			 
+				        			 </div>	
+				        			 
+				        			 <div class="col-xs-10 clearfix border-bottom">
 				        			    <p>
 					        		    <span  class="glyphicon glyphicon-time margin5"></span>
 						                 2017-09-20 16:52:12
