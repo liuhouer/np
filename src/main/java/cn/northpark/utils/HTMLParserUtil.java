@@ -703,7 +703,7 @@ public class HTMLParserUtil{
                 Document doc =  Jsoup.connect("http://www.sdifen.com/category/black-apple/apple-software/page/"+index+"/")
                 		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
         				.referrer("http://www.google.com") 
-        				.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+        				.timeout(1000*30) //it's in milliseconds, so this means 5 seconds.  
         				.get();
                 
                
@@ -802,7 +802,7 @@ public class HTMLParserUtil{
                         Document doc_ = Jsoup.connect(aurl)
                         		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
                 				.referrer("http://www.google.com") 
-                				.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
+                				.timeout(1000*30) //it's in milliseconds, so this means 5 seconds.  
                 				.get();
                         Elements article_alls = doc_.select("div[class=entry-content] p");
                         if(!article_alls.isEmpty()){

@@ -84,6 +84,18 @@ public class DashAction {
 		 	  	
 		}	
 		
+		 /**
+		  * 
+		  * 网站地图
+		  */
+		@RequestMapping("/sitemap")
+		public String sitemap(HttpServletRequest request,HttpServletResponse response, ModelMap map) throws Exception {
+	 	  	
+		    
+			return "/sitemap";
+		 	  	
+		}	
+		
 		
 				//异步获取首页的love数据 
 				@RequestMapping(value="/dash/getLove")
