@@ -172,7 +172,7 @@
 		
 		//删除评论多余的代码---来必力
 		
-		   $("#wrapper").find("div[id='footer']").remove();
+		   
 	})
 
  		function handup(id){

@@ -1,6 +1,7 @@
 
 package cn.northpark.action;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.northpark.constant.BC_Constant;
@@ -88,12 +90,15 @@ public class DashAction {
 		  * 
 		  * 网站地图
 		  */
-		@RequestMapping("/sitemap")
-		public String sitemap(HttpServletRequest request,HttpServletResponse response, ModelMap map) throws Exception {
-	 	  	
-		    
-			return "/sitemap";
-		 	  	
+		@RequestMapping("/sitemap/{tag}")
+		public String sitemap(HttpServletRequest request,HttpServletResponse response, ModelMap map,@PathVariable("tag") String tag) throws Exception {
+			List<String> tags = Arrays.asList("eq", "love", "movies", "poem", "soft", "vps");
+			boolean contains = tags.contains(tag);
+			if(contains){
+				return "/sitemap-"+tag;
+			}else{
+				return null;
+			}
 		}	
 		
 		

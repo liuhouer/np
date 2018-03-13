@@ -120,7 +120,7 @@
 								   
 								 //删除评论多余的代码
 									
-								   $("#wrapper").find("div[id='footer']").remove();
+								   
 								</script>
 								</div>
 								<!-- City版安装代码已完成 -->
