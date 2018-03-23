@@ -1,4 +1,6 @@
 # np-web
+## 2018年3月23日
+> 最近更新了mac资源、生成了sitemap并没有seo优化的太大作用fk
 
 ## 2017年12月5日
 > 删除download lrc
