@@ -382,7 +382,7 @@ public class HTMLParserUtil{
      */
     public static List<Map<String,String>> retEQArticle() throws IOException {
         List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-        for(int i=0;i<=1;i++){
+        for(int i=0;i<=0;i++){
             try{
             Document doc = Jsoup.connect("http://chuansong.me/account/loveudavid?start="+i*12)
 			            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
