@@ -231,87 +231,87 @@ public class TestEQTask {
 //			LOGGER.info("VPS任务结束"+TimeUtils.getNowTime());
 			
 			
-//			try {
-//				
-//				LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
-//				Map<String,String> map = null;
-//				
-//				
-//				
-//				for (int k = 4; k <= 8; k++) {
-//					
-//					try {
-//						
-//						List<Map<String, String>> list = HTMLParserUtil.retSoft(k);
-//						
-//						
-//						if(!CollectionUtils.isEmpty(list)){
-//							for (int i = 0; i < list.size(); i++) {
-//								map  = list.get(i);
-//								
-//								String title = map.get("title");
-//								String aurl = map.get("aurl");
-//								String brief = map.get("brief");
-//								String date = map.get("date");
-//								String article = map.get("article");
-//								String tag = map.get("tag");
-//								String code = map.get("code");
-//								String os = map.get("os");
-//								String month  = map.get("month");
-//								String year  = map.get("year");
-//								String tagcode = map.get("tagcode");
-//								
-//								
-//
-//								//是不存在的文章
-//								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
-//								
-//								if(flag<=0){
-//									
-//						    		Soft model = new Soft();
-//						    		model.setBrief(brief);
-//						    		model.setContent(article);
-//						    		model.setOs(os);
-//						    		model.setPostdate(date);
-//						    		model.setRetcode(code);
-//						    		model.setReturl(aurl);
-//						    		model.setTags(tag);
-//						    		model.setTitle(title);
-//						    		model.setMonth(month);
-//						    		model.setYear(year);
-//						    		model.setTagscode(tagcode);
-//						    		softManager.addSoft(model);
-//								}
-//							}
-//						}
-//					} catch (Exception e) {
-//						// TODO: handle exception
-//						LOGGER.error(e);
-//						continue;
-//					}
-//					
-//					
-//					
-//				
-//					try {
-//					    Thread.sleep(1000*5);
-//					    LOGGER.info("第"+k+"页================");
-//					} catch (InterruptedException e) {
-//					    // TODO Auo-generated catch block
-//					    e.printStackTrace();
-//					}
-//					
-//				}
-//				
-//				
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				LOGGER.info(e);
-//			}
-//				
-//			LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
-//			
-//			LOGGER.info("软件定时任务结束"+TimeUtils.getNowTime());
+			try {
+				
+				LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
+				Map<String,String> map = null;
+				
+				
+				
+				for (int k = 1; k <= 8; k++) {
+					
+					try {
+						
+						List<Map<String, String>> list = HTMLParserUtil.retSoft(k);
+						
+						
+						if(!CollectionUtils.isEmpty(list)){
+							for (int i = 0; i < list.size(); i++) {
+								map  = list.get(i);
+								
+								String title = map.get("title");
+								String aurl = map.get("aurl");
+								String brief = map.get("brief");
+								String date = map.get("date");
+								String article = map.get("article");
+								String tag = map.get("tag");
+								String code = map.get("code");
+								String os = map.get("os");
+								String month  = map.get("month");
+								String year  = map.get("year");
+								String tagcode = map.get("tagcode");
+								
+								
+
+								//是不存在的文章
+								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
+								
+								if(flag<=0){
+									
+						    		Soft model = new Soft();
+						    		model.setBrief(brief);
+						    		model.setContent(article);
+						    		model.setOs(os);
+						    		model.setPostdate(date);
+						    		model.setRetcode(code);
+						    		model.setReturl(aurl);
+						    		model.setTags(tag);
+						    		model.setTitle(title);
+						    		model.setMonth(month);
+						    		model.setYear(year);
+						    		model.setTagscode(tagcode);
+						    		softManager.addSoft(model);
+								}
+							}
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						LOGGER.error(e);
+						continue;
+					}
+					
+					
+					
+				
+					try {
+					    Thread.sleep(1000*5);
+					    LOGGER.info("第"+k+"页================");
+					} catch (InterruptedException e) {
+					    // TODO Auo-generated catch block
+					    e.printStackTrace();
+					}
+					
+				}
+				
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				LOGGER.info(e);
+			}
+				
+			LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
+			
+			LOGGER.info("软件定时任务结束"+TimeUtils.getNowTime());
 			
 			
 			
