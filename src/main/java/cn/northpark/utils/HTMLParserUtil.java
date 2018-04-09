@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Connection.Response;
@@ -909,6 +910,201 @@ public class HTMLParserUtil{
 
         return list;
     }
+    
+    
+    
+    /**
+     * 爬取1页的mac软件内容
+     */
+    public static List<Map<String, String>> retSoftNew(Integer index) {
+        // TODO Auto-generated method stub
+        List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+        HashMap<String, String> map = null;
+        try{
+        	
+        	
+        	
+        	 String initUrl="https://www.waitsun.com/page/"+index;
+             final String dataResult = HttpGetUtils.getDataResult(initUrl);
+             Document doc = Jsoup.parse(dataResult,initUrl);
+             
+             //取得一页内容梗概
+             Elements soft11 = doc.select("article[class=gamma-item globe-block p-3 col-md-3]");
+             
+             
+//             String baseUrl=initUrl;
+//
+//             //获取所有我需要格式匹配的链接
+//             HashMap<String, String> allUrls = StartImg.getAllUrls(dataResult,baseUrl);
+//             
+//             Set<String> keySet = allUrls.keySet();
+
+             for (Element e : soft11) {
+                 try {
+                	 
+                	 String url = e.select("a").get(0).attr("href");
+                	 String img_url = e.select("img").get(0).attr("src");
+                	 
+                	 
+                	 //获取全文的内容
+                     String dataResult1 = HttpGetUtils.getDataResult(url);
+
+                     /*System.out.println(dataResult1);*/
+                     Document parse = Jsoup.parse(dataResult1,url);
+                     
+                     //唯一码
+                     String code = url.substring(url.lastIndexOf("/")+1, url.length()).replaceAll(".html", "");
+                     
+                     //日期
+                     String date = parse.select("div[class=about pt-2 pt-md-3]").select("span").get(0).text();
+                     
+                     
+                     date=date.replaceAll(" ", "");
+                     date=date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
+                     LOGGER.info("date===================="+date);
+                     //月
+                     String month = date.substring(0, date.lastIndexOf("-"));
+                     LOGGER.info("month===================="+month);
+                     //年
+                     String year = month.substring(0, month.lastIndexOf("-"));
+                     LOGGER.info("year===================="+year);
+                     
+                     
+                    
+                     
+                     //标题
+                     String title = parse.select("div[class=meta text-center text-white]").select("h1").get(0).text();
+                     
+                     //标签
+                     String tag = parse.select("li[class=breadcrumb-item]").get(1).text();
+                     
+                     
+                     //处理软件logo上传
+                     HashMap<String, String> map11 = HTMLParserUtil.webPic2Disk(img_url, getLocalFolderByOS() ,date);
+
+                     String logo_url = QiniuUtils.getInstance.upload(map11.get("localpath"), "soft/"+date+"/"+map11.get("key"));
+                     
+                     String logo_p = "<p><img class=\"aligncenter size-full wp-image-"+code+"\" title=\""+title+"\" alt=\""+title+"\" src=\""+logo_url+"\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\">";
+                     
+                     
+                   //计算标签编码、
+                     String tagcode = "005";
+                     if(tag.contains("应用")||tag.contains("系统")){
+                         tagcode = "001";
+                         tag = "系统、应用软件";
+                     }else if(tag.contains("开发")||tag.contains("设计")){
+                         tagcode = "002";
+                         tag = "开发、设计软件";
+                     }else if(tag.contains("媒体")){
+                         tagcode = "003";
+                         tag = "媒体软件";
+                     }else if(tag.contains("安全")||tag.contains("网络")){
+                         tagcode = "004";
+                         tag = "网络、安全软件";
+                     }else if(tag.contains("其他")){
+                         tagcode = "005";
+                         tag = "其他软件";
+                     }else if(tag.contains("游戏")){
+                         tagcode = "006";
+                         tag = "游戏一箩筐";
+                     }else if(tag.contains("限时免费")){
+                         tagcode = "007";
+                         tag = "限免软件";
+                     }else if(tag.contains("疑难")){
+                         tagcode = "008";
+                         tag = "疑难杂症";
+                     }else{
+                         tagcode = "005";
+                         tag = "其他软件";
+                     }
+                     LOGGER.info("tagcode===================="+tagcode);
+                     
+                     //正文
+                     String article = "";
+                     
+                     //简介
+                     StringBuilder brief = new StringBuilder(); 
+                     
+                   
+                     Elements article_alls = parse.select("div[class=content]");
+                     if(!article_alls.isEmpty()){
+                         for (int i1 = 0; i1 < article_alls.size(); i1++) {
+                        	 
+                        	 //处理征文图像
+                             Elements imgs = article_alls.get(i1).select("img");
+                             for (int j = 0; j < imgs.size(); j++) {
+                                 try {
+                                     String weburl = imgs.get(j).attr("src");
+                                     //web图片上传到七牛
+
+                                     //-------------开始--------------------------------
+
+                                     HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
+
+                                     String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
+
+                                     //-------------结束--------------------------------
+
+                                     imgs.get(j).attr("src", rs);
+                                     imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
+                                 } catch (Exception e1) {
+                                     // TODO: handle exception
+                                     LOGGER.error("ret pic exception===>"+e1.toString());
+                                     continue;
+                                 }
+
+                             }
+
+                             
+                             //处理正文的不合法url
+                             Elements a1 = article_alls.get(i1).select("a");
+                             for(Element s:a1){
+                            	 if(s.attr("href").contains("/tag")){
+                            		 s.before(s.text());
+                            		 s.remove();
+                            	 }else if(s.attr("href").contains("/xpay-html")){
+                            		 s.remove();
+                            	 }
+                             }
+                             
+                             //设置正文
+                             article = article_alls.get(i1).html();
+                             brief.append(logo_p);
+                             brief.append("<p>");
+                             brief.append(article_alls.get(i1).select("p").get(0).html());
+                             brief.append("</p>");
+                             System.out.println("===================================================================================================");
+                             System.out.println(article_alls.get(i1).html());
+                             System.out.println("===================================================================================================");
+                         }
+                     }
+
+                     map = new HashMap<>();
+                     map.put("title", title);
+                     map.put("aurl", url);
+                     map.put("brief", brief.toString());
+                     map.put("date", date);
+                     map.put("article", article);
+                     map.put("tag", tag);
+                     map.put("code", code);
+                     map.put("os", "mac");
+                     map.put("month", month);
+                     map.put("year", year);
+                     map.put("tagcode", tagcode);
+                     list.add(map);
+                 }catch (Exception e2){
+                     continue;
+                 }
+
+             }
+             System.out.println(index+"页爬取完毕！ the end===============================================================================================");
+
+            }catch(Exception e){
+                LOGGER.error("HTMLPARSERutils------->", e);;
+            }
+
+        return list;
+    }
 
     /**
      * 爬取1页的电影图书资源
@@ -1323,58 +1519,28 @@ public class HTMLParserUtil{
         String path = "";
         String name = "";
                 try{
-                    URL   url   =   new   URL(weburl);
-                    URLConnection   uc   =   url.openConnection();
-                    InputStream   is   =   uc.getInputStream();
+                    
+                    byte[] img_byte = HttpGetUtils.getImg(weburl);
 
+                    //拼接名字
+                    
                     name = weburl.substring(weburl.lastIndexOf("/")+1, weburl.length());
 
                     path = localpath;//"/Users/zhangyang/Pictures/";
 
                     date = date+"/";
 
-                    map.put("key", name);
+                    //拼接路径
                     path = path+date;
 
-                    File filepath = new File(path);
-                    if(!filepath.exists() && !filepath.isDirectory()){
-                        filepath.mkdirs();
-                    }
-
-                    File file2 = new File(path+name);
+                    //写入文件
+                    FileUtils.writeByteArrayToFile(new File(path+name), img_byte);
+                    
+                    map.put("key", name);
                     map.put("localpath", path+name);
                     map.put("trimpath",(path+name).replace("E:\\bruce\\", ""));
                     
                     
-                    if(file2.exists()){
-
-                    }else{
-                    	
-                    	FileOutputStream   out   =   new   FileOutputStream(path+name);
-                    	try{
-                             LOGGER.info("写入中..."+path+name);
-                             //5秒内图片没有写完  停止
-                             int  timeoutMillis = 5;
-                             long maxTimeMillis = System.currentTimeMillis() + timeoutMillis;
-                         	 while (System.currentTimeMillis() < maxTimeMillis) {
-                         		int   i1=0;
-                                while   ((i1=is.read())!=-1)   {
-                                    out.write(i1);
-                                }
-                         	 }
-                         	 
-                    	}catch(Exception e){
-                    		LOGGER.error("HTMLPARSERutils------->", e);
-                    	}finally{
-                    		 out.flush();
-                    		 out.close();
-                    	}
-                       
-                        
-                       
-                        
-                    }
-                    is.close();
                 }catch(Exception e){
                     LOGGER.error("HTMLPARSERutils------->", e);
                 }
@@ -1676,7 +1842,7 @@ public class HTMLParserUtil{
 //            	for (Term t: terms) {
 //					System.out.println(t.getName());
 //				}
-            	
+            	retSoftNew(3);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 LOGGER.error("HTMLPARSERutils------->", e);;

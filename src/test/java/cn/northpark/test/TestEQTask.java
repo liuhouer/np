@@ -242,7 +242,7 @@ public class TestEQTask {
 					
 					try {
 						
-						List<Map<String, String>> list = HTMLParserUtil.retSoft(k);
+						List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
 						
 						
 						if(!CollectionUtils.isEmpty(list)){
