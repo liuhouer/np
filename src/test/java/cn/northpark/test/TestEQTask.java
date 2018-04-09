@@ -238,7 +238,7 @@ public class TestEQTask {
 				
 				
 				
-				for (int k = 1; k <= 8; k++) {
+				for (int k = 11; k <= 50; k++) {
 					
 					try {
 						
@@ -293,13 +293,13 @@ public class TestEQTask {
 					
 					
 				
-					try {
-					    Thread.sleep(1000*5);
-					    LOGGER.info("第"+k+"页================");
-					} catch (InterruptedException e) {
-					    // TODO Auo-generated catch block
-					    e.printStackTrace();
-					}
+//					try {
+//					    Thread.sleep(1000*5);
+//					    LOGGER.info("第"+k+"页================");
+//					} catch (InterruptedException e) {
+//					    // TODO Auo-generated catch block
+//					    e.printStackTrace();
+//					}
 					
 				}
 				
