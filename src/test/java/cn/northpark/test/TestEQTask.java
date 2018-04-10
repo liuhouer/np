@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +25,10 @@ import cn.northpark.model.Movies;
 import cn.northpark.model.Soft;
 import cn.northpark.model.Vps;
 import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.utils.MD5Utils;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.page.QueryResult;
 
 /**
  * @author zhangyang
@@ -80,7 +86,21 @@ public class TestEQTask {
 		public void runTask(){
 			
 			
+			//更新短连接和下载的样式呢
+			List<Soft> findByCondition = softManager.findByCondition(" where id>=515189  order by id desc ").getResultlist();
 			
+			for(Soft s:findByCondition){
+				String content = s.getContent();
+				 Document parse = Jsoup.parse(content);
+				 Elements last_a = parse.select("a");
+				 for(Element e:last_a){
+					 if(e.attr("href").contains("waitsun.com/?dl_id")){//改成短连接  并且改样式
+                		 e.addClass("btn-warning");
+                	 }
+				 }
+				 s.setContent(parse.html());
+				 softManager.updateSoft(s); 
+			}
 			//处理图片的alt缺失
 //			int COUNT = moviesManager.countHql(" where 1=1");
 //			System.out.println(COUNT);
@@ -231,87 +251,87 @@ public class TestEQTask {
 //			LOGGER.info("VPS任务结束"+TimeUtils.getNowTime());
 			
 			
-			try {
-				
-				LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
-				Map<String,String> map = null;
-				
-				
-				
-				for (int k = 11; k <= 50; k++) {
-					
-					try {
-						
-						List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
-						
-						
-						if(!CollectionUtils.isEmpty(list)){
-							for (int i = 0; i < list.size(); i++) {
-								map  = list.get(i);
-								
-								String title = map.get("title");
-								String aurl = map.get("aurl");
-								String brief = map.get("brief");
-								String date = map.get("date");
-								String article = map.get("article");
-								String tag = map.get("tag");
-								String code = map.get("code");
-								String os = map.get("os");
-								String month  = map.get("month");
-								String year  = map.get("year");
-								String tagcode = map.get("tagcode");
-								
-								
-
-								//是不存在的文章
-								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
-								
-								if(flag<=0){
-									
-						    		Soft model = new Soft();
-						    		model.setBrief(brief);
-						    		model.setContent(article);
-						    		model.setOs(os);
-						    		model.setPostdate(date);
-						    		model.setRetcode(code);
-						    		model.setReturl(aurl);
-						    		model.setTags(tag);
-						    		model.setTitle(title);
-						    		model.setMonth(month);
-						    		model.setYear(year);
-						    		model.setTagscode(tagcode);
-						    		softManager.addSoft(model);
-								}
-							}
-						}
-					} catch (Exception e) {
-						// TODO: handle exception
-						LOGGER.error(e);
-						continue;
-					}
-					
-					
-					
-				
+//			try {
+//				
+//				LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
+//				Map<String,String> map = null;
+//				
+//				
+//				
+//				for (int k = 19; k <= 50; k++) {
+//					
 //					try {
-//					    Thread.sleep(1000*5);
+//						
+//						List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
+//						
+//						
+//						if(!CollectionUtils.isEmpty(list)){
+//							for (int i = 0; i < list.size(); i++) {
+//								map  = list.get(i);
+//								
+//								String title = map.get("title");
+//								String aurl = map.get("aurl");
+//								String brief = map.get("brief");
+//								String date = map.get("date");
+//								String article = map.get("article");
+//								String tag = map.get("tag");
+//								String code = map.get("code");
+//								String os = map.get("os");
+//								String month  = map.get("month");
+//								String year  = map.get("year");
+//								String tagcode = map.get("tagcode");
+//								
+//								
+//
+//								//是不存在的文章
+////								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
+////								
+////								if(flag<=0){
+//									
+//						    		Soft model = new Soft();
+//						    		model.setBrief(brief);
+//						    		model.setContent(article);
+//						    		model.setOs(os);
+//						    		model.setPostdate(date);
+//						    		model.setRetcode(code);
+//						    		model.setReturl(aurl);
+//						    		model.setTags(tag);
+//						    		model.setTitle(title);
+//						    		model.setMonth(month);
+//						    		model.setYear(year);
+//						    		model.setTagscode(tagcode);
+//						    		softManager.addSoft(model);
+////								}
+//							}
+//						}
+//					} catch (Exception e) {
+//						// TODO: handle exception
+//						LOGGER.error(e);
+//						continue;
+//					}
+//					
+//					
+//					
+//				
+//					try {
+//					    Thread.sleep(1000);
 //					    LOGGER.info("第"+k+"页================");
 //					} catch (InterruptedException e) {
 //					    // TODO Auo-generated catch block
 //					    e.printStackTrace();
 //					}
-					
-				}
-				
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-				LOGGER.info(e);
-			}
-				
-			LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
-			
-			LOGGER.info("软件定时任务结束"+TimeUtils.getNowTime());
+//					
+//				}
+//				
+//				
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				LOGGER.info(e);
+//			}
+//				
+//			LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
+//			
+//			LOGGER.info("软件定时任务结束"+TimeUtils.getNowTime());
 			
 			
 			

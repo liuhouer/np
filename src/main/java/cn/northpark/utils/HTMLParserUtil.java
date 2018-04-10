@@ -926,11 +926,17 @@ public class HTMLParserUtil{
         	
         	 String initUrl="https://www.waitsun.com/page/"+index;
              final String dataResult = HttpGetUtils.getDataResult(initUrl);
+             
+             System.out.println(dataResult);
              Document doc = Jsoup.parse(dataResult,initUrl);
              
+             Elements soft11 = null;
              //取得一页内容梗概
-             Elements soft11 = doc.select("article[class=gamma-item globe-block p-3 col-md-3]");
-             
+             if(index>1){
+                 soft11 = doc.select("article[class=gamma-item globe-block p-3 col-md-3]");
+             }else{
+            	 soft11 = doc.select("div[class=col-lg-1-5 col-md-6 col-sm-6 col-12]");
+             }
              
 //             String baseUrl=initUrl;
 //
@@ -954,6 +960,14 @@ public class HTMLParserUtil{
                      
                      //唯一码
                      String code = url.substring(url.lastIndexOf("/")+1, url.length()).replaceAll(".html", "");
+                     
+                     
+                     //判断code在系统不存在再去处理后面的事
+                     
+                     SoftManager softManager = (SoftManager)SpringContextUtils.getBean("SoftManager");
+                     int flag = softManager.countHql( " where o.retcode= '"+code+"' ");
+ 					
+ 					if(flag<=0){
                      
                      //日期
                      String date = parse.select("div[class=about pt-2 pt-md-3]").select("span").get(0).text();
@@ -1034,19 +1048,19 @@ public class HTMLParserUtil{
                              Elements imgs = article_alls.get(i1).select("img");
                              for (int j = 0; j < imgs.size(); j++) {
                                  try {
-                                     String weburl = imgs.get(j).attr("src");
+//                                     String weburl = imgs.get(j).attr("src");
                                      //web图片上传到七牛
 
-                                     //-------------开始--------------------------------
-
-                                     HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
-
-                                     String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
-
-                                     //-------------结束--------------------------------
-                                     if(StringUtils.isNotEmpty(rs)){
-                                    	 imgs.get(j).attr("src", rs);
-                                     }
+//                                     //-------------开始--------------------------------
+//
+//                                     HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
+//
+//                                     String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
+//
+//                                     //-------------结束--------------------------------
+//                                     if(StringUtils.isNotEmpty(rs)){
+//                                    	 imgs.get(j).attr("src", rs);
+//                                     }
                                      imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                                  } catch (Exception e1) {
                                      // TODO: handle exception
@@ -1067,6 +1081,8 @@ public class HTMLParserUtil{
                             		 s.remove();
                             	 }else if(s.attr("href").endsWith(".jpg")||s.attr("href").endsWith(".jpeg")||s.attr("href").endsWith(".png")){
                             		 s.attr("href","");
+                            	 }else if(s.attr("href").contains("waitsun.com/?dl_id")){//改成短连接  并且改样式
+                            		 s.addClass("btn-warning");
                             	 }
                              }
                              
@@ -1095,6 +1111,8 @@ public class HTMLParserUtil{
                      map.put("year", year);
                      map.put("tagcode", tagcode);
                      list.add(map);
+                     
+ 					}
                  }catch (Exception e2){
                      continue;
                  }
@@ -1103,7 +1121,7 @@ public class HTMLParserUtil{
              System.out.println(index+"页爬取完毕！ the end===============================================================================================");
 
             }catch(Exception e){
-                LOGGER.error("HTMLPARSERutils------->", e);;
+                LOGGER.error("HTMLPARSERutils------->", e);
             }
 
         return list;
