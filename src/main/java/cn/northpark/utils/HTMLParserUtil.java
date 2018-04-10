@@ -1044,8 +1044,9 @@ public class HTMLParserUtil{
                                      String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
 
                                      //-------------结束--------------------------------
-
-                                     imgs.get(j).attr("src", rs);
+                                     if(StringUtils.isNotEmpty(rs)){
+                                    	 imgs.get(j).attr("src", rs);
+                                     }
                                      imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                                  } catch (Exception e1) {
                                      // TODO: handle exception
@@ -1064,6 +1065,8 @@ public class HTMLParserUtil{
                             		 s.remove();
                             	 }else if(s.attr("href").contains("/xpay-html")){
                             		 s.remove();
+                            	 }else if(s.attr("href").endsWith(".jpg")||s.attr("href").endsWith(".jpeg")||s.attr("href").endsWith(".png")){
+                            		 s.attr("href","");
                             	 }
                              }
                              
