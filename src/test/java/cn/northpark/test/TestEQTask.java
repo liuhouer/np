@@ -258,7 +258,7 @@ public class TestEQTask {
 				
 				
 				
-				for (int k = 51; k <= 100; k++) {
+				for (int k = 1; k <= 1; k++) {
 					
 					try {
 						
