@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.log4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,6 +37,7 @@ import cn.northpark.model.Reset;
 import cn.northpark.model.User;
 import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
+import cn.northpark.utils.AddressUtils;
 import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
@@ -323,12 +325,21 @@ public class UserAction {
 	 		
 	 		//记录访问者的IP、记录访问者的url请求路径，打印到日志里去
 //	 		String IP = AddressUtils.getIpAddr(request);
-//	 		String queryString = request.getQueryString();
-//	 		String url = request.getRequestURI();
-//	 		if(StringUtils.isNotBlank(queryString)){
-//	 			url = url+"?"+queryString;
-//	 		}
+	 		String queryString = request.getQueryString();
+	 		String url = request.getRequestURI();
+	 		if(StringUtils.isNotBlank(queryString)){
+	 			url = url+"?"+queryString;
+	 		}
 //	 		LOGGER.error("IP:"+IP+"|||URL:"+url+"|||TIME:"+TimeUtils.nowTime());
+	 		
+	 		User user = (User)request.getSession().getAttribute("user");
+			MDC.put("username",null!=user?user.getUsername():"anonymous");  
+			MDC.put("clientIp",AddressUtils.getIpAddr(request));  
+			MDC.put("operateResult", "success"); 
+			MDC.put("operateModuleName","请求不存在的路径");
+            //打业务日志唯一需要写的两行代码。 这样就可以记录角色更新前信息和更新后的信息；日志记录到这个份上基本上就到位了。
+			MDC.put("operateContent",AddressUtils.getIpAddr(request)+"在"+TimeUtils.nowTime()+"请求不存在的路径"+url);   
+			LOGGER.error("请求不存在的路径");
 			return "/building";
 		}
 	 	
@@ -341,7 +352,16 @@ public class UserAction {
 	 	 * @return
 	 	 */
 	 	@RequestMapping("/error")
-		public String error(ModelMap map) {
+		public String error(ModelMap map,HttpServletRequest request) {
+	 		
+	 		User user = (User)request.getSession().getAttribute("user");
+			MDC.put("username",null!=user?user.getUsername():"anonymous");  
+			MDC.put("clientIp",AddressUtils.getIpAddr(request));  
+			MDC.put("operateResult", "success"); 
+			MDC.put("operateModuleName","500系统异常");
+            //打业务日志唯一需要写的两行代码。 这样就可以记录角色更新前信息和更新后的信息；日志记录到这个份上基本上就到位了。
+			MDC.put("operateContent",AddressUtils.getIpAddr(request)+"在"+TimeUtils.nowTime()+"发生了异常");   
+			LOGGER.error("程序错误");
 			return "/error";
 		}
 		
