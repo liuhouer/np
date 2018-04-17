@@ -4,10 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +11,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.CollectionUtils;
 
-import cn.northpark.constant.BC_Constant;
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.VpsManager;
-import cn.northpark.model.Eq;
-import cn.northpark.model.Movies;
 import cn.northpark.model.Soft;
-import cn.northpark.model.Vps;
 import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.MD5Utils;
-import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.page.QueryResult;
 
 /**
  * @author zhangyang
@@ -85,6 +74,24 @@ public class TestEQTask {
 
 		public void runTask(){
 			
+			
+			//添加新url的sitemap
+//			StringBuilder sb = new StringBuilder();
+//			List<Map<String, Object>> list = softManager.querySqlMap(" select retcode from bc_soft where retcode not like '%post-%' order by id desc ");
+//			for(Map<String, Object> map :list){
+//				String retcode = (String) map.get("retcode");
+//				sb.append("<url>");
+//				sb.append("<loc>https://northpark.cn/soft/");
+//				sb.append(retcode+".html</loc>");
+//				sb.append("</url>");
+//			}
+//			
+//			try {
+//				org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\newsoft.xml"), sb.toString());
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			
 			//更新短连接和下载的样式呢
 //			List<Soft> findByCondition = softManager.findByCondition(" where id>=515189  order by id desc ").getResultlist();
