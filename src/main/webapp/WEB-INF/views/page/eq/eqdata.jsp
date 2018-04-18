@@ -29,13 +29,13 @@
 										
 										
 										<a href="/romeo/${s.id }.html" class="no-decoration" title="${s.title}">${s.title}</a> ：</p>
-										<p id="brief_${ss.index}">
+										<div id="brief_${ss.index}">
 										
 										${s.brief }
 										<c:if test="${s.brief!=s.article }">
 											<button class="clearfix btn btn-gray btn-xs click2show"  data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}"> &nbsp; <span class="glyphicon glyphicon-chevron-down"></span> &nbsp; </button>
 										</c:if>
-										</p>
+										</div>
 												<div class="clearfix hidden" id="text_${ss.index}" >
 													${s.article }
 												</div>

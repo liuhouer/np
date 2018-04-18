@@ -22,10 +22,10 @@
 										
 										
 										<a style="text-decoration: none;" title="${s.title}">${s.title}</a> </p>
-										<p id="brief_${ss.index}">
+										<div id="brief_${ss.index}">
 										
 										${s.brief }
-										</p>
+										</div>
 										<p><a class="readmore  no-decoration" target="_blank" href="/romeo/${s.id }.html">READ MORE</a></p>
 
 									</div>

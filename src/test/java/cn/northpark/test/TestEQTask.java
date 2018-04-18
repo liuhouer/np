@@ -144,16 +144,17 @@ public class TestEQTask {
 			LOGGER.info("情圣定时任务开始"+TimeUtils.getNowTime());
 			try {
 
-	    		List<Map<String, String>> lift = HTMLParserUtil.retEQArticle();
+	    		List<Map<String, String>> lift = HTMLParserUtil.retEQArticle(1);
 	    		for (int i = 0; i < lift.size(); i++) {
 	    			
 	    			String title = lift.get(i).get("title");
+	    			System.out.println(title);
 					String brief = lift.get(i).get("brief");
 					String date = lift.get(i).get("date");
 					String article = lift.get(i).get("article");
 					String retcode = lift.get(i).get("retcode");
 					//是不存在的文章
-					int flag = EqManager.countHql(" where o.retcode= '"+retcode+"' ");
+					int flag = EqManager.countHql(" where o.retcode= '"+retcode+"' and o.date = '"+date+"' ");
 					
 					if(flag<=0){
 						//生成并且设置图片
@@ -177,11 +178,11 @@ public class TestEQTask {
 	    		
 				
 				//去重
-				String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM bc_eq GROUP BY date HAVING ( COUNT(retcode) > 1 )) AS p)" ;
-				
-				EqManager.executeSql(delsql);
-				
-				
+//				String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM bc_eq GROUP BY date HAVING ( COUNT(retcode) > 1 )) AS p)" ;
+//				
+//				EqManager.executeSql(delsql);
+//				
+//				
 				
 				
 				

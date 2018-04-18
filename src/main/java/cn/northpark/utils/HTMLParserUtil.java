@@ -378,32 +378,30 @@ public class HTMLParserUtil{
     /**
      * 爬虫获取情圣的文章
      * loveUdavid
-     * ret_url:http://chuansong.me/account/loveUdavid?start=(i-1)*12
      * @throws IOException
      */
-    public static List<Map<String,String>> retEQArticle() throws IOException {
+    public static List<Map<String,String>> retEQArticle(int index) throws IOException {
         List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-        for(int i=0;i<=0;i++){
             try{
-            Document doc = Jsoup.connect("http://chuansong.me/account/loveudavid?start="+i*12)
-			            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-								.referrer("http://www.google.com") 
-								.timeout(20000) //it's in milliseconds, so this means 5 seconds.  
-            					.get();
-            Elements info   = doc.select("div[class=pagedlist_item]");
+            String initUrl = "http://www.weiduba.net/author/loveudavid/index"+index+".html";
+            final String dataResult = HttpGetUtils.getDataResult(initUrl);
+            
+            System.out.println(dataResult);
+            Document doc = Jsoup.parse(dataResult,initUrl);
+            Elements info   = doc.select("div[class=cl]").select("div[class=titless]");
             for(Element p : info){
 
                 HashMap<String, String> map =new HashMap<String, String>();
                 //标题
-                Elements titles = p.select("a[class=question_link]");
+                Elements titles = p.select("a");
 
                 String title = titles.get(0).text();
                 title = title.replace("大卫", "");
-                String aurl = "http://chuansong.me"+titles.get(0).select("a").get(0).attr("href");
+                String aurl = "http://www.weiduba.net"+titles.get(0).attr("href");
 
-                Elements dates = p.select("span[class=timestamp]");
+                Elements dates = p.select("samp[class=title]");
 
-                String date = dates.get(0).text();
+                String date = dates.get(0).ownText();
 
                 //文章
                 
@@ -416,15 +414,8 @@ public class HTMLParserUtil{
     			    e.printStackTrace();
     			}
                 
-                Document doc_ = Jsoup.connect(aurl)
-					            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-										.referrer("http://www.google.com") 
-										.timeout(20000) //it's in milliseconds, so this means 5 seconds. 
-										.followRedirects(true)
-										.maxBodySize(1024*1024*3)    //3Mb Max
-										  //.ignoreContentType(true) //for download xml, json, etc
-				                		.get();
-                Elements articles = doc_.select("div[class=rich_media_content]");
+                Document doc_ = Jsoup.parse(HttpGetUtils.getDataResult(aurl));
+                Elements articles = doc_.select("div[class=cont]");
                 Element article_ele = articles.get(0);
                 //去掉图片、去掉strong
                 article_ele.select("img").remove();
@@ -448,8 +439,19 @@ public class HTMLParserUtil{
 
                 //简介
                 Elements texts = doc_.select("p");
-                String brief = texts.get(3).text();
-                brief = brief.replace("大卫", "情圣");
+                texts.select("a").remove();
+                texts.select("img").remove();
+                texts.select("i").remove();
+                StringBuilder sb = new StringBuilder();
+                for(Element text:texts) {
+                	
+                	if(text.html().contains("大卫回复")) {
+                		break;
+                	}
+                	
+                	sb.append(text);
+                }
+                String brief = sb.toString().replaceAll("大卫", "情圣");
                 
                 
                 // 生成码
@@ -470,98 +472,16 @@ public class HTMLParserUtil{
                 }
             }catch (Exception e) {
             	 LOGGER.error("HTMLPARSERutils------->", e);;
-                continue;
             }
             
             
             
-            //休眠10秒
-            try {
-			    Thread.sleep(1000*5);
-			    LOGGER.info("第"+i+"页================");
-			} catch (InterruptedException e) {
-			    // TODO Auo-generated catch block
-			    e.printStackTrace();
-			}
-        }
         return list;
     }
 
    
 
   
-
-    /**
-     * 爬取今日情圣的文章
-     */
-    public static Map<String, String> retTodayEq() {
-        // TODO Auto-generated method stub
-                HashMap<String, String> map =new HashMap<String, String>();
-        try{
-        	
-        	Document doc = Jsoup.connect("http://chuansong.me/account/loveudavid")
-        			.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-					.referrer("http://www.google.com") 
-					.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
-        			.get();
-            Element info   = doc.select("div[class=pagedlist_item]").get(0);
-
-                //标题
-                Elements titles = info.select("a[class=question_link]");
-
-                String title = titles.get(0).text();
-                title = title.replace("大卫", "");
-                String aurl = "http://chuansong.me"+titles.get(0).select("a").get(0).attr("href");
-
-                Elements dates = info.select("span[class=timestamp]");
-
-                String date = dates.get(0).text();
-
-                //文章
-                Document doc_ = Jsoup.connect(aurl)
-            			.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-    					.referrer("http://www.google.com") 
-    					.timeout(1000*5) //it's in milliseconds, so this means 5 seconds.  
-                		.get();
-                Elements articles = doc_.select("div[class=rich_media_content]");
-                String article = articles.get(0).html();
-                article = article.replace("大卫","<情圣>").replace("<p>请回复：<span style=\"background-color: rgb(255, 251, 0);\">千万别追女神</span></p>", "")
-                		.replace("<p>请回复：<span style=\"background-color: rgb(255, 255, 0);\">千万别追女神</span></p>", "")
-                		.replace("<p>你想学习正确的追女孩技巧，早日抱得美人归吗？</p>", "")
-                		.replace("<p>你想得到<情圣>的帮助，解决棘手的情感问题吗？</p>", "")
-                		.replace("<p><img class=\"\" data-ratio=\"0.736\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"1000\" src=\"http://img.chuansong.me/mmbiz/nMpCNia3hrN4BiaKeiadNc9Cd33C0g7Dt22pn0KOE54PowMzbygnmChH9lpBOLZEK1YvvNJtk1TOgiazP4VhibTAImw/0?wx_fmt=jpeg\" style=\"\"></p>", "")
-                		.replace("<p style=\"white-space: normal;text-align: center;\"><span style=\"color: rgb(255, 169, 0);\"><strong>长按图片赞赏，请<情圣>吃金拱门！</strong></span></p>","")
-                		.replace("<p style=\"white-space: normal;\"><br></p>","")
-                		.replace("<p style=\"white-space: normal;\"><img class=\"\" data-copyright=\"0\" data-ratio=\"1\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"1080\" src=\"http://img.chuansong.me/mmbiz_jpg/nMpCNia3hrN67eXCUbQySMmXpKibVaPsicm1KHjywtIvUXWFDlBqnIrZMhCJ1Z1rKg9qM8ETCGt2ypMClrkB1oNHw/0?wx_fmt=jpeg\"></p>", "")
-                		.replace("<p><img class=\"\" data-ratio=\"0.6826196473551638\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"794\" src=\"http://img.chuansong.me/mmbiz/nMpCNia3hrN4BiaKeiadNc9Cd33C0g7Dt22uCIbRO1q9t6uFJSzAmYjvmkkJSAw6ZN78QdqBcGf7hZ2UEFkzLXMGQ/0?wx_fmt=jpeg\" style=\"\"></p>", "")
-        				.replace("<img data-ratio=\"1\" data-w=\"20\" src=\"http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=https://res.wx.qq.com/mpres/htmledition/images/icon/common/emotion_panel/emoji_wx/2_06.png\" style=\"display:inline-block;width:20px;vertical-align:text-bottom;\">", "")
-        				
-                		
-                		;
-
-
-                //简介
-                Elements texts = doc_.select("p");
-                String brief = texts.get(3).text();
-                brief = brief.replace("大卫", "情圣");
-                // 生成码
-                String retcode = MD5Utils.encoding(title);
-
-                map.put("title", title);
-                map.put("aurl", aurl);
-                map.put("brief", brief);
-                map.put("date", date);
-                map.put("article", article);
-                map.put("retcode", retcode);
-
-                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
-
-            }catch(Exception e){
-                LOGGER.error("HTMLPARSERutils------->", e);;
-            }
-
-        return map;
-    }
 
    
     
@@ -2080,7 +2000,8 @@ public class HTMLParserUtil{
 //            	for (Term t: terms) {
 //					System.out.println(t.getName());
 //				}
-            	retSoftNew(3);
+//            	retSoftNew(3);
+            	retEQArticle(1);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 LOGGER.error("HTMLPARSERutils------->", e);;
