@@ -9,12 +9,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.VpsManager;
-import cn.northpark.model.Eq;
+import cn.northpark.model.Soft;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.TimeUtils;
 
@@ -141,58 +142,58 @@ public class TestEQTask {
 //				
 //			}
 			
-			LOGGER.info("情圣定时任务开始"+TimeUtils.getNowTime());
-			try {
-
-	    		List<Map<String, String>> lift = HTMLParserUtil.retEQArticle(1);
-	    		for (int i = 0; i < lift.size(); i++) {
-	    			
-	    			String title = lift.get(i).get("title");
-	    			System.out.println(title);
-					String brief = lift.get(i).get("brief");
-					String date = lift.get(i).get("date");
-					String article = lift.get(i).get("article");
-					String retcode = lift.get(i).get("retcode");
-					//是不存在的文章
-					int flag = EqManager.countHql(" where o.retcode= '"+retcode+"' and o.date = '"+date+"' ");
-					
-					if(flag<=0){
-						//生成并且设置图片
-						List<String> meizi = HTMLParserUtil.gegeMEIZITU();
-						
-						int index = HTMLParserUtil.getRandomOne(meizi);
-						String img = meizi.get(index);
-						
-			    		Eq eq = new Eq();
-			    		eq.setArticle(article);
-			    		eq.setBrief(brief);
-			    		eq.setDate(date);
-			    		eq.setTitle(title);
-			    		eq.setImg(img);
-			    		eq.setRetcode(retcode);
-			    		EqManager.addEq(eq);
-					}
-					
-				}
-	    		
-	    		
-				
-				//去重
-//				String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM bc_eq GROUP BY date HAVING ( COUNT(retcode) > 1 )) AS p)" ;
+//			LOGGER.info("情圣定时任务开始"+TimeUtils.getNowTime());
+//			try {
+//
+//	    		List<Map<String, String>> lift = HTMLParserUtil.retEQArticle(1);
+//	    		for (int i = 0; i < lift.size(); i++) {
+//	    			
+//	    			String title = lift.get(i).get("title");
+//	    			System.out.println(title);
+//					String brief = lift.get(i).get("brief");
+//					String date = lift.get(i).get("date");
+//					String article = lift.get(i).get("article");
+//					String retcode = lift.get(i).get("retcode");
+//					//是不存在的文章
+//					int flag = EqManager.countHql(" where o.retcode= '"+retcode+"' and o.date = '"+date+"' ");
+//					
+//					if(flag<=0){
+//						//生成并且设置图片
+//						List<String> meizi = HTMLParserUtil.gegeMEIZITU();
+//						
+//						int index = HTMLParserUtil.getRandomOne(meizi);
+//						String img = meizi.get(index);
+//						
+//			    		Eq eq = new Eq();
+//			    		eq.setArticle(article);
+//			    		eq.setBrief(brief);
+//			    		eq.setDate(date);
+//			    		eq.setTitle(title);
+//			    		eq.setImg(img);
+//			    		eq.setRetcode(retcode);
+//			    		EqManager.addEq(eq);
+//					}
+//					
+//				}
+//	    		
+//	    		
 //				
-//				EqManager.executeSql(delsql);
+//				//去重
+////				String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM bc_eq GROUP BY date HAVING ( COUNT(retcode) > 1 )) AS p)" ;
+////				
+////				EqManager.executeSql(delsql);
+////				
+////				
 //				
 //				
-				
-				
-				
-
-	    	} catch (Exception e) {
-	    		// TODO: handle exception
-	    		LOGGER.error("TestEQTask=======>"+e);
-	    	}
-
-			LOGGER.info("情圣定时任务结束"+TimeUtils.getNowTime());
+//				
+//
+//	    	} catch (Exception e) {
+//	    		// TODO: handle exception
+//	    		LOGGER.error("TestEQTask=======>"+e);
+//	    	}
+//
+//			LOGGER.info("情圣定时任务结束"+TimeUtils.getNowTime());
 			
 			
 //			LOGGER.info("VPS任务开始"+TimeUtils.getNowTime());
@@ -258,87 +259,87 @@ public class TestEQTask {
 //			LOGGER.info("VPS任务结束"+TimeUtils.getNowTime());
 			
 			
-//			try {
-//				
-//				LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
-//				Map<String,String> map = null;
-//				
-//				
-//				
-//				for (int k = 1; k <= 1; k++) {
-//					
-//					try {
-//						
-//						List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
-//						
-//						
-//						if(!CollectionUtils.isEmpty(list)){
-//							for (int i = 0; i < list.size(); i++) {
-//								map  = list.get(i);
+			try {
+				
+				LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
+				Map<String,String> map = null;
+				
+				
+				
+				for (int k = 1; k <= 2; k++) {
+					
+					try {
+						
+						List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
+						
+						
+						if(!CollectionUtils.isEmpty(list)){
+							for (int i = 0; i < list.size(); i++) {
+								map  = list.get(i);
+								
+								String title = map.get("title");
+								String aurl = map.get("aurl");
+								String brief = map.get("brief");
+								String date = map.get("date");
+								String article = map.get("article");
+								String tag = map.get("tag");
+								String code = map.get("code");
+								String os = map.get("os");
+								String month  = map.get("month");
+								String year  = map.get("year");
+								String tagcode = map.get("tagcode");
+								
+								
+
+								//是不存在的文章
+//								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
 //								
-//								String title = map.get("title");
-//								String aurl = map.get("aurl");
-//								String brief = map.get("brief");
-//								String date = map.get("date");
-//								String article = map.get("article");
-//								String tag = map.get("tag");
-//								String code = map.get("code");
-//								String os = map.get("os");
-//								String month  = map.get("month");
-//								String year  = map.get("year");
-//								String tagcode = map.get("tagcode");
-//								
-//								
-//
-//								//是不存在的文章
-////								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
-////								
-////								if(flag<=0){
-//									
-//						    		Soft model = new Soft();
-//						    		model.setBrief(brief);
-//						    		model.setContent(article);
-//						    		model.setOs(os);
-//						    		model.setPostdate(date);
-//						    		model.setRetcode(code);
-//						    		model.setReturl(aurl);
-//						    		model.setTags(tag);
-//						    		model.setTitle(title);
-//						    		model.setMonth(month);
-//						    		model.setYear(year);
-//						    		model.setTagscode(tagcode);
-//						    		softManager.addSoft(model);
-////								}
-//							}
-//						}
-//					} catch (Exception e) {
-//						// TODO: handle exception
-//						LOGGER.error(e);
-//						continue;
-//					}
-//					
-//					
-//					
-//				
-//					try {
-//					    Thread.sleep(1000);
-//					    LOGGER.info("第"+k+"页================");
-//					} catch (InterruptedException e) {
-//					    // TODO Auo-generated catch block
-//					    e.printStackTrace();
-//					}
-//					
-//				}
-//				
-//				
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				LOGGER.info(e);
-//			}
-//				
-//			LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
-//			
-//			LOGGER.info("软件定时任务结束"+TimeUtils.getNowTime());
+//								if(flag<=0){
+									
+						    		Soft model = new Soft();
+						    		model.setBrief(brief);
+						    		model.setContent(article);
+						    		model.setOs(os);
+						    		model.setPostdate(date);
+						    		model.setRetcode(code);
+						    		model.setReturl(aurl);
+						    		model.setTags(tag);
+						    		model.setTitle(title);
+						    		model.setMonth(month);
+						    		model.setYear(year);
+						    		model.setTagscode(tagcode);
+						    		softManager.addSoft(model);
+//								}
+							}
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						LOGGER.error(e);
+						continue;
+					}
+					
+					
+					
+				
+					try {
+					    Thread.sleep(1000);
+					    LOGGER.info("第"+k+"页================");
+					} catch (InterruptedException e) {
+					    // TODO Auo-generated catch block
+					    e.printStackTrace();
+					}
+					
+				}
+				
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				LOGGER.info(e);
+			}
+				
+			LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
+			
+			LOGGER.info("软件定时任务结束"+TimeUtils.getNowTime());
 			
 			
 			
