@@ -4,28 +4,28 @@ import java.util.List;
 
 public class QueryResult<T> {
 
-	public QueryResult() {
+    public QueryResult() {
 
-	}
-	
-	private List<T> resultlist;
+    }
 
-	private Long totalrecord;
+    private List<T> resultlist;
 
-	public List<T> getResultlist() {
-		return resultlist;
-	}
+    private Long totalrecord;
 
-	public void setResultlist(List<T> resultlist) {
-		this.resultlist = resultlist;
-	}
+    public List<T> getResultlist() {
+        return resultlist;
+    }
 
-	public Long getTotalrecord() {
-		return totalrecord;
-	}
+    public void setResultlist(List<T> resultlist) {
+        this.resultlist = resultlist;
+    }
 
-	public void setTotalrecord(Long totalrecord) {
-		this.totalrecord = totalrecord;
-	}
+    public Long getTotalrecord() {
+        return totalrecord;
+    }
+
+    public void setTotalrecord(Long totalrecord) {
+        this.totalrecord = totalrecord;
+    }
 
 }

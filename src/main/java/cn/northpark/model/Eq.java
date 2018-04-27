@@ -16,106 +16,109 @@ import org.hibernate.annotations.GenericGenerator;
  * @date ${date}
  * @email zhangyang226@gmail.com
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
- * 
  */
 
 @Entity
 @Table(name = "bc_eq")
-public class Eq implements Serializable{
+public class Eq implements Serializable {
 
-/**
- *
- * serialVersionUID
- */
-private static final long serialVersionUID = 1L;
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 1L;
 
 	 /* 注释掉的uuid模板
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")  */
-	
-	/* 下面是自增的native ID方式 */
-	@Id
-	@GeneratedValue(generator = "paymentableGenerator") 
-	@GenericGenerator(name = "paymentableGenerator", strategy = "native") 
-	@Column(length = 6)	
-	private Integer id;
 
-	@Column(length = 2000)
-	private String title;
+    /* 下面是自增的native ID方式 */
+    @Id
+    @GeneratedValue(generator = "paymentableGenerator")
+    @GenericGenerator(name = "paymentableGenerator", strategy = "native")
+    @Column(length = 6)
+    private Integer id;
 
-	@Column(length = 2000)
-	private String img;
+    @Column(length = 2000)
+    private String title;
 
-	@Column(length = 2000)
-	private String brief;
+    @Column(length = 2000)
+    private String img;
 
-	@Column(length = 255)
-	private String date;
+    @Column(length = 2000)
+    private String brief;
 
-	@Column(length = 255)
-	private String article;
-	
-	@Column(length = 255)
-	private String retcode;
-	//爬虫pua的唯一编码
+    @Column(length = 255)
+    private String date;
+
+    @Column(length = 255)
+    private String article;
+
+    @Column(length = 255)
+    private String retcode;
+    //爬虫pua的唯一编码
 
 
-	public Integer getId() {
-		return id;	
-	}
-	
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getTitle() {
-		return title;	
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getImg() {
-		return img;	
-	}
-	
-	public void setImg(String img) {
-		this.img = img;
-	}
-	public String getBrief() {
-		return brief;	
-	}
-	
-	public void setBrief(String brief) {
-		this.brief = brief;
-	}
-	public String getDate() {
-		return date;	
-	}
-	
-	public void setDate(String date) {
-		this.date = date;
-	}
-	public String getArticle() {
-		return article;	
-	}
-	
-	public void setArticle(String article) {
-		this.article = article;
-	}
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getArticle() {
+        return article;
+    }
+
+    public void setArticle(String article) {
+        this.article = article;
+    }
 
     @Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 
-	public String getRetcode() {
-		return retcode;
-	}
+    public String getRetcode() {
+        return retcode;
+    }
 
-	public void setRetcode(String retcode) {
-		this.retcode = retcode;
-	}
+    public void setRetcode(String retcode) {
+        this.retcode = retcode;
+    }
 	
 	/*这里是mybatis部分代码
 	

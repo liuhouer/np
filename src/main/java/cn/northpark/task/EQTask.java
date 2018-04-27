@@ -20,67 +20,66 @@ import cn.northpark.utils.TimeUtils;
 
 /**
  * @author zhangyang
- *
+ * <p>
  * 定时爬取今日情圣文章+软件
  */
 public class EQTask {
-	
-	@Autowired
-	public SoftManager softManager;
-	@Autowired
-	public MoviesManager moviesManager;
-	@Autowired
-	public VpsManager vpsManager;
-	
-	private static final Logger LOGGER = Logger
+
+    @Autowired
+    public SoftManager softManager;
+    @Autowired
+    public MoviesManager moviesManager;
+    @Autowired
+    public VpsManager vpsManager;
+
+    private static final Logger LOGGER = Logger
             .getLogger(EQTask.class);
 
 
+    public void runTask() {
 
-	public void runTask(){
-		
-		//爬虫VPS资源代码start---------------------------------------------------------------------
-		LOGGER.info("VPS任务开始"+TimeUtils.getNowTime());
-		try {
+        //爬虫VPS资源代码start---------------------------------------------------------------------
+        LOGGER.info("VPS任务开始" + TimeUtils.getNowTime());
+        try {
 
-			
-				List<Map<String, String>> lift = HTMLParserUtil.retCoupon(1, BC_Constant.Coupon_VPS_7);
-	    		for (int i = 0; i < lift.size(); i++) {
-	    			
-	    			String title = lift.get(i).get("title");
-					String brief = lift.get(i).get("brief");
-					String date = lift.get(i).get("date");
-					String article = lift.get(i).get("article");
-					String retcode = lift.get(i).get("retcode");
-					String returl = lift.get(i).get("aurl");
-					String tags = lift.get(i).get("tags");
-					//是不存在的文章
-					int flag = vpsManager.countHql(" where o.retcode= '"+retcode+"' ");
-					
-					if(flag<=0){
-			    		Vps model = new Vps();
-			    		model.setArticle(article);
-			    		model.setBrief(brief);
-			    		model.setDate(date);
-			    		model.setTitle(title);
-			    		model.setReturl(returl);
-			    		model.setTags(tags);
-			    		model.setColor(PinyinUtil.getFanyi1(model.getTitle()));
-			    		model.setRetcode(retcode);
-			    		vpsManager.addVps(model);
-					}
-					
-				}
-	    		
 
-    	} catch (Exception e) {
-    		// TODO: handle exception
-    		LOGGER.error("TestEQTask=======>"+e);
-    	}
+            List<Map<String, String>> lift = HTMLParserUtil.retCoupon(1, BC_Constant.Coupon_VPS_7);
+            for (int i = 0; i < lift.size(); i++) {
 
-		LOGGER.info("VPS任务结束"+TimeUtils.getNowTime());
-		
-		//爬虫软件资源代码---2页---start---------------------------------------------------------------------
+                String title = lift.get(i).get("title");
+                String brief = lift.get(i).get("brief");
+                String date = lift.get(i).get("date");
+                String article = lift.get(i).get("article");
+                String retcode = lift.get(i).get("retcode");
+                String returl = lift.get(i).get("aurl");
+                String tags = lift.get(i).get("tags");
+                //是不存在的文章
+                int flag = vpsManager.countHql(" where o.retcode= '" + retcode + "' ");
+
+                if (flag <= 0) {
+                    Vps model = new Vps();
+                    model.setArticle(article);
+                    model.setBrief(brief);
+                    model.setDate(date);
+                    model.setTitle(title);
+                    model.setReturl(returl);
+                    model.setTags(tags);
+                    model.setColor(PinyinUtil.getFanyi1(model.getTitle()));
+                    model.setRetcode(retcode);
+                    vpsManager.addVps(model);
+                }
+
+            }
+
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            LOGGER.error("TestEQTask=======>" + e);
+        }
+
+        LOGGER.info("VPS任务结束" + TimeUtils.getNowTime());
+
+        //爬虫软件资源代码---2页---start---------------------------------------------------------------------
 		/*try {
 			
 			LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
@@ -151,75 +150,72 @@ public class EQTask {
 		}
 			
 		LOGGER.info("soft task==============end="+TimeUtils.getNowTime());*/
-		
-		
-		//爬虫软件资源代码end---------------------------------------------------------------------
-		
-		
-		//TODO ..爬虫电影代码 2页
-		
-		try {
-		
-		LOGGER.info("movies task==============start="+TimeUtils.getNowTime());
-		
-		for (int k = 1; k <=2; k++) {
-			try {
-				
-				//电影
-				List<Map<String, String>> dianying = HTMLParserUtil.retMovies(k,BC_Constant.RET_dianying);
-				
-				
-				handleMoiveList(dianying);
-				
-				
-				//电视剧
-				List<Map<String, String>> dianshiju = HTMLParserUtil.retMovies(k,BC_Constant.RET_dianshiju);
-				
-				
-				handleMoiveList(dianshiju);
-				
-				//动漫
+
+
+        //爬虫软件资源代码end---------------------------------------------------------------------
+
+
+        //TODO ..爬虫电影代码 2页
+
+        try {
+
+            LOGGER.info("movies task==============start=" + TimeUtils.getNowTime());
+
+            for (int k = 1; k <= 2; k++) {
+                try {
+
+                    //电影
+                    List<Map<String, String>> dianying = HTMLParserUtil.retMovies(k, BC_Constant.RET_dianying);
+
+
+                    handleMoiveList(dianying);
+
+
+                    //电视剧
+                    List<Map<String, String>> dianshiju = HTMLParserUtil.retMovies(k, BC_Constant.RET_dianshiju);
+
+
+                    handleMoiveList(dianshiju);
+
+                    //动漫
 //				List<Map<String, String>> dongman = HTMLParserUtil.retMovies(k,BC_Constant.RET_dongman);
 //				
 //				
 //				handleMoiveList(dongman);
-				
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-				continue;
-			}
-			
-			
-			try {
-			    Thread.sleep(1000*5);
-			    System.out.println("第"+k+"页================");
-			} catch (InterruptedException e) {
-			    // TODO Auo-generated catch block
-			    
-			    LOGGER.error("movies task InterruptedException=============="+e);
-			}
-		}
-		
-		
-		
-		
-		LOGGER.info("movies task==============end="+TimeUtils.getNowTime());
-	} catch (Exception e) {
-		// TODO: handle exception
-		LOGGER.error("movies task  Exception=============="+e);
-	}
+
+
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    continue;
+                }
+
+
+                try {
+                    Thread.sleep(1000 * 5);
+                    System.out.println("第" + k + "页================");
+                } catch (InterruptedException e) {
+                    // TODO Auo-generated catch block
+
+                    LOGGER.error("movies task InterruptedException==============" + e);
+                }
+            }
+
+
+            LOGGER.info("movies task==============end=" + TimeUtils.getNowTime());
+        } catch (Exception e) {
+            // TODO: handle exception
+            LOGGER.error("movies task  Exception==============" + e);
+        }
 //	
-	   
-		
-		
-		// ..爬虫电影代码end--
-		
-		
-		try {
-			
-			/////////////////////推送微信定时星座运势塔罗牌天气、、、、、、、、、、、、、、、、、、、、、、、、
-			
+
+
+        // ..爬虫电影代码end--
+
+
+        try {
+
+            /////////////////////推送微信定时星座运势塔罗牌天气、、、、、、、、、、、、、、、、、、、、、、、、
+
 //			LOGGER.info("send wx astro msg task==============start="+TimeUtils.getNowTime());
 //			try {
 //				List<Astro> astrolist = astroManager.findByCondition(" where status = 1").getResultlist();
@@ -267,70 +263,64 @@ public class EQTask {
 //				// TODO: handle exception
 //			}
 //			LOGGER.info("send wx astro msg task==============end="+TimeUtils.getNowTime());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		
-
-		
-	}
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
 
+    }
 
-	
-	
-	
-	
-	//tools===========================================================================================================================
-	/**
-	 * 电影：处理爬取的页内容
-	 *
-	 * @param list
-	 */
-		private void handleMoiveList(List<Map<String, String>> list) {
-			Map<String, String> map;
-			if(!CollectionUtils.isEmpty(list)){
-				for (int i = 0; i < list.size(); i++) {
-					try {
-						map  = list.get(i);
-						
-						String title = map.get("title");
-	//							String aurl = map.get("aurl");
-						String date = map.get("date");
-						String article = map.get("article");
-					    String retcode = map.get("retcode");
-					    String tag = map.get("tag");
-					    String tagcode = map.get("tagcode");
-						
-	
-						//是不存在的电影
-						int flag = moviesManager.countHql(" where o.retcode= '"+retcode+"' ");
-						
-						if(flag<=0){
-							
-	
-							Movies model = new Movies();
-							model.setMoviename(title);
-							model.setAddtime(date);
-							model.setDescription(article);
-							model.setPath("");
-							model.setPrice(1);
-							model.setRetcode(retcode);
-							model.setTag(tag);
-							model.setTagcode(tagcode);
-							model.setViewnum(HTMLParserUtil.geneViewNum());
-							model.setColor(PinyinUtil.getFanyi1(title.trim()));
-							moviesManager.addMovies(model);
-						}
-					} catch (Exception e) {
-						// TODO: handle exception
-						continue;
-					}
-					
-				}
-			}
-		}
-	
-	
+
+    //tools===========================================================================================================================
+
+    /**
+     * 电影：处理爬取的页内容
+     *
+     * @param list
+     */
+    private void handleMoiveList(List<Map<String, String>> list) {
+        Map<String, String> map;
+        if (!CollectionUtils.isEmpty(list)) {
+            for (int i = 0; i < list.size(); i++) {
+                try {
+                    map = list.get(i);
+
+                    String title = map.get("title");
+                    //							String aurl = map.get("aurl");
+                    String date = map.get("date");
+                    String article = map.get("article");
+                    String retcode = map.get("retcode");
+                    String tag = map.get("tag");
+                    String tagcode = map.get("tagcode");
+
+
+                    //是不存在的电影
+                    int flag = moviesManager.countHql(" where o.retcode= '" + retcode + "' ");
+
+                    if (flag <= 0) {
+
+
+                        Movies model = new Movies();
+                        model.setMoviename(title);
+                        model.setAddtime(date);
+                        model.setDescription(article);
+                        model.setPath("");
+                        model.setPrice(1);
+                        model.setRetcode(retcode);
+                        model.setTag(tag);
+                        model.setTagcode(tagcode);
+                        model.setViewnum(HTMLParserUtil.geneViewNum());
+                        model.setColor(PinyinUtil.getFanyi1(title.trim()));
+                        moviesManager.addMovies(model);
+                    }
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    continue;
+                }
+
+            }
+        }
+    }
+
+
 }

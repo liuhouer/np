@@ -1,54 +1,52 @@
-
 var tail_slug = $("#J_tail_slug").val();
 
-$(function(){
-	$('#user_nick').datepicker({
-		format: 'yyyy-mm-dd',
-		autoclose:true
-	});
+$(function () {
+    $('#user_nick').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    });
 })
-function saves(){
-	var username = $("#username").val();
-	var newpwd1  = $("#new_password").val();
-	var newpwd2  = $("#new_password_confirmation").val();
-	var slug     = $("#tail_slug").val();
-	if(!username){//修改密码填了不一致
-		art.dialog.alert('昵称不能为空');
-		return;
-	}
-	if(newpwd2!=newpwd1&&newpwd1!=""&&newpwd1!=''&&newpwd1!=null){//修改密码填了不一致
-		art.dialog.alert('2次密码不一致');
-		return;
-	}
-	if(slug && slug!=tail_slug){
-		$.ajax({
 
-            url:"/cm/tailFlag",
+function saves() {
+    var username = $("#username").val();
+    var newpwd1 = $("#new_password").val();
+    var newpwd2 = $("#new_password_confirmation").val();
+    var slug = $("#tail_slug").val();
+    if (!username) {//修改密码填了不一致
+        art.dialog.alert('昵称不能为空');
+        return;
+    }
+    if (newpwd2 != newpwd1 && newpwd1 != "" && newpwd1 != '' && newpwd1 != null) {//修改密码填了不一致
+        art.dialog.alert('2次密码不一致');
+        return;
+    }
+    if (slug && slug != tail_slug) {
+        $.ajax({
 
-            type:"post",
+            url: "/cm/tailFlag",
 
-            data:{"tail":slug},
+            type: "post",
 
-            success:function(msg){
+            data: {"tail": slug},
 
-                if(msg=="exist"){//存在
+            success: function (msg) {
+
+                if (msg == "exist") {//存在
 
                     art.dialog.tips('域名代号已存在');
                     $("#tail_slug").focus();
 
-					return;
+                    return;
 
-                }        
+                }
 
             }
 
         });
-	}else{
-        	
-		$("#f1").attr("action","/cm/saveEditInfo").submit();
-	}
+    } else {
 
-	 
-	
-	
+        $("#f1").attr("action", "/cm/saveEditInfo").submit();
+    }
+
+
 }

@@ -21,25 +21,25 @@ import cn.northpark.utils.TimeUtils;
 
 /**
  * @author zhangyang
- *
+ * <p>
  * 定时爬取今日情圣文章
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring.xml",
- "classpath:spring-hibernate.xml" })
+@ContextConfiguration(locations = {"classpath:spring.xml",
+        "classpath:spring-hibernate.xml"})
 public class TestEQTask {
-	
-	@Autowired
-	public EqManager EqManager;
-	
-	@Autowired
-	public VpsManager vpsManager;
-//
-	@Autowired
-	public SoftManager softManager;
-//	
-	@Autowired
-	public MoviesManager moviesManager;
+
+    @Autowired
+    public EqManager EqManager;
+
+    @Autowired
+    public VpsManager vpsManager;
+    //
+    @Autowired
+    public SoftManager softManager;
+    //
+    @Autowired
+    public MoviesManager moviesManager;
 //	
 //	
 //	@Autowired
@@ -68,14 +68,14 @@ public class TestEQTask {
 //
 //	@Autowired
 //	public  PoemEnjoyManager poemenjoyManager;
-		
 
-	Logger LOGGER = Logger.getLogger(TestEQTask.class);  
 
-		public void runTask(){
-			
-			
-			//添加新url的sitemap
+    Logger LOGGER = Logger.getLogger(TestEQTask.class);
+
+    public void runTask() {
+
+
+        //添加新url的sitemap
 //			StringBuilder sb = new StringBuilder();
 //			List<Map<String, Object>> list = softManager.querySqlMap(" select retcode from bc_soft where retcode not like '%post-%' order by id desc ");
 //			for(Map<String, Object> map :list){
@@ -92,8 +92,8 @@ public class TestEQTask {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-			
-			//更新短连接和下载的样式呢
+
+        //更新短连接和下载的样式呢
 //			List<Soft> findByCondition = softManager.findByCondition(" where id>=515189  order by id desc ").getResultlist();
 //			
 //			for(Soft s:findByCondition){
@@ -108,7 +108,7 @@ public class TestEQTask {
 //				 s.setContent(parse.html());
 //				 softManager.updateSoft(s); 
 //			}
-			//处理图片的alt缺失
+        //处理图片的alt缺失
 //			int COUNT = moviesManager.countHql(" where 1=1");
 //			System.out.println(COUNT);
 //			int page_size = COUNT % 100 ==0 ? COUNT/100:COUNT/100+1;
@@ -126,10 +126,9 @@ public class TestEQTask {
 //					
 //				}
 //			}
-			
-			
-			
-			//处理图片和strong的数据
+
+
+        //处理图片和strong的数据
 //			List<Eq> findByCondition = EqManager.querySql(" select * from bc_eq where 1=1 order by id desc limit 0,100 ");
 //			
 //			for (int i = 0; i < findByCondition.size(); i++) {
@@ -141,7 +140,7 @@ public class TestEQTask {
 //				EqManager.updateEq(findByCondition.get(i));
 //				
 //			}
-			
+
 //			LOGGER.info("情圣定时任务开始"+TimeUtils.getNowTime());
 //			try {
 //
@@ -194,8 +193,8 @@ public class TestEQTask {
 //	    	}
 //
 //			LOGGER.info("情圣定时任务结束"+TimeUtils.getNowTime());
-			
-			
+
+
 //			LOGGER.info("VPS任务开始"+TimeUtils.getNowTime());
 //			try {
 //
@@ -257,95 +256,89 @@ public class TestEQTask {
 //	    	}
 //
 //			LOGGER.info("VPS任务结束"+TimeUtils.getNowTime());
-			
-			
-			try {
-				
-				LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
-				Map<String,String> map = null;
-				
-				
-				
-				for (int k = 1; k <= 2; k++) {
-					
-					try {
-						
-						List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
-						
-						
-						if(!CollectionUtils.isEmpty(list)){
-							for (int i = 0; i < list.size(); i++) {
-								map  = list.get(i);
-								
-								String title = map.get("title");
-								String aurl = map.get("aurl");
-								String brief = map.get("brief");
-								String date = map.get("date");
-								String article = map.get("article");
-								String tag = map.get("tag");
-								String code = map.get("code");
-								String os = map.get("os");
-								String month  = map.get("month");
-								String year  = map.get("year");
-								String tagcode = map.get("tagcode");
-								
-								
 
-								//是不存在的文章
+
+        try {
+
+            LOGGER.info("soft task==============start=" + TimeUtils.getNowTime());
+            Map<String, String> map = null;
+
+
+            for (int k = 1; k <= 1; k++) {
+
+                try {
+
+                    List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
+
+
+                    if (!CollectionUtils.isEmpty(list)) {
+                        for (int i = 0; i < list.size(); i++) {
+                            map = list.get(i);
+
+                            String title = map.get("title");
+                            String aurl = map.get("aurl");
+                            String brief = map.get("brief");
+                            String date = map.get("date");
+                            String article = map.get("article");
+                            String tag = map.get("tag");
+                            String code = map.get("code");
+                            String os = map.get("os");
+                            String month = map.get("month");
+                            String year = map.get("year");
+                            String tagcode = map.get("tagcode");
+
+
+                            //是不存在的文章
 //								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
 //								
 //								if(flag<=0){
-									
-						    		Soft model = new Soft();
-						    		model.setBrief(brief);
-						    		model.setContent(article);
-						    		model.setOs(os);
-						    		model.setPostdate(date);
-						    		model.setRetcode(code);
-						    		model.setReturl(aurl);
-						    		model.setTags(tag);
-						    		model.setTitle(title);
-						    		model.setMonth(month);
-						    		model.setYear(year);
-						    		model.setTagscode(tagcode);
-						    		softManager.addSoft(model);
+
+                            Soft model = new Soft();
+                            model.setBrief(brief);
+                            model.setContent(article);
+                            model.setOs(os);
+                            model.setPostdate(date);
+                            model.setRetcode(code);
+                            model.setReturl(aurl);
+                            model.setTags(tag);
+                            model.setTitle(title);
+                            model.setMonth(month);
+                            model.setYear(year);
+                            model.setTagscode(tagcode);
+                            softManager.addSoft(model);
 //								}
-							}
-						}
-					} catch (Exception e) {
-						// TODO: handle exception
-						LOGGER.error(e);
-						continue;
-					}
-					
-					
-					
-				
-					try {
-					    Thread.sleep(1000);
-					    LOGGER.info("第"+k+"页================");
-					} catch (InterruptedException e) {
-					    // TODO Auo-generated catch block
-					    e.printStackTrace();
-					}
-					
-				}
-				
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-				LOGGER.info(e);
-			}
-				
-			LOGGER.info("soft task==============end="+TimeUtils.getNowTime());
-			
-			LOGGER.info("软件定时任务结束"+TimeUtils.getNowTime());
-			
-			
-			
-			
-			//TODO ..爬虫电影代码
-			
+                        }
+                    }
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    LOGGER.error(e);
+                    continue;
+                }
+
+
+                try {
+                    Thread.sleep(1000);
+                    LOGGER.info("第" + k + "页================");
+                } catch (InterruptedException e) {
+                    // TODO Auo-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            LOGGER.info(e);
+        }
+
+        LOGGER.info("soft task==============end=" + TimeUtils.getNowTime());
+
+        LOGGER.info("软件定时任务结束" + TimeUtils.getNowTime());
+
+
+        //TODO ..爬虫电影代码
+
 //				try {
 //				
 //				LOGGER.info("爬虫电影代码 开始==============start="+TimeUtils.getNowTime());
@@ -429,15 +422,13 @@ public class TestEQTask {
 //			}
 //			
 //				LOGGER.info("爬虫电影代码==============结束="+TimeUtils.getNowTime());
-				
-				
-				//TODO ..爬虫电影代码
-				
-				
-				
-				
-				//TODO ..爬虫诗词代码
-				
+
+
+        //TODO ..爬虫电影代码
+
+
+        //TODO ..爬虫诗词代码
+
 //				try {
 //				
 //				LOGGER.info("poem task==============start="+TimeUtils.getNowTime());
@@ -523,8 +514,8 @@ public class TestEQTask {
 //				// TODO: handle exception
 //			}
 //			
-			   
-			   //批量处理诗词标签
+
+        //批量处理诗词标签
 //			try {
 //				int count = poemManager.countSql("select * from bc_poem ");
 //				
@@ -552,10 +543,9 @@ public class TestEQTask {
 //				e.printStackTrace();
 //			}
 //			   
-			   
-			   
-				
-				//TODO ..爬虫诗词代码
+
+
+        //TODO ..爬虫诗词代码
 //			
 //			 	List<Movies> findAll = moviesManager.findAll();
 //			 	
@@ -577,9 +567,9 @@ public class TestEQTask {
 //			 		m.setAddtime(addtime.replaceAll("2016", "2017"));
 //					moviesManager.updateMovies(m);
 //				}
-			 	
-			//插入标签库=======================================================
-			
+
+        //插入标签库=======================================================
+
 //			LOGGER.info("tag-->"+"tagcode--->");
 //			
 //			HashSet<String> tagset = new HashSet<String>();
@@ -619,11 +609,10 @@ public class TestEQTask {
 //				
 //			}
 //			
-			
-			//插入标签库=======================================================
-			
-			
-			
+
+        //插入标签库=======================================================
+
+
 //			try {
 //				List<Astro> astrolist = astroManager.findByCondition(" where status = 1").getResultlist();
 //				if(!CollectionUtils.isEmpty(astrolist)){
@@ -668,10 +657,9 @@ public class TestEQTask {
 //			} catch (Exception e) {
 //				// TODO: handle exception
 //			}
-				
-				
-				
-				//批量更新vps的内容                         100条为单位
+
+
+        //批量更新vps的内容                         100条为单位
 //				int Pagesize = 100;
 //				int Pagenum = 1372 / 100 +1;
 //				
@@ -690,12 +678,10 @@ public class TestEQTask {
 //						vpsManager.updateVps(v);
 //					}
 //				}
-				
-				
-				
-				
-				//插入采麦
-				
+
+
+        //插入采麦
+
 //			for (int k = 1; k < 398; k++) {
 //				
 //				
@@ -735,10 +721,10 @@ public class TestEQTask {
 //    			    e.printStackTrace();
 //    			}
 //			}
-				
-			
-			//插入最爱主题的用户
-			
+
+
+        //插入最爱主题的用户
+
 //			String sql = "select  id,titlecode from bc_lyrics where updatedate is null order by id desc limit 4593,5000 ";
 //			
 //			List<Map<String, Object>> list = lyricsManager.querySqlMap(sql);
@@ -832,13 +818,10 @@ public class TestEQTask {
 //				
 //				
 //			}
-				
-				
-			
-			
 
-			//插入最爱主题的点赞用户
-			
+
+        //插入最爱主题的点赞用户
+
 //			String sql = "select  id,titlecode from bc_lyrics where updatedate is null order by id desc ";
 //			
 //			List<Map<String, Object>> list = lyricsManager.querySqlMap(sql);
@@ -866,10 +849,10 @@ public class TestEQTask {
 //					e.printStackTrace();
 //				}
 //			}	
-				
-			
-			//插入醉爱主题评论信息
-			
+
+
+        //插入醉爱主题评论信息
+
 //			List<Map<String, String>> retCaiMaiZT_PL = HTMLParserUtil.retCaiMaiZT_PL("shui-jue");
 //			
 //			for (int i = 0; i < retCaiMaiZT_PL.size(); i++) {
@@ -910,8 +893,8 @@ public class TestEQTask {
 //					}
 //				}
 //			}
-			
-			//插入醉爱主题评论信息 
+
+        //插入醉爱主题评论信息
 //			try {
 //				
 //				String sql = "select  id,titlecode from bc_lyrics where updatedate is null order by id desc limit 4000,6000";
@@ -992,11 +975,11 @@ public class TestEQTask {
 //				e.printStackTrace();
 //			}
 //				
-			
-			
-			//插入点赞数据
-			
-			
+
+
+        //插入点赞数据
+
+
 //			try {
 //				
 //				String sql = " select * from bc_lyrics_comment  order by id desc ";
@@ -1033,10 +1016,9 @@ public class TestEQTask {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-				
-		
-		
-			//更新网络图片  替换主题为空的图片
+
+
+        //更新网络图片  替换主题为空的图片
 //			try {
 //				
 //				String sql = "select * from bc_lyrics where albumImg ='' order by updatedate desc";
@@ -1079,22 +1061,17 @@ public class TestEQTask {
 //				e.printStackTrace();
 //			}
 //		
-			
-			
-			
-			
-			
-			
-		}
-		
-		
-		
-	//测试多页	
-	
-	
-	@Test
-	public void save() {
-		runTask();
-	}
-	
+
+
+    }
+
+
+    //测试多页
+
+
+    @Test
+    public void save() {
+        runTask();
+    }
+
 }

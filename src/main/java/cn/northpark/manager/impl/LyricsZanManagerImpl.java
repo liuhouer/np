@@ -20,79 +20,79 @@ import cn.northpark.utils.page.QueryResult;
 public class LyricsZanManagerImpl implements LyricsZanManager {
 
     @Autowired
-	private LyricsZanDao lyricszanDao;
+    private LyricsZanDao lyricszanDao;
     @Autowired
- 	private LyricsCommentDao lyricsCommentDao;
+    private LyricsCommentDao lyricsCommentDao;
 
-	@Override
-	public LyricsZan findLyricsZan(Integer id) {
-		return lyricszanDao.find(id);
-	}
+    @Override
+    public LyricsZan findLyricsZan(Integer id) {
+        return lyricszanDao.find(id);
+    }
 
-	@Override
-	public List<LyricsZan> findAll() {
-		return lyricszanDao.findAll();
-	}
+    @Override
+    public List<LyricsZan> findAll() {
+        return lyricszanDao.findAll();
+    }
 
-	@Override
-	public void addLyricsZan(LyricsZan lyricszan) {
-		lyricszanDao.save(lyricszan);
-	}
+    @Override
+    public void addLyricsZan(LyricsZan lyricszan) {
+        lyricszanDao.save(lyricszan);
+    }
 
-	@Override
-	public boolean delLyricsZan(Integer id) {
-		LyricsZan lyricszan = lyricszanDao.find(id);
-		lyricszanDao.delete(lyricszan);
-		return true;
-	}
+    @Override
+    public boolean delLyricsZan(Integer id) {
+        LyricsZan lyricszan = lyricszanDao.find(id);
+        lyricszanDao.delete(lyricszan);
+        return true;
+    }
 
-	@Override
-	public boolean updateLyricsZan(LyricsZan lyricszan) {
-		lyricszanDao.update(lyricszan);
-		return true;
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public QueryResult<LyricsZan> findByCondition(PageView<LyricsZan> p,
-			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = lyricszanDao.findByCondition(p.getFirstResult(),
-				MyConstant.MAXRESULT, wheresql, order);
-		return qrs;
-	}
+    @Override
+    public boolean updateLyricsZan(LyricsZan lyricszan) {
+        lyricszanDao.update(lyricszan);
+        return true;
+    }
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public QueryResult<LyricsZan> findByCondition(String wheresql) {
-		// TODO Auto-generated method stub
-		QueryResult qrs = lyricszanDao.findByCondition(
-				 wheresql);
-		return qrs;
-	}
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Override
+    public QueryResult<LyricsZan> findByCondition(PageView<LyricsZan> p,
+                                                  String wheresql, LinkedHashMap<String, String> order) {
+        QueryResult qrs = lyricszanDao.findByCondition(p.getFirstResult(),
+                MyConstant.MAXRESULT, wheresql, order);
+        return qrs;
+    }
 
-	@Override
-	public int getCommentNumByLRC(String lyricsid) {
-		// TODO Auto-generated method stub
-		return lyricsCommentDao.findByCondition(" where lyricsid = '"+lyricsid+"' ").getResultlist().size();
-	}
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Override
+    public QueryResult<LyricsZan> findByCondition(String wheresql) {
+        // TODO Auto-generated method stub
+        QueryResult qrs = lyricszanDao.findByCondition(
+                wheresql);
+        return qrs;
+    }
 
-	@Override
-	public int getZanNumByLRC(String lyricsid) {
-		// TODO Auto-generated method stub
-		return lyricszanDao.findByCondition(" where lyricsid = '"+lyricsid+"' ").getResultlist().size();
-	}
+    @Override
+    public int getCommentNumByLRC(String lyricsid) {
+        // TODO Auto-generated method stub
+        return lyricsCommentDao.findByCondition(" where lyricsid = '" + lyricsid + "' ").getResultlist().size();
+    }
 
-	@Override
-	public List<Map<String, Object>> mixSqlQuery(String sql ) {
-		// TODO Auto-generated method stub
-		
-		return lyricszanDao.querySql(sql);
-	}
+    @Override
+    public int getZanNumByLRC(String lyricsid) {
+        // TODO Auto-generated method stub
+        return lyricszanDao.findByCondition(" where lyricsid = '" + lyricsid + "' ").getResultlist().size();
+    }
 
-	@Override
-	public int countHql(String wheresql) {
-		// TODO Auto-generated method stub
-		return lyricszanDao.countHql(LyricsZan.class, wheresql);
-	}
+    @Override
+    public List<Map<String, Object>> mixSqlQuery(String sql) {
+        // TODO Auto-generated method stub
+
+        return lyricszanDao.querySql(sql);
+    }
+
+    @Override
+    public int countHql(String wheresql) {
+        // TODO Auto-generated method stub
+        return lyricszanDao.countHql(LyricsZan.class, wheresql);
+    }
 }
 

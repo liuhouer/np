@@ -1,262 +1,260 @@
-		$(function(){
-			$("#mes").click(function(){
-				window.location.href="/";
-			})
-		})
-		
-		console.log('代码异常，请联系654814226@qq.com');
-		
-		
-		
-		
-
-		var physics_accuracy = 3, mouse_influence = 20, mouse_cut = 5, gravity = 1200, cloth_height = 30, cloth_width = 50, start_y = 20, spacing = 7, tear_distance = 60;
-
-		window.requestAnimFrame = window.requestAnimationFrame
-				|| window.webkitRequestAnimationFrame
-				|| window.mozRequestAnimationFrame
-				|| window.oRequestAnimationFrame
-				|| window.msRequestAnimationFrame || function(callback) {
-					window.setTimeout(callback, 1000 / 60);
-				};
-
-		var canvas, ctx, cloth, boundsx, boundsy, mouse = {
-			down : false,
-			button : 1,
-			x : 0,
-			y : 0,
-			px : 0,
-			py : 0
-		};
-
-		var Point = function(x, y) {
-			this.x = x;
-			this.y = y;
-			this.px = x;
-			this.py = y;
-			this.vx = 0;
-			this.vy = 0;
-			this.pin_x = null;
-			this.pin_y = null;
-
-			this.constraints = [];
-		};
-
-		Point.prototype.update = function(delta) {
-			if (mouse.down) {
-				var diff_x = this.x - mouse.x, diff_y = this.y - mouse.y, dist = Math
-						.sqrt(diff_x * diff_x + diff_y * diff_y);
-				if (mouse.button == 1) {
-
-					if (dist < mouse_influence) {
-						this.px = this.x - (mouse.x - mouse.px) * 1.8;
-						this.py = this.y - (mouse.y - mouse.py) * 1.8;
-					}
-
-				} else if (dist < mouse_cut)
-					this.constraints = [];
-			}
-			this.add_force(0, gravity);
-			delta *= delta;
-			nx = this.x + ((this.x - this.px) * .99) + ((this.vx / 2) * delta);
-			ny = this.y + ((this.y - this.py) * .99) + ((this.vy / 2) * delta);
-
-			this.px = this.x;
-			this.py = this.y;
-
-			this.x = nx;
-			this.y = ny;
+$(function () {
+    $("#mes").click(function () {
+        window.location.href = "/";
+    })
+})
+
+console.log('代码异常，请联系654814226@qq.com');
+
+
+var physics_accuracy = 3, mouse_influence = 20, mouse_cut = 5, gravity = 1200, cloth_height = 30, cloth_width = 50,
+    start_y = 20, spacing = 7, tear_distance = 60;
+
+window.requestAnimFrame = window.requestAnimationFrame
+    || window.webkitRequestAnimationFrame
+    || window.mozRequestAnimationFrame
+    || window.oRequestAnimationFrame
+    || window.msRequestAnimationFrame || function (callback) {
+        window.setTimeout(callback, 1000 / 60);
+    };
+
+var canvas, ctx, cloth, boundsx, boundsy, mouse = {
+    down: false,
+    button: 1,
+    x: 0,
+    y: 0,
+    px: 0,
+    py: 0
+};
+
+var Point = function (x, y) {
+    this.x = x;
+    this.y = y;
+    this.px = x;
+    this.py = y;
+    this.vx = 0;
+    this.vy = 0;
+    this.pin_x = null;
+    this.pin_y = null;
+
+    this.constraints = [];
+};
+
+Point.prototype.update = function (delta) {
+    if (mouse.down) {
+        var diff_x = this.x - mouse.x, diff_y = this.y - mouse.y, dist = Math
+            .sqrt(diff_x * diff_x + diff_y * diff_y);
+        if (mouse.button == 1) {
 
-			this.vy = this.vx = 0
-		};
-
-		Point.prototype.draw = function() {
-
-			if (!this.constraints.length)
-				return;
-
-			var i = this.constraints.length;
-			while (i--)
-				this.constraints[i].draw();
-		};
+            if (dist < mouse_influence) {
+                this.px = this.x - (mouse.x - mouse.px) * 1.8;
+                this.py = this.y - (mouse.y - mouse.py) * 1.8;
+            }
 
-		Point.prototype.resolve_constraints = function() {
+        } else if (dist < mouse_cut)
+            this.constraints = [];
+    }
+    this.add_force(0, gravity);
+    delta *= delta;
+    nx = this.x + ((this.x - this.px) * .99) + ((this.vx / 2) * delta);
+    ny = this.y + ((this.y - this.py) * .99) + ((this.vy / 2) * delta);
 
-			if (this.pin_x != null && this.pin_y != null) {
-
-				this.x = this.pin_x;
-				this.y = this.pin_y;
-				return;
-			}
-
-			var i = this.constraints.length;
-			while (i--)
-				this.constraints[i].resolve();
+    this.px = this.x;
+    this.py = this.y;
 
-			this.x > boundsx ? this.x = 2 * boundsx - this.x : 1 > this.x
-					&& (this.x = 2 - this.x);
-			this.y < 1 ? this.y = 2 - this.y : this.y > boundsy
-					&& (this.y = 2 * boundsy - this.y);
-		};
+    this.x = nx;
+    this.y = ny;
 
-		Point.prototype.attach = function(point) {
+    this.vy = this.vx = 0
+};
 
-			this.constraints.push(new Constraint(this, point));
-		};
+Point.prototype.draw = function () {
 
-		Point.prototype.remove_constraint = function(constraint) {
+    if (!this.constraints.length)
+        return;
 
-			this.constraints.splice(this.constraints.indexOf(constraint), 1);
-		};
+    var i = this.constraints.length;
+    while (i--)
+        this.constraints[i].draw();
+};
 
-		Point.prototype.add_force = function(x, y) {
+Point.prototype.resolve_constraints = function () {
 
-			this.vx += x;
-			this.vy += y;
-		};
+    if (this.pin_x != null && this.pin_y != null) {
 
-		Point.prototype.pin = function(pinx, piny) {
-			this.pin_x = pinx;
-			this.pin_y = piny;
-		};
+        this.x = this.pin_x;
+        this.y = this.pin_y;
+        return;
+    }
 
-		var Constraint = function(p1, p2) {
+    var i = this.constraints.length;
+    while (i--)
+        this.constraints[i].resolve();
 
-			this.p1 = p1;
-			this.p2 = p2;
-			this.length = spacing;
-		};
+    this.x > boundsx ? this.x = 2 * boundsx - this.x : 1 > this.x
+        && (this.x = 2 - this.x);
+    this.y < 1 ? this.y = 2 - this.y : this.y > boundsy
+        && (this.y = 2 * boundsy - this.y);
+};
 
-		Constraint.prototype.resolve = function() {
+Point.prototype.attach = function (point) {
 
-			var diff_x = this.p1.x - this.p2.x, diff_y = this.p1.y - this.p2.y, dist = Math
-					.sqrt(diff_x * diff_x + diff_y * diff_y), diff = (this.length - dist)
-					/ dist;
+    this.constraints.push(new Constraint(this, point));
+};
 
-			if (dist > tear_distance)
-				this.p1.remove_constraint(this);
+Point.prototype.remove_constraint = function (constraint) {
 
-			var px = diff_x * diff * 0.5;
-			var py = diff_y * diff * 0.5;
+    this.constraints.splice(this.constraints.indexOf(constraint), 1);
+};
 
-			this.p1.x += px;
-			this.p1.y += py;
-			this.p2.x -= px;
-			this.p2.y -= py;
-		};
+Point.prototype.add_force = function (x, y) {
 
-		Constraint.prototype.draw = function() {
+    this.vx += x;
+    this.vy += y;
+};
 
-			ctx.moveTo(this.p1.x, this.p1.y);
-			ctx.lineTo(this.p2.x, this.p2.y);
-		};
+Point.prototype.pin = function (pinx, piny) {
+    this.pin_x = pinx;
+    this.pin_y = piny;
+};
 
-		var Cloth = function() {
+var Constraint = function (p1, p2) {
 
-			this.points = [];
+    this.p1 = p1;
+    this.p2 = p2;
+    this.length = spacing;
+};
 
-			var start_x = canvas.width / 2 - cloth_width * spacing / 2;
+Constraint.prototype.resolve = function () {
 
-			for (var y = 0; y <= cloth_height; y++) {
+    var diff_x = this.p1.x - this.p2.x, diff_y = this.p1.y - this.p2.y, dist = Math
+        .sqrt(diff_x * diff_x + diff_y * diff_y), diff = (this.length - dist)
+        / dist;
 
-				for (var x = 0; x <= cloth_width; x++) {
+    if (dist > tear_distance)
+        this.p1.remove_constraint(this);
 
-					var p = new Point(start_x + x * spacing, start_y + y
-							* spacing);
+    var px = diff_x * diff * 0.5;
+    var py = diff_y * diff * 0.5;
 
-					x != 0 && p.attach(this.points[this.points.length - 1]);
-					y == 0 && p.pin(p.x, p.y);
-					y != 0
-							&& p.attach(this.points[x + (y - 1)
-									* (cloth_width + 1)])
+    this.p1.x += px;
+    this.p1.y += py;
+    this.p2.x -= px;
+    this.p2.y -= py;
+};
 
-					this.points.push(p);
-				}
-			}
-		};
+Constraint.prototype.draw = function () {
 
-		Cloth.prototype.update = function() {
+    ctx.moveTo(this.p1.x, this.p1.y);
+    ctx.lineTo(this.p2.x, this.p2.y);
+};
 
-			var i = physics_accuracy;
+var Cloth = function () {
 
-			while (i--) {
-				var p = this.points.length;
-				while (p--)
-					this.points[p].resolve_constraints();
-			}
+    this.points = [];
 
-			i = this.points.length;
-			while (i--)
-				this.points[i].update(.016);
-		};
+    var start_x = canvas.width / 2 - cloth_width * spacing / 2;
 
-		Cloth.prototype.draw = function() {
+    for (var y = 0; y <= cloth_height; y++) {
 
-			ctx.beginPath();
+        for (var x = 0; x <= cloth_width; x++) {
 
-			var i = cloth.points.length;
-			while (i--)
-				cloth.points[i].draw();
+            var p = new Point(start_x + x * spacing, start_y + y
+                * spacing);
 
-			ctx.stroke();
-		};
+            x != 0 && p.attach(this.points[this.points.length - 1]);
+            y == 0 && p.pin(p.x, p.y);
+            y != 0
+            && p.attach(this.points[x + (y - 1)
+            * (cloth_width + 1)])
 
-		function update() {
+            this.points.push(p);
+        }
+    }
+};
 
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
+Cloth.prototype.update = function () {
 
-			cloth.update();
-			cloth.draw();
+    var i = physics_accuracy;
 
-			requestAnimFrame(update);
-		}
+    while (i--) {
+        var p = this.points.length;
+        while (p--)
+            this.points[p].resolve_constraints();
+    }
 
-		function start() {
+    i = this.points.length;
+    while (i--)
+        this.points[i].update(.016);
+};
 
-			canvas.onmousedown = function(e) {
-				mouse.button = e.which;
-				mouse.px = mouse.x;
-				mouse.py = mouse.y;
-				var rect = canvas.getBoundingClientRect();
-				mouse.x = e.clientX - rect.left,
-						mouse.y = e.clientY - rect.top, mouse.down = true;
-				e.preventDefault();
-			};
+Cloth.prototype.draw = function () {
 
-			canvas.onmouseup = function(e) {
-				mouse.down = false;
-				e.preventDefault();
-			};
+    ctx.beginPath();
 
-			canvas.onmousemove = function(e) {
-				mouse.px = mouse.x;
-				mouse.py = mouse.y;
-				var rect = canvas.getBoundingClientRect();
-				mouse.x = e.clientX - rect.left,
-						mouse.y = e.clientY - rect.top, e.preventDefault();
-			};
+    var i = cloth.points.length;
+    while (i--)
+        cloth.points[i].draw();
 
-			canvas.oncontextmenu = function(e) {
-				e.preventDefault();
-			};
+    ctx.stroke();
+};
 
-			boundsx = canvas.width - 1;
-			boundsy = canvas.height - 1;
+function update() {
 
-			ctx.strokeStyle = '#888';
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-			cloth = new Cloth();
+    cloth.update();
+    cloth.draw();
 
-			update();
-		}
+    requestAnimFrame(update);
+}
 
-		window.onload = function() {
+function start() {
 
-			canvas = document.getElementById('c');
-			ctx = canvas.getContext('2d');
+    canvas.onmousedown = function (e) {
+        mouse.button = e.which;
+        mouse.px = mouse.x;
+        mouse.py = mouse.y;
+        var rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left,
+            mouse.y = e.clientY - rect.top, mouse.down = true;
+        e.preventDefault();
+    };
 
-			canvas.width = 560;
-			canvas.height = 350;
+    canvas.onmouseup = function (e) {
+        mouse.down = false;
+        e.preventDefault();
+    };
 
-			start();
-		};
+    canvas.onmousemove = function (e) {
+        mouse.px = mouse.x;
+        mouse.py = mouse.y;
+        var rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left,
+            mouse.y = e.clientY - rect.top, e.preventDefault();
+    };
+
+    canvas.oncontextmenu = function (e) {
+        e.preventDefault();
+    };
+
+    boundsx = canvas.width - 1;
+    boundsy = canvas.height - 1;
+
+    ctx.strokeStyle = '#888';
+
+    cloth = new Cloth();
+
+    update();
+}
+
+window.onload = function () {
+
+    canvas = document.getElementById('c');
+    ctx = canvas.getContext('2d');
+
+    canvas.width = 560;
+    canvas.height = 350;
+
+    start();
+};

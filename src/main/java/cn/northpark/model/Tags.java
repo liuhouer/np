@@ -16,72 +16,73 @@ import org.hibernate.annotations.GenericGenerator;
  * @date 2017-01-05
  * @email zhangyang226@gmail.com
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
- * 
  */
 
 @Entity
 @Table(name = "bc_tags")
-public class Tags implements Serializable{
+public class Tags implements Serializable {
 
-/**
- *
- * serialVersionUID
- */
-private static final long serialVersionUID = 1L;
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 1L;
 
 	 /* 注释掉的uuid模板
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")  */
-	
-	/* 下面是自增的native ID方式 */
-	@Id
-	@GeneratedValue(generator = "paymentableGenerator") 
-	@GenericGenerator(name = "paymentableGenerator", strategy = "native") 
-	@Column(length = 6)	
-	private Integer id;
 
-	@Column(length = 255)
-	private String tag;
+    /* 下面是自增的native ID方式 */
+    @Id
+    @GeneratedValue(generator = "paymentableGenerator")
+    @GenericGenerator(name = "paymentableGenerator", strategy = "native")
+    @Column(length = 6)
+    private Integer id;
 
-	@Column(length = 255)
-	private String tagcode;
+    @Column(length = 255)
+    private String tag;
 
-	@Column(length = 255)
-	private String tagtype;
+    @Column(length = 255)
+    private String tagcode;
+
+    @Column(length = 255)
+    private String tagtype;
 
 
-	public Integer getId() {
-		return id;	
-	}
-	
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getTag() {
-		return tag;	
-	}
-	
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-	public String getTagcode() {
-		return tagcode;	
-	}
-	
-	public void setTagcode(String tagcode) {
-		this.tagcode = tagcode;
-	}
-	public String getTagtype() {
-		return tagtype;	
-	}
-	
-	public void setTagtype(String tagtype) {
-		this.tagtype = tagtype;
-	}
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getTagcode() {
+        return tagcode;
+    }
+
+    public void setTagcode(String tagcode) {
+        this.tagcode = tagcode;
+    }
+
+    public String getTagtype() {
+        return tagtype;
+    }
+
+    public void setTagtype(String tagtype) {
+        this.tagtype = tagtype;
+    }
 
     @Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 }

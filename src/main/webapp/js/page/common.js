@@ -7,64 +7,59 @@
     config['cancelVal'] = 'Cancel';
     // [more..]
 })(art.dialog.defaults);
- 
- 
 
 
 //图片上传预览    IE是用了滤镜。
-function previewImage(file)
-{
-  var MAXWIDTH  = 260; 
-  var MAXHEIGHT = 180;
-  var div = document.getElementById('preview');
-  if (file.files && file.files[0])
-  {
-      div.innerHTML ='<img id=imghead>';
-      var img = document.getElementById('imghead');
-      img.onload = function(){
-        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-        img.width  =  rect.width;
-        img.height =  rect.height;
+function previewImage(file) {
+    var MAXWIDTH = 260;
+    var MAXHEIGHT = 180;
+    var div = document.getElementById('preview');
+    if (file.files && file.files[0]) {
+        div.innerHTML = '<img id=imghead>';
+        var img = document.getElementById('imghead');
+        img.onload = function () {
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            img.width = rect.width;
+            img.height = rect.height;
 //         img.style.marginLeft = rect.left+'px';
-       // img.style.marginTop = rect.top+'px';
-      }
-      var reader = new FileReader();
-      reader.onload = function(evt){img.src = evt.target.result;}
-      reader.readAsDataURL(file.files[0]);
-  }
-  else //兼容IE
-  {
-    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
-    file.select();
-    var src = document.selection.createRange().text;
-    div.innerHTML = '<img id=imghead>';
-    var img = document.getElementById('imghead');
-    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
-    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
-    div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
-  }
+            // img.style.marginTop = rect.top+'px';
+        }
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+            img.src = evt.target.result;
+        }
+        reader.readAsDataURL(file.files[0]);
+    }
+    else //兼容IE
+    {
+        var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+        file.select();
+        var src = document.selection.createRange().text;
+        div.innerHTML = '<img id=imghead>';
+        var img = document.getElementById('imghead');
+        img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+        status = ('rect:' + rect.top + ',' + rect.left + ',' + rect.width + ',' + rect.height);
+        div.innerHTML = "<div id=divhead style='width:" + rect.width + "px;height:" + rect.height + "px;margin-top:" + rect.top + "px;" + sFilter + src + "\"'></div>";
+    }
 }
 
 
-function clacImgZoomParam( maxWidth, maxHeight, width, height ){
-    var param = {top:0, left:0, width:width, height:height};
-    if( width>maxWidth || height>maxHeight )
-    {
+function clacImgZoomParam(maxWidth, maxHeight, width, height) {
+    var param = {top: 0, left: 0, width: width, height: height};
+    if (width > maxWidth || height > maxHeight) {
         rateWidth = width / maxWidth;
         rateHeight = height / maxHeight;
-        
-        if( rateWidth > rateHeight )
-        {
-            param.width =  maxWidth;
+
+        if (rateWidth > rateHeight) {
+            param.width = maxWidth;
             param.height = Math.round(height / rateWidth);
-        }else
-        {
+        } else {
             param.width = Math.round(width / rateHeight);
             param.height = maxHeight;
         }
     }
-    
+
     param.left = Math.round((maxWidth - param.width) / 2);
     param.top = Math.round((maxHeight - param.height) / 2);
     return param;
@@ -137,26 +132,26 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 
 //下拉查看更多的事件
 
-$("body").on('click', '.click2show', function() {
-	if($(this).data('dismiss'))
-		$($(this).data('dismiss')).hide();
-	else
-		$(this).hide();
-	$($(this).data('target')).removeClass('hidden');
+$("body").on('click', '.click2show', function () {
+    if ($(this).data('dismiss'))
+        $($(this).data('dismiss')).hide();
+    else
+        $(this).hide();
+    $($(this).data('target')).removeClass('hidden');
 });
 
 
-$("body").on('click', '.click2hide', function() {
-	$($(this).data('target')).slideDown();
+$("body").on('click', '.click2hide', function () {
+    $($(this).data('target')).slideDown();
 });
 
-$("body").on('click', '.click2toggle', function() {
-	$($(this).data('target')).slideToggle();
+$("body").on('click', '.click2toggle', function () {
+    $($(this).data('target')).slideToggle();
 });
 
-$("body").on('click', '.click2flip', function() {
-	$($(this).data('hide')).slideUp();
-	$($(this).data('show')).slideDown();
+$("body").on('click', '.click2flip', function () {
+    $($(this).data('hide')).slideUp();
+    $($(this).data('show')).slideDown();
 });
 
 //复制内容自动添加版权信息 
@@ -199,11 +194,11 @@ $("body").on('click', '.click2flip', function() {
        document.oncopy = addLink; 
    } */
 
-$(function() {
-    $(window).resize(function(){
-        $('body').css('min-height',($(window).height()));
-        $('.maincontent').css('min-height',($(window).height()-100));
-        $('body').css('overflowX','hidden');
+$(function () {
+    $(window).resize(function () {
+        $('body').css('min-height', ($(window).height()));
+        $('.maincontent').css('min-height', ($(window).height() - 100));
+        $('body').css('overflowX', 'hidden');
 
     }).resize();
 });

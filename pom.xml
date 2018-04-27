@@ -1,271 +1,256 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>cn.northpark.np-web</groupId>
-  <artifactId>np-web</artifactId>
-  <packaging>war</packaging>
-  <version>3.5.0-SNAPSHOT</version>
-  <name>np-web Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  
-  <properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.1.4.RELEASE</spring.version>
-		<hibernate.version>4.3.8.Final</hibernate.version>
-		<jackson.version>2.5.0</jackson.version>
-		<java.version>1.7</java.version>
-	</properties>
-  
-  <dependencies>
-  <!-- junit -->
-    <dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-		<version>4.12</version>
-	</dependency>
-	
-	
-    
-    <!-- spring -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>cn.northpark.np-web</groupId>
+    <artifactId>np-web</artifactId>
+    <packaging>war</packaging>
+    <version>3.5.0-SNAPSHOT</version>
+    <name>np-web Maven Webapp</name>
+    <url>http://maven.apache.org</url>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>4.1.4.RELEASE</spring.version>
+        <hibernate.version>4.3.8.Final</hibernate.version>
+        <jackson.version>2.5.0</jackson.version>
+        <java.version>1.7</java.version>
+    </properties>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-                  <groupId>org.springframework</groupId>
-                  <artifactId>spring-test</artifactId>
-                  <version>${spring.version}</version>
-                  <scope>test</scope>
+    <dependencies>
+        <!-- junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
         </dependency>
-		
-
-		
 
 
-		<!-- 使用SpringMVC需配置 -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-    
-    <!-- 关系型数据库整合时需配置 如hibernate jpa等 -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		<!-- hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		<!-- aop -->
-            <dependency>
-                  <groupId>org.aspectj</groupId>
-                  <artifactId>aspectjweaver</artifactId>
-                  <version>1.8.4</version>
-            </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-		
-		<!-- log4j -->
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
 
-		<!-- mysql连接 -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.34</version>
-		</dependency>
+        <!-- 使用SpringMVC需配置 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		
-		
-		<!-- alibaba druid pool -->
-		<dependency>
-	     <groupId>com.alibaba</groupId>
-	     <artifactId>druid</artifactId>
-	     <version>1.1.5</version>
-		</dependency>
+        <!-- 关系型数据库整合时需配置 如hibernate jpa等 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		<!-- json -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.3</version>
-		</dependency>
+        <!-- hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
 
-		
+        <!-- aop -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.4</version>
+        </dependency>
 
-		
 
-		<!-- servlet -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>3.0-alpha-1</version>
-			<scope>provided</scope>
-		</dependency>
+        <!-- log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		
-		<!-- lang -->
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
-    
+        <!-- mysql连接 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.34</version>
+        </dependency>
+
+
+        <!-- alibaba druid pool -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.5</version>
+        </dependency>
+
+        <!-- json -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+
+        <!-- servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>3.0-alpha-1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!-- lang -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+
         <!-- 爬虫 -->
-	    <dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.8.3</version>
-		</dependency>
-		
-		<!-- 爬虫 httpclient -->
-		<dependency>
-		    <groupId>org.apache.httpcomponents</groupId>
-		    <artifactId>httpclient</artifactId>
-		    <version>4.5.2</version>
-		</dependency>
-		
-		<dependency>  
-            <groupId>xml-apis</groupId>  
-            <artifactId>xml-apis</artifactId>  
-            <version>1.4.01</version>  
-        </dependency>  
-		
-    
-    	<!-- email -->
-	    <dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-email</artifactId>
-			<version>1.4</version>
-		</dependency>
-		
-		<!--  拼音 -->
-		<dependency>
-			<groupId>com.belerweb</groupId>
-			<artifactId>pinyin4j</artifactId>
-			<version>2.5.0</version>
-		</dependency>
-		
-		
-    
-		
-		<!-- apache 文件上传 -->
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.1</version>
-		</dependency>
-		
-		
-		<!-- https://mvnrepository.com/artifact/com.qiniu/qiniu-java-sdk -->
-		<dependency>
-		    <groupId>com.qiniu</groupId>
-		    <artifactId>qiniu-java-sdk</artifactId>
-		    <version>7.2.1</version>
-		</dependency>
-		
-    
-    
-  </dependencies>
-  <build>
-    <finalName>np-web</finalName>
-    
-    <plugins>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+
+        <!-- 爬虫 httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+        </dependency>
+
+
+        <!-- email -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <!--  拼音 -->
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+
+
+        <!-- apache 文件上传 -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.qiniu/qiniu-java-sdk -->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>7.2.1</version>
+        </dependency>
+
+
+    </dependencies>
+    <build>
+        <finalName>np-web</finalName>
+
+        <plugins>
             <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
-				</configuration>
-			</plugin>
-			<plugin>  
-	            <groupId>org.apache.maven.plugins</groupId>  
-	            <artifactId>maven-compiler-plugin</artifactId>  
-	            <version>3.1</version>  
-	            <configuration>  
-	                <source>1.8</source>  
-	                <target>1.8</target>  
-	            </configuration>  
-	            <dependencies>  
-	                <dependency>  
-	                    <groupId>org.codehaus.plexus</groupId>  
-	                    <artifactId>plexus-compiler-eclipse</artifactId>  
-	                    <version>2.2</version>  
-	                </dependency>  
-	            </dependencies>  
-	        </plugin>  
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.plexus</groupId>
+                        <artifactId>plexus-compiler-eclipse</artifactId>
+                        <version>2.2</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
 
-			
 
-			<!-- generate java doc -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<configuration>
-					<javadocDirectory>target/javadoc</javadocDirectory>
-					<reportOutputDirectory>target/javadoc</reportOutputDirectory>
-					<charset>UTF-8</charset>
-					<encoding>UTF-8</encoding>
-					<docencoding>UTF-8</docencoding>
-					<show>private</show>
-				</configuration>
-			</plugin>
-			
-		
-			
-		  <!-- <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                        <compilerArguments>
-                             <verbose />
-                              <bootclasspath>${java.home}/lib/rt.jar</bootclasspath>
-                        </compilerArguments>  
-                      
-                    </configuration>        
-             </plugin> -->
+            <!-- generate java doc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <javadocDirectory>target/javadoc</javadocDirectory>
+                    <reportOutputDirectory>target/javadoc</reportOutputDirectory>
+                    <charset>UTF-8</charset>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                    <show>private</show>
+                </configuration>
+            </plugin>
 
-		</plugins>
-    
-  </build>
+
+            <!-- <plugin>
+                      <groupId>org.apache.maven.plugins</groupId>
+                      <artifactId>maven-compiler-plugin</artifactId>
+                      <configuration>
+                          <source>${java.version}</source>
+                          <target>${java.version}</target>
+                          <compilerArguments>
+                               <verbose />
+                                <bootclasspath>${java.home}/lib/rt.jar</bootclasspath>
+                          </compilerArguments>
+
+                      </configuration>
+               </plugin> -->
+
+        </plugins>
+
+    </build>
 </project>

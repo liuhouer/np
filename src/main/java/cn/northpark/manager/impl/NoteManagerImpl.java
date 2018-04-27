@@ -18,107 +18,107 @@ import cn.northpark.utils.page.QueryResult;
 public class NoteManagerImpl implements NoteManager {
 
     @Autowired
-	private NoteDao noteDao;
+    private NoteDao noteDao;
 
-	@Override
-	public Note findNote(Integer id) {
-		return noteDao.find(id);
-	}
+    @Override
+    public Note findNote(Integer id) {
+        return noteDao.find(id);
+    }
 
-	@Override
-	public List<Note> findAll() {
-		return noteDao.findAll();
-	}
+    @Override
+    public List<Note> findAll() {
+        return noteDao.findAll();
+    }
 
-	@Override
-	public void addNote(Note note) {
-		noteDao.save(note);
-	}
+    @Override
+    public void addNote(Note note) {
+        noteDao.save(note);
+    }
 
-	@Override
-	public boolean delNote(Integer id) {
-		Note note = noteDao.find(id);
-		noteDao.delete(note);
-		return true;
-	}
+    @Override
+    public boolean delNote(Integer id) {
+        Note note = noteDao.find(id);
+        noteDao.delete(note);
+        return true;
+    }
 
-	@Override
-	public boolean updateNote(Note note) {
-		noteDao.update(note);
-		return true;
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public QueryResult<Note> findByCondition(PageView<Note> p,
-			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = noteDao.findByCondition(p.getFirstResult(),
-				p.getMaxresult(), wheresql, order);
-		return qrs;
-	}
+    @Override
+    public boolean updateNote(Note note) {
+        noteDao.update(note);
+        return true;
+    }
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public QueryResult<Note> findByCondition(String wheresql) {
-		// TODO Auto-generated method stub
-		QueryResult qrs = noteDao.findByCondition(
-				 wheresql);
-		return qrs;
-	}
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Override
+    public QueryResult<Note> findByCondition(PageView<Note> p,
+                                             String wheresql, LinkedHashMap<String, String> order) {
+        QueryResult qrs = noteDao.findByCondition(p.getFirstResult(),
+                p.getMaxresult(), wheresql, order);
+        return qrs;
+    }
 
-	@Override
-	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String,Object>>> pageview,String sql) {
-		// TODO Auto-generated method stub
-		
-		
-		List<Map<String, Object>> list = noteDao.QuerySQLForMapList(sql, pageview);
-		
-		return list;
-		
-	}
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Override
+    public QueryResult<Note> findByCondition(String wheresql) {
+        // TODO Auto-generated method stub
+        QueryResult qrs = noteDao.findByCondition(
+                wheresql);
+        return qrs;
+    }
+
+    @Override
+    public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview, String sql) {
+        // TODO Auto-generated method stub
 
 
-	@Override
-	public int findmixCount(String whereSql) {
-		// TODO Auto-generated method stub
-		return noteDao.querySql(whereSql).size();
-	}
+        List<Map<String, Object>> list = noteDao.QuerySQLForMapList(sql, pageview);
 
-	/* (non-Javadoc)
-	 * @see cn.northpark.manager.NoteManager#countSql(java.lang.String)
-	 */
-	@Override
-	public int countSql(String sql) {
-		// TODO Auto-generated method stub
-		return noteDao.countSql(sql);
-	}
+        return list;
 
-	/* (non-Javadoc)
-	 * @see cn.northpark.manager.NoteManager#countHql(cn.northpark.model.User, java.lang.String)
-	 */
-	@Override
-	public int countHql(String wheresql) {
-		// TODO Auto-generated method stub
-		return noteDao.countHql(Note.class, wheresql);
-	}
+    }
 
 
-	/* (non-Javadoc)
-	 * @see cn.northpark.manager.NoteManager#querySql(java.lang.String)
-	 */
-	@Override
-	public List<Note> querySql(String sql) {
-		// TODO Auto-generated method stub
-		return noteDao.querySql(sql, Note.class);
-		
-	}
+    @Override
+    public int findmixCount(String whereSql) {
+        // TODO Auto-generated method stub
+        return noteDao.querySql(whereSql).size();
+    }
 
-	@Override
-	public PageView<List<Map<String, Object>>> getMixMapPage(
-			PageView<List<Map<String, Object>>> pageview, String sql) {
-		// TODO Auto-generated method stub
-		
-		return noteDao.QuerySQLCountForMapList(sql, pageview);
-	}
+    /* (non-Javadoc)
+     * @see cn.northpark.manager.NoteManager#countSql(java.lang.String)
+     */
+    @Override
+    public int countSql(String sql) {
+        // TODO Auto-generated method stub
+        return noteDao.countSql(sql);
+    }
+
+    /* (non-Javadoc)
+     * @see cn.northpark.manager.NoteManager#countHql(cn.northpark.model.User, java.lang.String)
+     */
+    @Override
+    public int countHql(String wheresql) {
+        // TODO Auto-generated method stub
+        return noteDao.countHql(Note.class, wheresql);
+    }
+
+
+    /* (non-Javadoc)
+     * @see cn.northpark.manager.NoteManager#querySql(java.lang.String)
+     */
+    @Override
+    public List<Note> querySql(String sql) {
+        // TODO Auto-generated method stub
+        return noteDao.querySql(sql, Note.class);
+
+    }
+
+    @Override
+    public PageView<List<Map<String, Object>>> getMixMapPage(
+            PageView<List<Map<String, Object>>> pageview, String sql) {
+        // TODO Auto-generated method stub
+
+        return noteDao.QuerySQLCountForMapList(sql, pageview);
+    }
 }
 

@@ -1,5 +1,6 @@
 
 package cn.northpark.manager;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,37 +10,39 @@ import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 
 public interface UserFollowManager {
-	
-	public UserFollow findUserFollow(Integer id);
 
-	public List<UserFollow> findAll();
+    public UserFollow findUserFollow(Integer id);
 
-	public void addUserFollow(UserFollow userfollow);
+    public List<UserFollow> findAll();
 
-	public boolean delUserFollow(Integer id);
+    public void addUserFollow(UserFollow userfollow);
 
-	public boolean updateUserFollow(UserFollow userfollow);
-	
-	public QueryResult<UserFollow> findByCondition(PageView<UserFollow> p,
-			String wheresql, LinkedHashMap<String, String> order);
+    public boolean delUserFollow(Integer id);
 
-	public QueryResult<UserFollow> findByCondition(
-			String wheresql);
-	
-	public List<Map<String,Object>> getFansList(String sql);
-	
-	/**
-	 * sql+
-	 * @return
-	 */
-	public List<Map<String,Object>> querySql(String sql,Object... obj);
+    public boolean updateUserFollow(UserFollow userfollow);
 
-	/**
-	 * 根据wheresql计算条数
-	 * @param string
-	 * @return
-	 */
-	public int getCountByCondition(String wheresql);
+    public QueryResult<UserFollow> findByCondition(PageView<UserFollow> p,
+                                                   String wheresql, LinkedHashMap<String, String> order);
+
+    public QueryResult<UserFollow> findByCondition(
+            String wheresql);
+
+    public List<Map<String, Object>> getFansList(String sql);
+
+    /**
+     * sql+
+     *
+     * @return
+     */
+    public List<Map<String, Object>> querySql(String sql, Object... obj);
+
+    /**
+     * 根据wheresql计算条数
+     *
+     * @param string
+     * @return
+     */
+    public int getCountByCondition(String wheresql);
 }
 
 

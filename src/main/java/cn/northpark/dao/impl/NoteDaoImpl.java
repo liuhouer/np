@@ -12,5 +12,4 @@ import cn.northpark.model.Note;
 public class NoteDaoImpl extends HibernateDaoImpl<Note, Serializable> implements NoteDao {
 
 
-
 }

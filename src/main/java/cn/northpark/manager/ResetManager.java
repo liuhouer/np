@@ -1,5 +1,6 @@
 
 package cn.northpark.manager;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -8,23 +9,23 @@ import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 
 public interface ResetManager {
-	
-	public Reset findReset(Integer id);
 
-	public List<Reset> findAll();
+    public Reset findReset(Integer id);
 
-	public void addReset(Reset reset);
+    public List<Reset> findAll();
 
-	public boolean delReset(Integer id);
+    public void addReset(Reset reset);
 
-	public boolean updateReset(Reset reset);
-	
-	public QueryResult<Reset> findByCondition(PageView<Reset> p,
-			String wheresql, LinkedHashMap<String, String> order);
+    public boolean delReset(Integer id);
 
-	public QueryResult<Reset> findByCondition(
-			String wheresql);
-	
+    public boolean updateReset(Reset reset);
+
+    public QueryResult<Reset> findByCondition(PageView<Reset> p,
+                                              String wheresql, LinkedHashMap<String, String> order);
+
+    public QueryResult<Reset> findByCondition(
+            String wheresql);
+
 }
 
 

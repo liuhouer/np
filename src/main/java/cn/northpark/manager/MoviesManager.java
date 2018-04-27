@@ -1,5 +1,6 @@
 
 package cn.northpark.manager;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,66 +10,65 @@ import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 
 public interface MoviesManager {
-	
-	public Movies findMovies(Integer id);
 
-	public List<Movies> findAll();
+    public Movies findMovies(Integer id);
 
-	public void addMovies(Movies movies);
+    public List<Movies> findAll();
 
-	public boolean delMovies(Integer id);
+    public void addMovies(Movies movies);
 
-	public boolean updateMovies(Movies movies);
-	
-	public QueryResult<Movies> findByCondition(PageView<Movies> p,
-			String wheresql, LinkedHashMap<String, String> order);
+    public boolean delMovies(Integer id);
 
-	public QueryResult<Movies> findByCondition(
-			String wheresql);
-	
-	/**
-	 * 根据关键词搜索
-	 * @return
-	 */
-	public List<Movies> querySql(String sql,Object... obj);
-	
-	
-	/**
-	 * sql
-	 * @return
-	 */
-	public List<Map<String, Object>> querySql(String sql);
-	
-	
-	/**
-	 * 根据sql语句查询条数
-	 * 
-	 * @param sql
-	 *            SQL语句
-	 * 
-	 * @return int
-	 */
-	public int countSql(String sql) ;
-	
-	
-	/**
-	 * 根据实体查询条数
-	 * 
-	 * @param sql
-	 *            SQL语句
-	 * 
-	 * @return int
-	 */
-	public  int countHql(String wheresql);
+    public boolean updateMovies(Movies movies);
 
-	
-	/**
-	 * 根据sql语句查询map集合
-	 * @return
-	 */
-	public List<Map<String, Object>> querySqlMap(String sql);
-	
-	
+    public QueryResult<Movies> findByCondition(PageView<Movies> p,
+                                               String wheresql, LinkedHashMap<String, String> order);
+
+    public QueryResult<Movies> findByCondition(
+            String wheresql);
+
+    /**
+     * 根据关键词搜索
+     *
+     * @return
+     */
+    public List<Movies> querySql(String sql, Object... obj);
+
+
+    /**
+     * sql
+     *
+     * @return
+     */
+    public List<Map<String, Object>> querySql(String sql);
+
+
+    /**
+     * 根据sql语句查询条数
+     *
+     * @param sql SQL语句
+     * @return int
+     */
+    public int countSql(String sql);
+
+
+    /**
+     * 根据实体查询条数
+     *
+     * @param sql SQL语句
+     * @return int
+     */
+    public int countHql(String wheresql);
+
+
+    /**
+     * 根据sql语句查询map集合
+     *
+     * @return
+     */
+    public List<Map<String, Object>> querySqlMap(String sql);
+
+
 }
 
 

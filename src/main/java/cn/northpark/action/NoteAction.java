@@ -1,9 +1,10 @@
 
 package cn.northpark.action;
 /*
-*@author bruce
-*
-**/
+ *@author bruce
+ *
+ **/
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -40,379 +41,382 @@ import cn.northpark.utils.page.QueryResult;
 @RequestMapping("/note")
 public class NoteAction {
 
- private final String LIST_ACTION = "redirect:/note/findAll";
- private final String LOGIN_ACTION = "redirect:/login";
- @Autowired	
- private NoteManager noteManager;
- @Autowired	
- private UserManager userManager;
- @Autowired	
- private NoteQuery noteQuery;
- @Autowired	
- private UserFollowManager userfollowManager;
-	
- 
- private static final Logger LOGGER = Logger
-         .getLogger(NoteAction.class);
-	
+    private final String LIST_ACTION = "redirect:/note/findAll";
+    private final String LOGIN_ACTION = "redirect:/login";
+    @Autowired
+    private NoteManager noteManager;
+    @Autowired
+    private UserManager userManager;
+    @Autowired
+    private NoteQuery noteQuery;
+    @Autowired
+    private UserFollowManager userfollowManager;
 
-	/**
-	 * 添加碎碎念保存
-	 * @param note
-	 * @return
-	 */
-	@RequestMapping("/addNote")
-	public String addNote(Note note) {
-		String rs= LIST_ACTION;
-		if(StringUtils.isNotEmpty(String.valueOf(note.getUserid()))){
-			if(StringUtils.isEmpty(note.getOpened())){
-				note.setOpened("yes");
-			}
-			note.setCreatetime(TimeUtils.nowTime());
-			
-			//处理笔记和介绍
-			String note_ = note.getNote();
-			//note_ = "<p>"+note_+"</p>";
-			note_ = note_.replaceAll("script", "urshit").replaceAll("alert", "caonima").replaceAll("location", "tiaonima");
-			note.setNote(note_);
-			StringBuilder sb = handleNotes(note_);
-			note.setBrief(sb.toString());
-			//end-------------------
-			this.noteManager.addNote(note);
-		}else{
-			rs = LOGIN_ACTION;
-		}
-		return rs;
-	}
 
-	/**
-	 * 处理笔记
-	 * @param note_
-	 * @return
-	 */
-	private StringBuilder handleNotes(String note_) {
-		note_.replaceAll("<p><br></p>",  "<br><br>");
-		StringBuilder sb = new StringBuilder();
-		String str[] = note_.split("</p>");
-		if(str.length>=3){
-			sb.append(str[0].replace("<p>", "")).append("<br>");
-			sb.append(str[1].replace("<p>", "")).append("<br>");
-			sb.append(str[2].replace("<p>", "")).append("<br>");
-		}else{
-			String rp_ = note_.replaceAll("<p>", "").replaceAll("</p>", "");
-			String br[] = rp_.split("<br>");
-			if(br.length>=3){
-				sb.append(br[0]).append("<br>");
-				sb.append(br[1]).append("<br>");
-				sb.append(br[2]).append("<br>");
-			}else{
-				String space[] = rp_.split(" ");
-				for (int i = 0; i < space.length; i++) {
-					if(i!=space.length-1){
-					    space[i] += "<br>";
-					}
-					sb.append(space[i]);
-				}
-			}
-		}
-		return sb;
-	}
-	
+    private static final Logger LOGGER = Logger
+            .getLogger(NoteAction.class);
 
-	
-	
-	/**
-	 * 查看某人的碎碎念列表
-	 * @param userid
-	 * @return
-	 */
-	@RequestMapping(value="/viewNotes/{userid}")
-	public String viewNotes(@PathVariable String userid) {
-				
-		  return "redirect:/note/viewNotes/"+userid+"/page/1";
-	}
-	
-	/**
-	 * 查看某人的碎碎念列表 分页
-	 * @param userid
-	 * @return
-	 */
-	@RequestMapping(value="/viewNotes/{userid}/page/{page}")
-	public String viewNotesPages(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session, @PathVariable String userid, @PathVariable String page) {
-		//condition.setOpened("yes");
-		String result="/spacenote";
-		if(StringUtils.isNotEmpty(userid)){
-			condition.setUserid(userid);
-			map.addAttribute("userid",userid);
-			User user = userManager.findUser(Integer.parseInt(userid));
-			map.put("MyInfo", user);
-		}else{
-			condition.setUserid("空");
-			map.addAttribute("userid","");
-		}
-		String whereSql = noteQuery.getSql(condition);
-		
-		//定义pageview
-		PageView<Note> pageview  =  new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT); 
-		
-		
-		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("createtime", "desc");
 
-		QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,
-				whereSql, order);
-		
-		List<Note> list = qrs.getResultlist();
-		
-		for (int i = 0; i < list.size(); i++) {
-			if(list.get(i).getCreatetime().contains("-")){
-				String t = list.get(i).getCreatetime().substring(0, 10);
-				list.get(i).setCreatetime(t);
-			}
-		}
-		//触发分页计算
-		pageview.setQueryResult(qrs);
-		
-		map.addAttribute("pageView", pageview);
-		map.put("condition", condition);
-		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","/note/viewNotes/"+userid );
-		
-		//取得当前用户对作者的关注状态
+    /**
+     * 添加碎碎念保存
+     *
+     * @param note
+     * @return
+     */
+    @RequestMapping("/addNote")
+    public String addNote(Note note) {
+        String rs = LIST_ACTION;
+        if (StringUtils.isNotEmpty(String.valueOf(note.getUserid()))) {
+            if (StringUtils.isEmpty(note.getOpened())) {
+                note.setOpened("yes");
+            }
+            note.setCreatetime(TimeUtils.nowTime());
+
+            //处理笔记和介绍
+            String note_ = note.getNote();
+            //note_ = "<p>"+note_+"</p>";
+            note_ = note_.replaceAll("script", "urshit").replaceAll("alert", "caonima").replaceAll("location", "tiaonima");
+            note.setNote(note_);
+            StringBuilder sb = handleNotes(note_);
+            note.setBrief(sb.toString());
+            //end-------------------
+            this.noteManager.addNote(note);
+        } else {
+            rs = LOGIN_ACTION;
+        }
+        return rs;
+    }
+
+    /**
+     * 处理笔记
+     *
+     * @param note_
+     * @return
+     */
+    private StringBuilder handleNotes(String note_) {
+        note_.replaceAll("<p><br></p>", "<br><br>");
+        StringBuilder sb = new StringBuilder();
+        String str[] = note_.split("</p>");
+        if (str.length >= 3) {
+            sb.append(str[0].replace("<p>", "")).append("<br>");
+            sb.append(str[1].replace("<p>", "")).append("<br>");
+            sb.append(str[2].replace("<p>", "")).append("<br>");
+        } else {
+            String rp_ = note_.replaceAll("<p>", "").replaceAll("</p>", "");
+            String br[] = rp_.split("<br>");
+            if (br.length >= 3) {
+                sb.append(br[0]).append("<br>");
+                sb.append(br[1]).append("<br>");
+                sb.append(br[2]).append("<br>");
+            } else {
+                String space[] = rp_.split(" ");
+                for (int i = 0; i < space.length; i++) {
+                    if (i != space.length - 1) {
+                        space[i] += "<br>";
+                    }
+                    sb.append(space[i]);
+                }
+            }
+        }
+        return sb;
+    }
+
+
+    /**
+     * 查看某人的碎碎念列表
+     *
+     * @param userid
+     * @return
+     */
+    @RequestMapping(value = "/viewNotes/{userid}")
+    public String viewNotes(@PathVariable String userid) {
+
+        return "redirect:/note/viewNotes/" + userid + "/page/1";
+    }
+
+    /**
+     * 查看某人的碎碎念列表 分页
+     *
+     * @param userid
+     * @return
+     */
+    @RequestMapping(value = "/viewNotes/{userid}/page/{page}")
+    public String viewNotesPages(ModelMap map, NoteQueryCondition condition, HttpServletRequest request,
+                                 HttpServletResponse response, HttpSession session, @PathVariable String userid, @PathVariable String page) {
+        //condition.setOpened("yes");
+        String result = "/spacenote";
+        if (StringUtils.isNotEmpty(userid)) {
+            condition.setUserid(userid);
+            map.addAttribute("userid", userid);
+            User user = userManager.findUser(Integer.parseInt(userid));
+            map.put("MyInfo", user);
+        } else {
+            condition.setUserid("空");
+            map.addAttribute("userid", "");
+        }
+        String whereSql = noteQuery.getSql(condition);
+
+        //定义pageview
+        PageView<Note> pageview = new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT);
+
+
+        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        order.put("createtime", "desc");
+
+        QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,
+                whereSql, order);
+
+        List<Note> list = qrs.getResultlist();
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getCreatetime().contains("-")) {
+                String t = list.get(i).getCreatetime().substring(0, 10);
+                list.get(i).setCreatetime(t);
+            }
+        }
+        //触发分页计算
+        pageview.setQueryResult(qrs);
+
+        map.addAttribute("pageView", pageview);
+        map.put("condition", condition);
+        map.addAttribute("list", list);
+        map.addAttribute("actionUrl", "/note/viewNotes/" + userid);
+
+        //取得当前用户对作者的关注状态
         User lo_user = (User) request.getSession().getAttribute("user");
-        if(lo_user!=null){
-       	 String follow_id = String.valueOf(lo_user.getId());
-       	 String author_id = userid;
-       	 if(StringUtils.isNotEmpty(follow_id)&&StringUtils.isNotEmpty(author_id)){
-       		int nums = userfollowManager.getCountByCondition(" where author_id = '"+author_id+"' and follow_id = '"+follow_id+"' ");
-       		 if(nums>0){
-       			 map.put("gz", "ygz");
-       		 }
-       	 }
-       	 
+        if (lo_user != null) {
+            String follow_id = String.valueOf(lo_user.getId());
+            String author_id = userid;
+            if (StringUtils.isNotEmpty(follow_id) && StringUtils.isNotEmpty(author_id)) {
+                int nums = userfollowManager.getCountByCondition(" where author_id = '" + author_id + "' and follow_id = '" + follow_id + "' ");
+                if (nums > 0) {
+                    map.put("gz", "ygz");
+                }
+            }
+
         }
 
-		return result;
-	}
+        return result;
+    }
 
-	/**
-	 * 查看自己的所有碎碎念 列表 -分页
-	 * @param map
-	 * @param condition
-	 * @param page
-	 * @param request
-	 * @param response
-	 * @param session
-	 * @param userid
-	 * @return
-	 */
-	@RequestMapping(value="/findAll/page/{page}")
-	public String findAllpages(ModelMap map,NoteQueryCondition condition,@PathVariable String page,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session,String userid) {
-		//condition.setOpened("yes");
-		
-		 //取得当前用户
+    /**
+     * 查看自己的所有碎碎念 列表 -分页
+     *
+     * @param map
+     * @param condition
+     * @param page
+     * @param request
+     * @param response
+     * @param session
+     * @param userid
+     * @return
+     */
+    @RequestMapping(value = "/findAll/page/{page}")
+    public String findAllpages(ModelMap map, NoteQueryCondition condition, @PathVariable String page, HttpServletRequest request,
+                               HttpServletResponse response, HttpSession session, String userid) {
+        //condition.setOpened("yes");
+
+        //取得当前用户
         User user = (User) request.getSession().getAttribute("user");
-        if(user!=null){
-        	userid = String.valueOf(user.getId());
+        if (user != null) {
+            userid = String.valueOf(user.getId());
         }
-		String result="/note";
-		if(StringUtils.isNotEmpty(userid)){
-			condition.setUserid(userid);
-			map.addAttribute("userid",userid);
-			map.put("MyInfo", user);
-		}else{
-			condition.setUserid("空");
-			map.addAttribute("userid","");
-		}
-		String whereSql = noteQuery.getSql(condition);
-		
-		
-		//定义pageview
-		PageView<Note> pageview  =  new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT); 
-		
-		LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
-		order.put("createtime", "desc");
+        String result = "/note";
+        if (StringUtils.isNotEmpty(userid)) {
+            condition.setUserid(userid);
+            map.addAttribute("userid", userid);
+            map.put("MyInfo", user);
+        } else {
+            condition.setUserid("空");
+            map.addAttribute("userid", "");
+        }
+        String whereSql = noteQuery.getSql(condition);
 
-		QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,
-				whereSql, order);
-		
-		//触发分页计算
-		pageview.setQueryResult(qrs);
-		
-		List<Note> list = qrs.getResultlist();
-		for (int i = 0; i < list.size(); i++) {
-			if(list.get(i).getCreatetime().contains("-")){
-				String t = list.get(i).getCreatetime().substring(0, 10);
-				list.get(i).setCreatetime(t);
-			}
-		}
-		
-		map.addAttribute("pageView", pageview);
-		map.put("condition", condition);
-		map.addAttribute("list", list);
-		map.addAttribute("actionUrl","/note/findAll" );
 
-		return result;
-	}
-	
-	
-	/**
-	 * 查看自己的所有碎碎念 列表 -分页
-	 * @return
-	 */
-	@RequestMapping(value="/findAll")
-	public String findAll() {
-		return "redirect:/note/findAll/page/1";
-	}
-	
-	
-	/**
-	 * 查看碎碎念 广场列表
-	 * @param map
-	 * @param condition
-	 * @param request
-	 * @param response
-	 * @param session
-	 * @return
-	 * @throws IOException
-	 */
-	@RequestMapping(value="/list")
-	public String noteplazz(ModelMap map,NoteQueryCondition condition,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) throws IOException {
-		
-		session.removeAttribute("tabs");
-		session.setAttribute("tabs","note");
-		condition.setOpened("yes");
-		String result="/story";
-		String sql = noteQuery.getMixSql(condition);
-		
-		LOGGER.info("sql ---"+sql);
-		
-		//定义pageview
-		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(1,MyConstant.MAXRESULT);
-		
-		//获取分页结构不获取数据
-		
-		pageview = this.noteManager.getMixMapPage(pageview, sql);
-		
-		map.addAttribute("pageView", pageview);
-		map.put("condition", condition);
-		map.addAttribute("actionUrl","/note/list");
-		
-		
+        //定义pageview
+        PageView<Note> pageview = new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT);
 
-		return result;
-	}
-	
-	
+        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        order.put("createtime", "desc");
 
-	/**
-	 * 查看碎碎念 广场列表
-	 * @param map
-	 * @param condition
-	 * @param request
-	 * @param response
-	 * @param session
-	 * @return
-	 * @throws IOException
-	 */
-	@RequestMapping(value="/list/page/{page}")
-	public String noteplazzpage(ModelMap map,NoteQueryCondition condition, @PathVariable String page,HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) throws IOException {
-		
-		session.removeAttribute("tabs");
-		session.setAttribute("tabs","note");
-		condition.setOpened("yes");
-		String result="/story";
-		String sql = noteQuery.getMixSql(condition);
-		
-		LOGGER.info("sql ---"+sql);
-		int currentpage = Integer.parseInt(page);
-		
-		//定义pageview
-		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(currentpage,MyConstant.MAXRESULT);
-		
-		//获取分页结构不获取数据
-		
-		pageview = this.noteManager.getMixMapPage(pageview, sql);
-		
-		map.addAttribute("pageView", pageview);
-		map.put("condition", condition);
-		map.addAttribute("actionUrl","/note/list");
-		map.addAttribute("page", page);
-		
+        QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,
+                whereSql, order);
 
-		return result;
-	}
-	
-	
-	//异步分页查询story数据
-	@RequestMapping(value="/storyquery")
-	public String noteplazzquery(ModelMap map,HttpServletRequest request,NoteQueryCondition condition, HttpSession session,String userid) {
-		String currentpage = request.getParameter("currentpage");
-		
-		condition.setOpened("yes");
-		
-		String sql = noteQuery.getMixSql(condition);
-		
-		//定义pageview
-		PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String,Object>>>(Integer.parseInt(currentpage),MyConstant.MAXRESULT);
-		
-		
-		//根据分页仅仅获取数据 
-		List<Map<String, Object>> list = this.noteManager.findmixByCondition(pageview,sql);
-		
-		
-		
-		for (int i = 0; i < list.size(); i++) {
-			//时间处理
-			String createtime = (String) list.get(i).get("createtime"); //e:/yunlu/upload/1399976848969.jpg
-			if(StringUtils.isNotEmpty(createtime)){
-				createtime = TimeUtils.getHalfDate(createtime);
-			}
-			list.get(i).put("createtime", createtime);
-			
-		}
-		
-		map.addAttribute("list", list);
-		
-		
-		return "/page/story/storydata";
-	}
+        //触发分页计算
+        pageview.setQueryResult(qrs);
 
-	//异步删除笔记内容
-	@RequestMapping(value="/remove")
-	@ResponseBody
-	public String remove(ModelMap map,HttpServletRequest request,String id, HttpSession session)  {
-		
-		String result = "success.";	
-		try{
-			if(StringUtils.isNotEmpty(id)){
-				
-				Note note = noteManager.findNote(Integer.valueOf(id));
-				if(note!=null){
-					 //取得当前用户
-			        User user = (User) request.getSession().getAttribute("user");
-			        if(user!=null){
-			        	if(user.getId().equals(note.getUserid())){
-			        		//登陆者和作者一样 | 执行删除
-			        		noteManager.delNote(Integer.parseInt(id));
-			        		result = "success.";
-			        	}
-			        }
-				}
-			}
-		}catch(Exception e){
-			result = "opps,发生了异常.";
-			LOGGER.error("noteacton------>",e);
-		}
+        List<Note> list = qrs.getResultlist();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getCreatetime().contains("-")) {
+                String t = list.get(i).getCreatetime().substring(0, 10);
+                list.get(i).setCreatetime(t);
+            }
+        }
 
-		Map<String, Object> rsmap = new HashMap<String, Object>();
-		rsmap.put("result", result);
-		return JsonUtil.map2json(rsmap);
-	}
+        map.addAttribute("pageView", pageview);
+        map.put("condition", condition);
+        map.addAttribute("list", list);
+        map.addAttribute("actionUrl", "/note/findAll");
 
-	
+        return result;
+    }
+
+
+    /**
+     * 查看自己的所有碎碎念 列表 -分页
+     *
+     * @return
+     */
+    @RequestMapping(value = "/findAll")
+    public String findAll() {
+        return "redirect:/note/findAll/page/1";
+    }
+
+
+    /**
+     * 查看碎碎念 广场列表
+     *
+     * @param map
+     * @param condition
+     * @param request
+     * @param response
+     * @param session
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/list")
+    public String noteplazz(ModelMap map, NoteQueryCondition condition, HttpServletRequest request,
+                            HttpServletResponse response, HttpSession session) throws IOException {
+
+        session.removeAttribute("tabs");
+        session.setAttribute("tabs", "note");
+        condition.setOpened("yes");
+        String result = "/story";
+        String sql = noteQuery.getMixSql(condition);
+
+        LOGGER.info("sql ---" + sql);
+
+        //定义pageview
+        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
+
+        //获取分页结构不获取数据
+
+        pageview = this.noteManager.getMixMapPage(pageview, sql);
+
+        map.addAttribute("pageView", pageview);
+        map.put("condition", condition);
+        map.addAttribute("actionUrl", "/note/list");
+
+
+        return result;
+    }
+
+
+    /**
+     * 查看碎碎念 广场列表
+     *
+     * @param map
+     * @param condition
+     * @param request
+     * @param response
+     * @param session
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/list/page/{page}")
+    public String noteplazzpage(ModelMap map, NoteQueryCondition condition, @PathVariable String page, HttpServletRequest request,
+                                HttpServletResponse response, HttpSession session) throws IOException {
+
+        session.removeAttribute("tabs");
+        session.setAttribute("tabs", "note");
+        condition.setOpened("yes");
+        String result = "/story";
+        String sql = noteQuery.getMixSql(condition);
+
+        LOGGER.info("sql ---" + sql);
+        int currentpage = Integer.parseInt(page);
+
+        //定义pageview
+        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(currentpage, MyConstant.MAXRESULT);
+
+        //获取分页结构不获取数据
+
+        pageview = this.noteManager.getMixMapPage(pageview, sql);
+
+        map.addAttribute("pageView", pageview);
+        map.put("condition", condition);
+        map.addAttribute("actionUrl", "/note/list");
+        map.addAttribute("page", page);
+
+
+        return result;
+    }
+
+
+    //异步分页查询story数据
+    @RequestMapping(value = "/storyquery")
+    public String noteplazzquery(ModelMap map, HttpServletRequest request, NoteQueryCondition condition, HttpSession session, String userid) {
+        String currentpage = request.getParameter("currentpage");
+
+        condition.setOpened("yes");
+
+        String sql = noteQuery.getMixSql(condition);
+
+        //定义pageview
+        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+
+
+        //根据分页仅仅获取数据
+        List<Map<String, Object>> list = this.noteManager.findmixByCondition(pageview, sql);
+
+
+        for (int i = 0; i < list.size(); i++) {
+            //时间处理
+            String createtime = (String) list.get(i).get("createtime"); //e:/yunlu/upload/1399976848969.jpg
+            if (StringUtils.isNotEmpty(createtime)) {
+                createtime = TimeUtils.getHalfDate(createtime);
+            }
+            list.get(i).put("createtime", createtime);
+
+        }
+
+        map.addAttribute("list", list);
+
+
+        return "/page/story/storydata";
+    }
+
+    //异步删除笔记内容
+    @RequestMapping(value = "/remove")
+    @ResponseBody
+    public String remove(ModelMap map, HttpServletRequest request, String id, HttpSession session) {
+
+        String result = "success.";
+        try {
+            if (StringUtils.isNotEmpty(id)) {
+
+                Note note = noteManager.findNote(Integer.valueOf(id));
+                if (note != null) {
+                    //取得当前用户
+                    User user = (User) request.getSession().getAttribute("user");
+                    if (user != null) {
+                        if (user.getId().equals(note.getUserid())) {
+                            //登陆者和作者一样 | 执行删除
+                            noteManager.delNote(Integer.parseInt(id));
+                            result = "success.";
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            result = "opps,发生了异常.";
+            LOGGER.error("noteacton------>", e);
+        }
+
+        Map<String, Object> rsmap = new HashMap<String, Object>();
+        rsmap.put("result", result);
+        return JsonUtil.map2json(rsmap);
+    }
+
+
 }

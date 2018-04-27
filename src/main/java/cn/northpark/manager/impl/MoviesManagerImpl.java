@@ -18,89 +18,89 @@ import cn.northpark.utils.page.QueryResult;
 public class MoviesManagerImpl implements MoviesManager {
 
     @Autowired
-	private MoviesDao moviesDao;
+    private MoviesDao moviesDao;
 
-	@Override
-	public Movies findMovies(Integer id) {
-		return moviesDao.find(id);
-	}
+    @Override
+    public Movies findMovies(Integer id) {
+        return moviesDao.find(id);
+    }
 
-	@Override
-	public List<Movies> findAll() {
-		return moviesDao.findAll();
-	}
+    @Override
+    public List<Movies> findAll() {
+        return moviesDao.findAll();
+    }
 
-	@Override
-	public void addMovies(Movies movies) {
-		moviesDao.save(movies);
-	}
+    @Override
+    public void addMovies(Movies movies) {
+        moviesDao.save(movies);
+    }
 
-	@Override
-	public boolean delMovies(Integer id) {
-		Movies movies = moviesDao.find(id);
-		moviesDao.delete(movies);
-		return true;
-	}
+    @Override
+    public boolean delMovies(Integer id) {
+        Movies movies = moviesDao.find(id);
+        moviesDao.delete(movies);
+        return true;
+    }
 
-	@Override
-	public boolean updateMovies(Movies movies) {
-		moviesDao.update(movies);
-		return true;
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public QueryResult<Movies> findByCondition(PageView<Movies> p,
-			String wheresql, LinkedHashMap<String, String> order) {
-		QueryResult qrs = moviesDao.findByCondition(p.getFirstResult(),
-				p.getMaxresult(), wheresql, order);
-		return qrs;
-	}
+    @Override
+    public boolean updateMovies(Movies movies) {
+        moviesDao.update(movies);
+        return true;
+    }
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public QueryResult<Movies> findByCondition(String wheresql) {
-		// TODO Auto-generated method stub
-		QueryResult qrs = moviesDao.findByCondition(
-				 wheresql);
-		return qrs;
-	}
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Override
+    public QueryResult<Movies> findByCondition(PageView<Movies> p,
+                                               String wheresql, LinkedHashMap<String, String> order) {
+        QueryResult qrs = moviesDao.findByCondition(p.getFirstResult(),
+                p.getMaxresult(), wheresql, order);
+        return qrs;
+    }
 
-	@Override
-	public List<Movies> querySql(String sql,  Object... obj) {
-		// TODO Auto-generated method stub
-		return moviesDao.querySql(sql, Movies.class, obj);
-	}
-	
-	@Override
-	public List<Map<String, Object>> querySql(String sql) {
-		// TODO Auto-generated method stub
-		return moviesDao.querySql(sql);
-	}
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Override
+    public QueryResult<Movies> findByCondition(String wheresql) {
+        // TODO Auto-generated method stub
+        QueryResult qrs = moviesDao.findByCondition(
+                wheresql);
+        return qrs;
+    }
 
-	/* (non-Javadoc)
-	 * @see cn.northpark.manager.MoviesManager#countSql(java.lang.String)
-	 */
-	@Override
-	public int countSql(String sql) {
-		// TODO Auto-generated method stub
-		return moviesDao.countSql(sql);
-	}
+    @Override
+    public List<Movies> querySql(String sql, Object... obj) {
+        // TODO Auto-generated method stub
+        return moviesDao.querySql(sql, Movies.class, obj);
+    }
 
-	/* (non-Javadoc)
-	 * @see cn.northpark.manager.MoviesManager#countHql(cn.northpark.model.Movies, java.lang.String)
-	 */
-	@Override
-	public int countHql( String wheresql) {
-		// TODO Auto-generated method stub
-		return moviesDao.countHql(Movies.class, wheresql);
-	}
+    @Override
+    public List<Map<String, Object>> querySql(String sql) {
+        // TODO Auto-generated method stub
+        return moviesDao.querySql(sql);
+    }
 
-	
-	@Override
-	public List<Map<String, Object>> querySqlMap(String sql) {
-		// TODO Auto-generated method stub
-		return moviesDao.querySql(sql);
-	}
+    /* (non-Javadoc)
+     * @see cn.northpark.manager.MoviesManager#countSql(java.lang.String)
+     */
+    @Override
+    public int countSql(String sql) {
+        // TODO Auto-generated method stub
+        return moviesDao.countSql(sql);
+    }
+
+    /* (non-Javadoc)
+     * @see cn.northpark.manager.MoviesManager#countHql(cn.northpark.model.Movies, java.lang.String)
+     */
+    @Override
+    public int countHql(String wheresql) {
+        // TODO Auto-generated method stub
+        return moviesDao.countHql(Movies.class, wheresql);
+    }
+
+
+    @Override
+    public List<Map<String, Object>> querySqlMap(String sql) {
+        // TODO Auto-generated method stub
+        return moviesDao.querySql(sql);
+    }
 }
 

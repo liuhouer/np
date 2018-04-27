@@ -5,4 +5,4 @@
 <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/qinco.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/main2.css">
-<input  type="hidden" id="J_tab_name" value="${ tabs}"/>
+<input type="hidden" id="J_tab_name" value="${ tabs}"/>
