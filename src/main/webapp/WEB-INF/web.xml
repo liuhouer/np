@@ -77,7 +77,7 @@
     <servlet>
         <servlet-name>springServlet</servlet-name>
         <description>spring mvc servlet</description>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <servlet-class>cn.northpark.action.NPDispatchServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <!-- 此处配置的是SpringMVC的配置文件 -->
@@ -118,21 +118,6 @@
     <welcome-file-list>
         <welcome-file>/</welcome-file>
     </welcome-file-list>
-
-    <error-page>
-        <error-code>404</error-code>
-        <location>/building</location>
-    </error-page>
-
-    <error-page>
-        <error-code>500</error-code>
-        <location>/error</location>
-    </error-page>
-
-    <error-page>
-        <error-code>400</error-code>
-        <location>/building</location>
-    </error-page>
 
 
 </web-app>

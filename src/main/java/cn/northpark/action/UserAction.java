@@ -321,45 +321,7 @@ public class UserAction {
     @RequestMapping("/building")
     public String building(ModelMap map, HttpServletRequest request) {
 
-        //记录访问者的IP、记录访问者的url请求路径，打印到日志里去
-//	 		String IP = AddressUtils.getIpAddr(request);
-        String queryString = request.getQueryString();
-        String url = request.getRequestURI();
-        if (StringUtils.isNotBlank(queryString)) {
-            url = url + "?" + queryString;
-        }
-//	 		LOGGER.error("IP:"+IP+"|||URL:"+url+"|||TIME:"+TimeUtils.nowTime());
-
-        User user = (User) request.getSession().getAttribute("user");
-        MDC.put("username", null != user ? user.getUsername() : "anonymous");
-        MDC.put("clientIp", AddressUtils.getIpAddr(request));
-        MDC.put("operateResult", "success");
-        MDC.put("operateModuleName", "请求不存在的路径");
-        //打业务日志唯一需要写的两行代码。 这样就可以记录角色更新前信息和更新后的信息；日志记录到这个份上基本上就到位了。
-        MDC.put("operateContent", AddressUtils.getIpAddr(request) + "在" + TimeUtils.nowTime() + "请求不存在的路径" + url);
-        LOGGER.error("请求不存在的路径");
         return "/building";
-    }
-
-
-    /**
-     * 500错误
-     *
-     * @param map
-     * @return
-     */
-    @RequestMapping("/error")
-    public String error(ModelMap map, HttpServletRequest request) {
-
-        User user = (User) request.getSession().getAttribute("user");
-        MDC.put("username", null != user ? user.getUsername() : "anonymous");
-        MDC.put("clientIp", AddressUtils.getIpAddr(request));
-        MDC.put("operateResult", "success");
-        MDC.put("operateModuleName", "500系统异常");
-        //打业务日志唯一需要写的两行代码。 这样就可以记录角色更新前信息和更新后的信息；日志记录到这个份上基本上就到位了。
-        MDC.put("operateContent", AddressUtils.getIpAddr(request) + "在" + TimeUtils.nowTime() + "发生了异常");
-        LOGGER.error("程序错误");
-        return "/error";
     }
 
 
@@ -857,6 +819,7 @@ public class UserAction {
     public String login(HttpServletRequest request,
                         HttpServletResponse response, HttpSession session, String email,
                         String password, ModelMap map) throws IOException {
+    	int a = 1/0;
         String result = "success";
         String info = "";
         Cookie[] cookies = request.getCookies();
@@ -889,6 +852,8 @@ public class UserAction {
                 info = "用户名密码错误";
             }
         } else if (cookies != null) {
+        	email = "";
+        	password = "";
             for (int i = 0; i < cookies.length; i++) {
                 if (cookies[i].getName().equals("email")) {
                     String name = cookies[i].getValue();
@@ -908,19 +873,24 @@ public class UserAction {
             }
             //防止sql注入--email
             email = WAQ.forSQL().escapeSql(email);
+            if(StringUtils.isNotEmpty(email)&&StringUtils.isNotEmpty(password)) {
+            	User user = userManager.login(email, password);
+                if (user != null) {
 
-            User user = userManager.login(email, password);
-            if (user != null) {
+                    session.setAttribute("user", user);
+                    map.put("user", user);
 
-                session.setAttribute("user", user);
-                map.put("user", user);
-
-                result = "success";
-                info = "登陆成功";
-            } else {
-                result = "error";
-                info = "用户名密码错误";
+                    result = "success";
+                    info = "登陆成功";
+                } else {
+                    result = "error";
+                    info = "用户名密码错误";
+                }
+            }else {
+            	  result = "error";
+                  info = "用户名密码错误";
             }
+            
         }
         Map<String, Object> rsmap = new HashMap<String, Object>();
         rsmap.put("result", result);

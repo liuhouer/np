@@ -39,7 +39,7 @@ $(document).ready(function () {
             complete: complete,
             data: $("#loginForm").serialize(),
             success: function (msg) {
-                //console.log(msg);
+                console.log(msg);
                 msg = eval('(' + msg + ')');
                 if (msg.result == "success") {
                     //禁用提交按钮。防止点击起来没完
@@ -58,6 +58,7 @@ $(document).ready(function () {
                     $('#formSubmit').attr('disabled', true);
                 }
             }
+        	
         });
     });
 

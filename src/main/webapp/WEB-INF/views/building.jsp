@@ -31,20 +31,19 @@
 <div class="clearfix maincontent ">
     <div class="container">
         <div class="mainbody" style="margin-top:10em;">
-            <div class="align-center  radius-5 padding20 max-width-800 min-width-600">
-                <div class="col-sm-6 col-sm-offset-3 margin-b20 margin-t20">
-                    <div class="row margin-b20 margin-t20">
+            <div class="align-center  radius-5  max-width-800 min-width-600">
+                <div class="col-sm-6 col-sm-offset-3 ">
+                    <div class="row ">
                         <p>
-                            电波达不到这个区域︿(￣︶￣)︿
+                            电波达不到这个区域︿(￣︶￣)︿ 
                         </p>
                         <p>
-                            d=====(￣▽￣*)b除非你正要星际穿越 ，在这种情况下：恭喜！你真的找到了。
+                       d=====(￣▽￣*)b 除非你正要星际穿越 ，在这种情况下：恭喜！你真的找到了。 
                         </p>
                         <p>
                             <span id="mes" style="cursor: pointer;"><font color="#49c7be"><img src='/img/loading.gif'
                                                                                                alt="星际穿越"
                                                                                                style='width:16px;height:16px;'/> 返回首页</font></span>
-                            <!-- <span id="mes"><font color="blue">5</font></span> 秒钟后返回首页！ -->
                         </p>
                         <p>
                             <canvas id="c"></canvas>
@@ -61,7 +60,7 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
 
-<script src="/js/page/building.js"></script>
+<script src="/js/page/error.js"></script>
 
 
 </body>

@@ -32,15 +32,15 @@
 <div class="clearfix maincontent ">
     <div class="container">
         <div class="mainbody" style="margin-top:10em;">
-            <div class="align-center  radius-5 padding20 max-width-800 min-width-600">
-                <div class="col-sm-6 col-sm-offset-3 margin-b20 margin-t20">
-                    <div class="row margin-b20 margin-t20">
+            <div class="align-center  radius-5  max-width-800 min-width-600">
+                <div class="col-sm-6 col-sm-offset-3 ">
+                    <div class="row ">
                         <p>
                             你所寻找的东西穿越到了火星需要救援。( ＾o)ρ┳┻┳°σ(o^ )
                         </p>
                         <p>
-                            <span id="mes" style="cursor: pointer;"><font color="#49c7be">返回首页</font></span>
-                            <!-- <span id="mes"><font color="blue">5</font></span> 秒钟后返回首页！ -->
+                            <span id="mes" style="cursor: pointer;"><font color="#49c7be"><img src='/img/loading.gif'
+                                                                                               style='width:16px;height:16px;'/>返回首页</font></span>
                         </p>
                         <p>
                             <canvas id="c"></canvas>
@@ -52,9 +52,9 @@
     </div>
 </div>
 
+
+
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
-
-
 <script src="/js/page/error.js"></script>
 
 

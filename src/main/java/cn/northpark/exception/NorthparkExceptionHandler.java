@@ -1,46 +1,118 @@
-/***************************************************************************/
-/*                                                                         */
-/* 			Copyright (c) TAIKANG ASSET MANAGEMENT CO., LTD.               */
-/*                 泰康资产管理有限责任公司    版权所有		                   */
-/*                                                                         */
-/* PROPRIETARY RIGHTS of TAIKANG ASSET MANAGEMENT CO.,LTD. are involved in */
-/* the subject matter of this material.  All manufacturing, reproduction,  */
-/* use, and sales rights pertaining to this subject matter are governed by */
-/* the license agreement.  The recipient of this software implicitly  	   */
-/* accept the terms of the license.                                        */
-/* 本软件文档资料是泰康资产管理有限责任公司的资产,任何人士阅读使用必须获得         */
-/* 相应的书面授权,承担保密责任和接受相应的法律约束.                           */
-/*                                                                         */
-/***************************************************************************/
-/************************************************************
-  Copyright (C), TAIKANG ASSET MANAGEMENT. Co., Ltd.
-  FileName: ExceptionHandler.java
-  Author: 张洋       Version : 1.0         Date:2018年4月27日
-  Description:     // 模块描述      
-  Version:         // 版本信息
-  History:         // 历史修改记录
-      <author>  <time>   <version >   <desc>
- ***********************************************************/
+
+/**
+ * @author bruce
+ * @date 2017-12-06
+ * @email zhangyang226@gmail.com
+ * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
+ */
 package cn.northpark.exception;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import cn.northpark.utils.JsonUtil;
 
 @ControllerAdvice
 public class NorthparkExceptionHandler {
 	
+	public static final String NorthPark_Error_View = "/error";
+	public static final String NorthPark_Build_View = "/building";
+	
 	private final static Logger logger=Logger.getLogger(ExceptionHandler.class);
+	
+//	
+//	/***
+//	 *处理异步方法的异常 
+//	 */
+//	@ExceptionHandler(value = Exception.class)
+//	@ResponseBody
+//	public String handle(Exception e) {
+//		//处理自定义异常
+//		if(e instanceof NorthParkException) {
+//			NorthParkException ex = (NorthParkException) e;
+//			return JsonUtil.object2json(ResultUitl.error(ex.getCode(), ex.getMessage()));
+//		}else {
+//			logger.error("【系统异常】{}",e);
+//			return JsonUtil.object2json(ResultUitl.error(-1, e.getMessage()));
+//		}
+//	}
+	
+	/**
+	 * 描述：处理所有的异常
+	 *
+	 * @param reqest
+	 * @param response
+	 * @param e
+	 * @return
+	 * @throws Exception
+	 */
 	@ExceptionHandler(value = Exception.class)
 	@ResponseBody
-	public Result handle(Exception e) {
-		if(e instanceof NorthParkException) {
-			NorthParkException NorthParkException=(NorthParkException)e;
-			return ResultUitl.error(NorthParkException.getCode(), NorthParkException.getMessage());
-		}else {
-			logger.error("【系统异常】{}",e);
-			return ResultUitl.error(-1, e.getMessage());
-		}
+    public Object errorHandler(HttpServletRequest reqest, 
+    		HttpServletResponse response, Exception e) throws Exception {
+    	
+    	
+    	if (isAjax(reqest)) {
+    		
+    		//处理自定义异常
+    		logger.error("【系统异常】{}",e);
+    		if(e instanceof NorthParkException) {
+    			NorthParkException ex = (NorthParkException) e;
+    			return JsonUtil.object2json(ResultUitl.error(ex.getCode(), ex.getMessage()));
+    		}else {
+    			return JsonUtil.object2json(ResultUitl.error(-1, e.getMessage()));
+    		}
+    	} else {
+    		ModelAndView mav = new ModelAndView();
+            mav.addObject("exception", e);
+            mav.addObject("url", reqest.getRequestURL());
+            mav.setViewName(NorthPark_Error_View);
+            logger.error(e);
+            return mav;
+    	}
+    	
+		
+    }
+	
+	
+	/*** 
+     * 响应404 错误 
+     * @param ex 
+     * @param session 
+     * @param request 
+     * @param response 
+     * @return 
+     */  
+    @ExceptionHandler(org.springframework.web.servlet.NoHandlerFoundException.class)  
+//org.springframework.web.servlet.NoHandlerFoundException: No handler found for GET /agent2/follow/query/json, headers={host=[127.0.0.1:8080], connection=[keep-alive], upgrade-insecure-requests=[1]}  
+    public Object handleNotFound404Exception2(org.springframework.web.servlet.NoHandlerFoundException ex,  HttpServletRequest request, HttpServletResponse response) {  
+    	ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", ex);
+        mav.addObject("url", request.getRequestURL());
+        mav.setViewName(NorthPark_Error_View);
+        return mav;
+    }  
+	
+	/**
+	 * 
+	 * @Description: 判断是否是ajax请求
+	 * Copyright: Copyright (c) 2018
+	 * 
+	 * @author bruce
+	 * @date 2018年5月2日
+	 */
+	public static boolean isAjax(HttpServletRequest httpRequest){
+		return  (httpRequest.getHeader("X-Requested-With") != null  
+					&& "XMLHttpRequest"
+						.equals( httpRequest.getHeader("X-Requested-With").toString()) );
 	}
+	
+	
+	
 }

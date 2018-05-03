@@ -25,7 +25,10 @@
     </mvc:annotation-driven>
 
     <!-- 注解扫描包 -->
-    <context:component-scan base-package="cn.northpark.action*"/>
+    <context:component-scan base-package="cn.northpark" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
 
     <!-- 开启注解 -->
     <mvc:annotation-driven/>
