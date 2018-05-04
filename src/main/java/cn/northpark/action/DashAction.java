@@ -97,6 +97,30 @@ public class DashAction {
         }
     }
 
+    
+    /**
+     * 星座运势
+     */
+  	@RequestMapping(value="/astro")
+  	public String astro(HttpServletRequest request,ModelMap map) {
+  	    
+  		String xzname = request.getParameter("xzname");
+  		String type = request.getParameter("type");
+  		String wx_cop_userid = request.getParameter("wx_cop_userid");
+  		
+  		if(StringUtils.isEmpty(xzname)){
+  			xzname = "摩羯座";
+  		}
+  		if(StringUtils.isEmpty(type)){
+  			type = "today";
+  		}
+  		
+  		map.put("xzname", xzname);
+  		map.put("type", type);
+  		
+  		
+  		return "/astro";
+  	}
 
     //异步获取首页的love数据
     @RequestMapping(value = "/dash/getLove")

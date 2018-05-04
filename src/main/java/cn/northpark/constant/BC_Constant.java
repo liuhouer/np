@@ -1,5 +1,7 @@
 package cn.northpark.constant;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public class BC_Constant {
 
@@ -34,7 +36,34 @@ public class BC_Constant {
      */
     public static final String Coupon_VPS_Leonn = "https://liyuans.com/page/";
 
+    
+    
+    public static String WX_url_menu_create = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 
+    public static String WX_url_get_access_token = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+
+    public static String WX_url_get_media = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID";
+
+    public static String WX_url_get_ticket_jsapi = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
+
+    public static String WX_url_base_shouquan_page = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APP_ID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+
+    public static String WX_url_oauth2 = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APP_ID&secret=APP_SECRET&code=CODE&grant_type=authorization_code";
+
+    public static String WX_url_getUser = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+
+    public static final String weixin_hosts = "http://m.lvzheng.com";//"http://www.lvzheng.com";
+
+    public static final String TOKEN = "his8Zzjzweizhan1025";
+    public static final String bd_prefix = "DHBD";
+    public static final String weixin_app_id = "";
+    public static final String weixin_app_secret_id = "";//"d406ed53dc1d4984323eba33a7f18571";//"07a6dd9789e28772f6de32a2ec057fc0";//
+    public static final String weixin_app_name = "";//"gh_f5c1ef705fad";//"gh_944897e71947";//
+    public static final String coupon_module_id = "";  //"20ZZj0K2uaIYaWD0vA7dMFkacME804FkWlYYiorsyPE"
+
+    public static Map<Integer, Long> scend_id_map = new HashMap<Integer, Long>();
+
+    
     /**
      * 是否启用
      */
