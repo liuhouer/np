@@ -11,13 +11,17 @@
 //import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //import org.springframework.util.CollectionUtils;
 //
+//import cn.northpark.manager.AstroManager;
 //import cn.northpark.manager.EqManager;
 //import cn.northpark.manager.MoviesManager;
 //import cn.northpark.manager.SoftManager;
 //import cn.northpark.manager.VpsManager;
-//import cn.northpark.model.Soft;
-//import cn.northpark.utils.HTMLParserUtil;
+//import cn.northpark.model.Astro;
 //import cn.northpark.utils.TimeUtils;
+//import cn.northpark.utils.wx.WXTokenUtil;
+//import cn.northpark.utils.wx.qyh.WeixinQyhUtil;
+//import cn.northpark.utils.wx.qyh.ParamesAPI.ParamesAPI;
+//import cn.northpark.utils.wx.qyh.msg.Message;
 //
 ///**
 // * @author zhangyang
@@ -40,6 +44,10 @@
 //    //
 //    @Autowired
 //    public MoviesManager moviesManager;
+//    
+//    
+//    @Autowired
+//	public  AstroManager astroManager;
 ////	
 ////	
 ////	@Autowired
@@ -258,83 +266,83 @@
 ////			LOGGER.info("VPS任务结束"+TimeUtils.getNowTime());
 //
 //
-//        try {
-//
-//            LOGGER.info("soft task==============start=" + TimeUtils.getNowTime());
-//            Map<String, String> map = null;
-//
-//
-//            for (int k = 1; k <= 5; k++) {
-//
-//                try {
-//
-//                    List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
-//
-//
-//                    if (!CollectionUtils.isEmpty(list)) {
-//                        for (int i = 0; i < list.size(); i++) {
-//                            map = list.get(i);
-//
-//                            String title = map.get("title");
-//                            String aurl = map.get("aurl");
-//                            String brief = map.get("brief");
-//                            String date = map.get("date");
-//                            String article = map.get("article");
-//                            String tag = map.get("tag");
-//                            String code = map.get("code");
-//                            String os = map.get("os");
-//                            String month = map.get("month");
-//                            String year = map.get("year");
-//                            String tagcode = map.get("tagcode");
-//
-//
-//                            //是不存在的文章
-////								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
-////								
-////								if(flag<=0){
-//
-//                            Soft model = new Soft();
-//                            model.setBrief(brief);
-//                            model.setContent(article);
-//                            model.setOs(os);
-//                            model.setPostdate(date);
-//                            model.setRetcode(code);
-//                            model.setReturl(aurl);
-//                            model.setTags(tag);
-//                            model.setTitle(title);
-//                            model.setMonth(month);
-//                            model.setYear(year);
-//                            model.setTagscode(tagcode);
-//                            softManager.addSoft(model);
-////								}
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    // TODO: handle exception
-//                    LOGGER.error(e);
-//                    continue;
-//                }
-//
-//
-//                try {
-//                    Thread.sleep(1000);
-//                    LOGGER.info("第" + k + "页================");
-//                } catch (InterruptedException e) {
-//                    // TODO Auo-generated catch block
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//
-//
-//        } catch (Exception e) {
-//            // TODO: handle exception
-//            LOGGER.info(e);
-//        }
-//
-//        LOGGER.info("soft task==============end=" + TimeUtils.getNowTime());
-//
-//        LOGGER.info("软件定时任务结束" + TimeUtils.getNowTime());
+////        try {
+////
+////            LOGGER.info("soft task==============start=" + TimeUtils.getNowTime());
+////            Map<String, String> map = null;
+////
+////
+////            for (int k = 1; k <= 5; k++) {
+////
+////                try {
+////
+////                    List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
+////
+////
+////                    if (!CollectionUtils.isEmpty(list)) {
+////                        for (int i = 0; i < list.size(); i++) {
+////                            map = list.get(i);
+////
+////                            String title = map.get("title");
+////                            String aurl = map.get("aurl");
+////                            String brief = map.get("brief");
+////                            String date = map.get("date");
+////                            String article = map.get("article");
+////                            String tag = map.get("tag");
+////                            String code = map.get("code");
+////                            String os = map.get("os");
+////                            String month = map.get("month");
+////                            String year = map.get("year");
+////                            String tagcode = map.get("tagcode");
+////
+////
+////                            //是不存在的文章
+//////								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
+//////								
+//////								if(flag<=0){
+////
+////                            Soft model = new Soft();
+////                            model.setBrief(brief);
+////                            model.setContent(article);
+////                            model.setOs(os);
+////                            model.setPostdate(date);
+////                            model.setRetcode(code);
+////                            model.setReturl(aurl);
+////                            model.setTags(tag);
+////                            model.setTitle(title);
+////                            model.setMonth(month);
+////                            model.setYear(year);
+////                            model.setTagscode(tagcode);
+////                            softManager.addSoft(model);
+//////								}
+////                        }
+////                    }
+////                } catch (Exception e) {
+////                    // TODO: handle exception
+////                    LOGGER.error(e);
+////                    continue;
+////                }
+////
+////
+////                try {
+////                    Thread.sleep(1000);
+////                    LOGGER.info("第" + k + "页================");
+////                } catch (InterruptedException e) {
+////                    // TODO Auo-generated catch block
+////                    e.printStackTrace();
+////                }
+////
+////            }
+////
+////
+////        } catch (Exception e) {
+////            // TODO: handle exception
+////            LOGGER.info(e);
+////        }
+////
+////        LOGGER.info("soft task==============end=" + TimeUtils.getNowTime());
+////
+////        LOGGER.info("软件定时任务结束" + TimeUtils.getNowTime());
 //
 //
 //        //TODO ..爬虫电影代码
@@ -1062,8 +1070,66 @@
 ////			}
 ////		
 //
+//    	
+//    	
+//    	try {
+//
+//            /////////////////////推送微信定时星座运势塔罗牌天气、、、、、、、、、、、、、、、、、、、、、、、、
+//
+//			LOGGER.info("send wx astro msg task==============start="+TimeUtils.getNowTime());
+//			try {
+//				List<Astro> astrolist = astroManager.findByCondition(" where status = 1").getResultlist();
+//				if(!CollectionUtils.isEmpty(astrolist)){
+//					for (int i = 0; i < astrolist.size(); i++) {
+//						Astro astro = astrolist.get(i);
+//						String wx_cop_userid = astro.getWx_cop_userid();
+//						String xzname = astro.getXzname();
+//						
+//						Map<String, Object> json = WXTokenUtil.getXZYS(xzname, "today");
+//
+//						// 调取凭证
+//						String access_token = WeixinQyhUtil.getAccessToken(ParamesAPI.corpId, ParamesAPI.secret).getToken();
+//						
+//						StringBuffer buffer = new StringBuffer();
+//						buffer.append("\ue423").append(xzname).append("\ue31f").append("\n\n");
+//						buffer.append("\ue21c").append(TimeUtils.nowdate()).append("\n");
+//						buffer.append("\ue21d 综合运势:").append(json.get("summary")).append("\n");
+//						buffer.append("\ue21e 贵人星座:").append(json.get("QFriend")).append("\n");
+//						buffer.append("\ue21f 爱情运势:").append(json.get("love")).append("\n");
+//						buffer.append("\ue220 幸运颜色:").append(json.get("color")).append("\n");
+//						buffer.append("\ue221 工作运势:").append(json.get("work")).append("\n");
+//						buffer.append("\ue222 幸运数字:").append(json.get("number")).append("\n");
+//						buffer.append("\ue223 财运运势:").append(json.get("money")).append("\n");
+//						buffer.append("\ue224 健康运势:").append(json.get("health")).append("\n");
+//						String content = buffer.toString();  
+//						
+//						                      
+//						//发送消息的jsontext
+//						String jsostr = Message.getSendJsonText(wx_cop_userid, "@all", "@all", content);
+//						String POST_URL = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=ACCESS_TOKEN";
+//						int result = WeixinQyhUtil.PostMessage(access_token, "POST", POST_URL, jsostr);
+//						System.out.println("jsonstr--"+jsostr);
+//						System.out.println("result--"+result);
+//						LOGGER.info("send wx astro msg info log result==============="+result);
+//						// 打印结果
+//						if (0 == result) {
+//							System.out.println("操作成功");
+//						} else {
+//							System.out.println("操作失败");
+//						}
+//					}
+//				}
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//			}
+//			LOGGER.info("send wx astro msg task==============end="+TimeUtils.getNowTime());
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//        }
+//
 //
 //    }
+//
 //
 //
 //    //测试多页

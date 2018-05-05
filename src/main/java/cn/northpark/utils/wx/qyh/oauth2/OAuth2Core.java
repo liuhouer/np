@@ -78,10 +78,10 @@ public class OAuth2Core {
     public static void main(String[] args) {
 
 
-        System.out.println(getCode("http://northpark.cn/wx/wxastro?type=today"));
-        System.out.println(getCode("http://northpark.cn/wx/wxastro?type=tommorrow"));
-        System.out.println(getCode("http://northpark.cn/wx/wxastro?type=week"));
-        System.out.println(getCode("http://northpark.cn/wx/wxastro?type=month"));
+        System.out.println(getCode("http://northpark.cn/weixin/wxastro?type=today"));
+        System.out.println(getCode("http://northpark.cn/weixin/wxastro?type=tommorrow"));
+        System.out.println(getCode("http://northpark.cn/weixin/wxastro?type=week"));
+        System.out.println(getCode("http://northpark.cn/weixin/wxastro?type=month"));
 
     }
 

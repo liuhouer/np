@@ -15,11 +15,13 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-
-import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import cn.northpark.utils.HttpRequestUtils;
+
+import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson.JSONObject;
+
+import cn.northpark.utils.HttpGetUtils;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.wx.model.AccessToken;
 import cn.northpark.utils.wx.model.MyX509TrustManager;
@@ -454,29 +456,46 @@ public class WXTokenUtil {
      * @return
      * @获取星座运势
      */
-    public static Map<String, Object> getXZYS(String xzname, String type) {
+    public static String getXZYS(String xzname, String type) {
 		/*
 		 * 请求参数说明：
-			名称	              类型	      必填	说明
-		 	key	       string	是	应用APPKEY(应用详细页查询)
-		 	
-		 	consName   string	是	星座名称，如:白羊座
-		 	type	   string	是	运势类型：today,tomorrow,week,nextweek,month,year
-		 	
-			返回参数说明：
-			名称	类型	说明
-		 	error_code	int	返回码
-		 	reason	string	返回说明
+			请求参数：
+				参数名称	类型	必填	说明
+				astroid	int	是	星座ID
+				date	string	否	日期 默认今天
+				
+				
+				返回参数：
+				参数名称	类型	说明
+				astroid	int	星座ID
+				astroname	string	星座名称
+				today	string	今日运势
+				tomorrow	string	明日运势
+				week	string	本周运势
+				month	string	本月运势
+				year	string	本年运势
+				date	string	日期
+				job	string	求职运
+				presummary	string	概述
+				star	string	贵人星座
+				color	string	幸运颜色
+				number	string	幸运数字
+				summary	string	综合运势
+				money	string	财运运势
+				career	string	工作运势
+				love	string	爱情运势
+				health	string	健康运势
 		 * 
 		 * */
-        String requestUrl = "http://web.juhe.cn:8080/constellation/getAll?key=66e02b4dcb5c30c871d34df9ee02f4bd&consName=CONSNAME&type=TYPE";
+        String requestUrl = "http://api.jisuapi.com/astro/fortune?astroid=CONSNAME&appkey=0c8d2ae52b8aa619";
         requestUrl = requestUrl.replace("CONSNAME", xzname);
-        requestUrl = requestUrl.replace("TYPE", type);
 
         // 获取网页授权凭证
-        Map<String, Object> jsonObject = JsonUtil.json2map(HttpRequestUtils.sendGet(requestUrl));
+        Map<String, Object> jsonObject = JsonUtil.json2map(HttpGetUtils.getDataResult(requestUrl));
+        System.out.println();
+       
         System.out.println("get xingzuoyunshi====" + jsonObject);
-        return jsonObject;
+        return  JsonUtil.object2json((JsonUtil.json2map(JSONUtils.toJSONString(jsonObject.get("result"))).get(type)));
 
     }
 
@@ -501,11 +520,11 @@ public class WXTokenUtil {
 //		JSONObject jo = JSONObject.parseObject(ret);
 //		System.out.println(jo.getString("short_url")); 
 //		
-//		getXZYS("摩羯座", "today");
+		getXZYS("1", "today");
 
-        String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-
-        JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
+//        String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+//
+//        JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
 
     }
 
