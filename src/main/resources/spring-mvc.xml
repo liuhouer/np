@@ -81,11 +81,11 @@
     <task:annotation-driven/>
     <context:component-scan base-package="cn.northpark.task*"/>
     <bean id="eqTask" class="cn.northpark.task.EQTask"></bean>
-    <bean id="astroTask" class="cn.northpark.task.AstroTask"></bean>
+    <!-- <bean id="astroTask" class="cn.northpark.task.AstroTask"></bean> -->
     <!--   要定时执行的方法  -->
     <task:scheduled-tasks scheduler="myScheduler">
         <task:scheduled ref="eqTask" method="runTask" cron="0 40 17 * * ?"/><!--  每天下午点17:40执行 -->
-        <task:scheduled ref="astroTask" method="runTask" cron="0 0 8 * * ?"/><!--  每天上午8：00点执行 -->
+        <!-- <task:scheduled ref="astroTask" method="runTask" cron="0 0 8 * * ?"/> 每天上午8：00点执行 -->
     </task:scheduled-tasks>
     <task:scheduler id="myScheduler" pool-size="5"/>
     <!--  要定时执行的方法 -->
