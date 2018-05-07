@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tkamc.unifycomp.dao.AttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.tkamc.unifycomp.entity.Attachment" >
+    <!--
+      
+      
+      
+    -->
+    <id column="L_ID" property="lId" jdbcType="DECIMAL" />
+    <result column="ATT_NAME" property="attName" jdbcType="VARCHAR" />
+    <result column="ATT_PATH" property="attPath" jdbcType="VARCHAR" />
+    <result column="ATT_TYPE" property="attType" jdbcType="VARCHAR" />
+    <result column="ATT_FLAG" property="attFlag" jdbcType="DECIMAL" />
+    <result column="PID" property="pid" jdbcType="DECIMAL" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <!--
+      
+      
+      
+    -->
+    delete from T_ATTACHMENT
+    where L_ID = #{lId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.tkamc.unifycomp.entity.Attachment" >
+   	
+   	<selectKey keyProperty="lId" resultType="long" order="BEFORE">    
+    	select SEQ_ATTACHMENT.NEXTVAL from dual    
+	</selectKey> 
+	
+    insert into T_ATTACHMENT (L_ID, ATT_NAME, ATT_PATH, 
+      ATT_TYPE, ATT_FLAG, PID, 
+      UPDATE_TIME)
+    values (#{lId,jdbcType=DECIMAL}, #{attName,jdbcType=VARCHAR}, #{attPath,jdbcType=VARCHAR}, 
+      #{attType,jdbcType=VARCHAR}, #{attFlag,jdbcType=DECIMAL}, #{pid,jdbcType=DECIMAL}, 
+      #{updateTime,jdbcType=DATE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.tkamc.unifycomp.entity.Attachment" >
+    <!--
+      
+      
+      
+    -->
+    update T_ATTACHMENT
+    set ATT_NAME = #{attName,jdbcType=VARCHAR},
+      ATT_PATH = #{attPath,jdbcType=VARCHAR},
+      ATT_TYPE = #{attType,jdbcType=VARCHAR},
+      ATT_FLAG = #{attFlag,jdbcType=DECIMAL},
+      PID = #{pid,jdbcType=DECIMAL},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE}
+    where L_ID = #{lId,jdbcType=DECIMAL}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <!--
+      
+      
+      
+    -->
+    select L_ID, ATT_NAME, ATT_PATH, ATT_TYPE, ATT_FLAG, PID, UPDATE_TIME
+    from T_ATTACHMENT
+    where L_ID = #{lId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    <!--
+      
+      
+      
+    -->
+    select L_ID, ATT_NAME, ATT_PATH, ATT_TYPE, ATT_FLAG, PID, UPDATE_TIME
+    from T_ATTACHMENT
+  </select>
+  
+  <select id="selectAttachmentsByEmail" resultMap="BaseResultMap" >
+
+    select L_ID, ATT_NAME, ATT_PATH, ATT_TYPE, ATT_FLAG, PID, UPDATE_TIME
+    from T_ATTACHMENT
+    
+    where PID = #{lId,jdbcType=DECIMAL}
+  </select>
+  
+  
+  
+</mapper>

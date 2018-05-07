@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tkamc.unifycomp.dao.ComplianceReasonMapper">
+	<resultMap id="BaseResultMap" type="com.tkamc.unifycomp.entity.ComplianceReason">
+		<result column="监控日期" property="监控日期" jdbcType="CHAR" />
+		<result column="风控编号" property="风控编号" jdbcType="VARCHAR" />
+		<result column="基金代码" property="基金代码" jdbcType="VARCHAR" />
+		<result column="基金名称" property="基金名称" jdbcType="VARCHAR" />
+		<result column="监控对象" property="监控对象" jdbcType="VARCHAR" />
+		<result column="证券代码" property="证券代码" jdbcType="VARCHAR" />
+		<result column="市场类型" property="市场类型" jdbcType="VARCHAR" />
+		<result column="超标原因" property="超标原因" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="DATE" />
+	</resultMap>
+	<insert id="insert" parameterType="com.tkamc.unifycomp.entity.ComplianceReason">
+		insert into
+		TIMP_COMPLIANCE_REASON (监控日期, 风控编号, 基金代码,
+		基金名称, 监控对象, 证券代码, 市场类型,
+		超标原因,
+		UPDATE_DATE)
+		values (#{监控日期,jdbcType=CHAR}, #{风控编号,jdbcType=VARCHAR},
+		#{基金代码,jdbcType=VARCHAR},
+		#{基金名称,jdbcType=VARCHAR},
+		#{监控对象,jdbcType=VARCHAR}, #{证券代码,jdbcType=VARCHAR},
+		#{市场类型,jdbcType=VARCHAR},
+		#{超标原因,jdbcType=VARCHAR},
+		#{updateDate,jdbcType=DATE})
+	</insert>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select 监控日期, 风控编号, 基金代码, 基金名称,
+		监控对象, 证券代码, 市场类型, 超标原因, UPDATE_DATE
+		from TIMP_COMPLIANCE_REASON
+	</select>
+	<update id="updateCompliance" parameterType="com.tkamc.unifycomp.entity.ComplianceReason">
+		update
+		TIMP_COMPLIANCE_REASON t set t.超标原因 = #{超标原因,jdbcType=VARCHAR}
+		where
+		t.监控日期 = #{监控日期,jdbcType=CHAR}
+		AND t.风控编号 = #{风控编号,jdbcType=VARCHAR}
+		AND t.基金代码 = #{基金代码,jdbcType=VARCHAR}
+		AND t.监控对象 =
+		#{监控对象,jdbcType=VARCHAR}
+	</update>
+	<select id="selectComplianceReason" resultMap="BaseResultMap">
+		select
+		t.超标原因,t.监控日期,t.风控编号,t.基金代码,t.监控对象
+		from
+		TIMP_COMPLIANCE_REASON t
+		where
+		t.监控日期 = #{t_date}
+		AND t.风控编号 = #{leCode}
+		AND t.基金代码 = #{lFundId}
+		AND
+		t.监控对象 = #{leObjects}
+	</select>
+</mapper>

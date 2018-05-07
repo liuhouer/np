@@ -1,0 +1,48 @@
+logging:
+  config: classpath:log4j2.xml
+server:
+  port: 8080
+  context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  datasource: 
+    url: jdbc:mysql://31.220.14.26:3306/northpark?useUnicode=true&characterEncoding=utf-8
+    username: northpark
+    password: Zhangyang226@
+    driver-class-name: com.mysql.jdbc.Driver
+    druid: 
+      min-idle: 1
+      max-active: 20
+      initial-size: 1
+      max-wait: 6000
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 50
+      time-between-eviction-runs-millis: 3000
+      min-evictable-idle-time-millis: 30000 
+      validation-query: SELECT 'ZTM' FROM DUAL 
+      test-while-idle: true  
+      test-on-borrow: false  
+      test-on-return: false
+    
+    
+  http: 
+     encoding: 
+      force: true
+      charset: UTF-8
+  messages: 
+    encoding: UTF-8
+  mvc: 
+    view:
+      prefix:  /WEB-INF/jsp/
+      suffix:   .jsp
+banner: 
+  charset: UTF-8      
+    
+mybatis: 
+  mapper-locations: classpath:cn/northpark/weixin/mapper/*.xml
+  type-aliases-package: cn.northpark.weixin.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+pagehelper:
+  helper-dialect: mysql

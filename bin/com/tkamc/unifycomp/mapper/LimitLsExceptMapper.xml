@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tkamc.unifycomp.dao.LimitLsExceptMapper">
+	<resultMap id="BaseResultMap" type="com.tkamc.unifycomp.entity.LimitLsExcept">
+		<result column="LE_CODE" property="leCode" jdbcType="VARCHAR" />
+		<result column="LE_CODE_O32" property="leCodeO32" jdbcType="VARCHAR" />
+		<result column="PORT_CODE" property="portCode" jdbcType="VARCHAR" />
+		<result column="I_CODE" property="iCode" jdbcType="VARCHAR" />
+		<result column="A_TYPE" property="aType" jdbcType="VARCHAR" />
+		<result column="M_TYPE" property="mType" jdbcType="VARCHAR" />
+		<result column="TL4" property="tl4" jdbcType="VARCHAR" />
+		<result column="GROUP_CODE" property="groupCode" jdbcType="VARCHAR" />
+		<result column="RP_TYPE" property="rpType" jdbcType="CHAR" />
+	</resultMap>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select *
+		from
+		TTKZC_LIMIT_LS_EXCEPT
+	</select>
+	<insert id="insert" parameterType="com.tkamc.unifycomp.entity.LimitLsExcept">
+		insert into
+		TTKZC_LIMIT_LS_EXCEPT (
+		<if test=" leCode != null and  leCode !=''">
+			LE_CODE,
+		</if>
+		<if test=" leCodeO32 != null and  leCodeO32 !=''">
+			LE_CODE_O32,
+		</if>
+		<if test=" portCode != null and  portCode !=''">
+			PORT_CODE,
+		</if>
+		<if test=" iCode != null and  iCode !=''">
+			I_CODE,
+		</if>
+		<if test=" aType != null and  aType !=''">
+			A_TYPE,
+		</if>
+		<if test=" mType != null and  mType !=''">
+			M_TYPE,
+		</if>
+		<if test=" groupCode != null and  groupCode !=''">
+			GROUP_CODE,
+		</if>
+		RP_TYPE) values (
+		<if test=" leCode != null and  leCode !=''">
+			#{leCode,jdbcType=VARCHAR},
+		</if>
+		<if test=" leCodeO32 != null and  leCodeO32 !=''">
+			#{leCodeO32,jdbcType=VARCHAR},
+		</if>
+		<if test=" portCode != null and  portCode !=''">
+			#{portCode,jdbcType=VARCHAR},
+		</if>
+		<if test=" iCode != null and  iCode !=''">
+			#{iCode,jdbcType=VARCHAR},
+		</if>
+		<if test=" aType != null and  aType !=''">
+			#{aType,jdbcType=VARCHAR},
+		</if>
+		<if test=" mType != null and  mType !=''">
+			#{mType,jdbcType=VARCHAR},
+		</if>
+		<if test=" groupCode != null and  groupCode !=''">
+			#{groupCode,jdbcType=VARCHAR},
+		</if>
+		1)
+	</insert>
+	<select id="selectByInfo" resultMap="BaseResultMap">
+		select *
+		from
+		TTKZC_LIMIT_LS_EXCEPT t
+		<where>
+			<if test=" leCode != null and  leCode !=''">
+				and t.LE_CODE = #{leCode,jdbcType=VARCHAR}
+			</if>
+			<if
+				test=" leCodeO32 != null and  leCodeO32 !=''">
+				and t.LE_CODE_O32 = #{leCodeO32,jdbcType=VARCHAR}
+			</if>
+			<if test=" portCode != null and  portCode !=''">
+				and t.PORT_CODE = #{portCode,jdbcType=VARCHAR}
+			</if>
+			<if test=" iCode != null and  iCode !=''">
+				and t.I_CODE = #{iCode,jdbcType=VARCHAR}
+			</if>
+			<if test=" aType != null and  aType !=''">
+				and t.A_TYPE = #{aType,jdbcType=VARCHAR}
+			</if>
+			<if test=" mType != null and  mType !=''">
+				and t.M_TYPE = #{mType,jdbcType=VARCHAR}
+			</if>
+			<if
+				test=" groupCode != null and  groupCode !=''">
+				and t.GROUP_CODE = #{groupCode,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<update id="updateExcept" parameterType="com.tkamc.unifycomp.entity.LimitLsExcept">
+		update
+		TTKZC_LIMIT_LS_EXCEPT t set t.RP_TYPE = #{rpType,jdbcType=CHAR}
+		<where>
+			<if test=" leCode != null and  leCode !=''">
+				and t.LE_CODE = #{leCode,jdbcType=VARCHAR}
+			</if>
+			<if
+				test=" leCodeO32 != null and  leCodeO32 !=''">
+				and t.LE_CODE_O32 = #{leCodeO32,jdbcType=VARCHAR}
+			</if>
+			<if test=" portCode != null and  portCode !=''">
+				and t.PORT_CODE = #{portCode,jdbcType=VARCHAR}
+			</if>
+			<if test=" iCode != null and  iCode !=''">
+				and t.I_CODE = #{iCode,jdbcType=VARCHAR}
+			</if>
+			<if test=" aType != null and  aType !=''">
+				and t.A_TYPE = #{aType,jdbcType=VARCHAR}
+			</if>
+			<if test=" mType != null and  mType !=''">
+				and t.M_TYPE = #{mType,jdbcType=VARCHAR}
+			</if>
+			<if
+				test=" groupCode != null and  groupCode !=''">
+				and t.GROUP_CODE = #{groupCode,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</update>
+</mapper>
