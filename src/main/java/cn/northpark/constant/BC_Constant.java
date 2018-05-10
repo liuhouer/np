@@ -6,6 +6,51 @@ import java.util.Map;
 public class BC_Constant {
 
     public static final String Domain = "northpark.cn";
+    
+    public enum XINGZUO {
+        BAIYANG("白羊座", 1), JINNIU("金牛座", 2), SHUANGZI("双子座", 3), JUXIE("巨蟹座", 4),
+        SHIZI("狮子座", 5), CHUNV("处女座",6), TIANCHENG("天秤座", 7), TIANXIE("天蝎座", 8),
+        SHESHOU("射手座", 9), MOJIE("摩羯座", 10), SHUIPING("水瓶座", 11), SHUANGYU("双鱼座", 12)
+        
+        ;
+        // 成员变量
+        private String name;
+        private int index;
+
+        // 构造方法
+        private XINGZUO(String name, int index) {
+            this.name = name;
+            this.index = index;
+        }
+
+        // 普通方法
+        public static String getName(int index) {
+            for (XINGZUO c : XINGZUO.values()) {
+                if (c.getIndex() == index) {
+                    return c.name;
+                }
+            }
+            return null;
+        }
+
+        // get set 方法
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
+        }
+    }
+    
 
     /**
      * 爬虫电视剧资源
@@ -128,6 +173,13 @@ public class BC_Constant {
             return key;
         }
     }
+    
+    
+    public static void main(String[] args) {
+    	for (XINGZUO simpleEnum : XINGZUO.values()) {  
+            System.out.println(simpleEnum.toString() + "  ordinal  " + simpleEnum.ordinal()+"    name   "+ simpleEnum.getName());  
+        }  
+	}
 
 
 }

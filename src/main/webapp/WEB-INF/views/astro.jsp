@@ -42,7 +42,7 @@
                         <div class=" center navbar-collapse  margin-b20">
                             <ul class="nav mainhead-nav " id="J_ul_astro">
 
-                                <li oname="白羊座">
+                                <li oname="白羊座" cname="BAIYANG" oid="1">
                                     <a class="astroa">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E7%89%A1%E7%BE%8A%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -50,7 +50,7 @@
                                         <span>白羊座</span>
                                     </a>
                                 </li>
-                                <li oname="金牛座">
+                                <li oname="金牛座" cname="JINNIU" oid="2">
                                     <a class="astroa">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E9%87%91%E7%89%9B%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -58,7 +58,7 @@
                                         <span>金牛座</span>
                                     </a>
                                 </li>
-                                <li oname="双子座">
+                                <li oname="双子座" cname="SHUANGZI" oid="3">
                                     <a class="astroa">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E5%8F%8C%E5%AD%90%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -66,7 +66,7 @@
                                         <span>双子座</span>
                                     </a>
                                 </li>
-                                <li oname="巨蟹座">
+                                <li oname="巨蟹座" cname="JUXIE" oid="4">
                                     <a class="astroa">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E5%B7%A8%E8%9F%B9%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -74,7 +74,7 @@
                                         <span>巨蟹座</span>
                                     </a>
                                 </li>
-                                <li oname="狮子座">
+                                <li oname="狮子座" cname="SHIZI" oid="5">
                                     <a class="astroa">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E7%8B%AE%E5%AD%90%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -82,7 +82,7 @@
                                         <span>狮子座</span>
                                     </a>
                                 </li>
-                                <li oname="处女座">
+                                <li oname="处女座" cname="CHUNV" oid="6">
                                     <a class="astroa">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E5%A4%84%E5%A5%B3%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -90,7 +90,7 @@
                                         <span>处女座</span>
                                     </a>
                                 </li>
-                                <li oname="天秤座">
+                                <li oname="天秤座" cname="TIANCHENG" oid="7">
                                     <a class="astroa">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E5%A4%A9%E7%A7%A4%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -98,7 +98,7 @@
                                         <span>天秤座</span>
                                     </a>
                                 </li>
-                                <li oname="天蝎座">
+                                <li oname="天蝎座" cname="TIANXIE" oid="8">
                                     <a class="astroa">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E5%A4%A9%E8%9D%8E%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -106,7 +106,7 @@
                                         <span>天蝎座</span>
                                     </a>
                                 </li>
-                                <li oname="射手座">
+                                <li oname="射手座" cname="SHESHOU" oid="9">
                                     <a class="astroa">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E5%B0%84%E6%89%8B%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -114,7 +114,7 @@
                                         <span>射手座</span>
                                     </a>
                                 </li>
-                                <li oname="摩羯座">
+                                <li oname="摩羯座" cname="MOJIE" oid="10">
                                     <a class="astroa" id="J_moji">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E6%91%A9%E7%BE%AF%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -122,7 +122,7 @@
                                         <span>摩羯座</span>
                                     </a>
                                 </li>
-                                <li oname="水瓶座">
+                                <li oname="水瓶座" cname="SHUIPING" oid="11">
                                     <a class="astroa">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E6%B0%B4%E7%93%B6%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -130,7 +130,7 @@
                                         <span>水瓶座</span>
                                     </a>
                                 </li>
-                                <li oname="双鱼座">
+                                <li oname="双鱼座" cname="SHUANGYU" oid="12">
                                     <a class="astroa">
                                         <img src="http://7xpfpd.com1.z0.glb.clouddn.com/%E5%8F%8C%E9%B1%BC%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
@@ -207,7 +207,7 @@
         //星座的选择点击事件
         $("#J_ul_astro>li").click(function () {
             $(this).css("background", "#45d0c6").siblings().css("background", "");
-            var xzname = $(this).find("span").text();
+            var xzname = $(this).attr("cname");
             if (xzname) {
                 //设值
                 $("#J_xzname").val(xzname);
@@ -238,7 +238,7 @@
         //选中星座
         if (xzname) {
             $("#J_ul_astro").find("li").each(function () {
-                var oname = $(this).attr("oname");
+                var oname = $(this).attr("oid");
                 if (oname == xzname) {
                     $(this).css("background", "#45d0c6").siblings().css("background", "");
                 }
@@ -264,12 +264,13 @@
             var wx_cop_userid = $("#J_wx_cop_userid").val();
 			var xzname = $("#J_xzname").val();
 			 $.ajax({
-	             url:"http://localhost:8080/weixin/bindAstro",
+	             url:"/weixin/bindAstro",
 	             type:"post",
 	             data:{"xzname":xzname,"wx_cop_userid":wx_cop_userid},
 	             success:function(msg){
 	            	 console.log(msg);
 	            	 art.dialog.tips("定制成功");
+	            	 getData();
 	             }
 	         });
 		})
@@ -284,52 +285,50 @@
         var type = $("#J_type").val();
         //执行查询
         $.ajax({
-            url: "http://localhost:8080/weixin/getAstro",
+            url: "/weixin/getAstro",
             type: "post",
             data: {"xzname": xzname, "type": type},
             beforeSend: beforeSend, //发送请求
             complete: complete,
-            success: function (data) {
-            	var msg = JSON.parse(data);
+            success: function (msg) {
+            	/* var msg = JSON.parse(data); */
             		console.log(msg);
             	if(type=='today'){
-            		$("#J_content").empty().append('<h3>今日概述：'+msg.data.summary+'</h3>')
-            					   .append('<p>综合运势：'+msg.data.all+"</p>")
-            					   .append('<p>贵人星座：'+msg.data.QFriend+'</p>')
-            					   .append('<p>爱情运势：'+msg.data.love+'</p>')
-            					   .append('<p>幸运颜色：'+msg.data.color+'</p>')
-            					   .append('<p>工作运势：'+msg.data.work+'</p>')
-            					   .append('<p>幸运数字：'+msg.data.number+'</p>')
-            					   .append('<p>财运运势：'+msg.data.money+'</p>')
-            					   .append('<p>健康运势：'+msg.data.health+'</p>')
+            		$("#J_content").empty().append('<h3>今日概述：'+msg.presummary+'</h3>')
+            					   .append('<p>综合运势：'+msg.summary+"</p>")
+            					   .append('<p>贵人星座：'+msg.star+'</p>')
+            					   .append('<p>爱情运势：'+msg.love+'</p>')
+            					   .append('<p>幸运颜色：'+msg.color+'</p>')
+            					   .append('<p>工作运势：'+msg.career+'</p>')
+            					   .append('<p>幸运数字：'+msg.number+'</p>')
+            					   .append('<p>财运运势：'+msg.money+'</p>')
+            					   .append('<p>健康运势：'+msg.health+'</p>')
             	}else if(type=='month'){
-            		$("#J_content").empty().append('<h3>本月：'+msg.data.date+'</h3>')
-					   .append('<p>综合运势：'+msg.data.all+"</p>")
-					   .append('<p>爱情运势：'+msg.data.love+'</p>')
-					   .append('<p>工作运势：'+msg.data.work+'</p>')
-					   .append('<p>财运运势：'+msg.data.money+'</p>')
-					   .append('<p>健康运势：'+msg.data.health+'</p>')
-					   .append('<p>开心魔术：'+msg.data.happyMagic+'</p>')
+            		$("#J_content").empty().append('<h3>本月：'+msg.summary+'</h3>')
+					   .append('<p>爱情运势：'+msg.love+'</p>')
+					   .append('<p>工作运势：'+msg.career+'</p>')
+					   .append('<p>财运运势：'+msg.money+'</p>')
+					   .append('<p>健康运势：'+msg.health+'</p>')
 					   
             	}else if(type=='week'){
-            		$("#J_content").empty().append('<h3>本周：'+msg.data.date+'</h3>')
-					   .append('<p>爱情运势：'+msg.data.love+'</p>')
-					   .append('<p>工作运势：'+msg.data.work+'</p>')
-					   .append('<p>财运运势：'+msg.data.money+'</p>')
-					   .append('<p>健康运势：'+msg.data.health+'</p>')
-					   .append('<p>求职运势：'+msg.data.job+'</p>')
+            		$("#J_content").empty().append('<h3>本周：'+msg.date+'</h3>')
+					   .append('<p>爱情运势：'+msg.love+'</p>')
+					   .append('<p>工作运势：'+msg.career+'</p>')
+					   .append('<p>财运运势：'+msg.money+'</p>')
+					   .append('<p>健康运势：'+msg.health+'</p>')
+					   .append('<p>求职运势：'+msg.job+'</p>')
 
 
             	}else if(type=='tomorrow'){
-            		$("#J_content").empty().append('<h3>明日概述：'+msg.data.summary+'</h3>')
-					   .append('<p>综合运势：'+msg.data.all+"</p>")
-					   .append('<p>贵人星座：'+msg.data.QFriend+'</p>')
-					   .append('<p>爱情运势：'+msg.data.love+'</p>')
-					   .append('<p>幸运颜色：'+msg.data.color+'</p>')
-					   .append('<p>工作运势：'+msg.data.work+'</p>')
-					   .append('<p>幸运数字：'+msg.data.number+'</p>')
-					   .append('<p>财运运势：'+msg.data.money+'</p>')
-					   .append('<p>健康运势：'+msg.data.health+'</p>')
+            		$("#J_content").empty().append('<h3>明日概述：'+msg.presummary+'</h3>')
+					   .append('<p>综合运势：'+msg.summary+"</p>")
+					   .append('<p>贵人星座：'+msg.star+'</p>')
+					   .append('<p>爱情运势：'+msg.love+'</p>')
+					   .append('<p>幸运颜色：'+msg.color+'</p>')
+					   .append('<p>工作运势：'+msg.career+'</p>')
+					   .append('<p>幸运数字：'+msg.number+'</p>')
+					   .append('<p>财运运势：'+msg.money+'</p>')
+					   .append('<p>健康运势：'+msg.health+'</p>')
             	}
                 /* $("#J_content").html(msg); */
             }
