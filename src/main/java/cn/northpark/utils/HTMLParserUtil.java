@@ -1037,6 +1037,206 @@ public class HTMLParserUtil {
 
         return list;
     }
+    
+    
+    /**
+     * 爬取1页的retSoft_WSKSO软件内容
+     */
+    public static List<Map<String, String>> retSoft_WSKSO(Integer index) {
+        // TODO Auto-generated method stub
+        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+        HashMap<String, String> map = null;
+        try {
+
+
+            String initUrl = "http://www.wskso.com/page/" + index;
+            final String dataResult = HttpGetUtils.getDataResult(initUrl);
+
+            System.out.println(dataResult);
+            Document doc = Jsoup.parse(dataResult, initUrl);
+
+            Elements soft11 = null;
+            //取得一页内容梗概
+            if (index > 1) {
+                soft11 = doc.select("article");
+            } else {
+               doc.select("main").select("div[class=cms-news-grid]").remove();
+               soft11 = doc.select("article");
+            }
+
+//             String baseUrl=initUrl;
+//
+//             //获取所有我需要格式匹配的链接
+//             HashMap<String, String> allUrls = StartImg.getAllUrls(dataResult,baseUrl);
+//             
+//             Set<String> keySet = allUrls.keySet();
+
+            for (Element e : soft11) {
+            	System.out.println(e);
+                try {
+
+                    String url = e.select("figure").get(0).select("a").get(0).attr("href");
+                    String img_url = e.select("figure").get(0).select("img").get(0).attr("src");
+
+
+
+                    //唯一码
+                    String code = url.substring(url.lastIndexOf("/") + 1, url.length()).replaceAll(".html", "");
+                    
+                    code = "wskso-"+code;
+
+
+                    //判断code在系统不存在再去处理后面的事
+
+//                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
+//                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
+//
+//                    if (flag <= 0) {
+
+                        //日期
+                        String date = e.select("span[class=date]").get(0).text();
+
+
+                        date = date.replaceAll(" ", "");
+                        date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
+                        LOGGER.info("date====================" + date);
+                        //月
+                        String month = date.substring(0, date.lastIndexOf("-"));
+                        LOGGER.info("month====================" + month);
+                        //年
+                        String year = month.substring(0, month.lastIndexOf("-"));
+                        LOGGER.info("year====================" + year);
+
+
+                        //标题
+                        String title = e.select("h2[class=entry-title]").get(0).text();
+
+                        //标签
+                        String tag = e.select("span[class=cat]").get(0).text();
+
+
+                        //处理软件logo上传
+                        HashMap<String, String> map11 = HTMLParserUtil.webPic2Disk(img_url, getLocalFolderByOS(), date);
+
+                        String logo_url = QiniuUtils.getInstance.upload(map11.get("localpath"), "soft/" + date + "/" + map11.get("key"));
+
+                        String logo_p = "<p><img class=\"aligncenter size-full wp-image-" + code + "\" title=\"" + title + "\" alt=\"" + title + "\" src=\"" + logo_url + "\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\"></p>";
+
+
+                        //计算标签编码、
+                        String tagcode = "005";
+                        if (tag.contains("应用") || tag.contains("系统")) {
+                            tagcode = "001";
+                            tag = "系统、应用软件";
+                        } else if (tag.contains("开发") || tag.contains("设计")) {
+                            tagcode = "002";
+                            tag = "开发、设计软件";
+                        } else if (tag.contains("媒体")) {
+                            tagcode = "003";
+                            tag = "媒体软件";
+                        } else if (tag.contains("安全") || tag.contains("网络")) {
+                            tagcode = "004";
+                            tag = "网络、安全软件";
+                        } else if (tag.contains("其他")) {
+                            tagcode = "005";
+                            tag = "其他软件";
+                        } else if (tag.contains("游戏")) {
+                            tagcode = "006";
+                            tag = "游戏一箩筐";
+                        } else if (tag.contains("限时免费")) {
+                            tagcode = "007";
+                            tag = "限免软件";
+                        } else if (tag.contains("疑难")) {
+                            tagcode = "008";
+                            tag = "疑难杂症";
+                        } else {
+                            tagcode = "005";
+                            tag = "其他软件";
+                        }
+                        LOGGER.info("tagcode====================" + tagcode);
+
+
+                        //简介
+                        StringBuilder brief = new StringBuilder();
+                        String briefContent = e.select("div[class=archive-content]").get(0).text();
+
+                        //正文
+                        String article = "";
+                        
+                        //获取全文的内容
+                        String dataResult1 = HttpGetUtils.getDataResult(url);
+
+                        /*System.out.println(dataResult1);*/
+                        Document parse = Jsoup.parse(dataResult1, url);
+
+                        Element article_alls = parse.select("div[class=single-content]").get(0);
+                        
+
+                         //处理正文图像
+                        article_alls.select("img").remove();
+
+
+                                //处理正文的不合法url
+                                Elements a1 = article_alls.select("a");
+                                for (Element s : a1) {
+                                    if (s.attr("href").contains("/tag")) {
+                                        s.before(s.text());
+                                        s.remove();
+                                    } else if (s.attr("href").contains("#login")) {
+                                    	s.parent().remove();
+//                                        s.remove();
+                                    } else if (s.attr("href").endsWith(".jpg") || s.attr("href").endsWith(".jpeg") || s.attr("href").endsWith(".png")) {
+                                        s.attr("href", "");
+                                    } else if (s.attr("href").contains("www.wskso.com/wp-content/themes/begin/inc/go.php?url")) {//改成短连接  并且改样式
+                                        s.addClass("btn-warning");
+                                    }
+                                }
+
+                                //设置正文
+                                article = article_alls.html();
+                                brief.append(logo_p);
+                                brief.append("<p>");
+                                brief.append(briefContent);
+                                brief.append("</p>");
+                                System.out.println("===================================================================================================");
+                                System.out.println(article);
+                                System.out.println("===================================================================================================");
+
+                                article = article.replaceAll("行者要来分享的是", "介绍").replaceAll("之前，有朋友留言行者需要", "介绍").replaceAll("行者", "小编jeyy");
+                                article = logo_p+article;
+                                String briefs = brief.toString();
+                                briefs = briefs.replaceAll("行者要来分享的是", "介绍").replaceAll("之前，有朋友留言行者需要", "介绍").replaceAll("行者", "小编jeyy");
+                        map = new HashMap<>();
+                        map.put("title", title);
+                        map.put("aurl", url);
+                        map.put("brief", briefs);
+                        map.put("date", date);
+                        map.put("article", article);
+                        map.put("tag", tag);
+                        map.put("code", code);
+                        map.put("os", "mac");
+                        map.put("month", month);
+                        map.put("year", year);
+                        map.put("tagcode", tagcode);
+                        list.add(map);
+
+//                    }
+                } catch (Exception e2) {
+                	e2.printStackTrace();
+                	LOGGER.error(e2);
+                    continue;
+                }
+
+            }
+            System.out.println(JsonUtil.object2json(list));
+            System.out.println(index + "页爬取完毕！ the end===============================================================================================");
+
+        } catch (Exception e) {
+            LOGGER.error("HTMLPARSERutils------->", e);
+        }
+
+        return list;
+    }
 
 
     /**
@@ -1988,7 +2188,8 @@ public class HTMLParserUtil {
 //					System.out.println(t.getName());
 //				}
 //            	retSoftNew(3);
-            retEQArticle(1);
+//            retEQArticle(1);
+            retSoft_WSKSO(2);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             LOGGER.error("HTMLPARSERutils------->", e);
