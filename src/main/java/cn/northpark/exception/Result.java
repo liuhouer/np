@@ -1,35 +1,41 @@
 package cn.northpark.exception;
 
+
 /**
- * http请求返回的最外层对象
- * Created by bruce
- * 2017-01-21 13:34
+ * @author w_zhangyang
+ * 通用的返回结果
+ * @param <T>
  */
 public class Result<T> {
 
-    /** 错误码. */
-    private Integer code;
+    private boolean result;
+    
+    private String code;
 
-    /** 提示信息. */
-    private String msg;
+    private String message;
 
-    /** 具体的内容. */
     private T data;
 
-    public Integer getCode() {
-        return code;
+    private Result() {}
+
+    public static <T> Result<T> newInstance() {
+        return new Result<>();
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public boolean isResult() {
+        return result;
     }
 
-    public String getMsg() {
-        return msg;
+    public void setResult(boolean result) {
+        this.result = result;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public T getData() {
@@ -39,4 +45,17 @@ public class Result<T> {
     public void setData(T data) {
         this.data = data;
     }
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	@Override
+	public String toString() {
+		return "Result [result=" + result + ", code=" + code + ", message=" + message + ", data=" + data + "]";
+	}
 }

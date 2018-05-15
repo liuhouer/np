@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.northpark.utils.JsonUtil;
-
 @ControllerAdvice
 public class NorthparkExceptionHandler {
 	
@@ -60,13 +58,11 @@ public class NorthparkExceptionHandler {
     	
     	if (isAjax(reqest)) {
     		
-    		//处理自定义异常
-    		logger.error("【系统异常】{}",e);
-    		if(e instanceof NorthParkException) {
+    		if (e instanceof NorthParkException) {
     			NorthParkException ex = (NorthParkException) e;
-    			return JsonUtil.object2json(ResultUitl.error(ex.getCode(), ex.getMessage()));
-    		}else {
-    			return JsonUtil.object2json(ResultUitl.error(-1, e.getMessage()));
+    			return ResultGenerator.genErrorResult(ex.getCode(), ex.getMessage() + ex.getExtendMsg());
+    		} else {
+    			return ResultGenerator.genErrorResult(ResultCode.SERVER_ERROR.getCode(),ResultCode.SERVER_ERROR.getMessage()+"-->"+e.getMessage());
     		}
     	} else {
     		ModelAndView mav = new ModelAndView();
@@ -95,7 +91,7 @@ public class NorthparkExceptionHandler {
     	ModelAndView mav = new ModelAndView();
         mav.addObject("exception", ex);
         mav.addObject("url", request.getRequestURL());
-        mav.setViewName(NorthPark_Error_View);
+        mav.setViewName(NorthPark_Build_View);
         return mav;
     }  
 	
