@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,7 +36,6 @@ import cn.northpark.model.Reset;
 import cn.northpark.model.User;
 import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
-import cn.northpark.utils.AddressUtils;
 import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
@@ -819,7 +817,6 @@ public class UserAction {
     public String login(HttpServletRequest request,
                         HttpServletResponse response, HttpSession session, String email,
                         String password, ModelMap map) throws IOException {
-    	int a = 1/0;
         String result = "success";
         String info = "";
         Cookie[] cookies = request.getCookies();

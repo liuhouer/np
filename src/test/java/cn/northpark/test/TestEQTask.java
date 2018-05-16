@@ -1,7 +1,5 @@
 package cn.northpark.test;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +9,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.VpsManager;
+import cn.northpark.model.Soft;
+import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.utils.TimeUtils;
 
 /**
  * @author zhangyang
@@ -75,22 +77,22 @@ public class TestEQTask {
     	//=========================================================新url的sitemap===========================================================================================
 
     	 //添加新url的sitemap
-		StringBuilder sb = new StringBuilder();
-		List<Map<String, Object>> list = softManager.querySqlMap(" select retcode from bc_soft where id > '516474' order by id desc ");
-		for(Map<String, Object> map :list){
-			String retcode = (String) map.get("retcode");
-			sb.append("<url>");
-			sb.append("<loc>https://northpark.cn/soft/");
-			sb.append(retcode+".html</loc>");
-			sb.append("</url>");
-		}
-		
-		try {
-			org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\newsoft.xml"), sb.toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		StringBuilder sb = new StringBuilder();
+//		List<Map<String, Object>> list = softManager.querySqlMap(" select retcode from bc_soft where id > '516474' order by id desc ");
+//		for(Map<String, Object> map :list){
+//			String retcode = (String) map.get("retcode");
+//			sb.append("<url>");
+//			sb.append("<loc>https://northpark.cn/soft/");
+//			sb.append(retcode+".html</loc>");
+//			sb.append("</url>");
+//		}
+//		
+//		try {
+//			org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\newsoft.xml"), sb.toString());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
     	//=========================================================处理软件的下载样式===========================================================================================
 
@@ -238,83 +240,83 @@ public class TestEQTask {
     	//=========================================================主机===========================================================================================
 
     	//=========================================================软件===========================================================================================
-//        try {
-//
-//            LOGGER.info("soft task==============start=" + TimeUtils.getNowTime());
-//            Map<String, String> map = null;
-//
-//
-//            for (int k = 1; k <= 4; k++) {
-//
-//                try {
-//
-//                    List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
-////                    List<Map<String, String>> list = HTMLParserUtil.retSoft_WSKSO(k);
-//
-//                    if (!CollectionUtils.isEmpty(list)) {
-//                        for (int i = 0; i < list.size(); i++) {
-//                            map = list.get(i);
-//
-//                            String title = map.get("title");
-//                            String aurl = map.get("aurl");
-//                            String brief = map.get("brief");
-//                            String date = map.get("date");
-//                            String article = map.get("article");
-//                            String tag = map.get("tag");
-//                            String code = map.get("code");
-//                            String os = map.get("os");
-//                            String month = map.get("month");
-//                            String year = map.get("year");
-//                            String tagcode = map.get("tagcode");
-//
-//
-//                            //是不存在的文章
-//								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
-//								
-//								if(flag<=0){
-//
-//                            Soft model = new Soft();
-//                            model.setBrief(brief);
-//                            model.setContent(article);
-//                            model.setOs(os);
-//                            model.setPostdate(date);
-//                            model.setRetcode(code);
-//                            model.setReturl(aurl);
-//                            model.setTags(tag);
-//                            model.setTitle(title);
-//                            model.setMonth(month);
-//                            model.setYear(year);
-//                            model.setTagscode(tagcode);
-//                            softManager.addSoft(model);
-//								}
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    // TODO: handle exception
-//                    LOGGER.error(e);
-//                    continue;
-//                }
-//
-//
-//                try {
-//                    Thread.sleep(1000);
-//                    LOGGER.info("第" + k + "页================");
-//                } catch (InterruptedException e) {
-//                    // TODO Auo-generated catch block
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//
-//
-//        } catch (Exception e) {
-//            // TODO: handle exception
-//            LOGGER.info(e);
-//        }
-//
-//        LOGGER.info("soft task==============end=" + TimeUtils.getNowTime());
-//
-//        LOGGER.info("软件定时任务结束" + TimeUtils.getNowTime());
+        try {
+
+            LOGGER.info("soft task==============start=" + TimeUtils.getNowTime());
+            Map<String, String> map = null;
+
+
+            for (int k = 1; k <= 1; k++) {
+
+                try {
+
+                    List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
+//                    List<Map<String, String>> list = HTMLParserUtil.retSoft_WSKSO(k);
+
+                    if (!CollectionUtils.isEmpty(list)) {
+                        for (int i = 0; i < list.size(); i++) {
+                            map = list.get(i);
+
+                            String title = map.get("title");
+                            String aurl = map.get("aurl");
+                            String brief = map.get("brief");
+                            String date = map.get("date");
+                            String article = map.get("article");
+                            String tag = map.get("tag");
+                            String code = map.get("code");
+                            String os = map.get("os");
+                            String month = map.get("month");
+                            String year = map.get("year");
+                            String tagcode = map.get("tagcode");
+
+
+                            //是不存在的文章
+								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
+								
+								if(flag<=0){
+
+                            Soft model = new Soft();
+                            model.setBrief(brief);
+                            model.setContent(article);
+                            model.setOs(os);
+                            model.setPostdate(date);
+                            model.setRetcode(code);
+                            model.setReturl(aurl);
+                            model.setTags(tag);
+                            model.setTitle(title);
+                            model.setMonth(month);
+                            model.setYear(year);
+                            model.setTagscode(tagcode);
+                            softManager.addSoft(model);
+								}
+                        }
+                    }
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    LOGGER.error(e);
+                    continue;
+                }
+
+
+                try {
+                    Thread.sleep(1000);
+                    LOGGER.info("第" + k + "页================");
+                } catch (InterruptedException e) {
+                    // TODO Auo-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            LOGGER.info(e);
+        }
+
+        LOGGER.info("soft task==============end=" + TimeUtils.getNowTime());
+
+        LOGGER.info("软件定时任务结束" + TimeUtils.getNowTime());
 
       	//=========================================================软件===========================================================================================
        
