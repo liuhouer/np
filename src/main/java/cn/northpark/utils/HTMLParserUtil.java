@@ -2189,7 +2189,7 @@ public class HTMLParserUtil {
 //				}
 //            	retSoftNew(3);
 //            retEQArticle(1);
-            retSoft_WSKSO(2);
+        	retSoftNew(1);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             LOGGER.error("HTMLPARSERutils------->", e);
