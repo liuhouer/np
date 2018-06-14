@@ -2,6 +2,7 @@
 package cn.northpark.action;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -326,6 +327,25 @@ public class MoviesAction {
 
         String result = "/movies2";
         String whereSql = " where displayed is  null ";
+        
+        
+        //搜索
+        String keyword = request.getParameter("keyword");
+        if (StringUtils.isNotEmpty(keyword)) {
+            keyword = URLDecoder.decode(keyword, "UTF-8");
+        }
+        map.put("keyword", keyword);
+        if (StringUtils.isNotEmpty(keyword)) {
+            keyword = WAQ.forSQL().escapeSql(keyword);
+            if (keyword.contains(" ")) {
+                String keyword2 = keyword.replaceAll(" ", "");
+                whereSql += " and moviename like '%" + keyword + "%' or moviename like '%" + keyword2 + "%' ";
+            } else {
+                whereSql += " and moviename like '%" + keyword + "%' ";
+            }
+
+
+        }
 
         LOGGER.info("sql ---" + whereSql);
         String currentpage = page;
@@ -397,42 +417,6 @@ public class MoviesAction {
         }
     }
 
-
-    /**
-     * 关键字匹配列表
-     *
-     * @param map
-     * @param condition
-     * @param request
-     * @param response
-     * @param session
-     * @return
-     */
-    @RequestMapping(value = "/movies/search")
-    public String search(ModelMap map, String keyword, String id, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-        String wheresql = " where 1=1 ";
-        if (StringUtils.isNotEmpty(keyword)) {
-            //sql注入处理
-            keyword = WAQ.forSQL().escapeSql(keyword);
-
-            if (keyword.contains(" ")) {
-                String keyword2 = keyword.replaceAll(" ", "");
-                wheresql = " where moviename like '%" + keyword + "%' or moviename like '%" + keyword2 + "%' " + " or description like '%" + keyword + "%' ";
-            } else {
-                wheresql = " where moviename like '%" + keyword + "%' " + " or description like '%" + keyword + "%' ";
-            }
-
-            map.put("keyword", keyword);
-        }
-
-
-        List<Movies> list = moviesManager.findByCondition(wheresql + " order by id desc ").getResultlist();
-        map.addAttribute("list", list);
-
-        map.put("search", "search");
-
-        return "/moviesdetail";
-    }
 
 
     /**

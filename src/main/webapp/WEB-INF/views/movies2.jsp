@@ -239,7 +239,7 @@
             $("#J_ser_btn").attr('disabled', true);
             var keyword = $("#keyword").val();
             if (keyword && keyword != "${keyword }") {
-                window.location.href = "/movies/search?keyword=" + keyword;
+                window.location.href = "/movies/page/1?keyword=" + keyword;
             }
             setTimeout("$('#J_ser_btn').removeAttr('disabled')", 5000); //设置5秒后提交按钮 显示
         })
