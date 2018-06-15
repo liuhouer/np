@@ -121,6 +121,7 @@ dependencies {
 	compile group: 'org.jdom', name: 'jdom', version: '2.0.2'
 	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp'
 }
 
 
