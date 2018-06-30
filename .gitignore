@@ -1,0 +1,10 @@
+build/
+gradle/
+logs/
+bin/
+.gradle/
+.settings/
+*.bin
+*.lock
+
+#demo/*.log 忽略所有demo目录下的以log结尾的文件

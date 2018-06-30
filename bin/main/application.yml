@@ -36,6 +36,11 @@ spring:
     view:
       prefix:  /WEB-INF/jsp/
       suffix:   .jsp
+  rabbitmq: 
+    host: 69.12.82.101
+    port: 5672
+    username: liuhouer1
+    password: zhangyang226    
 banner: 
   charset: UTF-8      
     

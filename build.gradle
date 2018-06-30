@@ -94,27 +94,30 @@ dependencies {
 	compile "org.apache.commons:commons-lang3:$commonsLang3Version"
 	compile "commons-lang:commons-lang:$commonsLangVersion"
 	compile "com.lmax:disruptor:$disruptorVersion"
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+    testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+	
 	
 	//added by bruce 
-    compile "org.springframework.boot:spring-boot-starter-data-ldap:$springBootVersion"    
-	compile group: 'org.springframework.ldap', name: 'spring-ldap-core', version: '2.3.2.RELEASE'
+    //compile "org.springframework.boot:spring-boot-starter-data-ldap:$springBootVersion"    
+	//compile group: 'org.springframework.ldap', name: 'spring-ldap-core', version: '2.3.2.RELEASE'
 	// https://mvnrepository.com/artifact/redis.clients/jedis
-	compile group: 'redis.clients', name: 'jedis', version: '2.6.2'
+	//compile group: 'redis.clients', name: 'jedis', version: '2.6.2'
 	// https://mvnrepository.com/artifact/com.rabbitmq/amqp-client
 	// https://mvnrepository.com/artifact/org.apache.storm/storm-kafka
-	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr2'
 	compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
 	compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 	compile group: 'org.apache.poi', name: 'poi', version: '3.16'
-	compile group: 'log4j', name: 'log4j', version: '1.2.17'
 	compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
+	compile group: 'log4j', name: 'log4j', version: '1.2.17'
     compile group: 'com.jfinal',name: 'jfinal',version: '3.0'
     // https://mvnrepository.com/artifact/javax.mail/mail
 	compile group: 'javax.mail', name: 'mail', version: '1.4.1'
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.0.pr2'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.34'
+	compile "org.apache.httpcomponents:httpcore:4.3.2"
 	compile group: 'commons-httpclient', name: 'commons-httpclient', version: '3.0.1'
 	compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.9'
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
@@ -122,13 +125,14 @@ dependencies {
 	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp'
+	
 }
 
 
-allprojects {
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-        }
-    }
-}
+//allprojects {
+//    gradle.projectsEvaluated {
+//        tasks.withType(JavaCompile) {
+//            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+//        }
+//    }
+//}
