@@ -63,6 +63,7 @@
     <mvc:resources location="/img/" mapping="/img/**"/>
     <mvc:resources location="/ace/" mapping="/ace/**"/>
     <mvc:resources location="/wangEditor/" mapping="/wangEditor/**"/>
+    <mvc:resources location="/sitemap/" mapping="/sitemap/**"/>
     <!-- 定义多文件上传 -->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

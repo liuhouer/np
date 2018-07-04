@@ -83,19 +83,19 @@ public class DashAction {
 
     }
 
-    /**
-     * 网站地图
-     */
-    @RequestMapping("/sitemap/{tag}")
-    public String sitemap(HttpServletRequest request, HttpServletResponse response, ModelMap map, @PathVariable("tag") String tag) throws Exception {
-        List<String> tags = Arrays.asList("eq", "love", "movies", "poem", "soft", "vps");
-        boolean contains = tags.contains(tag);
-        if (contains) {
-            return "/sitemap-" + tag;
-        } else {
-            return null;
-        }
-    }
+//    /**
+//     * 网站地图
+//     */
+//    @RequestMapping("/sitemap/{tag}")
+//    public String sitemap(HttpServletRequest request, HttpServletResponse response, ModelMap map, @PathVariable("tag") String tag) throws Exception {
+//        List<String> tags = Arrays.asList("eq", "love", "movies", "poem", "soft", "vps");
+//        boolean contains = tags.contains(tag);
+//        if (contains) {
+//            return "/sitemap-" + tag;
+//        } else {
+//            return null;
+//        }
+//    }
 
     
 
