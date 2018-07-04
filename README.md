@@ -1,4 +1,13 @@
 # np-web
+
+## 2018年7月4日
+- https://northpark.cn/sitemap/soft.xml
+- https://northpark.cn/sitemap/movies.xml
+- https://northpark.cn/sitemap/vps.xml
+- https://northpark.cn/sitemap/poem.xml
+- https://northpark.cn/sitemap/love.xml
+- https://northpark.cn/sitemap/qingsheng.xml
+
 ## 2018年3月23日
 > 最近更新了mac资源、生成了sitemap并没有seo优化的太大作用fk
 
