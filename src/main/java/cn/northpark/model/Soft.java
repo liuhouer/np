@@ -75,6 +75,8 @@ public class Soft implements Serializable {
     @Column(length = 255)
     private String returl;
 
+    @Column()
+    private String path;
 
     public Integer getId() {
         return id;
@@ -176,6 +178,14 @@ public class Soft implements Serializable {
     public void setMonth(String month) {
         this.month = month;
     }
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
 	
 	/*这里是mybatis部分代码
 	

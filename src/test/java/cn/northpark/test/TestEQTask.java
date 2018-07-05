@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.VpsManager;
+import cn.northpark.model.Soft;
 
 /**
  * @author zhangyang
@@ -110,6 +114,45 @@ public class TestEQTask {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+    	
+    	
+    	try {
+			int count = softManager.countSql("select * from bc_soft where path is  null ");
+			
+			LOGGER.info("count______>"+count);
+			   
+			   int pagecount = count / 100+1;
+			   
+			   
+			   
+			   
+			   //按照页码更新数据
+			   for (int i = 0; i < pagecount; i++) {
+				   List<Soft> lst100 = softManager.querySql(" select * from bc_soft where path is  null limit "+i*100+",100");
+				   //按照分页更新数据
+				   for (Soft soft:lst100) {
+					  String content = soft.getContent();
+					  Document parse = Jsoup.parse(content);
+					  Element last = parse.select("a").last();
+					  if(last!=null) {
+						  if(last.toString().contains("下载")||last.toString().contains("www.waitsun.com")||last.toString().contains("ctfile.com")) {
+							  String download = last.toString();
+							  System.out.println(download);
+							  soft.setPath(download);
+							  //删除最后的路径元素
+							  last.remove();
+							  soft.setContent(parse.html());
+							  softManager.updateSoft(soft);
+						  }else {
+							  System.out.println("错误");
+						  }
+					  }
+				  }
+			   }
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 
     	//=========================================================处理软件的下载样式===========================================================================================
 
