@@ -62,9 +62,15 @@
                                     ${article.os}
                                 </a></strong>
                             </p>
-                            <p id="content_${sarticle.index}">
+                            <p id="content_${article.id}">
                                 ${article.content }
-                            </p>
+                            </p> 	
+                            
+                            <p class="col-md-12 ;" >
+									<div class=" dashed left  col-md-10">
+										<p class="" id="path_${article.id}">${article.path }</p>
+									</div>
+							</p>
                             <div class="clearfix visible-xs">
                                 <hr>
                             </div>

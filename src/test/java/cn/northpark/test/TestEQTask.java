@@ -117,18 +117,7 @@ public class TestEQTask {
     	
     	
     	try {
-			int count = softManager.countSql("select * from bc_soft where path is  null ");
-			
-			LOGGER.info("count______>"+count);
-			   
-			   int pagecount = count / 100+1;
-			   
-			   
-			   
-			   
-			   //按照页码更新数据
-			   for (int i = 0; i < pagecount; i++) {
-				   List<Soft> lst100 = softManager.querySql(" select * from bc_soft where path is  null limit "+i*100+",100");
+				   List<Soft> lst100 = softManager.querySql(" select * from bc_soft where path is  null  ");
 				   //按照分页更新数据
 				   for (Soft soft:lst100) {
 					  String content = soft.getContent();
@@ -136,6 +125,9 @@ public class TestEQTask {
 					  Element last = parse.select("a").last();
 					  if(last!=null) {
 						  if(last.toString().contains("下载")||last.toString().contains("www.waitsun.com")||last.toString().contains("ctfile.com")) {
+							  System.out.println("========================");
+							  
+							  System.out.println("===========是=============");
 							  String download = last.toString();
 							  System.out.println(download);
 							  soft.setPath(download);
@@ -144,11 +136,31 @@ public class TestEQTask {
 							  soft.setContent(parse.html());
 							  softManager.updateSoft(soft);
 						  }else {
-							  System.out.println("错误");
+							  System.out.println("========================");
+							  
+							  System.out.println("===========否=============");
 						  }
 					  }
 				  }
-			   }
+//    		Soft findSoft = softManager.findSoft(517013);
+//    		 String content = findSoft.getContent();
+//			  Document parse = Jsoup.parse(content);
+//			  Element last = parse.select("a").last();
+//			  if(last!=null) {
+//				  System.out.println(last.toString());				  
+//				  if(last.toString().contains("下载")||last.toString().contains("www.waitsun.com")||last.toString().contains("ctfile.com")) {
+//					  //					  String download = last.toString();
+//					  //					  System.out.println(download);
+//					  //					  soft.setPath(download);
+//					  //					  //删除最后的路径元素
+//					  //					  last.remove();
+//					  //					  soft.setContent(parse.html());
+//					  //					  softManager.updateSoft(soft);
+//					  System.out.println("========================");
+//					  
+//					  System.out.println("===========是=============");
+//				  }
+//			  }
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

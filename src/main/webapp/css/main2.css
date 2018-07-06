@@ -1703,3 +1703,13 @@ a.project-card-link {
     color: rgb(153, 153, 153);
     font-style: italic;
 }
+
+/* 边框虚线 */
+.dashed {
+	border-bottom-style: dashed;
+	border-left-style: dashed;
+	border-right-style: dashed;
+	border-top-style: dashed;
+	border-width: thin;
+	border-color: #f1c281;
+}
