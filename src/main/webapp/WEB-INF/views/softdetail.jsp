@@ -66,9 +66,15 @@
                                 ${article.content }
                             </p> 	
                             
-                            <p class="col-md-12 ;" >
-									<div class=" dashed left  col-md-10">
-										<p class="" id="path_${article.id}">${article.path }</p>
+                            <p class="col-md-12" >
+									<div class="dashed left  col-md-10">
+										
+										 <c:if test="${user==null }">
+										   <p class="center red">本文隐藏内容 <a target="_blank"   class="flatbtn" id="J_login_see"><i class="be be-timerauto"></i>登录</a> 后才可以浏览</p>
+									     </c:if>
+									     <c:if test="${user!=null }">
+											<p id="J_show_path">${article.path }</p>
+										</c:if>
 									</div>
 							</p>
                             <div class="clearfix visible-xs">
@@ -76,7 +82,7 @@
                             </div>
 
                             <!-- 打赏 -->
-                            <div>
+                            <div class="col-md-10">
 
 
                                 <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
@@ -169,25 +175,13 @@
         $("img").each(function () {
             $(this).css('max-width', ($("#J_white_div").width()));
         })
-
+        //设置定向uri
+		$("#J_login_see").attr("href","/login?redirectURI="+window.location.href);
     })
 
 </script>
 
 
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<!-- <script type="text/javascript">
-var duoshuoQuery = {short_name:"jellyband"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0]
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script> -->
-<!-- 多说公共JS代码 end -->
 
 
 </body>

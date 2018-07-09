@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,6 @@ import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.VpsManager;
-import cn.northpark.model.Soft;
 
 /**
  * @author zhangyang
@@ -79,22 +75,22 @@ public class TestEQTask {
     	//=========================================================新url的sitemap===========================================================================================
 
     	 //添加新url的sitemap
-//		StringBuilder sb = new StringBuilder();
-//		List<Map<String, Object>> list = softManager.querySqlMap(" select retcode from bc_soft where 1=1 order by id desc ");
-//		for(Map<String, Object> map :list){
-//			String retcode = (String) map.get("retcode");
-//			sb.append("<url>");
-//			sb.append("<loc>https://northpark.cn/soft/");
-//			sb.append(retcode+".html</loc>");
-//			sb.append("</url>");
-//		}
-//		
-//		try {
-//			org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\newsoft.xml"), sb.toString());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		StringBuilder sb = new StringBuilder();
+		List<Map<String, Object>> list = softManager.querySqlMap(" select retcode from bc_soft where id > 517119 order by id desc ");
+		for(Map<String, Object> map :list){
+			String retcode = (String) map.get("retcode");
+			sb.append("<url>");
+			sb.append("<loc>https://northpark.cn/soft/");
+			sb.append(retcode+".html</loc>");
+			sb.append("</url>");
+		}
+		
+		try {
+			org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\newsoft.xml"), sb.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		//电影的网站地图
@@ -115,56 +111,39 @@ public class TestEQTask {
 //			e.printStackTrace();
 //		}
     	
-    	
-    	try {
-				   List<Soft> lst100 = softManager.querySql(" select * from bc_soft where path is  null  ");
-				   //按照分页更新数据
-				   for (Soft soft:lst100) {
-					  String content = soft.getContent();
-					  Document parse = Jsoup.parse(content);
-					  Element last = parse.select("a").last();
-					  if(last!=null) {
-						  if(last.toString().contains("下载")||last.toString().contains("www.waitsun.com")||last.toString().contains("ctfile.com")) {
-							  System.out.println("========================");
-							  
-							  System.out.println("===========是=============");
-							  String download = last.toString();
-							  System.out.println(download);
-							  soft.setPath(download);
-							  //删除最后的路径元素
-							  last.remove();
-							  soft.setContent(parse.html());
-							  softManager.updateSoft(soft);
-						  }else {
-							  System.out.println("========================");
-							  
-							  System.out.println("===========否=============");
-						  }
-					  }
-				  }
-//    		Soft findSoft = softManager.findSoft(517013);
-//    		 String content = findSoft.getContent();
-//			  Document parse = Jsoup.parse(content);
-//			  Element last = parse.select("a").last();
-//			  if(last!=null) {
-//				  System.out.println(last.toString());				  
-//				  if(last.toString().contains("下载")||last.toString().contains("www.waitsun.com")||last.toString().contains("ctfile.com")) {
-//					  //					  String download = last.toString();
-//					  //					  System.out.println(download);
-//					  //					  soft.setPath(download);
-//					  //					  //删除最后的路径元素
-//					  //					  last.remove();
-//					  //					  soft.setContent(parse.html());
-//					  //					  softManager.updateSoft(soft);
-//					  System.out.println("========================");
-//					  
-//					  System.out.println("===========是=============");
+    	//把下载链接放到path字段去==============================start==================================================================
+//    	try {
+//				   List<Soft> lst100 = softManager.querySql(" select * from bc_soft where path is  null  ");
+//				   //按照分页更新数据
+//				   for (Soft soft:lst100) {
+//					  String content = soft.getContent();
+//					  Document parse = Jsoup.parse(content);
+//					  Element last = parse.select("a").last();
+//					  if(last!=null) {
+//						  if(last.toString().contains("下载")||last.toString().contains("www.waitsun.com")||last.toString().contains("ctfile.com")) {
+//							  System.out.println("========================");
+//							  
+//							  System.out.println("===========是=============");
+//							  String download = last.toString();
+//							  System.out.println(download);
+//							  soft.setPath(download);
+//							  //删除最后的路径元素
+//							  last.remove();
+//							  soft.setContent(parse.html());
+//							  softManager.updateSoft(soft);
+//						  }else {
+//							  System.out.println("========================");
+//							  
+//							  System.out.println("===========否=============");
+//						  }
+//					  }
 //				  }
-//			  }
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+//				   
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+    	//把下载链接放到path字段去=====================================end===========================================================
 
     	//=========================================================处理软件的下载样式===========================================================================================
 
@@ -312,76 +291,78 @@ public class TestEQTask {
     	//=========================================================主机===========================================================================================
 
     	//=========================================================软件===========================================================================================
-//        try {
+//    	try {
 //
-//            LOGGER.info("soft task==============start=" + TimeUtils.getNowTime());
-//            Map<String, String> map = null;
-//
-//
-//            for (int k = 3; k <= 5; k++) {
-//
-//                try {
-//
-//                    List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
-////                    List<Map<String, String>> list = HTMLParserUtil.retSoft_WSKSO(k);
-//
-//                    if (!CollectionUtils.isEmpty(list)) {
-//                        for (int i = 0; i < list.size(); i++) {
-//                            map = list.get(i);
-//
-//                            String title = map.get("title");
-//                            String aurl = map.get("aurl");
-//                            String brief = map.get("brief");
-//                            String date = map.get("date");
-//                            String article = map.get("article");
-//                            String tag = map.get("tag");
-//                            String code = map.get("code");
-//                            String os = map.get("os");
-//                            String month = map.get("month");
-//                            String year = map.get("year");
-//                            String tagcode = map.get("tagcode");
+//    		LOGGER.info("soft task==============start=" + TimeUtils.getNowTime());
+//    		Map<String, String> map = null;
 //
 //
-//                            //是不存在的文章
-//								int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
-//								
-//								if(flag<=0){
+//    		for (int k = 0; k <= 3; k++) {
 //
-//                            Soft model = new Soft();
-//                            model.setBrief(brief);
-//                            model.setContent(article);
-//                            model.setOs(os);
-//                            model.setPostdate(date);
-//                            model.setRetcode(code);
-//                            model.setReturl(aurl);
-//                            model.setTags(tag);
-//                            model.setTitle(title);
-//                            model.setMonth(month);
-//                            model.setYear(year);
-//                            model.setTagscode(tagcode);
-//                            softManager.addSoft(model);
-//								}
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    // TODO: handle exception
-//                    LOGGER.error(e);
-//                    continue;
-//                }
+//    			try {
+//
+//    				List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
+//    				//                    List<Map<String, String>> list = HTMLParserUtil.retSoft_WSKSO(k);
+//
+//    				if (!CollectionUtils.isEmpty(list)) {
+//    					for (int i = 0; i < list.size(); i++) {
+//    						map = list.get(i);
+//
+//    						String title = map.get("title");
+//    						String aurl = map.get("aurl");
+//    						String brief = map.get("brief");
+//    						String date = map.get("date");
+//    						String article = map.get("article");
+//    						String tag = map.get("tag");
+//    						String code = map.get("code");
+//    						String os = map.get("os");
+//    						String month = map.get("month");
+//    						String year = map.get("year");
+//    						String tagcode = map.get("tagcode");
+//    						String path = map.get("path");
 //
 //
-//                try {
-//                    Thread.sleep(1000);
-//                    LOGGER.info("第" + k + "页================");
-//                } catch (InterruptedException e) {
-//                    // TODO Auo-generated catch block
-//                    e.printStackTrace();
-//                }
+//    						//是不存在的文章
+//    						int flag = softManager.countHql(  " where o.retcode= '"+code+"' ");
 //
-//            }
+//    						if(flag<=0){
+//
+//    							Soft model = new Soft();
+//    							model.setBrief(brief);
+//    							model.setContent(article);
+//    							model.setOs(os);
+//    							model.setPostdate(date);
+//    							model.setRetcode(code);
+//    							model.setReturl(aurl);
+//    							model.setTags(tag);
+//    							model.setTitle(title);
+//    							model.setMonth(month);
+//    							model.setYear(year);
+//    							model.setTagscode(tagcode);
+//    							model.setPath(path);
+//    							softManager.addSoft(model);
+//    						}
+//    					}
+//    				}
+//    			} catch (Exception e) {
+//    				// TODO: handle exception
+//    				LOGGER.error(e);
+//    				continue;
+//    			}
 //
 //
-//        } catch (Exception e) {
+//    			try {
+//    				Thread.sleep(1000);
+//    				LOGGER.info("第" + k + "页================");
+//    			} catch (InterruptedException e) {
+//    				// TODO Auo-generated catch block
+//    				e.printStackTrace();
+//    			}
+//
+//    		}
+//
+//
+//    	} catch (Exception e) {
 //            // TODO: handle exception
 //            LOGGER.info(e);
 //        }

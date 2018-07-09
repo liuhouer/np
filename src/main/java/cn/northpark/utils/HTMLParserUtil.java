@@ -877,10 +877,10 @@ public class HTMLParserUtil {
 
                     //判断code在系统不存在再去处理后面的事
 
-                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
-                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
-
-                    if (flag <= 0) {
+//                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
+//                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
+//
+//                    if (flag <= 0) {
 
                         //日期
                         String date = parse.select("div[class=about pt-2 pt-md-3]").select("span").get(0).text();
@@ -949,6 +949,9 @@ public class HTMLParserUtil {
 
                         //简介
                         StringBuilder brief = new StringBuilder();
+                        
+                        //下载地址
+                        String path = "";
 
 
                         Elements article_alls = parse.select("div[class=content]");
@@ -996,6 +999,32 @@ public class HTMLParserUtil {
                                         s.addClass("btn-warning");
                                     }
                                 }
+                                
+                                //处理下载地址
+                                StringBuilder sb_path = new StringBuilder();
+                                //执行2次抓取下载地址
+                                for (int i = 0; i < 2; i++) {
+                                	 Element last = article_alls.get(i1).select("a").last();
+                                     if(last!=null) {
+                                     	if(last.toString().contains("下载")||last.toString().contains("www.waitsun.com")||last.toString().contains("ctfile.com")) {
+                                     		System.out.println("========================");
+
+                                     		System.out.println("===========是=============");
+                                     		String download = last.toString();
+                                     		System.out.println(download);
+                                     		sb_path.append(download);
+                                     		//删除最后的路径元素
+                                     		last.remove();
+                                     	}else {
+                                     		System.out.println("========================");
+
+                                     		System.out.println("===========否=============");
+                                     	}
+                                     }
+								}
+                               
+                                System.out.println("sb_path===================>"+sb_path.toString());
+                                path = sb_path.toString();
 
                                 //设置正文
                                 article = article_alls.get(i1).html();
@@ -1004,7 +1033,7 @@ public class HTMLParserUtil {
                                 brief.append(article_alls.get(i1).select("p").get(0).html());
                                 brief.append("</p>");
                                 System.out.println("===================================================================================================");
-                                System.out.println(article_alls.get(i1).html());
+                                System.out.println("正文内容===================>"+article_alls.get(i1).html());
                                 System.out.println("===================================================================================================");
                             }
                         }
@@ -1021,9 +1050,10 @@ public class HTMLParserUtil {
                         map.put("month", month);
                         map.put("year", year);
                         map.put("tagcode", tagcode);
+                        map.put("path", path);
                         list.add(map);
 
-                    }
+//                    }
                 } catch (Exception e2) {
                     continue;
                 }
@@ -2189,7 +2219,7 @@ public class HTMLParserUtil {
 //				}
 //            	retSoftNew(3);
 //            retEQArticle(1);
-        	retSoftNew(1);
+        	retSoftNew(0);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             LOGGER.error("HTMLPARSERutils------->", e);
