@@ -16,10 +16,10 @@
     <meta name="robots" content="index,follow,archive">
     <link rel="shortcut icon" href="/img/favicon.ico">
     <title>${poem_enjoy.title }-${poem_enjoy.author }:诗词秀 | NorthPark</title>
-    <meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
+    <meta name="keywords" content="${poem_enjoy.title },${poem_enjoy.author },诗词秀,诗词赏析,诗词天地,爱诗词,NorthPark">
     <meta name="description"
-          content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
-
+          content="${poem_enjoy.content }">
+          
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
     <style>
 

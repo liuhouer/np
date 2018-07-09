@@ -17,8 +17,9 @@
     <meta name="robots" content="index,follow,archive">
     <link rel="shortcut icon" href="/img/favicon.ico">
     <title>${model.title} | NorthPark </title>
-    <meta name="description" content="${model.title} | NorthPark">
-    <meta name="keywords" content="${model.title} | NorthPark">
+    <meta name="keywords" content="NorthPark,情商提升,情圣日记，撩妹技巧">
+    <meta name="description"
+          content="NorthPark情商提升的技巧和讲解">
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
 

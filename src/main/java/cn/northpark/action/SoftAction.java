@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -137,6 +138,7 @@ public class SoftAction {
             List<Soft> list = softManager.querySql("select * from bc_soft where retcode=?", retcode);
             if (!CollectionUtils.isEmpty(list)) {
                 map.addAttribute("article", list.get(0));
+                if(StringUtils.isNotEmpty(list.get(0).getBrief())) map.put("description", Jsoup.parse(list.get(0).getBrief()).text());
             }
 
         } catch (Exception e) {

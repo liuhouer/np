@@ -15,10 +15,10 @@
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
     <link rel="shortcut icon" href="/img/favicon.ico">
-    <title>${keyword }:影视窝 | NorthPark</title>
-    <meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
+    <title>${model.moviename}:影视窝 | NorthPark</title>
+    <meta name="keywords" content="NorthPark,${model.moviename},${model.tag}">
     <meta name="description"
-          content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
+          content="${description}">
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
 </head>
@@ -31,29 +31,28 @@
     <div class="container mainbody">
         <div class="row">
 
-            <c:forEach items="${list }" var="s" varStatus="ss">
             <div class="col-md-12">
                 <div class="col-sm-10  col-md-offset-1 ">
                     <div class="clearfix bg-white margin-t10 margin-b10 padding20" id="J_white_div">
                         <div class="row margin10 post_article">
 
                             <div class="border-0 center">
-                                <p oid="${s.id }">
+                                <p oid="${model.id }">
                                 <h1>
-                                    <small class="green-text"><font size="5"><strong>${s.moviename}</strong></font>
+                                    <small class="green-text"><font size="5"><strong>${model.moviename}</strong></font>
                                     </small>
                                 </h1>
                                 </p>
 
 
-                                    <%-- <p><small class="red-text">￥${s.price}</small></p> --%>
+                                    <%-- <p><small class="red-text">￥${model.price}</small></p> --%>
 
-                                <c:if test="${s.path!=null && s.path!=''}">
+                                <c:if test="${model.path!=null && model.path!=''}">
 
                                     <p>
                                         <small class="label red-text">下载地址
                                     <p>
-                                        <small class="red-text">${s.path}</small>
+                                        <small class="red-text">${model.path}</small>
                                     </p>
                                     </small> </p> &nbsp;
 
@@ -62,10 +61,10 @@
                                 <c:if test="${user!=null }">
                                     <c:if test="${user.email == '654714226@qq.com' || user.email == 'qhdsoft@126.com' || user.email == 'woaideni@qq.com'}">
                                         <span class=" glyphicon glyphicon-arrow-up margin10"></span>
-                                        <a class="common-a-right" title="置顶" href="" onclick="handup('${s.id}')">置顶</a>
+                                        <a class="common-a-right" title="置顶" href="" onclick="handup('${model.id}')">置顶</a>
                                         <span class=" glyphicon glyphicon-eye-close margin10"></span>
                                         <a class="common-a-right" title="隐藏" href=""
-                                           onclick="hideup('${s.id}')">大尺度隐藏</a>
+                                           onclick="hideup('${model.id}')">大尺度隐藏</a>
                                     </c:if>
                                 </c:if>
 
@@ -79,11 +78,11 @@
 
                             <div class="margin20">
 
-                                    <%-- <a  title="${s.moviename}的简介" href="/movies/post-${s.id }.html">${s.moviename}</a> 简介：</p> --%>
-                                <p id="brief_${ss.index}">
+                                    <%-- <a  title="${model.moviename}的简介" href="/movies/post-${model.id }.html">${model.moviename}</a> 简介：</p> --%>
+                                <p id="brief_${model.id }">
 
-                                        ${s.description }
-                                        <%--  <label class="red-text">文章链接</label>：https://northpark.cn/movies/post-${s.id }.html --%>
+                                        ${model.description }
+                                        <%--  <label class="red-text">文章链接</label>：https://northpark.cn/movies/post-${model.id }.html --%>
                                 </p>
 
                                 <div class="clearfix visible-xs">
@@ -173,7 +172,6 @@
                 </div>
             </div>
         </div>
-        </c:forEach>
 
 
     </div>
