@@ -23,9 +23,9 @@
         <title>Mac软件 ::第${page}页 | NorthPark</title>
     </c:if>
 
-    <meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
+    <meta name="keywords" content="NorthPark,Mac软件,破解软件,破解Mac资源">
     <meta name="description"
-          content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
+          content="NorthPark包含了丰富的Mac软件资源、破解资源、Mac使用技巧、Mac私人教程">
 </head>
 
 <body>
