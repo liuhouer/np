@@ -17,6 +17,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
+    <%@ include file="/WEB-INF/views/page/common/ad.jsp" %>
     <c:if test="${page==null || page==''}">
         <title>情商提升 | NorthPark</title>
     </c:if>

@@ -22,6 +22,7 @@
           content="NorthPark情商提升的技巧和讲解">
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
+    <%@ include file="/WEB-INF/views/page/common/ad.jsp" %>
 
 </head>
 

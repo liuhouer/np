@@ -21,6 +21,7 @@
           content="${description}">
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
+    <%@ include file="/WEB-INF/views/page/common/ad.jsp" %>
 </head>
 
 <body>
@@ -177,7 +178,9 @@
     </div>
 </div>
 
-
+<amp-auto-ads type="adsense"
+              data-ad-client="ca-pub-6480430202155588">
+</amp-auto-ads>
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 <script type="text/javascript">
 

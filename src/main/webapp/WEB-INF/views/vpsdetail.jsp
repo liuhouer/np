@@ -20,7 +20,7 @@
     <meta name="description"
           content="${article.brief}">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-
+	<%@ include file="/WEB-INF/views/page/common/ad.jsp" %>
 
 </head>
 
