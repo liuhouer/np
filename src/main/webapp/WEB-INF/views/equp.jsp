@@ -79,9 +79,9 @@
                                     <p>
                                         <small class="label label-gray">${s.date }</small>
                                         <a href="/romeo/${s.id }.html#comment">
-                                            <small class="label label-gray ds-thread-count"
-                                                   data-thread-key="romeo${s.id }">
-                                        </a></small><br><br>
+	                                        <small class="label label-gray"><span class="glyphicon glyphicon-comment margin5"></span></small>
+                                        </a>
+                                        <br> <br>
 
 
                                         <a href="/romeo/${s.id }.html" class="no-decoration"
