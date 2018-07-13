@@ -16,7 +16,6 @@
     <meta name="robots" content="index,follow,archive">
     <link rel="shortcut icon" href="/img/favicon.ico">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-    <%@ include file="/WEB-INF/views/page/common/ad.jsp" %>
     <c:if test="${page==null || page==''}">
         <title>Mac软件 | NorthPark</title>
     </c:if>
@@ -210,9 +209,6 @@
     </div>
 </div>
 
-<amp-auto-ads type="adsense"
-              data-ad-client="ca-pub-6480430202155588">
-</amp-auto-ads>
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
 <script type="text/javascript">
@@ -220,6 +216,7 @@
     $(function () {
         $("img").each(function () {
             $(this).css('max-width', $(".bg-white").width());
+            $(this).css('padding-right', 20%);
         })
 
         //搜索

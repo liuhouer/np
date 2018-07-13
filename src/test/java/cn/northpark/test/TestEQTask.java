@@ -1,7 +1,6 @@
 package cn.northpark.test;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +10,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.VpsManager;
+import cn.northpark.model.Soft;
+import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.utils.TimeUtils;
 
 /**
  * @author zhangyang
@@ -75,22 +78,22 @@ public class TestEQTask {
     	//=========================================================新url的sitemap===========================================================================================
 
     	 //添加新url的sitemap
-//		StringBuilder sb = new StringBuilder();
-//		List<Map<String, Object>> list = softManager.querySqlMap(" select retcode from bc_soft where id > 517119 order by id desc ");
-//		for(Map<String, Object> map :list){
-//			String retcode = (String) map.get("retcode");
-//			sb.append("<url>");
-//			sb.append("<loc>https://northpark.cn/soft/");
-//			sb.append(retcode+".html</loc>");
-//			sb.append("</url>");
-//		}
-//		
-//		try {
-//			org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\newsoft.xml"), sb.toString());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		StringBuilder sb = new StringBuilder();
+		List<Map<String, Object>> list = softManager.querySqlMap(" select retcode from bc_soft where id > 517139 order by id desc ");
+		for(Map<String, Object> map :list){
+			String retcode = (String) map.get("retcode");
+			sb.append("<url>");
+			sb.append("<loc>https://northpark.cn/soft/");
+			sb.append(retcode+".html</loc>");
+			sb.append("</url>");
+		}
+		
+		try {
+			org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\newsoft.xml"), sb.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		//电影的网站地图
@@ -113,22 +116,22 @@ public class TestEQTask {
     	
     	
     	//情圣的网站地图
-		StringBuilder sb = new StringBuilder();
-		List<Map<String, Object>> list = softManager.querySqlMap(" select id from bc_eq where 1=1 order by id desc ");
-		for(Map<String, Object> map :list){
-			Object retcode = (Object) map.get("id");
-			sb.append("<url>");
-			sb.append("<loc>https://northpark.cn/romeo/");
-			sb.append(retcode+".html</loc>");
-			sb.append("</url>");
-		}
-		
-		try {
-			org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\eq-sitemap.xml"), sb.toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		StringBuilder sb = new StringBuilder();
+//		List<Map<String, Object>> list = softManager.querySqlMap(" select id from bc_eq where 1=1 order by id desc ");
+//		for(Map<String, Object> map :list){
+//			Object retcode = (Object) map.get("id");
+//			sb.append("<url>");
+//			sb.append("<loc>https://northpark.cn/romeo/");
+//			sb.append(retcode+".html</loc>");
+//			sb.append("</url>");
+//		}
+//		
+//		try {
+//			org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\eq-sitemap.xml"), sb.toString());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
     	//把下载链接放到path字段去==============================start==================================================================
 //    	try {
 //				   List<Soft> lst100 = softManager.querySql(" select * from bc_soft where path is  null  ");

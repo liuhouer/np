@@ -16,7 +16,6 @@
     <meta name="robots" content="index,follow,archive">
     <link rel="shortcut icon" href="/img/favicon.ico">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-    <%@ include file="/WEB-INF/views/page/common/ad.jsp" %>
     <c:if test="${page==null || page==''}">
         <title>优惠VPS，国外服务器，国外主机，测评及优惠码 | NorthPark</title>
     </c:if>
@@ -155,7 +154,8 @@
     //禁止图片拉伸
     $(function () {
         $("img").each(function () {
-            $(this).css('max-width', ($(".bg-white").width() * 0.618));
+            $(this).css('max-width', ($(".bg-white").width() ));
+            $(this).css('padding-right', 20%);
         })
 
         //搜索

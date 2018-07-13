@@ -22,7 +22,6 @@
           content="NorthPark情商提升的技巧和讲解">
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-    <%@ include file="/WEB-INF/views/page/common/ad.jsp" %>
 
 </head>
 
@@ -159,7 +158,9 @@
 
     $(function () {
         $("img").each(function () {
-            $(this).css('max-width', ($(".bg-white").width() * 0.618));
+            $(this).css('max-width', ($(".bg-white").width()));
+            $(this).css('padding-right', 20%);
+            
         })
 
     })

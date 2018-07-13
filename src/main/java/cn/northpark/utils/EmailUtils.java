@@ -191,8 +191,16 @@ public class EmailUtils {
     public static void main(String[] args) {
 
         List<String> list = new ArrayList<String>();
-        list.add("qhdsoft@yeah.net");
-        list.add("870300572@qq.com");
+//        list.add("119207145@qq.com");
+//        list.add("102757503@qq.com");
+//        list.add("1989866937@qq.com");
+//        list.add("404250426@qq.com");
+        list.add("1297115491@qq.com");
+//        list.add("optrips@gmail.com");
+//        list.add("1143991340@qq.com");
+//        list.add("2985075841@qq.com");
+//        list.add("1401518328@qq.com");
+        
 //		list.add("2572684952@qq.com");
 //		list.add("goooob@126.com");
 //		list.add("843664866@qq.com");

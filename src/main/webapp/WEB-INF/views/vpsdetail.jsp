@@ -20,7 +20,6 @@
     <meta name="description"
           content="${article.brief}">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-	<%@ include file="/WEB-INF/views/page/common/ad.jsp" %>
 
 </head>
 
@@ -156,6 +155,7 @@
     $(function () {
         $("img").each(function () {
             $(this).css('max-width', ($("#J_white_div").width()));
+            $(this).css('padding-right', 20%);
         })
 
     })
