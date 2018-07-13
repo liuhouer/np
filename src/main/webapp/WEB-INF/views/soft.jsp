@@ -216,7 +216,6 @@
     $(function () {
         $("img").each(function () {
             $(this).css('max-width', $(".bg-white").width());
-            $(this).css('padding-right', 20%);
         })
 
         //搜索
