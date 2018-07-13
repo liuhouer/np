@@ -1,10 +1,14 @@
 package cn.northpark.test;
 
-import java.io.File;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +20,7 @@ import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.VpsManager;
-import cn.northpark.model.Soft;
-import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.TimeUtils;
+import cn.northpark.model.Movies;
 
 /**
  * @author zhangyang
@@ -78,22 +80,22 @@ public class TestEQTask {
     	//=========================================================新url的sitemap===========================================================================================
 
     	 //添加新url的sitemap
-		StringBuilder sb = new StringBuilder();
-		List<Map<String, Object>> list = softManager.querySqlMap(" select retcode from bc_soft where id > 517139 order by id desc ");
-		for(Map<String, Object> map :list){
-			String retcode = (String) map.get("retcode");
-			sb.append("<url>");
-			sb.append("<loc>https://northpark.cn/soft/");
-			sb.append(retcode+".html</loc>");
-			sb.append("</url>");
-		}
-		
-		try {
-			org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\newsoft.xml"), sb.toString());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		StringBuilder sb = new StringBuilder();
+//		List<Map<String, Object>> list = softManager.querySqlMap(" select retcode from bc_soft where id > 517139 order by id desc ");
+//		for(Map<String, Object> map :list){
+//			String retcode = (String) map.get("retcode");
+//			sb.append("<url>");
+//			sb.append("<loc>https://northpark.cn/soft/");
+//			sb.append(retcode+".html</loc>");
+//			sb.append("</url>");
+//		}
+//		
+//		try {
+//			org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\newsoft.xml"), sb.toString());
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		
 		//电影的网站地图
@@ -132,6 +134,119 @@ public class TestEQTask {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+    	
+    	//电影==把下载链接放到path字段去==============================start==================================================================
+    	try {
+    			   int countHql = moviesManager.countHql(" where path is  null ");
+    			   int pageCount = countHql / 1000 + 1;
+    			   for(int i = 0;i<pageCount;i++) {
+    				   List<Movies> lst100 = moviesManager.querySqlEntity(" select * from bc_movies where path = '' order by id desc limit "+i*1000+",1000");
+    				   //按照分页更新数据
+    				   for (Movies m:lst100) {
+    					  String content = m.getDescription();
+    					  Document parse = Jsoup.parse(content);
+    					  
+    					  //删除打赏和微信二维码信息
+    					  Element praise = parse.getElementById("gave");
+    					  if(praise!=null) {
+    						  if(praise.html().contains("打赏")) {
+    							  praise.remove();
+    						  }
+    					  }
+    					  
+    					  Element wechat = parse.getElementById("wechatCode");
+						  if(wechat!=null) wechat.remove();
+    					  
+    					  
+    					  Elements h2 = parse.select("h2");
+    					  String path = "";
+    					  
+    					  if(!CollectionUtils.isEmpty(h2)) {
+    						  StringBuilder sb = new StringBuilder();
+    						  for (Iterator iterator = h2.iterator(); iterator.hasNext();) {
+    							  Element h2_download = (Element) iterator.next();
+    							  if(h2_download.toString().contains("百度网盘")||h2_download.toString().contains("网盘")
+    									  ||h2_download.toString().contains("迅雷")||h2_download.toString().contains("密码")
+    									  ||h2_download.toString().contains("下载")||h2_download.toString().contains("视频")
+    									  ||h2_download.toString().contains("百度云")||h2_download.toString().contains("链接")
+    									  ||h2_download.toString().contains("季")||h2_download.toString().contains("pan.baidu.com")
+    									  ||h2_download.toString().contains("download")
+    									  ) {
+
+    								  sb.append(h2_download.toString());
+    								  h2_download.remove();
+
+    							  }
+    						  }
+    						  
+    						  path = sb.toString();
+    					  }
+    					  
+    					  //如果h2找不到下载地址，就去a连接查找下载地址，删除后，设置到path
+    					  if(StringUtils.isEmpty(path)) {
+    						  StringBuilder sb = new StringBuilder();
+    						  Elements links = parse.select("a");
+    						  if(!CollectionUtils.isEmpty(links)) {
+    							  for (Iterator iterator = links.iterator(); iterator.hasNext();) {
+									Element link = (Element) iterator.next();
+									if(link.toString().contains("百度网盘")||link.toString().contains("网盘")||
+											link.toString().contains("迅雷")||link.toString().contains("密码")||
+											link.toString().contains("下载")||link.toString().contains("视频")||
+											link.toString().contains("百度云")
+											||link.toString().contains("magnet:")
+											||link.toString().contains("ed2k:")||link.toString().contains("链接")
+	    									  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
+	    									  ||link.toString().contains("download")) {
+										sb.append(link.toString());
+										link.remove();
+										
+									}
+									
+								}
+    						  }
+    						  
+    						  path = sb.toString();
+    					  }
+    					  
+    					  //如果a找不到下载地址，就去p磁力链查找下载地址，删除后，设置到path
+    					  if(StringUtils.isEmpty(path)) {
+    						  StringBuilder sb = new StringBuilder();
+    						  Elements ps = parse.select("p");
+    						  if(!CollectionUtils.isEmpty(ps)) {
+    							  for (Iterator iterator = ps.iterator(); iterator.hasNext();) {
+									Element link = (Element) iterator.next();
+									if(link.toString().contains("百度网盘")||link.toString().contains("网盘")||
+											link.toString().contains("迅雷")||link.toString().contains("密码")||
+											link.toString().contains("下载")||link.toString().contains("视频")||
+											link.toString().contains("百度云")
+											||link.toString().contains("magnet:")
+											||link.toString().contains("ed2k:")||link.toString().contains("链接")
+	    									  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
+	    									  ||link.toString().contains("download")) {
+										sb.append(link.toString());
+										link.remove();
+									}
+								}
+    						  }
+    						  
+    						  path = sb.toString();
+    					  }
+    					  
+    					  //设值下载地址
+    					  m.setPath(path);
+    					  m.setDescription(parse.toString());
+    					  moviesManager.updateMovies(m);
+    					  
+    				  }
+    			   }
+				   
+				   
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+    	//电影==把下载链接放到path字段去=====================================end===========================================================
+    	
     	//把下载链接放到path字段去==============================start==================================================================
 //    	try {
 //				   List<Soft> lst100 = softManager.querySql(" select * from bc_soft where path is  null  ");
