@@ -166,10 +166,12 @@ public class Base64Util {
     //解密机制  base64解密 除去000000
     public static void main(String[] args) throws UnsupportedEncodingException {
         //		 LOGGER.info(bs.JIAMI("bruce134"));
-        String s = "zhangyang226";
-        LOGGER.info("加密前：" + s);
-        LOGGER.info("加密后：" + JIAMI(s));
-        LOGGER.info("解密后：" + JIEMI(JIAMI(s)));
+//        String s = "zhangyang226";
+//        LOGGER.info("加密前：" + s);
+//        LOGGER.info("加密后：" + JIAMI(s));
+//        LOGGER.info("解密后：" + JIEMI(JIAMI(s)));
+        
+        LOGGER.info(JIEMI("em91Z3VvMTk5ODAwMDAwMA=="));
 
     }
 }
