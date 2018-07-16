@@ -9,6 +9,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -1638,6 +1639,8 @@ public class HTMLParserUtil {
                     String title = divs.get(0).select("a").get(0).attr("title");
 
                     String retcode = MD5Utils.encoding(title);
+                    
+                    String path = "";
 
 
                     //判断code在系统不存在再去处理后面的事
@@ -1742,6 +1745,96 @@ public class HTMLParserUtil {
                             desc += article_alls.get(0).html();
 
                             desc = desc.replaceAll("<!-- 社会化分享按钮 来自 WordPress连接微博 插件 -->", "");
+                            
+                            
+                          //========================解析路径start======================================
+                          //删除打赏和微信二维码信息
+      					  Element praise = article_alls.get(0).getElementById("gave");
+      					  if(praise!=null) {
+      						  if(praise.html().contains("打赏")) {
+      							  praise.remove();
+      						  }
+      					  }
+      					  
+      					  Element wechat = article_alls.get(0).getElementById("wechatCode");
+  						  if(wechat!=null) wechat.remove();
+      					  
+      					  
+      					  Elements h2 = article_alls.get(0).select("h2");
+      					  
+      					  
+      					  if(!CollectionUtils.isEmpty(h2)) {
+      						  StringBuilder sb = new StringBuilder();
+      						  for (Iterator iterator = h2.iterator(); iterator.hasNext();) {
+      							  Element h2_download = (Element) iterator.next();
+      							  if(h2_download.toString().contains("百度网盘")||h2_download.toString().contains("网盘")
+      									  ||h2_download.toString().contains("迅雷")||h2_download.toString().contains("密码")
+      									  ||h2_download.toString().contains("下载")||h2_download.toString().contains("视频")
+      									  ||h2_download.toString().contains("百度云")||h2_download.toString().contains("链接")
+      									  ||h2_download.toString().contains("季")||h2_download.toString().contains("pan.baidu.com")
+      									  ||h2_download.toString().contains("download")
+      									  ) {
+
+      								  sb.append(h2_download.toString());
+      								  h2_download.remove();
+
+      							  }
+      						  }
+      						  
+      						  path = sb.toString();
+      					  }
+      					  
+      					  //如果h2找不到下载地址，就去a连接查找下载地址，删除后，设置到path
+      					  if(StringUtils.isEmpty(path)) {
+      						  StringBuilder sb = new StringBuilder();
+      						  Elements links = article_alls.get(0).select("a");
+      						  if(!CollectionUtils.isEmpty(links)) {
+      							  for (Iterator iterator = links.iterator(); iterator.hasNext();) {
+  									Element link = (Element) iterator.next();
+  									if(link.toString().contains("百度网盘")||link.toString().contains("网盘")||
+  											link.toString().contains("迅雷")||link.toString().contains("密码")||
+  											link.toString().contains("下载")||link.toString().contains("视频")||
+  											link.toString().contains("百度云")
+  											||link.toString().contains("magnet:")
+  											||link.toString().contains("ed2k:")||link.toString().contains("链接")
+  	    									  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
+  	    									  ||link.toString().contains("download")) {
+  										sb.append(link.toString());
+  										link.remove();
+  										
+  									}
+  									
+  								}
+      						  }
+      						  
+      						  path = sb.toString();
+      					  }
+      					  
+      					  //如果a找不到下载地址，就去p磁力链查找下载地址，删除后，设置到path
+      					  if(StringUtils.isEmpty(path)) {
+      						  StringBuilder sb = new StringBuilder();
+      						  Elements ps = article_alls.get(0).select("p");
+      						  if(!CollectionUtils.isEmpty(ps)) {
+      							  for (Iterator iterator = ps.iterator(); iterator.hasNext();) {
+  									Element link = (Element) iterator.next();
+  									if(link.toString().contains("百度网盘")||link.toString().contains("网盘")||
+  											link.toString().contains("迅雷")||link.toString().contains("密码")||
+  											link.toString().contains("下载")||link.toString().contains("视频")||
+  											link.toString().contains("百度云")
+  											||link.toString().contains("magnet:")
+  											||link.toString().contains("ed2k:")||link.toString().contains("链接")
+  	    									  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
+  	    									  ||link.toString().contains("download")) {
+  										sb.append(link.toString());
+  										link.remove();
+  									}
+  								}
+      						  }
+      						  path = sb.toString();
+      					  }
+      						  
+      						  //========================解析路径====================================== 
+      						  
                             LOGGER.info("desc==============>" + desc);
                         }
 
@@ -1752,6 +1845,7 @@ public class HTMLParserUtil {
                         map.put("retcode", retcode);
                         map.put("tag", tag);
                         map.put("tagcode", tagcode);
+                        map.put("path",path);
                         list.add(map);
                     }
 
