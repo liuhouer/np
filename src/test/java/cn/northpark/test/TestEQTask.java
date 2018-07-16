@@ -2,6 +2,7 @@ package cn.northpark.test;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -21,6 +22,9 @@ import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.VpsManager;
 import cn.northpark.model.Movies;
+import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.utils.PinyinUtil;
+import cn.northpark.utils.TimeUtils;
 
 /**
  * @author zhangyang
@@ -513,89 +517,89 @@ public class TestEQTask {
       	//=========================================================电影===========================================================================================
         //TODO ..爬虫电影代码
 
-//				try {
-//				
-//				LOGGER.info("爬虫电影代码 开始==============start="+TimeUtils.getNowTime());
-//				Map<String,String> map = null;
-//					
-//				
-//				
-//				for (int k = 1; k <=10; k++) {
-//					try {
-//						
-//						List<Map<String, String>> list = HTMLParserUtil.retMovies(k,"http://m.vip588660.com/category/movie/page/");
-//						
-//						
-//						if(!CollectionUtils.isEmpty(list)){
-//							for (int i = 0; i < list.size(); i++) {
-//								try {
-//									map  = list.get(i);
-//									
-//									String title = map.get("title");
-////									String aurl = map.get("aurl");
-//									String date = map.get("date");
-//									String article = map.get("article");
-//								    String retcode = map.get("retcode");
-//								    String tag = map.get("tag");
-//								    String tagcode = map.get("tagcode");
-//									
-//
-//									//是不存在的电影
-//									int flag = moviesManager.countHql( " where o.retcode= '"+retcode+"' ");
-//									
-//									if(flag<=0){
-//										
-//
-//										Movies model = new Movies();
-//										model.setMoviename(title);
-//										model.setAddtime(date);
-//										model.setDescription(article);
-//										model.setPath("");
-//										model.setPrice(1);
-//										model.setRetcode(retcode);
-//										model.setTag(tag);
-//										model.setTagcode(tagcode);
-//										model.setViewnum(HTMLParserUtil.geneViewNum());
-//										model.setColor(PinyinUtil.getFanyi1(title.trim()));
-//										moviesManager.addMovies(model);
-//									}
-//								} catch (Exception e) {
-//									// TODO: handle exception
-//									continue;
-//								}
-//								
-//							}
-//						}
-//					} catch (Exception e) {
-//						// TODO: handle exception
-//						continue;
-//					}
-//					
-//					
-//					try {
-//					    Thread.sleep(1000*5);
-//					    LOGGER.info("第"+k+"页================");
-//					} catch (InterruptedException e) {
-//					    // TODO Auo-generated catch block
-//					    e.printStackTrace();
-//					}
-//				}
-//				
-//				
-//				
-//				//重复记录每个只保留一条
-//				
-//				String delmovie_sql = "DELETE FROM bc_movies "
-//						+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count "
-//						+ "FROM bc_movies GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
-//				
-//				EqManager.executeSql(delmovie_sql);
-//				
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//			}
-//			
-//				LOGGER.info("爬虫电影代码==============结束="+TimeUtils.getNowTime());
+				try {
+				
+				LOGGER.info("爬虫电影代码 开始==============start="+TimeUtils.getNowTime());
+				Map<String,String> map = null;
+					
+				
+				
+				for (int k = 1; k <=10; k++) {
+					try {
+						
+						List<Map<String, String>> list = HTMLParserUtil.retMovies(k,"http://m.vip588660.com/category/movie/page/");
+						
+						
+						if(!CollectionUtils.isEmpty(list)){
+							for (int i = 0; i < list.size(); i++) {
+								try {
+									map  = list.get(i);
+									
+									String title = map.get("title");
+//									String aurl = map.get("aurl");
+									String date = map.get("date");
+									String article = map.get("article");
+								    String retcode = map.get("retcode");
+								    String tag = map.get("tag");
+								    String tagcode = map.get("tagcode");
+								    String path = map.get("path");
+
+									//是不存在的电影
+									int flag = moviesManager.countHql( " where o.retcode= '"+retcode+"' ");
+									
+									if(flag<=0){
+										
+
+										Movies model = new Movies();
+										model.setMoviename(title);
+										model.setAddtime(date);
+										model.setDescription(article);
+										model.setPrice(1);
+										model.setRetcode(retcode);
+										model.setTag(tag);
+										model.setTagcode(tagcode);
+										model.setViewnum(HTMLParserUtil.geneViewNum());
+										model.setColor(PinyinUtil.getFanyi1(title.trim()));
+										model.setPath(path);
+										moviesManager.addMovies(model);
+									}
+								} catch (Exception e) {
+									// TODO: handle exception
+									continue;
+								}
+								
+							}
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						continue;
+					}
+					
+					
+					try {
+					    Thread.sleep(1000*5);
+					    LOGGER.info("第"+k+"页================");
+					} catch (InterruptedException e) {
+					    // TODO Auo-generated catch block
+					    e.printStackTrace();
+					}
+				}
+				
+				
+				
+				//重复记录每个只保留一条
+				
+				String delmovie_sql = "DELETE FROM bc_movies "
+						+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count "
+						+ "FROM bc_movies GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
+				
+				EqManager.executeSql(delmovie_sql);
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+				LOGGER.info("爬虫电影代码==============结束="+TimeUtils.getNowTime());
 
 
         //TODO ..爬虫电影代码
