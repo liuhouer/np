@@ -202,9 +202,9 @@ public class EQTask {
 
             
             //重复记录每个只保留一条
-			String delmovie_sql = "DELETE FROM bc_movies "
-					+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count "
-					+ "FROM bc_movies GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
+            String delmovie_sql = "DELETE FROM bc_movies "
+					+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(moviename) AS count "
+					+ "FROM bc_movies GROUP BY moviename HAVING count > 1 ORDER BY count DESC ) AS tab )";
 			
 			vpsManager.executeSql(delmovie_sql); 
 

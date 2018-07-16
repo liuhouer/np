@@ -69,6 +69,7 @@
                                         ${model.description }
                                 </p>
                                 
+                                <c:if test="${model.path!=null && model.path!=''}">
                                 <p class="col-md-12" >
 									<div class="dashed left  col-md-10">
 										
@@ -80,6 +81,7 @@
 										</c:if>
 									</div>
 							    </p>
+							    </c:if>
 
                                 <div class="clearfix visible-xs">
                                     <hr>

@@ -174,7 +174,7 @@ public class TestEQTask {
     									  ||h2_download.toString().contains("下载")||h2_download.toString().contains("视频")
     									  ||h2_download.toString().contains("百度云")||h2_download.toString().contains("链接")
     									  ||h2_download.toString().contains("季")||h2_download.toString().contains("pan.baidu.com")
-    									  ||h2_download.toString().contains("download")
+    									  ||h2_download.toString().contains("download")||h2_download.toString().contains("在线地址")
     									  ) {
 
     								  sb.append(h2_download.toString());
@@ -200,7 +200,7 @@ public class TestEQTask {
 											||link.toString().contains("magnet:")
 											||link.toString().contains("ed2k:")||link.toString().contains("链接")
 	    									  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
-	    									  ||link.toString().contains("download")) {
+	    									  ||link.toString().contains("download")||link.toString().contains("在线地址")) {
 										sb.append(link.toString());
 										link.remove();
 										
@@ -226,7 +226,7 @@ public class TestEQTask {
 											||link.toString().contains("magnet:")
 											||link.toString().contains("ed2k:")||link.toString().contains("链接")
 	    									  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
-	    									  ||link.toString().contains("download")) {
+	    									  ||link.toString().contains("download")||link.toString().contains("在线地址")) {
 										sb.append(link.toString());
 										link.remove();
 									}
@@ -517,89 +517,89 @@ public class TestEQTask {
       	//=========================================================电影===========================================================================================
         //TODO ..爬虫电影代码
 
-				try {
-				
-				LOGGER.info("爬虫电影代码 开始==============start="+TimeUtils.getNowTime());
-				Map<String,String> map = null;
-					
-				
-				
-				for (int k = 1; k <=10; k++) {
-					try {
-						
-						List<Map<String, String>> list = HTMLParserUtil.retMovies(k,"http://m.vip588660.com/category/movie/page/");
-						
-						
-						if(!CollectionUtils.isEmpty(list)){
-							for (int i = 0; i < list.size(); i++) {
-								try {
-									map  = list.get(i);
-									
-									String title = map.get("title");
-//									String aurl = map.get("aurl");
-									String date = map.get("date");
-									String article = map.get("article");
-								    String retcode = map.get("retcode");
-								    String tag = map.get("tag");
-								    String tagcode = map.get("tagcode");
-								    String path = map.get("path");
-
-									//是不存在的电影
-									int flag = moviesManager.countHql( " where o.retcode= '"+retcode+"' ");
-									
-									if(flag<=0){
-										
-
-										Movies model = new Movies();
-										model.setMoviename(title);
-										model.setAddtime(date);
-										model.setDescription(article);
-										model.setPrice(1);
-										model.setRetcode(retcode);
-										model.setTag(tag);
-										model.setTagcode(tagcode);
-										model.setViewnum(HTMLParserUtil.geneViewNum());
-										model.setColor(PinyinUtil.getFanyi1(title.trim()));
-										model.setPath(path);
-										moviesManager.addMovies(model);
-									}
-								} catch (Exception e) {
-									// TODO: handle exception
-									continue;
-								}
-								
-							}
-						}
-					} catch (Exception e) {
-						// TODO: handle exception
-						continue;
-					}
-					
-					
-					try {
-					    Thread.sleep(1000*5);
-					    LOGGER.info("第"+k+"页================");
-					} catch (InterruptedException e) {
-					    // TODO Auo-generated catch block
-					    e.printStackTrace();
-					}
-				}
-				
-				
-				
-				//重复记录每个只保留一条
-				
-				String delmovie_sql = "DELETE FROM bc_movies "
-						+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(retcode) AS count "
-						+ "FROM bc_movies GROUP BY retcode HAVING count > 1 ORDER BY count DESC ) AS tab )";
-				
-				EqManager.executeSql(delmovie_sql);
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			
-				LOGGER.info("爬虫电影代码==============结束="+TimeUtils.getNowTime());
+//				try {
+//				
+//				LOGGER.info("爬虫电影代码 开始==============start="+TimeUtils.getNowTime());
+//				Map<String,String> map = null;
+//					
+//				
+//				
+//				for (int k = 1; k <=10; k++) {
+//					try {
+//						
+//						List<Map<String, String>> list = HTMLParserUtil.retMovies(k,"http://m.vip588660.com/category/movie/page/");
+//						
+//						
+//						if(!CollectionUtils.isEmpty(list)){
+//							for (int i = 0; i < list.size(); i++) {
+//								try {
+//									map  = list.get(i);
+//									
+//									String title = map.get("title");
+////									String aurl = map.get("aurl");
+//									String date = map.get("date");
+//									String article = map.get("article");
+//								    String retcode = map.get("retcode");
+//								    String tag = map.get("tag");
+//								    String tagcode = map.get("tagcode");
+//								    String path = map.get("path");
+//
+//									//是不存在的电影
+//									int flag = moviesManager.countHql( " where o.retcode= '"+retcode+"' ");
+//									
+//									if(flag<=0){
+//										
+//
+//										Movies model = new Movies();
+//										model.setMoviename(title);
+//										model.setAddtime(date);
+//										model.setDescription(article);
+//										model.setPrice(1);
+//										model.setRetcode(retcode);
+//										model.setTag(tag);
+//										model.setTagcode(tagcode);
+//										model.setViewnum(HTMLParserUtil.geneViewNum());
+//										model.setColor(PinyinUtil.getFanyi1(title.trim()));
+//										model.setPath(path);
+//										moviesManager.addMovies(model);
+//									}
+//								} catch (Exception e) {
+//									// TODO: handle exception
+//									continue;
+//								}
+//								
+//							}
+//						}
+//					} catch (Exception e) {
+//						// TODO: handle exception
+//						continue;
+//					}
+//					
+//					
+//					try {
+//					    Thread.sleep(1000*5);
+//					    LOGGER.info("第"+k+"页================");
+//					} catch (InterruptedException e) {
+//					    // TODO Auo-generated catch block
+//					    e.printStackTrace();
+//					}
+//				}
+//				
+//				
+//				
+//				//重复记录每个只保留一条
+//				
+//				String delmovie_sql = "DELETE FROM bc_movies "
+//						+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(moviename) AS count "
+//						+ "FROM bc_movies GROUP BY moviename HAVING count > 1 ORDER BY count DESC ) AS tab )";
+//				
+//				EqManager.executeSql(delmovie_sql);
+//				
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//			}
+//			
+//				LOGGER.info("爬虫电影代码==============结束="+TimeUtils.getNowTime());
 
 
         //TODO ..爬虫电影代码
