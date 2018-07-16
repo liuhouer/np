@@ -86,7 +86,7 @@
 
                                     <p>
 
-                                        发表于：<span class=" glyphicon glyphicon-time margin10"></span><span
+                                        	发表于：<span class=" glyphicon glyphicon-time margin10"></span><span
                                             class="common-a-right" title="${s.addtime}"
                                             href="/movies/date/${s.addtime}">${s.addtime}</span>
 
@@ -112,17 +112,14 @@
 
                                             ${s.description }
                                     </p>
+                                    
+                                    <p>
+                                        <a class="btn btn-warning margin-t10" href="/movies/post-${s.id}.html">
+                                            Read More
+                                            <span class="glyphicon  glyphicon-circle-arrow-right padding5"></span>
+                                        </a>
+                                    </p>
 
-                                    <c:if test="${s.path!=null && s.path!=''}">
-                                        <p>
-                                            <small class="label red-text">下载地址
-                                        <p>
-                                            <small class="red-text">${s.path}</small>
-                                        </p>
-                                        </small>
-                                        </p> &nbsp;
-
-                                    </c:if>
                                 </div>
                             </div>
                         </div>
