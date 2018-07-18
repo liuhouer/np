@@ -1742,9 +1742,7 @@ public class HTMLParserUtil {
                             article_alls.get(0).select("#minevideo-css").remove();
                             article_alls.get(0).select("script").remove();
 
-                            desc += article_alls.get(0).html();
-
-                            desc = desc.replaceAll("<!-- 社会化分享按钮 来自 WordPress连接微博 插件 -->", "");
+                           
                             
                             
                           //========================解析路径start======================================
@@ -1760,82 +1758,54 @@ public class HTMLParserUtil {
   						  if(wechat!=null) wechat.remove();
       					  
       					  
+  						  StringBuilder sb = new StringBuilder();
+  						  
+  						  //处理h2
       					  Elements h2 = article_alls.get(0).select("h2");
       					  
       					  
       					  if(!CollectionUtils.isEmpty(h2)) {
-      						  StringBuilder sb = new StringBuilder();
       						  for (Iterator iterator = h2.iterator(); iterator.hasNext();) {
-      							  Element h2_download = (Element) iterator.next();
-      							  if(h2_download.toString().contains("百度网盘")||h2_download.toString().contains("网盘")
-      									  ||h2_download.toString().contains("迅雷")||h2_download.toString().contains("密码")
-      									  ||h2_download.toString().contains("下载")||h2_download.toString().contains("视频")
-      									  ||h2_download.toString().contains("百度云")||h2_download.toString().contains("链接")
-      									  ||h2_download.toString().contains("季")||h2_download.toString().contains("pan.baidu.com")
-      									  ||h2_download.toString().contains("download")
-      									  ) {
-
-      								  sb.append(h2_download.toString());
-      								  h2_download.remove();
-
-      							  }
+      							  Element link = (Element) iterator.next();
+      							  //把iterater里面的元素连接提取到path中
+      							  handleLink(sb, link, "h2");
       						  }
       						  
-      						  path = sb.toString();
+      						  
       					  }
       					  
-      					  //如果h2找不到下载地址，就去a连接查找下载地址，删除后，设置到path
-      					  if(StringUtils.isEmpty(path)) {
-      						  StringBuilder sb = new StringBuilder();
-      						  Elements links = article_alls.get(0).select("a");
-      						  if(!CollectionUtils.isEmpty(links)) {
-      							  for (Iterator iterator = links.iterator(); iterator.hasNext();) {
-  									Element link = (Element) iterator.next();
-  									if(link.toString().contains("百度网盘")||link.toString().contains("网盘")||
-  											link.toString().contains("迅雷")||link.toString().contains("密码")||
-  											link.toString().contains("下载")||link.toString().contains("视频")||
-  											link.toString().contains("百度云")
-  											||link.toString().contains("magnet:")
-  											||link.toString().contains("ed2k:")||link.toString().contains("链接")
-  	    									  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
-  	    									  ||link.toString().contains("download")) {
-  										sb.append(link.toString());
-  										link.remove();
-  										
-  									}
-  									
-  								}
+      					  //处理a连接，就去a连接查找下载地址，删除后，设置到path
+      					  Elements links = article_alls.get(0).select("a");
+      					  if(!CollectionUtils.isEmpty(links)) {
+      						  for (Iterator iterator = links.iterator(); iterator.hasNext();) {
+      							  Element link = (Element) iterator.next();
+      							  //把iterater里面的元素连接提取到path中
+      							  handleLink(sb, link ,"a");
+      							  
       						  }
-      						  
-      						  path = sb.toString();
       					  }
       					  
-      					  //如果a找不到下载地址，就去p磁力链查找下载地址，删除后，设置到path
-      					  if(StringUtils.isEmpty(path)) {
-      						  StringBuilder sb = new StringBuilder();
-      						  Elements ps = article_alls.get(0).select("p");
-      						  if(!CollectionUtils.isEmpty(ps)) {
-      							  for (Iterator iterator = ps.iterator(); iterator.hasNext();) {
-  									Element link = (Element) iterator.next();
-  									if(link.toString().contains("百度网盘")||link.toString().contains("网盘")||
-  											link.toString().contains("迅雷")||link.toString().contains("密码")||
-  											link.toString().contains("下载")||link.toString().contains("视频")||
-  											link.toString().contains("百度云")
-  											||link.toString().contains("magnet:")
-  											||link.toString().contains("ed2k:")||link.toString().contains("链接")
-  	    									  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
-  	    									  ||link.toString().contains("download")) {
-  										sb.append(link.toString());
-  										link.remove();
-  									}
-  								}
+      					  
+      					  
+      					  //处理p中的连接，就去p磁力链查找下载地址，删除后，设置到path
+      					  Elements ps = article_alls.get(0).select("p");
+      					  if(!CollectionUtils.isEmpty(ps)) {
+      						  for (Iterator iterator = ps.iterator(); iterator.hasNext();) {
+      							  Element link = (Element) iterator.next();
+      							  //把iterater里面的元素连接提取到path中
+      							  handleLink(sb, link , "p");
       						  }
-      						  path = sb.toString();
       					  }
       						  
-      						  //========================解析路径====================================== 
+      					  path = sb.toString();
+
+      					  //========================解析路径====================================== 
+      					  
+      					 desc += article_alls.get(0).html();
+
+                         desc = desc.replaceAll("<!-- 社会化分享按钮 来自 WordPress连接微博 插件 -->", "");
       						  
-                            LOGGER.info("desc==============>" + desc);
+                         LOGGER.info("desc==============>" + desc);
                         }
 
                         map.put("title", title);
@@ -1856,11 +1826,61 @@ public class HTMLParserUtil {
 
         } catch (Exception e) {
             LOGGER.error("HTMLPARSERutils------->", e);
-            ;
         }
 
         return list;
     }
+
+	/**
+	 * 把iterater里面的元素连接提取到path中
+	 * @param sb
+	 * @param link
+	 */
+	public static void handleLink(StringBuilder sb, Element link ,String type) {
+		
+		if(type.equals("a")) {
+			if(link.toString().contains("百度网盘")||link.toString().contains("网盘")
+					  ||link.toString().contains("迅雷")||link.toString().contains("密码")
+					  ||link.toString().contains("下载")||link.toString().contains("视频")
+					  ||link.toString().contains("百度云")||link.toString().contains("链接")
+					  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
+					  ||link.toString().contains("download")||link.toString().contains("在线地址")||link.toString().contains("ed2k")||link.toString().contains("magnet")
+					  ) {
+
+				  sb.append(link.toString());
+				  link.remove();
+
+			  }
+		}else if(type.equals("p")) {
+			if(link.toString().contains("百度网盘")||link.toString().contains("网盘")
+					  ||link.toString().contains("迅雷")||link.toString().contains("密码")
+					  ||link.toString().contains("下载")||link.toString().contains("视频")
+					  ||link.toString().contains("百度云")
+					  ||link.toString().contains("pan.baidu.com")
+					  ||link.toString().contains("download")||link.toString().contains("在线地址")||link.toString().contains("ed2k")||link.toString().contains("magnet")
+					  ) {
+
+				  sb.append(link.toString());
+				  link.remove();
+
+			  }
+		}else if(type.equals("h2")) {
+			if(link.toString().contains("百度网盘")||link.toString().contains("网盘")
+					  ||link.toString().contains("迅雷")||link.toString().contains("密码")
+					  ||link.toString().contains("下载")||link.toString().contains("视频")
+					  ||link.toString().contains("百度云")
+					  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
+					  ||link.toString().contains("download")||link.toString().contains("在线地址")||link.toString().contains("ed2k")||link.toString().contains("magnet")
+					  ) {
+
+				  sb.append(link.toString());
+				  link.remove();
+
+			  }
+		}
+		
+		
+	}
 
 
     /**

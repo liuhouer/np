@@ -153,7 +153,7 @@
 <script type="text/javascript">
     //禁止图片拉伸
     $(function () {
-        $("img").each(function () {
+    	$(".bg-white").find("img").each(function () {
             $(this).css('max-width', ($("#J_white_div").width()));
             $(this).css('padding-right', '20%');
         })

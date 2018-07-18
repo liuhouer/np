@@ -193,7 +193,7 @@
 <script type="text/javascript">
 
     $(function () {
-        $("img").each(function () {
+    	$(".bg-white").find("img").each(function () {
             $(this).css('max-width', ($(".bg-white").width() ));
             $(this).css('padding-right', '20%');
         })

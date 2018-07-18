@@ -1,15 +1,9 @@
 package cn.northpark.test;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,115 +134,83 @@ public class TestEQTask {
 //		}
     	
     	//电影==把下载链接放到path字段去==============================start==================================================================
-    	try {
-    			   int countHql = moviesManager.countHql(" where path is  null ");
-    			   int pageCount = countHql / 1000 + 1;
-    			   for(int i = 0;i<pageCount;i++) {
-    				   List<Movies> lst100 = moviesManager.querySqlEntity(" select * from bc_movies where path = '' order by id desc limit "+i*1000+",1000");
-    				   //按照分页更新数据
-    				   for (Movies m:lst100) {
-    					  String content = m.getDescription();
-    					  Document parse = Jsoup.parse(content);
-    					  
-    					  //删除打赏和微信二维码信息
-    					  Element praise = parse.getElementById("gave");
-    					  if(praise!=null) {
-    						  if(praise.html().contains("打赏")) {
-    							  praise.remove();
-    						  }
-    					  }
-    					  
-    					  Element wechat = parse.getElementById("wechatCode");
-						  if(wechat!=null) wechat.remove();
-    					  
-    					  
-    					  Elements h2 = parse.select("h2");
-    					  String path = "";
-    					  
-    					  if(!CollectionUtils.isEmpty(h2)) {
-    						  StringBuilder sb = new StringBuilder();
-    						  for (Iterator iterator = h2.iterator(); iterator.hasNext();) {
-    							  Element h2_download = (Element) iterator.next();
-    							  if(h2_download.toString().contains("百度网盘")||h2_download.toString().contains("网盘")
-    									  ||h2_download.toString().contains("迅雷")||h2_download.toString().contains("密码")
-    									  ||h2_download.toString().contains("下载")||h2_download.toString().contains("视频")
-    									  ||h2_download.toString().contains("百度云")||h2_download.toString().contains("链接")
-    									  ||h2_download.toString().contains("季")||h2_download.toString().contains("pan.baidu.com")
-    									  ||h2_download.toString().contains("download")||h2_download.toString().contains("在线地址")
-    									  ) {
-
-    								  sb.append(h2_download.toString());
-    								  h2_download.remove();
-
-    							  }
-    						  }
-    						  
-    						  path = sb.toString();
-    					  }
-    					  
-    					  //如果h2找不到下载地址，就去a连接查找下载地址，删除后，设置到path
-    					  if(StringUtils.isEmpty(path)) {
-    						  StringBuilder sb = new StringBuilder();
-    						  Elements links = parse.select("a");
-    						  if(!CollectionUtils.isEmpty(links)) {
-    							  for (Iterator iterator = links.iterator(); iterator.hasNext();) {
-									Element link = (Element) iterator.next();
-									if(link.toString().contains("百度网盘")||link.toString().contains("网盘")||
-											link.toString().contains("迅雷")||link.toString().contains("密码")||
-											link.toString().contains("下载")||link.toString().contains("视频")||
-											link.toString().contains("百度云")
-											||link.toString().contains("magnet:")
-											||link.toString().contains("ed2k:")||link.toString().contains("链接")
-	    									  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
-	    									  ||link.toString().contains("download")||link.toString().contains("在线地址")) {
-										sb.append(link.toString());
-										link.remove();
-										
-									}
-									
-								}
-    						  }
-    						  
-    						  path = sb.toString();
-    					  }
-    					  
-    					  //如果a找不到下载地址，就去p磁力链查找下载地址，删除后，设置到path
-    					  if(StringUtils.isEmpty(path)) {
-    						  StringBuilder sb = new StringBuilder();
-    						  Elements ps = parse.select("p");
-    						  if(!CollectionUtils.isEmpty(ps)) {
-    							  for (Iterator iterator = ps.iterator(); iterator.hasNext();) {
-									Element link = (Element) iterator.next();
-									if(link.toString().contains("百度网盘")||link.toString().contains("网盘")||
-											link.toString().contains("迅雷")||link.toString().contains("密码")||
-											link.toString().contains("下载")||link.toString().contains("视频")||
-											link.toString().contains("百度云")
-											||link.toString().contains("magnet:")
-											||link.toString().contains("ed2k:")||link.toString().contains("链接")
-	    									  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
-	    									  ||link.toString().contains("download")||link.toString().contains("在线地址")) {
-										sb.append(link.toString());
-										link.remove();
-									}
-								}
-    						  }
-    						  
-    						  path = sb.toString();
-    					  }
-    					  
-    					  //设值下载地址
-    					  m.setPath(path);
-    					  m.setDescription(parse.toString());
-    					  moviesManager.updateMovies(m);
-    					  
-    				  }
-    			   }
-				   
-				   
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+//    	try {
+//////    			   int countHql = moviesManager.countHql(" where path is  null ");
+//////    			   int pageCount = countHql / 1000 + 1;
+//////    			   for(int i = 0;i<pageCount;i++) {
+//    				   List<Movies> lst100 = moviesManager.querySqlEntity(" select * from bc_movies   order by id desc limit 0,20");
+//    				   //按照分页更新数据
+//    				   for (Movies m:lst100) {
+//    					  String content = m.getDescription();
+//    					  Document parse = Jsoup.parse(content);
+//    					  
+//    					  //删除打赏和微信二维码信息
+//    					  Element praise = parse.getElementById("gave");
+//    					  if(praise!=null) {
+//    						  if(praise.html().contains("打赏")) {
+//    							  praise.remove();
+//    						  }
+//    					  }
+//    					  
+//    					  Element wechat = parse.getElementById("wechatCode");
+//						  if(wechat!=null) wechat.remove();
+//    					  
+//    					  
+//    					  String path = "";
+//    					  
+//    					  StringBuilder sb = new StringBuilder();
+//  						  
+//  						  //处理h2
+//      					  Elements h2 = parse.select("h2");
+//      					  
+//      					  
+//      					  if(!CollectionUtils.isEmpty(h2)) {
+//      						  for (Iterator iterator = h2.iterator(); iterator.hasNext();) {
+//      							  Element link = (Element) iterator.next();
+//      							  //把iterater里面的元素连接提取到path中
+//      							  HTMLParserUtil.handleLink(sb, link, "h2");
+//      						  }
+//      						  
+//      						  
+//      					  }
+//      					  
+//      					  //处理a连接，就去a连接查找下载地址，删除后，设置到path
+//      					  Elements links = parse.select("a");
+//      					  if(!CollectionUtils.isEmpty(links)) {
+//      						  for (Iterator iterator = links.iterator(); iterator.hasNext();) {
+//      							  Element link = (Element) iterator.next();
+//      							  //把iterater里面的元素连接提取到path中
+//      							  HTMLParserUtil.handleLink(sb, link ,"a");
+//      							  
+//      						  }
+//      					  }
+//      					  
+//      					  
+//      					  
+//      					  //处理p中的连接，就去p磁力链查找下载地址，删除后，设置到path
+//      					  Elements ps = parse.select("p");
+//      					  if(!CollectionUtils.isEmpty(ps)) {
+//      						  for (Iterator iterator = ps.iterator(); iterator.hasNext();) {
+//      							  Element link = (Element) iterator.next();
+//      							  //把iterater里面的元素连接提取到path中
+//      							  HTMLParserUtil.handleLink(sb, link , "p");
+//      						  }
+//      					  }
+//      						  
+//      					  path = sb.toString();
+//    					  
+//    					  //设值下载地址
+//    					  m.setPath(path);
+//    					  m.setDescription(parse.toString());
+//    					  moviesManager.updateMovies(m);
+//    					  
+//    				  }
+//////    			   }
+//				   
+//				   
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
     	//电影==把下载链接放到path字段去=====================================end===========================================================
     	
     	//把下载链接放到path字段去==============================start==================================================================
@@ -517,89 +479,89 @@ public class TestEQTask {
       	//=========================================================电影===========================================================================================
         //TODO ..爬虫电影代码
 
-//				try {
-//				
-//				LOGGER.info("爬虫电影代码 开始==============start="+TimeUtils.getNowTime());
-//				Map<String,String> map = null;
-//					
-//				
-//				
-//				for (int k = 1; k <=10; k++) {
-//					try {
-//						
-//						List<Map<String, String>> list = HTMLParserUtil.retMovies(k,"http://m.vip588660.com/category/movie/page/");
-//						
-//						
-//						if(!CollectionUtils.isEmpty(list)){
-//							for (int i = 0; i < list.size(); i++) {
-//								try {
-//									map  = list.get(i);
-//									
-//									String title = map.get("title");
-////									String aurl = map.get("aurl");
-//									String date = map.get("date");
-//									String article = map.get("article");
-//								    String retcode = map.get("retcode");
-//								    String tag = map.get("tag");
-//								    String tagcode = map.get("tagcode");
-//								    String path = map.get("path");
+//    	try {
 //
-//									//是不存在的电影
-//									int flag = moviesManager.countHql( " where o.retcode= '"+retcode+"' ");
-//									
-//									if(flag<=0){
-//										
+//    		LOGGER.info("爬虫电影代码 开始==============start="+TimeUtils.getNowTime());
+//    		Map<String,String> map = null;
 //
-//										Movies model = new Movies();
-//										model.setMoviename(title);
-//										model.setAddtime(date);
-//										model.setDescription(article);
-//										model.setPrice(1);
-//										model.setRetcode(retcode);
-//										model.setTag(tag);
-//										model.setTagcode(tagcode);
-//										model.setViewnum(HTMLParserUtil.geneViewNum());
-//										model.setColor(PinyinUtil.getFanyi1(title.trim()));
-//										model.setPath(path);
-//										moviesManager.addMovies(model);
-//									}
-//								} catch (Exception e) {
-//									// TODO: handle exception
-//									continue;
-//								}
-//								
-//							}
-//						}
-//					} catch (Exception e) {
-//						// TODO: handle exception
-//						continue;
-//					}
-//					
-//					
-//					try {
-//					    Thread.sleep(1000*5);
-//					    LOGGER.info("第"+k+"页================");
-//					} catch (InterruptedException e) {
-//					    // TODO Auo-generated catch block
-//					    e.printStackTrace();
-//					}
-//				}
-//				
-//				
-//				
-//				//重复记录每个只保留一条
-//				
-//				String delmovie_sql = "DELETE FROM bc_movies "
-//						+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(moviename) AS count "
-//						+ "FROM bc_movies GROUP BY moviename HAVING count > 1 ORDER BY count DESC ) AS tab )";
-//				
-//				EqManager.executeSql(delmovie_sql);
-//				
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//			}
-//			
-//				LOGGER.info("爬虫电影代码==============结束="+TimeUtils.getNowTime());
+//
+//
+//    		for (int k = 1; k <=10; k++) {
+//    			try {
+//
+//    				List<Map<String, String>> list = HTMLParserUtil.retMovies(k,"http://m.vip588660.com/category/movie/page/");
+//
+//
+//    				if(!CollectionUtils.isEmpty(list)){
+//    					for (int i = 0; i < list.size(); i++) {
+//    						try {
+//    							map  = list.get(i);
+//
+//    							String title = map.get("title");
+//    							//									String aurl = map.get("aurl");
+//    							String date = map.get("date");
+//    							String article = map.get("article");
+//    							String retcode = map.get("retcode");
+//    							String tag = map.get("tag");
+//    							String tagcode = map.get("tagcode");
+//    							String path = map.get("path");
+//
+//    							//是不存在的电影
+//    							int flag = moviesManager.countHql( " where o.retcode= '"+retcode+"' ");
+//
+//    							if(flag<=0){
+//
+//
+//    								Movies model = new Movies();
+//    								model.setMoviename(title);
+//    								model.setAddtime(date);
+//    								model.setDescription(article);
+//    								model.setPrice(1);
+//    								model.setRetcode(retcode);
+//    								model.setTag(tag);
+//    								model.setTagcode(tagcode);
+//    								model.setViewnum(HTMLParserUtil.geneViewNum());
+//    								model.setColor(PinyinUtil.getFanyi1(title.trim()));
+//    								model.setPath(path);
+//    								moviesManager.addMovies(model);
+//    							}
+//    						} catch (Exception e) {
+//    							// TODO: handle exception
+//    							continue;
+//    						}
+//
+//    					}
+//    				}
+//    			} catch (Exception e) {
+//    				// TODO: handle exception
+//    				continue;
+//    			}
+//
+//
+//    			try {
+//    				Thread.sleep(1000*5);
+//    				LOGGER.info("第"+k+"页================");
+//    			} catch (InterruptedException e) {
+//    				// TODO Auo-generated catch block
+//    				e.printStackTrace();
+//    			}
+//    		}
+//
+//
+//
+//    		//重复记录每个只保留一条
+//
+//    		String delmovie_sql = "DELETE FROM bc_movies "
+//    				+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(moviename) AS count "
+//    				+ "FROM bc_movies GROUP BY moviename HAVING count > 1 ORDER BY count DESC ) AS tab )";
+//
+//    		EqManager.executeSql(delmovie_sql);
+//
+//    	} catch (Exception e) {
+//    		// TODO: handle exception
+//    	}
+//
+//    	LOGGER.info("爬虫电影代码==============结束="+TimeUtils.getNowTime());
 
 
         //TODO ..爬虫电影代码
