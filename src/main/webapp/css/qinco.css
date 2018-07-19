@@ -395,6 +395,14 @@ a:focus, a:hover {
     padding-top: 20px
 }
 
+.padding-l10 {
+    padding-left: 10px
+}
+
+.padding-l20 {
+    padding-left: 20px
+}
+
 .padding-b20 {
     padding-bottom: 20px
 }
@@ -443,6 +451,10 @@ a:focus, a:hover {
     margin-bottom: 10px
 }
 
+.margin-l10 {
+    margin-left: 10px
+}
+
 .margin-t20 {
     margin-top: 20px
 }
@@ -451,6 +463,9 @@ a:focus, a:hover {
     margin-bottom: 20px
 }
 
+.margin-l20 {
+    margin-left: 20px
+}
 .block {
     display: block
 }

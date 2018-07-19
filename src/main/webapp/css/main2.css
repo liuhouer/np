@@ -1713,3 +1713,15 @@ a.project-card-link {
 	border-width: thin;
 	border-color: #f1c281;
 }
+
+
+.label-small{
+	font-size: 3px;
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: normal;
+    display: inline-block;
+    vertical-align: bottom;
+    padding: 0px;
+    -webkit-font-smoothing: antialiased;
+}

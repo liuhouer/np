@@ -50,6 +50,15 @@ public class DashAction {
     private EqManager eqManager;
     @Autowired
     private MoviesManager moviesManager;
+    
+    /**
+     * 跳转微信1
+     */
+    @RequestMapping("/weixin1")
+    public String weixin1(ModelMap map) {
+    	
+    	return "/weixin1";
+    }
 
 
     /**
