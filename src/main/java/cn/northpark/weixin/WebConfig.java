@@ -24,7 +24,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
@@ -50,14 +49,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return new CorsFilter(source);
 	}
 
-	@Bean(name = "viewResolver")
-	public InternalResourceViewResolver getViewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setPrefix("/WEB-INF/jsp/");
-		viewResolver.setSuffix(".jsp");
-		viewResolver.setViewClass(JstlView.class);
-		return viewResolver;
-	}
+//	@Bean(name = "viewResolver")
+//	public InternalResourceViewResolver getViewResolver() {
+//		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//		viewResolver.setPrefix("/WEB-INF/jsp/");
+//		viewResolver.setSuffix(".jsp");
+//		viewResolver.setViewClass(JstlView.class);
+//		return viewResolver;
+//	}
 
 	@Bean(name = "multipartResolver")
 	public MultipartConfigElement getMultipartResolver() {

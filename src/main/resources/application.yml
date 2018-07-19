@@ -7,7 +7,7 @@ server:
     uri-encoding: UTF-8
 spring:
   datasource: 
-    url: jdbc:mysql://31.220.14.26:3306/northpark?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://69.12.82.101:3306/health?useUnicode=true&characterEncoding=utf-8
     username: northpark
     password: Zhangyang226@
     driver-class-name: com.mysql.jdbc.Driver
@@ -32,15 +32,16 @@ spring:
       charset: UTF-8
   messages: 
     encoding: UTF-8
-  mvc: 
-    view:
-      prefix:  /WEB-INF/jsp/
-      suffix:   .jsp
-  rabbitmq: 
-    host: 69.12.82.101
-    port: 5672
-    username: liuhouer1
-    password: zhangyang226    
+
+    
+    
+  thymeleaf: 
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: html
+    encoding:  UTF-8
+    content-type: text/html
+    cache:  false  
 banner: 
   charset: UTF-8      
     
@@ -51,3 +52,5 @@ mybatis:
     log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
 pagehelper:
   helper-dialect: mysql
+  
+  

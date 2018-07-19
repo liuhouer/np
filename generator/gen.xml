@@ -50,7 +50,7 @@
     <!-- 必须要有的，使用这个配置链接数据库
         @TODO:是否可以扩展
      -->
-    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://31.220.14.26:3306/northpark" userId="northpark" password="Zhangyang226@">
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://69.12.82.101:3306/health" userId="northpark" password="Zhangyang226@">
     <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc\:mysql\://localhost\:3306/new_movie_app?useUnicode\=true&characterEncoding\=utf-8" userId="root" password="root">-->
         <!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 -->
     </jdbcConnection>
@@ -208,11 +208,14 @@
     <table enableUpdateByExample="true" enableCountByExample="true"  tableName="T_UTIL_DBDESIGNFILE" domainObjectName="UtilDbDesignFile"></table>
     <table enableUpdateByExample="true" enableCountByExample="true"  tableName="T_UTIL_TABFIELD" domainObjectName="UtilTalbField"></table>
     <table enableUpdateByExample="true" enableCountByExample="true"  tableName="T_UTIL_TABLIST" domainObjectName="UtilTabList"></table>
-    -->
-
     <table enableUpdateByExample="true" enableCountByExample="true"  tableName="bc_astro" domainObjectName="Astro"></table>
     <table enableUpdateByExample="true" enableCountByExample="true"  tableName="bc_user" domainObjectName="User"></table>
     <table enableUpdateByExample="true" enableCountByExample="true"  tableName="bc_userprofile" domainObjectName="UserProfile"></table>
+	
+    -->
+
+	
+	<table enableUpdateByExample="true" enableCountByExample="true"  tableName="np_health" domainObjectName="Health"></table>
 	
 </context>
 
