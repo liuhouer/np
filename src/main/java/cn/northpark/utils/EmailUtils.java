@@ -201,15 +201,29 @@ public class EmailUtils {
 //        list.add("2985075841@qq.com");
 //        list.add("1401518328@qq.com");
         
+        list.add("peiweiyin8866@163.com");
+//           list.add("sven777@qq.com");
+//           list.add("agnesluilui@gmail.com");
+//           list.add("johnathan426830@gmail.com");
         
-        list.add("GalwayGao@gmail.com");
-        list.add("j6m06vu@gmail.com");
-        list.add("ishigakimakino@gmail.com");
-        list.add("13681286770@163.com");
-        list.add("1349430856@qq.com");
-        list.add("k2mr@foxmail.com");
-        list.add("aold619@yeah.net");
-        list.add("ed1997chang@gmail.com");
+//          list.add("qazp950337@gmail.com");
+//          list.add("1939451983@qq.com");
+//          list.add("94534080@qq.com");
+//          list.add("1126733645@qq.com");
+//          list.add("2574183193@qq.com");
+//          list.add("trboyspace@126.com");
+//          list.add("a10429003@gmail.com");
+//          list.add("928287517@qq.com");
+
+        
+//        list.add("GalwayGao@gmail.com");
+//        list.add("j6m06vu@gmail.com");
+//        list.add("ishigakimakino@gmail.com");
+//        list.add("13681286770@163.com");
+//        list.add("1349430856@qq.com");
+//        list.add("k2mr@foxmail.com");
+//        list.add("aold619@yeah.net");
+//        list.add("ed1997chang@gmail.com");
 //		list.add("2572684952@qq.com");          );
 //		list.add("goooob@126.com");
 //		list.add("843664866@qq.com");

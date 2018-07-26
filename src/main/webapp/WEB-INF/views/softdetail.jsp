@@ -172,7 +172,7 @@
     $(function () {
     	$(".bg-white").find("img").each(function () {
             $(this).css('max-width', ($("#J_white_div").width()));
-            $(this).css('padding-right', '20%');
+            $(this).css('margin-right', '20%');
         })
         //设置定向uri
 		$("#J_login_see").attr("href","/login?redirectURI="+window.location.href);
