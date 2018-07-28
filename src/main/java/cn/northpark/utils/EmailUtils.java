@@ -90,7 +90,7 @@ public class EmailUtils {
                     + "<h2> Welcome! </h2>"
                     + "<br><br>Welcome join northpark! "
                     + "<br/><br/>"
-                    + TimeUtils.nowTime() + "<br/>" + "<br/>"
+                    + "sending time:" + TimeUtils.nowTime() + "<br/>" + "<br/>"
                     + "如有任何疑问或顾虑，请联系northpark。<br/><br/>" + "小布<br/><br/>" + "欢迎来我的博客" + "<a href=\"http://blog.northpark.cn\">果冻时刻</a>" + "<br/><br/>"
                     + "</div></div></div>"
 
@@ -191,9 +191,40 @@ public class EmailUtils {
     public static void main(String[] args) {
 
         List<String> list = new ArrayList<String>();
-        list.add("qhdsoft@yeah.net");
-        list.add("870300572@qq.com");
-//		list.add("2572684952@qq.com");
+//        list.add("119207145@qq.com");
+//        list.add("102757503@qq.com");
+//        list.add("1989866937@qq.com");
+//        list.add("404250426@qq.com");
+//        list.add("1297115491@qq.com");
+//        list.add("optrips@gmail.com");
+//        list.add("1143991340@qq.com");
+//        list.add("2985075841@qq.com");
+//        list.add("1401518328@qq.com");
+        
+        list.add("peiweiyin8866@163.com");
+//           list.add("sven777@qq.com");
+//           list.add("agnesluilui@gmail.com");
+//           list.add("johnathan426830@gmail.com");
+        
+//          list.add("qazp950337@gmail.com");
+//          list.add("1939451983@qq.com");
+//          list.add("94534080@qq.com");
+//          list.add("1126733645@qq.com");
+//          list.add("2574183193@qq.com");
+//          list.add("trboyspace@126.com");
+//          list.add("a10429003@gmail.com");
+//          list.add("928287517@qq.com");
+
+        
+//        list.add("GalwayGao@gmail.com");
+//        list.add("j6m06vu@gmail.com");
+//        list.add("ishigakimakino@gmail.com");
+//        list.add("13681286770@163.com");
+//        list.add("1349430856@qq.com");
+//        list.add("k2mr@foxmail.com");
+//        list.add("aold619@yeah.net");
+//        list.add("ed1997chang@gmail.com");
+//		list.add("2572684952@qq.com");          );
 //		list.add("goooob@126.com");
 //		list.add("843664866@qq.com");
 //		list.add("heartlead@gmail.com");

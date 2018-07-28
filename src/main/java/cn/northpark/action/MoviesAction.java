@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -431,20 +432,17 @@ public class MoviesAction {
      */
     @RequestMapping(value = "/movies/post-{id}.html")
     public String postdetail(ModelMap map, @PathVariable String id, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-        String wheresql = " where 1=1 ";
 
         if (StringUtils.isNotEmpty(id)) {
             //sql注入处理
             id = WAQ.forSQL().escapeSql(id);
-            wheresql = " where id = " + id;
+            Movies  model = moviesManager.findMovies(Integer.valueOf(id));
+            if(model!=null) {
+            	if(StringUtils.isNotEmpty(model.getDescription())) map.put("description", Jsoup.parse(model.getDescription()).select("p").text());
+            	map.addAttribute("model", model);
+            }
         }
 
-        List<Movies> list = moviesManager.findByCondition(wheresql + " order by id desc ").getResultlist();
-        if (!CollectionUtils.isEmpty(list)) {
-
-            map.put("keyword", list.get(0).getMoviename());
-        }
-        map.addAttribute("list", list);
 
         return "/movies-article";
     }

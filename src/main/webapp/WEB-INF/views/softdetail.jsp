@@ -16,11 +16,10 @@
     <meta name="robots" content="index,follow,archive">
     <link rel="shortcut icon" href="/img/favicon.ico">
     <title>${article.title} | NorthPark</title>
-    <meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
+    <meta name="keywords" content="${article.title},${article.tags},NorthPark">
     <meta name="description"
-          content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
+          content="${description}">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-
 
 </head>
 
@@ -62,15 +61,27 @@
                                     ${article.os}
                                 </a></strong>
                             </p>
-                            <p id="content_${sarticle.index}">
+                            <p id="content_${article.id}">
                                 ${article.content }
-                            </p>
+                            </p> 	
+                            
+                            <p class="col-md-12" >
+									<div class="dashed left  col-md-10">
+										
+										 <c:if test="${user==null }">
+										   <p class="center red">本文隐藏内容 <a target="_blank"   class="flatbtn" id="J_login_see"><i class="be be-timerauto"></i>登录</a> 后才可以浏览</p>
+									     </c:if>
+									     <c:if test="${user!=null }">
+											<p id="J_show_path">${article.path }</p>
+										</c:if>
+									</div>
+							</p>
                             <div class="clearfix visible-xs">
                                 <hr>
                             </div>
 
                             <!-- 打赏 -->
-                            <div>
+                            <div class="col-md-10">
 
 
                                 <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
@@ -154,34 +165,22 @@
     </div>
 </div>
 
-
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
 <script type="text/javascript">
     //禁止图片拉伸
     $(function () {
-        $("img").each(function () {
+    	$(".bg-white").find("img").each(function () {
             $(this).css('max-width', ($("#J_white_div").width()));
+            $(this).css('margin-right', '20%');
         })
-
+        //设置定向uri
+		$("#J_login_see").attr("href","/login?redirectURI="+window.location.href);
     })
 
 </script>
 
 
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<!-- <script type="text/javascript">
-var duoshuoQuery = {short_name:"jellyband"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0]
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script> -->
-<!-- 多说公共JS代码 end -->
 
 
 </body>

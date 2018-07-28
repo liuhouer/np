@@ -41,6 +41,13 @@ public interface MoviesManager {
      * @return
      */
     public List<Map<String, Object>> querySql(String sql);
+    
+    /**
+     * sql
+     *
+     * @return
+     */
+    public List<Movies> querySqlEntity(String sql);
 
 
     /**

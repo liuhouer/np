@@ -667,7 +667,7 @@ public class UserAction {
         String redirectURI = request.getParameter("redirectURI");
         if (StringUtils.isNotEmpty(redirectURI)) {
             if (redirectURI.equals("/login")) {
-                redirectURI = "/love";
+                redirectURI = "/";
             }
             map.put("redirectURI", redirectURI);
         }

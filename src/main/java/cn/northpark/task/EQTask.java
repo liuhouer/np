@@ -200,6 +200,13 @@ public class EQTask {
                 }
             }
 
+            
+            //重复记录每个只保留一条
+            String delmovie_sql = "DELETE FROM bc_movies "
+					+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(moviename) AS count "
+					+ "FROM bc_movies GROUP BY moviename HAVING count > 1 ORDER BY count DESC ) AS tab )";
+			
+			vpsManager.executeSql(delmovie_sql); 
 
             LOGGER.info("movies task==============end=" + TimeUtils.getNowTime());
         } catch (Exception e) {
@@ -292,6 +299,7 @@ public class EQTask {
                     String retcode = map.get("retcode");
                     String tag = map.get("tag");
                     String tagcode = map.get("tagcode");
+                    String path = map.get("path");
 
 
                     //是不存在的电影
@@ -304,7 +312,7 @@ public class EQTask {
                         model.setMoviename(title);
                         model.setAddtime(date);
                         model.setDescription(article);
-                        model.setPath("");
+                        model.setPath(path);
                         model.setPrice(1);
                         model.setRetcode(retcode);
                         model.setTag(tag);
@@ -319,6 +327,14 @@ public class EQTask {
                 }
 
             }
+            
+            
+            
+         
+            
+            
+            
+            
         }
     }
 

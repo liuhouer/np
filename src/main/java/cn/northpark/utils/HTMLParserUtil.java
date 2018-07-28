@@ -9,6 +9,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -477,6 +478,128 @@ public class HTMLParserUtil {
 
         return list;
     }
+    
+    
+    /**
+     * 爬虫获取情圣的文章
+     * loveUdavid
+     * ret_url:http://chuansong.me/account/loveUdavid?start=(i-1)*12
+     * @throws IOException
+     */
+    public static List<Map<String,String>> retEQArticle() throws IOException {
+        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+        for(int i=2;i<=5;i++){
+            try{
+            String initUrl = "http://chuansong.me/account/loveudavid?start=" + i*12 ;
+            final String dataResult = HttpGetUtils.getDataResult(initUrl);			
+			Document doc = Jsoup.parse(dataResult, initUrl);			
+            Elements info   = doc.select("div[class=pagedlist_item]");
+            for(Element p : info){
+
+                HashMap<String, String> map =new HashMap<String, String>();
+                //标题
+                Elements titles = p.select("a[class=question_link]");
+
+                String title = titles.get(0).text();
+                title = title.replace("大卫", "");
+                String aurl = "http://chuansong.me"+titles.get(0).select("a").get(0).attr("href");
+
+                Elements dates = p.select("span[class=timestamp]");
+
+                String date = dates.get(0).text();
+
+                //文章
+                
+                
+                //休眠
+                try {
+    			    Thread.sleep(500);
+    			} catch (InterruptedException e) {
+    			    // TODO Auo-generated catch block
+    			    e.printStackTrace();
+    			}
+                
+                Document doc_ = Jsoup.connect(aurl)
+					            		.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+										.referrer("http://www.google.com") 
+										.timeout(20000) //it's in milliseconds, so this means 5 seconds. 
+										.followRedirects(true)
+										.maxBodySize(1024*1024*3)    //3Mb Max
+										  //.ignoreContentType(true) //for download xml, json, etc
+				                		.get();
+                Elements articles = doc_.select("div[class=rich_media_content]");
+                Element article_ele = articles.get(0);
+                //去掉图片、去掉strong
+                article_ele.select("img").remove();
+                article_ele.select("strong").remove();
+                String article = article_ele.html();
+                article = article.replace("大卫", "<情圣>").replace("<p>请回复：<span style=\"background-color: rgb(255, 251, 0);\">千万别追女神</span></p>", "")
+                        .replace("<p>请回复：<span style=\"background-color: rgb(255, 255, 0);\">千万别追女神</span></p>", "")
+                        .replace("<p>你想学习正确的追女孩技巧，早日抱得美人归吗？</p>", "")
+                        .replace("<p>你想得到<情圣>的帮助，解决棘手的情感问题吗？</p>", "")
+                        .replace("<p><img class=\"\" data-ratio=\"0.736\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"1000\" src=\"http://img.chuansong.me/mmbiz/nMpCNia3hrN4BiaKeiadNc9Cd33C0g7Dt22pn0KOE54PowMzbygnmChH9lpBOLZEK1YvvNJtk1TOgiazP4VhibTAImw/0?wx_fmt=jpeg\" style=\"\"></p>", "")
+                        .replace("<p style=\"white-space: normal;text-align: center;\"><span style=\"color: rgb(255, 169, 0);\"><strong>长按图片赞赏，请<情圣>吃金拱门！</strong></span></p>", "")
+                        .replace("<p style=\"white-space: normal;\"><br></p>", "")
+                        .replace("<p style=\"white-space: normal;\"><img class=\"\" data-copyright=\"0\" data-ratio=\"1\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"1080\" src=\"http://img.chuansong.me/mmbiz_jpg/nMpCNia3hrN67eXCUbQySMmXpKibVaPsicm1KHjywtIvUXWFDlBqnIrZMhCJ1Z1rKg9qM8ETCGt2ypMClrkB1oNHw/0?wx_fmt=jpeg\"></p>", "")
+                        .replace("<p><img class=\"\" data-ratio=\"0.6826196473551638\" data-s=\"300,640\" data-type=\"jpeg\" data-w=\"794\" src=\"http://img.chuansong.me/mmbiz/nMpCNia3hrN4BiaKeiadNc9Cd33C0g7Dt22uCIbRO1q9t6uFJSzAmYjvmkkJSAw6ZN78QdqBcGf7hZ2UEFkzLXMGQ/0?wx_fmt=jpeg\" style=\"\"></p>", "")
+                        .replace("<img data-ratio=\"1\" data-w=\"20\" src=\"http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=https://res.wx.qq.com/mpres/htmledition/images/icon/common/emotion_panel/emoji_wx/2_06.png\" style=\"display:inline-block;width:20px;vertical-align:text-bottom;\">", "")
+
+                		
+                		;
+
+
+
+                //简介
+                Elements texts = doc_.select("p");
+                texts.select("a").remove();
+                texts.select("img").remove();
+                texts.select("i").remove();
+                StringBuilder sb = new StringBuilder();
+                for (Element text : texts) {
+
+                    if (text.html().contains("大卫回复")) {
+                        break;
+                    }
+
+                    sb.append(text);
+                }
+                String brief = sb.toString().replaceAll("大卫", "情圣");
+                
+                
+                // 生成码
+                String retcode = MD5Utils.encoding(title);
+
+                map.put("title", title);
+                map.put("aurl", aurl);
+                map.put("brief", brief);
+                map.put("date", date);
+                map.put("article", article);
+                map.put("retcode", retcode);
+
+                
+                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+                
+                list.add(map);
+
+                }
+            }catch (Exception e) {
+            	 LOGGER.error("HTMLPARSERutils------->", e);;
+                continue;
+            }
+            
+            
+            
+            //休眠10秒
+            try {
+			    Thread.sleep(1000*5);
+			    LOGGER.info("第"+i+"页================");
+			} catch (InterruptedException e) {
+			    // TODO Auo-generated catch block
+			    e.printStackTrace();
+			}
+        }
+        return list;
+    }
 
 
     /**
@@ -877,10 +1000,10 @@ public class HTMLParserUtil {
 
                     //判断code在系统不存在再去处理后面的事
 
-                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
-                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
-
-                    if (flag <= 0) {
+//                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
+//                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
+//
+//                    if (flag <= 0) {
 
                         //日期
                         String date = parse.select("div[class=about pt-2 pt-md-3]").select("span").get(0).text();
@@ -949,6 +1072,9 @@ public class HTMLParserUtil {
 
                         //简介
                         StringBuilder brief = new StringBuilder();
+                        
+                        //下载地址
+                        String path = "";
 
 
                         Elements article_alls = parse.select("div[class=content]");
@@ -996,6 +1122,32 @@ public class HTMLParserUtil {
                                         s.addClass("btn-warning");
                                     }
                                 }
+                                
+                                //处理下载地址
+                                StringBuilder sb_path = new StringBuilder();
+                                //执行2次抓取下载地址
+                                for (int i = 0; i < 2; i++) {
+                                	 Element last = article_alls.get(i1).select("a").last();
+                                     if(last!=null) {
+                                     	if(last.toString().contains("下载")||last.toString().contains("www.waitsun.com")||last.toString().contains("ctfile.com")) {
+                                     		System.out.println("========================");
+
+                                     		System.out.println("===========是=============");
+                                     		String download = last.toString();
+                                     		System.out.println(download);
+                                     		sb_path.append(download);
+                                     		//删除最后的路径元素
+                                     		last.remove();
+                                     	}else {
+                                     		System.out.println("========================");
+
+                                     		System.out.println("===========否=============");
+                                     	}
+                                     }
+								}
+                               
+                                System.out.println("sb_path===================>"+sb_path.toString());
+                                path = sb_path.toString();
 
                                 //设置正文
                                 article = article_alls.get(i1).html();
@@ -1004,7 +1156,7 @@ public class HTMLParserUtil {
                                 brief.append(article_alls.get(i1).select("p").get(0).html());
                                 brief.append("</p>");
                                 System.out.println("===================================================================================================");
-                                System.out.println(article_alls.get(i1).html());
+                                System.out.println("正文内容===================>"+article_alls.get(i1).html());
                                 System.out.println("===================================================================================================");
                             }
                         }
@@ -1021,9 +1173,10 @@ public class HTMLParserUtil {
                         map.put("month", month);
                         map.put("year", year);
                         map.put("tagcode", tagcode);
+                        map.put("path", path);
                         list.add(map);
 
-                    }
+//                    }
                 } catch (Exception e2) {
                     continue;
                 }
@@ -1486,6 +1639,8 @@ public class HTMLParserUtil {
                     String title = divs.get(0).select("a").get(0).attr("title");
 
                     String retcode = MD5Utils.encoding(title);
+                    
+                    String path = "";
 
 
                     //判断code在系统不存在再去处理后面的事
@@ -1587,10 +1742,70 @@ public class HTMLParserUtil {
                             article_alls.get(0).select("#minevideo-css").remove();
                             article_alls.get(0).select("script").remove();
 
-                            desc += article_alls.get(0).html();
+                           
+                            
+                            
+                          //========================解析路径start======================================
+                          //删除打赏和微信二维码信息
+      					  Element praise = article_alls.get(0).getElementById("gave");
+      					  if(praise!=null) {
+      						  if(praise.html().contains("打赏")) {
+      							  praise.remove();
+      						  }
+      					  }
+      					  
+      					  Element wechat = article_alls.get(0).getElementById("wechatCode");
+  						  if(wechat!=null) wechat.remove();
+      					  
+      					  
+  						  StringBuilder sb = new StringBuilder();
+  						  
+  						  //处理h2
+      					  Elements h2 = article_alls.get(0).select("h2");
+      					  
+      					  
+      					  if(!CollectionUtils.isEmpty(h2)) {
+      						  for (Iterator iterator = h2.iterator(); iterator.hasNext();) {
+      							  Element link = (Element) iterator.next();
+      							  //把iterater里面的元素连接提取到path中
+      							  handleLink(sb, link, "h2");
+      						  }
+      						  
+      						  
+      					  }
+      					  
+      					  //处理a连接，就去a连接查找下载地址，删除后，设置到path
+      					  Elements links = article_alls.get(0).select("a");
+      					  if(!CollectionUtils.isEmpty(links)) {
+      						  for (Iterator iterator = links.iterator(); iterator.hasNext();) {
+      							  Element link = (Element) iterator.next();
+      							  //把iterater里面的元素连接提取到path中
+      							  handleLink(sb, link ,"a");
+      							  
+      						  }
+      					  }
+      					  
+      					  
+      					  
+      					  //处理p中的连接，就去p磁力链查找下载地址，删除后，设置到path
+      					  Elements ps = article_alls.get(0).select("p");
+      					  if(!CollectionUtils.isEmpty(ps)) {
+      						  for (Iterator iterator = ps.iterator(); iterator.hasNext();) {
+      							  Element link = (Element) iterator.next();
+      							  //把iterater里面的元素连接提取到path中
+      							  handleLink(sb, link , "p");
+      						  }
+      					  }
+      						  
+      					  path = sb.toString();
 
-                            desc = desc.replaceAll("<!-- 社会化分享按钮 来自 WordPress连接微博 插件 -->", "");
-                            LOGGER.info("desc==============>" + desc);
+      					  //========================解析路径====================================== 
+      					  
+      					 desc += article_alls.get(0).html();
+
+                         desc = desc.replaceAll("<!-- 社会化分享按钮 来自 WordPress连接微博 插件 -->", "");
+      						  
+                         LOGGER.info("desc==============>" + desc);
                         }
 
                         map.put("title", title);
@@ -1600,6 +1815,7 @@ public class HTMLParserUtil {
                         map.put("retcode", retcode);
                         map.put("tag", tag);
                         map.put("tagcode", tagcode);
+                        map.put("path",path);
                         list.add(map);
                     }
 
@@ -1610,11 +1826,61 @@ public class HTMLParserUtil {
 
         } catch (Exception e) {
             LOGGER.error("HTMLPARSERutils------->", e);
-            ;
         }
 
         return list;
     }
+
+	/**
+	 * 把iterater里面的元素连接提取到path中
+	 * @param sb
+	 * @param link
+	 */
+	public static void handleLink(StringBuilder sb, Element link ,String type) {
+		
+		if(type.equals("a")) {
+			if(link.toString().contains("百度网盘")||link.toString().contains("网盘")
+					  ||link.toString().contains("迅雷")||link.toString().contains("密码")
+					  ||link.toString().contains("下载")||link.toString().contains("视频")
+					  ||link.toString().contains("百度云")||link.toString().contains("链接")
+					  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
+					  ||link.toString().contains("download")||link.toString().contains("在线地址")||link.toString().contains("ed2k")||link.toString().contains("magnet")
+					  ) {
+
+				  sb.append(link.toString());
+				  link.remove();
+
+			  }
+		}else if(type.equals("p")) {
+			if(link.toString().contains("百度网盘")||link.toString().contains("网盘")
+					  ||link.toString().contains("迅雷")||link.toString().contains("密码")
+					  ||link.toString().contains("下载")||link.toString().contains("视频")
+					  ||link.toString().contains("百度云")
+					  ||link.toString().contains("pan.baidu.com")
+					  ||link.toString().contains("download")||link.toString().contains("在线地址")||link.toString().contains("ed2k")||link.toString().contains("magnet")
+					  ) {
+
+				  sb.append(link.toString());
+				  link.remove();
+
+			  }
+		}else if(type.equals("h2")) {
+			if(link.toString().contains("百度网盘")||link.toString().contains("网盘")
+					  ||link.toString().contains("迅雷")||link.toString().contains("密码")
+					  ||link.toString().contains("下载")||link.toString().contains("视频")
+					  ||link.toString().contains("百度云")
+					  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
+					  ||link.toString().contains("download")||link.toString().contains("在线地址")||link.toString().contains("ed2k")||link.toString().contains("magnet")
+					  ) {
+
+				  sb.append(link.toString());
+				  link.remove();
+
+			  }
+		}
+		
+		
+	}
 
 
     /**
@@ -2189,7 +2455,7 @@ public class HTMLParserUtil {
 //				}
 //            	retSoftNew(3);
 //            retEQArticle(1);
-        	retSoftNew(1);
+        	retSoftNew(0);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             LOGGER.error("HTMLPARSERutils------->", e);

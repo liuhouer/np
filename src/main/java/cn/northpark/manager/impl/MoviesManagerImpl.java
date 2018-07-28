@@ -102,5 +102,11 @@ public class MoviesManagerImpl implements MoviesManager {
         // TODO Auto-generated method stub
         return moviesDao.querySql(sql);
     }
+
+	@Override
+	public List<Movies> querySqlEntity(String sql) {
+		// TODO Auto-generated method stub
+		return moviesDao.querySql(sql, Movies.class);
+	}
 }
 

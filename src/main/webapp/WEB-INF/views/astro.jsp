@@ -196,8 +196,9 @@
 <script type="text/javascript">
     //禁止图片拉伸
     $(function () {
-        $("img").each(function () {
+    	$(".bg-white").find("img").each(function () {
             $(this).css('max-width', ($("#J_white_div").width()));
+            $(this).css('margin-right', '20%');
         })
         //样式固定
         $(".astroa").css("font-size", "10px");

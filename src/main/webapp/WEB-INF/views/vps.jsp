@@ -153,8 +153,9 @@
 <script type="text/javascript">
     //禁止图片拉伸
     $(function () {
-        $("img").each(function () {
-            $(this).css('max-width', ($(".bg-white").width() * 0.618));
+    	$(".bg-white").find("img").each(function () {
+            $(this).css('max-width', ($(".bg-white").width() ));
+            $(this).css('padding-right', '20%');
         })
 
         //搜索

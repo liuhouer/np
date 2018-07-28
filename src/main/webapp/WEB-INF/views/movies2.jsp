@@ -24,9 +24,9 @@
         <title>影视窝 ::第${page}页 | NorthPark</title>
     </c:if>
 
-    <meta name="keywords" content="NorthPark,Mac软件,影视窝,碎碎念,最爱主题图册和情商提升兼具文艺范和小清新">
+    <meta name="keywords" content="NorthPark,影视窝">
     <meta name="description"
-          content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
+          content="NorthPark影视窝包含最新的影视剧资源,每天自动更新哦">
 
 </head>
 
@@ -86,7 +86,7 @@
 
                                     <p>
 
-                                        发表于：<span class=" glyphicon glyphicon-time margin10"></span><span
+                                        	发表于：<span class=" glyphicon glyphicon-time margin10"></span><span
                                             class="common-a-right" title="${s.addtime}"
                                             href="/movies/date/${s.addtime}">${s.addtime}</span>
 
@@ -112,17 +112,14 @@
 
                                             ${s.description }
                                     </p>
+                                    
+                                    <p>
+                                        <a class="btn btn-warning margin-t10" href="/movies/post-${s.id}.html">
+                                            Read More
+                                            <span class="glyphicon  glyphicon-circle-arrow-right padding5"></span>
+                                        </a>
+                                    </p>
 
-                                    <c:if test="${s.path!=null && s.path!=''}">
-                                        <p>
-                                            <small class="label red-text">下载地址
-                                        <p>
-                                            <small class="red-text">${s.path}</small>
-                                        </p>
-                                        </small>
-                                        </p> &nbsp;
-
-                                    </c:if>
                                 </div>
                             </div>
                         </div>
