@@ -78,7 +78,6 @@ public class DashAction {
     @RequestMapping("/about.html")
     public String about(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {
 
-
         return "/about";
 
     }

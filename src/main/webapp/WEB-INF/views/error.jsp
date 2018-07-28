@@ -21,7 +21,6 @@
     <meta name="description"
           content="NorthPark是一个很小清新的互动公园。NorthPark包含了丰富的Mac软件资源、影视窝包含最新的影视剧资源、情商提升的技巧和讲解、碎碎念的精神角落、最爱主题图册互动、评论、关注等版块。它富有交互性和趣味性，文艺范和小清新，并且可以和你的朋友们为某个兴趣互动。">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-    <link media="all" type="text/css" rel="stylesheet" href="/css/bu.css">
 
 
 </head>
@@ -32,22 +31,20 @@
 <div class="clearfix maincontent ">
     <div class="container">
         <div class="mainbody" style="margin-top:10em;">
-            <div class="align-center  radius-5  max-width-800 min-width-600">
-                <div class="col-sm-6 col-sm-offset-3 ">
-                    <div class="row ">
-                        <p>
-                            你所寻找的东西穿越到了火星需要救援。( ＾o)ρ┳┻┳°σ(o^ )
-                        </p>
-                        <p>
-                            <span id="mes" style="cursor: pointer;"><font color="#49c7be"><img src='/img/loading.gif'
-                                                                                               style='width:16px;height:16px;'/>返回首页</font></span>
-                        </p>
-                        <p>
-                            <canvas id="c"></canvas>
-                        </p>
-                    </div>
+                <div class="col-sm-12  center">
+                        
+
+						<img src="/img/500.jpg"></img>
+
+
+
+						<p class="center">
+							<span id="mes" style="cursor: pointer;"><font
+								color="#49c7be"><img src='/img/loading.gif' alt="星际穿越"
+									style='width: 16px; height: 16px;' /> 返回首页</font></span>
+						</p>
+
                 </div>
-            </div>
         </div>
     </div>
 </div>
@@ -55,8 +52,18 @@
 
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
-<script src="/js/page/error.js"></script>
 
+<script type="text/javascript">
+
+$(function () {
+    $("#mes").click(function () {
+        window.location.href = "/";
+    });
+    console.log(${exception});
+})
+
+
+</script>
 
 </body>
 </html>

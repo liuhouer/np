@@ -7,6 +7,9 @@
  */
 package cn.northpark.exception;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
+
 @ControllerAdvice
 public class NorthparkExceptionHandler {
 	
@@ -24,22 +29,7 @@ public class NorthparkExceptionHandler {
 	
 	private final static Logger logger=Logger.getLogger(ExceptionHandler.class);
 	
-//	
-//	/***
-//	 *处理异步方法的异常 
-//	 */
-//	@ExceptionHandler(value = Exception.class)
-//	@ResponseBody
-//	public String handle(Exception e) {
-//		//处理自定义异常
-//		if(e instanceof NorthParkException) {
-//			NorthParkException ex = (NorthParkException) e;
-//			return JsonUtil.object2json(ResultUitl.error(ex.getCode(), ex.getMessage()));
-//		}else {
-//			logger.error("【系统异常】{}",e);
-//			return JsonUtil.object2json(ResultUitl.error(-1, e.getMessage()));
-//		}
-//	}
+	
 	
 	/**
 	 * 描述：处理所有的异常
@@ -66,10 +56,10 @@ public class NorthparkExceptionHandler {
     		}
     	} else {
     		ModelAndView mav = new ModelAndView();
-            mav.addObject("exception", e);
+            mav.addObject("exception", getStackTrace(e));
             mav.addObject("url", reqest.getRequestURL());
             mav.setViewName(NorthPark_Error_View);
-            logger.error(e);
+            logger.error(getStackTrace(e));
             return mav;
     	}
     	
@@ -77,23 +67,6 @@ public class NorthparkExceptionHandler {
     }
 	
 	
-	/*** 
-     * 响应404 错误 
-     * @param ex 
-     * @param session 
-     * @param request 
-     * @param response 
-     * @return 
-     */  
-    @ExceptionHandler(org.springframework.web.servlet.NoHandlerFoundException.class)  
-//org.springframework.web.servlet.NoHandlerFoundException: No handler found for GET /agent2/follow/query/json, headers={host=[127.0.0.1:8080], connection=[keep-alive], upgrade-insecure-requests=[1]}  
-    public Object handleNotFound404Exception2(org.springframework.web.servlet.NoHandlerFoundException ex,  HttpServletRequest request, HttpServletResponse response) {  
-    	ModelAndView mav = new ModelAndView();
-        mav.addObject("exception", ex);
-        mav.addObject("url", request.getRequestURL());
-        mav.setViewName(NorthPark_Build_View);
-        return mav;
-    }  
 	
 	/**
 	 * 
@@ -109,6 +82,28 @@ public class NorthparkExceptionHandler {
 						.equals( httpRequest.getHeader("X-Requested-With").toString()) );
 	}
 	
+	
+	/** 
+	 * 获取异常的堆栈信息 
+	 *  
+	 * @param t 
+	 * @return 
+	 */  
+	private static String getStackTrace(Throwable t)  
+	{  
+	    StringWriter sw = new StringWriter();  
+	    PrintWriter pw = new PrintWriter(sw);  
+	  
+	    try  
+	    {  
+	        t.printStackTrace(pw);  
+	        return JSON.toJSONString(sw);  
+	    }  
+	    finally  
+	    {  
+	        pw.close();  
+	    }  
+	}  
 	
 	
 }
