@@ -85,14 +85,22 @@ public class EmailUtils {
             // 注意，发送内容时，后面这段会让中文正常显示，否则乱码
             email.setCharset("utf-8");
             //email.setContent(aObject, aContentType);
-            email.setHtmlMsg("<html><body><style type=\"text/css\">.aboutWrapper{background-image:url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/64876897.jpg);background-repeat:no-repeat;background-position:center top}.reservationsWrapper{margin-top:70px}.aboutWrapper{background-color:#ebebeb;padding-bottom:40px;position:relative;margin-bottom:350px}.aboutWrapper:before{content:' ';display:block;position:absolute;bottom:-200px;background-image:url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/34631260.jpg);max-width:100%;left:0;height:291px;width:100%}</style>"
-                    + "<div style=\"width: 83.33333333%;text-align:center;background: #f5f5f5;\"><div class=\"aboutWrapper reservationsWrapper\"><div class=\"clearfix margin-b10 center\" style=\"padding-top:30px;\">"
-                    + "<h2> Welcome! </h2>"
-                    + "<br><br>Welcome join northpark! "
-                    + "<br/><br/>"
-                    + "sending time:" + TimeUtils.nowTime() + "<br/>" + "<br/>"
-                    + "如有任何疑问或顾虑，请联系northpark。<br/><br/>" + "小布<br/><br/>" + "欢迎来我的博客" + "<a href=\"http://blog.northpark.cn\">果冻时刻</a>" + "<br/><br/>"
-                    + "</div></div></div>"
+            email.setHtmlMsg(
+            		  "<html><body>"
+            		+ "<style type=\"text/css\">"
+            		+ ".aboutWrapper{background-image:url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/64876897.jpg);background-repeat:no-repeat;left:0;width:100%;max-width:100%;padding-bottom:40px;position:relative;margin-bottom:350px;background-color:#ebebeb}"
+            		+ ".reservationsWrapper{margin-top:70px}"
+            		//+ ".aboutWrapper{background-color:#ebebeb;padding-bottom:40px;position:relative;margin-bottom:350px}"
+            		+ ".aboutWrapper:before{content:' ';display:block;position:absolute;bottom:-200px;background-image:url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/34631260.jpg);max-width:100%;left:0;height:291px;width:100%}"
+            		+ "</style>"
+            		+ "<div style=\"width: 83.33333333%;text-align:center;background: #f5f5f5;\"><div class=\"aboutWrapper reservationsWrapper\"><div class=\"clearfix margin-b10 center\" style=\"padding-top:30px;padding-bottom:100px;\">"
+            		+ "<h2> Welcome! </h2>"
+            		+ "<br><br>Welcome join northpark! "
+            		+ "<br/><br/>"
+            		+ "sending time:" + TimeUtils.nowTime() + "<br/>"  
+            		+ "<br>如有任何疑问或顾虑，请联系northpark。<br/>"  
+            		 + "<br><a href=\"http://blog.northpark.cn\" style=\"text-decoration:none;color:#fff;text-shadow:none;background-color:#45d0c6;border:none;margin-top:10px;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px;display:inline-block;margin-bottom:0;font-weight:400;text-align:center;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;padding:6px 12px;font-size:14px;line-height:1.42857143;border-radius:4px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;\">欢迎来NorthPark博客做客</a><br/>"
+            		+ "</div></div></div>"
 
                     + "</body></html>"); /* 邮件内容 */
             // 添加附件对象
@@ -200,8 +208,10 @@ public class EmailUtils {
 //        list.add("1143991340@qq.com");
 //        list.add("2985075841@qq.com");
 //        list.add("1401518328@qq.com");
+        list.add("xcyofapple@gmail.com");
+        list.add("527843212@qq.com");
         
-        list.add("peiweiyin8866@163.com");
+//        list.add("peiweiyin8866@163.com");
 //           list.add("sven777@qq.com");
 //           list.add("agnesluilui@gmail.com");
 //           list.add("johnathan426830@gmail.com");
