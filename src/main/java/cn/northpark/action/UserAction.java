@@ -665,6 +665,8 @@ public class UserAction {
     public String toLogin(ModelMap map, HttpServletRequest request) {
         //redirect URI的设置
         String redirectURI = request.getParameter("redirectURI");
+        
+        LOGGER.error("Login for :=======>"+JsonUtil.object2json(redirectURI));
         if (StringUtils.isNotEmpty(redirectURI)) {
             if (redirectURI.equals("/login")) {
                 redirectURI = "/";

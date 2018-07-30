@@ -201,7 +201,15 @@ public class EmailUtils {
 //        list.add("2985075841@qq.com");
 //        list.add("1401518328@qq.com");
         
-        list.add("peiweiyin8866@163.com");
+        
+        list.add("ttn8834@gmail.com");
+          
+        
+        
+//        list.add("kbecky29@gmail.com");
+//        list.add("2247395896@qq.com");
+//        list.add("yang32w@mtholyoke.edu");
+//        list.add("peiweiyin8866@163.com");
 //           list.add("sven777@qq.com");
 //           list.add("agnesluilui@gmail.com");
 //           list.add("johnathan426830@gmail.com");
