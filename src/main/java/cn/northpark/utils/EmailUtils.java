@@ -208,9 +208,11 @@ public class EmailUtils {
 //        list.add("1143991340@qq.com");
 //        list.add("2985075841@qq.com");
 //        list.add("1401518328@qq.com");
-       
-        
-        list.add("micro@iberhk.com");
+        list.add("tobeymarshall@qq.com");
+        list.add("goodyuhan123@163.com");
+        list.add("694863929@qq.com");
+//        list.add("1041093778@sina.com");
+//        list.add("micro@iberhk.com");
 //        list.add("ttn8834@gmail.com");
           
         
