@@ -211,12 +211,12 @@
     <table enableUpdateByExample="true" enableCountByExample="true"  tableName="bc_astro" domainObjectName="Astro"></table>
     <table enableUpdateByExample="true" enableCountByExample="true"  tableName="bc_user" domainObjectName="User"></table>
     <table enableUpdateByExample="true" enableCountByExample="true"  tableName="bc_userprofile" domainObjectName="UserProfile"></table>
-	
+	<table enableUpdateByExample="true" enableCountByExample="true"  tableName="np_health" domainObjectName="Health"></table>
     -->
 
 	
-	<table enableUpdateByExample="true" enableCountByExample="true"  tableName="np_health" domainObjectName="Health"></table>
 	
+	<table enableUpdateByExample="true" enableCountByExample="true"  tableName="np_member" domainObjectName="Member"></table>
 </context>
 
 </generatorConfiguration>

@@ -117,6 +117,18 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
 <script src="/js/page/login2.js"></script>
+<script>
+
+
+$(function () {
+    $(window).resize(function () {
+        $('body').css('min-height', ($(window).height()));
+        $('.maincontent').css('min-height', ($(window).height() - 100));
+        $('body').css('overflowX', 'hidden');
+
+    }).resize();
+});
+</script>
 
 </body>
 </html>
