@@ -7,13 +7,9 @@
  */
 package cn.northpark.exception;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,8 +22,6 @@ public class NorthparkExceptionHandler {
 	
 	public static final String NorthPark_Error_View = "/error";
 	public static final String NorthPark_Build_View = "/building";
-	
-	private final static Logger logger=Logger.getLogger(ExceptionHandler.class);
 	
 	
 	
@@ -55,11 +49,17 @@ public class NorthparkExceptionHandler {
     			return ResultGenerator.genErrorResult(ResultCode.SERVER_ERROR.getCode(),ResultCode.SERVER_ERROR.getMessage()+"-->"+e.getMessage());
     		}
     	} else {
+    		String exception = "";
+    		if (e instanceof NorthParkException) {
+    			NorthParkException ex = (NorthParkException) e;
+    			exception =  JSON.toJSONString(ResultGenerator.genErrorResult(ex.getCode(), ex.getMessage() + ex.getExtendMsg()));
+    		} else {
+    			exception =  JSON.toJSONString(ResultGenerator.genErrorResult(ResultCode.SERVER_ERROR.getCode(),ResultCode.SERVER_ERROR.getMessage()+"-->"+e.getMessage()));
+    		}
     		ModelAndView mav = new ModelAndView();
-            mav.addObject("exception", getStackTrace(e));
+            mav.addObject("exception", exception);
             mav.addObject("url", reqest.getRequestURL());
             mav.setViewName(NorthPark_Error_View);
-            logger.error(getStackTrace(e));
             return mav;
     	}
     	
@@ -83,27 +83,6 @@ public class NorthparkExceptionHandler {
 	}
 	
 	
-	/** 
-	 * 获取异常的堆栈信息 
-	 *  
-	 * @param t 
-	 * @return 
-	 */  
-	private static String getStackTrace(Throwable t)  
-	{  
-	    StringWriter sw = new StringWriter();  
-	    PrintWriter pw = new PrintWriter(sw);  
-	  
-	    try  
-	    {  
-	        t.printStackTrace(pw);  
-	        return JSON.toJSONString(sw);  
-	    }  
-	    finally  
-	    {  
-	        pw.close();  
-	    }  
-	}  
 	
 	
 }

@@ -28,7 +28,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.northpark.interceptor.CheckLogin;
+import cn.northpark.annotation.BruceOperation;
+import cn.northpark.annotation.CheckLogin;
+import cn.northpark.exception.NorthParkException;
+import cn.northpark.exception.ResultCode;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Movies;
@@ -64,11 +67,11 @@ public class MoviesAction {
      */
     @RequestMapping("/movies/handup")
     @ResponseBody
+    @BruceOperation
     public String handup(HttpServletRequest request) {
         String rs = "success";
         try {
             String id = request.getParameter("id");
-
             String max_hot_sql_id = "select max(hotindex) as hotindex from bc_movies ";
             List<Map<String, Object>> list = moviesManager.querySqlMap(max_hot_sql_id);
             Integer hotindex = 0;
@@ -101,11 +104,12 @@ public class MoviesAction {
      */
     @RequestMapping("/movies/hideup")
     @ResponseBody
+    @BruceOperation
     public String hideup(HttpServletRequest request) {
         String rs = "success";
         try {
             String id = request.getParameter("id");
-
+            
             Movies m = moviesManager.findMovies(Integer.parseInt(id));
             if (m != null) {
                 m.setDisplayed("N");
@@ -128,14 +132,10 @@ public class MoviesAction {
      * @return
      */
     @RequestMapping("/movies/add")
-    @CheckLogin
+    @BruceOperation
     public String toAdd(ModelMap map, HttpServletRequest request) {
+    	
         String rs = "/page/admin/movies/moviesAdd";
-        User user = (User) request.getSession().getAttribute("user");
-        if (!user.getEmail().equals("654714226@qq.com") && !user.getEmail().equals("qhdsoft@126.com")) {
-            rs = "/login2";
-        }
-
         return rs;
     }
 
@@ -403,6 +403,9 @@ public class MoviesAction {
                 if (StringUtils.isNotEmpty(tag) && StringUtils.isNotEmpty(tagcode)) {
                     String[] tags = tag.split(",");
                     String[] tagcodes = tagcode.split(",");
+                    if (tags.length != tagcodes.length) {
+                    	throw new NorthParkException(ResultCode.Movie_Tag_Not_Match);
+                    }
                     List<Map<String, String>> taglist = new ArrayList<Map<String, String>>();
                     for (int i = 0; i < tags.length; i++) {
                         Map<String, String> map = new HashMap<String, String>();
