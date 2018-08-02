@@ -44,8 +44,6 @@ hr {
 }
 
 .mainfoot {
-    display: block;
-    position: inherit;
     background: #fff;
     min-height: 100px;
     border-top: 1px solid #f9f9f9;
