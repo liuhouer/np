@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.northpark.interceptor.CheckLogin;
+import cn.northpark.annotation.CheckLogin;
 import cn.northpark.manager.LyricsCommentManager;
 import cn.northpark.manager.LyricsManager;
 import cn.northpark.manager.LyricsZanManager;
@@ -200,6 +200,9 @@ public class LyricsAction {
     @RequestMapping(value = "/lyrics/commentQuery")
     public String commentQuery(ModelMap map, HttpServletRequest request, HttpSession session, String userid) {
         String page = request.getParameter("currentpage");
+        
+        if(StringUtils.isEmpty(page)) page = "1";
+        
         String lyricsid = request.getParameter("lrcid");
 
 

@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.northpark.interceptor.CheckLogin;
+import cn.northpark.annotation.CheckLogin;
 import cn.northpark.manager.ResetManager;
 import cn.northpark.manager.UserFollowManager;
 import cn.northpark.manager.UserManager;

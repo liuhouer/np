@@ -18,7 +18,9 @@ public enum ResultCode {
     //自定义的一些业务错误码追加==============================================================================
     UNKONW_ERROR("-1", "未知错误"),
 	DIY("-5","自定義的錯誤"),
-	Extend("-6","扩展錯誤");
+	Extend("-6","扩展錯誤"),
+	Movie_Tag_Not_Match("-7","电影标签中英文数量不匹配，对应不上"),
+	Param_Not_Valid("-8","管理员相关方法竟然参数没有传递正常！需要记录IP，防止是恶意扫描。");
 
 	ResultCode(String code, String message) {
         this.code = code;

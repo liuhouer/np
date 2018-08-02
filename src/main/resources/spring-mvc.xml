@@ -43,6 +43,7 @@
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
         <!-- 如果不定义 mvc:mapping path 将拦截所有的URL请求 -->
         <bean class="cn.northpark.interceptor.LoginInterceptor"></bean>
+        <bean class="cn.northpark.interceptor.AdminInterceptor"></bean>
     </mvc:interceptors>
 
 
