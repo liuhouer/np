@@ -198,72 +198,70 @@ public class EmailUtils {
 
     public static void main(String[] args) {
 
-        List<String> list = new ArrayList<String>();
-//        list.add("119207145@qq.com");
-//        list.add("102757503@qq.com");
-//        list.add("1989866937@qq.com");
-//        list.add("404250426@qq.com");
-//        list.add("1297115491@qq.com");
-//        list.add("optrips@gmail.com");
-//        list.add("1143991340@qq.com");
-//        list.add("2985075841@qq.com");
-//        list.add("1401518328@qq.com");
-        list.add("tobeymarshall@qq.com");
-        list.add("goodyuhan123@163.com");
-        list.add("694863929@qq.com");
-//        list.add("1041093778@sina.com");
-//        list.add("micro@iberhk.com");
-//        list.add("ttn8834@gmail.com");
-          
-        
-//        list.add("xcyofapple@gmail.com");
-//        list.add("527843212@qq.com");
-//        list.add("kbecky29@gmail.com");
-//        list.add("2247395896@qq.com");
-//        list.add("yang32w@mtholyoke.edu");
-//        list.add("peiweiyin8866@163.com");
-//           list.add("sven777@qq.com");
-//           list.add("agnesluilui@gmail.com");
-//           list.add("johnathan426830@gmail.com");
-        
-//          list.add("qazp950337@gmail.com");
-//          list.add("1939451983@qq.com");
-//          list.add("94534080@qq.com");
-//          list.add("1126733645@qq.com");
-//          list.add("2574183193@qq.com");
-//          list.add("trboyspace@126.com");
-//          list.add("a10429003@gmail.com");
-//          list.add("928287517@qq.com");
+    	List<String> list = new ArrayList<String>();
+    	//        list.add("119207145@qq.com");
+    	//        list.add("102757503@qq.com");
+    	//        list.add("1989866937@qq.com");
+    	//        list.add("404250426@qq.com");
+    	//        list.add("1297115491@qq.com");
+    	//        list.add("optrips@gmail.com");
+    	//        list.add("1143991340@qq.com");
+    	//        list.add("2985075841@qq.com");
+    	//        list.add("1401518328@qq.com");
+    	list.add("tobeymarshall@qq.com");
+    	list.add("goodyuhan123@163.com");
+    	list.add("694863929@qq.com");
+    	//        list.add("1041093778@sina.com");
+    	//        list.add("micro@iberhk.com");
+    	//        list.add("ttn8834@gmail.com");
+    	//        list.add("xcyofapple@gmail.com");
+    	//        list.add("527843212@qq.com");
+    	//        list.add("kbecky29@gmail.com");
+    	//        list.add("2247395896@qq.com");
+    	//        list.add("yang32w@mtholyoke.edu");
+    	//        list.add("peiweiyin8866@163.com");
+    	//        list.add("sven777@qq.com");
+    	//        list.add("agnesluilui@gmail.com");
+    	//        list.add("johnathan426830@gmail.com");
 
-        
-//        list.add("GalwayGao@gmail.com");
-//        list.add("j6m06vu@gmail.com");
-//        list.add("ishigakimakino@gmail.com");
-//        list.add("13681286770@163.com");
-//        list.add("1349430856@qq.com");
-//        list.add("k2mr@foxmail.com");
-//        list.add("aold619@yeah.net");
-//        list.add("ed1997chang@gmail.com");
-//		list.add("2572684952@qq.com");          );
-//		list.add("goooob@126.com");
-//		list.add("843664866@qq.com");
-//		list.add("heartlead@gmail.com");
-//		list.add("kevinlin1997@yahoo.com.tw");
-//		list.add("1358726405@qq.com");
-//		list.add("18374819636@163.com");
-//		list.add("40367288@qq.com");
-//		list.add("651001768@qq.com");
-//		list.add("elsa7788@outlook.com");
-//		list.add("mengda1027@qq.com");
-//		list.add("49611084@qq.com");
-//		list.add("knightli@foxmail.com");
-//		list.add("973741142@qq.com");
-//		list.add("232475782@qq.com");
+    	//        list.add("qazp950337@gmail.com");
+    	//        list.add("1939451983@qq.com");
+    	//        list.add("94534080@qq.com");
+    	//        list.add("1126733645@qq.com");
+    	//        list.add("2574183193@qq.com");
+    	//        list.add("trboyspace@126.com");
+    	//        list.add("a10429003@gmail.com");
+    	//        list.add("928287517@qq.com");
 
 
-        for (int i = 0; i < list.size(); i++) {
+    	//        list.add("GalwayGao@gmail.com");
+    	//        list.add("j6m06vu@gmail.com");
+    	//        list.add("ishigakimakino@gmail.com");
+    	//        list.add("13681286770@163.com");
+    	//        list.add("1349430856@qq.com");
+    	//        list.add("k2mr@foxmail.com");
+    	//        list.add("aold619@yeah.net");
+    	//        list.add("ed1997chang@gmail.com");
+    	//		  list.add("2572684952@qq.com");          );
+    	//		  list.add("goooob@126.com");
+    	//		  list.add("843664866@qq.com");
+    	//		  list.add("heartlead@gmail.com");
+    	//		  list.add("kevinlin1997@yahoo.com.tw");
+    	//		  list.add("1358726405@qq.com");
+    	//		  list.add("18374819636@163.com");
+    	//		  list.add("40367288@qq.com");
+    	//		  list.add("651001768@qq.com");
+    	//		  list.add("elsa7788@outlook.com");
+    	//		  list.add("mengda1027@qq.com");
+    	//		  list.add("49611084@qq.com");
+    	//		  list.add("knightli@foxmail.com");
+    	//		  list.add("973741142@qq.com");
+    	//		  list.add("232475782@qq.com");
 
-            EmailUtils.ThanksReg(list.get(i));
-        }
+
+    	for (int i = 0; i < list.size(); i++) {
+
+    		EmailUtils.ThanksReg(list.get(i));
+    	}
     }
 }
