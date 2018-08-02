@@ -29,14 +29,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.northpark.annotation.BruceOperation;
-import cn.northpark.annotation.CheckLogin;
 import cn.northpark.exception.NorthParkException;
 import cn.northpark.exception.ResultCode;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Movies;
 import cn.northpark.model.Tags;
-import cn.northpark.model.User;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;

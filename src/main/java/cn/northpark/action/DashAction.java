@@ -1,7 +1,6 @@
 
 package cn.northpark.action;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.northpark.constant.BC_Constant;
@@ -33,7 +31,7 @@ import cn.northpark.utils.page.PageView;
 /**
  * @author zhangyang
  * 处理首页的内容
- * 所有内容
+ * 所有内容	
  * 从redis缓存获取
  * @date 2016-10-08 去掉缓存|内存占用有点大
  */
