@@ -1,5 +1,4 @@
 $(function () {
-	$('body').css('overflowX', 'hidden');
     $('#login #newPassword').focus(function () {
         $('#owl-login').addClass('password');
     }).blur(function () {

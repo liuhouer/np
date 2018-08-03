@@ -3,6 +3,8 @@ body {
     padding: 0;
     margin: 0;
     position: relative;
+    min-height: 720px;/* 设置最小高度撑起窗口 */
+    overflow-x:hidden;/* 隐藏横向滚动条 */
 }
 
 hr {
@@ -1722,4 +1724,11 @@ a.project-card-link {
     vertical-align: bottom;
     padding: 0px;
     -webkit-font-smoothing: antialiased;
+}
+
+/* 设置页面主内容的高度来撑起窗口   */
+.maincontent{
+	
+	min-height: 620px;
+	
 }

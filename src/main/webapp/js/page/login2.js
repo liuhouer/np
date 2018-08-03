@@ -1,6 +1,5 @@
 //绑定捂住眼睛的动作 
 $(function () {
-	 $('body').css('overflowX', 'hidden');
     $('#login #password').focus(function () {
         $('#owl-login').addClass('password');
     }).blur(function () {
