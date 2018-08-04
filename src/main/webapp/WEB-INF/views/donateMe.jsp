@@ -26,13 +26,12 @@
 <body style="">
 <%@ include file="/WEB-INF/views/page/common/navigation.jsp" %>
 
-<input type="hidden" id="J_msg" value="${msg}"/>
 <!-- 页面标题 -->
 <div class="clearfix maincontent">
     <div class="container">
 
 
-            <div class="align-center bg-white radius-5 padding10 max-width-700 " style="margin-top: 100px;">
+            <div class="align-center bg-white radius-5 padding10 max-width-700 " style="margin-top: 60px;">
 
                 <div>
                     <h1 class="center">赞助本站</h1>
