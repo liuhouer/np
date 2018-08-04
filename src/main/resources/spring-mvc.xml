@@ -24,7 +24,7 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!-- 注解扫描包 -->
+    <!-- 注解扫描包  开启spring的扫描注入，使用如下注解 @Component,@Repository,@Service,@Controller -->
     <context:component-scan base-package="cn.northpark" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
@@ -32,7 +32,7 @@
 
     <!-- 开启注解 -->
     <mvc:annotation-driven/>
-
+    
     <!-- 定义自动注入 -->
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>

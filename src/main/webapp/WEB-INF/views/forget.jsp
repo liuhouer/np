@@ -31,10 +31,9 @@
 <!-- 页面标题 -->
 <div class="clearfix maincontent">
     <div class="container">
-        <div class="mainbody" style="margin-top:5em;">
 
 
-            <div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
+            <div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300" style="margin-top: 120px;">
 
                 <div class="clearfix">
                     <h1 class="font-elegant">忘记密码</h1>
@@ -50,13 +49,12 @@
                 <label class="control-label iteminfo " id="J_tip"></label>
                 <div class="form-group">
                     <input id="formSubmit" data-activetext="发送重置邮件 ››"
-                           class="btn btn-hero btn-xlg margin-t10 grid50" type="submit"
+                           class="btn btn-hero btn-xlg margin-t10 grid98" type="submit"
                            value="发送重置邮件" disabled="disabled">
                 </div>
             </div>
             <br><br>
 
-        </div>
 
 
     </div>

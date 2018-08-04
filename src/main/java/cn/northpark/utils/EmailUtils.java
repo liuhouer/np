@@ -208,9 +208,13 @@ public class EmailUtils {
     	//        list.add("1143991340@qq.com");
     	//        list.add("2985075841@qq.com");
     	//        list.add("1401518328@qq.com");
-    	list.add("tobeymarshall@qq.com");
-    	list.add("goodyuhan123@163.com");
-    	list.add("694863929@qq.com");
+              list.add("dalao.orz@gmail.com");
+    	//        list.add("wei014127@hotmail.com"); 
+    	//        list.add("121942010@qq.com"); 
+    	//        list.add("jameshunter7641@gmail.com"); 
+		//    	  list.add("tobeymarshall@qq.com");
+		//    	  list.add("goodyuhan123@163.com");
+		//    	  list.add("694863929@qq.com");
     	//        list.add("1041093778@sina.com");
     	//        list.add("micro@iberhk.com");
     	//        list.add("ttn8834@gmail.com");

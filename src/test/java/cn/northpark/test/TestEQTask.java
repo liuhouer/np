@@ -398,12 +398,12 @@
 //    		Map<String, String> map = null;
 //
 //
-//    		for (int k = 2; k <= 3; k++) {
+//    		for (int k = 0; k <= 2; k++) {
 //
 //    			try {
 //
-////    				List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
-//    				List<Map<String, String>> list = HTMLParserUtil.retSoft_WSKSO(k);
+//    				List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
+////    				List<Map<String, String>> list = HTMLParserUtil.retSoft_WSKSO(k);
 //
 //    				if (!CollectionUtils.isEmpty(list)) {
 //    					for (int i = 0; i < list.size(); i++) {

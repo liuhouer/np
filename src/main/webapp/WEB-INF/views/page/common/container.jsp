@@ -13,6 +13,7 @@
                 <a target="_blank" href="/vps" title="优惠vps、vps测评">优惠VPS<span class="badge green-badge">new</span></a>
                 <a target="_blank" href="/romeo" title="情圣时刻">情商提升</a>
                 <a target="_blank" href="/cm/xbjt" title="原创音乐播放器">小布静听</a>
+                <a target="_blank" href="/donate" title="赞助本站">赞助我们</a>
                 <a target="_blank" href="/about.html" title="关于NorthPark" class="aend">关于NorthPark</a>
                 <!-- <a target="_blank"  href="/wx/astro" title="星座运势、人性化的美少女塔罗牌消息私人订制"  class="aend" >星座美少女</a> -->
 

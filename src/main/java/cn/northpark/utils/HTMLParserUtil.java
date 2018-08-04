@@ -951,6 +951,7 @@ public class HTMLParserUtil {
 
 
     /**
+     * 爱情守望者
      * 爬取1页的mac软件内容
      */
     public static List<Map<String, String>> retSoftNew(Integer index) {
@@ -960,7 +961,7 @@ public class HTMLParserUtil {
         try {
 
 
-            String initUrl = "http://www.wskso.com/archives/category/macsoft/page/" + index;
+            String initUrl = "https://www.waitsun.com/page/" + index;
             final String dataResult = HttpGetUtils.getDataResult(initUrl);
 
             System.out.println(dataResult);
@@ -969,10 +970,9 @@ public class HTMLParserUtil {
             Elements soft11 = null;
             //取得一页内容梗概
             if (index > 1) {
-                soft11 = doc.select("article");
+                soft11 = doc.select("article[class=gamma-item globe-block p-3 col-md-3]");
             } else {
-               doc.select("main").select("div[class=cms-news-grid]").remove();
-               soft11 = doc.select("article");
+                soft11 = doc.select("div[class=col-lg-1-5 col-md-6 col-sm-6 col-12]");
             }
 
 //             String baseUrl=initUrl;
@@ -983,18 +983,20 @@ public class HTMLParserUtil {
 //             Set<String> keySet = allUrls.keySet();
 
             for (Element e : soft11) {
-            	System.out.println(e);
                 try {
 
-                    String url = e.select("figure").get(0).select("a").get(0).attr("href");
-                    String img_url = e.select("figure").get(0).select("img").get(0).attr("src");
+                    String url = e.select("a").get(0).attr("href");
+                    String img_url = e.select("img").get(0).attr("src");
 
 
+                    //获取全文的内容
+                    String dataResult1 = HttpGetUtils.getDataResult(url);
+
+                    /*System.out.println(dataResult1);*/
+                    Document parse = Jsoup.parse(dataResult1, url);
 
                     //唯一码
                     String code = url.substring(url.lastIndexOf("/") + 1, url.length()).replaceAll(".html", "");
-                    
-                    code = "wskso-"+code;
 
 
                     //判断code在系统不存在再去处理后面的事
@@ -1005,7 +1007,7 @@ public class HTMLParserUtil {
 //                    if (flag <= 0) {
 
                         //日期
-                        String date = e.select("span[class=date]").get(0).text();
+                        String date = parse.select("div[class=about pt-2 pt-md-3]").select("span").get(0).text();
 
 
                         date = date.replaceAll(" ", "");
@@ -1020,10 +1022,10 @@ public class HTMLParserUtil {
 
 
                         //标题
-                        String title = e.select("h2[class=entry-title]").get(0).text();
+                        String title = parse.select("div[class=meta text-center text-white]").select("h1").get(0).text();
 
                         //标签
-                        String tag = e.select("span[class=cat]").get(0).text();
+                        String tag = parse.select("li[class=breadcrumb-item]").get(1).text();
 
 
                         //处理软件logo上传
@@ -1031,7 +1033,7 @@ public class HTMLParserUtil {
 
                         String logo_url = QiniuUtils.getInstance.upload(map11.get("localpath"), "soft/" + date + "/" + map11.get("key"));
 
-                        String logo_p = "<p><img class=\"aligncenter size-full wp-image-" + code + "\" title=\"" + title + "\" alt=\"" + title + "\" src=\"" + logo_url + "\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\"></p>";
+                        String logo_p = "<p><img class=\"aligncenter size-full wp-image-" + code + "\" title=\"" + title + "\" alt=\"" + title + "\" src=\"" + logo_url + "\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\">";
 
 
                         //计算标签编码、
@@ -1066,50 +1068,67 @@ public class HTMLParserUtil {
                         }
                         LOGGER.info("tagcode====================" + tagcode);
 
+                        //正文
+                        String article = "";
 
                         //简介
                         StringBuilder brief = new StringBuilder();
-                        String briefContent = e.select("div[class=archive-content]").get(0).text();
-
+                        
                         //下载地址
                         String path = "";
-                        //正文
-                        String article = "";
-                        
-                        //获取全文的内容
-                        String dataResult1 = HttpGetUtils.getDataResult(url);
 
-                        /*System.out.println(dataResult1);*/
-                        Document parse = Jsoup.parse(dataResult1, url);
 
-                        Element article_alls = parse.select("div[class=single-content]").get(0);
-                        
+                        Elements article_alls = parse.select("div[class=content]");
+                        if (!article_alls.isEmpty()) {
+                            for (int i1 = 0; i1 < article_alls.size(); i1++) {
 
-                         //处理正文图像
-                        article_alls.select("img").remove();
+                                //处理征文图像
+                                Elements imgs = article_alls.get(i1).select("img");
+                                for (int j = 0; j < imgs.size(); j++) {
+                                    try {
+//                                     String weburl = imgs.get(j).attr("src");
+                                        //web图片上传到七牛
+
+//                                     //-------------开始--------------------------------
+//
+//                                     HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
+//
+//                                     String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
+//
+//                                     //-------------结束--------------------------------
+//                                     if(StringUtils.isNotEmpty(rs)){
+//                                    	 imgs.get(j).attr("src", rs);
+//                                     }
+                                        imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
+                                    } catch (Exception e1) {
+                                        // TODO: handle exception
+                                        LOGGER.error("ret pic exception===>" + e1.toString());
+                                        continue;
+                                    }
+
+                                }
 
 
                                 //处理正文的不合法url
-                                Elements a1 = article_alls.select("a");
+                                Elements a1 = article_alls.get(i1).select("a");
                                 for (Element s : a1) {
                                     if (s.attr("href").contains("/tag")) {
                                         s.before(s.text());
                                         s.remove();
-                                    } else if (s.attr("href").contains("#login")) {
-                                    	s.parent().remove();
-//                                        s.remove();
+                                    } else if (s.attr("href").contains("/xpay-html")) {
+                                        s.remove();
                                     } else if (s.attr("href").endsWith(".jpg") || s.attr("href").endsWith(".jpeg") || s.attr("href").endsWith(".png")) {
                                         s.attr("href", "");
-                                    } else if (s.attr("href").contains("www.wskso.com/wp-content/themes/begin/inc/go.php?url")) {//改成短连接  并且改样式
+                                    } else if (s.attr("href").contains("waitsun.com/?dl_id")) {//改成短连接  并且改样式
                                         s.addClass("btn-warning");
                                     }
                                 }
-
-								//处理下载地址
+                                
+                                //处理下载地址
                                 StringBuilder sb_path = new StringBuilder();
                                 //执行2次抓取下载地址
                                 for (int i = 0; i < 2; i++) {
-                                	 Element last = article_alls.select("a").last();
+                                	 Element last = article_alls.get(i1).select("a").last();
                                      if(last!=null) {
                                      	if(last.toString().contains("下载")||last.toString().contains("www.waitsun.com")||last.toString().contains("ctfile.com")) {
                                      		System.out.println("========================");
@@ -1130,44 +1149,40 @@ public class HTMLParserUtil {
                                
                                 System.out.println("sb_path===================>"+sb_path.toString());
                                 path = sb_path.toString();
+
                                 //设置正文
-                                article = article_alls.html();
+                                article = article_alls.get(i1).html();
                                 brief.append(logo_p);
                                 brief.append("<p>");
-                                brief.append(briefContent);
+                                brief.append(article_alls.get(i1).select("p").get(0).html());
                                 brief.append("</p>");
                                 System.out.println("===================================================================================================");
-                                System.out.println(article);
+                                System.out.println("正文内容===================>"+article_alls.get(i1).html());
                                 System.out.println("===================================================================================================");
+                            }
+                        }
 
-                                article = article.replaceAll("行者要来分享的是", "介绍").replaceAll("之前，有朋友留言行者需要", "介绍").replaceAll("行者", "小编jeyy");
-                                article = logo_p+article;
-                                String briefs = brief.toString();
-                                briefs = briefs.replaceAll("行者要来分享的是", "介绍").replaceAll("之前，有朋友留言行者需要", "介绍").replaceAll("行者", "小编jeyy");
-		                        map = new HashMap<>();
-		                        map.put("title", title);
-		                        map.put("aurl", url);
-		                        map.put("brief", briefs);
-		                        map.put("date", date);
-		                        map.put("article", article);
-		                        map.put("tag", tag);
-		                        map.put("code", code);
-		                        map.put("os", "mac");
-		                        map.put("month", month);
-		                        map.put("year", year);
-		                        map.put("tagcode", tagcode);
-								map.put("path", path);
-		                        list.add(map);
+                        map = new HashMap<>();
+                        map.put("title", title);
+                        map.put("aurl", url);
+                        map.put("brief", brief.toString());
+                        map.put("date", date);
+                        map.put("article", article);
+                        map.put("tag", tag);
+                        map.put("code", code);
+                        map.put("os", "mac");
+                        map.put("month", month);
+                        map.put("year", year);
+                        map.put("tagcode", tagcode);
+                        map.put("path", path);
+                        list.add(map);
 
 //                    }
                 } catch (Exception e2) {
-                	e2.printStackTrace();
-                	LOGGER.error(e2);
                     continue;
                 }
 
             }
-            System.out.println(JsonUtil.object2json(list));
             System.out.println(index + "页爬取完毕！ the end===============================================================================================");
 
         } catch (Exception e) {
