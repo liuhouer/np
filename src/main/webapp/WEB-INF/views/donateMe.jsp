@@ -94,7 +94,36 @@
 					</div>
 
 
+					<!-- 评论 -->
+                        <div id="comment">
 
+                            <!-- 来必力City版安装代码 -->
+                            <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzgzNy80NDEz">
+                                <script type="text/javascript">
+                                    (function (d, s) {
+                                        var j, e = d.getElementsByTagName(s)[0];
+
+                                        if (typeof LivereTower === 'function') {
+                                            return;
+                                        }
+
+                                        j = d.createElement(s);
+                                        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                                        j.async = true;
+
+                                        e.parentNode.insertBefore(j, e);
+                                    })(document, 'script');
+
+
+                                    //删除评论多余的代码
+
+
+                                </script>
+                            </div>
+                            <!-- City版安装代码已完成 -->
+
+                        </div>
+                        <!-- 评论 -->
     </div>
 </div>
 

@@ -44,7 +44,7 @@
                     <div class="col-sm-12">
 
                         <form class="form-search" id="J_ser_from" method="post" accept-charset="UTF-8"
-                              action="/soft/mac/page/1">
+                              action="/soft/mac/page/1" onkeydown="if(event.keyCode==13){return false;}">
                             <input id="keyword" placeholder="Mac软件板块上线啦~" value="${keyword }"
                                    class="width100 input-medium search-query input-lg   border-light-1 bg-lyellow  radius-0"
                                    name="keyword" type="text">
