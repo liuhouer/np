@@ -50,6 +50,7 @@
         </mvc:interceptor>
         <mvc:interceptor>
 	        <mvc:mapping path="/movies/**" />  
+	        <mvc:mapping path="/soft/**" />  
         	<bean class="cn.northpark.interceptor.AdminInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

@@ -288,9 +288,14 @@ public class TimeUtils {
      * @return 月份
      */
     public static String getMonth(String time) {
+        String t = time;
         if (null == time) return null;
         if (time.contains("-")) {
-            return time.substring(5, 7);
+        	 String[] str = time.split("-");
+             if (str.length >= 1) {
+                 t = str[1];
+             }
+            return t;
         }
         return null;
     }
@@ -304,7 +309,7 @@ public class TimeUtils {
         String t = timeStr;
         if (timeStr.contains("-")) {
             String[] str = timeStr.split("-");
-            if (str.length > 2) {
+            if (str.length >= 2) {
                 t = str[2];
             }
         }

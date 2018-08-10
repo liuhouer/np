@@ -20,9 +20,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.northpark.annotation.BruceOperation;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Soft;
+import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
@@ -48,6 +51,87 @@ public class SoftAction {
      * 每页展示多少条mac数
      */
     private static int SoftCount = 10;
+    
+    
+    /**
+     * 跳转后台添加
+     *
+     * @param map
+     * @return
+     */
+    @RequestMapping("/add")
+    @BruceOperation
+    public String toAdd(ModelMap map, HttpServletRequest request) {
+    	
+        String rs = "/page/admin/soft/softAdd";
+        return rs;
+    }
+    
+    
+    /**
+     * 跳转到软件编辑页面
+     *
+     * @param map
+     * @param condition
+     * @param request
+     * @param response
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/edit/{id}")
+    @BruceOperation
+    public String edit(ModelMap map, @PathVariable String id, HttpServletRequest request ) {
+
+        if (StringUtils.isNotEmpty(id)) {
+            //sql注入处理
+            id = WAQ.forSQL().escapeSql(id);
+            Soft  model = softManager.findSoft(Integer.valueOf(id));
+            if(model!=null) {
+            	map.addAttribute("model", model);
+            }
+        }
+
+
+        return "/page/admin/soft/softAdd";
+    }
+    
+    /**
+     * 保存软件的方法
+     *
+     * @param map
+     * @return
+     */
+    @RequestMapping("/addItem")
+    @ResponseBody
+    @BruceOperation
+    public String addItem(ModelMap map, Soft model) {
+        String rs = "success";
+        try {
+        	//更新
+        	if(model.getId()!=null && model.getId()!=0) {
+        		Soft old = softManager.findSoft(model.getId());
+        		old.setTitle(model.getTitle());
+        		old.setPath(model.getPath());
+        		old.setContent(model.getContent());
+        		old.setBrief(model.getBrief());
+        		old.setRetcode(model.getRetcode());
+        		softManager.updateSoft(old);
+        			
+        	}else {//新增
+        		
+        		 model.setPostdate(TimeUtils.nowdate());
+        		 model.setYear(TimeUtils.getYear(TimeUtils.nowdate()));
+                 model.setMonth(TimeUtils.getMonth(TimeUtils.nowdate()));
+        		 softManager.addSoft(model);
+        	}
+           
+        } catch (Exception e) {
+            // TODO: handle exception
+            LOGGER.error("Softacton------>", e);
+            rs = "ex";
+        }
+        return rs;
+    }
 
     /**
      * 查询列表

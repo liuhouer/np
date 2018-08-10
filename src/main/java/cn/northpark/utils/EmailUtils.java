@@ -195,7 +195,6 @@ public class EmailUtils {
         return email.matches(regex);
     }
 
-
     public static void main(String[] args) {
 
     	List<String> list = new ArrayList<String>();
@@ -208,7 +207,9 @@ public class EmailUtils {
     	//        list.add("1143991340@qq.com");
     	//        list.add("2985075841@qq.com");
     	//        list.add("1401518328@qq.com");
-    			  list.add("1065122440@qq.com");
+    			  list.add("mondhou@qq.com");
+    			  list.add("522571294@qq.com");    	
+    	//    	  list.add("1065122440@qq.com");
     	//		  list.add("ipaint@qq.com");
         //        list.add("dalao.orz@gmail.com");
     	//        list.add("wei014127@hotmail.com"); 
