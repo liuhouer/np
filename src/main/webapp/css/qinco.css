@@ -246,6 +246,14 @@ a:focus, a:hover {
     width: 70%
 }
 
+.grid80 {
+    width: 80%
+}
+
+.grid85 {
+    width: 85%
+}
+
 .grid90 {
     width: 90%
 }

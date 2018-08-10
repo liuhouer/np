@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jmx.export.SpringModelMBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
@@ -136,6 +137,34 @@ public class MoviesAction {
         String rs = "/page/admin/movies/moviesAdd";
         return rs;
     }
+    
+    
+    /**
+     * 跳转到电影编辑页面
+     *
+     * @param map
+     * @param condition
+     * @param request
+     * @param response
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/movies/edit/{id}")
+    @BruceOperation
+    public String edit(ModelMap map, @PathVariable String id, HttpServletRequest request ) {
+
+        if (StringUtils.isNotEmpty(id)) {
+            //sql注入处理
+            id = WAQ.forSQL().escapeSql(id);
+            Movies  model = moviesManager.findMovies(Integer.valueOf(id));
+            if(model!=null) {
+            	map.addAttribute("model", model);
+            }
+        }
+
+
+        return "/page/admin/movies/moviesAdd";
+    }
 
 
     /**
@@ -146,11 +175,25 @@ public class MoviesAction {
      */
     @RequestMapping("/movies/addItem")
     @ResponseBody
+    @BruceOperation
     public String addItem(ModelMap map, Movies model) {
         String rs = "success";
         try {
-            model.setAddtime(TimeUtils.nowdate());
-            moviesManager.addMovies(model);
+        	//更新
+        	if(model.getId()!=null && model.getId()!=0) {
+        		Movies old = moviesManager.findMovies(model.getId());
+        		old.setMoviename(model.getMoviename());
+        		old.setPath(model.getPath());
+        		old.setColor(model.getColor());
+        		old.setDescription(model.getDescription());
+        		moviesManager.updateMovies(old);
+        			
+        	}else {//新增
+        		
+        		 model.setAddtime(TimeUtils.nowdate());
+                 moviesManager.addMovies(model);
+        	}
+           
         } catch (Exception e) {
             // TODO: handle exception
             LOGGER.error("moviesacton------>", e);

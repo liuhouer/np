@@ -37,30 +37,34 @@
                         </h4>
                         <hr>
                     </div>
-
+					<input type="hidden" name="id" value="${model.id }"/>
                     <div class="form-group ">
+                        <span class="glyphicon glyphicon-star"></span> 电影名
                         <input id="J_name" placeholder="电影名" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-                               name="moviename" type="text">
+                               name="moviename" type="text" value="${model.moviename }">
                     </div>
                     <div class="form-group ">
-                        <input id="J_path" placeholder="下载地址" required
-                               class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-                               name="path" type="text">
+                               
+                         <span class="glyphicon glyphicon-star"></span>下载地址     
+                         <textarea id="J_path" style="height: 200px; max-height: 400px;"
+                                      name="path" rows="5">
+								${model.path }
+						 </textarea>      
                     </div>
-                    <div class="form-group ">
-                        <input id="J_price" placeholder="定价" required
+					<div class="form-group ">
+						<span class="glyphicon glyphicon-star"></span>电影颜色
+                        <input id="J_color" placeholder="电影颜色" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-                               name="price" value="1" type="text">
+                               name="color" type="text" value="${model.color }">
                     </div>
-
                     <div class="form-group">
 							<textarea id="J_md_text" style="height: 200px; max-height: 400px;"
                                       name="description" rows="5">
-								#电影简介
+								${model.description }
 						    </textarea>
                     </div>
-
+					
                     <div class="form-group">
                         <input id="formSubmit" data-activetext="添加 ››"
                                class="btn btn-hero btn-xlg margin-t10 grid50" value="添加"
@@ -94,13 +98,22 @@
                 ['createLink', 'insertHr', 'undo']
             ]
         });
+        
+        var editor2 = $('#J_path').wangEditor({
+            'menuConfig': [
+                ['viewSourceCode'],
+                ['fontFamily', 'fontSize', 'bold', 'setHead'],
+                ['list', 'justify', 'blockquote'],
+                ['createLink', 'insertHr', 'undo']
+            ]
+        });
 
         //追加字符串
         //editor.append('##电影简介');
 
         //提交表单
         $("#formSubmit").click(function () {
-            if ($("#J_name").val() && $("#J_md_text").val() && $("#J_price").val() && $("#J_path").val()) {
+            if ($("#J_name").val() && $("#J_md_text").val() && $("#J_color").val() && $("#J_path").val()) {
 
                 $.ajax({
 

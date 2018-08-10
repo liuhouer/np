@@ -49,8 +49,9 @@
                                         <span class=" glyphicon glyphicon-arrow-up margin10"></span>
                                         <a class="common-a-right" title="置顶" href="" onclick="handup('${model.id}')">置顶</a>
                                         <span class=" glyphicon glyphicon-eye-close margin10"></span>
-                                        <a class="common-a-right" title="隐藏" href=""
-                                           onclick="hideup('${model.id}')">大尺度隐藏</a>
+                                        <a class="common-a-right" title="隐藏" href="" onclick="hideup('${model.id}')">大尺度隐藏</a>
+                                        <span class="glyphicon glyphicon-pencil margin10"></span>   
+                                        <a class="common-a-right" title="编辑" href="/movies/edit/${model.id}" >快速编辑</a>   
                                     </c:if>
                                 </c:if>
 
@@ -136,40 +137,35 @@
 
 
                                 <!-- 评论 -->
-                                <div id="comment" class="clearfix bg-white">
-
-                                    <!-- 来必力City版安装代码 -->
-                                    <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzgzNy80NDEz">
-                                        <script type="text/javascript">
-																																									(function(
-																																											d,
-																																											s) {
-																																										var j, e = d
-																																												.getElementsByTagName(s)[0];
-
-																																										if (typeof LivereTower === 'function') {
-																																											return;
-																																										}
-
-																																										j = d
-																																												.createElement(s);
-																																										j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-																																										j.async = true;
-
-																																										e.parentNode
-																																												.insertBefore(
-																																														j,
-																																														e);
-																																									})
-																																											(
-																																													document,
-																																													'script');
-																																								</script>
-                                    </div>
-                                    <!-- City版安装代码已完成 -->
-
-                                </div>
-                                <!-- 评论 -->
+		                        <div id="comment" class="grid85">
+		
+		                            <!-- 来必力City版安装代码 -->
+		                            <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzgzNy80NDEz">
+		                                <script type="text/javascript">
+		                                    (function (d, s) {
+		                                        var j, e = d.getElementsByTagName(s)[0];
+		
+		                                        if (typeof LivereTower === 'function') {
+		                                            return;
+		                                        }
+		
+		                                        j = d.createElement(s);
+		                                        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		                                        j.async = true;
+		
+		                                        e.parentNode.insertBefore(j, e);
+		                                    })(document, 'script');
+		
+		
+		                                    //删除评论多余的代码
+		
+		
+		                                </script>
+		                            </div>
+		                            <!-- City版安装代码已完成 -->
+		
+		                        </div>
+                       		 <!-- 评论 -->
 
 
                             </div>

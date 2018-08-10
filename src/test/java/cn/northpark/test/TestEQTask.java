@@ -15,6 +15,7 @@
 //import cn.northpark.manager.MoviesManager;
 //import cn.northpark.manager.SoftManager;
 //import cn.northpark.manager.VpsManager;
+//import cn.northpark.model.Movies;
 //import cn.northpark.model.Soft;
 //import cn.northpark.utils.HTMLParserUtil;
 //import cn.northpark.utils.TimeUtils;
@@ -94,7 +95,17 @@
 ////			e.printStackTrace();
 ////		}
 //		
-//		
+//    	
+//    	//电影的描述H1处理
+////		List<Movies> list = moviesManager.querySqlEntity(" SELECT * FROM `bc_movies` WHERE `description` LIKE '%<h1>%'  order by id desc ");
+////		for (Movies m:list) {
+////			  String content = m.getDescription();
+////			  content = content.replace("<h1>", "<p>").replace("</h1>", "</p>");
+////			  System.out.println(content);
+////			  m.setDescription(content);
+////			  moviesManager.updateMovies(m);
+////		}  
+////		
 //		//电影的网站地图
 ////		StringBuilder sb = new StringBuilder();
 ////		List<Map<String, Object>> list = softManager.querySqlMap(" select id from bc_movies where 1=1 order by id desc ");
@@ -398,7 +409,7 @@
 //    		Map<String, String> map = null;
 //
 //
-//    		for (int k = 0; k <= 2; k++) {
+//    		for (int k = 0; k <= 0; k++) {
 //
 //    			try {
 //
