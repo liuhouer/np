@@ -970,9 +970,9 @@ public class HTMLParserUtil {
             Elements soft11 = null;
             //取得一页内容梗概
             if (index > 1) {
-                soft11 = doc.select("article[class=gamma-item globe-block p-3 col-md-3]");
+                soft11 = doc.select("div[class=ajax-load-con content posts-default  col-xs-6 col-sm-4 col-md-3 col-lg-1-5]");
             } else {
-                soft11 = doc.select("div[class=col-lg-1-5 col-md-6 col-sm-6 col-12]");
+                soft11 = doc.select("div[class=ajax-load-con content posts-default  col-xs-6 col-sm-4 col-md-3 col-lg-1-5]");
             }
 
 //             String baseUrl=initUrl;
@@ -1007,9 +1007,10 @@ public class HTMLParserUtil {
 //                    if (flag <= 0) {
 
                         //日期
-                        String date = parse.select("div[class=about pt-2 pt-md-3]").select("span").get(0).text();
+                        String date = parse.select("span[class=postclock]").get(0).text();
 
 
+                        if(StringUtils.isNotEmpty(date) && date.contains("前")) date  = TimeUtils.nowdate();
                         date = date.replaceAll(" ", "");
                         date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
                         LOGGER.info("date====================" + date);
@@ -1022,10 +1023,10 @@ public class HTMLParserUtil {
 
 
                         //标题
-                        String title = parse.select("div[class=meta text-center text-white]").select("h1").get(0).text();
+                        String title = parse.select("div[class=post-title]").select("h1").get(0).text();
 
                         //标签
-                        String tag = parse.select("li[class=breadcrumb-item]").get(1).text();
+                        String tag = parse.select("div[class=breadcrumbs]").select("span[itemprop=name]").get(1).text();
 
 
                         //处理软件logo上传
@@ -1078,7 +1079,7 @@ public class HTMLParserUtil {
                         String path = "";
 
 
-                        Elements article_alls = parse.select("div[class=content]");
+                        Elements article_alls = parse.select("div[class=post-content]");
                         if (!article_alls.isEmpty()) {
                             for (int i1 = 0; i1 < article_alls.size(); i1++) {
 
@@ -1120,7 +1121,7 @@ public class HTMLParserUtil {
                                     } else if (s.attr("href").endsWith(".jpg") || s.attr("href").endsWith(".jpeg") || s.attr("href").endsWith(".png")) {
                                         s.attr("href", "");
                                     } else if (s.attr("href").contains("waitsun.com/?dl_id")) {//改成短连接  并且改样式
-                                        s.addClass("btn-warning");
+                                        s.addClass("btn-warning").addClass("btn");
                                     }
                                 }
                                 
@@ -1179,6 +1180,7 @@ public class HTMLParserUtil {
 
 //                    }
                 } catch (Exception e2) {
+                	 LOGGER.error("HTMLPARSERutils------->", e2);
                     continue;
                 }
 
@@ -1652,12 +1654,10 @@ public class HTMLParserUtil {
 
             String url = rettype + index + "/";
 
+            final String dataResult = HttpGetUtils.getDataResult(url);
 
-            Document doc = Jsoup.connect(url)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                    .referrer("http://www.google.com")
-                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
-                    .get();
+            System.out.println(dataResult);
+            Document doc = Jsoup.parse(dataResult, url);
             Element ul = doc.select("ul[class=masonry clearfix]").get(0);
             Elements lis = ul.select("li[class=post box row ");
             if (!lis.isEmpty()) {
@@ -1728,12 +1728,10 @@ public class HTMLParserUtil {
                             // TODO Auo-generated catch block
                             e.printStackTrace();
                         }
+                        
+                        String dataResult_ = HttpGetUtils.getDataResult(aurl);
 
-                        Document doc_ = Jsoup.connect(aurl)
-                                .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                                .referrer("http://www.google.com")
-                                .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
-                                .get();
+                        Document doc_ = Jsoup.parse(dataResult_, aurl);
                         Elements article_alls = doc_.select("div[id=post_content]");
                         if (!article_alls.isEmpty()) {
 

@@ -207,8 +207,25 @@ public class EmailUtils {
     	//        list.add("1143991340@qq.com");
     	//        list.add("2985075841@qq.com");
     	//        list.add("1401518328@qq.com");
-    			  list.add("mondhou@qq.com");
-    			  list.add("522571294@qq.com");    	
+    	
+    	//        list.add("2319113876@qq.com");
+    	//        list.add("1275566257@qq.com");
+    	//        list.add("maoxiaoyan@biosan.cn");
+    	          list.add("6258232@qq.com");
+    	          list.add("cjh24hjc@gmail.com");
+    	//        list.add("4080549@qq.com");
+    	//        list.add("602203340@qq.com");
+    	//        list.add("xuxianggo@126.com");
+    	//        list.add("63191534@qq.com");
+    	//        list.add("1607450455@qq.com");
+    	//        list.add("22521237@qq.com");
+        //		  list.add("1260941756@qq.com");
+    	//        list.add("864494871@qq.com");
+    	//        list.add("dangtong1101@163.com");
+        // 	      list.add("1523971965@qq.com");
+        // 	      list.add("lading81734@gmail.com");
+    	//        list.add("mondhou@qq.com");
+    	//        list.add("522571294@qq.com");    	
     	//    	  list.add("1065122440@qq.com");
     	//		  list.add("ipaint@qq.com");
         //        list.add("dalao.orz@gmail.com");

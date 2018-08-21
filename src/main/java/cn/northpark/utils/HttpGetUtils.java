@@ -52,7 +52,7 @@ public class HttpGetUtils {
 
                     //设置编码
                     Header[] headers = response.getHeaders("Content-Type");
-                    String charset = "gb2312";
+                    String charset = "UTF-8";
                     String contentType = headers[0].getValue();
 
                     int i = contentType.indexOf("=");
