@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author caomin
@@ -52,7 +53,7 @@ public class HttpGetUtils {
 
                     //设置编码
                     Header[] headers = response.getHeaders("Content-Type");
-                    String charset = "UTF-8";
+                    String charset = "utf-8";
                     String contentType = headers[0].getValue();
 
                     int i = contentType.indexOf("=");
@@ -61,7 +62,7 @@ public class HttpGetUtils {
                     }
                     HttpEntity entity = response.getEntity();
                     InputStream content = entity.getContent();
-                    result = IOUtils.toString(content, charset);
+                    result = IOUtils.toString(content, StandardCharsets.UTF_8.toString());
                 }
             } finally {
                 httpclient.close();
@@ -158,5 +159,10 @@ public class HttpGetUtils {
     }
 
 
+    
+    public static void main(String[] args) {
+    	System.out.println(StandardCharsets.UTF_8.toString());
+    	System.out.println(StandardCharsets.UTF_8.name());
+	}
 }
 

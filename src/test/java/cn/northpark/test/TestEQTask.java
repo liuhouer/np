@@ -497,7 +497,7 @@ public class TestEQTask {
 
 
 
-    		for (int k = 6; k <=10; k++) {
+    		for (int k = 2; k <=10; k++) {
     			try {
 
     				List<Map<String, String>> list = HTMLParserUtil.retMovies(k,"http://m.chaineos.vip/category/movie/page/");

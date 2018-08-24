@@ -211,8 +211,13 @@ public class EmailUtils {
     	//        list.add("2319113876@qq.com");
     	//        list.add("1275566257@qq.com");
     	//        list.add("maoxiaoyan@biosan.cn");
-    	          list.add("6258232@qq.com");
-    	          list.add("cjh24hjc@gmail.com");
+    			  list.add("helleritterlc@gmail.com");
+    			  list.add("1535781975@qq.com");
+    	//    	  list.add("chidawei91@gmail.com");
+    	//    	  list.add("losnel@163.com");
+    	//    	  list.add("1014191671@qq.com");
+    	//        list.add("6258232@qq.com");
+    	//        list.add("cjh24hjc@gmail.com");
     	//        list.add("4080549@qq.com");
     	//        list.add("602203340@qq.com");
     	//        list.add("xuxianggo@126.com");

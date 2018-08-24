@@ -1723,7 +1723,7 @@ public class HTMLParserUtil {
 
                         //休眠
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(2000);
                         } catch (InterruptedException e) {
                             // TODO Auo-generated catch block
                             e.printStackTrace();
