@@ -31,12 +31,21 @@ public class User implements Serializable {
 
     @Column(length = 75)
     private String email;
+    
+    /**
+     * 邮箱是否验证[-1:初始爬取僵尸用户，0：未验证通过，1：已验证]
+     */
+    @Column(length = 11)
+    private String email_flag;
 
     @Column(length = 128)
     private String password;
 
 
-    @Column(length = 32)
+    /**
+     * 上次登录详细信息 时间+IP+地址
+     */ 
+    @Column(length = 1000)
     private String last_login;
 
     @Column(length = 32)
@@ -184,4 +193,12 @@ public class User implements Serializable {
     public void setBlogsite(String blogsite) {
         this.blogsite = blogsite;
     }
+
+	public String getEmail_flag() {
+		return email_flag;
+	}
+
+	public void setEmail_flag(String email_flag) {
+		this.email_flag = email_flag;
+	}
 }

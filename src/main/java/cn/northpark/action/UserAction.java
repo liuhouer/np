@@ -36,6 +36,7 @@ import cn.northpark.model.Reset;
 import cn.northpark.model.User;
 import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
+import cn.northpark.utils.AddressUtils;
 import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
@@ -755,7 +756,10 @@ public class UserAction {
      * @return
      */
     @RequestMapping("/cm/addUser")
-    public String addUser(User user, ModelMap map, HttpSession session) {
+    public String addUser(User user, ModelMap map, HttpSession session,HttpServletRequest request) {
+    	
+    	//获取ip信息
+    	String ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
         String email = user.getEmail();
         String pwd = user.getPassword();
         email = WAQ.forSQL().escapeSql(email);
@@ -766,7 +770,8 @@ public class UserAction {
             return REG_ACTION;
         } else {
 
-            user.setDate_joined(TimeUtils.nowTime());
+            String nowTime = TimeUtils.nowTime();
+			user.setDate_joined(nowTime);
             String username = "";
             String str = user.getEmail();
             if (str.contains("@")) {
@@ -784,20 +789,25 @@ public class UserAction {
                 user.setHeadspanclass(headspanclass);
             }
             user.setUsername(username);
+            //设置注册者的详细信息
+            user.setLast_login(JsonUtil.object2json(nowTime+ipAndDetail));
             user.setTail_slug(username + TimeUtils.getRandomDay());
             user.setPassword(Base64Util.JIAMI(user.getPassword()));
-            this.userManager.addUser(user);
             session.setAttribute("user", user);
             map.put("user", user);
             //发送邮件
-//				try {
-//					
-//					EmailUtils.ThanksReg(email);
-//				} catch (Exception e) {
-//					// TODO: handle exception
-//					LOGGER.error("commonAction------>",e);
-//				}
-            return LIST_ACTION;
+		    try {
+		    	
+		    	EmailUtils.ThanksReg(email);
+		    	user.setEmail_flag("1");
+		    } catch (Exception e) {
+		    	// TODO: handle exception
+		    	LOGGER.error("commonAction------>",e);
+		    	user.setEmail("0");
+		    }
+
+		    this.userManager.addUser(user);
+            return HOME_ACTION;
         }
     }
 
@@ -822,11 +832,13 @@ public class UserAction {
         String result = "success";
         String info = "";
         Cookie[] cookies = request.getCookies();
+        //获取IP+地址
+        String ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
         if (!StringUtils.isEmpty(email) && !StringUtils.isEmpty(password)) {
             //防止sql注入--email
             email = WAQ.forSQL().escapeSql(email);
             password = Base64Util.JIAMI(password);
-            User user = userManager.login(email, password);
+            User user = userManager.login(email, password,ipAndDetail);
             if (user != null) {
 
                 session.setAttribute("user", user);
@@ -873,7 +885,7 @@ public class UserAction {
             //防止sql注入--email
             email = WAQ.forSQL().escapeSql(email);
             if(StringUtils.isNotEmpty(email)&&StringUtils.isNotEmpty(password)) {
-            	User user = userManager.login(email, password);
+            	User user = userManager.login(email, password,ipAndDetail);
                 if (user != null) {
 
                     session.setAttribute("user", user);

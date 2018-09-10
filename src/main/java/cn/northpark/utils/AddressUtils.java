@@ -14,6 +14,7 @@ import java.net.URL;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
 
 /**
  * @author bruce
@@ -26,6 +27,19 @@ import org.apache.log4j.Logger;
 public class AddressUtils {
     private static final Logger LOGGER = Logger
             .getLogger(AddressUtils.class);
+    
+    
+    /**
+     * 获取一个处理IP 和 区域的实例
+     */
+    private static AddressUtils instance = null;
+
+    public synchronized static AddressUtils getInstance() {
+        if (instance == null) {
+        	instance = new AddressUtils();
+        }
+        return instance;
+    }
 
     /**
      * @param content  请求的参数 格式为：name=xxx&pwd=xxx
@@ -215,7 +229,7 @@ public class AddressUtils {
      * @param beat
      * @return
      */
-    public static String getIpAddr(HttpServletRequest beat) {
+    public String getIpAddr(HttpServletRequest beat) {
         String ip = beat.getHeader("X-Forwarded-For");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = beat.getHeader("Proxy-Client-IP");
@@ -233,6 +247,29 @@ public class AddressUtils {
             ip = beat.getRemoteAddr();
         }
         return ip;
+    }
+    
+    
+    /**
+     * 获取IP + 地址字符串
+     *
+     * @param beat
+     * @return
+     */
+    public  String getIpAndDetail(HttpServletRequest beat) {
+    	StringBuilder sb = new StringBuilder();
+    	instance= AddressUtils.getInstance();
+    	String ip = instance.getIpAddr(beat);
+    	sb.append("ip:").append(ip).append("【");
+    	try {
+			String addresses = instance.getAddresses("ip=" + ip, "utf-8");
+			sb.append("address:").append(addresses);
+			sb.append("】");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return sb.toString();
     }
 
     // 测试

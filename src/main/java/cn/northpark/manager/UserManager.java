@@ -28,7 +28,7 @@ public interface UserManager {
     public QueryResult<User> findByCondition(
             String wheresql);
 
-    public User login(String email, String password);
+    public User login(String email, String password, String ipAndDetail);
 
     public void pwddd(String sql);
 

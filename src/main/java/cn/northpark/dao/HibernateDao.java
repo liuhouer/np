@@ -25,7 +25,7 @@ public interface HibernateDao<T, PK extends Serializable> {
     //执行sql返回void
     public void executess(String sql);
 
-    public void delete(PK... primaryKeyId);
+    public void delete(@SuppressWarnings("unchecked") PK... primaryKeyId);
 
     public void delete(String where, Object[] parameter);
 

@@ -5,23 +5,33 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import cn.northpark.dao.UserDao;
 import cn.northpark.model.User;
+import cn.northpark.utils.JsonUtil;
+import cn.northpark.utils.LoggerUtils;
+import cn.northpark.utils.TimeUtils;
 
 @Service("UserDao")
 public class UserDaoImpl extends HibernateDaoImpl<User, Serializable> implements UserDao {
 
-    public User login(String email, String password) {
+    public User login(String email, String password ,String ip) {
         // TODO Auto-generated method stub
         String sql = "select * from bc_user where email=?  and password = ? ";
         List<User> list = querySql(sql, User.class, new Object[]{email, password});
         User user = null;
-        if (list.size() > 0) {
-            return list.get(0);
-        } else {
-            return user;
-        }
+        if(!CollectionUtils.isEmpty(list)) {
+            user = list.get(0);
+            
+            //更新登录时间 +地址信息
+            user.setLast_login(JsonUtil.object2json(TimeUtils.nowTime()+ip));
+            update(user);
+        }else {
+        	LoggerUtils.error("错误的登录尝试----->："+JsonUtil.object2json(TimeUtils.nowTime()+ip));
+        } 
+        
+        return user;
     }
 
 }

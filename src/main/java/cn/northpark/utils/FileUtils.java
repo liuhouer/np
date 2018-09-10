@@ -28,8 +28,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mysql.jdbc.util.Base64Decoder;
-
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 

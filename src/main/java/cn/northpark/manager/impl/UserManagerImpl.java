@@ -68,9 +68,9 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public User login(String email, String password) {
+    public User login(String email, String password,String ip) {
         // TODO Auto-generated method stub
-        return userDao.login(email, password);
+        return userDao.login(email, password,ip);
     }
 
     @Override

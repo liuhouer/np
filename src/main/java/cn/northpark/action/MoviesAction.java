@@ -21,7 +21,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jmx.export.SpringModelMBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
@@ -87,7 +86,6 @@ public class MoviesAction {
             }
 
         } catch (Exception e) {
-            // TODO: handle exception
             LOGGER.error("moviesacton------>", e);
             rs = "ex";
         }
@@ -116,7 +114,6 @@ public class MoviesAction {
             }
 
         } catch (Exception e) {
-            // TODO: handle exception
             LOGGER.error("moviesacton------>", e);
             rs = "ex";
         }
@@ -195,7 +192,6 @@ public class MoviesAction {
         	}
            
         } catch (Exception e) {
-            // TODO: handle exception
             LOGGER.error("moviesacton------>", e);
             rs = "ex";
         }
@@ -320,7 +316,6 @@ public class MoviesAction {
             pages = Integer.parseInt(page) + 1;
 
         } catch (Exception e) {
-            // TODO: handle exception
             pages = 1;
         }
         map.put("page", pages);
