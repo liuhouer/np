@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -62,44 +64,22 @@ public class AddressUtils {
             }
 //			String region = (temp[5].split(":"))[1].replaceAll("\"", "");
 //			region = decodeUnicode(region);// 省份
-
-            String country = "";
-            String area = "";
-            String region = "";
-            String city = "";
-            String county = "";
-            String isp = "";
-            for (int i = 0; i < temp.length; i++) {
-                switch (i) {
-                    case 1:
-                        country = (temp[i].split(":"))[2].replaceAll("\"", "");
-                        country = decodeUnicode(country);// 国家
-                        break;
-                    case 3:
-                        area = (temp[i].split(":"))[1].replaceAll("\"", "");
-                        area = decodeUnicode(area);// 地区
-                        break;
-                    case 5:
-                        region = (temp[i].split(":"))[1].replaceAll("\"", "");
-                        region = decodeUnicode(region);// 省份
-                        break;
-                    case 7:
-                        city = (temp[i].split(":"))[1].replaceAll("\"", "");
-                        city = decodeUnicode(city);// 市区
-                        break;
-                    case 9:
-                        county = (temp[i].split(":"))[1].replaceAll("\"", "");
-                        county = decodeUnicode(county);// 地区
-                        break;
-                    case 11:
-                        isp = (temp[i].split(":"))[1].replaceAll("\"", "");
-                        isp = decodeUnicode(isp);// ISP公司
-                        break;
-                }
-            }
-
-            LOGGER.info(country + "=" + area + "=" + region + "=" + city + "=" + county + "=" + isp);
-            return region;
+//
+            
+            Map<String, Object> json2map = JsonUtil.json2map(returnStr);
+			Map<String, Object> datamap = (Map<String, Object>) json2map.get("data");
+            //{"area":"","country":"中国","isp_id":"100017","city":"北京","ip":"124.42.107.154","isp":"电信","county":"XX","region_id":"110000","area_id":"","county_id":"xx","region":"北京","country_id":"CN","city_id":"110100"}
+            String country = (String) datamap.get("country");
+            String area =    (String) datamap.get("area");
+            String region =  (String) datamap.get("region");
+            String city =    (String) datamap.get("city");
+            String county =  (String) datamap.get("county");
+            String isp =     (String) datamap.get("isp");
+           
+        	
+            String rs = "【国家："+country + "】【城市："  + city  +"】【区域："+ region + "】【供应商：" + isp+"】";
+            LOGGER.info(rs);
+			return rs;
         }
         return null;
     }
@@ -260,7 +240,7 @@ public class AddressUtils {
     	StringBuilder sb = new StringBuilder();
     	instance= AddressUtils.getInstance();
     	String ip = instance.getIpAddr(beat);
-    	sb.append("ip:").append(ip).append("【");
+    	sb.append("【ip:").append(ip).append("】").append("【");
     	try {
 			String addresses = instance.getAddresses("ip=" + ip, "utf-8");
 			sb.append("address:").append(addresses);
@@ -276,7 +256,7 @@ public class AddressUtils {
     public static void main(String[] args) {
         AddressUtils addressUtils = new AddressUtils();
         // 测试ip 219.136.134.157 中国=华南=广东省=广州市=越秀区=电信
-        String ip = "124.42.107.154";
+        String ip = "104.198.94.104";
         String address = "";
         try {
             address = addressUtils.getAddresses("ip=" + ip, "utf-8");
