@@ -63,7 +63,7 @@ public class Test_Soft_Sitemap {
 
     @Test
     public void save() {
-        runTask(517518);
+        runTask(517668);
     }
 
 }
