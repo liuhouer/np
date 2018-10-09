@@ -13,13 +13,13 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
     <title>Login | NorthPark</title>
     <meta name="keywords" content="NorthPark,登录,Login">
     <meta name="description"
           content="NorthPark-登录">
 
-    <link media="all" type="text/css" rel="stylesheet" href="/css/login/owl-login.css">
+    <link media="all" type="text/css" rel="stylesheet" href="/static/css/login/owl-login.css">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
 
 
@@ -40,7 +40,7 @@
             </button>
             <div class="navbar-brand">
                 <a href="http://blog.NorthPark.cn/atom.xml" target="_blank" id="icon" title="订阅NorthParkRSS"><img
-                        src="/img/rss.png" width="20" height="20" alt="订阅NorthParkRSS"></a>
+                        src="/static/img/rss.png" width="20" height="20" alt="订阅NorthParkRSS"></a>
             </div>
         </div>
         <div class="navbar-collapse collapse mainhead-collapse">
@@ -116,7 +116,7 @@
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
-<script src="/js/page/login2.js"></script>
+<script src="/static/js/page/login2.js"></script>
 
 
 

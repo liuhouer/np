@@ -1485,12 +1485,12 @@ a.project-card-link {
 
 .nbs-flexisel-nav-left {
     left: 10px;
-    background: url(/img/index/button-previous.png) no-repeat;
+    background: url(/static/img/index/button-previous.png) no-repeat;
 }
 
 .nbs-flexisel-nav-right {
     right: 5px;
-    background: url(/img/index/button-next.png) no-repeat;
+    background: url(/static/img/index/button-next.png) no-repeat;
 }
 
 /*---//End-trust-----*/
@@ -1536,7 +1536,7 @@ a.project-card-link {
 .og_prev, .og_next {
     width: 30px;
     height: 50px;
-    background: url(/img/index/PreAndNext.png) no-repeat;
+    background: url(/static/img/index/PreAndNext.png) no-repeat;
     background: url(../images/icon_ie6.png) no-repeat \9;
     position: absolute;
     top: 33px;
@@ -1589,7 +1589,7 @@ a.project-card-link {
 
 /* timeline */
 .timeline {
-    background: url("/img/timeline/line4.png") repeat-y 50px 0;
+    background: url("/static/img/timeline/line4.png") repeat-y 50px 0;
     overflow: hidden;
     position: relative;
     height: 100px;
@@ -1604,7 +1604,7 @@ a.project-card-link {
 }
 
 .timeline-date h2 {
-    background: url("/img/timeline/icon9.png") no-repeat 10px 0;
+    background: url("/static/img/timeline/icon9.png") no-repeat 10px 0;
     height: 87px;
     margin-bottom: 20px;
 }
@@ -1617,7 +1617,7 @@ a.project-card-link {
 }
 
 .timeline-date ul li {
-    background: url("/img/timeline/icon7.png") no-repeat 42px 5px;
+    background: url("/static/img/timeline/icon7.png") no-repeat 42px 5px;
     zoom: 1;
     height: 70px;
 }

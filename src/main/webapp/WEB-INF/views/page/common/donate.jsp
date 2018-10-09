@@ -6,7 +6,7 @@
 
 	<div class="col-xs-10 clearfix border-bottom">
        <img class="alignnone size-full max-width-200 padding-b20"
-								src="/img/pay/alipay-hongbao.png"
+								src="/static/img/pay/alipay-hongbao.png"
 								height="270" >
 
     </div>

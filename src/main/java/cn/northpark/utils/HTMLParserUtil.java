@@ -17,12 +17,13 @@ import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.MoviesManager;
@@ -34,8 +35,7 @@ import cn.northpark.manager.SoftManager;
 
 
 public class HTMLParserUtil {
-
-    private static final Logger LOGGER = Logger
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(HTMLParserUtil.class);
 
 
@@ -1408,7 +1408,6 @@ public class HTMLParserUtil {
 //                    }
                 } catch (Exception e2) {
                 	e2.printStackTrace();
-                	LOGGER.error(e2);
                     continue;
                 }
 
@@ -2229,7 +2228,7 @@ public class HTMLParserUtil {
         List<String> meizi = new ArrayList<String>();
 
         for (int i = 1; i <= 18; i++) {
-            String img = "/img/eq/tumblr_o" + i + ".png";
+            String img = "/static/img/eq/tumblr_o" + i + ".png";
             meizi.add(img);
         }
         return meizi;
@@ -2295,7 +2294,7 @@ public class HTMLParserUtil {
             }
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error(e);
+            LOGGER.error(""+e);
         }
 
         return rs;
@@ -2361,7 +2360,7 @@ public class HTMLParserUtil {
         int min = 1000;
         Random random = new Random();
         int s = random.nextInt(max) % (max - min + 1) + min;
-        LOGGER.info(s);
+        LOGGER.info(""+s);
         return s;
     }
 

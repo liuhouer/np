@@ -14,7 +14,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
 
     <c:if test="${page==null || page==''}">
@@ -278,7 +278,7 @@
 
 
 </script>
-<script src="/js/page/movies.js"></script>
+<script src="/static/js/page/movies.js"></script>
 
 
 </body>

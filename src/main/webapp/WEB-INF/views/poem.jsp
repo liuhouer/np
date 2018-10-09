@@ -14,7 +14,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
     <c:if test="${page==null || page==''}">
         <title>诗词秀 | NorthPark</title>
@@ -250,11 +250,11 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
 
-<script src="/js/poem/easing.js" type="text/javascript"></script>
+<script src="/static/js/poem/easing.js" type="text/javascript"></script>
 
-<script src="/js/poem/timers.js" type="text/javascript"></script>
+<script src="/static/js/poem/timers.js" type="text/javascript"></script>
 
-<script src="/js/poem/dualSlider.js" type="text/javascript"></script>
+<script src="/static/js/poem/dualSlider.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 
@@ -280,8 +280,8 @@
 
 
 </script>
-<link media="all" type="text/css" rel="stylesheet" href="/css/flexslider.css"><!-- 轮播css -->
-<script type="text/javascript" src="/js/jquery.flexslider.js"></script><!-- 轮播js -->
+<link media="all" type="text/css" rel="stylesheet" href="/static/css/flexslider.css"><!-- 轮播css -->
+<script type="text/javascript" src="/static/js/jquery.flexslider.js"></script><!-- 轮播js -->
 <script type="text/javascript">
 
     $(document).ready(function () {

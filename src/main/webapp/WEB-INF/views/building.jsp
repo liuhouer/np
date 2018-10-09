@@ -15,7 +15,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
     <title>星际穿越 | NorthPark</title>
     <meta name="keywords" content="NorthPark中文网,NorthPark,NorthPark404">
     <meta name="description"
@@ -33,7 +33,7 @@
                 <div class="col-sm-12  center">
                         
 
-						<img src="/img/404.jpg"></img>
+						<img src="/static/img/404.jpg"></img>
 
 
 

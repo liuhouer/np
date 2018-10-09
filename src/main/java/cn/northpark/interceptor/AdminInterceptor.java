@@ -3,7 +3,8 @@ package cn.northpark.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -17,7 +18,7 @@ import cn.northpark.model.User;
  * @author zhangyang
  */
 public class AdminInterceptor extends HandlerInterceptorAdapter {
-	 private static final Logger LOGGER = Logger.getLogger(AdminInterceptor.class);
+	 private static final Logger LOGGER = LoggerFactory.getLogger(AdminInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

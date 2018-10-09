@@ -41,22 +41,22 @@ Brands
 
 .brands .bx-wrapper .bx-controls-direction .bx-prev {
     left: 0;
-    background: #fff url(/img/movies/fa-angle-brands.png) no-repeat 18px 15px;
+    background: #fff url(/static/img/movies/fa-angle-brands.png) no-repeat 18px 15px;
     margin-left: -75px;
 }
 
 .brands .bx-wrapper .bx-controls-direction .bx-prev:hover {
-    background: #fff url(/img/movies/fa-angle-brands.png) no-repeat 18px -220px;
+    background: #fff url("/static/img/movies/fa-angle-brands.png") no-repeat 18px -220px;
 }
 
 .brands .bx-wrapper .bx-controls-direction .bx-next {
     left: 100%;
-    background: #fff url(/img/movies/fa-angle-brands.png) no-repeat -249px 15px;
+    background: #fff url(/static/img/movies/fa-angle-brands.png) no-repeat -249px 15px;
     margin-right: -40px;
 }
 
 .brands .bx-wrapper .bx-controls-direction .bx-next:hover {
-    background: #fff url(/img/movies/fa-angle-brands.png) no-repeat -249px -220px;
+    background: #fff url(/static/img/movies/fa-angle-brands.png) no-repeat -249px -220px;
 }
 
 /**
@@ -335,7 +335,7 @@ Brands
     position: absolute;
     margin-top: -1.5em;
     border-radius: 50%;
-    background: url(../../img/black-opacity.png) repeat !important;
+    background: url(../img/black-opacity.png) repeat !important;
 }
 
 .recent-work ul.bxslider li i.icon-hover-1:hover,

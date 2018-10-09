@@ -5,13 +5,14 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.util.Random;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 public class MD5Utils {
 
-    private static final Logger LOGGER = Logger
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(MD5Utils.class);
 
     // 0的ASCII码

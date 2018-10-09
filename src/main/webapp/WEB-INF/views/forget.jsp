@@ -13,7 +13,7 @@
     <meta http-equiv="Content-Language" content="zh-CN">
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
     <title>忘记密码 | NorthPark</title>
     <meta name="keywords" content="NorthPark,忘记密码,重置密码">
     <meta name="description"
@@ -61,7 +61,7 @@
 </div>
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
-<script src="/js/page/forget.js"></script>
+<script src="/static/js/page/forget.js"></script>
 
 
 </body>

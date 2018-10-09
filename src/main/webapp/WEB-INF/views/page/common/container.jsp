@@ -23,13 +23,13 @@
 
 </footer>
 
-<script src="/js/jquery-1.7.2.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/artDialog/artDialog.js?skin=default"></script>
-<script src="/js/artDialog/jquery.artDialog.js?skin=default"></script>
-<script src="/js/artDialog/plugins/iframeTools.js"></script>
-<script src="/js/page/seltab.js"></script>
-<script src="/js/page/common.js"></script>
+<script src="/static/js/jquery-1.7.2.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/artDialog/artDialog.js?skin=default"></script>
+<script src="/static/js/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/static/js/artDialog/plugins/iframeTools.js"></script>
+<script src="/static/js/page/seltab.js"></script>
+<script src="/static/js/page/common.js"></script>
 <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;

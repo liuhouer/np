@@ -9,13 +9,18 @@
 	<name>np-web Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+	<!-- 集中定义依赖版本号 -->
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.1.4.RELEASE</spring.version>
 		<hibernate.version>4.3.8.Final</hibernate.version>
-		<jackson.version>2.5.0</jackson.version>
-		<java.version>1.7</java.version>
+		<slf4j.version>1.7.21</slf4j.version>
+		
+		<jstl.version>1.2</jstl.version>
+		<servlet-api.version>2.5</servlet-api.version>
+		<jsp-api.version>2.0</jsp-api.version>
 	</properties>
+
+
 
 	<dependencies>
 		<!-- junit -->
@@ -56,6 +61,12 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aspects</artifactId>
+				<version>${spring.version}</version>
+		</dependency>
 
 
 		<!-- 使用SpringMVC需配置 -->
@@ -79,32 +90,20 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
-		<!-- aop -->
 
-		<!-- <dependency> <groupId>aopalliance</groupId> <artifactId>aopalliance</artifactId> 
-			<version>1.0</version> </dependency> <dependency> <groupId>org.aspectj</groupId> 
-			<artifactId>aspectjrt</artifactId> <version>1.8.4</version> </dependency> -->
-
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>1.8.4</version>
-		</dependency>
-
-
-		<!-- log4j -->
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.21</version>
-		</dependency>
+		
+		<!-- 日志处理 -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+		
 
 
 		<!-- mysql连接 -->
@@ -130,18 +129,24 @@
 		</dependency>
 
 
-		<!-- servlet -->
+		<!-- JSP相关 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>3.0-alpha-1</version>
+			<version>${servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+				<groupId>javax.servlet</groupId>
+				<artifactId>jsp-api</artifactId>
+				<version>${jsp-api.version}</version>
+				<scope>provided</scope>
+		</dependency>
+		<dependency>
+				<groupId>jstl</groupId>
+				<artifactId>jstl</artifactId>
+				<version>${jstl.version}</version>
 		</dependency>
 
 		<!-- lang -->

@@ -157,7 +157,7 @@ a:focus, a:hover {
 }
 
 .span {
-    background: url("/img/close.png") no-repeat scroll right top rgba(0, 0, 0, 0);
+    background: url("/static/img/close.png") no-repeat scroll right top rgba(0, 0, 0, 0);
     display: block;
     height: 19px;
     position: absolute;

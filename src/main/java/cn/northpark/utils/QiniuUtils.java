@@ -2,7 +2,8 @@ package cn.northpark.utils;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
@@ -12,7 +13,7 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 
 public class QiniuUtils {
-    private static final Logger LOGGER = Logger
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(QiniuUtils.class);
     public static QiniuUtils getInstance = new QiniuUtils();
 
@@ -85,7 +86,7 @@ public class QiniuUtils {
                 LOGGER.error(r.bodyString());
             } catch (QiniuException e1) {
                 //ignore
-                LOGGER.error(e1);
+                LOGGER.error(""+e1);
             }
         }
         return rs;

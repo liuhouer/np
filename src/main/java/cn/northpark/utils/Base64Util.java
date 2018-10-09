@@ -10,14 +10,15 @@ import java.util.Set;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author zhangyang
  */
 public class Base64Util {
 	
-	private static final Logger LOGGER = Logger.getLogger(Base64Util.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Base64Util.class);
 	
 	/**
 	   * The Base64 algorithm converts 3 8-bit bytes into 4 6-bit bytes. The Base 64 alphabet consists
@@ -962,7 +963,7 @@ public class Base64Util {
             a = (int) (Math.random() * 10000 + min);
         } while (m.contains(a));
         m.add(a);
-        LOGGER.info(a);
+        LOGGER.info(""+a);
         return a;
     }
     

@@ -8,7 +8,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 时间工具类
@@ -29,7 +30,7 @@ public class TimeUtils {
     private static final String ONE_DAY_AGO = "天前";
     private static final String ONE_MONTH_AGO = "月前";
     private static final String ONE_YEAR_AGO = "年前";
-    private static final Logger LOGGER = Logger
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(TimeUtils.class);
 
 

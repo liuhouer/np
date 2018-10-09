@@ -15,7 +15,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
     <title>${user.username}的档案 | NorthPark </title>
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
@@ -82,7 +82,7 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
 
-<script src="/js/page/myself.js"></script>
+<script src="/static/js/page/myself.js"></script>
 
 
 </body>

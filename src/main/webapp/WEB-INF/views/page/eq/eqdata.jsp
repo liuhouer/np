@@ -12,7 +12,7 @@
                         <div class="thumbnail border-0 center" style="">
                             <a title="${s.title}">
                                 <c:if test="${s.img==null ||s.img==''}">
-                                    <img src="/img/davatar.jpg" class="imgbreath" alt="${s.title}">
+                                    <img src="/static/img/davatar.jpg" class="imgbreath" alt="${s.title}">
                                 </c:if>
                                 <c:if test="${s.img!=null }">
                                     <img src="${s.img }" class="imgbreath" alt="${s.title}">

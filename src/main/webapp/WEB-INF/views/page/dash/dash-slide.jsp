@@ -11,7 +11,7 @@
 
                     <li>
                         <div class="slider-caption">
-                            <img src="/img/index/slide05.jpg" alt="最爱主题图册"/>
+                            <img src="/static/img/index/slide05.jpg" alt="最爱主题图册"/>
 
 
                             <span>
@@ -31,7 +31,7 @@
                     </li>
                     <li>
                         <div class="slider-caption">
-                            <img src="/img/index/slide2.jpg" alt="碎碎念的精神角落"/>
+                            <img src="/static/img/index/slide2.jpg" alt="碎碎念的精神角落"/>
 
                             <span style="">
 										 
@@ -46,7 +46,7 @@
                         </div>
                     <li>
                         <div class="slider-caption">
-                            <img src="/img/index/slide3.jpg" alt="情圣时刻"/>
+                            <img src="/static/img/index/slide3.jpg" alt="情圣时刻"/>
 
                             <span>
 										 
@@ -61,7 +61,7 @@
                         </div>
                     <li>
                         <div class="slider-caption">
-                            <img src="/img/index/slide4.jpg" alt="影视窝-最新热映电影、BT、云盘、火热资源"/>
+                            <img src="/static/img/index/slide4.jpg" alt="影视窝-最新热映电影、BT、云盘、火热资源"/>
 
                             <span>
 											 
