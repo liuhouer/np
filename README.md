@@ -1,5 +1,8 @@
 # np-web
 
+## 2018年10月8日
+- pom文件修改和maven配置优化
+
 ## 2018年7月4日
 - https://northpark.cn/sitemap/soft.xml
 - https://northpark.cn/sitemap/movies.xml
