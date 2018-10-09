@@ -85,7 +85,6 @@
             <artifactId>aopalliance</artifactId>
             <version>1.0</version>
         </dependency> 
-
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
@@ -209,29 +208,18 @@
             <version>7.2.1</version>
         </dependency>
         
-        <!-- zooKeeper -->
+        <!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
 		<dependency>
 		    <groupId>org.apache.zookeeper</groupId>
 		    <artifactId>zookeeper</artifactId>
 		    <version>3.4.11</version>
 		</dependency>
-		
-		<!-- zooKeeper客户端curaTor -->
-		<dependency>
-			<groupId>org.apache.curator</groupId>
-			<artifactId>curator-framework</artifactId>
-			<version>4.0.0</version>
-		</dependency>
-		<!-- zooKeeper客户端curaTor -->
-		<dependency>
-			<groupId>org.apache.curator</groupId>
-			<artifactId>curator-recipes</artifactId>
-			<version>4.0.0</version>
-		</dependency>
 		        
 
 
     </dependencies>
+    
+    
     <build>
         <finalName>np-web</finalName>
 
