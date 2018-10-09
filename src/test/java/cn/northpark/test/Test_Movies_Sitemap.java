@@ -1,3 +1,5 @@
+//import org.springframework.test.context.ContextConfiguration;
+
 //package cn.northpark.test;
 //
 //import java.io.File;
@@ -21,7 +23,7 @@
 // * 定时爬取今日情圣文章
 // */
 //@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = {"classpath:application-*.xml"})
+//@ContextConfiguration(locations = {"classpath:application-dao.xml", "classpath:application-service.xml" , "classpath:application-transaction.xml"})
 //public class Test_Movies_Sitemap {
 //
 //    //
