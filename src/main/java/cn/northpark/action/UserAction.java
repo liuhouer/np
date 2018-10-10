@@ -825,7 +825,7 @@ public class UserAction {
      * @return
      * @throws IOException
      */
-    @RequestMapping("/cm/login")
+    @RequestMapping(value = "/cm/login", produces={"text/html;charset=UTF-8;","application/json;"})
     @ResponseBody
     public String login(HttpServletRequest request,
                         HttpServletResponse response, HttpSession session, String email,
