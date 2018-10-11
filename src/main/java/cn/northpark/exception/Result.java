@@ -2,7 +2,7 @@ package cn.northpark.exception;
 
 
 /**
- * @author w_zhangyang
+ * @author zhangyang.z@iCloud.com
  * 通用的返回结果
  * @param <T>
  */

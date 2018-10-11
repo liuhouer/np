@@ -10,6 +10,8 @@ package cn.northpark.exception;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +25,7 @@ public class NorthparkExceptionHandler {
 	public static final String NorthPark_Error_View = "/error";
 	public static final String NorthPark_Build_View = "/building";
 	
-	
+	Logger logger = LoggerFactory.getLogger(NorthparkExceptionHandler.class);
 	
 	/**
 	 * 描述：处理所有的异常
@@ -38,6 +40,8 @@ public class NorthparkExceptionHandler {
 	@ResponseBody
     public Object errorHandler(HttpServletRequest reqest, 
     		HttpServletResponse response, Exception e) throws Exception {
+		
+		logger.error("the error found by northpark=====>{}",e);
     	
     	
     	if (isAjax(reqest)) {

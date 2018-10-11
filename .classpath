@@ -29,5 +29,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/w_zhangyang/.gradle/caches/modules-2/files-2.1/org.apache.poi/poi/3.16-beta1/55e3400a4ffd3b9ccc1cb0d80433734702406578/poi-3.16-beta1.jar" sourcepath="C:/Users/w_zhangyang/.gradle/caches/modules-2/files-2.1/org.apache.poi/poi/3.16-beta1/f29e5c6493268e8dc709972c4a8b892dbd9baa03/poi-3.16-beta1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -1,8 +1,8 @@
 package cn.northpark.exception;
 
 /**
- * @author w_zhangyang
- * 事中定义异常错误码和消息
+ * @author  zhangyang.z@iCloud.com
+ * 定义异常错误码和消息
  */
 public enum ResultCode {
 

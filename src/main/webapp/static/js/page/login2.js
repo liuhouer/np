@@ -33,29 +33,33 @@ $(document).ready(function () {
     $('#formSubmit').click(function () {
         $.ajax({
             url: "/cm/login",
-            type: "post",
+            type: "get",
             beforeSend: beforeSend, //发送请求
             complete: complete,
             data: $("#loginForm").serialize(),
             success: function (msg) {
-                console.log(msg);
-                msg = eval('(' + msg + ')');
-                if (msg.result == "success") {
-                    //禁用提交按钮。防止点击起来没完
-                    $('#formSubmit').attr('disabled', true);
-                    art.dialog.tips(msg.info + ' | 正在跳转..', 3);
-                    var uri = $("#redirectURI").val();
-                    if (uri.trim()) {
-                        window.location.href = uri;
-                    } else {
+            	if(msg.result){
+            		
+            		if (msg.data.result == "success") {
+                        //禁用提交按钮。防止点击起来没完
+                        $('#formSubmit').attr('disabled', true);
+                        art.dialog.tips(msg.data.info + ' | 正在跳转..', 3);
+                        var uri = $("#redirectURI").val();
+                        if (uri.trim()) {
+                            window.location.href = uri;
+                        } else {
 
-                        window.location.href = "/";
+                            window.location.href = "/";
+                        }
+                    } else {
+                        art.dialog.tips(msg.data.info);
+                        //禁用提交按钮。防止点击起来没完
+                        $('#formSubmit').attr('disabled', true);
                     }
-                } else {
-                    art.dialog.tips(msg.info);
-                    //禁用提交按钮。防止点击起来没完
-                    $('#formSubmit').attr('disabled', true);
-                }
+            	}else{
+            		  art.dialog.tips('登录异常：'+msg.message);
+            	}
+                
             }
         	
         });

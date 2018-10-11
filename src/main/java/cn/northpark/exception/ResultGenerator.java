@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author w_zhangyang
+ * @author zhangyang.z@iCloud.com
  *	生成通用结果的类
  */
 public class ResultGenerator {

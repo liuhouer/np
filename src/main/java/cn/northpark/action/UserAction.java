@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.northpark.annotation.CheckLogin;
+import cn.northpark.exception.Result;
+import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.ResetManager;
 import cn.northpark.manager.UserFollowManager;
 import cn.northpark.manager.UserManager;
@@ -825,14 +827,14 @@ public class UserAction {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/cm/login", produces={"text/html;charset=UTF-8;","application/json;"})
+    @RequestMapping(value = "/cm/login")
     @ResponseBody
-    public String login(HttpServletRequest request,
+    public Result<Map<String, String>> login(HttpServletRequest request,
                         HttpServletResponse response, HttpSession session, String email,
-                        String password, ModelMap map) throws IOException {
-        String result = "success";
+                        String password, ModelMap map) throws Exception {
+    	Map<String, String> data = new HashMap<String, String>();
+        String result = "";
         String info = "";
-        Cookie[] cookies = request.getCookies();
         //获取IP+地址
         String ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
         if (!StringUtils.isEmpty(email) && !StringUtils.isEmpty(password)) {
@@ -840,74 +842,23 @@ public class UserAction {
             email = WAQ.forSQL().escapeSql(email);
             password = Base64Util.JIAMI(password);
             User user = userManager.login(email, password,ipAndDetail);
-            if (user != null) {
+            if (user != null && !user.getEmail_flag().equals("0")) {
 
                 session.setAttribute("user", user);
                 map.put("user", user);
-                Cookie cname = new Cookie("email", email);
-                Cookie cpasswd = new Cookie("password", password);
-
-                /* cookie的有效期为30秒 */
-                cname.setPath("/");
-                cname.setDomain(DOMAIN);
-                cname.setMaxAge(60 * 60 * 24 * 7); /* 设置cookie的有效期为 7 天 */
-                cpasswd.setPath("/");
-                cpasswd.setDomain(DOMAIN);
-                cpasswd.setMaxAge(60 * 60 * 24 * 7); /* 设置cookie的有效期为 7 天 */
-                response.addCookie(cname);
-                response.addCookie(cpasswd);
-                session.setAttribute("user", user);
                 result = "success";
                 info = "登陆成功";
-            } else {
+            } else if(user != null && user.getEmail_flag().equals("0")){
+            	result = "error";
+                info = "邮箱未通过验证，请重试或者联系站长解决登陆问题";
+            }else {
                 result = "error";
                 info = "用户名密码错误";
             }
-        } else if (cookies != null) {
-        	email = "";
-        	password = "";
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals("email")) {
-                    String name = cookies[i].getValue();
-                    if (!StringUtils.isEmpty(name)) {
-                        email = name;
-                    }
-                    continue;
-                }
-
-                if (cookies[i].getName().equals("password")) {
-                    String password1 = cookies[i].getValue();
-                    if (!StringUtils.isEmpty(password1)) {
-                        password = password1;
-                    }
-                    continue;
-                }
-            }
-            //防止sql注入--email
-            email = WAQ.forSQL().escapeSql(email);
-            if(StringUtils.isNotEmpty(email)&&StringUtils.isNotEmpty(password)) {
-            	User user = userManager.login(email, password,ipAndDetail);
-                if (user != null) {
-
-                    session.setAttribute("user", user);
-                    map.put("user", user);
-
-                    result = "success";
-                    info = "登陆成功";
-                } else {
-                    result = "error";
-                    info = "用户名密码错误";
-                }
-            }else {
-            	  result = "error";
-                  info = "用户名密码错误";
-            }
-            
         }
-        Map<String, Object> rsmap = new HashMap<String, Object>();
-        rsmap.put("result", result);
-        rsmap.put("info", info);
-        return JsonUtil.map2json(rsmap);
+        data.put("result", result);
+        data.put("info", info);
+        return ResultGenerator.genSuccessResult(data);
     }
 
 
