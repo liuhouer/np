@@ -33,7 +33,7 @@ $(document).ready(function () {
     $('#formSubmit').click(function () {
         $.ajax({
             url: "/cm/login",
-            type: "get",
+            type: "post",
             beforeSend: beforeSend, //发送请求
             complete: complete,
             data: $("#loginForm").serialize(),

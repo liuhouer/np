@@ -690,8 +690,17 @@ public class UserAction {
      */
     @RequestMapping("/signup")
     public String toReg(ModelMap map, HttpServletRequest request) {
-
-        map.put("reged", request.getParameter("reged"));
+    	  //redirect URI的设置
+        String redirectURI = request.getParameter("redirectURI");
+        
+        LOGGER.error("signUp for :=======>"+JsonUtil.object2json(redirectURI));
+        
+        if (StringUtils.isNotEmpty(redirectURI)) {
+            if (redirectURI.equals("/login")) {
+                redirectURI = "/";
+            }
+            map.put("redirectURI", redirectURI);
+        }
 
         return "/reg2";
     }
@@ -752,38 +761,44 @@ public class UserAction {
 
     /**
      * 注册用户方法
-     *
-     * @param user
+     * @modifyedTime 2018-10-12
      * @param map
      * @param session
      * @return
      */
-    @RequestMapping("/cm/addUser")
-    public String addUser(User user, ModelMap map, HttpSession session,HttpServletRequest request) {
+    @RequestMapping("/cm/signup")
+    @ResponseBody
+    public Result<Map<String,Object>> signup( ModelMap map, HttpSession session,HttpServletRequest request) throws Exception{
+    	
+    	Map<String,Object> data = new HashMap<>();
+    	
+    	String email = request.getParameter("email");
+    	String password = request.getParameter("password");
     	
     	//获取ip信息
     	String ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
-        String email = user.getEmail();
-        String pwd = user.getPassword();
         email = WAQ.forSQL().escapeSql(email);
-        pwd = WAQ.forSQL().escapeSql(pwd);
+        password = WAQ.forSQL().escapeSql(password);
         int num = userManager.countHql(" where email= '" + email + "' ");
         if (num > 0) {
-            map.put("reged", "reged");
-            return REG_ACTION;
+        	data.put("info", "该账户已经注册");
+        	data.put("result", "error");
         } else {
-
-            String nowTime = TimeUtils.nowTime();
-			user.setDate_joined(nowTime);
+        	//注册
+        	User user = new User();
+        	user.setEmail(email);
+			user.setDate_joined(TimeUtils.nowTime());//日期
+			//用户名=======================================================
             String username = "";
-            String str = user.getEmail();
-            if (str.contains("@")) {
-                String[] strs = str.split("@");
+            if (email.contains("@")) {
+                String[] strs = email.split("@");
                 username = strs[0];
             } else {
-                username = str;
+                username = email;
             }
-            //默认字符头像
+            user.setUsername(username);
+            //用户名=======================================================
+            //默认字符头像===================================================
             String abc = PinyinUtil.paraseStringToPinyin(username);
             if (StringUtils.isNotEmpty(abc)) {
                 String headspan = abc.substring(0, 1).toUpperCase();
@@ -791,11 +806,11 @@ public class UserAction {
                 user.setHeadspan(headspan);
                 user.setHeadspanclass(headspanclass);
             }
-            user.setUsername(username);
+            //默认字符头像===================================================
             //设置注册者的详细信息
-            user.setLast_login(JsonUtil.object2json(nowTime+ipAndDetail));
+            user.setLast_login(JsonUtil.object2json(user.getDate_joined()+ipAndDetail));
             user.setTail_slug(username + TimeUtils.getRandomDay());
-            user.setPassword(Base64Util.JIAMI(user.getPassword()));
+            user.setPassword(Base64Util.JIAMI(password));
             session.setAttribute("user", user);
             map.put("user", user);
             //发送邮件
@@ -804,14 +819,18 @@ public class UserAction {
 		    	EmailUtils.ThanksReg(email);
 		    	user.setEmail_flag("1");
 		    } catch (Exception e) {
-		    	// TODO: handle exception
-		    	LOGGER.error("commonAction------>",e);
 		    	user.setEmail("0");
+		    	
+		    	data.put("info", "邮件发送失败，请检查邮件拼写或者重试一次");
+	        	data.put("result", "error");
 		    }
 
+		    data.put("info", "注册成功");
+        	data.put("result", "success");
 		    this.userManager.addUser(user);
-            return HOME_ACTION;
+           
         }
+        return ResultGenerator.genSuccessResult(data);
     }
 
 

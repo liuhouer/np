@@ -93,12 +93,11 @@
                             <input id="redirectURI" name="redirectURI" type="hidden"
                                    value="${redirectURI} ">
                             <div id="showResult" class="control-group center margen-b10">
-                                <c:if test="${reged eq 'reged' }"><font color="red">账号已注册</font> </c:if>
                             </div>
                         </div>
                         <div class="form-actions">
                             <a href="/login" tabindex="6" class="btn btn-link text-muted">Login</a>
-                            <button id="formSubmit" type="submit" tabindex="4" class="btn btn-primary">Join</button>
+                            <button id="formSubmit" type="button" tabindex="4" class="btn btn-primary">Join</button>
                         </div>
                     </form>
                 </div>

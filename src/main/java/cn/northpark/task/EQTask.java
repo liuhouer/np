@@ -78,6 +78,30 @@ public class EQTask {
             LOGGER.error("TestEQTask=======>" + e);
         }
 
+//=================================删除重复的记录=======================================
+//        DELETE                                                                  /
+//        FROM                                                                    /
+//        	bc_vps                                                                /
+//        WHERE                                                                   /
+//        	id IN (                                                               /
+//        		SELECT                                                            /
+//        			id                                                            /
+//        		FROM                                                              /
+//        			(                                                             /
+//        				SELECT                                                    /
+//        					max(id) AS id,                                        /
+//        					count(title) AS count                                 /
+//        				FROM                                                      /
+//        					bc_vps                                                /
+//        				GROUP BY                                                  /
+//        					title                                                 /
+//        				HAVING                                                    /
+//        					count > 1                                             /
+//        				ORDER BY                                                  /
+//        					count DESC                                            /
+//        			) AS tab                                                      /
+//        	);                                                                    /
+//=================================删除重复的记录=======================================        
         LOGGER.info("VPS任务结束" + TimeUtils.getNowTime());
 
         //爬虫软件资源代码---2页---start---------------------------------------------------------------------
@@ -200,7 +224,30 @@ public class EQTask {
                     LOGGER.error("movies task InterruptedException==============" + e);
                 }
             }
-
+//=================================删除重复的记录=======================================
+//          DELETE                                                                 /
+//          FROM                                                                   /
+//          	bc_movies                                                          /
+//          WHERE                                                                  /
+//          	id IN (                                                            /
+//          		SELECT                                                         /
+//          			id                                                         /
+//          		FROM                                                           /
+//          			(                                                          /
+//          				SELECT                                                 /
+//          					max(id) AS id,                                     /
+//          					count(moviename) AS count                          /
+//          				FROM                                                   /
+//          					bc_movies                                          /
+//          				GROUP BY                                               /
+//          					moviename                                          /
+//          				HAVING                                                 /
+//          					count > 1                                          /
+//          				ORDER BY                                               /
+//          					count DESC                                         /
+//          			) AS tab                                                   /
+//          	);                                                                 /
+  //=================================删除重复的记录=======================================   
             
             //重复记录每个只保留一条
             String delmovie_sql = "DELETE FROM bc_movies "

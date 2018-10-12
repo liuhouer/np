@@ -99,8 +99,8 @@
                         </div>
                         <div class="form-actions">
                             <a href="/cm/forget" target="_blank" tabindex="5" class="btn pull-left btn-link text-muted">Forgot
-                                password?</a>
-                            <a href="/signup" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
+                                password</a>
+                            <a href="/signup?redirectURI=${redirectURI}" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
                             <button id="formSubmit" type="button" tabindex="4" class="btn btn-primary">Login</button>
                         </div>
                     </form>
