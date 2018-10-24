@@ -37,10 +37,10 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
                 	if (user.getEmail().equals("654714226@qq.com")||user.getEmail().equals("qhdsoft@126.com")) {
                 		return true;
                     }else {
-	                	LOGGER.error("url={}----->"+request.getRequestURI());
-	                	LOGGER.error("method={}----->"+request.getMethod());
-	                	LOGGER.error("ip={此IP恶意操作管理员方法，需要封锁}----->"+request.getRemoteAddr());
-	                	LOGGER.error("args={}----->"+request.getQueryString());
+	                	LOGGER.error("url={}----->",request.getRequestURI());
+	                	LOGGER.error("method={}----->",request.getMethod());
+	                	LOGGER.error("ip={}----->此IP恶意操作管理员方法，需要封锁",request.getRemoteAddr());
+	                	LOGGER.error("args={}----->",request.getQueryString());
 	                	return false;
                 	}
                 } else {//如果验证失败

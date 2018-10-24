@@ -35,12 +35,11 @@ public class NPDispatchServlet extends DispatcherServlet {
 		      //ip
 		      //类方法-使用joinPoint对象取
 		      //参数
-			logger.info("NorthPark处理统计404路径----->"+request.getRequestURI());
-	        logger.info("url={}----->"+requestUri);
-	        logger.info("bean={}----->"+getServletName());
-	        logger.info("method={}----->"+request.getMethod());
-	        logger.info("ip={}----->"+request.getRemoteAddr());
-	        logger.info("args={}----->"+request.getQueryString());
+			logger.info("NorthPark处理统计404路径----->{}",request.getRequestURI());
+	        logger.info("url={}----->",requestUri);
+	        logger.info("method={}----->",request.getMethod());
+	        logger.info("ip={}----->",request.getRemoteAddr());
+	        logger.info("args={}----->",request.getQueryString());
 
 		}
 

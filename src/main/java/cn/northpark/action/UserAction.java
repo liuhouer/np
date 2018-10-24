@@ -51,16 +51,7 @@ import cn.northpark.utils.safe.WAQ;
 @Controller
 public class UserAction {
 
-    /**
-     * 域名
-     */
-    private final String DOMAIN = "northpark.cn";
-    /**
-     * 定向action'
-     */
-    private final String LIST_ACTION = "redirect:/love";
     private final String HOME_ACTION = "redirect:/";
-    private final String REG_ACTION = "redirect:/signup";
     @Autowired
     private UserManager userManager;
     @Autowired
