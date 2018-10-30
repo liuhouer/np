@@ -408,7 +408,7 @@ public class TestEQTask {
     		Map<String, String> map = null;
 
 
-    		for (int k = 1; k <= 2; k++) {
+    		for (int k = 3; k <= 4; k++) {
 
     			try {
 
