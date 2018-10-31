@@ -201,7 +201,7 @@
 		</dependency>
 
 
-		<!-- https://mvnrepository.com/artifact/com.qiniu/qiniu-java-sdk -->
+		<!-- 七牛    -->
 		<dependency>
 			<groupId>com.qiniu</groupId>
 			<artifactId>qiniu-java-sdk</artifactId>
@@ -215,17 +215,37 @@
 			<version>3.4.11</version>
 		</dependency>
 
-		<!-- zooKeeper客户端curaTor -->
+		<!-- zooKeeper客户端curator -->
 		<dependency>
 			<groupId>org.apache.curator</groupId>
 			<artifactId>curator-framework</artifactId>
 			<version>4.0.0</version>
 		</dependency>
-		<!-- zooKeeper客户端curaTor -->
+		<!-- zooKeeper客户端curator -->
 		<dependency>
 			<groupId>org.apache.curator</groupId>
 			<artifactId>curator-recipes</artifactId>
 			<version>4.0.0</version>
+		</dependency>
+		
+		<!-- rabbitMQ -->
+		<dependency>
+		    <groupId>com.rabbitmq</groupId>
+		    <artifactId>amqp-client</artifactId>
+		    <version>3.5.1</version>
+		</dependency>
+		<!-- spring-amqp -->
+		<dependency>
+		    <groupId>org.springframework.amqp</groupId>
+		    <artifactId>spring-rabbit</artifactId>
+		    <version>1.4.5.RELEASE</version>
+		</dependency>
+						
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.6</version>
 		</dependency>
 
 
