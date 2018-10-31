@@ -21,7 +21,7 @@ public class QiniuUtils {
     public static final String SECRET_KEY = "uQqRoiPSk4414gIAdCJdXynjDHYRAT8AecVjubyh"; // 你的secret_key
     public static final String BUCKET_NAME = "soft"; // 你的空間名稱
 
-    private static final String BUCKET_HOST_NAME = "http://ognunbb4i.bkt.clouddn.com/";
+    private static final String BUCKET_HOST_NAME = "http://qiniupic.heartill.com/";
 
 
     /*
