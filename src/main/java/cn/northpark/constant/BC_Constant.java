@@ -7,6 +7,17 @@ public class BC_Constant {
 
     public static final String Domain = "northpark.cn";
     
+    
+    /**
+     * 用户注册邮件
+     */
+    public static final String MQ_MAIL_JOIN = "rest.mail.join";
+    
+    /**
+     * 用户重置邮件
+     */
+    public static final String MQ_MAIL_RESET = "rest.mail.reset";
+    
     public enum XINGZUO {
         BAIYANG("白羊座", 1), JINNIU("金牛座", 2), SHUANGZI("双子座", 3), JUXIE("巨蟹座", 4),
         SHIZI("狮子座", 5), CHUNV("处女座",6), TIANCHENG("天秤座", 7), TIANXIE("天蝎座", 8),

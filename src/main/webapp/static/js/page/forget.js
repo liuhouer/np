@@ -5,15 +5,21 @@ $(function () {
             $.ajax({
                 url: "/cm/emailFlag",
                 type: "post",
+                dataType: "json",
                 data: {"email": em},
                 success: function (msg) {
-                    if (msg == "exist") {
-                        $("#J_tip").text("success");
-                        $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext'));
-                    } else {
-                        $("#J_tip").text("邮件账号未注册");
-                        $('#formSubmit').attr('disabled', true);
-                    }
+                	if(msg.result){
+                		 if (msg.data.msg == "exist") {
+                             $("#J_tip").text("success");
+                             $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext'));
+                         } else {
+                             $("#J_tip").text("邮件账号未注册");
+                             $('#formSubmit').attr('disabled', true);
+                         }
+                	}else{
+                		$("#J_tip").text("请求异常");
+                	}
+                   
                 }
             });
         }
@@ -25,14 +31,21 @@ $(function () {
         $.ajax({
             url: "/cm/resetEmail",
             type: "post",
+            dataType: "json",
             data: {"email": em},
             success: function (msg) {
-                if (msg == "success") {//发送成功
-                    $("#J_tip").text("发送成功，快去登陆你的邮箱操作吧");
-                    $('#formSubmit').attr('disabled', true);
-                } else {             //发送失败
-                    $("#J_tip").text("发送失败，请检查邮件的真实性");
-                }
+            	
+            	if(msg.result){
+            		if (msg.data.msg == "ok") {//发送成功
+                        $("#J_tip").text("发送成功，快去登陆你的邮箱操作吧");
+                        $('#formSubmit').attr('disabled', true);
+                    } else {             //发送失败
+                        $("#J_tip").text("发送失败，请检查邮件的真实性");
+                    }
+            	}else{
+            		 $("#J_tip").text("请求异常");
+            	}
+                
             }
         });
 

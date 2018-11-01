@@ -51,6 +51,7 @@ $(document).ready(function () {
             type: "post",
             beforeSend: beforeSend, //发送请求
             complete: complete,
+            dataType:"json",
             data: $("#signupForm").serialize(),
             success: function (msg) {
             	//请求成功200

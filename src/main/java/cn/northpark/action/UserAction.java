@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,8 +30,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.northpark.annotation.CheckLogin;
+import cn.northpark.constant.BC_Constant;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
+import cn.northpark.manager.MQProducerManager;
 import cn.northpark.manager.ResetManager;
 import cn.northpark.manager.UserFollowManager;
 import cn.northpark.manager.UserManager;
@@ -41,7 +44,6 @@ import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
 import cn.northpark.utils.AddressUtils;
 import cn.northpark.utils.Base64Util;
-import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.PinyinUtil;
@@ -60,6 +62,12 @@ public class UserAction {
     private UserFollowManager userfollowManager;
     @Autowired
     private ResetManager resetManager;
+    
+	/**
+	 * mq发消息
+	 */
+	@Resource  
+    private MQProducerManager messageProducer; 
 
 
     private static final  Logger LOGGER = LoggerFactory.getLogger(UserAction.class);
@@ -97,13 +105,16 @@ public class UserAction {
      */
     @RequestMapping("/cm/emailFlag")
     @ResponseBody
-    public String emailFlag(HttpServletRequest request, HttpServletResponse response, ModelMap map, String email) {
-        int num = userManager.countHql(" where email = '" + email + "' ");
+    public Result<Map<String,Object>> emailFlag( String email) {
+        Map<String,Object> data = new HashMap<>();
+    	int num = userManager.countHql(" where email = '" + email + "' ");
+        
         String msg = "exist";//存在；
         if (num <= 0) {
             msg = "notexist";//不存在
         }
-        return msg;
+        data.put("msg", msg);
+        return ResultGenerator.genSuccessResult(data);
 
     }
 
@@ -132,14 +143,14 @@ public class UserAction {
      */
     @RequestMapping("/cm/resetEmail")
     @ResponseBody
-    public String resetEmail(HttpServletRequest request,
-                             HttpServletResponse response, ModelMap map, String email)
-            throws ParseException {
+    public Result<Map<String,Object>> resetEmail(String email) throws ParseException {
+    	 Map<String,Object> data = new HashMap<>();
         String userid = "";
         List<User> list = userManager.findByCondition(" where email = '" + email + "' ").getResultlist();
         if (!CollectionUtils.isEmpty(list)) {
             userid = String.valueOf(list.get(0).getId());
         }
+        //添加重置的信息============================================
         Reset reset = new Reset();
         reset.setCreated_time(TimeUtils.nowTime());
         String code = cn.northpark.utils.UUIDUtils.geneInt();
@@ -149,18 +160,23 @@ public class UserAction {
 
         reset.setUser_id(Integer.parseInt(userid));
         resetManager.addReset(reset);
-        String result = "";
-        try {
-            EmailUtils.emailUtil.changePwd(email, userid, code, request);
-        } catch (Exception e) {
-            result = "exception";
-        }
-        result = "success";
-        return result;
+        //添加重置的信息============================================
+        
+        
+        
+        //发送消息通知发邮件
+        Map<String,Object> mqData=new HashMap<String,Object>();
+        mqData.put("email", email);
+        mqData.put("userid",userid);
+        mqData.put("code",code);
+		
+        messageProducer.sendDataToQueue(BC_Constant.MQ_MAIL_RESET, mqData);
+        data.put("msg", "ok");
+        return  ResultGenerator.genSuccessResult(data);
     }
 
     /**
-     * 重置密码
+     * 重置密码,从邮箱点击进来
      */
     @RequestMapping("/cm/reset")
     public String reset(HttpServletRequest request,
@@ -221,23 +237,6 @@ public class UserAction {
 
 	 	
 	 
-	 
-	   /* //一键修改密码
-	    @RequestMapping("/cm/pwddd")
-	 	@ResponseBody
-		public String pwddd() {
-	 		String msg = "success";
-	 		List<User> list = userManager.findByCondition(" where 1=1").getResultlist();
-	 		for (int i = 0; i < list.size(); i++) {
-				String pwd=  list.get(i).getPassword();
-				String encodepwd= Base64Util.JIAMI(pwd);
-				String id  = list.get(i).getId();
-				String sql = "update bc_user a  set a.password = '"+encodepwd+"' where a.id = '"+id+"' ";
-				userManager.pwddd(sql);
-			}
-	 		
-			return msg;
-		}*/
 
     //成为粉丝
     @RequestMapping("/cm/follow")
@@ -338,7 +337,7 @@ public class UserAction {
         //查询个人歌词最爱历史
         String sql = "select c.updatedate,c.id,c.title,c.titlecode,c.albumImg,b.id as userlyricsid from    bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id where b.userid = ? order by c.updatedate desc";
 
-        List<Map<String, Object>> list = userManager.querySql(sql, String.valueOf(user.getId()));
+        List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId());
         for (int i = 0; i < list.size(); i++) {
 
             //--批量处理时间
@@ -463,7 +462,7 @@ public class UserAction {
             String sql = "select c.updatedate,c.id,c.title,c.titlecode,c.albumImg,b.id as userlyricsid from    bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id where b.userid = ? order by c.updatedate desc";
 
             if (user != null) {
-                List<Map<String, Object>> list = userManager.querySql(sql, String.valueOf(user.getId()));
+                List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId());
                 for (int i = 0; i < list.size(); i++) {
                     //--批量处理时间
                     list.get(i).put("updatedate", TimeUtils.formatToNear((String) list.get(i).get("updatedate")));
@@ -505,9 +504,8 @@ public class UserAction {
      * @return
      */
     @RequestMapping("/people/{tail_slug}")
-    public String people(ModelMap map, @PathVariable String tail_slug, HttpServletRequest request) {
+    public String people(ModelMap map, @PathVariable String tail_slug, HttpServletRequest request) throws Exception{
         String rs = "/space";
-        try {
 
             //取得当前用户
             User c_user = (User) request.getSession().getAttribute("user");
@@ -526,7 +524,7 @@ public class UserAction {
             String sql = "SELECT c.updatedate, c.id, c.title, c.titlecode, c.albumImg, b.id AS userlyricsid FROM bc_lyrics_zan d left join bc_lyrics c on d.lyricsid = c.id left join bc_user_lyrics b ON b.lyricsid = c.id WHERE d.userid = ? and c.id is not null ORDER BY c.updatedate DESC";
 
             if (user != null) {
-                List<Map<String, Object>> list = userManager.querySql(sql, String.valueOf(user.getId()));
+                List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId());
                 for (int i = 0; i < list.size(); i++) {
 
                     //--批量处理时间
@@ -559,9 +557,6 @@ public class UserAction {
             }
 
 
-        } catch (Exception e) {
-            LOGGER.error("commonAction------>", e);
-        }
         return rs;
     }
 
@@ -802,19 +797,15 @@ public class UserAction {
             user.setLast_login(JsonUtil.object2json(user.getDate_joined()+ipAndDetail));
             user.setTail_slug(username + TimeUtils.getRandomDay());
             user.setPassword(Base64Util.JIAMI(password));
+            user.setEmail_flag("1");//暂时设置为1， 邮件发送失败再禁用账户
             session.setAttribute("user", user);
             map.put("user", user);
-            //发送邮件
-		    try {
-		    	
-		    	EmailUtils.ThanksReg(email);
-		    	user.setEmail_flag("1");
-		    } catch (Exception e) {
-		    	user.setEmail("0");
-		    	
-		    	data.put("info", "邮件发送失败，请检查邮件拼写或者重试一次");
-	        	data.put("result", "error");
-		    }
+            
+            //发送消息通知发邮件
+            Map<String,Object> mqData=new HashMap<String,Object>();
+            mqData.put("email", email);
+            messageProducer.sendDataToQueue(BC_Constant.MQ_MAIL_JOIN, mqData);
+            
 
 		    data.put("info", "注册成功");
         	data.put("result", "success");

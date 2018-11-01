@@ -36,6 +36,7 @@ $(document).ready(function () {
             type: "post",
             beforeSend: beforeSend, //发送请求
             complete: complete,
+            dataType: "json",
             data: $("#loginForm").serialize(),
             success: function (msg) {
             	if(msg.result){

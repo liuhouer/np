@@ -125,7 +125,7 @@ public class EmailUtils {
      * @param usrId
      * @param authCode
      */
-    public void changePwd(String toEmail, String usrId, String authCode, HttpServletRequest request) {
+    public void changePwd(String toEmail, String usrId, String authCode) {
         try {
 
             //smtp.qq.com || smtp.163.com

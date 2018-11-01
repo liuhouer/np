@@ -80,9 +80,9 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public List<Map<String, Object>> querySql(String sql, String userid) {
+    public List<User> querySql(String sql, Object... param) {
         // TODO Auto-generated method stub
-        return userDao.querySql(sql, userid);
+        return userDao.querySql(sql, User.class, param) ;
     }
 
     /* (non-Javadoc)

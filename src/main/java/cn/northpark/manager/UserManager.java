@@ -33,11 +33,10 @@ public interface UserManager {
     public void pwddd(String sql);
 
     /**
-     * 根据登录用户查询个人歌词集合
      *
      * @return
      */
-    public List<Map<String, Object>> querySql(String sql, String userid);
+    public List<User> querySql(String sql, Object... param);
 
 
     /**
