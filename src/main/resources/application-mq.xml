@@ -20,8 +20,7 @@
         host="${mq.host}" 
         port="${mq.port}" 
         username="${mq.username}"
-        password="${mq.password}"
-        virtual-host="${mq.vhost}" />
+        password="${mq.password}"  />
         
     <!-- 定义消息管理员 -->
     <rabbit:admin connection-factory="connectionFactory"/>
@@ -53,7 +52,7 @@
    <!--  <bean id="smsHandler" class="com.dingli.components.mq.handler.SmsHandler"></bean>
     <bean id="jpushHandler" class="com.dingli.components.mq.handler.JpushHandler"></bean>
     <bean id="saveSysMsgHandler" class="com.dingli.components.mq.handler.SaveSysMsgHandler"></bean> -->
-    <bean id="mailHandler" class="cn.northpark.message.MailReceiver"></bean>
+    <bean id="mailHandler" class="cn.northpark.message.MailListener"></bean>
     
     <!-- 队列监听 -->
     <!-- TODO 注释了后台不会滚动显示  这里需要注意acknowledge，这个属性默认是auto，如果消费者报错了，会一直报错，因为他是轮询监听的，可以修改为none或者manul -->

@@ -1,3 +1,4 @@
+package cn.northpark.message.springcloud;
 //package cn.northpark.message;
 //
 //import org.springframework.cloud.stream.annotation.Input;

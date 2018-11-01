@@ -21,13 +21,13 @@ import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.ObjectUtil;
 
 /**
- * 接收mq消息
+ * 接收mq消息来处理邮件通知
  * Created on 2018/4/13 0013.
  *
  */
 @Component
-public class MailReceiver implements  ChannelAwareMessageListener {
-    private static final  Logger log =  LoggerFactory.getLogger(MailReceiver.class);
+public class MailListener implements  ChannelAwareMessageListener {
+    private static final  Logger log =  LoggerFactory.getLogger(MailListener.class);
 
     @Autowired
     private UserManager userManager;

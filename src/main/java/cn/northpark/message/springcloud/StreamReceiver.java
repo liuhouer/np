@@ -1,3 +1,4 @@
+package cn.northpark.message.springcloud;
 //package cn.northpark.message;
 //
 //import lombok.extern.slf4j.Slf4j;
