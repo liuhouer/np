@@ -21,7 +21,7 @@
         port="${mq.port}" 
         username="${mq.username}"
         password="${mq.password}"
-         />
+        virtual-host="${mq.vhost}" />
         
     <!-- 定义消息管理员 -->
     <rabbit:admin connection-factory="connectionFactory"/>
