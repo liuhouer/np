@@ -1,9 +1,5 @@
 package cn.northpark.manager.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -22,7 +18,7 @@ import cn.northpark.manager.MQProducerManager;
 @Service
 public class MQProducerManagerImpl implements MQProducerManager {
 
-	@Autowired
+	@Resource
     private AmqpTemplate amqpTemplate;
 
     private final static Logger logger = LoggerFactory.getLogger(MQProducerManagerImpl.class);

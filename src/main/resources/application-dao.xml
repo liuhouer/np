@@ -88,6 +88,7 @@
 		<property name="packagesToScan" value="cn.northpark.model." />
 	</bean>
 
-
+	<!--Spring中bean获取的工具类====》这里是为了JunitTest可以调用到service-->
+    <bean id="springContextUtils" class="cn.northpark.utils.SpringContextUtils"/>
 
 </beans>
