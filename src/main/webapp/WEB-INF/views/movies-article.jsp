@@ -106,9 +106,9 @@
 
 												<div id="wechat" style="display: inline-block">
 													<a
-														href="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/praise.jpg"
+														href="http://liuhouer.heartill.com/blog/donate/praise.jpg"
 														class="fancybox" rel="group"><img id="wechat_qr"
-														src="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/praise.jpg"
+														src="http://liuhouer.heartill.com/blog/donate/praise.jpg"
 														alt="Bruce WeChat Pay"
 														style="width: 200px; height: 200px; max-width: 100%; display: inline-block"></a>
 													<p>微信打赏</p>
@@ -117,9 +117,9 @@
 
 												<div id="alipay" style="display: inline-block">
 													<a
-														href="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/alipay.png"
+														href="http://liuhouer.heartill.com/blog/donate/alipay.png"
 														class="fancybox" rel="group"><img id="alipay_qr"
-														src="http://7xpfpd.com1.z0.glb.clouddn.com/blog/donate/alipay.png"
+														src="http://liuhouer.heartill.com/blog/donate/alipay.png"
 														alt="Bruce Alipay"
 														style="width: 200px; height: 200px; max-width: 100%; display: inline-block"></a>
 													<p>支付宝打赏</p>
@@ -191,7 +191,6 @@
     $(function () {
     	$(".bg-white").find("img").each(function () {
             $(this).css('max-width', ($(".bg-white").width() ));
-            $(this).css('padding-right', '20%');
         })
 
 

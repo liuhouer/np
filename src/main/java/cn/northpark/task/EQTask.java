@@ -197,10 +197,16 @@ public class EQTask {
 
 
                     //电视剧
-                    List<Map<String, String>> dianshiju = HTMLParserUtil.retMovies(k, BC_Constant.RET_dianshiju);
+                    List<Map<String, String>> dianshiju = HTMLParserUtil.retMovies(k, BC_Constant.RET_meiju);
 
 
                     handleMoiveList(dianshiju);
+                    
+                    //电视剧
+                    List<Map<String, String>> guochanju = HTMLParserUtil.retMovies(k, BC_Constant.RET_guochanju);
+
+
+                    handleMoiveList(guochanju);
 
                     //动漫
 //				List<Map<String, String>> dongman = HTMLParserUtil.retMovies(k,BC_Constant.RET_dongman);
