@@ -19,8 +19,8 @@
 
 $(function () {
 	$(".bg-white").find("img").each(function () {
-        $(this).css('max-width', ($(".bg-white").width()));
-        $(this).css('padding-right', '20%');
+		var maxw = $(this).parent().width();
+        $(this).css('max-width', maxw);
     })
 
 
