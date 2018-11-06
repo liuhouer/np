@@ -64,17 +64,22 @@ public class BC_Constant {
     
 
     /**
-     * 爬虫电视剧资源
+     * 爬虫美剧资源
      */
-    public static final String RET_dianshiju = "http://m.chaineos.vip/category/dianshiju/page/";
+    public static final String RET_meiju = "http://m.orisi.cn/movie_bt_series/meiju/page/";
     /**
      * 爬虫电影资源
      */
-    public static final String RET_dianying = "http://m.chaineos.vip/category/movie/page/";
+    public static final String RET_dianying = "http://m.orisi.cn/movie_bt_series/movie/page/";
     /**
      * 爬虫动漫源
      */
-    public static final String RET_dongman = "http://m.chaineos.vip/category/dongman/page/";
+    public static final String RET_dongman = "http://m.orisi.cn/movie_bt_series/dongman/page/";
+
+    /**
+     * 爬虫国产剧
+     */
+    public static final String RET_guochanju = "http://m.orisi.cn/movie_bt_series/guochanju/page/";
 
 
     /**
