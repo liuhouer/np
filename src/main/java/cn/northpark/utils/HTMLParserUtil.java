@@ -1707,37 +1707,9 @@ public class HTMLParserUtil {
                         
                         
 
-//                        String date = li.select("span[class=info_date info_ico]").get(0).text();
-//
-//
-//                        String tag = "";
-//                        String tagcode = "";
-//                        Elements tags = li.select("span[class=info_category info_ico]").get(0).select("a");
-//                        if (!CollectionUtils.isEmpty(tags)) {
-//                            for (int j = 0; j < tags.size(); j++) {
-//                                Element taga = tags.get(j);
-//                                String hrefa = taga.attr("href");
-//                                if (StringUtils.isNotEmpty(hrefa)) {
-//                                    tagcode += hrefa.substring(hrefa.lastIndexOf("/") + 1) + ",";
-//                                }
-//                                tag += taga.text() + ",";
-//                            }
-//                        }
-//
-//
-//                        if (StringUtils.isNotEmpty(tag) && tag.endsWith(",")) {
-//                            tag = tag.substring(0, tag.length() - 1);
-//                        }
-//                        if (StringUtils.isNotEmpty(tagcode) && tagcode.endsWith(",")) {
-//                            tagcode = tagcode.substring(0, tagcode.length() - 1);
-//                        }
 
 
-                        LOGGER.info("title==============>" + title);
-                        LOGGER.info("aurl==============>" + aurl);
-//                        LOGGER.info("date==============>" + date);
-//                        LOGGER.info("tag==============>" + tag);
-//                        LOGGER.info("tagcode==============>" + tagcode);
+                     
 
 
                         String desc = "";
@@ -1760,6 +1732,55 @@ public class HTMLParserUtil {
 
                         Element detail = doc_.select("div[class=yp_context]").get(0);
                         
+                        
+                        //========================解析路径start======================================
+                        //删除打赏和微信二维码信息
+    					  
+						  StringBuilder sb = new StringBuilder();
+						  
+						  //处理h2
+    					  Elements h2 = detail.select("h2");
+    					  
+    					  
+    					  if(!CollectionUtils.isEmpty(h2)) {
+    						  for (Iterator iterator = h2.iterator(); iterator.hasNext();) {
+    							  Element link = (Element) iterator.next();
+    							  //把iterater里面的元素连接提取到path中
+    							  handleLink(sb, link, "h2");
+    						  }
+    						  
+    						  
+    					  }
+    					  
+    					  //处理a连接，就去a连接查找下载地址，删除后，设置到path
+    					  Elements links = detail.select("a");
+    					  if(!CollectionUtils.isEmpty(links)) {
+    						  for (Iterator iterator = links.iterator(); iterator.hasNext();) {
+    							  Element link = (Element) iterator.next();
+    							  //把iterater里面的元素连接提取到path中
+    							  handleLink(sb, link ,"a");
+    							  
+    						  }
+    					  }
+    					  
+    					  
+    					  
+    					  //处理p中的连接，就去p磁力链查找下载地址，删除后，设置到path
+    					  Elements ps = detail.select("p");
+    					  if(!CollectionUtils.isEmpty(ps)) {
+    						  for (Iterator iterator = ps.iterator(); iterator.hasNext();) {
+    							  Element link = (Element) iterator.next();
+    							  //把iterater里面的元素连接提取到path中
+    							  handleLink(sb, link , "p");
+    						  }
+    					  }
+    					  
+    					  
+    					  
+    						  
+    					  path = sb.toString();
+
+    					  //========================解析路径====================================== 
                         
                         
                         //处理图片上传和格式化
@@ -1801,54 +1822,7 @@ public class HTMLParserUtil {
                            
                             
                             
-                          //========================解析路径start======================================
-                          //删除打赏和微信二维码信息
-      					  
-  						  StringBuilder sb = new StringBuilder();
-  						  
-  						  //处理h2
-      					  Elements h2 = detail.select("h2");
-      					  
-      					  
-      					  if(!CollectionUtils.isEmpty(h2)) {
-      						  for (Iterator iterator = h2.iterator(); iterator.hasNext();) {
-      							  Element link = (Element) iterator.next();
-      							  //把iterater里面的元素连接提取到path中
-      							  handleLink(sb, link, "h2");
-      						  }
-      						  
-      						  
-      					  }
-      					  
-      					  //处理a连接，就去a连接查找下载地址，删除后，设置到path
-      					  Elements links = detail.select("a");
-      					  if(!CollectionUtils.isEmpty(links)) {
-      						  for (Iterator iterator = links.iterator(); iterator.hasNext();) {
-      							  Element link = (Element) iterator.next();
-      							  //把iterater里面的元素连接提取到path中
-      							  handleLink(sb, link ,"a");
-      							  
-      						  }
-      					  }
-      					  
-      					  
-      					  
-      					  //处理p中的连接，就去p磁力链查找下载地址，删除后，设置到path
-      					  Elements ps = detail.select("p");
-      					  if(!CollectionUtils.isEmpty(ps)) {
-      						  for (Iterator iterator = ps.iterator(); iterator.hasNext();) {
-      							  Element link = (Element) iterator.next();
-      							  //把iterater里面的元素连接提取到path中
-      							  handleLink(sb, link , "p");
-      						  }
-      					  }
-      					  
-      					  
-      					  
-      						  
-      					  path = sb.toString();
-
-      					  //========================解析路径====================================== 
+                        
       					  
       					  
       					//删除播放器样式
@@ -1862,7 +1836,12 @@ public class HTMLParserUtil {
       					 desc += detail.html();
 
       						  
-                         LOGGER.info("desc==============>" + desc);
+      					 LOGGER.info("title==============>" + title);
+      					 LOGGER.info("aurl==============>" + aurl);
+      					 LOGGER.info("date==============>" + date);
+      					 LOGGER.info("tag==============>" + tag);
+      					 LOGGER.info("tagcode==============>" + tagcode);
+      					 LOGGER.info("desc==============>" + desc);
 
                         map.put("title", title);
                         map.put("aurl", aurl);
