@@ -1795,6 +1795,7 @@ public class HTMLParserUtil {
                         handelAlinkHref(detail, sb_tag);
                         
                         //美化图库的样式
+                        detail.select("div[id=gallery-1]").attr("class","row");
                         detail.select("div[id=gallery-1]").select("a").addClass(" col-xs-12 col-sm-6 margin-b20 ");
                        
 
