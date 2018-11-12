@@ -6,6 +6,7 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.northpark.constant.BC_Constant;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -75,19 +76,41 @@ public class PinyinUtil {
         for (int i = 0; i < str.length(); i++) {
             result.append(paraseCharToPinyin(str.charAt(i)));
         }
-
+        LOGGER.info("转换一个串成为汉语拼音------->{}", result.toString());
         return result.toString();
     }
+    
+    /**
+     *  转换一个串成为格式化的汉语拼音
+     * @param str
+     * @param linkstr：拼接串
+     * @return
+     */
+    public static String paraseStringToFormatPinyin(String str, String linkstr) {
+    	if (null == str || str.trim().length() == 0) {
+            return str;
+        }
+
+        StringBuffer result = new StringBuffer();
+
+        for (int i = 0; i < str.length(); i++) {
+            result.append(paraseCharToPinyin(str.charAt(i)));
+            if(i<str.length()-1) result.append(linkstr);
+        }
+        String resultmsg = result.toString().toLowerCase();
+		LOGGER.info("转换一个串成为格式化的汉语拼音------->{}", resultmsg);
+        return resultmsg;
+	}
 
 
     /**
-     * 获取中文
+     * 获取随机中文
      *
      * @param seed
      * @return
      * @throws Exception
      */
-    public static String getChinese() throws Exception {
+    public static String getRandomChinese() throws Exception {
         String str = null;
         try {
 
@@ -109,27 +132,14 @@ public class PinyinUtil {
         return str;
     }
 
-    /**
-     * 取得4字名字
-     *
-     * @return
-     * @throws Exception
-     */
-    public static String get4Hanzi() throws Exception {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getChinese());
-        sb.append(getChinese());
-        sb.append(getChinese());
-        return sb.toString();
-    }
 
     /**
-     * 取得随机字母
+     * 取得随机英文字母 8位
      *
      * @return
      * @throws Exception
      */
-    public static String getEnglish() {
+    public static String getRandomEnglishWord() {
         String chars = "abcdefghijklmnopqrstuvwxyz";
         String str = "";
         ;
@@ -148,7 +158,7 @@ public class PinyinUtil {
      * @return
      * @throws Exception
      */
-    public static String getZIMU() {
+    public static String getRandomEnglishChar() {
         String chars = "abcdefghijklmnopqrstuvwxyz";
         String str = "";
         ;
@@ -158,23 +168,6 @@ public class PinyinUtil {
         return str;
     }
 
-    /**
-     * 取得中文翻译的字母
-     *
-     * @return
-     * @throws Exception
-     */
-    public static String getFanyi() throws Exception {
-        String str = "";
-        char c[] = get4Hanzi().toCharArray();
-        for (int i = 0; i < c.length; i++) {
-
-            str += paraseCharToPinyin(c[i]);
-        }
-        str = str.toLowerCase();
-        LOGGER.info("汉语pinyin" + str);
-        return str;
-    }
 
 
     /**
@@ -183,40 +176,26 @@ public class PinyinUtil {
      * @return
      * @throws Exception
      */
-    public static String getFanyi1(String ZW) {
+    public static String getFirstChar(String chinese) {
         String str = "";
-        char c[] = ZW.toCharArray();
+        char c[] = chinese.toCharArray();
         for (int i = 0; i < c.length; i++) {
 
             str += paraseCharToPinyin(c[i]);
         }
         str = str.toLowerCase();
-        LOGGER.info("汉语_____>" + str);
-        return str.substring(0, 1);
+        String substring = str.substring(0, 1);
+        LOGGER.info("中文的首字母---->{}",substring);
+        return substring;
     }
 
-    /**
-     * 取得中文翻译的邮箱
-     *
-     * @return
-     * @throws Exception
-     */
-    public static String getFanyiEmail() throws Exception {
-        String str = "";
-        char c[] = get4Hanzi().toCharArray();
-        for (int i = 0; i < c.length; i++) {
-
-            str += paraseCharToPinyin(c[i]);
-        }
-        str = str.toLowerCase() + "@qq.com";
-        LOGGER.info("email----" + str);
-        return str;
-    }
 
 
     /**
      * 取得中文字符串的首字母集合
-     *
+     * <pre>
+     * 香草天空 ---> XCTK
+     * </pre>
      * @return
      * @throws Exception
      */
@@ -252,7 +231,17 @@ public class PinyinUtil {
 
 
 //    	getFanyiEmail();
+    	
+    	 getFirstChar("香草天空");
+         
 
         getFirstCharStr("香草天空");
+        
+        System.out.println(BC_Constant.FormatSpilt.hengxian.getNamestr());
+        paraseStringToPinyin("香草天空");
+        
+        paraseStringToFormatPinyin("香草天空","-");
     }
+
+	
 }

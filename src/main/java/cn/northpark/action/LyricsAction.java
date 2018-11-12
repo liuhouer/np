@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.northpark.annotation.CheckLogin;
+import cn.northpark.constant.BC_Constant;
+import cn.northpark.exception.NorthParkException;
+import cn.northpark.exception.ResultCode;
+import cn.northpark.form.LyricsForm;
 import cn.northpark.manager.LyricsCommentManager;
 import cn.northpark.manager.LyricsManager;
 import cn.northpark.manager.LyricsZanManager;
@@ -33,6 +39,7 @@ import cn.northpark.model.UserLyrics;
 import cn.northpark.query.condition.UserLyricsQueryCondition;
 import cn.northpark.utils.FileUtils;
 import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
@@ -126,7 +133,7 @@ public class LyricsAction {
     /**
      * 保存最爱
      *
-     * @param lyrics
+     * @param lyricsForm
      * @param userid
      * @param request
      * @param file
@@ -134,31 +141,36 @@ public class LyricsAction {
      * @return
      */
     @RequestMapping("/lyrics/addLyrics")
-    public String addLyrics(Lyrics lyrics, String userid, HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile[] file, ModelMap map) {
+    @CheckLogin
+    public String addLyrics(@Valid LyricsForm lyricsForm,BindingResult bindingResult,  HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile[] file) {
 
+    	//验证表单
+    	if(bindingResult.hasErrors()) {
+    		LOGGER.error("【添加主题】 参数不正确,lyricsForm={}", lyricsForm);
+    		throw new NorthParkException(ResultCode.Lyrics_Param_Not_Valid, bindingResult.getFieldError().getDefaultMessage());
+    	}
+    	
         User u = (User) request.getSession().getAttribute("user");
         if (u != null) {
-
-            userid = String.valueOf(u.getId());
-        }
-        if (StringUtils.isNotEmpty(userid)) {
+        	Lyrics model = new Lyrics();
             //上传
             String albumpath = "";
             List<String> filelist = FileUtils.commonUpload(file, FileUtils.suffix_album);
             if (filelist != null && filelist.size() > 0) {
                 albumpath = filelist.get(0);
             }
-            lyrics.setUpdatedate(TimeUtils.nowTime());
-            lyrics.setAlbumImg(albumpath);
-            this.lyricsManager.addLyrics(lyrics);
+            model.setUpdatedate(TimeUtils.nowTime());
+            model.setAlbumImg(albumpath);
+            //处理标题请求名
+            String titlecode = PinyinUtil.paraseStringToFormatPinyin(lyricsForm.getTitle(),BC_Constant.FormatSpilt.hengxian.getNamestr());
+            model.setTitlecode(titlecode);
+            this.lyricsManager.addLyrics(model);
 
             UserLyrics userlyrics = new UserLyrics();
-            userlyrics.setLyricsid(lyrics.getId());
-            userlyrics.setUserid(Integer.parseInt(userid));
+            userlyrics.setLyricsid(model.getId());
+            userlyrics.setUserid(u.getId());
             this.userlyricsManager.addUserLyrics(userlyrics);
-        } else {//添加失败了
-            map.addAttribute("albumpath", "Failure...");
-        }
+        } 
         return LIST_ACTION2;
     }
 
@@ -177,8 +189,8 @@ public class LyricsAction {
     public String getMoreZan(HttpServletRequest request, HttpServletResponse response, String lyricsid, ModelMap map) {
         response.setContentType("text/html; charset=UTF-8");
         //取得zan的人的列表
-        String sql = "select b.id,b.tail_slug,b.username from bc_lyrics_zan a join bc_user b on a.userid = b.id where a.lyricsid = '" + lyricsid + "' ";
-        List<Map<String, Object>> zanList = lyricszanManager.mixSqlQuery(sql);
+        String sql = "select b.id,b.tail_slug,b.username from bc_lyrics_zan a join bc_user b on a.userid = b.id where a.lyricsid = ? ";
+        List<Map<String, Object>> zanList = lyricszanManager.mixSqlQuery(sql ,lyricsid);
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < zanList.size(); i++) {

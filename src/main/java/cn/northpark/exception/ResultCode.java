@@ -19,8 +19,11 @@ public enum ResultCode {
     UNKONW_ERROR("-1", "未知错误"),
 	DIY("-5","自定義的錯誤"),
 	Extend("-6","扩展錯誤"),
-	Movie_Tag_Not_Match("-7","电影标签中英文数量不匹配，对应不上"),
-	Param_Not_Valid("-8","管理员相关方法竟然参数没有传递正常！需要记录IP，防止是恶意扫描。");
+	Movie_Tag_Not_Match("-7","{电影标签中英文数量不匹配，对应不上}{The Movie Tags With Tagscode Not Match}"),
+	Param_Not_Valid("-8","管理员相关方法竟然参数没有传递正常！需要记录IP，防止是恶意扫描。"),
+	Lyrics_Param_Not_Valid("-9","添加主题的参数不正确"),
+	
+	;
 
 	ResultCode(String code, String message) {
         this.code = code;

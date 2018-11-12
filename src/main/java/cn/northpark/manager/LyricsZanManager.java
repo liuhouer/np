@@ -32,7 +32,7 @@ public interface LyricsZanManager {
 
     public int getZanNumByLRC(String lyricsid);
 
-    public List<Map<String, Object>> mixSqlQuery(String sql);
+    public List<Map<String, Object>> mixSqlQuery(String sql,Object... objects );
 
 
     /**

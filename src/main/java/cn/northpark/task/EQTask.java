@@ -65,7 +65,7 @@ public class EQTask {
                     model.setTitle(title);
                     model.setReturl(returl);
                     model.setTags(tags);
-                    model.setColor(PinyinUtil.getFanyi1(model.getTitle()));
+                    model.setColor(PinyinUtil.getFirstChar(model.getTitle()));
                     model.setRetcode(retcode);
                     vpsManager.addVps(model);
                 }
@@ -372,7 +372,7 @@ public class EQTask {
                         model.setTag(tag);
                         model.setTagcode(tagcode);
                         model.setViewnum(HTMLParserUtil.geneViewNum());
-                        model.setColor(PinyinUtil.getFanyi1(title.trim()));
+                        model.setColor(PinyinUtil.getFirstChar(title.trim()));
                         moviesManager.addMovies(model);
                     }
                 } catch (Exception e) {

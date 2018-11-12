@@ -83,10 +83,10 @@ public class LyricsZanManagerImpl implements LyricsZanManager {
     }
 
     @Override
-    public List<Map<String, Object>> mixSqlQuery(String sql) {
+    public List<Map<String, Object>> mixSqlQuery(String sql,Object... objects) {
         // TODO Auto-generated method stub
 
-        return lyricszanDao.querySql(sql);
+        return lyricszanDao.querySql(sql,objects);
     }
 
     @Override

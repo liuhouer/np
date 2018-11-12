@@ -18,6 +18,35 @@ public class BC_Constant {
      */
     public static final String MQ_MAIL_RESET = "rest.mail.reset";
     
+    
+    
+    
+    
+    /**
+     * 格式化分隔符
+     */
+    public enum FormatSpilt {
+    	 hengxian("-"),
+    	 bolangxian("~"), 
+    	 xinghao("*"),
+    	 jinghao("#"),
+         ;
+    	 // 成员变量
+        private String namestr;
+        
+        
+    	private FormatSpilt(String namestr) {
+    		this.namestr = namestr;
+    	}
+
+
+		public String getNamestr() {
+			return namestr;
+		}
+
+
+    }
+    
     public enum XINGZUO {
         BAIYANG("白羊座", 1), JINNIU("金牛座", 2), SHUANGZI("双子座", 3), JUXIE("巨蟹座", 4),
         SHIZI("狮子座", 5), CHUNV("处女座",6), TIANCHENG("天秤座", 7), TIANXIE("天蝎座", 8),

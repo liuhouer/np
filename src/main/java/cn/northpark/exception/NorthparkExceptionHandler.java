@@ -27,6 +27,7 @@ public class NorthparkExceptionHandler {
 	
 	Logger logger = LoggerFactory.getLogger(NorthparkExceptionHandler.class);
 	
+	
 	/**
 	 * 描述：处理所有的异常
 	 *
@@ -41,8 +42,7 @@ public class NorthparkExceptionHandler {
     public Object errorHandler(HttpServletRequest reqest, 
     		HttpServletResponse response, Exception e) throws Exception {
 		
-		logger.error("the error found by northpark=====>{}",e);
-    	
+		logger.error("The Error Found By Northpark=====>{}",e);
     	
     	if (isAjax(reqest)) {
     		
