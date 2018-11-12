@@ -159,6 +159,7 @@ public class LyricsAction {
             if (filelist != null && filelist.size() > 0) {
                 albumpath = filelist.get(0);
             }
+            model.setTitle(lyricsForm.getTitle());
             model.setUpdatedate(TimeUtils.nowTime());
             model.setAlbumImg(albumpath);
             //处理标题请求名

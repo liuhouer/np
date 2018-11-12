@@ -8,7 +8,7 @@ function rmSpan(obj) {
 
 function removes(lyricsid, userlyricsid) {
     art.dialog.confirm('你确定要删除这首最爱歌词吗？', function () {
-        window.location.href = "lyrics/remove/" + lyricsid + "/" + userlyricsid;
+        window.location.href = "/lyrics/remove/" + lyricsid + "/" + userlyricsid;
     }, function () {
         return;
     });
