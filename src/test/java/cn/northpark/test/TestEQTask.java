@@ -4,12 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.EqManager;
@@ -436,19 +433,19 @@ public class TestEQTask extends BaseTest {
 
     						if(flag<=0){
 
-    							Soft model = new Soft();
-    							model.setBrief(brief);
-    							model.setContent(article);
-    							model.setOs(os);
-    							model.setPostdate(date);
-    							model.setRetcode(code);
-    							model.setReturl(aurl);
-    							model.setTags(tag);
-    							model.setTitle(title);
-    							model.setMonth(month);
-    							model.setYear(year);
-    							model.setTagscode(tagcode);
-    							model.setPath(path);
+    							Soft model = Soft.builder().brief(brief)
+							    					       .content(article)
+							    					       .os(os)
+							    					       .postdate(date)
+							    					       .retcode(code)
+							    					       .returl(aurl)
+							    					       .tags(tag)
+							    					       .title(title)
+							    					       .month(month)
+							    					       .year(year)
+							    					       .tagscode(tagcode)
+							    					       .path(path)
+							    					       .build();
     							softManager.addSoft(model);
     						}
     					}

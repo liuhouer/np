@@ -8,11 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
+
+import lombok.Data;
 
 @Entity
 @Table(name = "bc_lyrics_comment")
+@Data
 public class LyricsComment implements Serializable {
 
     /**
@@ -39,50 +41,5 @@ public class LyricsComment implements Serializable {
     @Column(length = 200)
     private String create_time;
 
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public String getCreate_time() {
-        return create_time;
-    }
-
-    public void setCreate_time(String create_time) {
-        this.create_time = create_time;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-
-    public Integer getLyricsid() {
-        return lyricsid;
-    }
-
-    public void setLyricsid(Integer lyricsid) {
-        this.lyricsid = lyricsid;
-    }
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
 }

@@ -8,8 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
+
+import lombok.Data;
 
 /**
  * @author bruce
@@ -20,6 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "bc_tags")
+@Data
 public class Tags implements Serializable {
 
     /**
@@ -27,10 +29,6 @@ public class Tags implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-	 /* 注释掉的uuid模板
-	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")  */
 
     /* 下面是自增的native ID方式 */
     @Id
@@ -49,40 +47,4 @@ public class Tags implements Serializable {
     private String tagtype;
 
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public String getTagcode() {
-        return tagcode;
-    }
-
-    public void setTagcode(String tagcode) {
-        this.tagcode = tagcode;
-    }
-
-    public String getTagtype() {
-        return tagtype;
-    }
-
-    public void setTagtype(String tagtype) {
-        this.tagtype = tagtype;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
 }

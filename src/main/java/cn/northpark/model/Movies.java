@@ -11,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
+
+import lombok.Data;
 
 @Entity
 @Table(name = "bc_movies")
+@Data
 public class Movies implements Serializable {
 
     /**
@@ -73,124 +75,5 @@ public class Movies implements Serializable {
     @Transient
     private List<Map<String, String>> taglist;
 
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-
-    public String getRetcode() {
-        return retcode;
-    }
-
-    public void setRetcode(String retcode) {
-        this.retcode = retcode;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-
-    public String getMoviename() {
-        return moviename;
-    }
-
-    public void setMoviename(String moviename) {
-        this.moviename = moviename;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getAddtime() {
-        return addtime;
-    }
-
-    public void setAddtime(String addtime) {
-        this.addtime = addtime;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public String getTagcode() {
-        return tagcode;
-    }
-
-    public void setTagcode(String tagcode) {
-        this.tagcode = tagcode;
-    }
-
-    public List<Map<String, String>> getTaglist() {
-        return taglist;
-    }
-
-    public void setTaglist(List<Map<String, String>> taglist) {
-        this.taglist = taglist;
-    }
-
-    public Integer getViewnum() {
-        return viewnum;
-    }
-
-    public void setViewnum(Integer viewnum) {
-        this.viewnum = viewnum;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public Integer getHotindex() {
-        return hotindex;
-    }
-
-    public void setHotindex(Integer hotindex) {
-        this.hotindex = hotindex;
-    }
-
-
-    public String getDisplayed() {
-        return displayed;
-    }
-
-    public void setDisplayed(String displayed) {
-        this.displayed = displayed;
-    }
 
 }

@@ -8,8 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
+
+import lombok.Data;
 
 /**
  * @author bruce
@@ -20,6 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "bc_poem")
+@Data
 public class Poem implements Serializable {
 
     /**
@@ -83,169 +85,4 @@ public class Poem implements Serializable {
     @Column(length = 255)
     private String returl;
 
-
-    public String getTypes() {
-        return types;
-    }
-
-    public void setTypes(String types) {
-        this.types = types;
-    }
-
-    public String getEnjoys() {
-        return enjoys;
-    }
-
-    public void setEnjoys(String enjoys) {
-        this.enjoys = enjoys;
-    }
-
-    public String getPic_poem() {
-        return pic_poem;
-    }
-
-    public void setPic_poem(String pic_poem) {
-        this.pic_poem = pic_poem;
-    }
-
-    public String getRetcode() {
-        return retcode;
-    }
-
-    public void setRetcode(String retcode) {
-        this.retcode = retcode;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getYears() {
-        return years;
-    }
-
-    public void setYears(String years) {
-        this.years = years;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-
-    public String getContent1() {
-        return content1;
-    }
-
-    public void setContent1(String content1) {
-        this.content1 = content1;
-    }
-
-    public String getReturl() {
-        return returl;
-    }
-
-    public void setReturl(String returl) {
-        this.returl = returl;
-    }
-
-    public String getYears_code() {
-        return years_code;
-    }
-
-    public void setYears_code(String years_code) {
-        this.years_code = years_code;
-    }
-
-    public String getTypes_code() {
-        return types_code;
-    }
-
-    public void setTypes_code(String types_code) {
-        this.types_code = types_code;
-    }
-	
-	/*这里是mybatis部分代码
-	
-	id,title,years,author,content,createtime,	
-
-		#{id},	#{title},	#{years},	#{author},	#{content},	#{createtime},	
-	<update id="updateModel" parameterType="com.mai.app.entity.Poem">
-        update Poem
-        <set>
-                
-	   	 id = #{id},
-	   	 
-	            
-	   	 title = #{title},
-	   	 
-	            
-	   	 years = #{years},
-	   	 
-	            
-	   	 author = #{author},
-	   	 
-	            
-	   	 content = #{content},
-	   	 
-	            
-	   	 createtime = #{createtime},
-	   	 
-	            </set>
-        <where>
-         id = #{id}
-        </where>
-    </update>
-    
-    
-    
-    <select id="findAllByPage"  
-            resultType="com.mai.X.entity.Poem">
-        select * from modelName
-    </select>
-    
-    <select id="findByID"  parameterType="string"
-            resultType="com.mai.X.entity.Poem">
-        select * from Poem where PoemID = #{id}
-    </select>
-	
-	
-	
-	*/
 }

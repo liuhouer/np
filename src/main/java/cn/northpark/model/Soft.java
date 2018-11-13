@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
+
+import lombok.Builder;
+import lombok.Data;
 
 /**
  * @author bruce
@@ -20,6 +22,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "bc_soft")
+@Data
+@Builder
 public class Soft implements Serializable {
 
     /**
@@ -27,10 +31,6 @@ public class Soft implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-	 /* 注释掉的uuid模板
-	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")  */
 
     /* 下面是自增的native ID方式 */
     @Id
@@ -78,166 +78,4 @@ public class Soft implements Serializable {
     @Column()
     private String path;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getRetcode() {
-        return retcode;
-    }
-
-    public void setRetcode(String retcode) {
-        this.retcode = retcode;
-    }
-
-    public String getBrief() {
-        return brief;
-    }
-
-    public void setBrief(String brief) {
-        this.brief = brief;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getPostdate() {
-        return postdate;
-    }
-
-    public void setPostdate(String postdate) {
-        this.postdate = postdate;
-    }
-
-    public String getOs() {
-        return os;
-    }
-
-    public void setOs(String os) {
-        this.os = os;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    public String getReturl() {
-        return returl;
-    }
-
-    public void setReturl(String returl) {
-        this.returl = returl;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTagscode() {
-        return tagscode;
-    }
-
-    public void setTagscode(String tagscode) {
-        this.tagscode = tagscode;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
-    }
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-	
-	/*这里是mybatis部分代码
-	
-	id,retcode,brief,content,month,year,tagscode,title,postdate,os,tags,returl,	
-
-		#{id},	#{retcode},	#{brief},	#{content},	#{postdate},	#{os},	#{tags},	#{returl},	
-	<update id="updateModel" parameterType="com.mai.app.entity.Soft">
-        update Soft
-        <set>
-                
-	   	 id = #{id},
-	   	 
-	            
-	   	 retcode = #{retcode},
-	   	 
-	            
-	   	 brief = #{brief},
-	   	 
-	            
-	   	 content = #{content},
-	   	 
-	            
-	   	 postdate = #{postdate},
-	   	 
-	            
-	   	 os = #{os},
-	   	 
-	            
-	   	 tags = #{tags},
-	   	 
-	            
-	   	 returl = #{returl},
-	   	 
-	            </set>
-        <where>
-         id = #{id}
-        </where>
-    </update>
-    
-    
-    
-    <select id="findAllByPage"  
-            resultType="com.mai.X.entity.Soft">
-        select * from modelName
-    </select>
-    
-    <select id="findByID"  parameterType="string"
-            resultType="com.mai.X.entity.Soft">
-        select * from Soft where SoftID = #{id}
-    </select>
-	
-	
-	
-	*/
 }

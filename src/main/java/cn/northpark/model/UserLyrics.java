@@ -8,11 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
+
+import lombok.Data;
 
 @Entity
 @Table(name = "bc_user_lyrics")
+@Data
 public class UserLyrics implements Serializable {
 
     /**
@@ -33,34 +35,5 @@ public class UserLyrics implements Serializable {
     @Column(length = 32)
     private Integer lyricsid;
 
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
-
-    public Integer getLyricsid() {
-        return lyricsid;
-    }
-
-    public void setLyricsid(Integer lyricsid) {
-        this.lyricsid = lyricsid;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
 }

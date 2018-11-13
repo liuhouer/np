@@ -8,11 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
+
+import lombok.Data;
 
 @Entity
 @Table(name = "bc_user")
+@Data
 public class User implements Serializable {
 
     /**
@@ -75,130 +77,4 @@ public class User implements Serializable {
     @Column(length = 2000)
     private String blogsite;//自己的个人页面
 
-
-    public String getQq_openid() {
-        return qq_openid;
-    }
-
-    public void setQq_openid(String qq_openid) {
-        this.qq_openid = qq_openid;
-    }
-
-    public String getQq_info() {
-        return qq_info;
-    }
-
-    public void setQq_info(String qq_info) {
-        this.qq_info = qq_info;
-    }
-
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getLast_login() {
-        return last_login;
-    }
-
-    public void setLast_login(String last_login) {
-        this.last_login = last_login;
-    }
-
-    public String getDate_joined() {
-        return date_joined;
-    }
-
-    public void setDate_joined(String date_joined) {
-        this.date_joined = date_joined;
-    }
-
-    public String getHeadpath() {
-        return headpath;
-    }
-
-    public void setHeadpath(String headpath) {
-        this.headpath = headpath;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-
-    public String getTail_slug() {
-        return tail_slug;
-    }
-
-    public void setTail_slug(String tail_slug) {
-        this.tail_slug = tail_slug;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getHeadspanclass() {
-        return headspanclass;
-    }
-
-    public void setHeadspanclass(String headspanclass) {
-        this.headspanclass = headspanclass;
-    }
-
-    public String getHeadspan() {
-        return headspan;
-    }
-
-    public void setHeadspan(String headspan) {
-        this.headspan = headspan;
-    }
-
-    public String getMeta() {
-        return meta;
-    }
-
-    public void setMeta(String meta) {
-        this.meta = meta;
-    }
-
-    public String getBlogsite() {
-        return blogsite;
-    }
-
-    public void setBlogsite(String blogsite) {
-        this.blogsite = blogsite;
-    }
-
-	public String getEmail_flag() {
-		return email_flag;
-	}
-
-	public void setEmail_flag(String email_flag) {
-		this.email_flag = email_flag;
-	}
 }
