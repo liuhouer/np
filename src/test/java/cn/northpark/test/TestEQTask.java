@@ -25,9 +25,7 @@ import cn.northpark.utils.TimeUtils;
  * <p>
  * 定时爬取今日情圣文章
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:application-dao.xml", "classpath:application-service.xml" , "classpath:application-transaction.xml", "classpath:application-mq.xml"})
-public class TestEQTask {
+public class TestEQTask extends BaseTest {
 
     @Autowired
     public EqManager EqManager;

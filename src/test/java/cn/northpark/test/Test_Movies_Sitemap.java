@@ -6,12 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.northpark.manager.SoftManager;
 
@@ -20,9 +17,7 @@ import cn.northpark.manager.SoftManager;
  * <p>
  * 定时爬取今日情圣文章
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:application-dao.xml", "classpath:application-service.xml" , "classpath:application-transaction.xml", "classpath:application-mq.xml"})
-public class Test_Movies_Sitemap {
+public class Test_Movies_Sitemap  extends BaseTest{
 
     //
     @Autowired
@@ -63,7 +58,7 @@ public class Test_Movies_Sitemap {
 
     @Test
     public void save() {
-        runTask(680820);
+        runTask(681039);
     }
 
 }
