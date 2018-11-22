@@ -78,14 +78,13 @@ public class LyricsAction {
 
     @RequestMapping("/lyrics/remove/{lyricsid}/{userlyricsid}")
     public String remove(@PathVariable("lyricsid") Integer lyricsid, String userid, @PathVariable("userlyricsid") Integer userlyricsid, HttpServletRequest request) {
-        String result = LIST_ACTION2;
         User u = (User) request.getSession().getAttribute("user");
         userid = String.valueOf(u.getId());
         if (StringUtils.isNotEmpty(userid)) {
             lyricsManager.delLyrics(lyricsid);
             userlyricsManager.delUserLyrics(userlyricsid);
         }
-        return result;
+        return LIST_ACTION2;
     }
 
     @RequestMapping("/lyrics/removes")
@@ -202,8 +201,12 @@ public class LyricsAction {
             } else {
                 href = "/cm/detail/" + zanList.get(i).get("id");
             }
-            String str = "<span><a href = '" + href + "' title= '" + zanList.get(i).get("username") + "' >" + zanList.get(i).get("username") + "</a> &nbsp;</span>";
-            sb.append(str);
+            sb.append("<span><a href = '")
+	            .append(href).append("' title= '" )
+	            .append(zanList.get(i).get("username"))
+	            .append("' >")
+	            .append( zanList.get(i).get("username") )
+	            .append("</a> &nbsp;</span>");
         }
 
         LOGGER.info(sb.toString());
@@ -232,13 +235,13 @@ public class LyricsAction {
         //  获取分页数据
         List<Map<String, Object>> plList = this.plManager.findmixByCondition(pageview, sql_);
 
-        for (int i = 0; i < plList.size(); i++) {
-
-            //批量处理时间
-            plList.get(i).put("create_time", TimeUtils.formatToNear((String) plList.get(i).get("create_time")));
+        
+        //批量处理时间
+        if(!CollectionUtils.isEmpty(plList)) {
+        	plList.forEach(i ->{
+        		i.put("create_time", TimeUtils.formatToNear((String) i.get("create_time")));
+        	});
         }
-
-
         map.put("plList", plList);
 
         map.put("pageview", pageview);
@@ -417,21 +420,16 @@ public class LyricsAction {
 
 
         if (!CollectionUtils.isEmpty(lovelist)) {
-            for (int i = 0; i < lovelist.size(); i++) {
-                Map<String, Object> map2 = lovelist.get(i);
 
-                //处理标题截断
-                String title = (String) map2.get("title");
-                String cutString = HTMLParserUtil.CutString(title, 12);
-                map2.put("cuttitle", cutString);
+        	lovelist.forEach(item ->{
+        		//处理标题截断
+        		String title = (String) item.get("title");
+        		if(StringUtils.isNotEmpty(title)) item.put("cuttitle", HTMLParserUtil.CutString(title, 12));
 
-                //处理日期显示格式
-                String updatedate = (String) map2.get("updatedate");
-                if (StringUtils.isNotEmpty(updatedate)) {
-                    String engDate = TimeUtils.parse2EnglishDate(updatedate);
-                    map2.put("engDate", engDate);
-                }
-            }
+        		//处理日期显示格式
+        		String updatedate = (String) item.get("updatedate");
+        		if (StringUtils.isNotEmpty(updatedate)) item.put("engDate", TimeUtils.parse2EnglishDate(updatedate));
+        	});
         }
 
 

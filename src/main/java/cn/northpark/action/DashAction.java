@@ -173,17 +173,12 @@ public class DashAction {
         noteSql = noteSql.replace("order by a.createtime desc", "order by a.id ");
         PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(1, 16);
         List<Map<String, Object>> notelist = this.noteManager.findmixByCondition(pageview, noteSql);
-
-        for (int i = 0; i < notelist.size(); i++) {
-            //时间处理
-            String createtime = (String) notelist.get(i).get("createtime"); //e:/yunlu/upload/1399976848969.jpg
-            if (StringUtils.isNotEmpty(createtime)) {
-                createtime = TimeUtils.getHalfDate(createtime);
-            }
-            notelist.get(i).put("createtime", createtime);
-
-        }
-
+        
+        //时间处理
+        notelist.forEach(item ->{
+        	String createtime = (String) item.get("createtime");
+        	if (StringUtils.isNotEmpty(createtime)) item.put("createtime", TimeUtils.getHalfDate(createtime));
+        });
 
         map.addAttribute("notelist", notelist);
     }
@@ -200,21 +195,16 @@ public class DashAction {
         List<Map<String, Object>> lovelist = this.userlyricsManager.getMixMapData(pageview, "");
 
         if (!CollectionUtils.isEmpty(lovelist)) {
-            for (int i = 0; i < lovelist.size(); i++) {
-                Map<String, Object> map2 = lovelist.get(i);
-
-                //处理标题截断
-                String title = (String) map2.get("title");
-                String cutString = HTMLParserUtil.CutString(title, 12);
-                map2.put("cuttitle", cutString);
-
-                //处理日期显示格式
-                String updatedate = (String) map2.get("updatedate");
-                if (StringUtils.isNotEmpty(updatedate)) {
-                    String engDate = TimeUtils.parse2EnglishDate(updatedate);
-                    map2.put("engDate", engDate);
-                }
-            }
+        	
+        	lovelist.forEach(item ->{
+        		//处理标题截断
+        		String title = (String) item.get("title");
+        		if(StringUtils.isNotEmpty(title)) item.put("cuttitle", HTMLParserUtil.CutString(title, 12));
+        		
+        		 //处理日期显示格式
+                String updatedate = (String) item.get("updatedate");
+                if (StringUtils.isNotEmpty(updatedate)) item.put("engDate", TimeUtils.parse2EnglishDate(updatedate));
+        	});
         }
 
 

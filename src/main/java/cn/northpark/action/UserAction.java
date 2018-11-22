@@ -338,12 +338,13 @@ public class UserAction {
         String sql = "select c.updatedate,c.id,c.title,c.titlecode,c.albumImg,b.id as userlyricsid from    bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id where b.userid = ? order by c.updatedate desc";
 
         List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId());
-        for (int i = 0; i < list.size(); i++) {
-
-            //--批量处理时间
-            list.get(i).put("updatedate", TimeUtils.formatToNear((String) list.get(i).get("updatedate")));
-
+        if(!CollectionUtils.isEmpty(list)) { //--批量处理时间
+        	list.forEach(item ->{
+        		String datastr = (String) item.get("updatedate");
+        		if(StringUtils.isNotEmpty(datastr)) item.put("updatedate", TimeUtils.formatToNear(datastr));
+        	});
         }
+        
         map.addAttribute("Lovelist", list);
         return rs;
     }
@@ -463,6 +464,7 @@ public class UserAction {
 
             if (user != null) {
                 List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId());
+                
                 for (int i = 0; i < list.size(); i++) {
                     //--批量处理时间
                     list.get(i).put("updatedate", TimeUtils.formatToNear((String) list.get(i).get("updatedate")));
@@ -513,7 +515,7 @@ public class UserAction {
 
             tail_slug = WAQ.forSQL().escapeSql(tail_slug);
             User user = null;
-            List<User> ul = userManager.findByCondition(" where tail_slug = '" + tail_slug + "' ").getResultlist();
+            List<User> ul = userManager.querySql("select * from bc_user where tail_slug = ?", tail_slug);
             if (!CollectionUtils.isEmpty(ul)) {
                 user = ul.get(0);
             }
@@ -525,14 +527,13 @@ public class UserAction {
 
             if (user != null) {
                 List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId());
-                for (int i = 0; i < list.size(); i++) {
-
-                    //--批量处理时间
-                    if (StringUtils.isNotEmpty((String) list.get(i).get("updatedate"))) {
-                        list.get(i).put("updatedate", TimeUtils.formatToNear((String) list.get(i).get("updatedate")));
-                    }
+                if(!CollectionUtils.isEmpty(list)) {
+                	list.forEach(item -> {
+                		String datastr = (String) item.get("updatedate");
+                		if(StringUtils.isNotEmpty(datastr)) item.put("updatedate", TimeUtils.formatToNear(datastr));
+                	});
+                	map.addAttribute("Lovelist", list);
                 }
-                map.addAttribute("Lovelist", list);
 
 
             }

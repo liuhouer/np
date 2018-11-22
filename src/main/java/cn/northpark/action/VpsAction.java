@@ -300,19 +300,22 @@ public class VpsAction {
 
         //char(97+ceiling(rand()*25)) --随机字母（小写）
 
-        String tagsql = "select  b.tag as tagscloud,round(rand()*(9)) AS color  ,count(b.tag) as nums from                   "
-                + "(                                                                                      "
-                + "select substring_index(substring_index(a.tags,',',b.help_topic_id+1),',',-1) as tag    "
-                + "from                                                                                   "
-                + "bc_vps a                                                                               "
-                + "join                                                                                   "
-                + "mysql.help_topic b                                                                     "
-                + "on b.help_topic_id < (length(a.tags) - length(replace(a.tags,',',''))+1)               "
-                + "where a.tags!=''                                                                       "
-                + "order by a.ID )  as b   group by b.tag order by nums desc      limit 0,50              ";
+    	StringBuilder tagsqlBuilder = new StringBuilder();
+        
+        
+        tagsqlBuilder.append("select  b.tag as tagscloud,round(rand()*(9)) AS color  ,count(b.tag) as nums from ")
+		               .append( "(                                                                                      ")
+		               .append( "select substring_index(substring_index(a.tags,',',b.help_topic_id+1),',',-1) as tag    ")
+		               .append( "from                                                                                   ")
+		               .append( "bc_vps a                                                                               ")
+		               .append( "join                                                                                   ")
+		               .append( "mysql.help_topic b                                                                     ")
+		               .append( "on b.help_topic_id < (length(a.tags) - length(replace(a.tags,',',''))+1)               ")
+		               .append( "where a.tags!=''                                                                       ")
+		               .append( "order by a.ID )  as b   group by b.tag order by nums desc      limit 0,50              ");
 
 
-        List<Map<String, Object>> rs = vpsManager.querySqlMap(tagsql);
+        List<Map<String, Object>> rs = vpsManager.querySqlMap(tagsqlBuilder.toString());
 
         return rs;
 
