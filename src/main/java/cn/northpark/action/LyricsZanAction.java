@@ -8,8 +8,6 @@ package cn.northpark.action;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +21,11 @@ import cn.northpark.model.LyricsComment;
 import cn.northpark.model.LyricsZan;
 import cn.northpark.model.User;
 import cn.northpark.utils.TimeUtils;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/zanAction")
+@Slf4j
 public class LyricsZanAction {
 
     @Autowired
@@ -35,9 +35,6 @@ public class LyricsZanAction {
     @Autowired
     private LyricsManager lyricsManager;
 
-
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(LyricsZanAction.class);
 
     /**
      * 最爱的主题点赞操作
@@ -80,7 +77,7 @@ public class LyricsZanAction {
             } catch (Exception e) {
                 // TODO: handle exception
                 msg = "exception";
-                LOGGER.error("zanacton------>", e);
+                log.error("zanacton------>", e);
             }
         }
         return msg;
@@ -127,7 +124,7 @@ public class LyricsZanAction {
         } catch (Exception e) {
             // TODO: handle exception
             msg = "exception";
-            LOGGER.error("zanacton------>", e);
+            log.error("zanacton------>", e);
         }
         return msg;
     }

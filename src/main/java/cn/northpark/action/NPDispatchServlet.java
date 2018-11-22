@@ -4,15 +4,16 @@ package cn.northpark.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.UrlPathHelper;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author bruce
  * @category 处理404找不到 并且打打印信息
  */
+@Slf4j
 public class NPDispatchServlet extends DispatcherServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -21,7 +22,6 @@ public class NPDispatchServlet extends DispatcherServlet {
 
 	private String fileNotFondUrl = "/building";
 
-    private static final Logger logger = LoggerFactory.getLogger(NPDispatchServlet.class);
     
     @Override
 	public void noHandlerFound(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -35,11 +35,11 @@ public class NPDispatchServlet extends DispatcherServlet {
 		      //ip
 		      //类方法-使用joinPoint对象取
 		      //参数
-			logger.info("NorthPark处理统计404路径----->{}",request.getRequestURI());
-	        logger.info("url={}----->",requestUri);
-	        logger.info("method={}----->",request.getMethod());
-	        logger.info("ip={}----->",request.getRemoteAddr());
-	        logger.info("args={}----->",request.getQueryString());
+			log.info("NorthPark处理统计404路径----->{}",request.getRequestURI());
+	        log.info("url={}----->",requestUri);
+	        log.info("method={}----->",request.getMethod());
+	        log.info("ip={}----->",request.getRemoteAddr());
+	        log.info("args={}----->",request.getQueryString());
 
 		}
 

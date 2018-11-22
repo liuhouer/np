@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,6 +25,7 @@ import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -37,6 +36,7 @@ import cn.northpark.utils.safe.WAQ;
  */
 @Controller
 @RequestMapping("/poem")
+@Slf4j
 public class PoemAction {
 
     @Autowired
@@ -46,8 +46,6 @@ public class PoemAction {
     private TagsManager tagManager;
 
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(PoemAction.class);
 
     /**
      * 首页
@@ -124,7 +122,7 @@ public class PoemAction {
 
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("poemAction------>", e);
+            log.error("poemAction------>", e);
         }
 
 
@@ -171,7 +169,7 @@ public class PoemAction {
 
         }
 
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
         order.put("rand()", "asc");
@@ -232,7 +230,7 @@ public class PoemAction {
         map.put("seltag", tagscode);
 
 
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -288,7 +286,7 @@ public class PoemAction {
         map.put("seltag", tagscode);
 
 
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

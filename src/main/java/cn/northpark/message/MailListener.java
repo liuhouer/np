@@ -3,8 +3,6 @@ package cn.northpark.message;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,7 @@ import cn.northpark.model.User;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.ObjectUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 接收mq消息来处理邮件通知
@@ -26,8 +25,8 @@ import cn.northpark.utils.ObjectUtil;
  *
  */
 @Component
+@Slf4j
 public class MailListener implements  ChannelAwareMessageListener {
-    private static final  Logger log =  LoggerFactory.getLogger(MailListener.class);
 
     @Autowired
     private UserManager userManager;
@@ -68,7 +67,7 @@ public class MailListener implements  ChannelAwareMessageListener {
 		}
 		
 		
-		log.info("收到了mq消息========>{}",JsonUtil.object2json(data));
+		log.info("bruce: received mq msg========>{}",JsonUtil.object2json(data));
 	}
 
 

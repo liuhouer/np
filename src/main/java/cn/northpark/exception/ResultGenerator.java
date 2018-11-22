@@ -1,15 +1,14 @@
 package cn.northpark.exception;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author zhangyang.z@iCloud.com
  *	生成通用结果的类
  */
+@Slf4j
 public class ResultGenerator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ResultGenerator.class);
 
     /**
      * 生成通用结果 --成功/失败
@@ -24,8 +23,8 @@ public class ResultGenerator {
         result.setResult(flag);
         result.setData(data);
         result.setMessage(message);
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("generate rest result:{}", result);
+        if (log.isDebugEnabled()) {
+            log.debug("generate rest result:{}", result);
         }
         return result;
     }
@@ -45,8 +44,8 @@ public class ResultGenerator {
         result.setData(data);
         result.setMessage(message);
         result.setCode(code);
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("generate rest result:{}", result);
+        if (log.isDebugEnabled()) {
+            log.debug("generate rest result:{}", result);
         }
         return result;
     }
@@ -66,8 +65,8 @@ public class ResultGenerator {
         result.setData(data);
         result.setMessage(enums.getMessage());
         result.setCode(enums.getCode());
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("generate rest result:{}", result);
+        if (log.isDebugEnabled()) {
+            log.debug("generate rest result:{}", result);
         }
         return result;
     }

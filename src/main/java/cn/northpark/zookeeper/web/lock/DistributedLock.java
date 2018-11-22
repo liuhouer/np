@@ -8,18 +8,16 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
  * @author w_zhangyang
  * 分布式锁的初始化、公共方法
  */
+@Slf4j
 public class DistributedLock {
-
-
-	final static Logger log = LoggerFactory.getLogger(DistributedLock.class);
 	
 	//分布式锁的总节点
     private static final String ZK_LOCK_PROJECT = "imooc-locks";

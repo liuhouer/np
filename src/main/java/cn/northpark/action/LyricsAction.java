@@ -11,8 +11,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,23 +34,20 @@ import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.model.Lyrics;
 import cn.northpark.model.User;
 import cn.northpark.model.UserLyrics;
-import cn.northpark.query.condition.UserLyricsQueryCondition;
 import cn.northpark.utils.FileUtils;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("")
+@Slf4j
 public class LyricsAction {
 
 
     private final String LIST_ACTION2 = "redirect:/cm/pcentral";
-
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(LyricsAction.class);
 
     @Autowired
     private LyricsManager lyricsManager;
@@ -145,7 +140,7 @@ public class LyricsAction {
 
     	//验证表单
     	if(bindingResult.hasErrors()) {
-    		LOGGER.error("【添加主题】 参数不正确,lyricsForm={}", lyricsForm);
+    		log.error("【添加主题】 参数不正确,lyricsForm={}", lyricsForm);
     		throw new NorthParkException(ResultCode.Lyrics_Param_Not_Valid, bindingResult.getFieldError().getDefaultMessage());
     	}
     	
@@ -209,7 +204,7 @@ public class LyricsAction {
 	            .append("</a> &nbsp;</span>");
         }
 
-        LOGGER.info(sb.toString());
+        log.info(sb.toString());
         return sb.toString();
     }
 
@@ -328,7 +323,7 @@ public class LyricsAction {
      * @return
      */
     @RequestMapping(value = "/love/page/{page}")
-    public String listpage(ModelMap map, UserLyricsQueryCondition condition, @PathVariable String page, HttpServletRequest request,
+    public String listpage(ModelMap map, @PathVariable String page, HttpServletRequest request,
                            HttpServletResponse response, HttpSession session) {
 
         //获取域名+tab{selection}
@@ -347,7 +342,6 @@ public class LyricsAction {
         pageview = this.userlyricsManager.getMixMapPage(pageview, userid);
 
         map.addAttribute("pageView", pageview);
-        map.put("condition", condition);
         map.addAttribute("actionUrl", "/love");
         map.addAttribute("page", page);
 
@@ -366,7 +360,7 @@ public class LyricsAction {
      * @return
      */
     @RequestMapping(value = "/love")
-    public String list(ModelMap map, UserLyricsQueryCondition condition, HttpServletRequest request,
+    public String list(ModelMap map, HttpServletRequest request,
                        HttpSession session, String userid) {
         session.removeAttribute("tabs");
         session.setAttribute("tabs", "pic");
@@ -385,7 +379,6 @@ public class LyricsAction {
 
 
         map.addAttribute("pageView", pageview);
-        map.put("condition", condition);
         map.addAttribute("actionUrl", "/love");
 
 

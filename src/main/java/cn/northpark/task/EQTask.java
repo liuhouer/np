@@ -3,8 +3,6 @@ package cn.northpark.task;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
@@ -17,6 +15,7 @@ import cn.northpark.model.Vps;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -24,6 +23,7 @@ import cn.northpark.utils.TimeUtils;
  * <p>
  * 定时爬取今日情圣文章+软件
  */
+@Slf4j
 public class EQTask {
 
     @Autowired
@@ -33,14 +33,11 @@ public class EQTask {
     @Autowired
     public VpsManager vpsManager;
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(EQTask.class);
-
 
     public void runTask() {
 
         //爬虫VPS资源代码start---------------------------------------------------------------------
-        LOGGER.info("VPS任务开始" + TimeUtils.getNowTime());
+        log.info("VPS任务开始" + TimeUtils.getNowTime());
         try {
 
 
@@ -75,7 +72,7 @@ public class EQTask {
 
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("TestEQTask=======>" + e);
+            log.error("TestEQTask=======>" + e);
         }
 
 //=================================删除重复的记录=======================================
@@ -102,12 +99,12 @@ public class EQTask {
 //        			) AS tab                                                      /
 //        	);                                                                    /
 //=================================删除重复的记录=======================================        
-        LOGGER.info("VPS任务结束" + TimeUtils.getNowTime());
+        log.info("VPS任务结束" + TimeUtils.getNowTime());
 
         //爬虫软件资源代码---2页---start---------------------------------------------------------------------
 		/*try {
 			
-			LOGGER.info("soft task==============start="+TimeUtils.getNowTime());
+			log.info("soft task==============start="+TimeUtils.getNowTime());
 			Map<String,String> map = null;
 			
 			
@@ -160,7 +157,7 @@ public class EQTask {
 			
 				try {
 				    Thread.sleep(1000*5);
-				    LOGGER.info("第"+k+"页================");
+				    log.info("第"+k+"页================");
 				} catch (InterruptedException e) {
 				    // TODO Auo-generated catch block
 				    e.printStackTrace();
@@ -171,10 +168,10 @@ public class EQTask {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			LOGGER.error("EQtask---->retsoft--->ex::"+e);
+			log.error("EQtask---->retsoft--->ex::"+e);
 		}
 			
-		LOGGER.info("soft task==============end="+TimeUtils.getNowTime());*/
+		log.info("soft task==============end="+TimeUtils.getNowTime());*/
 
 
         //爬虫软件资源代码end---------------------------------------------------------------------
@@ -184,7 +181,7 @@ public class EQTask {
 
         try {
 
-            LOGGER.info("movies task==============start=" + TimeUtils.getNowTime());
+            log.info("movies task==============start=" + TimeUtils.getNowTime());
 
             for (int k = 1; k <= 2; k++) {
                 try {
@@ -227,7 +224,7 @@ public class EQTask {
                 } catch (InterruptedException e) {
                     // TODO Auo-generated catch block
 
-                    LOGGER.error("movies task InterruptedException==============" + e);
+                    log.error("movies task InterruptedException==============" + e);
                 }
             }
 //=================================删除重复的记录=======================================
@@ -262,10 +259,10 @@ public class EQTask {
 			
 			vpsManager.executeSql(delmovie_sql); 
 
-            LOGGER.info("movies task==============end=" + TimeUtils.getNowTime());
+            log.info("movies task==============end=" + TimeUtils.getNowTime());
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("movies task  Exception==============" + e);
+            log.error("movies task  Exception==============" + e);
         }
 //	
 
@@ -277,7 +274,7 @@ public class EQTask {
 
             /////////////////////推送微信定时星座运势塔罗牌天气、、、、、、、、、、、、、、、、、、、、、、、、
 
-//			LOGGER.info("send wx astro msg task==============start="+TimeUtils.getNowTime());
+//			log.info("send wx astro msg task==============start="+TimeUtils.getNowTime());
 //			try {
 //				List<Astro> astrolist = astroManager.findByCondition(" where status = 1").getResultlist();
 //				if(!CollectionUtils.isEmpty(astrolist)){
@@ -311,7 +308,7 @@ public class EQTask {
 //						int result = WeixinQyhUtil.PostMessage(access_token, "POST", POST_URL, jsostr);
 //						System.out.println("jsonstr--"+jsostr);
 //						System.out.println("result--"+result);
-//						LOGGER.info("send wx astro msg info log result==============="+result);
+//						log.info("send wx astro msg info log result==============="+result);
 //						// 打印结果
 //						if (0 == result) {
 //							System.out.println("操作成功");
@@ -323,7 +320,7 @@ public class EQTask {
 //			} catch (Exception e) {
 //				// TODO: handle exception
 //			}
-//			LOGGER.info("send wx astro msg task==============end="+TimeUtils.getNowTime());
+//			log.info("send wx astro msg task==============end="+TimeUtils.getNowTime());
         } catch (Exception e) {
             // TODO: handle exception
         }

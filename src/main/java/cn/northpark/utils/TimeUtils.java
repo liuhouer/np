@@ -12,8 +12,7 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 时间工具类
@@ -21,6 +20,7 @@ import org.slf4j.LoggerFactory;
  * @author zhangyang
  * @since 2014-05-23
  */
+@Slf4j
 public class TimeUtils {
     private static final long ONE_MINUTE = 60L;
     private static final long ONE_HOUR = 3600L;
@@ -34,8 +34,6 @@ public class TimeUtils {
     private static final String ONE_DAY_AGO = "天前";
     private static final String ONE_MONTH_AGO = "月前";
     private static final String ONE_YEAR_AGO = "年前";
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(TimeUtils.class);
 
 
     //格式化时间串成为  几天前 几秒前 几小时前  几分钟前 几年前sth.....
@@ -53,7 +51,7 @@ public class TimeUtils {
             str = TimeUtils.format(date);
         } catch (ParseException e) {
             // TODO Auto-generated catch block
-            LOGGER.error("TimeUtils------->", e);
+            log.error("TimeUtils------->", e);
             ;
         }
 
@@ -205,7 +203,7 @@ public class TimeUtils {
         try {
             date = dateFormat.parse(source);
         } catch (ParseException e) {
-            LOGGER.error("TimeUtils------->", e);
+            log.error("TimeUtils------->", e);
             ;
             date = new Date();
         }
@@ -374,7 +372,7 @@ public class TimeUtils {
         try {
             date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(specifiedDay);
         } catch (ParseException e) {
-            LOGGER.error("TimeUtils------->", e);
+            log.error("TimeUtils------->", e);
             ;
         }
         c.setTime(date);
@@ -396,7 +394,7 @@ public class TimeUtils {
         try {
             date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(specifiedDay);
         } catch (ParseException e) {
-            LOGGER.error("TimeUtils------->", e);
+            log.error("TimeUtils------->", e);
             ;
         }
         c.setTime(date);
@@ -420,7 +418,7 @@ public class TimeUtils {
         try {
             date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(specifiedDay);
         } catch (ParseException e) {
-            LOGGER.error("TimeUtils------->", e);
+            log.error("TimeUtils------->", e);
             ;
         }
         c.setTime(date);
@@ -461,7 +459,7 @@ public class TimeUtils {
         try {
             date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(specifiedDay);
         } catch (ParseException e) {
-            LOGGER.error("TimeUtils------->", e);
+            log.error("TimeUtils------->", e);
             ;
         }
         c.setTime(date);
@@ -484,7 +482,7 @@ public class TimeUtils {
         try {
             date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(specifiedDay);
         } catch (ParseException e) {
-            LOGGER.error("TimeUtils------->", e);
+            log.error("TimeUtils------->", e);
             ;
         }
         c.setTime(date);
@@ -519,7 +517,7 @@ public class TimeUtils {
         Date date = new Date(time);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = formatter.format(date);
-        //LOGGER.info("TIME:::"+dateString);
+        //log.info("TIME:::"+dateString);
         return dateString;
     }
 
@@ -533,7 +531,7 @@ public class TimeUtils {
         Date date = new Date(time);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(date);
-        LOGGER.info("TIME:::" + dateString);
+        log.info("TIME:::" + dateString);
         return dateString;
     }
 
@@ -666,12 +664,12 @@ public class TimeUtils {
             result = sum + result;
 
         }
-        LOGGER.info(result);
+        log.info(result);
         return result;
     }
 
 //    public static void main(String[] args) {
-//        //LOGGER.info(getWorkDateTime(11));;
+//        //log.info(getWorkDateTime(11));;
 //        String time = 8 + ONE_SECOND_AGO;
 ////	          String time = 8+ONE_MINUTE_AGO ;  
 ////	          String time = 8+ONE_HOUR_AGO ;  

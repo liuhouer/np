@@ -22,21 +22,18 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author bruce
  */
 
-
+@Slf4j
 public class HTMLParserUtil {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(HTMLParserUtil.class);
 
 
 //    /**
@@ -150,7 +147,7 @@ public class HTMLParserUtil {
 
 
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
 
@@ -191,11 +188,11 @@ public class HTMLParserUtil {
             }
 
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
 
-        LOGGER.info(sb.toString().substring(0, sb.toString().lastIndexOf(",")));
+        log.info(sb.toString().substring(0, sb.toString().lastIndexOf(",")));
 
         return sb.toString().substring(0, sb.toString().lastIndexOf(","));
     }
@@ -269,7 +266,7 @@ public class HTMLParserUtil {
 
             }
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
 
@@ -353,7 +350,7 @@ public class HTMLParserUtil {
 
             } catch (Exception e) {
                 // TODO: handle exception
-                LOGGER.error("ret pic exception===>" + e.toString());
+                log.error("ret pic exception===>" + e.toString());
             }
 
             //作者用户信息
@@ -366,7 +363,7 @@ public class HTMLParserUtil {
 
 
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
 
@@ -465,13 +462,13 @@ public class HTMLParserUtil {
                 map.put("retcode", retcode);
 
 
-                LOGGER.info(title + "\t\r" + aurl + "\t\r" + "\t\r" + brief + "\t\r" + article + "\t\r" + date + "-----------------");
+                log.info(title + "\t\r" + aurl + "\t\r" + "\t\r" + brief + "\t\r" + article + "\t\r" + date + "-----------------");
 
                 list.add(map);
 
             }
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
 
@@ -577,13 +574,13 @@ public class HTMLParserUtil {
                 map.put("retcode", retcode);
 
                 
-                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
                 
                 list.add(map);
 
                 }
             }catch (Exception e) {
-            	 LOGGER.error("HTMLPARSERutils------->", e);;
+            	 log.error("HTMLPARSERutils------->", e);;
                 continue;
             }
             
@@ -592,7 +589,7 @@ public class HTMLParserUtil {
             //休眠10秒
             try {
 			    Thread.sleep(1000*5);
-			    LOGGER.info("第"+i+"页================");
+			    log.info("第"+i+"页================");
 			} catch (InterruptedException e) {
 			    // TODO Auo-generated catch block
 			    e.printStackTrace();
@@ -615,7 +612,7 @@ public class HTMLParserUtil {
         HashMap<String, String> map = null;
         try {
 
-            LOGGER.info("page=============================" + index + "============================页");
+            log.info("page=============================" + index + "============================页");
 
             String url = retlink + index + "/";
 
@@ -699,7 +696,7 @@ public class HTMLParserUtil {
                             imgs.get(j).removeAttr("srcset");
                         } catch (Exception e) {
                             // TODO: handle exception
-                            LOGGER.error("ret pic exception===>" + e.toString());
+                            log.error("ret pic exception===>" + e.toString());
                             continue;
                         }
 
@@ -718,12 +715,12 @@ public class HTMLParserUtil {
 
                     list.add(map);
 
-                    LOGGER.info("\t\r" + "aurl--->" + aurl + "\t\r" + "title--->" + title + "\t\r" + "retcode--->" + retcode + "\t\r" + "date--->" + date + "\t\r" + "brief--->" + brief + "\t\r" + "article---->" + article + "\t\r" + "-----------------");
+                    log.info("\t\r" + "aurl--->" + aurl + "\t\r" + "title--->" + title + "\t\r" + "retcode--->" + retcode + "\t\r" + "date--->" + date + "\t\r" + "brief--->" + brief + "\t\r" + "article---->" + article + "\t\r" + "-----------------");
                 }
             }
 
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
 
@@ -755,7 +752,7 @@ public class HTMLParserUtil {
                     //code
                     String code = article.attr("id");
 
-                    LOGGER.info("code====================" + code);
+                    log.info("code====================" + code);
 
                     //判断code在系统不存在再去处理后面的事
 
@@ -770,7 +767,7 @@ public class HTMLParserUtil {
                         Elements titles = article.getElementsByClass("entry-title");
 
                         String title = titles.get(0).text();
-                        LOGGER.info("title====================" + title);
+                        log.info("title====================" + title);
                         String aurl = titles.get(0).select("a").get(0).attr("href");
 
                         //标签tags
@@ -780,7 +777,7 @@ public class HTMLParserUtil {
                         String tag = tags.get(0).text();
                         tag = tag.replaceAll("发表在", "").replaceAll(" ", "");
 
-                        LOGGER.info("tag====================" + tag);
+                        log.info("tag====================" + tag);
                         //计算标签编码、
                         String tagcode = "005";
                         if (tag.contains("应用")) {
@@ -811,20 +808,20 @@ public class HTMLParserUtil {
                             tagcode = "005";
                             tag = "其他软件";
                         }
-                        LOGGER.info("tagcode====================" + tagcode);
+                        log.info("tagcode====================" + tagcode);
 
                         //日期
                         Elements dates = article.select("time[class=entry-date]");
                         String date = dates.get(0).text();
                         date = date.replaceAll(" ", "");
                         date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
-                        LOGGER.info("date====================" + date);
+                        log.info("date====================" + date);
                         //月
                         String month = date.substring(0, date.lastIndexOf("-"));
-                        LOGGER.info("month====================" + month);
+                        log.info("month====================" + month);
                         //年
                         String year = month.substring(0, month.lastIndexOf("-"));
-                        LOGGER.info("year====================" + year);
+                        log.info("year====================" + year);
                         //文章
                         StringBuilder sb = new StringBuilder();
 
@@ -864,7 +861,7 @@ public class HTMLParserUtil {
                                         imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                                     } catch (Exception e) {
                                         // TODO: handle exception
-                                        LOGGER.error("ret pic exception===>" + e.toString());
+                                        log.error("ret pic exception===>" + e.toString());
                                         continue;
                                     }
 
@@ -878,7 +875,7 @@ public class HTMLParserUtil {
                         }
 
                         String text = sb.toString().replaceAll("小子", "小布");
-                        LOGGER.info("article=============" + text);
+                        log.info("article=============" + text);
                         //简介
                         Elements briefs = article.select("div[class=entry-content] p");
 
@@ -907,7 +904,7 @@ public class HTMLParserUtil {
                                         imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                                     } catch (Exception e) {
                                         // TODO: handle exception
-                                        LOGGER.error("ret pic exception===>" + e.toString());
+                                        log.error("ret pic exception===>" + e.toString());
                                         continue;
                                     }
 
@@ -921,7 +918,7 @@ public class HTMLParserUtil {
 
                         String brief = sb2.toString().replaceAll("小子", "小布");
 
-                        LOGGER.info("brief====================" + brief);
+                        log.info("brief====================" + brief);
                         map.put("title", title);
                         map.put("aurl", aurl);
                         map.put("brief", brief);
@@ -939,10 +936,10 @@ public class HTMLParserUtil {
                 }
             }
 
-//                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
 
@@ -1013,13 +1010,13 @@ public class HTMLParserUtil {
                         if(StringUtils.isNotEmpty(date) && date.contains("前")) date  = TimeUtils.nowdate();
                         date = date.replaceAll(" ", "");
                         date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
-                        LOGGER.info("date====================" + date);
+                        log.info("date====================" + date);
                         //月
                         String month = date.substring(0, date.lastIndexOf("-"));
-                        LOGGER.info("month====================" + month);
+                        log.info("month====================" + month);
                         //年
                         String year = month.substring(0, month.lastIndexOf("-"));
-                        LOGGER.info("year====================" + year);
+                        log.info("year====================" + year);
 
 
                         //标题
@@ -1067,7 +1064,7 @@ public class HTMLParserUtil {
                             tagcode = "005";
                             tag = "其他软件";
                         }
-                        LOGGER.info("tagcode====================" + tagcode);
+                        log.info("tagcode====================" + tagcode);
 
                         //正文
                         String article = "";
@@ -1103,7 +1100,7 @@ public class HTMLParserUtil {
                                         imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                                     } catch (Exception e1) {
                                         // TODO: handle exception
-                                        LOGGER.error("ret pic exception===>" + e1.toString());
+                                        log.error("ret pic exception===>" + e1.toString());
                                         continue;
                                     }
 
@@ -1180,7 +1177,7 @@ public class HTMLParserUtil {
 
 //                    }
                 } catch (Exception e2) {
-                	 LOGGER.error("HTMLPARSERutils------->", e2);
+                	 log.error("HTMLPARSERutils------->", e2);
                     continue;
                 }
 
@@ -1188,7 +1185,7 @@ public class HTMLParserUtil {
             System.out.println(index + "页爬取完毕！ the end===============================================================================================");
 
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
         }
 
         return list;
@@ -1256,13 +1253,13 @@ public class HTMLParserUtil {
 
                         date = date.replaceAll(" ", "");
                         date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
-                        LOGGER.info("date====================" + date);
+                        log.info("date====================" + date);
                         //月
                         String month = date.substring(0, date.lastIndexOf("-"));
-                        LOGGER.info("month====================" + month);
+                        log.info("month====================" + month);
                         //年
                         String year = month.substring(0, month.lastIndexOf("-"));
-                        LOGGER.info("year====================" + year);
+                        log.info("year====================" + year);
 
 
                         //标题
@@ -1310,7 +1307,7 @@ public class HTMLParserUtil {
                             tagcode = "005";
                             tag = "其他软件";
                         }
-                        LOGGER.info("tagcode====================" + tagcode);
+                        log.info("tagcode====================" + tagcode);
 
 
                         //简介
@@ -1416,7 +1413,7 @@ public class HTMLParserUtil {
             System.out.println(index + "页爬取完毕！ the end===============================================================================================");
 
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
         }
 
         return list;
@@ -1485,13 +1482,13 @@ public class HTMLParserUtil {
 
                         date = date.replaceAll(" ", "");
                         date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
-                        LOGGER.info("date====================" + date);
+                        log.info("date====================" + date);
                         //月
                         String month = date.substring(0, date.lastIndexOf("-"));
-                        LOGGER.info("month====================" + month);
+                        log.info("month====================" + month);
                         //年
                         String year = month.substring(0, month.lastIndexOf("-"));
-                        LOGGER.info("year====================" + year);
+                        log.info("year====================" + year);
 
 
                         //标题
@@ -1539,7 +1536,7 @@ public class HTMLParserUtil {
                             tagcode = "005";
                             tag = "其他软件";
                         }
-                        LOGGER.info("tagcode====================" + tagcode);
+                        log.info("tagcode====================" + tagcode);
 
                         //正文
                         String article = "";
@@ -1572,7 +1569,7 @@ public class HTMLParserUtil {
                                         imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                                     } catch (Exception e1) {
                                         // TODO: handle exception
-                                        LOGGER.error("ret pic exception===>" + e1.toString());
+                                        log.error("ret pic exception===>" + e1.toString());
                                         continue;
                                     }
 
@@ -1629,7 +1626,7 @@ public class HTMLParserUtil {
             System.out.println(index + "页爬取完毕！ the end===============================================================================================");
 
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
         }
 
         return list;
@@ -1645,7 +1642,7 @@ public class HTMLParserUtil {
         HashMap<String, String> map = null;
         try {
 
-            LOGGER.info("page=============================" + index + "============================页");
+            log.info("page=============================" + index + "============================页");
             //String url = "http://www.vip588660.cm/page/"+index+"/";
 //        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
 //	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
@@ -1837,12 +1834,12 @@ public class HTMLParserUtil {
       					 desc += detail.html();
 
       						  
-      					 LOGGER.info("title==============>" + title);
-      					 LOGGER.info("aurl==============>" + aurl);
-      					 LOGGER.info("date==============>" + date);
-      					 LOGGER.info("tag==============>" + tag);
-      					 LOGGER.info("tagcode==============>" + tagcode);
-      					 LOGGER.info("desc==============>" + desc);
+      					 log.info("title==============>" + title);
+      					 log.info("aurl==============>" + aurl);
+      					 log.info("date==============>" + date);
+      					 log.info("tag==============>" + tag);
+      					 log.info("tagcode==============>" + tagcode);
+      					 log.info("desc==============>" + desc);
 
                         map.put("title", title);
                         map.put("aurl", aurl);
@@ -1858,10 +1855,10 @@ public class HTMLParserUtil {
                 }
             }
 
-//                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
         }
 
         return list;
@@ -1911,7 +1908,7 @@ public class HTMLParserUtil {
 		        imgs.get(j).addClass("col-xs-12 col-sm-6 margin-b20");
 		    } catch (Exception e) {
 		        // TODO: handle exception
-		        LOGGER.error("ret movies pic exception===>" + e.toString());
+		        log.error("ret movies pic exception===>" + e.toString());
 		        continue;
 		    }
 
@@ -1978,7 +1975,7 @@ public class HTMLParserUtil {
         List<Map<String, String>> list = new ArrayList<Map<String, String>>();
         try {
 
-            LOGGER.info("page=============================" + index + "============================页");
+            log.info("page=============================" + index + "============================页");
             //String url = "http://www.vip588660.cm/page/"+index+"/";
 //        		String url = "http://www.vip588660.com/category/movie/page/"+index+"/";
 //	        	String url = "http://www.vip588660.com/category/dianshiju/page/"+index+"/";
@@ -2044,11 +2041,11 @@ public class HTMLParserUtil {
                     String retcode = MD5Utils.encoding(title + types + author + detail_url);
 
 
-                    LOGGER.info("title==============>" + title);
-                    LOGGER.info("detail_url==============>" + detail_url);
-                    LOGGER.info("author==============>" + author);
-                    LOGGER.info("content==============>" + content);
-                    LOGGER.info("types==============>" + types);
+                    log.info("title==============>" + title);
+                    log.info("detail_url==============>" + detail_url);
+                    log.info("author==============>" + author);
+                    log.info("content==============>" + content);
+                    log.info("types==============>" + types);
 
 
                     //图片赏析
@@ -2081,7 +2078,7 @@ public class HTMLParserUtil {
                         for (int j = 0; j < imgs.size(); j++) {
                             try {
                                 String weburl = imgs.get(j).attr("src");
-                                LOGGER.info(weburl);
+                                log.info(weburl);
                                 //web图片上传到七牛
                                 if (StringUtils.isNotEmpty(weburl) && !weburl.contains("verify.php")) {
                                     //-------------开始--------------------------------
@@ -2106,7 +2103,7 @@ public class HTMLParserUtil {
 
                             } catch (Exception e) {
                                 // TODO: handle exception
-                                LOGGER.error("ret movies pic exception===>" + e.toString());
+                                log.error("ret movies pic exception===>" + e.toString());
                                 continue;
                             }
 
@@ -2115,11 +2112,11 @@ public class HTMLParserUtil {
                         //诗词赏析
                         enjoys = article_alls.get(0).select("p[class=explanation]").html();
 
-                        LOGGER.info("enjoys==============>" + enjoys);
+                        log.info("enjoys==============>" + enjoys);
 
                         //诗词内容
                         content1 = article_alls.get(0).select("p[class=poetry]").get(0).html();
-                        LOGGER.info("content1==============>" + content1);
+                        log.info("content1==============>" + content1);
 
                     }
 
@@ -2138,10 +2135,10 @@ public class HTMLParserUtil {
                 }
             }
 
-//                LOGGER.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
 
@@ -2184,7 +2181,7 @@ public class HTMLParserUtil {
                     }
                     if (name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".ico") || name.endsWith(".gif")) {
                         FileOutputStream out = new FileOutputStream(path + name);
-                        LOGGER.info("写入中..." + path + name);
+                        log.info("写入中..." + path + name);
                         int i1 = 0;
                         while ((i1 = is.read()) != -1) {
                             out.write(i1);
@@ -2194,14 +2191,14 @@ public class HTMLParserUtil {
                     }
                     is.close();
                 } catch (Exception e) {
-                    LOGGER.error("HTMLPARSERutils------->", e);
+                    log.error("HTMLPARSERutils------->", e);
                     ;
                     continue;
                 }
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
     }
@@ -2237,7 +2234,7 @@ public class HTMLParserUtil {
 
 
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
         }
         return map;
     }
@@ -2267,12 +2264,12 @@ public class HTMLParserUtil {
 
             list.addAll(v);
             for (String s : list) {
-                LOGGER.info(s);
+                log.info(s);
             }
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
         return list;
@@ -2353,7 +2350,7 @@ public class HTMLParserUtil {
             }
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error(""+e);
+            log.error(""+e);
         }
 
         return rs;
@@ -2402,12 +2399,12 @@ public class HTMLParserUtil {
             for (Element p : pics) {
 //                    index++;
                 list.add(p.attr("src"));
-                //LOGGER.info(index+ p.attr("src"));
+                //log.info(index+ p.attr("src"));
             }
             list.remove(list.size() - 1);
             //session.setAttribute("meizutu", list);
         } catch (Exception e) {
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
         return list;
@@ -2419,7 +2416,7 @@ public class HTMLParserUtil {
         int min = 1000;
         Random random = new Random();
         int s = random.nextInt(max) % (max - min + 1) + min;
-        LOGGER.info(""+s);
+        log.info(""+s);
         return s;
     }
 
@@ -2495,12 +2492,12 @@ public class HTMLParserUtil {
             //retMeizitu();
 //                retTodayEq();
 //                List<Map<String, String>> retEQArticle = retEQArticle();
-//                LOGGER.info(retEQArticle.size());
+//                log.info(retEQArticle.size());
 //                readPic2Disk();
 //                retV2Romeo();
 //                url2markdown();
 //                String cutString = CutString("荒烟蔓草的年头，就连分手都很沉默", 12);
-//                LOGGER.info(cutString);
+//                log.info(cutString);
 //                retSoft(1);
 //                webPic2Disk("http://www.sdifenzhou.com/wp-content/uploads/2016/02/Fantastical2.jpg", "D:\\BZ\\soft\\" );
 
@@ -2508,16 +2505,16 @@ public class HTMLParserUtil {
 //                String url = "http://www.vip588660.com/page/"+77+"/";
 ////                url = "http://northpark.cn/soft/mac/page77";
 //                String pickData = pickData(url);
-//                LOGGER.info(pickData);
+//                log.info(pickData);
 //            	 String tag  =  "1,2,3,4,5,6,";
 //            	 if(tag.endsWith(",")){
 //                 	tag  =  tag.substring(0, tag.length()-1);
-//                 	LOGGER.info(tag);
+//                 	log.info(tag);
 //                 }
 
 
 //            	retPoem(26);
-//            	LOGGER.info(MD5Utils.encoding("速度与激情8"));
+//            	log.info(MD5Utils.encoding("速度与激情8"));
 //            	retEQArticle();
 //            	retCoupon(1, BC_Constant.Coupon_VPS_7);
 //            	retCaiMai(1);
@@ -2547,7 +2544,7 @@ public class HTMLParserUtil {
         	retMovies(1,"http://m.orisi.cn/movie_bt_series/movie/page/");
         } catch (Exception e) {
             // TODO Auto-generated catch block
-            LOGGER.error("HTMLPARSERutils------->", e);
+            log.error("HTMLPARSERutils------->", e);
             ;
         }
     }

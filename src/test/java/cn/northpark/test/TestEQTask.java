@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
@@ -16,12 +14,14 @@ import cn.northpark.manager.VpsManager;
 import cn.northpark.model.Soft;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.TimeUtils;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author zhangyang
  * <p>
  * 定时爬取今日情圣文章
  */
+@Slf4j
 public class TestEQTask extends BaseTest {
 
     @Autowired
@@ -65,7 +65,6 @@ public class TestEQTask extends BaseTest {
 //	public  PoemEnjoyManager poemenjoyManager;
 
 
-    Logger LOGGER = LoggerFactory.getLogger(TestEQTask.class);
 
     public void runTask() {
     	
@@ -275,7 +274,7 @@ public class TestEQTask extends BaseTest {
     	//=========================================================情圣===========================================================================================
 
 
-//			LOGGER.info("情圣定时任务开始"+TimeUtils.getNowTime());
+//			log.info("情圣定时任务开始"+TimeUtils.getNowTime());
 //			try {
 //
 //	    		List<Map<String, String>> lift = HTMLParserUtil.retEQArticle();
@@ -323,17 +322,17 @@ public class TestEQTask extends BaseTest {
 //
 //	    	} catch (Exception e) {
 //	    		// TODO: handle exception
-//	    		LOGGER.error("TestEQTask=======>"+e);
+//	    		log.error("TestEQTask=======>"+e);
 //	    	}
 //
-//			LOGGER.info("情圣定时任务结束"+TimeUtils.getNowTime());
+//			log.info("情圣定时任务结束"+TimeUtils.getNowTime());
 
     	//=========================================================情圣===========================================================================================
 
 
     	//=========================================================主机===========================================================================================
 
-//			LOGGER.info("VPS任务开始"+TimeUtils.getNowTime());
+//			log.info("VPS任务开始"+TimeUtils.getNowTime());
 //			try {
 //
 //				
@@ -370,7 +369,7 @@ public class TestEQTask extends BaseTest {
 //		    		//休眠
 //		    		try {
 //					    Thread.sleep(1000*1);
-//					    LOGGER.info("第"+k+"页================");
+//					    log.info("第"+k+"页================");
 //					} catch (InterruptedException e) {
 //					    // TODO Auo-generated catch block
 //					    e.printStackTrace();
@@ -390,16 +389,16 @@ public class TestEQTask extends BaseTest {
 //
 //	    	} catch (Exception e) {
 //	    		// TODO: handle exception
-//	    		LOGGER.error("TestEQTask=======>"+e);
+//	    		log.error("TestEQTask=======>"+e);
 //	    	}
 //
-//			LOGGER.info("VPS任务结束"+TimeUtils.getNowTime());
+//			log.info("VPS任务结束"+TimeUtils.getNowTime());
     	//=========================================================主机===========================================================================================
 
     	//=========================================================软件===========================================================================================
     	try {
 
-    		LOGGER.info("soft task==============start=" + TimeUtils.getNowTime());
+    		log.info("soft task==============start=" + TimeUtils.getNowTime());
     		Map<String, String> map = null;
 
 
@@ -458,7 +457,7 @@ public class TestEQTask extends BaseTest {
 
     			try {
     				Thread.sleep(1000);
-    				LOGGER.info("第" + k + "页================");
+    				log.info("第" + k + "页================");
     			} catch (InterruptedException e) {
     				// TODO Auo-generated catch block
     				e.printStackTrace();
@@ -471,9 +470,9 @@ public class TestEQTask extends BaseTest {
             // TODO: handle exception
         }
 
-        LOGGER.info("soft task==============end=" + TimeUtils.getNowTime());
+        log.info("soft task==============end=" + TimeUtils.getNowTime());
 
-        LOGGER.info("软件定时任务结束" + TimeUtils.getNowTime());
+        log.info("软件定时任务结束" + TimeUtils.getNowTime());
 
       	//=========================================================软件===========================================================================================
        
@@ -483,7 +482,7 @@ public class TestEQTask extends BaseTest {
 
 //    	try {
 //
-//    		LOGGER.info("爬虫电影代码 开始==============start="+TimeUtils.getNowTime());
+//    		log.info("爬虫电影代码 开始==============start="+TimeUtils.getNowTime());
 //    		Map<String,String> map = null;
 //
 //
@@ -542,7 +541,7 @@ public class TestEQTask extends BaseTest {
 //
 //    			try {
 //    				Thread.sleep(1000*5);
-//    				LOGGER.info("第"+k+"页================");
+//    				log.info("第"+k+"页================");
 //    			} catch (InterruptedException e) {
 //    				// TODO Auo-generated catch block
 //    				e.printStackTrace();
@@ -563,7 +562,7 @@ public class TestEQTask extends BaseTest {
 //    		// TODO: handle exception
 //    	}
 //
-//    	LOGGER.info("爬虫电影代码==============结束="+TimeUtils.getNowTime());
+//    	log.info("爬虫电影代码==============结束="+TimeUtils.getNowTime());
 
 
         //TODO ..爬虫电影代码
@@ -574,7 +573,7 @@ public class TestEQTask extends BaseTest {
 
 //				try {
 //				
-//				LOGGER.info("poem task==============start="+TimeUtils.getNowTime());
+//				log.info("poem task==============start="+TimeUtils.getNowTime());
 //				Map<String,String> map = null;
 //					
 //				
@@ -642,7 +641,7 @@ public class TestEQTask extends BaseTest {
 //					
 //					try {
 //					    Thread.sleep(1000*5);
-//					    LOGGER.info("第"+k+"页================");
+//					    log.info("第"+k+"页================");
 //					} catch (InterruptedException e) {
 //					    // TODO Auo-generated catch block
 //					    e.printStackTrace();
@@ -652,7 +651,7 @@ public class TestEQTask extends BaseTest {
 //				
 //				
 //				
-//				LOGGER.info("poem task==============end="+TimeUtils.getNowTime());
+//				log.info("poem task==============end="+TimeUtils.getNowTime());
 //			} catch (Exception e) {
 //				// TODO: handle exception
 //			}
@@ -662,7 +661,7 @@ public class TestEQTask extends BaseTest {
 //			try {
 //				int count = poemManager.countSql("select * from bc_poem ");
 //				
-//				LOGGER.info("count______>"+count);
+//				log.info("count______>"+count);
 //				   
 //				   int pagecount = count / 1000+1;
 //				   
@@ -676,7 +675,7 @@ public class TestEQTask extends BaseTest {
 //					   for (Poem p:lst100) {
 //						  String types = p.getTypes();
 //						  String types_code   = PinyinUtil.paraseStringToPinyin(types).toLowerCase();
-//						  LOGGER.info("types_code------》"+types_code);
+//						  log.info("types_code------》"+types_code);
 //						  p.setTypes_code(types_code);
 //						  poemManager.updatePoem(p);
 //					  }
@@ -726,13 +725,13 @@ public class TestEQTask extends BaseTest {
 //						String jsostr = Message.getSendJsonText(wx_cop_userid, "@all", "@all", content);
 //						String POST_URL = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=ACCESS_TOKEN";
 //						int result = WeixinQyhUtil.PostMessage(access_token, "POST", POST_URL, jsostr);
-//						LOGGER.info("jsonstr--"+jsostr);
-//						LOGGER.info("result--"+result);
+//						log.info("jsonstr--"+jsostr);
+//						log.info("result--"+result);
 //						// 打印结果
 //						if (0 == result) {
-//							LOGGER.info("操作成功");
+//							log.info("操作成功");
 //						} else {
-//							LOGGER.info("操作失败");
+//							log.info("操作失败");
 //						}
 //					}
 //				}
@@ -782,7 +781,7 @@ public class TestEQTask extends BaseTest {
 //				 //休眠10秒
 //                try {
 //    			    Thread.sleep(500);
-//    			    LOGGER.info("第"+k+"页================");
+//    			    log.info("第"+k+"页================");
 //    			} catch (InterruptedException e) {
 //    			    // TODO Auo-generated catch block
 //    			    e.printStackTrace();
@@ -1025,7 +1024,7 @@ public class TestEQTask extends BaseTest {
 //						
 //					} catch (Exception e) {
 //						// TODO Auto-generated catch block
-//						LOGGER.error(e);
+//						log.error(e);
 //						continue;
 //					}
 //				}
@@ -1067,7 +1066,7 @@ public class TestEQTask extends BaseTest {
 //					
 //					} catch (Exception e) {
 //						// TODO Auto-generated catch block
-//						LOGGER.error(e);
+//						log.error(e);
 //						continue;
 //					}
 //				}
@@ -1110,7 +1109,7 @@ public class TestEQTask extends BaseTest {
 //					
 //					} catch (Exception e) {
 //						// TODO Auto-generated catch block
-//						LOGGER.error(e);
+//						log.error(e);
 //						continue;
 //					}
 //					

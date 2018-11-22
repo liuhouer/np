@@ -10,15 +10,14 @@ import java.util.Set;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author zhangyang
  */
+@Slf4j
 public class Base64Util {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(Base64Util.class);
 	
 	/**
 	   * The Base64 algorithm converts 3 8-bit bytes into 4 6-bit bytes. The Base 64 alphabet consists
@@ -82,7 +81,7 @@ public class Base64Util {
 //                b = decoder.decodeBuffer(s);
 //                return b;
 //            } catch (Exception e) {
-//                LOGGER.error("Base64Utils------->", e);
+//                log.error("Base64Utils------->", e);
 //                ;
 //            }
 //        }
@@ -963,7 +962,7 @@ public class Base64Util {
             a = (int) (Math.random() * 10000 + min);
         } while (m.contains(a));
         m.add(a);
-        LOGGER.info(""+a);
+        log.info(""+a);
         return a;
     }
     
@@ -983,19 +982,19 @@ public class Base64Util {
     //加密机制  密码+000000 base64加密
     //解密机制  base64解密 除去000000
     public static void main(String[] args) throws UnsupportedEncodingException {
-        //		 LOGGER.info(bs.JIAMI("bruce134"));
+        //		 log.info(bs.JIAMI("bruce134"));
         String s = "123456";
-        LOGGER.info("加密前：" + s);
-        LOGGER.info("加密后：" + JIAMI(s));
-        LOGGER.info("解密后：" + JIEMI(JIAMI(s)));
+        log.info("加密前：" + s);
+        log.info("加密后：" + JIAMI(s));
+        log.info("解密后：" + JIEMI(JIAMI(s)));
         
         
         String s2 = "Bruce134";
-        LOGGER.info("加密前：" + s2);
-        LOGGER.info("加密后：" + encode(s2.getBytes()));
-        LOGGER.info("解密后：" + new String(decode(encode(s2.getBytes()))));
+        log.info("加密前：" + s2);
+        log.info("加密后：" + encode(s2.getBytes()));
+        log.info("解密后：" + new String(decode(encode(s2.getBytes()))));
         
-//        LOGGER.info(JIEMI("em91Z3VvMTk5ODAwMDAwMA=="));
+//        log.info(JIEMI("em91Z3VvMTk5ODAwMDAwMA=="));
 
     }
 }

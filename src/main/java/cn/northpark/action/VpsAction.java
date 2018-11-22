@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,6 +25,7 @@ import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -36,9 +35,9 @@ import cn.northpark.utils.safe.WAQ;
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
  */
 @Controller
+@Slf4j
 public class VpsAction {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Vps.class);
     @Autowired
     private VpsManager vpsManager;
     @Autowired
@@ -66,7 +65,7 @@ public class VpsAction {
             }
 
         } catch (Exception e) {
-            LOGGER.error("vpsAction------>", e);
+            log.error("vpsAction------>", e);
 
         }
         return "/vpsdetail";
@@ -96,7 +95,7 @@ public class VpsAction {
             //定义pageview
             PageView<Vps> pageview = new PageView<Vps>(1, MyConstant.MAXRESULT);
 
-            LOGGER.info("sql ---" + whereSql);
+            log.info("sql ---" + whereSql);
 
             //排序条件
             LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -122,7 +121,7 @@ public class VpsAction {
             map.addAttribute("tagCloud", tagCloud);
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("eqacton------>", e);
+            log.error("eqacton------>", e);
         }
 
 
@@ -161,7 +160,7 @@ public class VpsAction {
             map.addAttribute("keyword", keyword);
 
         }
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
 
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -211,7 +210,7 @@ public class VpsAction {
         map.put("seltag", tag);
 
 
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
         order.put("date", "desc");
@@ -260,7 +259,7 @@ public class VpsAction {
         map.put("seltag", tag);
 
 
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

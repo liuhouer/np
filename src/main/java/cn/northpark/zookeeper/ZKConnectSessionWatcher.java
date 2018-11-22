@@ -3,17 +3,17 @@ package cn.northpark.zookeeper;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
  * @Title: ZKConnectDemo.java
  * @Description: zookeeper 恢复之前的会话连接demo演示
  */
+@Slf4j
 public class ZKConnectSessionWatcher implements Watcher {
 	
-	final static Logger log = LoggerFactory.getLogger(ZKConnectSessionWatcher.class);
 
 	public static final String zkServerPath = "69.12.82.101:2181";
 	public static final Integer timeout = 5000;

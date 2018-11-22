@@ -1,4 +1,3 @@
-
 /**
  * @author bruce
  * @date 2017-12-06
@@ -10,8 +9,6 @@ package cn.northpark.exception;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,13 +16,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 
+import lombok.extern.slf4j.Slf4j;
+
 @ControllerAdvice
+@Slf4j
 public class NorthparkExceptionHandler {
 	
 	public static final String NorthPark_Error_View = "/error";
 	public static final String NorthPark_Build_View = "/building";
 	
-	Logger logger = LoggerFactory.getLogger(NorthparkExceptionHandler.class);
 	
 	
 	/**
@@ -42,7 +41,7 @@ public class NorthparkExceptionHandler {
     public Object errorHandler(HttpServletRequest reqest, 
     		HttpServletResponse response, Exception e) throws Exception {
 		
-		logger.error("The Error Found By Northpark=====>{}",e);
+		log.error("The Error Found By Northpark=====>{}",e);
     	
     	if (isAjax(reqest)) {
     		

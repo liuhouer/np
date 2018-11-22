@@ -1,8 +1,6 @@
 package cn.northpark.zookeeper.web.lock;
 
 import org.apache.curator.framework.CuratorFramework;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author w_zhangyang
@@ -10,7 +8,6 @@ import org.slf4j.LoggerFactory;
  */
 public class ZKCurator {
 	
-	final static Logger logger = LoggerFactory.getLogger(ZKCurator.class);
 
     private CuratorFramework client = null;
 

@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +28,7 @@ import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -40,13 +39,12 @@ import cn.northpark.utils.safe.WAQ;
  */
 @Controller
 @RequestMapping("/soft")
+@Slf4j
 public class SoftAction {
 
     @Autowired
     private SoftManager softManager;
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(SoftAction.class);
 
     /**
      * 每页展示多少条mac数
@@ -128,7 +126,7 @@ public class SoftAction {
            
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("Softacton------>", e);
+            log.error("Softacton------>", e);
             rs = "ex";
         }
         return rs;
@@ -181,7 +179,7 @@ public class SoftAction {
 
         }
 
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -227,7 +225,7 @@ public class SoftAction {
             }
 
         } catch (Exception e) {
-            LOGGER.error("softAction------>", e);
+            log.error("softAction------>", e);
 
         }
         return "/softdetail";
@@ -254,7 +252,7 @@ public class SoftAction {
 
 
         } catch (Exception e) {
-            LOGGER.error("softAction------>", e);
+            log.error("softAction------>", e);
 
         }
         return "/soft";
@@ -291,7 +289,7 @@ public class SoftAction {
 
             map.put("selmonth", month);
 
-            LOGGER.info("sql ---" + whereSql);
+            log.info("sql ---" + whereSql);
             String currentpage = page;
             //排序条件
             LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -311,7 +309,7 @@ public class SoftAction {
             map.addAttribute("page", page);
 
         } catch (Exception e) {
-            LOGGER.error("softAction------>", e);
+            log.error("softAction------>", e);
 
         }
         return result;
@@ -352,7 +350,7 @@ public class SoftAction {
         map.put("seltag", tagscode);
 
 
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

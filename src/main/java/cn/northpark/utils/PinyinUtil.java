@@ -3,10 +3,8 @@ package cn.northpark.utils;
 import java.util.Date;
 import java.util.Random;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import cn.northpark.constant.BC_Constant;
+import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -18,11 +16,10 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 /**
  * @author zhangyang
  */
+@Slf4j
 public class PinyinUtil {
 
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(PinyinUtil.class);
 
     /**
      * 获得汉语拼音的输出格式
@@ -76,7 +73,7 @@ public class PinyinUtil {
         for (int i = 0; i < str.length(); i++) {
             result.append(paraseCharToPinyin(str.charAt(i)));
         }
-        LOGGER.info("转换一个串成为汉语拼音------->{}", result.toString());
+        log.info("转换一个串成为汉语拼音------->{}", result.toString());
         return result.toString();
     }
     
@@ -98,7 +95,7 @@ public class PinyinUtil {
             if(i<str.length()-1) result.append(linkstr);
         }
         String resultmsg = result.toString().toLowerCase();
-		LOGGER.info("转换一个串成为格式化的汉语拼音------->{}", resultmsg);
+		log.info("转换一个串成为格式化的汉语拼音------->{}", resultmsg);
         return resultmsg;
 	}
 
@@ -126,7 +123,7 @@ public class PinyinUtil {
             str = new String(b, "GB2312");
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("pinyinUtils------->", e);
+            log.error("pinyinUtils------->", e);
             ;
         }
         return str;
@@ -147,7 +144,7 @@ public class PinyinUtil {
         for (int i = 0; i < 8; i++) {
             str += String.valueOf(chars.charAt((int) (Math.random() * 26)));
         }
-        LOGGER.info("english--" + str);
+        log.info("english--" + str);
         return str;
     }
 
@@ -164,7 +161,7 @@ public class PinyinUtil {
         ;
 
         str = String.valueOf(chars.charAt((int) (Math.random() * 26)));
-        LOGGER.info("zimu--" + str);
+        log.info("zimu--" + str);
         return str;
     }
 
@@ -185,7 +182,7 @@ public class PinyinUtil {
         }
         str = str.toLowerCase();
         String substring = str.substring(0, 1);
-        LOGGER.info("中文的首字母---->{}",substring);
+        log.info("中文的首字母---->{}",substring);
         return substring;
     }
 
@@ -222,7 +219,7 @@ public class PinyinUtil {
             }
         }
 
-        LOGGER.info(sb.toString().replaceAll("\\W", "").trim());
+        log.info(sb.toString().replaceAll("\\W", "").trim());
         return sb.toString().replaceAll("\\W", "").trim();
     }
 

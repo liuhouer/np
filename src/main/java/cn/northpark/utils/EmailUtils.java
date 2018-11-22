@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.mail.HtmlEmail;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Administrator
  */
+@Slf4j
 public class EmailUtils {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(EmailUtils.class);
     public static final EmailUtils emailUtil = new EmailUtils();
 
     /**
@@ -45,12 +44,12 @@ public class EmailUtils {
             // email.attach(attachment);
             // 发送
             email.send();
-            LOGGER.info("邮件发送成功");
+            log.info("邮件发送成功");
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("EmailUtils------->", e);
+            log.error("EmailUtils------->", e);
             ;
-            LOGGER.info("邮件发送失败");
+            log.info("邮件发送失败");
         }
 
     }
@@ -106,11 +105,11 @@ public class EmailUtils {
             // email.attach(attachment);
             // 发送
             email.send();
-            LOGGER.info("邮件发送成功");
+            log.info("邮件发送成功");
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("邮件发送失败");
-            LOGGER.error("EmailUtils------->", e);
+            log.error("邮件发送失败");
+            log.error("EmailUtils------->", e);
             ;
         }
 
@@ -172,11 +171,11 @@ public class EmailUtils {
             // email.attach(attachment);
             // 发送
             email.send();
-            LOGGER.info("邮件发送成功");
+            log.info("邮件发送成功");
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("邮件发送失败");
-            LOGGER.error("EmailUtils------->", e);
+            log.error("邮件发送失败");
+            log.error("EmailUtils------->", e);
             ;
         }
 

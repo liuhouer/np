@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -49,8 +47,10 @@ import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.safe.WAQ;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class UserAction {
 
     private final String HOME_ACTION = "redirect:/";
@@ -70,7 +70,6 @@ public class UserAction {
     private MQProducerManager messageProducer; 
 
 
-    private static final  Logger LOGGER = LoggerFactory.getLogger(UserAction.class);
 
 
     /**
@@ -227,7 +226,7 @@ public class UserAction {
                 result = "invalid";
             }
         } catch (Exception e) {
-            LOGGER.error("commonAction------>", e);
+            log.error("commonAction------>", e);
             result = "exception";
         } finally {
             map.addAttribute("msg", result);
@@ -262,7 +261,7 @@ public class UserAction {
             }
         } catch (Exception e) {
 
-            LOGGER.error("cm--follow--ex::" + e);
+            log.error("cm--follow--ex::" + e);
             // TODO: handle exception
             msg = "exp";
         }
@@ -285,7 +284,7 @@ public class UserAction {
             }
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("cm--unfollow--ex::" + e);
+            log.error("cm--unfollow--ex::" + e);
             msg = "exp";
         }
 
@@ -438,7 +437,7 @@ public class UserAction {
 
             }
         } catch (Exception e) {
-            LOGGER.error("commonAction------>", e);
+            log.error("commonAction------>", e);
 
         }
         return "/spacefans";
@@ -492,7 +491,7 @@ public class UserAction {
 
 
         } catch (Exception e) {
-            LOGGER.error("commonAction------>", e);
+            log.error("commonAction------>", e);
         }
         return "/space";
     }
@@ -657,7 +656,7 @@ public class UserAction {
         //redirect URI的设置
         String redirectURI = request.getParameter("redirectURI");
         
-        LOGGER.error("Login for :=======>"+JsonUtil.object2json(redirectURI));
+        log.error("Login for :=======>"+JsonUtil.object2json(redirectURI));
         if (StringUtils.isNotEmpty(redirectURI)) {
             if (redirectURI.equals("/login")) {
                 redirectURI = "/";
@@ -680,7 +679,7 @@ public class UserAction {
     	  //redirect URI的设置
         String redirectURI = request.getParameter("redirectURI");
         
-        LOGGER.error("signUp for :=======>"+JsonUtil.object2json(redirectURI));
+        log.error("signUp for :=======>"+JsonUtil.object2json(redirectURI));
         
         if (StringUtils.isNotEmpty(redirectURI)) {
             if (redirectURI.equals("/login")) {
@@ -711,7 +710,7 @@ public class UserAction {
         Enumeration<?> e = session.getAttributeNames();
         while (e.hasMoreElements()) {
             String sessionName = (String) e.nextElement();
-            LOGGER.info("存在的session有：" + sessionName);
+            log.info("存在的session有：" + sessionName);
             session.removeAttribute(sessionName);
 
         }
@@ -741,7 +740,7 @@ public class UserAction {
                 response.addCookie(cookie);
             }
         } catch (Exception e) {
-            LOGGER.error("commonAction------>", e);
+            log.error("commonAction------>", e);
         }
 
     }

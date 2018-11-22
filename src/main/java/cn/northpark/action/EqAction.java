@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,6 +25,7 @@ import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -36,6 +35,7 @@ import cn.northpark.utils.safe.WAQ;
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
  */
 @Controller
+@Slf4j
 public class EqAction {
 
     @Autowired
@@ -43,8 +43,6 @@ public class EqAction {
     @Autowired
     private EqQuery eqQuery;
 
-    private static final Logger LOGGER =  LoggerFactory
-            .getLogger(EqAction.class);
 
     /**
      * 阅读文章页面|||通用的样式
@@ -60,8 +58,8 @@ public class EqAction {
             map.addAttribute("model", eq);
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("eqacton------>", e);
-            LOGGER.error("eqacton------>", e);
+            log.error("eqacton------>", e);
+            log.error("eqacton------>", e);
         }
         return "/page/eq/article";
     }
@@ -79,7 +77,7 @@ public class EqAction {
             //定义pageview
             PageView<Eq> pageview = new PageView<Eq>(1, MyConstant.MAXRESULT);
 
-            LOGGER.info("sql ---" + whereSql);
+            log.info("sql ---" + whereSql);
 
             //排序条件
             LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -97,7 +95,7 @@ public class EqAction {
             map.addAttribute("actionUrl", "/romeo");
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("eqacton------>", e);
+            log.error("eqacton------>", e);
         }
 
 
@@ -124,7 +122,7 @@ public class EqAction {
             map.addAttribute("keyword", keyword);
 
         }
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
 
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

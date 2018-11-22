@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.northpark.manager.SoftManager;
@@ -23,7 +21,6 @@ public class Test_Movies_Sitemap  extends BaseTest{
     @Autowired
     public SoftManager softManager;
 
-    Logger LOGGER = LoggerFactory.getLogger(Test_Movies_Sitemap.class);
 
     public void runTask(Integer lastNum) {
     	

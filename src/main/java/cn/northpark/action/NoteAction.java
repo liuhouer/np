@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,9 +35,11 @@ import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/note")
+@Slf4j
 public class NoteAction {
 
     private final String LIST_ACTION = "redirect:/note/findAll";
@@ -54,8 +54,6 @@ public class NoteAction {
     private UserFollowManager userfollowManager;
 
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(NoteAction.class);
 
 
     /**
@@ -295,7 +293,7 @@ public class NoteAction {
         String result = "/story";
         String sql = noteQuery.getMixSql(condition);
 
-        LOGGER.info("sql ---" + sql);
+        log.info("sql ---" + sql);
 
         //定义pageview
         PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
@@ -334,7 +332,7 @@ public class NoteAction {
         String result = "/story";
         String sql = noteQuery.getMixSql(condition);
 
-        LOGGER.info("sql ---" + sql);
+        log.info("sql ---" + sql);
         int currentpage = Integer.parseInt(page);
 
         //定义pageview
@@ -411,7 +409,7 @@ public class NoteAction {
             }
         } catch (Exception e) {
             result = "opps,发生了异常.";
-            LOGGER.error("noteacton------>", e);
+            log.error("noteacton------>", e);
         }
 
         Map<String, Object> rsmap = new HashMap<String, Object>();

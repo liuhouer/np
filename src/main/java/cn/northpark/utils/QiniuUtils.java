@@ -2,9 +2,6 @@ package cn.northpark.utils;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
@@ -12,9 +9,9 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class QiniuUtils {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(QiniuUtils.class);
     public static QiniuUtils getInstance = new QiniuUtils();
 
     public static final String ACCESS_KEY = "HYyj45Ad7f68EsFWVhZuc6qvu1ydgd-CEzFiyabI"; // 你的access_key
@@ -32,8 +29,8 @@ public class QiniuUtils {
      * DefaultPutRet putret = bucketManager.fetch(originalUrl, BUCKET_NAME,
      * "testimage");
      *
-     * LOGGER.info(putret.key);
-     * LOGGER.info("succeed upload image"); } catch (QiniuException e1) {
+     * log.info(putret.key);
+     * log.info("succeed upload image"); } catch (QiniuException e1) {
      * e1.printStackTrace(); }
      */
 
@@ -74,19 +71,19 @@ public class QiniuUtils {
             //调用put方法上传
             Response res = uploadManager.put(FilePath, key, getUpToken());
             //打印返回的信息
-            LOGGER.info(res.bodyString());
+            log.info(res.bodyString());
             rs = BUCKET_HOST_NAME + (String) res.jsonToMap().get("key");
-            LOGGER.info("rs===" + rs);
+            log.info("rs===" + rs);
         } catch (QiniuException e) {
             Response r = e.response;
             // 请求失败时打印的异常的信息
-            LOGGER.error(r.toString());
+            log.error(r.toString());
             try {
                 //响应的文本信息
-                LOGGER.error(r.bodyString());
+                log.error(r.bodyString());
             } catch (QiniuException e1) {
                 //ignore
-                LOGGER.error(""+e1);
+                log.error(""+e1);
             }
         }
         return rs;

@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author bruce
  * @date 2016年7月29日
@@ -25,6 +27,7 @@ import org.slf4j.LoggerFactory;
  * <p>
  * 根据IP地址获取详细的地域信息
  */
+@Slf4j
 public class AddressUtils {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AddressUtils.class);
@@ -56,7 +59,7 @@ public class AddressUtils {
         String returnStr = this.getResult(urlStr, content, encodingString);
         if (returnStr != null) {
             // 处理返回的省市区信息
-            LOGGER.info(returnStr);
+            log.info(returnStr);
             String[] temp = returnStr.split(",");
             if (temp.length < 3) {
                 return "0";//无效IP，局域网测试
@@ -77,7 +80,7 @@ public class AddressUtils {
            
         	
             String rs = "【国家："+country + "】【城市："  + city  +"】【区域："+ region + "】【供应商：" + isp+"】";
-            LOGGER.info(rs);
+            log.info(rs);
 			return rs;
         }
         return null;
@@ -118,7 +121,7 @@ public class AddressUtils {
             reader.close();
             return buffer.toString();
         } catch (IOException e) {
-            LOGGER.error("AddressUtils------->", e);
+            log.error("AddressUtils------->", e);
             ;
         } finally {
             if (connection != null) {
@@ -261,10 +264,10 @@ public class AddressUtils {
             address = addressUtils.getAddresses("ip=" + ip, "utf-8");
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
-            LOGGER.error("AddressUtils------->", e);
+            log.error("AddressUtils------->", e);
             ;
         }
-        LOGGER.info(address);
+        log.info(address);
         // 输出结果为：广东省,广州市,越秀区
     }
 }  

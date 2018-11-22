@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,8 +38,10 @@ import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class MoviesAction {
 
     @Autowired
@@ -51,8 +51,6 @@ public class MoviesAction {
     private TagsManager tagsManager;
 
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(MoviesAction.class);
     /**
      * 每页展示多少条电影数
      */
@@ -87,7 +85,7 @@ public class MoviesAction {
             }
 
         } catch (Exception e) {
-            LOGGER.error("moviesacton------>", e);
+            log.error("moviesacton------>", e);
             rs = "ex";
         }
         return rs;
@@ -115,7 +113,7 @@ public class MoviesAction {
             }
 
         } catch (Exception e) {
-            LOGGER.error("moviesacton------>", e);
+            log.error("moviesacton------>", e);
             rs = "ex";
         }
         return rs;
@@ -193,7 +191,7 @@ public class MoviesAction {
         	}
            
         } catch (Exception e) {
-            LOGGER.error("moviesacton------>", e);
+            log.error("moviesacton------>", e);
             rs = "ex";
         }
         return rs;
@@ -234,7 +232,7 @@ public class MoviesAction {
         map.put("seldate", tagscode);
 
 
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -295,7 +293,7 @@ public class MoviesAction {
         map.put("seltag", tagscode);
 
 
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
@@ -385,7 +383,7 @@ public class MoviesAction {
 
         }
 
-        LOGGER.info("sql ---" + whereSql);
+        log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
         LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();

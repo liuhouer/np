@@ -25,10 +25,9 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.extern.slf4j.Slf4j;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -41,9 +40,9 @@ import sun.misc.BASE64Encoder;
  * @author Bruce
  *
  */
+@Slf4j
 public class FileUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
 
     /**
      * 头像
@@ -70,7 +69,7 @@ public class FileUtils {
      */
     public static void removeOldFile(String oldpath, MultipartFile[] file) {
         if (file.length >= 1) {
-            LOGGER.info(file[0].getOriginalFilename() + "------------------------------------------------》》");
+            log.info(file[0].getOriginalFilename() + "------------------------------------------------》》");
 
             Properties prop = System.getProperties();
 
@@ -83,11 +82,11 @@ public class FileUtils {
             }
             if (StringUtils.isNotEmpty(file[0].getOriginalFilename()) && StringUtils.isNotEmpty(oldpath)) {// 新上传了图片才把以前的删除
                 File f = new File(path + oldpath);
-                LOGGER.info("要删除文件的绝对路径是：" + f.getAbsolutePath());
+                log.info("要删除文件的绝对路径是：" + f.getAbsolutePath());
                 if (f.exists()) {
                     f.delete();
                 } else {
-                    LOGGER.error("文件已经丢失!");
+                    log.error("文件已经丢失!");
                 }
             }
         }
@@ -101,7 +100,7 @@ public class FileUtils {
      * @return 保存的路径数值集合
      */
     public static List<String> commonUpload(MultipartFile[] file, String suffix) {
-        LOGGER.info("-------------------------------------->开始");
+        log.info("-------------------------------------->开始");
 
         List<String> list = new ArrayList<String>();
         Properties prop = System.getProperties();
@@ -134,7 +133,7 @@ public class FileUtils {
                 try {
                     file[i].transferTo(targetFile);
                 } catch (Exception e) {
-                    LOGGER.error("上传文件异常------->", e);
+                    log.error("上传文件异常------->", e);
                     continue;
                 }
                 tail_path = "/" + suffix + "/" + newName;
@@ -144,7 +143,7 @@ public class FileUtils {
 
         }
         System.gc();
-        LOGGER.info("-------------------------------------->结束");
+        log.info("-------------------------------------->结束");
         return list;
 
     }
@@ -167,11 +166,11 @@ public class FileUtils {
                 is = urlconn.getInputStream();
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
-                LOGGER.error("------->", e);
+                log.error("------->", e);
                 ;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
-                LOGGER.error("------->", e);
+                log.error("------->", e);
                 ;
             }
         }
@@ -187,7 +186,7 @@ public class FileUtils {
             is.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            LOGGER.error("------->", e);
+            log.error("------->", e);
             ;
         }
         return filecontent;
@@ -221,11 +220,11 @@ public class FileUtils {
 
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
-            LOGGER.error("------->", e);
+            log.error("------->", e);
             ;
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            LOGGER.error("------->", e);
+            log.error("------->", e);
             ;
         }
 
@@ -247,7 +246,7 @@ public class FileUtils {
                 line = sis.readLine(b, 0, b.length);
             }
         } catch (Exception e) {
-            LOGGER.error("------->", e);
+            log.error("------->", e);
             ;
         }
         return result;
@@ -270,11 +269,11 @@ public class FileUtils {
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
-            LOGGER.error("------->", e);
+            log.error("------->", e);
             ;
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            LOGGER.error("------->", e);
+            log.error("------->", e);
             ;
         }
 
@@ -291,14 +290,14 @@ public class FileUtils {
             fw.append("我又写入的内容");
             fw.flush(); // 全部写入缓存中的内容
         } catch (Exception e) {
-            LOGGER.error("------->", e);
+            log.error("------->", e);
             ;
         } finally {
             if (fw != null) {
                 try {
                     fw.close();
                 } catch (IOException e) {
-                    LOGGER.error("------->", e);
+                    log.error("------->", e);
                     ;
                 }
             }
@@ -315,19 +314,19 @@ public class FileUtils {
             while ((str = reader.readLine()) != null) {
                 long lo = Long.valueOf(str.trim());
                 String time = TimeUtils.longToString(lo);
-                LOGGER.info(str + "------->" + time);
+                log.info(str + "------->" + time);
             }
         } catch (FileNotFoundException e) {
-            LOGGER.error("------->", e);
+            log.error("------->", e);
             ;
         } catch (IOException e) {
-            LOGGER.error("------->", e);
+            log.error("------->", e);
             ;
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                LOGGER.error("------->", e);
+                log.error("------->", e);
                 ;
             }
         }
@@ -337,7 +336,7 @@ public class FileUtils {
         List<String> filelist = new ArrayList<String>();
         File[] fs = dir.listFiles();
         for (int i = 0; i < fs.length; i++) {
-            //LOGGER.info(fs[i].getAbsolutePath());
+            //log.info(fs[i].getAbsolutePath());
             if (fs[i].isDirectory()) {
                 try {
                     showAllFiles(fs[i]);
@@ -362,7 +361,7 @@ public class FileUtils {
         List<String> flist = showAllFiles(root);
         for (int i = 0; i < flist.size(); i++) {
             if (MD5Utils.encoding(new FileInputStream(flist.get(i))).equals(pic1)) {//替换图片
-                LOGGER.info(i + "---" + flist.get(i));
+                log.info(i + "---" + flist.get(i));
                 String new_pic = getRandomPic(flist);
 
                 writeFile(flist, i, new_pic);
@@ -392,7 +391,7 @@ public class FileUtils {
             bos.close();
         } catch (Exception e) {
             // TODO: handle exception
-            LOGGER.error("------->", e);
+            log.error("------->", e);
             ;
         }
     }
@@ -429,7 +428,7 @@ public class FileUtils {
                 getRandomPic(list);
             }
         } catch (Exception e) {
-            LOGGER.error("------->", e);
+            log.error("------->", e);
             ;
         }
         return path;

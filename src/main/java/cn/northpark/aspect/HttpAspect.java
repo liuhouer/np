@@ -18,7 +18,6 @@ package cn.northpark.aspect;
 //@Component
 //public class HttpAspect {
 //
-//    private final  static Logger logger= LoggerFactory.getLogger(HttpAspect.class);
 //    
 //    //cn.northpark.action.UserAction.*(..) public * cn.northpark.action.UserAction.*(..)) &&
 //    @Before("execution(public * cn.northpark.action.UserAction.*(..))")
@@ -31,11 +30,11 @@ package cn.northpark.aspect;
 //	      //ip
 //	      //类方法-使用joinPoint对象取
 //	      //参数
-//        logger.info("url={}----->",request.getRequestURI());
-//        logger.info("method={}----->",request.getMethod());
-//        logger.info("ip={}----->",request.getRemoteAddr());
-//        logger.info("class_method={}----->",joinPoint.getSignature().getDeclaringTypeName()+"."+joinPoint.getSignature().getName());
-//        logger.info("args={}----->",request.getQueryString());
+//        log.info("url={}----->",request.getRequestURI());
+//        log.info("method={}----->",request.getMethod());
+//        log.info("ip={}----->",request.getRemoteAddr());
+//        log.info("class_method={}----->",joinPoint.getSignature().getDeclaringTypeName()+"."+joinPoint.getSignature().getName());
+//        log.info("args={}----->",request.getQueryString());
 //
 //    }
 //

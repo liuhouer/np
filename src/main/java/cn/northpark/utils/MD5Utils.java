@@ -5,15 +5,13 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.util.Random;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MD5Utils {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(MD5Utils.class);
 
     // 0的ASCII码
     private static final int ASCII_0 = 48;
@@ -46,7 +44,7 @@ public class MD5Utils {
         Random random = new Random();
         //随机取一个作为短链  
         int j = random.nextInt(4);//产成4以内随机数
-        LOGGER.info("短链接：" + aResult[j] + ";长链接：" + url);
+        log.info("短链接：" + aResult[j] + ";长链接：" + url);
         return aResult[j];
     }
 
@@ -134,7 +132,7 @@ public class MD5Utils {
             return toHexString(mdTemp.digest());
 
         } catch (Exception e) {
-            LOGGER.error("Md5Utils------->", e);
+            log.error("Md5Utils------->", e);
             ;
         }
 
@@ -246,6 +244,6 @@ public class MD5Utils {
     }
 
     public static void main(String[] args) {
-        LOGGER.info(MD5Utils.encoding("bruce134"));
+        log.info(MD5Utils.encoding("bruce134"));
     }
 }

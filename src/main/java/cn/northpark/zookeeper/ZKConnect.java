@@ -3,17 +3,17 @@ package cn.northpark.zookeeper;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Title: ZKConnectDemo.java
  * @Package cn.northpark.zookeeper
  * @Description: zookeeper 连接demo演示
  */
+@Slf4j
 public class ZKConnect implements Watcher {
 		
-	final static Logger log = LoggerFactory.getLogger(ZKConnect.class);
 
 //	public static final String zkServerPath = "69.12.82.101:2181";
 	public static final String zkServerPath = "69.12.82.101:2181,69.12.82.101:2182,192.168.1.111:2183";
