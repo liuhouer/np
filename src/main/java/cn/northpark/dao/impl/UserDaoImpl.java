@@ -10,10 +10,11 @@ import org.springframework.util.CollectionUtils;
 import cn.northpark.dao.UserDao;
 import cn.northpark.model.User;
 import cn.northpark.utils.JsonUtil;
-import cn.northpark.utils.LoggerUtils;
 import cn.northpark.utils.TimeUtils;
+import lombok.extern.slf4j.Slf4j;
 
 @Service("UserDao")
+@Slf4j
 public class UserDaoImpl extends HibernateDaoImpl<User, Serializable> implements UserDao {
 
     public User login(String email, String password ,String ip) {
@@ -28,7 +29,7 @@ public class UserDaoImpl extends HibernateDaoImpl<User, Serializable> implements
             user.setLast_login(JsonUtil.object2json(TimeUtils.nowTime()+ip));
             update(user);
         }else {
-        	LoggerUtils.error("错误的登录尝试----->："+JsonUtil.object2json(TimeUtils.nowTime()+ip));
+        	log.error("错误的登录尝试----->："+JsonUtil.object2json(TimeUtils.nowTime()+ip));
         } 
         
         return user;

@@ -8,6 +8,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class JsonUtil {
 
 
@@ -200,7 +203,7 @@ public class JsonUtil {
 			});
 		} catch (Exception e) {
 			// TODO: handle exception
-			LoggerUtils.error(e);
+			e.printStackTrace();
 		}
 		return list;
 	}
@@ -209,6 +212,6 @@ public class JsonUtil {
 
 
 	public static void main(String[] args) {
-		LoggerUtils.error("some thing");
+		log.error("some thing");
 	}
 }

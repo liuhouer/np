@@ -6,6 +6,9 @@ public class NorthParkException extends RuntimeException{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	private String code;
 	private String extendMsg;
 	/**
