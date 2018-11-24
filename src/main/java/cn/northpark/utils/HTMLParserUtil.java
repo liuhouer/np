@@ -967,9 +967,9 @@ public class HTMLParserUtil {
             Elements soft11 = null;
             //取得一页内容梗概
             if (index > 1) {
-                soft11 = doc.select("div[class=ajax-load-con content posts-default  col-xs-6 col-sm-4 col-md-3 col-lg-1-5]");
+                soft11 = doc.select("div.ajax-load-con");
             } else {
-                soft11 = doc.select("div[class=ajax-load-con content posts-default  col-xs-6 col-sm-4 col-md-3 col-lg-1-5]");
+                soft11 = doc.select("div.ajax-load-con");
             }
 
 //             String baseUrl=initUrl;
@@ -1004,7 +1004,7 @@ public class HTMLParserUtil {
 //                    if (flag <= 0) {
 
                         //日期
-                        String date = parse.select("span[class=postclock]").get(0).text();
+                        String date = parse.select("span.postclock").get(0).text();
 
 
                         if(StringUtils.isNotEmpty(date) && date.contains("前")) date  = TimeUtils.nowdate();
@@ -1020,10 +1020,10 @@ public class HTMLParserUtil {
 
 
                         //标题
-                        String title = parse.select("div[class=post-title]").select("h1").get(0).text();
+                        String title = parse.select("div.post-title").select("h1").get(0).text();
 
                         //标签
-                        String tag = parse.select("div[class=breadcrumbs]").select("span[itemprop=name]").get(1).text();
+                        String tag = parse.select("div.breadcrumbs").select("span[itemprop=name]").get(1).text();
 
 
                         //处理软件logo上传
@@ -1076,7 +1076,7 @@ public class HTMLParserUtil {
                         String path = "";
 
 
-                        Elements article_alls = parse.select("div[class=post-content]");
+                        Elements article_alls = parse.select("div.post-content");
                         if (!article_alls.isEmpty()) {
                             for (int i1 = 0; i1 < article_alls.size(); i1++) {
 
@@ -1662,7 +1662,7 @@ public class HTMLParserUtil {
 
                     //<h3 class="dytit"><a target="_blank" href="http://m.orisi.cn/41183.html">追捕者</a></h3>
 
-                    String title = li.select("h3[class=dytit]").get(0).text();
+                    String title = li.select("h3.dytit").get(0).text();
 
                     String retcode = MD5Utils.encoding(title);
                     
@@ -1725,9 +1725,9 @@ public class HTMLParserUtil {
                         Document doc_ = Jsoup.parse(dataResult_, aurl);
                         //yp_context
                         //dyxingq 
-                        Element info = doc_.select("div[class=dyxingq]").get(0);
+                        Element info = doc_.select("div.dyxingq").get(0);
 
-                        Element detail = doc_.select("div[class=yp_context]").get(0);
+                        Element detail = doc_.select("div.yp_context").get(0);
                         
                         
                         //========================解析路径start======================================
@@ -1824,11 +1824,13 @@ public class HTMLParserUtil {
       					  
       					  
       					//删除播放器样式
-      					detail.select("div[class=MinePlayer]").remove();
+      					detail.select("div.MinePlayer").remove();
       					detail.select("link").remove();
-      					detail.select("div[class=MineBottomList]").remove();
+      					detail.select("div.MineBottomList").remove();
       					detail.select("script").remove();
-      					
+      					detail.select("div.uc-rating").remove();
+      					detail.select("div.uc-favorite-2").remove();
+      					detail.getElementById("sociables").remove();
       					 desc += info.html();
       					 
       					 desc += detail.html();
@@ -2541,7 +2543,8 @@ public class HTMLParserUtil {
 //            retEQArticle(1);
 //        	retSoftNew(0);
         	
-        	retMovies(1,"http://m.orisi.cn/movie_bt_series/movie/page/");
+//        	retMovies(1,"http://m.orisi.cn/movie_bt_series/movie/page/");
+        	retSoftNew(1);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             log.error("HTMLPARSERutils------->", e);
