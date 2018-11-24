@@ -12,6 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 /**
  * @author bruce
@@ -25,11 +26,20 @@ import lombok.Data;
 @Data
 @Builder
 public class Soft implements Serializable {
+	
+	/**
+	 * 可以通过为方法或构造函数添加
+	 * @Tolerate注解让Lombok忽略显式添加的方法或构造函数，
+	 * 避免Lombok检测到同名方法或构造函数不自动生成的问题。
+	 */
+	@Tolerate
+	Soft() {}
 
     /**
      * serialVersionUID
      */
     private static final long serialVersionUID = 1L;
+    
 
 
     /* 下面是自增的native ID方式 */
