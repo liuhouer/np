@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,6 +22,8 @@ import cn.northpark.manager.VpsManager;
 import cn.northpark.model.Vps;
 import cn.northpark.query.VpsQuery;
 import cn.northpark.query.condition.VpsQueryCondition;
+import cn.northpark.utils.JsonUtil;
+import cn.northpark.utils.RedisUtil;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
@@ -298,24 +301,36 @@ public class VpsAction {
     private List<Map<String, Object>> getTagCloud() {
 
         //char(97+ceiling(rand()*25)) --随机字母（小写）
-
-    	StringBuilder tagsqlBuilder = new StringBuilder();
-        
-        
-        tagsqlBuilder.append("select  b.tag as tagscloud,round(rand()*(9)) AS color  ,count(b.tag) as nums from ")
-		               .append( "(                                                                                      ")
-		               .append( "select substring_index(substring_index(a.tags,',',b.help_topic_id+1),',',-1) as tag    ")
-		               .append( "from                                                                                   ")
-		               .append( "bc_vps a                                                                               ")
-		               .append( "join                                                                                   ")
-		               .append( "mysql.help_topic b                                                                     ")
-		               .append( "on b.help_topic_id < (length(a.tags) - length(replace(a.tags,',',''))+1)               ")
-		               .append( "where a.tags!=''                                                                       ")
-		               .append( "order by a.ID )  as b   group by b.tag order by nums desc      limit 0,50              ");
+    	
+    	List<Map<String, Object>> rs = null;
+    	
+    	//从redis取
+    	String str = RedisUtil.get("vps_tag_cloud");
+		if(StringUtils.isNotEmpty(str)) {
+			rs = JsonUtil.getListMap(str);
+		}
+    	
+    	//从数据库取
+    	if(CollectionUtils.isEmpty(rs)) {
+    		StringBuilder tagsqlBuilder = new StringBuilder();
 
 
-        List<Map<String, Object>> rs = vpsManager.querySqlMap(tagsqlBuilder.toString());
+    		tagsqlBuilder.append("select  b.tag as tagscloud,round(rand()*(9)) AS color  ,count(b.tag) as nums from ")
+    		.append( "(                                                                                      ")
+    		.append( "select substring_index(substring_index(a.tags,',',b.help_topic_id+1),',',-1) as tag    ")
+    		.append( "from                                                                                   ")
+    		.append( "bc_vps a                                                                               ")
+    		.append( "join                                                                                   ")
+    		.append( "mysql.help_topic b                                                                     ")
+    		.append( "on b.help_topic_id < (length(a.tags) - length(replace(a.tags,',',''))+1)               ")
+    		.append( "where a.tags!=''                                                                       ")
+    		.append( "order by a.ID )  as b   group by b.tag order by nums desc      limit 0,50              ");
 
+
+    		rs = vpsManager.querySqlMap(tagsqlBuilder.toString());
+    		
+    		RedisUtil.set("vps_tag_cloud", JsonUtil.object2json(rs), 24 * 60 * 60);
+    	}
         return rs;
 
     }

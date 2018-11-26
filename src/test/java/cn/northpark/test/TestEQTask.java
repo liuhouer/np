@@ -489,7 +489,7 @@ public class TestEQTask extends BaseTest {
 
 
 
-    		for (int k = 1; k <=3; k++) {
+    		for (int k = 3; k <=10; k++) {
     			try {
 
     				List<Map<String, String>> list = HTMLParserUtil.retMovies(k,BC_Constant.RET_dianying);
@@ -1141,7 +1141,8 @@ public class TestEQTask extends BaseTest {
 
     @Test
     public void save() {
-        runTask();
+//        runTask();
+    	System.gc();
     }
 
 }

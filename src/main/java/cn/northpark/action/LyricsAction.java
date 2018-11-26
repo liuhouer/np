@@ -36,7 +36,9 @@ import cn.northpark.model.User;
 import cn.northpark.model.UserLyrics;
 import cn.northpark.utils.FileUtils;
 import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.PinyinUtil;
+import cn.northpark.utils.RedisUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
@@ -285,10 +287,8 @@ public class LyricsAction {
         List<Map<String, Object>> zanList = lyricszanManager.mixSqlQuery(sql);
         map.put("zanList", zanList);
 
-
-        //取得谁爱上谁的一个列表
-        String sql_2 = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,b.headspan,b.headspanclass,c.id as lyricsid,c.title,c.titlecode from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id order by rand() desc limit 0 , 50 ";
-        List<Map<String, Object>> loveList = lyricszanManager.mixSqlQuery(sql_2);
+        //取得谁爱上谁的一个列表 redis
+        List<Map<String, Object>> loveList = getRandomLoveList();
 
         Collections.shuffle(loveList);
         map.put("loveList", loveList);
@@ -309,6 +309,29 @@ public class LyricsAction {
 
         return result;
     }
+
+
+	/**
+	 * 取得谁爱上谁的一个列表
+	 * @return
+	 */
+	private List<Map<String, Object>> getRandomLoveList() {
+		List<Map<String, Object>> loveList = null;
+		String str = RedisUtil.get("loveList");
+		if(StringUtils.isNotEmpty(str)) {
+			loveList = JsonUtil.getListMap(str);
+		}
+		
+		if(CollectionUtils.isEmpty(loveList)) {
+			//取得谁爱上谁的一个列表
+			String sql_2 = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,b.headspan,b.headspanclass,c.id as lyricsid,c.title,c.titlecode from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id order by rand() desc limit 0 , 50 ";
+			loveList = lyricszanManager.mixSqlQuery(sql_2);
+			if(!CollectionUtils.isEmpty(loveList)) { 
+				RedisUtil.set("loveList", JsonUtil.object2json(loveList), 24 * 60 * 60);
+			}
+		}
+		return loveList;
+	}
 
 
     /**

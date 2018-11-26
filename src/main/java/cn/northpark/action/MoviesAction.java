@@ -34,6 +34,8 @@ import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Movies;
 import cn.northpark.model.Tags;
+import cn.northpark.utils.JsonUtil;
+import cn.northpark.utils.RedisUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
@@ -254,7 +256,8 @@ public class MoviesAction {
         map.addAttribute("list", resultlist);
         map.addAttribute("actionUrl", "/movies/date/" + tagscode);
 
-
+        //获取标签模块
+        getTags(map, request);
         return result;
     }
 
@@ -322,7 +325,8 @@ public class MoviesAction {
         map.addAttribute("pageView", pageview);
         map.addAttribute("list", resultlist);
         map.addAttribute("actionUrl", "/movies/tag/" + tagscode);
-
+        //获取标签模块
+        getTags(map, request);
 
         return result;
     }
@@ -493,17 +497,21 @@ public class MoviesAction {
      *
      * @param map
      */
-    @SuppressWarnings("unchecked")
     private void getTags(ModelMap map, HttpServletRequest request) {
         List<Tags> tags = null;
         List<Map<String, Object>> movies_hot_list = null;
 
-        tags = (List<Tags>) request.getSession().getAttribute("movies_tags");
+        //从redis取
+        String tags_str = RedisUtil.get("movies_tags");
+        String movies_hot_list_str = RedisUtil.get("movies_hot_list");
+        if(StringUtils.isNotEmpty(tags_str) && StringUtils.isNotEmpty(movies_hot_list_str)) {
+        	
+        	movies_hot_list = JsonUtil.getListMap(movies_hot_list_str);
+        	tags = JsonUtil.json2list(tags_str, Tags.class);
+        }
 
-        movies_hot_list = (List<Map<String, Object>>) request.getSession().getAttribute("movies_hot_list");
-
-
-        if (tags == null || movies_hot_list == null) {
+        //从数据库取
+        if (CollectionUtils.isEmpty(tags) && CollectionUtils.isEmpty(movies_hot_list)) {
             //获取标签
 
             tags = tagsManager.findByCondition(" where tagtype = '1' ").getResultlist();
@@ -512,11 +520,14 @@ public class MoviesAction {
             String hotsql = "select id,moviename,color from bc_movies order by rand() desc limit 0,70";
             movies_hot_list = moviesManager.querySql(hotsql);
 
+            RedisUtil.set("movies_hot_list", JsonUtil.object2json(movies_hot_list), 24 * 60 * 60);
+            RedisUtil.set("movies_tags", JsonUtil.object2json(tags), 24 * 60 * 60);
 
         }
-        request.getSession().setAttribute("movies_tags", tags);
-        request.getSession().setAttribute("movies_hot_list", movies_hot_list);
 
+        
+        map.put("movies_hot_list", movies_hot_list);
+        map.put("movies_tags", tags);
 
     }
 

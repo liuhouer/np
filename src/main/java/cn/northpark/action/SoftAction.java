@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.northpark.annotation.BruceOperation;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Soft;
+import cn.northpark.utils.JsonUtil;
+import cn.northpark.utils.RedisUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
@@ -249,6 +251,9 @@ public class SoftAction {
                 map.addAttribute("list", list);
                 map.addAttribute("pagein", "no");
             }
+            
+            //获取标签模块
+            getTags(map, request);
 
 
         } catch (Exception e) {
@@ -307,6 +312,9 @@ public class SoftAction {
             map.addAttribute("list", resultlist);
             map.addAttribute("actionUrl", "/soft/month/" + month);
             map.addAttribute("page", page);
+            
+            //获取标签模块
+            getTags(map, request);
 
         } catch (Exception e) {
             log.error("softAction------>", e);
@@ -368,6 +376,9 @@ public class SoftAction {
         map.addAttribute("list", resultlist);
         map.addAttribute("actionUrl", "/soft/tag/" + tagscode);
         map.addAttribute("page", page);
+        
+        //获取标签模块
+        getTags(map, request);
 
         return result;
     }
@@ -380,19 +391,26 @@ public class SoftAction {
      *
      * @param map
      */
-    @SuppressWarnings("unchecked")
     private void getTags(ModelMap map, HttpServletRequest request) {
         List<Map<String, Object>> tags = null;
         List<Map<String, Object>> hotlist = null;
         List<Map<String, Object>> datelist = null;
 
-        tags = (List<Map<String, Object>>) request.getSession().getAttribute("soft_tags");
+        
+        //从redis取
+        String soft_tags_str = RedisUtil.get("soft_tags");
+        String soft_hot_list_str = RedisUtil.get("soft_hot_list");
+        String soft_date_list_str = RedisUtil.get("soft_date_list");
+        
+        if(StringUtils.isNotEmpty(soft_tags_str) && StringUtils.isNotEmpty(soft_hot_list_str) && StringUtils.isNotEmpty(soft_date_list_str)) {
+        	
+        	tags = JsonUtil.getListMap(soft_tags_str);
+        	hotlist = JsonUtil.getListMap(soft_hot_list_str);
+        	datelist = JsonUtil.getListMap(soft_date_list_str);
+        }
 
-        hotlist = (List<Map<String, Object>>) request.getSession().getAttribute("hot_list");
-
-        datelist = (List<Map<String, Object>>) request.getSession().getAttribute("date_list");
-
-        if (tags == null || hotlist == null || datelist == null) {
+        //从数据库取
+        if (CollectionUtils.isEmpty(tags) && CollectionUtils.isEmpty(hotlist) && CollectionUtils.isEmpty(datelist)) {
             //获取标签
             tags = softManager.querySqlMap("select count(tags) as num,tags,tagscode from bc_soft group by tags,tagscode order by num desc");
 
@@ -406,10 +424,16 @@ public class SoftAction {
             String datesql = "select distinct(month) as month  from bc_soft  order by month  desc";
             datelist = softManager.querySqlMap(datesql);
 
+            
+            RedisUtil.set("soft_tags", JsonUtil.object2json(tags), 24 * 60 * 60);
+            RedisUtil.set("soft_hot_list", JsonUtil.object2json(hotlist), 24 * 60 * 60);
+            RedisUtil.set("soft_date_list", JsonUtil.object2json(datelist), 24 * 60 * 60);
         }
-        request.getSession().setAttribute("soft_tags", tags);
-        request.getSession().setAttribute("hot_list", hotlist);
-        request.getSession().setAttribute("date_list", datelist);
+        
+        map.put("soft_tags", tags);
+        map.put("hot_list", hotlist);
+        map.put("date_list", datelist);
+
 
 
     }
