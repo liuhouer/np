@@ -2,6 +2,7 @@
 package cn.northpark.action;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.northpark.annotation.Desc;
+import cn.northpark.annotation.Redis;
 import cn.northpark.constant.BC_Constant;
+import cn.northpark.constant.BC_Constant.RedisReturnType;
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.NoteManager;
@@ -51,20 +55,19 @@ public class DashAction {
     @Autowired
     private MoviesManager moviesManager;
     
-    /**
-     * 跳转微信1
-     */
+    
+    
+    
     @RequestMapping("/donate")
+    @Desc(value="跳转微信1 test..")
     public String weixin1(ModelMap map) {
     	
     	return "/donateMe";
     }
 
 
-    /**
-     * 首页
-     */
     @RequestMapping("/")
+    @Desc(value="首页")
     public String dashborard(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {
 
         //slider
@@ -81,10 +84,8 @@ public class DashAction {
     }
 
 
-    /**
-     * 关于Northpark
-     */
     @RequestMapping("/about.html")
+    @Desc(value="关于Northpark")
     public String about(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {
 
         return "/about";
@@ -92,8 +93,8 @@ public class DashAction {
     }
 
 
-    //异步获取首页的love数据
     @RequestMapping(value = "/dash/getLove")
+    @Desc(value="异步获取首页的love数据")
     public String getLove(ModelMap map) {
 
         pushLove2Map(map);
@@ -101,8 +102,9 @@ public class DashAction {
         return "/page/love/lovedata";
     }
 
-    //异步获取首页的《碎碎念》数据
     @RequestMapping(value = "/dash/getNote")
+    @Desc(value="异步获取首页的《碎碎念》数据")
+    @Redis(returnType = RedisReturnType.listmap)
     public String getNote(ModelMap map) {
 
 
@@ -112,8 +114,8 @@ public class DashAction {
         return "/page/dash/notedata";
     }
 
-    //异步获取首页的《情圣》数据
     @RequestMapping(value = "/dash/getRomeo")
+    @Desc(value="异步获取首页的《情圣》数据")
     public String getRomeo(ModelMap map) {
 
         pushEQ2Map(map);
@@ -122,8 +124,8 @@ public class DashAction {
         return "/page/dash/romeodata";
     }
 
-    //异步获取首页的《电影》数据
     @RequestMapping(value = "/dash/getMovies")
+    @Desc(value="异步获取首页的《电影》数据")
     public String getMovies(ModelMap map) {
 
 

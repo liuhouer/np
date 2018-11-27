@@ -16,7 +16,29 @@ public class BC_Constant {
     public static final String MQ_MAIL_RESET = "rest.mail.reset";
     
     
-    
+    /**
+     * redis返回类型自定义
+     */
+    public enum RedisReturnType {
+    	 map("map"),
+    	 listmap("listmap"), 
+    	 listclass("listclass"),
+         ;
+    	 // 成员变量
+        private String type;
+        
+        
+    	private RedisReturnType(String type) {
+    		this.type = type;
+    	}
+
+
+		public String getType() {
+			return type;
+		}
+
+
+    }
     
     
     /**

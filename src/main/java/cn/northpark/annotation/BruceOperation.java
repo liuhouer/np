@@ -9,15 +9,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 管理员校验
+ * admin check
  *
  * @author bruce
- * @date 2018年8月2日
- * @email zhangyang226@gmail.com
- * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
  */
-@Documented
-@Inherited
+@Documented	  //java doc	
+@Inherited    //允许子类继承
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface BruceOperation {
