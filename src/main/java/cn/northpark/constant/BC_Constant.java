@@ -22,6 +22,7 @@ public class BC_Constant {
     public enum RedisReturnType {
     	 map("map"),
     	 listmap("listmap"), 
+    	 string("string"),
     	 listclass("listclass"),
          ;
     	 // 成员变量

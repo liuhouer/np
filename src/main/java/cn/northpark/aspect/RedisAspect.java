@@ -36,8 +36,8 @@ public class RedisAspect {
 		Redis cache = method.getAnnotation(Redis.class);
 		//根据类名、方法名和参数生成key
 		final String key = parseKey(cache.field(), method, jp.getArgs());
-		if (log.isDebugEnabled()) {
-			log.debug("生成key:" + key);
+		if (log.isInfoEnabled()) {
+			log.info("生成key:" + key);
 		}
 		//得到被代理的方法上的注解
 		RedisReturnType modelType = method.getAnnotation(Redis.class).returnType();
@@ -52,8 +52,8 @@ public class RedisAspect {
 			
 			
 			//缓存命中
-			if (log.isDebugEnabled()) {
-				log.debug("缓存命中");
+			if (log.isInfoEnabled()) {
+				log.info("缓存命中");
 			}
 			
 			
@@ -63,6 +63,9 @@ public class RedisAspect {
 			}else if(type.equals(RedisReturnType.map.getType())){
 				//返回map
 				result = JsonUtil.json2map(redisRS);
+			}else if(type.equals(RedisReturnType.string.getType())){
+				//返回string
+				result = redisRS;
 			}else {
 				//得到被代理方法的返回值类型
 				Class returnType = ((MethodSignature) jp.getSignature()).getReturnType();
@@ -74,8 +77,8 @@ public class RedisAspect {
 			
 		}else {
 			//缓存未命中
-			if (log.isDebugEnabled()) {
-				log.debug("缓存未命中");
+			if (log.isInfoEnabled()) {
+				log.info("缓存未命中");
 			}
 			//去数据库查询
 			result = jp.proceed(jp.getArgs());
@@ -97,8 +100,8 @@ public class RedisAspect {
 //		Method method = getMethod(jp);
 //		//得到被代理方法上的注解
 //		Class modelType = method.getAnnotation(RedisEvict.class).type();
-//		if (log.isDebugEnabled()) {
-//			log.debug("清空缓存:" + modelType.getName());
+//		if (log.isInfoEnabled()) {
+//			log.info("清空缓存:" + modelType.getName());
 //		}
 //		//判断是否指定了field
 //		String[] fields = method.getAnnotation(RedisEvict.class).field();

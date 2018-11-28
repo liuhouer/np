@@ -23,7 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.northpark.annotation.CheckLogin;
+import cn.northpark.annotation.Desc;
+import cn.northpark.annotation.Redis;
 import cn.northpark.constant.BC_Constant;
+import cn.northpark.constant.BC_Constant.RedisReturnType;
 import cn.northpark.exception.NorthParkException;
 import cn.northpark.exception.ResultCode;
 import cn.northpark.form.LyricsForm;
@@ -183,6 +186,8 @@ public class LyricsAction {
      */
     @RequestMapping("/lyrics/getMoreZan")
     @ResponseBody
+    @Redis(returnType=RedisReturnType.string,field=" #lyricsid " ,expire= 7*24*60*60)
+    @Desc("某个主题赞的人数：redis缓存7天刷新")
     public String getMoreZan(HttpServletRequest request, HttpServletResponse response, String lyricsid, ModelMap map) {
         response.setContentType("text/html; charset=UTF-8");
         //取得zan的人的列表

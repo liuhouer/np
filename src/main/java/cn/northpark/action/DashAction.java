@@ -15,9 +15,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.northpark.annotation.Desc;
-import cn.northpark.annotation.Redis;
 import cn.northpark.constant.BC_Constant;
-import cn.northpark.constant.BC_Constant.RedisReturnType;
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.NoteManager;
@@ -96,14 +94,15 @@ public class DashAction {
     @Desc(value="异步获取首页的love数据")
     public String getLove(ModelMap map) {
 
-        pushLove2Map(map);
+        List<Map<String, Object>> data = pushLove2Map();
+        
+        map.addAttribute("lovelist", data);
 
         return "/page/love/lovedata";
     }
 
     @RequestMapping(value = "/dash/getNote")
     @Desc(value="异步获取首页的《碎碎念》数据")
-    @Redis(returnType = RedisReturnType.listmap)
     public String getNote(ModelMap map) {
 
 
@@ -235,9 +234,8 @@ public class DashAction {
     /**
      * 把首页的love数据查询出来并且添加到缓存里去
      *
-     * @param map
      */
-    public void pushLove2Map(ModelMap map) {
+    public List<Map<String, Object>> pushLove2Map() {
     	
     	List<Map<String, Object>> home_lovelist = null;
     	
@@ -273,7 +271,8 @@ public class DashAction {
 		
         
 
-        map.addAttribute("lovelist", home_lovelist);
+       
+		return home_lovelist;
     }
 
 
