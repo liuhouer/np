@@ -221,7 +221,7 @@ public class DashAction {
 			});
 			
 			
-			RedisUtil.set("home_notelist", JsonUtil.object2json(home_notelist));
+			RedisUtil.set("home_notelist", JsonUtil.object2json(notelist));
 
 
 		}
