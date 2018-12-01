@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta http-equiv="Content-Language" content="zh-CN">
     <meta name="author" content="www.qinco.net">
-    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
     <c:if test="${page==null || page==''}">
         <title>最爱主题图册-记住美好,保留回忆,分享最爱。 | NorthPark</title>
@@ -48,7 +48,7 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
 
-<script src="/static/js/page/welcome.js"></script>
+<script src="https://northpark.cn/statics/js/page/welcome.js"></script>
 </body>
 
 </html>    

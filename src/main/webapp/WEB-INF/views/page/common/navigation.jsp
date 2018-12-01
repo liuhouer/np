@@ -24,7 +24,7 @@
 				 class="mainhead-avatar avatar centre " height="40" width="40">
 				 
 				 <c:if test="${user==null  }">
-				 	<img  src="/static/img/davatar.jpg"  alt="davatar" class="img-circle max-width-50" height="40" width="40">
+				 	<img  src="https://northpark.cn/statics/img/davatar.jpg"  alt="davatar" class="img-circle max-width-50" height="40" width="40">
 				 </c:if>
                                                                     
 				 <c:if test="${user!=null }"> 

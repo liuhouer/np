@@ -14,13 +14,13 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
     <title>${ datamap.lrc_title}:最爱主题图册互动 | NorthPark</title>
     <meta name="keywords" content="NorthPark,最爱主题图册互动">
     <meta name="description"
           content="NorthPark最爱主题图册互动、评论、关注.">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-    <link href="/static/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet"/>
+    <link href="https://northpark.cn/statics/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet"/>
 
 
 </head>
@@ -127,7 +127,7 @@
                                             </c:if>
 
                                             title="${user.username }的最爱"><img
-                                            <c:if test="${user.headpath == null}">src="/static/img/davatar.jpg"</c:if>
+                                            <c:if test="${user.headpath == null}">src="https://northpark.cn/statics/img/davatar.jpg"</c:if>
                                         <c:if test="${user.headpath != null}">
                                     <c:choose>
                                             <c:when test="${fn:contains(user.headpath  ,'http://') }">src="${user.headpath  }"</c:when>
@@ -157,7 +157,7 @@
 
                         <div class="row center">
                             <div class="row margin-b20" id="loadingAnimation">
-                                <img alt="load comment of ${ datamap.lrc_title}" src="/static/img/loading.gif" width="30"
+                                <img alt="load comment of ${ datamap.lrc_title}" src="https://northpark.cn/statics/img/loading.gif" width="30"
                                      height="30">
                             </div>
                             <button class="btn btn-default btn-lg margin-b20" id="loadStuffCommentBtn"
@@ -230,9 +230,9 @@
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
-<script src="/static/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="/static/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
-<script src="/static/js/page/zancmt.js"></script>
+<script src="https://northpark.cn/statics/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="https://northpark.cn/statics/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
+<script src="https://northpark.cn/statics/js/page/zancmt.js"></script>
 
 
 </body>

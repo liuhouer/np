@@ -14,7 +14,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
     <c:if test="${page==null || page==''}">
@@ -61,7 +61,7 @@
                                     <div class="thumbnail border-0 center">
                                         <a title="${s.title}">
                                             <c:if test="${s.img==null ||s.img==''}">
-                                                <img src="/static/img/davatar.jpg" alt="${s.title}" class="imgbreath">
+                                                <img src="https://northpark.cn/statics/img/davatar.jpg" alt="${s.title}" class="imgbreath">
                                             </c:if>
                                             <c:if test="${s.img!=null }">
                                                 <img src="${s.img }" alt="${s.title}" class="imgbreath">
@@ -117,7 +117,7 @@
 <%@ include file="/WEB-INF/views/page/common/fenye.jsp" %>
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
-<script src="/static/js/page/eq.js"></script>
+<script src="https://northpark.cn/statics/js/page/eq.js"></script>
 
 
 </body>

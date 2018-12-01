@@ -15,7 +15,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
     <title>Fans | NorthPark</title>
     <meta name="keywords" content="NorthPark,NorthPark中文网,迷妹,粉丝">
     <meta name="description"
@@ -116,7 +116,7 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
 
-<script src="/static/js/page/fans.js"></script>
+<script src="https://northpark.cn/statics/js/page/fans.js"></script>
 
 
 </body>

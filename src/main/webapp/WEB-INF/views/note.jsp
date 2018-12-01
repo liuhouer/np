@@ -14,14 +14,14 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
     <title>${user.username}的碎碎念-精神角落 | NorthPark </title>
     <meta name="keywords" content="NorthPark,碎碎念,精神角落">
     <meta name="description"
           content="NorthPark碎碎念的精神角落,它富有交互性和趣味性.">
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-    <link href="/static/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet"/>
+    <link href="https://northpark.cn/statics/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet"/>
 
 
 </head>
@@ -52,7 +52,7 @@
             </form>
             <div class="row bg-white margin-t10 margin-b10  ">
                 <div class="col-sm-1">
-                    <a href="/cm/pcentral" title="${user.username}的最爱"><img src="/static/img/davatar.jpg"
+                    <a href="/cm/pcentral" title="${user.username}的最爱"><img src="https://northpark.cn/statics/img/davatar.jpg"
                                                                             class="img-responsive  img-circle max-width-50"
                                                                             alt="${user.username}的最爱"></a></div>
                 <div class="col-sm-11">
@@ -110,11 +110,11 @@
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
-<script src="/static/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="/static/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
+<script src="https://northpark.cn/statics/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="https://northpark.cn/statics/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
 
 
-<script src="/static/js/page/note.js"></script>
+<script src="https://northpark.cn/statics/js/page/note.js"></script>
 
 </body>
 </html>

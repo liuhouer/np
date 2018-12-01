@@ -15,7 +15,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
     <title>NorthPark更新日志 | NorthPark</title>
     <meta name="keywords" content="NorthPark,更新日志">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
