@@ -44,10 +44,12 @@
      * ━━━━━━感觉萌萌哒━━━━━━
      */ -->
 
+<!-- load css -->
+<%@ include file="/WEB-INF/views/page/common/common.jsp" %>
+<link rel="stylesheet" href="https://northpark.cn/statics/css/font-awesome.css"><!-- 字体 -->
+<link media="all" type="text/css" rel="stylesheet" href="https://northpark.cn/statics/css/flexslider.css"><!-- 碎碎念轮播css -->
 
-    <style type="text/css">
 
-    </style>
 </head>
 
 <body>
@@ -181,10 +183,6 @@
 </div>
 
 
-<!-- load css -->
-<%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-<link rel="stylesheet" href="https://northpark.cn/statics/css/font-awesome.css"><!-- 字体 -->
-<link media="all" type="text/css" rel="stylesheet" href="https://northpark.cn/statics/css/flexslider.css"><!-- 碎碎念轮播css -->
 
 <!-- load js -->
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
