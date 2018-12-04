@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.northpark.exception.Result;
+import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.LyricsCommentManager;
 import cn.northpark.manager.LyricsManager;
 import cn.northpark.manager.LyricsZanManager;
@@ -46,7 +48,7 @@ public class LyricsZanAction {
      */
     @RequestMapping("/zan")
     @ResponseBody
-    public String zan(String lyricsid, String userid, HttpServletRequest request) {
+    public Result<String> zan(String lyricsid, String userid, HttpServletRequest request) {
 
         if (StringUtils.isEmpty(userid)) {
             User u = (User) request.getSession().getAttribute("user");
@@ -80,7 +82,7 @@ public class LyricsZanAction {
                 log.error("zanacton------>", e);
             }
         }
-        return msg;
+        return ResultGenerator.genSuccessResult(msg);
     }
 
     /**
@@ -94,7 +96,7 @@ public class LyricsZanAction {
      */
     @RequestMapping("/addComment")
     @ResponseBody
-    public String addComment(String comment, String userid, String lyricsid, HttpServletRequest request) {
+    public Result<String> addComment(String comment, String userid, String lyricsid, HttpServletRequest request) {
         if (StringUtils.isEmpty(userid)) {
             User u = (User) request.getSession().getAttribute("user");
             userid = String.valueOf(u.getId());
@@ -126,7 +128,7 @@ public class LyricsZanAction {
             msg = "exception";
             log.error("zanacton------>", e);
         }
-        return msg;
+        return ResultGenerator.genSuccessResult(msg);
     }
 
 }

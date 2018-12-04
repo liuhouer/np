@@ -7,10 +7,10 @@ function removes(obj) {
             beforeSend: beforeSend, //发送请求
             complete: complete,
             data: {"id": id},
+            dataType: "json",
             success: function (msg) {
                 //console.log(msg);
-                msg = eval('(' + msg + ')');
-                if (msg.result == "success.") {
+                if (msg.data == "success.") {
                     //成功|js移除模块
 
                     $(obj).parent().parent().remove();

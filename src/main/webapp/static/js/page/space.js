@@ -6,9 +6,10 @@ $("#J_gz_btn").click(function () {
     var url = window.location.href;
     $.ajax({
         url: "/cm/loginFlag",
-        type: "post",
+        type: "get",
+        dataType: "json",
         success: function (msg) {
-            if (msg == "1") {//已登录
+            if (msg.data == "1") {//已登录
                 var userid = uid;
                 var author_id = $("#by_id").val();
                 var gz_status = gz;
@@ -24,13 +25,13 @@ $("#J_gz_btn").click(function () {
                     type: "post",
                     data: {"author_id": author_id, "follow_id": userid},
                     success: function (msg) {
-                        if (msg == "success") {
+                        if (msg.data == "success") {
                             art.dialog.tips('已关注');
                             window.location.href = window.location.href;
                         }
                     }
                 });
-            } else if (msg == "0") {//没有登录
+            } else if (msg.data == "0") {//没有登录
                 window.location.href = "/login?redirectURI=" + url;
             }
 

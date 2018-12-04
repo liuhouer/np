@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.northpark.exception.Result;
+import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.NoteManager;
 import cn.northpark.manager.UserFollowManager;
 import cn.northpark.manager.UserManager;
@@ -388,7 +390,7 @@ public class NoteAction {
     //异步删除笔记内容
     @RequestMapping(value = "/remove")
     @ResponseBody
-    public String remove(ModelMap map, HttpServletRequest request, String id, HttpSession session) {
+    public Result<String> remove(ModelMap map, HttpServletRequest request, String id, HttpSession session) {
 
         String result = "success.";
         try {
@@ -412,9 +414,7 @@ public class NoteAction {
             log.error("noteacton------>", e);
         }
 
-        Map<String, Object> rsmap = new HashMap<String, Object>();
-        rsmap.put("result", result);
-        return JsonUtil.map2json(rsmap);
+        return ResultGenerator.genSuccessResult(result);
     }
 
 

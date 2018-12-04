@@ -29,7 +29,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.northpark.annotation.BruceOperation;
 import cn.northpark.exception.NorthParkException;
+import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultCode;
+import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Movies;
@@ -67,7 +69,7 @@ public class MoviesAction {
     @RequestMapping("/movies/handup")
     @ResponseBody
     @BruceOperation
-    public String handup(HttpServletRequest request) {
+    public Result<String> handup(HttpServletRequest request) {
         String rs = "success";
         try {
             String id = request.getParameter("id");
@@ -90,7 +92,7 @@ public class MoviesAction {
             log.error("moviesacton------>", e);
             rs = "ex";
         }
-        return rs;
+        return ResultGenerator.genSuccessResult(rs);
     }
 
 
@@ -103,7 +105,7 @@ public class MoviesAction {
     @RequestMapping("/movies/hideup")
     @ResponseBody
     @BruceOperation
-    public String hideup(HttpServletRequest request) {
+    public Result<String> hideup(HttpServletRequest request) {
         String rs = "success";
         try {
             String id = request.getParameter("id");
@@ -118,7 +120,7 @@ public class MoviesAction {
             log.error("moviesacton------>", e);
             rs = "ex";
         }
-        return rs;
+        return ResultGenerator.genSuccessResult(rs);
     }
 
 

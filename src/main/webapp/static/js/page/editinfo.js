@@ -24,14 +24,12 @@ function saves() {
         $.ajax({
 
             url: "/cm/tailFlag",
-
             type: "post",
-
             data: {"tail": slug},
-
+            dataType: "json",
             success: function (msg) {
 
-                if (msg == "exist") {//存在
+                if (msg.data == "exist") {//存在
 
                     art.dialog.tips('域名代号已存在');
                     $("#tail_slug").focus();

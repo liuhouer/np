@@ -29,9 +29,10 @@ $(document).ready(function () {
             $.ajax({
                 url: "/zanAction/addComment",
                 type: "post",
+                dataType: "json",
                 data: {"lyricsid": lrcid, "userid": uid, "comment": comment},
                 success: function (msg) {
-                    if (msg == "success") {
+                    if (msg.data == "success") {
                         art.dialog.tips('评论成功');
                         window.location.href = window.location.href;
                     }
@@ -50,22 +51,25 @@ $(document).ready(function () {
         }
         $.ajax({
             url: "/cm/loginFlag",
-            type: "post",
+            type: "get",
+            dataType: "json",
             success: function (msg) {
-                if (msg == "1") {//已登录
+                if (msg.data == "1") {//已登录
                     var userid = uid;
                     $.ajax({
                         url: "/zanAction/zan",
                         type: "post",
+                        dataType: "json",
                         data: {"lyricsid": lrcid, "userid": userid},
-                        success: function (msg) {
-                            if (msg == "success") {
+                        success: function (data) {
+                            if (data.data == "success") {
                                 $("#J_gz_btn").text('已爱上~');
+                                window.location.href = window.location.href;
                             }
                         }
                     });
 
-                } else if (msg == "0") {//没有登录
+                } else if (msg.data == "0") {//没有登录
 
                     window.location.href = "/login?redirectURI=" + uri;
                 }

@@ -82,7 +82,7 @@ public class UserAction {
      */
     @RequestMapping("/cm/loginFlag")
     @ResponseBody
-    public String loginFlag(HttpServletRequest request) {
+    public Result<String> loginFlag(HttpServletRequest request) {
         String msg = "0";
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
@@ -90,7 +90,7 @@ public class UserAction {
         }
 
 
-        return msg;
+        return ResultGenerator.genSuccessResult(msg);
 
     }
 
@@ -127,13 +127,13 @@ public class UserAction {
      */
     @RequestMapping("/cm/tailFlag")
     @ResponseBody
-    public String tailFlag(HttpServletRequest request, HttpServletResponse response, ModelMap map, String tail) {
+    public Result<String> tailFlag(HttpServletRequest request, HttpServletResponse response, ModelMap map, String tail) {
         int num = userManager.countHql(" where tail_slug = '" + tail + "' ");
         String msg = "exist";//存在；
         if (num <= 0) {
             msg = "notexist";//不存在
         }
-        return msg;
+        return ResultGenerator.genSuccessResult(msg);
 
     }
 
@@ -240,7 +240,7 @@ public class UserAction {
     //成为粉丝
     @RequestMapping("/cm/follow")
     @ResponseBody
-    public String follow(ModelMap map, String author_id, String follow_id) {
+    public Result<String> follow(ModelMap map, String author_id, String follow_id) {
         String msg = "success";
 
         try {
@@ -267,13 +267,13 @@ public class UserAction {
         }
 
 
-        return msg;
+        return ResultGenerator.genSuccessResult(msg);
     }
 
     //移除某个粉丝
     @RequestMapping("/cm/rmfollow")
     @ResponseBody
-    public String rmfollow(ModelMap map, String id) {
+    public Result<String> rmfollow(ModelMap map, String id) {
         String msg = "success";
 
         try {
@@ -288,7 +288,7 @@ public class UserAction {
             msg = "exp";
         }
 
-        return msg;
+        return ResultGenerator.genSuccessResult(msg);
     }
 
 

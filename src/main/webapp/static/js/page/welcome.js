@@ -12,9 +12,10 @@ function zan(lrcid, userid) {
     $.ajax({
         url: "/zanAction/zan",
         type: "post",
+        dataType: "json",
         data: {"lyricsid": lrcid, "userid": userid},
         success: function (msg) {
-            if (msg == "success") {
+            if (msg.data == "success") {
                 art.dialog.tips('已赞!');
                 window.location.href = window.location.href;
             }
