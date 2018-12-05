@@ -1,5 +1,6 @@
 package cn.northpark.exception;
 
+import cn.northpark.constant.ResultEnum;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -33,12 +34,12 @@ public class ResultGenerator {
      * 生成通用结果 --成功/失败
      * @param success
      * @param data
-     * @param code
+     * @param integer
      * @param message
      * @param <T>
      * @return
      */
-    public static <T> Result<T> genResult(boolean flag, T data, String code,String message) {
+    public static <T> Result<T> genResult(boolean flag, T data, Integer code,String message) {
         Result<T> result = Result.newInstance();
         result.setResult(flag);
         result.setData(data);
@@ -59,7 +60,7 @@ public class ResultGenerator {
      * @param <T>
      * @return
      */
-    public static <T> Result<T> genResult(boolean flag, T data, ResultCode enums) {
+    public static <T> Result<T> genResult(boolean flag, T data, ResultEnum enums) {
         Result<T> result = Result.newInstance();
         result.setResult(flag);
         result.setData(data);
@@ -80,7 +81,7 @@ public class ResultGenerator {
      */
     public static <T> Result<T> genSuccessResult(T data) {
 
-        return genResult(true, data, "200", "ok");
+        return genResult(true, data, 200, "ok");
     }
     
     /**
@@ -98,9 +99,9 @@ public class ResultGenerator {
      * @param <T>
      * @return
      */
-    public static <T> Result<T> genErrorResult(String code,String message) {
+    public static <T> Result<T> genErrorResult(Integer integer,String message) {
 
-        return genResult(false, null, code, message);
+        return genResult(false, null, integer, message);
     }
 
     /**
@@ -109,7 +110,7 @@ public class ResultGenerator {
      * @param <T>
      * @return
      */
-    public static <T> Result<T> genErrorResult(ResultCode error) {
+    public static <T> Result<T> genErrorResult(ResultEnum error) {
 
         return genErrorResult(error.getCode(),error.getMessage());
     }

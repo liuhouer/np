@@ -9,7 +9,7 @@ $(function () {
                 data: {"email": em},
                 success: function (msg) {
                 	if(msg.result){
-                		 if (msg.data.msg == "exist") {
+                		 if (msg.data == "exist") {
                              $("#J_tip").text("success");
                              $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext'));
                          } else {
@@ -36,7 +36,7 @@ $(function () {
             success: function (msg) {
             	
             	if(msg.result){
-            		if (msg.data.msg == "ok") {//发送成功
+            		if (msg.data == "ok") {//发送成功
                         $("#J_tip").text("发送成功，快去登陆你的邮箱操作吧");
                         $('#formSubmit').attr('disabled', true);
                     } else {             //发送失败

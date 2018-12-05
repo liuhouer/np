@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 
+import cn.northpark.constant.ResultEnum;
 import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
@@ -49,7 +50,7 @@ public class NorthparkExceptionHandler {
     			NorthParkException ex = (NorthParkException) e;
     			return ResultGenerator.genErrorResult(ex.getCode(), ex.getMessage() + ex.getExtendMsg());
     		} else {
-    			return ResultGenerator.genErrorResult(ResultCode.SERVER_ERROR.getCode(),ResultCode.SERVER_ERROR.getMessage()+"-->"+e.getMessage());
+    			return ResultGenerator.genErrorResult(ResultEnum.SERVER_ERROR.getCode(),ResultEnum.SERVER_ERROR.getMessage()+"-->"+e.getMessage());
     		}
     	} else {
     		String exception = "";
@@ -57,7 +58,7 @@ public class NorthparkExceptionHandler {
     			NorthParkException ex = (NorthParkException) e;
     			exception =  JSON.toJSONString(ResultGenerator.genErrorResult(ex.getCode(), ex.getMessage() + ex.getExtendMsg()));
     		} else {
-    			exception =  JSON.toJSONString(ResultGenerator.genErrorResult(ResultCode.SERVER_ERROR.getCode(),ResultCode.SERVER_ERROR.getMessage()+"-->"+e.getMessage()));
+    			exception =  JSON.toJSONString(ResultGenerator.genErrorResult(ResultEnum.SERVER_ERROR.getCode(),ResultEnum.SERVER_ERROR.getMessage()+"-->"+e.getMessage()));
     		}
     		ModelAndView mav = new ModelAndView();
             mav.addObject("exception", exception);

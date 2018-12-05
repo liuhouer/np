@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.northpark.annotation.BruceOperation;
+import cn.northpark.constant.ResultEnum;
 import cn.northpark.exception.NorthParkException;
 import cn.northpark.exception.Result;
-import cn.northpark.exception.ResultCode;
 import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.TagsManager;
@@ -176,7 +176,7 @@ public class MoviesAction {
     @RequestMapping("/movies/addItem")
     @ResponseBody
     @BruceOperation
-    public String addItem(ModelMap map, Movies model) {
+    public Result<String> addItem(ModelMap map, Movies model) {
         String rs = "success";
         try {
         	//更新
@@ -198,7 +198,7 @@ public class MoviesAction {
             log.error("moviesacton------>", e);
             rs = "ex";
         }
-        return rs;
+        return ResultGenerator.genSuccessResult(rs);
     }
 
 
@@ -445,7 +445,7 @@ public class MoviesAction {
                     String[] tags = tag.split(",");
                     String[] tagcodes = tagcode.split(",");
                     if (tags.length != tagcodes.length) {
-                    	throw new NorthParkException(ResultCode.Movie_Tag_Not_Match);
+                    	throw new NorthParkException(ResultEnum.Movie_Tag_Not_Match);
                     }
                     List<Map<String, String>> taglist = new ArrayList<Map<String, String>>();
                     for (int i = 0; i < tags.length; i++) {

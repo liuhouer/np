@@ -1,6 +1,9 @@
 package cn.northpark.exception;
 
+import cn.northpark.constant.ResultEnum;
+import lombok.Getter;
 
+@Getter
 public class NorthParkException extends RuntimeException{
 	/**
 	 * 
@@ -9,14 +12,14 @@ public class NorthParkException extends RuntimeException{
 	/**
 	 * 
 	 */
-	private String code;
+	private Integer code;
 	private String extendMsg;
 	/**
 	 * @author 自定义异常
 	 * @param resultEnum自定义错误枚举
 	 * 
 	 */
-	public NorthParkException(ResultCode resultEnum) {
+	public NorthParkException(ResultEnum resultEnum) {
 		super(resultEnum.getMessage());
 		this.code=resultEnum.getCode();
 	}
@@ -26,22 +29,10 @@ public class NorthParkException extends RuntimeException{
 	 * @param resultEnum自定义错误枚举 +自定义消息 带拼接
 	 * 
 	 */
-	public NorthParkException(ResultCode resultEnum,String extendMsg) {
+	public NorthParkException(ResultEnum resultEnum,String extendMsg) {
 		super(resultEnum.getMessage());
 		this.code = resultEnum.getCode();
 		this.extendMsg =  extendMsg;
 	}
 	
-	public String getExtendMsg() {
-		return extendMsg;
-	}
-	public void setExtendMsg(String extendMsg) {
-		this.extendMsg = extendMsg;
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
 }

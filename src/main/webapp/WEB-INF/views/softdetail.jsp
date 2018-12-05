@@ -14,7 +14,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
+    <link rel="shortcut icon" href="/statics/img/favicon.ico">
     <title>${article.title} | NorthPark</title>
     <meta name="keywords" content="${article.title},${article.tags},NorthPark">
     <meta name="description"

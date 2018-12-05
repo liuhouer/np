@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.util.Random;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -236,12 +234,6 @@ public class MD5Utils {
         return true;
     }
 
-    public static String decodePwd(String password) {
-        String old_pwd = "";
-        String enpwd = password.substring(10, password.length() - 10);
-        old_pwd = new String(Base64.decode(enpwd));
-        return old_pwd;
-    }
 
     public static void main(String[] args) {
         log.info(MD5Utils.encoding("bruce134"));

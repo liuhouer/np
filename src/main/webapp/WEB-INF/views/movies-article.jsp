@@ -14,7 +14,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
+    <link rel="shortcut icon" href="/statics/img/favicon.ico">
     <title>${model.moviename}:影视窝 | NorthPark</title>
     <meta name="keywords" content="NorthPark,${model.moviename},${model.tag}">
     <meta name="description"
@@ -207,8 +207,9 @@
             url: "/movies/handup",
             type: "post",
             data: {"id": id},
+            dataType: "json",
             success: function (msg) {
-                if (msg == "success") {
+                if (msg.data == "success") {
                     art.dialog.tips('置顶成功');
                 } else {
                     art.dialog.tips('error happened.');
@@ -223,8 +224,9 @@
             url: "/movies/hideup",
             type: "post",
             data: {"id": id},
+            dataType: "json",
             success: function (msg) {
-                if (msg == "success") {
+                if (msg.data == "success") {
                     art.dialog.tips('隐藏成功');
                     window.location.href = window.location.href;
                 } else {

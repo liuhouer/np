@@ -6,7 +6,6 @@ package cn.northpark.action;
  **/
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,6 @@ import cn.northpark.model.Note;
 import cn.northpark.model.User;
 import cn.northpark.query.NoteQuery;
 import cn.northpark.query.condition.NoteQueryCondition;
-import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;

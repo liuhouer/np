@@ -13,7 +13,7 @@
     <meta http-equiv="Content-Language" content="zh-CN">
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
+    <link rel="shortcut icon" href="/statics/img/favicon.ico">
     <title>赞助本站  | NorthPark</title>
     <meta name="keywords" content="赞助本站NorthPark">
     <meta name="description" content="">
@@ -60,7 +60,7 @@
 						<p>1、在手机上使用【支付宝钱包】，使用【扫一扫】功能，扫描下面的二维码图片后向本站赞助相应金额；</p>
 						<p style="text-align: center;">
 							<img class="alignnone  max-width-200 "
-								src="https://northpark.cn/statics/img/pay/alipay-merchant.jpg"
+								src="/statics/img/pay/alipay-merchant.jpg"
 								  height="320px;">
 						</p>
 						<p>2、在电脑<a href="https://www.alipay.com/">&nbsp; 支付宝 &nbsp;</a>网站上，使用【转账到支付宝】手动转账相应金额到  15010670155 ：</p>
@@ -68,13 +68,13 @@
 						<p style="text-align: center;">校验全名： ***洋</p>
 						<p style="text-align: center;">
 							<img class="aligncenter" style="width: 150px;"
-								src="https://northpark.cn/statics/img/pay/alipay-online.png"
+								src="/statics/img/pay/alipay-online.png"
 								alt="赞助本站" width="150">
 						</p>
 						<p>3、在手机上使用【微信】，使用【扫一扫】功能，扫描下面的二维码图片后向本站赞助相应金额；</p>
 						<p style="text-align: center;">
 							<img class="alignnone size-full max-width-200"
-								src="https://northpark.cn/statics/img/pay/wxpay.jpg"
+								src="/statics/img/pay/wxpay.jpg"
 								height="300" >
 						</p>
 						<p>
@@ -128,7 +128,7 @@
 </div>
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
-<script src="https://northpark.cn/statics/js/page/forget.js"></script>
+<script src="/statics/js/page/forget.js"></script>
 
 
 </body>

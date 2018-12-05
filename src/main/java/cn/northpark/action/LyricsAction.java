@@ -27,8 +27,8 @@ import cn.northpark.annotation.Desc;
 import cn.northpark.annotation.Redis;
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.constant.BC_Constant.RedisReturnType;
+import cn.northpark.constant.ResultEnum;
 import cn.northpark.exception.NorthParkException;
-import cn.northpark.exception.ResultCode;
 import cn.northpark.form.LyricsForm;
 import cn.northpark.manager.LyricsCommentManager;
 import cn.northpark.manager.LyricsManager;
@@ -146,7 +146,7 @@ public class LyricsAction {
     	//验证表单
     	if(bindingResult.hasErrors()) {
     		log.error("【添加主题】 参数不正确,lyricsForm={}", lyricsForm);
-    		throw new NorthParkException(ResultCode.Lyrics_Param_Not_Valid, bindingResult.getFieldError().getDefaultMessage());
+    		throw new NorthParkException(ResultEnum.Lyrics_Param_Not_Valid, bindingResult.getFieldError().getDefaultMessage());
     	}
     	
         User u = (User) request.getSession().getAttribute("user");

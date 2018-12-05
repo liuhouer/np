@@ -15,7 +15,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
+    <link rel="shortcut icon" href="/statics/img/favicon.ico">
     <title>${model.title} | NorthPark </title>
     <meta name="keywords" content="NorthPark,情商提升,情圣日记，撩妹技巧">
     <meta name="description"

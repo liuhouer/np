@@ -14,7 +14,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
+    <link rel="shortcut icon" href="/statics/img/favicon.ico">
     <title>${poem_enjoy.title }-${poem_enjoy.author }:诗词秀 | NorthPark</title>
     <meta name="keywords" content="${poem_enjoy.title },${poem_enjoy.author },诗词秀,诗词赏析,诗词天地,爱诗词,NorthPark">
     <meta name="description"
@@ -89,7 +89,7 @@
 
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
-<script type="text/javascript" src="https://northpark.cn/statics/js/canvas-particle.js"></script>
+<script type="text/javascript" src="/statics/js/canvas-particle.js"></script>
 <script type="text/javascript">
     //禁止图片拉伸
     $(function () {

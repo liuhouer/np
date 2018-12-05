@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
+import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Connection.Response;
@@ -638,6 +639,8 @@ public class HTMLParserUtil {
                     String title = a.attr("title");
 
                     title = title.replace("-VPS推荐网", "");
+                    
+                    Md5Crypt.apr1Crypt(title);
 
                     String retcode = MD5Utils.encoding(title);
 

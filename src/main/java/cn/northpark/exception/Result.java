@@ -12,7 +12,7 @@ public class Result<T> {
 
     private boolean result;
     
-    private String code;
+    private Integer code;
 
     private String message;
 

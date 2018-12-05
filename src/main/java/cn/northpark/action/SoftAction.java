@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.northpark.annotation.BruceOperation;
+import cn.northpark.exception.Result;
+import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Soft;
 import cn.northpark.utils.JsonUtil;
@@ -105,7 +107,7 @@ public class SoftAction {
     @RequestMapping("/addItem")
     @ResponseBody
     @BruceOperation
-    public String addItem(ModelMap map, Soft model) {
+    public Result<String> addItem(ModelMap map, Soft model) {
         String rs = "success";
         try {
         	//更新
@@ -131,7 +133,7 @@ public class SoftAction {
             log.error("Softacton------>", e);
             rs = "ex";
         }
-        return rs;
+        return ResultGenerator.genSuccessResult(rs);
     }
 
     /**

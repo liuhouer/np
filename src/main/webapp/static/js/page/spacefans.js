@@ -42,6 +42,7 @@ $("#J_gz_btn").click(function () {
                 $.ajax({
                     url: "/cm/follow",
                     type: "post",
+                    dataType: "json",
                     data: {"author_id": author_id, "follow_id": userid},
                     success: function (msg) {
                         if (msg.data == "success") {

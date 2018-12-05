@@ -14,7 +14,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
+    <link rel="shortcut icon" href="/statics/img/favicon.ico">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
     <c:if test="${page==null || page==''}">
         <title>Mac软件 | NorthPark</title>

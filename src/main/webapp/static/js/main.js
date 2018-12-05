@@ -3,7 +3,7 @@ $(function () {
 
     $.ajax({
         url: "/dash/getLove",
-        type: "post",
+        type: "get",
         success: function (data) {
             if (data) {
                 $("#J_container_love").prepend(data);
@@ -25,7 +25,7 @@ $(function () {
     //加载suisui
     $.ajax({
         url: "/dash/getNote",
-        type: "post",
+        type: "get",
         success: function (data) {
             if (data) {
                 $("#J_container_note").prepend(data);
@@ -50,7 +50,7 @@ $(function () {
     //加载romeo
     $.ajax({
         url: "/dash/getRomeo",
-        type: "post",
+        type: "get",
         success: function (data) {
             if (data) {
                 $("#J_container_romeo").prepend(data);
@@ -61,7 +61,7 @@ $(function () {
     //加载movies
     $.ajax({
         url: "/dash/getMovies",
-        type: "post",
+        type: "get",
         success: function (data) {
             if (data) {
                 $("#J_container_movies").prepend(data);

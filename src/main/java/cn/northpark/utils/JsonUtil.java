@@ -141,7 +141,7 @@ public class JsonUtil {
 	 * @param cls
 	 * @return
 	 */
-	public static <T> T getJson(String jsonString, Class<T> cls) {
+	public static <T> T json2Bean(String jsonString, Class<T> cls) {
 		T t = null;
 		try {
 			t = JSON.parseObject(jsonString, cls);
@@ -159,7 +159,7 @@ public class JsonUtil {
 	 * @param cls
 	 * @return
 	 */
-	public static <T> List<T> getArrayJson(String jsonString, Class<T> cls) {
+	public static <T> List<T> json2ListBean(String jsonString, Class<T> cls) {
 		List<T> list = new ArrayList<T>();
 		try {
 			list = JSON.parseArray(jsonString, cls);
@@ -176,7 +176,7 @@ public class JsonUtil {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> List<T> getArrayJson(String jsonString) {
+	public static <T> List<T> json2ListString(String jsonString) {
 		List<T> list = new ArrayList<T>();
 		try {
 			list = (List<T>) JSON.parseArray(jsonString);

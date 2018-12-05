@@ -17,7 +17,7 @@
     <title>NorthPark / 添加电影</title>
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-    <link href="https://northpark.cn/statics/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet"/>
+    <link href="/statics/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet"/>
 
 </head>
 
@@ -143,8 +143,8 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
 
-<script src="https://northpark.cn/statics/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="https://northpark.cn/statics/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
+<script src="/statics/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="/statics/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
         var editor = $('#J_md_text').wangEditor({
@@ -182,16 +182,13 @@
             if ($("#J_name").val() && $("#J_md_text").val()  && $("#J_path").val()) {
 
                 $.ajax({
-
                     url: "/soft/addItem",
-
                     type: "post",
-
+                    dataType: "json",
                     data: $('#addItemForm').serialize(),// 要提交的表单 ,
-
                     success: function (msg) {
 
-                        if (msg == "success") {
+                        if (msg.data == "success") {
 
                             art.dialog.tips('添加成功');
                             $('#formSubmit').attr("disabled", 'disabled');

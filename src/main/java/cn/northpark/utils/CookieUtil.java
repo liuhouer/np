@@ -27,6 +27,12 @@ public class CookieUtil {
         response.addCookie(cookie);
     }
 
+    /**
+     * 获取cookie
+     * @param request
+     * @param name
+     * @return
+     */
     public static Cookie get(HttpServletRequest request,
                              String name) {
         Cookie[] cookies = request.getCookies();
@@ -39,6 +45,26 @@ public class CookieUtil {
         }
 
         return null;
+    }
+    
+    
+    
+    /**
+     * 清空cookie
+     * @param request
+     * @param response
+     */
+    public static void clearAll(HttpServletRequest request,HttpServletResponse response) {
+    	Cookie[] cookies = request.getCookies();
+    	if (cookies != null) {
+    		for (Cookie cookie: cookies) {
+    			 Cookie cookie1 = new Cookie(cookie.getName(),null); 
+    			 cookie1.setMaxAge(0); 
+    			 cookie1.setPath("/"); 
+    			 response.addCookie(cookie1); 
+    		}
+    	}
+
     }
 
 }

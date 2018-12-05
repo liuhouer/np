@@ -94,8 +94,8 @@
 
 
 	<!-- 静态资源映射 -->
-	<!-- 缓存存在时间 cache-period 1年 -->
-	<mvc:resources mapping="/static/**"  location="/static/"  cache-period="31556926"/>
+	<!-- 缓存存在时间 cache-period 1年 --><!-- 本地运行打开，线上时注释掉 -->
+	<!-- <mvc:resources mapping="/statics/**"  location="/static/"  cache-period="31556926"/> -->
     <mvc:resources mapping="/sitemap/**" location="/sitemap/" />
     
     <!-- 定义多文件上传 -->

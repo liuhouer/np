@@ -8,7 +8,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -29,6 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.northpark.annotation.CheckLogin;
 import cn.northpark.constant.BC_Constant;
+import cn.northpark.constant.CookieConstant;
+import cn.northpark.constant.RedisConstant;
+import cn.northpark.constant.ResultEnum;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.MQProducerManager;
@@ -42,9 +45,12 @@ import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
 import cn.northpark.utils.AddressUtils;
 import cn.northpark.utils.Base64Util;
+import cn.northpark.utils.CookieUtil;
 import cn.northpark.utils.FileUtils;
+import cn.northpark.utils.IDUtils;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.PinyinUtil;
+import cn.northpark.utils.RedisUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.safe.WAQ;
 import lombok.extern.slf4j.Slf4j;
@@ -74,21 +80,19 @@ public class UserAction {
 
     /**
      * @param request
-     * @param response
-     * @param map
-     * @param url
      * @return 0、1 【0：没有 | 1：有】
-     * @ 页面对有关于用户的操作，先异步进行判断，假如有用户，返回1.没有用户直接跳转到登陆界面，并且传入需要return的url。
      */
     @RequestMapping("/cm/loginFlag")
     @ResponseBody
     public Result<String> loginFlag(HttpServletRequest request) {
-        String msg = "0";
-        User user = (User) request.getSession().getAttribute("user");
-        if (user != null) {
-            msg = "1";
-        }
+    	
+    	String msg = "0";
+    	//判断是否已登录
+    	User user = (User) request.getSession().getAttribute("user");
+    	if(user!=null) {
 
+    		msg = "1";
+    	}
 
         return ResultGenerator.genSuccessResult(msg);
 
@@ -104,16 +108,14 @@ public class UserAction {
      */
     @RequestMapping("/cm/emailFlag")
     @ResponseBody
-    public Result<Map<String,Object>> emailFlag( String email) {
-        Map<String,Object> data = new HashMap<>();
+    public Result<String> emailFlag( String email) {
     	int num = userManager.countHql(" where email = '" + email + "' ");
         
         String msg = "exist";//存在；
         if (num <= 0) {
             msg = "notexist";//不存在
         }
-        data.put("msg", msg);
-        return ResultGenerator.genSuccessResult(data);
+        return ResultGenerator.genSuccessResult(msg);
 
     }
 
@@ -142,8 +144,7 @@ public class UserAction {
      */
     @RequestMapping("/cm/resetEmail")
     @ResponseBody
-    public Result<Map<String,Object>> resetEmail(String email) throws ParseException {
-    	 Map<String,Object> data = new HashMap<>();
+    public Result<String> resetEmail(String email) throws ParseException {
         String userid = "";
         List<User> list = userManager.findByCondition(" where email = '" + email + "' ").getResultlist();
         if (!CollectionUtils.isEmpty(list)) {
@@ -152,7 +153,7 @@ public class UserAction {
         //添加重置的信息============================================
         Reset reset = new Reset();
         reset.setCreated_time(TimeUtils.nowTime());
-        String code = cn.northpark.utils.UUIDUtils.geneInt();
+        String code = IDUtils.geneInt();
         reset.setAuth_code(code);
         reset.setInvalid_time(TimeUtils.getDayAfter(TimeUtils.nowTime()));
         reset.setIs_email_authed(0);
@@ -170,8 +171,7 @@ public class UserAction {
         mqData.put("code",code);
 		
         messageProducer.sendDataToQueue(BC_Constant.MQ_MAIL_RESET, mqData);
-        data.put("msg", "ok");
-        return  ResultGenerator.genSuccessResult(data);
+        return  ResultGenerator.genSuccessResult("ok");
     }
 
     /**
@@ -710,40 +710,14 @@ public class UserAction {
         Enumeration<?> e = session.getAttributeNames();
         while (e.hasMoreElements()) {
             String sessionName = (String) e.nextElement();
-            log.info("存在的session有：" + sessionName);
             session.removeAttribute(sessionName);
-
         }
-        clearCookie(request, response);
-        String a = request.getParameter("flag");
-        String etc = "?signout=true";
-        if (StringUtils.isNotEmpty(a)) {
-            if (a.equals("qq")) {
-                etc = "";
-            }
-        }
+        CookieUtil.clearAll(request, response);
 
-        return HOME_ACTION + etc;
+        return HOME_ACTION ;
     }
 
 
-    /**
-     * 清空cookie,保留username
-     */
-    private static void clearCookie(HttpServletRequest request,
-                                    HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-        try {
-            for (int i = 0; i < cookies.length; i++) {
-                Cookie cookie = new Cookie(cookies[i].getName(), null);
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
-            }
-        } catch (Exception e) {
-            log.error("commonAction------>", e);
-        }
-
-    }
 
     /**
      * 注册用户方法
@@ -754,9 +728,8 @@ public class UserAction {
      */
     @RequestMapping("/cm/signup")
     @ResponseBody
-    public Result<Map<String,Object>> signup( ModelMap map, HttpSession session,HttpServletRequest request) throws Exception{
+    public Result<?> signup( ModelMap map, HttpSession session,HttpServletRequest request) throws Exception{
     	
-    	Map<String,Object> data = new HashMap<>();
     	
     	String email = request.getParameter("email");
     	String password = request.getParameter("password");
@@ -767,8 +740,7 @@ public class UserAction {
         password = WAQ.forSQL().escapeSql(password);
         int num = userManager.countHql(" where email= '" + email + "' ");
         if (num > 0) {
-        	data.put("info", "该账户已经注册");
-        	data.put("result", "error");
+        	return ResultGenerator.genErrorResult(ResultEnum.REG_Fail_Repeat);
         } else {
         	//注册
         	User user = new User();
@@ -806,19 +778,19 @@ public class UserAction {
             mqData.put("email", email);
             messageProducer.sendDataToQueue(BC_Constant.MQ_MAIL_JOIN, mqData);
             
-
-		    data.put("info", "注册成功");
-        	data.put("result", "success");
 		    this.userManager.addUser(user);
+		    return ResultGenerator.genSuccessResult("ok");
            
         }
-        return ResultGenerator.genSuccessResult(data);
     }
 
 
     /**
-     * 登录方法
-     *
+     * 重写登录逻辑
+     * 1.登陆成功
+     * 2.redis写token 和登录对象
+     * 3.往cookie里写 token
+     * 
      * @param request
      * @param response
      * @param session
@@ -830,12 +802,22 @@ public class UserAction {
      */
     @RequestMapping(value = "/cm/login")
     @ResponseBody
-    public Result<Map<String, String>> login(HttpServletRequest request,
-                        HttpServletResponse response, HttpSession session, String email,
-                        String password, ModelMap map) throws Exception {
-    	Map<String, String> data = new HashMap<String, String>();
-        String result = "";
-        String info = "";
+    public Result<?> login(HttpServletRequest request,HttpServletResponse response,String email,String password) throws Exception {
+    	
+    	 //1.cookie登录
+    	 Cookie cookie = CookieUtil.get(request, CookieConstant.TOKEN);
+         if (cookie != null) {
+        	 String userstr = RedisUtil.get(String.format(RedisConstant.TOKEN_TEMPLATE, cookie.getValue()));
+        	 
+        	 if(StringUtils.isNotEmpty(userstr)) {
+        		 User user = JsonUtil.json2Bean(userstr, User.class);
+        		 //6.本次session存放
+            	 request.getSession().setAttribute("user", user);
+            	 return ResultGenerator.genSuccessResult();
+        	 }
+         	
+         }
+    	
         //获取IP+地址
         String ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
         if (!StringUtils.isEmpty(email) && !StringUtils.isEmpty(password)) {
@@ -844,44 +826,31 @@ public class UserAction {
             password = Base64Util.JIAMI(password);
             User user = userManager.login(email, password,ipAndDetail);
             if (user != null && !user.getEmail_flag().equals("0")) {
+            	 //2.登录成功
+            		
+            	 //3. 往redis设置key=UUID,value=xyz
+                 String token = UUID.randomUUID().toString();
+                 RedisUtil.set(String.format(RedisConstant.TOKEN_TEMPLATE, token), JsonUtil.object2json(user),  CookieConstant.expire);
 
-                session.setAttribute("user", user);
-                map.put("user", user);
-                result = "success";
-                info = "登陆成功";
-            } else if(user != null && user.getEmail_flag().equals("0")){
-            	result = "error";
-                info = "邮箱未通过验证，请重试或者联系站长解决登陆问题";
+                 //4. 设置cookie openid = abc
+                 CookieUtil.set(response, CookieConstant.TOKEN, token, CookieConstant.expire);
+                 
+                 //5.返回结果
+//            	 UserVO uservo = new UserVO();
+//            	 BeanUtils.copyProperties(user, uservo);
+            	 
+            	 //6.本次session存放
+            	 request.getSession().setAttribute("user", user);
+            	 return ResultGenerator.genSuccessResult();
+            }else if(user != null && user.getEmail_flag().equals("0")){
+            	//"邮箱未通过验证，请重试或者联系站长解决登陆问题
+            	return ResultGenerator.genErrorResult(ResultEnum.Login_Email_Validate_Fail);
             }else {
-                result = "error";
-                info = "用户名密码错误";
+            	//登录失败
+            	return ResultGenerator.genErrorResult(ResultEnum.Login_Fail);
             }
         }
-        data.put("result", result);
-        data.put("info", info);
-        return ResultGenerator.genSuccessResult(data);
+		return null;
     }
-
-
-    /////////////////////////////////////////失效的方法和工具方法、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
-
-    /**
-     * @return
-     * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
-     */
-    public static Integer getRandomOne(List<?> list) {
-
-
-        Random ramdom = new Random();
-        int number = -1;
-        int max = list.size();
-
-        //size 为  10 ，取得类似0-9的区间数
-        number = Math.abs(ramdom.nextInt() % max);
-
-        return number;
-
-    }
-
 
 }

@@ -14,7 +14,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="https://northpark.cn/statics/img/lemon_favicon.png">
+    <link rel="shortcut icon" href="/statics/img/lemon_favicon.png">
     <title>星座塔罗牌 | NorthPark</title>
     <meta name="description" content="NorthPark,文艺,小清新,Mac软件,影视窝,碎碎念,图册,情圣,情商提升">
     <meta name="keywords"
@@ -169,7 +169,7 @@
 
 
                         <div class="row margin-b20 center" id="loadingAnimation">
-                            <img src="https://northpark.cn/statics/img/loading.gif" width="40" height="40">
+                            <img src="/statics/img/loading.gif" width="40" height="40">
                         </div>
                         <div class="" id="J_content">
 
@@ -267,6 +267,7 @@
 			 $.ajax({
 	             url:"/weixin/bindAstro",
 	             type:"post",
+	             dataType: "json",
 	             data:{"xzname":xzname,"wx_cop_userid":wx_cop_userid},
 	             success:function(msg){
 	            	 console.log(msg);
@@ -288,6 +289,7 @@
         $.ajax({
             url: "/weixin/getAstro",
             type: "post",
+            dataType: "json",
             data: {"xzname": xzname, "type": type},
             beforeSend: beforeSend, //发送请求
             complete: complete,

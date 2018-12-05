@@ -15,7 +15,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
+    <link rel="shortcut icon" href="/statics/img/favicon.ico">
     <title>火星救援 | NorthPark</title>
     <meta name="keywords" content="NorthPark,NorthPark中文网,NorthPark500">
     <meta name="description"
@@ -34,13 +34,13 @@
                 <div class="col-sm-12  center">
                         
 
-						<img src="https://northpark.cn/statics/img/500.jpg"></img>
+						<img src="/statics/img/500.jpg"></img>
 
 
 
 						<p class="center">
 							<span id="mes" style="cursor: pointer;"><font
-								color="#49c7be"><img src='/img/loading.gif' alt="星际穿越"
+								color="#49c7be"><img src='/statics/img/loading.gif' alt="星际穿越"
 									style='width: 16px; height: 16px;' /> 返回首页</font></span>
 						</p>
 
