@@ -1,5 +1,34 @@
 # np-web
 
+##2018年12月14日
+- docker: tomcat8.5集群 与 redis session 共享
+
+```
+
+<Context>
+    <!-- Default set of monitored resources -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    <!--
+    <Manager pathname="" />
+    -->
+
+    <!-- Uncomment this to enable Comet connection tacking (provides events
+         on session expiration as well as webapp lifecycle) -->
+    <!--
+    <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
+    -->
+<Valve className="com.orangefunction.tomcat.redissessions.RedisSessionHandlerValve" />
+<Manager className="com.orangefunction.tomcat.redissessions.RedisSessionManager"
+		   host="localhost"  
+		   port="6379"  
+		   password="caonima" 
+		   database="0"  
+		   maxInactiveInterval="60" />  
+</Context>
+```
+
 ## 2018年11月15日
 - docker
  - ElasticSearch

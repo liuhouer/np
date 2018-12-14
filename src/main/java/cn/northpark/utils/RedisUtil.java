@@ -41,6 +41,12 @@ public class RedisUtil {
 	                   .getString("redis.pool.maxActive"));
 	           int maxIdle = Integer.valueOf(bundle
 	                   .getString("redis.pool.maxIdle"));
+	           String ip = bundle
+	                   .getString("redis.ip");
+	           int port = Integer.valueOf(bundle
+	                   .getString("redis.port"));
+	           int port1 = Integer.valueOf(bundle
+	                   .getString("redis.port1"));
 	           long maxWait = Long.valueOf(bundle.getString("redis.pool.maxWait"));
 	           boolean testOnBorrow = Boolean.valueOf(bundle
 	                   .getString("redis.pool.testOnBorrow"));
@@ -54,13 +60,12 @@ public class RedisUtil {
 	           config.setMaxWaitMillis(maxWait);
 	           config.setTestOnBorrow(testOnBorrow);
 	           config.setTestOnReturn(onreturn);
-	           jedisPool = new JedisPool(config, bundle.getString("redis.ip"),
-	                   Integer.valueOf(bundle.getString("redis.port")), 10000,
+	           jedisPool = new JedisPool(config, ip,
+	                   port, 10000,
 	                   bundle.getString("redis.password"));
 	           // slave链接
 	           List<JedisShardInfo> shards = new ArrayList<JedisShardInfo>();
-	           shards.add(new JedisShardInfo(bundle.getString("redis.ip"), Integer
-	                   .valueOf(bundle.getString("redis.port1"))));
+	           shards.add(new JedisShardInfo(ip,  port1));
 	           shardedJedisPool = new ShardedJedisPool(config, shards);
 	           log.info("初始化Redis连接池success");
 	       } catch (Exception e) {

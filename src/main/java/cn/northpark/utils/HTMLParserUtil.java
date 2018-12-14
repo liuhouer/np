@@ -26,7 +26,6 @@ import org.jsoup.select.Elements;
 import org.springframework.util.CollectionUtils;
 
 import cn.northpark.manager.MoviesManager;
-import cn.northpark.manager.SoftManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -86,75 +85,75 @@ public class HTMLParserUtil {
      *
      * @throws IOException
      */
-    public static synchronized List<Map<String, String>> retCaiMaiZT_PL(String titlecode) throws IOException {
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-        try {
-            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + titlecode)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                    .referrer("http://www.google.com")
-                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
-                    .get();
-
-
-            //取得评论
-
-            String retid = doc.getElementById("loadStuffCommentBtn").attr("rel");
-
-            String commenturl = "http://www.caimai.cc/do/loadstuffcomment?user_id=0&user_agent=538B9ABCD308&timestamp=1513240566&user_keychain=69D7D3053A75&comment_id_from=9999999999999&comment_perpage=1000&stuff_id=" + retid;
-
-            Response res = Jsoup.connect(commenturl)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                    .referrer("http://www.google.com")
-                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
-                    .ignoreContentType(true)
-                    .execute();
-
-            Map<?, ?> map = JsonUtil.json2map(res.body());
-
-
-            Object object = map.get("html");
-
-            String htmljson = JsonUtil.object2json(object);
-
-            Document doc2 = Jsoup.parse(htmljson);
-
-            System.out.println(htmljson);
-
-            Elements pls = doc2.select("div[class=row]");
-
-            for (int i = 0; i < pls.size(); i++) {
-                Element p = pls.get(i).select("div[class=col-xs-9 col-sm-10]").get(0).select("p").get(0);
-                String comment = replaceBlank(p.text());
-                String tailslug = replaceBlank(p.select("a").get(0).attr("href").replace("/", ""));
-                ;
-                String username = replaceBlank(p.select("a").get(0).text());
-                Element p2 = pls.get(i).select("div[class=col-xs-9 col-sm-10]").get(0).select("p").get(1);
-                String shijian = replaceBlank(p2.text());
-
-                comment = comment.replace(username + "：", "");
-                Map<String, String> map_ = new HashMap<String, String>();
-                map_.put("username", username);
-                map_.put("tailslug", tailslug);
-                map_.put("comment", comment);
-                map_.put("shijian", shijian);
-                list.add(map_);
-                System.out.println("username--->" + username);
-                System.out.println("tailslug--->" + tailslug);
-                System.out.println("comment---->" + comment);
-                System.out.println("shijian---->" + shijian);
-                System.out.println("---------------------------------------------");
-
-            }
-
-
-        } catch (Exception e) {
-            log.error("HTMLPARSERutils------->", e);
-            ;
-        }
-
-
-        return list;
-    }
+//    public static synchronized List<Map<String, String>> retCaiMaiZT_PL(String titlecode) throws IOException {
+//        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+//        try {
+//            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + titlecode)
+//                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+//                    .referrer("http://www.google.com")
+//                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
+//                    .get();
+//
+//
+//            //取得评论
+//
+//            String retid = doc.getElementById("loadStuffCommentBtn").attr("rel");
+//
+//            String commenturl = "http://www.caimai.cc/do/loadstuffcomment?user_id=0&user_agent=538B9ABCD308&timestamp=1513240566&user_keychain=69D7D3053A75&comment_id_from=9999999999999&comment_perpage=1000&stuff_id=" + retid;
+//
+//            Response res = Jsoup.connect(commenturl)
+//                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+//                    .referrer("http://www.google.com")
+//                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
+//                    .ignoreContentType(true)
+//                    .execute();
+//
+//            Map<?, ?> map = JsonUtil.json2map(res.body());
+//
+//
+//            Object object = map.get("html");
+//
+//            String htmljson = JsonUtil.object2json(object);
+//
+//            Document doc2 = Jsoup.parse(htmljson);
+//
+//            System.out.println(htmljson);
+//
+//            Elements pls = doc2.select("div[class=row]");
+//
+//            for (int i = 0; i < pls.size(); i++) {
+//                Element p = pls.get(i).select("div[class=col-xs-9 col-sm-10]").get(0).select("p").get(0);
+//                String comment = replaceBlank(p.text());
+//                String tailslug = replaceBlank(p.select("a").get(0).attr("href").replace("/", ""));
+//                ;
+//                String username = replaceBlank(p.select("a").get(0).text());
+//                Element p2 = pls.get(i).select("div[class=col-xs-9 col-sm-10]").get(0).select("p").get(1);
+//                String shijian = replaceBlank(p2.text());
+//
+//                comment = comment.replace(username + "：", "");
+//                Map<String, String> map_ = new HashMap<String, String>();
+//                map_.put("username", username);
+//                map_.put("tailslug", tailslug);
+//                map_.put("comment", comment);
+//                map_.put("shijian", shijian);
+//                list.add(map_);
+//                System.out.println("username--->" + username);
+//                System.out.println("tailslug--->" + tailslug);
+//                System.out.println("comment---->" + comment);
+//                System.out.println("shijian---->" + shijian);
+//                System.out.println("---------------------------------------------");
+//
+//            }
+//
+//
+//        } catch (Exception e) {
+//            log.error("HTMLPARSERutils------->", e);
+//            ;
+//        }
+//
+//
+//        return list;
+//    }
 
     /**
      * 爬虫采麦的最爱主题关联信息  ------------根据主题页  获取 粉丝列表、、
@@ -163,40 +162,40 @@ public class HTMLParserUtil {
      *
      * @throws IOException
      */
-    public static String retCaiMaiZT_ZAN(String titlecode) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        try {
-            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + titlecode)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                    .referrer("http://www.google.com")
-                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
-                    .get();
-
-
-            //取得点赞的用户
-            Elements spans = doc.select("div[class=col-sm-5]").get(0).select("span");
-
-            System.out.println(spans.size());
-            if (spans.size() > 0) {
-                for (Element e : spans) {
-                    Elements as = e.select("a");
-                    if (as.size() > 0) {
-                        Element a = as.get(0);
-                        String tailslug = a.attr("href").replace("/", "");
-                        sb.append("'").append(tailslug).append("',");
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            log.error("HTMLPARSERutils------->", e);
-            ;
-        }
-
-        log.info(sb.toString().substring(0, sb.toString().lastIndexOf(",")));
-
-        return sb.toString().substring(0, sb.toString().lastIndexOf(","));
-    }
+//    public static String retCaiMaiZT_ZAN(String titlecode) throws IOException {
+//        StringBuilder sb = new StringBuilder();
+//        try {
+//            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + titlecode)
+//                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+//                    .referrer("http://www.google.com")
+//                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
+//                    .get();
+//
+//
+//            //取得点赞的用户
+//            Elements spans = doc.select("div[class=col-sm-5]").get(0).select("span");
+//
+//            System.out.println(spans.size());
+//            if (spans.size() > 0) {
+//                for (Element e : spans) {
+//                    Elements as = e.select("a");
+//                    if (as.size() > 0) {
+//                        Element a = as.get(0);
+//                        String tailslug = a.attr("href").replace("/", "");
+//                        sb.append("'").append(tailslug).append("',");
+//                    }
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            log.error("HTMLPARSERutils------->", e);
+//            ;
+//        }
+//
+//        log.info(sb.toString().substring(0, sb.toString().lastIndexOf(",")));
+//
+//        return sb.toString().substring(0, sb.toString().lastIndexOf(","));
+//    }
 
 
     /**
@@ -207,73 +206,73 @@ public class HTMLParserUtil {
      *
      * @throws IOException
      */
-    public static List<Map<String, String>> retCaiMai(int index) throws IOException {
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-        try {
-            Document doc = Jsoup.connect("http://www.caimai.cc/love/page" + index)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                    .referrer("http://www.google.com")
-                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
-                    .get();
-
-            //   `id`,  `title`, `titlecode`,  `updatedate`, `albumImg`, `zan`, `pl`
-            Elements info = doc.select("div[class=col-xs-6 col-sm-3 margin-b20 ]");
-            for (Element p : info) {
-
-                HashMap<String, String> map = new HashMap<String, String>();
-
-
-                //标题的主题页面
-                Elements elements = p.select("div[class=thumbnail radius-0 border-0 margin-b0]");
-
-                Element a = elements.get(0).select("a").get(0);
-
-                String aurl = a.attr("href");
-
-                String titlecode = aurl.replace("/love/", "");
-
-                System.out.println(titlecode);
-
-                Element img = a.select("img").get(0);
-
-                String date = TimeUtils.getRandomDate();
-
-                //下载图片
-                String weburl = img.attr("src");
-
-                //标题
-
-                String title = img.attr("alt");
-                System.out.println(title);
-
-                HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS("album"), date);
-
-                String albumimg = map22.get("trimpath");
-
-                //赞和评论
-                String zan_pl = p.select("div[class=col-xs-5 text-right]").text();
-                String zan = zan_pl.split("  ")[0];
-                String pl = zan_pl.split("  ")[1];
-                System.out.println(zan_pl.split("  ")[0]);
-                System.out.println(zan_pl.split("  ")[1]);
-
-
-                map.put("title", title);
-                map.put("titlecode", titlecode);
-                map.put("albumImg", albumimg);
-                map.put("zan", zan);
-                map.put("pl", pl);
-                list.add(map);
-
-            }
-        } catch (Exception e) {
-            log.error("HTMLPARSERutils------->", e);
-            ;
-        }
-
-
-        return list;
-    }
+//    public static List<Map<String, String>> retCaiMai(int index) throws IOException {
+//        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+//        try {
+//            Document doc = Jsoup.connect("http://www.caimai.cc/love/page" + index)
+//                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+//                    .referrer("http://www.google.com")
+//                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
+//                    .get();
+//
+//            //   `id`,  `title`, `titlecode`,  `updatedate`, `albumImg`, `zan`, `pl`
+//            Elements info = doc.select("div[class=col-xs-6 col-sm-3 margin-b20 ]");
+//            for (Element p : info) {
+//
+//                HashMap<String, String> map = new HashMap<String, String>();
+//
+//
+//                //标题的主题页面
+//                Elements elements = p.select("div[class=thumbnail radius-0 border-0 margin-b0]");
+//
+//                Element a = elements.get(0).select("a").get(0);
+//
+//                String aurl = a.attr("href");
+//
+//                String titlecode = aurl.replace("/love/", "");
+//
+//                System.out.println(titlecode);
+//
+//                Element img = a.select("img").get(0);
+//
+//                String date = TimeUtils.getRandomDate();
+//
+//                //下载图片
+//                String weburl = img.attr("src");
+//
+//                //标题
+//
+//                String title = img.attr("alt");
+//                System.out.println(title);
+//
+//                HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS("album"), date);
+//
+//                String albumimg = map22.get("trimpath");
+//
+//                //赞和评论
+//                String zan_pl = p.select("div[class=col-xs-5 text-right]").text();
+//                String zan = zan_pl.split("  ")[0];
+//                String pl = zan_pl.split("  ")[1];
+//                System.out.println(zan_pl.split("  ")[0]);
+//                System.out.println(zan_pl.split("  ")[1]);
+//
+//
+//                map.put("title", title);
+//                map.put("titlecode", titlecode);
+//                map.put("albumImg", albumimg);
+//                map.put("zan", zan);
+//                map.put("pl", pl);
+//                list.add(map);
+//
+//            }
+//        } catch (Exception e) {
+//            log.error("HTMLPARSERutils------->", e);
+//            ;
+//        }
+//
+//
+//        return list;
+//    }
 
 
     /**
@@ -283,94 +282,94 @@ public class HTMLParserUtil {
      *
      * @throws IOException
      */
-    public static Map<String, String> retCaiMaiZT(String titlecode) throws IOException {
-        Map<String, String> map = new HashMap<>();
-        try {
-            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + titlecode)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                    .referrer("http://www.google.com")
-                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
-                    .get();
-
-
-            //根据主题页  获取作者信息  、、粉丝列表、、评论列表
-
-            Element author = doc.select("h2[class=margin0]").get(0);
-
-            Element author_info = author.select("a").get(0);
-
-            String username = author_info.text();
-
-            String author_href = author_info.attr("href");
-
-            String tailslug = author_href.replace("/", "");
-
-            author_href = "http://www.caimai.cc" + author_href;
-
-
-            Document doc2 = Jsoup.connect(author_href)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                    .referrer("http://www.google.com")
-                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
-                    .get();
-
-            //头像
-            Element avatar = doc2.select("div[class=thumbnail bg-no border-0]").get(0).select("img").get(0);
-
-
-            String courseware = "";
-            String date = "";
-            int size = doc2.select("h3[class=margin0]").size();
-
-            if (size >= 2) {
-                courseware = doc2.select("h3[class=margin0]").get(0).text();
-
-                date = doc2.select("h3[class=margin0]").get(1).text().replace("加入时间：", "");
-            } else {
-                date = doc2.select("h3[class=margin0]").get(0).text().replace("加入时间：", "");
-            }
-
-
-            String meta = "";
-            Elements desc_element = doc2.select("p[class=margin0]");
-
-            if (desc_element.size() > 0) {
-                meta = desc_element.get(0).text();
-            }
-
-            String headpath = "";
-            //下载图片
-            try {
-                String weburl = avatar.attr("src");
-
-
-                HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS("heads"), date);
-
-                headpath = map22.get("trimpath");
-
-
-            } catch (Exception e) {
-                // TODO: handle exception
-                log.error("ret pic exception===>" + e.toString());
-            }
-
-            //作者用户信息
-            map.put("username", username);
-            map.put("tailslug", tailslug);
-            map.put("courseware", courseware);
-            map.put("date", date);
-            map.put("meta", meta);
-            map.put("headpath", headpath);
-
-
-        } catch (Exception e) {
-            log.error("HTMLPARSERutils------->", e);
-            ;
-        }
-
-
-        return map;
-    }
+//    public static Map<String, String> retCaiMaiZT(String titlecode) throws IOException {
+//        Map<String, String> map = new HashMap<>();
+//        try {
+//            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + titlecode)
+//                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+//                    .referrer("http://www.google.com")
+//                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
+//                    .get();
+//
+//
+//            //根据主题页  获取作者信息  、、粉丝列表、、评论列表
+//
+//            Element author = doc.select("h2[class=margin0]").get(0);
+//
+//            Element author_info = author.select("a").get(0);
+//
+//            String username = author_info.text();
+//
+//            String author_href = author_info.attr("href");
+//
+//            String tailslug = author_href.replace("/", "");
+//
+//            author_href = "http://www.caimai.cc" + author_href;
+//
+//
+//            Document doc2 = Jsoup.connect(author_href)
+//                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+//                    .referrer("http://www.google.com")
+//                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
+//                    .get();
+//
+//            //头像
+//            Element avatar = doc2.select("div[class=thumbnail bg-no border-0]").get(0).select("img").get(0);
+//
+//
+//            String courseware = "";
+//            String date = "";
+//            int size = doc2.select("h3[class=margin0]").size();
+//
+//            if (size >= 2) {
+//                courseware = doc2.select("h3[class=margin0]").get(0).text();
+//
+//                date = doc2.select("h3[class=margin0]").get(1).text().replace("加入时间：", "");
+//            } else {
+//                date = doc2.select("h3[class=margin0]").get(0).text().replace("加入时间：", "");
+//            }
+//
+//
+//            String meta = "";
+//            Elements desc_element = doc2.select("p[class=margin0]");
+//
+//            if (desc_element.size() > 0) {
+//                meta = desc_element.get(0).text();
+//            }
+//
+//            String headpath = "";
+//            //下载图片
+//            try {
+//                String weburl = avatar.attr("src");
+//
+//
+//                HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS("heads"), date);
+//
+//                headpath = map22.get("trimpath");
+//
+//
+//            } catch (Exception e) {
+//                // TODO: handle exception
+//                log.error("ret pic exception===>" + e.toString());
+//            }
+//
+//            //作者用户信息
+//            map.put("username", username);
+//            map.put("tailslug", tailslug);
+//            map.put("courseware", courseware);
+//            map.put("date", date);
+//            map.put("meta", meta);
+//            map.put("headpath", headpath);
+//
+//
+//        } catch (Exception e) {
+//            log.error("HTMLPARSERutils------->", e);
+//            ;
+//        }
+//
+//
+//        return map;
+//    }
 
 
     /**
@@ -734,220 +733,220 @@ public class HTMLParserUtil {
     /**
      * 爬取1页的mac软件内容
      */
-    public static List<Map<String, String>> retSoft(Integer index) {
-        // TODO Auto-generated method stub
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-        HashMap<String, String> map = null;
-        try {
-            Document doc = Jsoup.connect("http://www.sdifen.com/category/black-apple/apple-software/page/" + index + "/")
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                    .referrer("http://www.google.com")
-                    .timeout(1000 * 30) //it's in milliseconds, so this means 5 seconds.
-                    .get();
-
-
-            Elements articles = doc.select("article");
-            if (!articles.isEmpty()) {
-                for (int i = 0; i < articles.size(); i++) {
-
-                    Element article = articles.get(i);
-
-                    //code
-                    String code = article.attr("id");
-
-                    log.info("code====================" + code);
-
-                    //判断code在系统不存在再去处理后面的事
-
-                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
-                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
-
-                    if (flag <= 0) {
-
-                        map = new HashMap<String, String>();
-
-                        //标题
-                        Elements titles = article.getElementsByClass("entry-title");
-
-                        String title = titles.get(0).text();
-                        log.info("title====================" + title);
-                        String aurl = titles.get(0).select("a").get(0).attr("href");
-
-                        //标签tags
-
-                        Elements tags = article.select("span[class=cat-links]");
-
-                        String tag = tags.get(0).text();
-                        tag = tag.replaceAll("发表在", "").replaceAll(" ", "");
-
-                        log.info("tag====================" + tag);
-                        //计算标签编码、
-                        String tagcode = "005";
-                        if (tag.contains("应用")) {
-                            tagcode = "001";
-                            tag = "系统、应用软件";
-                        } else if (tag.contains("开发")) {
-                            tagcode = "002";
-                            tag = "开发、设计软件";
-                        } else if (tag.contains("媒体")) {
-                            tagcode = "003";
-                            tag = "媒体软件";
-                        } else if (tag.contains("安全")) {
-                            tagcode = "004";
-                            tag = "网络、安全软件";
-                        } else if (tag.contains("其他")) {
-                            tagcode = "005";
-                            tag = "其他软件";
-                        } else if (tag.contains("游戏")) {
-                            tagcode = "006";
-                            tag = "游戏一箩筐";
-                        } else if (tag.contains("限时免费")) {
-                            tagcode = "007";
-                            tag = "限免软件";
-                        } else if (tag.contains("疑难")) {
-                            tagcode = "008";
-                            tag = "疑难杂症";
-                        } else {
-                            tagcode = "005";
-                            tag = "其他软件";
-                        }
-                        log.info("tagcode====================" + tagcode);
-
-                        //日期
-                        Elements dates = article.select("time[class=entry-date]");
-                        String date = dates.get(0).text();
-                        date = date.replaceAll(" ", "");
-                        date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
-                        log.info("date====================" + date);
-                        //月
-                        String month = date.substring(0, date.lastIndexOf("-"));
-                        log.info("month====================" + month);
-                        //年
-                        String year = month.substring(0, month.lastIndexOf("-"));
-                        log.info("year====================" + year);
-                        //文章
-                        StringBuilder sb = new StringBuilder();
-
-
-                        //休眠
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            // TODO Auo-generated catch block
-                            e.printStackTrace();
-                        }
-
-                        Document doc_ = Jsoup.connect(aurl)
-                                .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                                .referrer("http://www.google.com")
-                                .timeout(1000 * 30) //it's in milliseconds, so this means 5 seconds.
-                                .get();
-                        Elements article_alls = doc_.select("div[class=entry-content] p");
-                        if (!article_alls.isEmpty()) {
-                            for (int i1 = 0; i1 < article_alls.size(); i1++) {
-
-                                Elements imgs = article_alls.get(i1).select("img");
-                                for (int j = 0; j < imgs.size(); j++) {
-                                    try {
-                                        String weburl = imgs.get(j).attr("src");
-                                        //web图片上传到七牛
-
-                                        //-------------开始--------------------------------
-
-                                        HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(), date);
-
-                                        String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/" + date + "/" + map22.get("key"));
-
-                                        //-------------结束--------------------------------
-
-                                        imgs.get(j).attr("src", rs);
-                                        imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
-                                    } catch (Exception e) {
-                                        // TODO: handle exception
-                                        log.error("ret pic exception===>" + e.toString());
-                                        continue;
-                                    }
-
-                                }
-
-                                String p1 = article_alls.get(i1).html();
-                                if (!p1.contains("本文链接") && !p1.contains("转载声明")) {
-                                    sb.append("<p>" + p1 + "</p>");
-                                }
-                            }
-                        }
-
-                        String text = sb.toString().replaceAll("小子", "小布");
-                        log.info("article=============" + text);
-                        //简介
-                        Elements briefs = article.select("div[class=entry-content] p");
-
-                        StringBuilder sb2 = new StringBuilder();
-
-                        if (!briefs.isEmpty()) {
-                            for (int i1 = 0; i1 < briefs.size(); i1++) {
-
-                                Elements imgs = briefs.get(i1).select("img");
-                                for (int j = 0; j < imgs.size(); j++) {
-
-                                    try {
-
-                                        String weburl = imgs.get(j).attr("src");
-                                        //web图片上传到七牛
-
-                                        //-------------开始--------------------------------
-
-                                        HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(), date);
-
-                                        String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/" + date + "/" + map22.get("key"));
-
-                                        //-------------结束--------------------------------
-
-                                        imgs.get(j).attr("src", rs);
-                                        imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
-                                    } catch (Exception e) {
-                                        // TODO: handle exception
-                                        log.error("ret pic exception===>" + e.toString());
-                                        continue;
-                                    }
-
-                                }
-                                String p1 = briefs.get(i1).html();
-                                if (!p1.contains("继续阅读")) {
-                                    sb2.append("<p>" + p1 + "</p>");
-                                }
-                            }
-                        }
-
-                        String brief = sb2.toString().replaceAll("小子", "小布");
-
-                        log.info("brief====================" + brief);
-                        map.put("title", title);
-                        map.put("aurl", aurl);
-                        map.put("brief", brief);
-                        map.put("date", date);
-                        map.put("article", text);
-                        map.put("tag", tag);
-                        map.put("code", code);
-                        map.put("os", "mac");
-                        map.put("month", month);
-                        map.put("year", year);
-                        map.put("tagcode", tagcode);
-                        list.add(map);
-
-                    }
-                }
-            }
-
-//                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
-
-        } catch (Exception e) {
-            log.error("HTMLPARSERutils------->", e);
-            ;
-        }
-
-        return list;
-    }
+//    public static List<Map<String, String>> retSoft(Integer index) {
+//        // TODO Auto-generated method stub
+//        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+//        HashMap<String, String> map = null;
+//        try {
+//            Document doc = Jsoup.connect("http://www.sdifen.com/category/black-apple/apple-software/page/" + index + "/")
+//                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+//                    .referrer("http://www.google.com")
+//                    .timeout(1000 * 30) //it's in milliseconds, so this means 5 seconds.
+//                    .get();
+//
+//
+//            Elements articles = doc.select("article");
+//            if (!articles.isEmpty()) {
+//                for (int i = 0; i < articles.size(); i++) {
+//
+//                    Element article = articles.get(i);
+//
+//                    //code
+//                    String code = article.attr("id");
+//
+//                    log.info("code====================" + code);
+//
+//                    //判断code在系统不存在再去处理后面的事
+//
+//                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
+//                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
+//
+//                    if (flag <= 0) {
+//
+//                        map = new HashMap<String, String>();
+//
+//                        //标题
+//                        Elements titles = article.getElementsByClass("entry-title");
+//
+//                        String title = titles.get(0).text();
+//                        log.info("title====================" + title);
+//                        String aurl = titles.get(0).select("a").get(0).attr("href");
+//
+//                        //标签tags
+//
+//                        Elements tags = article.select("span[class=cat-links]");
+//
+//                        String tag = tags.get(0).text();
+//                        tag = tag.replaceAll("发表在", "").replaceAll(" ", "");
+//
+//                        log.info("tag====================" + tag);
+//                        //计算标签编码、
+//                        String tagcode = "005";
+//                        if (tag.contains("应用")) {
+//                            tagcode = "001";
+//                            tag = "系统、应用软件";
+//                        } else if (tag.contains("开发")) {
+//                            tagcode = "002";
+//                            tag = "开发、设计软件";
+//                        } else if (tag.contains("媒体")) {
+//                            tagcode = "003";
+//                            tag = "媒体软件";
+//                        } else if (tag.contains("安全")) {
+//                            tagcode = "004";
+//                            tag = "网络、安全软件";
+//                        } else if (tag.contains("其他")) {
+//                            tagcode = "005";
+//                            tag = "其他软件";
+//                        } else if (tag.contains("游戏")) {
+//                            tagcode = "006";
+//                            tag = "游戏一箩筐";
+//                        } else if (tag.contains("限时免费")) {
+//                            tagcode = "007";
+//                            tag = "限免软件";
+//                        } else if (tag.contains("疑难")) {
+//                            tagcode = "008";
+//                            tag = "疑难杂症";
+//                        } else {
+//                            tagcode = "005";
+//                            tag = "其他软件";
+//                        }
+//                        log.info("tagcode====================" + tagcode);
+//
+//                        //日期
+//                        Elements dates = article.select("time[class=entry-date]");
+//                        String date = dates.get(0).text();
+//                        date = date.replaceAll(" ", "");
+//                        date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
+//                        log.info("date====================" + date);
+//                        //月
+//                        String month = date.substring(0, date.lastIndexOf("-"));
+//                        log.info("month====================" + month);
+//                        //年
+//                        String year = month.substring(0, month.lastIndexOf("-"));
+//                        log.info("year====================" + year);
+//                        //文章
+//                        StringBuilder sb = new StringBuilder();
+//
+//
+//                        //休眠
+//                        try {
+//                            Thread.sleep(500);
+//                        } catch (InterruptedException e) {
+//                            // TODO Auo-generated catch block
+//                            e.printStackTrace();
+//                        }
+//
+//                        Document doc_ = Jsoup.connect(aurl)
+//                                .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+//                                .referrer("http://www.google.com")
+//                                .timeout(1000 * 30) //it's in milliseconds, so this means 5 seconds.
+//                                .get();
+//                        Elements article_alls = doc_.select("div[class=entry-content] p");
+//                        if (!article_alls.isEmpty()) {
+//                            for (int i1 = 0; i1 < article_alls.size(); i1++) {
+//
+//                                Elements imgs = article_alls.get(i1).select("img");
+//                                for (int j = 0; j < imgs.size(); j++) {
+//                                    try {
+//                                        String weburl = imgs.get(j).attr("src");
+//                                        //web图片上传到七牛
+//
+//                                        //-------------开始--------------------------------
+//
+//                                        HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(), date);
+//
+//                                        String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/" + date + "/" + map22.get("key"));
+//
+//                                        //-------------结束--------------------------------
+//
+//                                        imgs.get(j).attr("src", rs);
+//                                        imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
+//                                    } catch (Exception e) {
+//                                        // TODO: handle exception
+//                                        log.error("ret pic exception===>" + e.toString());
+//                                        continue;
+//                                    }
+//
+//                                }
+//
+//                                String p1 = article_alls.get(i1).html();
+//                                if (!p1.contains("本文链接") && !p1.contains("转载声明")) {
+//                                    sb.append("<p>" + p1 + "</p>");
+//                                }
+//                            }
+//                        }
+//
+//                        String text = sb.toString().replaceAll("小子", "小布");
+//                        log.info("article=============" + text);
+//                        //简介
+//                        Elements briefs = article.select("div[class=entry-content] p");
+//
+//                        StringBuilder sb2 = new StringBuilder();
+//
+//                        if (!briefs.isEmpty()) {
+//                            for (int i1 = 0; i1 < briefs.size(); i1++) {
+//
+//                                Elements imgs = briefs.get(i1).select("img");
+//                                for (int j = 0; j < imgs.size(); j++) {
+//
+//                                    try {
+//
+//                                        String weburl = imgs.get(j).attr("src");
+//                                        //web图片上传到七牛
+//
+//                                        //-------------开始--------------------------------
+//
+//                                        HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(), date);
+//
+//                                        String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/" + date + "/" + map22.get("key"));
+//
+//                                        //-------------结束--------------------------------
+//
+//                                        imgs.get(j).attr("src", rs);
+//                                        imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
+//                                    } catch (Exception e) {
+//                                        // TODO: handle exception
+//                                        log.error("ret pic exception===>" + e.toString());
+//                                        continue;
+//                                    }
+//
+//                                }
+//                                String p1 = briefs.get(i1).html();
+//                                if (!p1.contains("继续阅读")) {
+//                                    sb2.append("<p>" + p1 + "</p>");
+//                                }
+//                            }
+//                        }
+//
+//                        String brief = sb2.toString().replaceAll("小子", "小布");
+//
+//                        log.info("brief====================" + brief);
+//                        map.put("title", title);
+//                        map.put("aurl", aurl);
+//                        map.put("brief", brief);
+//                        map.put("date", date);
+//                        map.put("article", text);
+//                        map.put("tag", tag);
+//                        map.put("code", code);
+//                        map.put("os", "mac");
+//                        map.put("month", month);
+//                        map.put("year", year);
+//                        map.put("tagcode", tagcode);
+//                        list.add(map);
+//
+//                    }
+//                }
+//            }
+//
+////                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//
+//        } catch (Exception e) {
+//            log.error("HTMLPARSERutils------->", e);
+//            ;
+//        }
+//
+//        return list;
+//    }
 
 
     /**
@@ -1128,25 +1127,29 @@ public class HTMLParserUtil {
                                 //处理下载地址
                                 StringBuilder sb_path = new StringBuilder();
                                 //执行2次抓取下载地址
-                                for (int i = 0; i < 2; i++) {
-                                	 Element last = article_alls.get(i1).select("a").last();
-                                     if(last!=null) {
-                                     	if(last.toString().contains("下载")||last.toString().contains("www.waitsun.com")||last.toString().contains("ctfile.com")) {
-                                     		System.out.println("========================");
+                                Elements last = article_alls.get(i1).select("a");
+                                if(!CollectionUtils.isEmpty(last)) {
+                                	
+                                	for (Element element : last) {
+                                		String outerHtml = element.outerHtml();
+                                    	if(outerHtml.contains("下载")||outerHtml.contains("www.waitsun.com")||outerHtml.contains("ctfile.com")) {
+                                    		System.out.println("========================");
 
-                                     		System.out.println("===========是=============");
-                                     		String download = last.toString();
-                                     		System.out.println(download);
-                                     		sb_path.append(download);
-                                     		//删除最后的路径元素
-                                     		last.remove();
-                                     	}else {
-                                     		System.out.println("========================");
+                                    		System.out.println("===========是=============");
+                                    		String download = outerHtml;
+                                    		System.out.println(download);
+                                    		sb_path.append(download);
+                                    		//删除最后的路径元素
+                                    		element.remove();
+                                    	}else {
+                                    		System.out.println("========================");
 
-                                     		System.out.println("===========否=============");
-                                     	}
-                                     }
-								}
+                                    		System.out.println("===========否=============");
+                                    	}
+									}
+
+                                	
+                                }
                                
                                 System.out.println("sb_path===================>"+sb_path.toString());
                                 path = sb_path.toString();
@@ -1195,445 +1198,6 @@ public class HTMLParserUtil {
     }
     
     
-    /**
-     * 爬取1页的retSoft_WSKSO软件内容
-     */
-    public static List<Map<String, String>> retSoft_WSKSO(Integer index) {
-
-        // TODO Auto-generated method stub
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-        HashMap<String, String> map = null;
-        try {
-
-
-            String initUrl = "http://www.wskso.com/archives/category/macsoft/page/" + index;
-            final String dataResult = HttpGetUtils.getDataResult(initUrl);
-
-            System.out.println(dataResult);
-            Document doc = Jsoup.parse(dataResult, initUrl);
-
-            Elements soft11 = null;
-            //取得一页内容梗概
-            if (index > 1) {
-                soft11 = doc.select("article");
-            } else {
-               doc.select("main").select("div[class=cms-news-grid]").remove();
-               soft11 = doc.select("article");
-            }
-
-//             String baseUrl=initUrl;
-//
-//             //获取所有我需要格式匹配的链接
-//             HashMap<String, String> allUrls = StartImg.getAllUrls(dataResult,baseUrl);
-//             
-//             Set<String> keySet = allUrls.keySet();
-
-            for (Element e : soft11) {
-            	System.out.println(e);
-                try {
-
-                    String url = e.select("figure").get(0).select("a").get(0).attr("href");
-                    String img_url = e.select("figure").get(0).select("img").get(0).attr("src");
-
-
-
-                    //唯一码
-                    String code = url.substring(url.lastIndexOf("/") + 1, url.length()).replaceAll(".html", "");
-                    
-                    code = "wskso-"+code;
-
-
-                    //判断code在系统不存在再去处理后面的事
-
-//                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
-//                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
-//
-//                    if (flag <= 0) {
-
-                        //日期
-                        String date = e.select("span[class=date]").get(0).text();
-
-
-                        date = date.replaceAll(" ", "");
-                        date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
-                        log.info("date====================" + date);
-                        //月
-                        String month = date.substring(0, date.lastIndexOf("-"));
-                        log.info("month====================" + month);
-                        //年
-                        String year = month.substring(0, month.lastIndexOf("-"));
-                        log.info("year====================" + year);
-
-
-                        //标题
-                        String title = e.select("h2[class=entry-title]").get(0).text();
-
-                        //标签
-                        String tag = e.select("span[class=cat]").get(0).text();
-
-
-                        //处理软件logo上传
-                        HashMap<String, String> map11 = HTMLParserUtil.webPic2Disk(img_url, getLocalFolderByOS(), date);
-
-                        String logo_url = QiniuUtils.getInstance.upload(map11.get("localpath"), "soft/" + date + "/" + map11.get("key"));
-
-                        String logo_p = "<p><img class=\"aligncenter size-full wp-image-" + code + "\" title=\"" + title + "\" alt=\"" + title + "\" src=\"" + logo_url + "\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\"></p>";
-
-
-                        //计算标签编码、
-                        String tagcode = "005";
-                        if (tag.contains("应用") || tag.contains("系统")) {
-                            tagcode = "001";
-                            tag = "系统、应用软件";
-                        } else if (tag.contains("开发") || tag.contains("设计")) {
-                            tagcode = "002";
-                            tag = "开发、设计软件";
-                        } else if (tag.contains("媒体")) {
-                            tagcode = "003";
-                            tag = "媒体软件";
-                        } else if (tag.contains("安全") || tag.contains("网络")) {
-                            tagcode = "004";
-                            tag = "网络、安全软件";
-                        } else if (tag.contains("其他")) {
-                            tagcode = "005";
-                            tag = "其他软件";
-                        } else if (tag.contains("游戏")) {
-                            tagcode = "006";
-                            tag = "游戏一箩筐";
-                        } else if (tag.contains("限时免费")) {
-                            tagcode = "007";
-                            tag = "限免软件";
-                        } else if (tag.contains("疑难")) {
-                            tagcode = "008";
-                            tag = "疑难杂症";
-                        } else {
-                            tagcode = "005";
-                            tag = "其他软件";
-                        }
-                        log.info("tagcode====================" + tagcode);
-
-
-                        //简介
-                        StringBuilder brief = new StringBuilder();
-                        String briefContent = e.select("div[class=archive-content]").get(0).text();
-
-						  //下载地址
-                        String path = "";
-                        //正文
-                        String article = "";
-                        
-                        //获取全文的内容
-                        String dataResult1 = HttpGetUtils.getDataResult(url);
-
-                        /*System.out.println(dataResult1);*/
-                        Document parse = Jsoup.parse(dataResult1, url);
-
-                        Element article_alls = parse.select("div[class=single-content]").get(0);
-                        
-
-                         //处理正文图像
-                        article_alls.select("img").remove();
-
-
-                                //处理正文的不合法url
-                                Elements a1 = article_alls.select("a");
-                                for (Element s : a1) {
-                                    if (s.attr("href").contains("/tag")) {
-                                        s.before(s.text());
-                                        s.remove();
-                                    } else if (s.attr("href").contains("#login")) {
-                                    	s.parent().remove();
-//                                        s.remove();
-                                    } else if (s.attr("href").endsWith(".jpg") || s.attr("href").endsWith(".jpeg") || s.attr("href").endsWith(".png")) {
-                                        s.attr("href", "");
-                                    } else if (s.attr("href").contains("www.wskso.com/wp-content/themes/begin/inc/go.php?url")) {//改成短连接  并且改样式
-                                        s.addClass("btn-warning");
-                                    }
-                                }
-
-								//处理下载地址
-                                StringBuilder sb_path = new StringBuilder();
-                                //执行2次抓取下载地址
-                                for (int i = 0; i < 2; i++) {
-                                	 Element last = article_alls.select("a").last();
-                                     if(last!=null) {
-                                     	if(last.toString().contains("下载")||last.toString().contains("www.waitsun.com")||last.toString().contains("ctfile.com")) {
-                                     		System.out.println("========================");
-
-                                     		System.out.println("===========是=============");
-                                     		String download = last.toString();
-                                     		System.out.println(download);
-                                     		sb_path.append(download);
-                                     		//删除最后的路径元素
-                                     		last.remove();
-                                     	}else {
-                                     		System.out.println("========================");
-
-                                     		System.out.println("===========否=============");
-                                     	}
-                                     }
-								}
-                               
-                                System.out.println("sb_path===================>"+sb_path.toString());
-                                path = sb_path.toString();
-                                //设置正文
-                                article = article_alls.html();
-                                brief.append(logo_p);
-                                brief.append("<p>");
-                                brief.append(briefContent);
-                                brief.append("</p>");
-                                System.out.println("===================================================================================================");
-                                System.out.println(article);
-                                System.out.println("===================================================================================================");
-
-                                article = article.replaceAll("行者要来分享的是", "介绍").replaceAll("之前，有朋友留言行者需要", "介绍").replaceAll("行者", "小编jeyy");
-                                article = logo_p+article;
-                                String briefs = brief.toString();
-                                briefs = briefs.replaceAll("行者要来分享的是", "介绍").replaceAll("之前，有朋友留言行者需要", "介绍").replaceAll("行者", "小编jeyy");
-                        map = new HashMap<>();
-                        map.put("title", title);
-                        map.put("aurl", url);
-                        map.put("brief", briefs);
-                        map.put("date", date);
-                        map.put("article", article);
-                        map.put("tag", tag);
-                        map.put("code", code);
-                        map.put("os", "mac");
-                        map.put("month", month);
-                        map.put("year", year);
-                        map.put("tagcode", tagcode);
-						map.put("path", path);
-                        list.add(map);
-
-//                    }
-                } catch (Exception e2) {
-                	e2.printStackTrace();
-                    continue;
-                }
-
-            }
-            System.out.println(JsonUtil.object2json(list));
-            System.out.println(index + "页爬取完毕！ the end===============================================================================================");
-
-        } catch (Exception e) {
-            log.error("HTMLPARSERutils------->", e);
-        }
-
-        return list;
-    
-    }
-
-
-    /**
-     * 爬取1页的mac软件内容 --Xclient网站
-     */
-    public static List<Map<String, String>> retSoft_Xclient(Integer index) {
-        // TODO Auto-generated method stub
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-        HashMap<String, String> map = null;
-        try {
-
-
-            String initUrl = "http://xclient.info/s/" + index + "/?t=237d0a6760d1e4c4bd00cef6af08d2b35e92a3a1";
-            final String dataResult = HttpGetUtils.getDataResult(initUrl);
-
-            System.out.println(dataResult);
-            Document doc = Jsoup.parse(dataResult, initUrl);
-
-            Elements soft11 = null;
-            //取得一页内容梗概
-            if (index > 1) {
-                soft11 = doc.select("article[class=gamma-item globe-block p-3 col-md-3]");
-            } else {
-                soft11 = doc.select("div[class=col-lg-1-5 col-md-6 col-sm-6 col-12]");
-            }
-
-//             String baseUrl=initUrl;
-//
-//             //获取所有我需要格式匹配的链接
-//             HashMap<String, String> allUrls = StartImg.getAllUrls(dataResult,baseUrl);
-//             
-//             Set<String> keySet = allUrls.keySet();
-
-            for (Element e : soft11) {
-                try {
-
-                    String url = e.select("a").get(0).attr("href");
-                    String img_url = e.select("img").get(0).attr("src");
-
-
-                    //获取全文的内容
-                    String dataResult1 = HttpGetUtils.getDataResult(url);
-
-                    /*System.out.println(dataResult1);*/
-                    Document parse = Jsoup.parse(dataResult1, url);
-
-                    //唯一码
-                    String code = url.substring(url.lastIndexOf("/") + 1, url.length()).replaceAll(".html", "");
-
-
-                    //判断code在系统不存在再去处理后面的事
-
-                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
-                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
-
-                    if (flag <= 0) {
-
-                        //日期
-                        String date = parse.select("div[class=about pt-2 pt-md-3]").select("span").get(0).text();
-
-
-                        date = date.replaceAll(" ", "");
-                        date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
-                        log.info("date====================" + date);
-                        //月
-                        String month = date.substring(0, date.lastIndexOf("-"));
-                        log.info("month====================" + month);
-                        //年
-                        String year = month.substring(0, month.lastIndexOf("-"));
-                        log.info("year====================" + year);
-
-
-                        //标题
-                        String title = parse.select("div[class=meta text-center text-white]").select("h1").get(0).text();
-
-                        //标签
-                        String tag = parse.select("li[class=breadcrumb-item]").get(1).text();
-
-
-                        //处理软件logo上传
-                        HashMap<String, String> map11 = HTMLParserUtil.webPic2Disk(img_url, getLocalFolderByOS(), date);
-
-                        String logo_url = QiniuUtils.getInstance.upload(map11.get("localpath"), "soft/" + date + "/" + map11.get("key"));
-
-                        String logo_p = "<p><img class=\"aligncenter size-full wp-image-" + code + "\" title=\"" + title + "\" alt=\"" + title + "\" src=\"" + logo_url + "\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\">";
-
-
-                        //计算标签编码、
-                        String tagcode = "005";
-                        if (tag.contains("应用") || tag.contains("系统")) {
-                            tagcode = "001";
-                            tag = "系统、应用软件";
-                        } else if (tag.contains("开发") || tag.contains("设计")) {
-                            tagcode = "002";
-                            tag = "开发、设计软件";
-                        } else if (tag.contains("媒体")) {
-                            tagcode = "003";
-                            tag = "媒体软件";
-                        } else if (tag.contains("安全") || tag.contains("网络")) {
-                            tagcode = "004";
-                            tag = "网络、安全软件";
-                        } else if (tag.contains("其他")) {
-                            tagcode = "005";
-                            tag = "其他软件";
-                        } else if (tag.contains("游戏")) {
-                            tagcode = "006";
-                            tag = "游戏一箩筐";
-                        } else if (tag.contains("限时免费")) {
-                            tagcode = "007";
-                            tag = "限免软件";
-                        } else if (tag.contains("疑难")) {
-                            tagcode = "008";
-                            tag = "疑难杂症";
-                        } else {
-                            tagcode = "005";
-                            tag = "其他软件";
-                        }
-                        log.info("tagcode====================" + tagcode);
-
-                        //正文
-                        String article = "";
-
-                        //简介
-                        StringBuilder brief = new StringBuilder();
-
-
-                        Elements article_alls = parse.select("div[class=content]");
-                        if (!article_alls.isEmpty()) {
-                            for (int i1 = 0; i1 < article_alls.size(); i1++) {
-
-                                //处理征文图像
-                                Elements imgs = article_alls.get(i1).select("img");
-                                for (int j = 0; j < imgs.size(); j++) {
-                                    try {
-//                                     String weburl = imgs.get(j).attr("src");
-                                        //web图片上传到七牛
-
-//                                     //-------------开始--------------------------------
-//
-//                                     HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
-//
-//                                     String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
-//
-//                                     //-------------结束--------------------------------
-//                                     if(StringUtils.isNotEmpty(rs)){
-//                                    	 imgs.get(j).attr("src", rs);
-//                                     }
-                                        imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
-                                    } catch (Exception e1) {
-                                        // TODO: handle exception
-                                        log.error("ret pic exception===>" + e1.toString());
-                                        continue;
-                                    }
-
-                                }
-
-
-                                //处理正文的不合法url
-                                Elements a1 = article_alls.get(i1).select("a");
-                                for (Element s : a1) {
-                                    if (s.attr("href").contains("/tag")) {
-                                        s.before(s.text());
-                                        s.remove();
-                                    } else if (s.attr("href").contains("/xpay-html")) {
-                                        s.remove();
-                                    } else if (s.attr("href").endsWith(".jpg") || s.attr("href").endsWith(".jpeg") || s.attr("href").endsWith(".png")) {
-                                        s.attr("href", "");
-                                    } else if (s.attr("href").contains("waitsun.com/?dl_id")) {//改成短连接  并且改样式
-                                        s.addClass("btn-warning");
-                                    }
-                                }
-
-                                //设置正文
-                                article = article_alls.get(i1).html();
-                                brief.append(logo_p);
-                                brief.append("<p>");
-                                brief.append(article_alls.get(i1).select("p").get(0).html());
-                                brief.append("</p>");
-                                System.out.println("===================================================================================================");
-                                System.out.println(article_alls.get(i1).html());
-                                System.out.println("===================================================================================================");
-                            }
-                        }
-
-                        map = new HashMap<>();
-                        map.put("title", title);
-                        map.put("aurl", url);
-                        map.put("brief", brief.toString());
-                        map.put("date", date);
-                        map.put("article", article);
-                        map.put("tag", tag);
-                        map.put("code", code);
-                        map.put("os", "mac");
-                        map.put("month", month);
-                        map.put("year", year);
-                        map.put("tagcode", tagcode);
-                        list.add(map);
-
-                    }
-                } catch (Exception e2) {
-                    continue;
-                }
-
-            }
-            System.out.println(index + "页爬取完毕！ the end===============================================================================================");
-
-        } catch (Exception e) {
-            log.error("HTMLPARSERutils------->", e);
-        }
-
-        return list;
-    }
 
 
     /**
@@ -1927,42 +1491,43 @@ public class HTMLParserUtil {
 	 */
 	public static void handleLink(StringBuilder sb, Element link ,String type) {
 		
+		String linkHtml = link.outerHtml();
 		if(type.equals("a")) {
-			if(link.toString().contains("百度网盘")||link.toString().contains("网盘")
-					  ||link.toString().contains("迅雷")||link.toString().contains("密码")
-					  ||link.toString().contains("下载")||link.toString().contains("视频")
-					  ||link.toString().contains("百度云")||link.toString().contains("链接")
-					  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
-					  ||link.toString().contains("download")||link.toString().contains("在线地址")||link.toString().contains("ed2k")||link.toString().contains("magnet")
+			if(linkHtml.contains("百度网盘")||linkHtml.contains("网盘")
+					  ||linkHtml.contains("迅雷")||linkHtml.contains("密码")
+					  ||linkHtml.contains("下载")||linkHtml.contains("视频")
+					  ||linkHtml.contains("百度云")||linkHtml.contains("链接")
+					  ||linkHtml.contains("季")||linkHtml.contains("pan.baidu.com")
+					  ||linkHtml.contains("download")||linkHtml.contains("在线地址")||linkHtml.contains("ed2k")||linkHtml.contains("magnet")
 					  ) {
 
-				  sb.append(link.toString());
+				  sb.append(linkHtml);
 				  link.remove();
 
 			  }
 		}else if(type.equals("p")) {
-			if(link.toString().contains("百度网盘")||link.toString().contains("网盘")
-					  ||link.toString().contains("迅雷")||link.toString().contains("密码")
-					  ||link.toString().contains("下载")||link.toString().contains("视频")
-					  ||link.toString().contains("百度云")
-					  ||link.toString().contains("pan.baidu.com")
-					  ||link.toString().contains("download")||link.toString().contains("在线地址")||link.toString().contains("ed2k")||link.toString().contains("magnet")
+			if(linkHtml.contains("百度网盘")||linkHtml.contains("网盘")
+					  ||linkHtml.contains("迅雷")||linkHtml.contains("密码")
+					  ||linkHtml.contains("下载")||linkHtml.contains("视频")
+					  ||linkHtml.contains("百度云")
+					  ||linkHtml.contains("pan.baidu.com")
+					  ||linkHtml.contains("download")||linkHtml.contains("在线地址")||linkHtml.contains("ed2k")||linkHtml.contains("magnet")
 					  ) {
 
-				  sb.append(link.toString());
+				  sb.append(linkHtml);
 				  link.remove();
 
 			  }
 		}else if(type.equals("h2")) {
-			if(link.toString().contains("百度网盘")||link.toString().contains("网盘")
-					  ||link.toString().contains("迅雷")||link.toString().contains("密码")
-					  ||link.toString().contains("下载")||link.toString().contains("视频")
-					  ||link.toString().contains("百度云")
-					  ||link.toString().contains("季")||link.toString().contains("pan.baidu.com")
-					  ||link.toString().contains("download")||link.toString().contains("在线地址")||link.toString().contains("ed2k")||link.toString().contains("magnet")
+			if(linkHtml.contains("百度网盘")||linkHtml.contains("网盘")
+					  ||linkHtml.contains("迅雷")||linkHtml.contains("密码")
+					  ||linkHtml.contains("下载")||linkHtml.contains("视频")
+					  ||linkHtml.contains("百度云")
+					  ||linkHtml.contains("季")||linkHtml.contains("pan.baidu.com")
+					  ||linkHtml.contains("download")||linkHtml.contains("在线地址")||linkHtml.contains("ed2k")||linkHtml.contains("magnet")
 					  ) {
 
-				  sb.append(link.toString());
+				  sb.append(linkHtml);
 				  link.remove();
 
 			  }
