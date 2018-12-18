@@ -23,13 +23,13 @@
 
 </footer>
 
-<script src="/statics/js/jquery-1.7.2.js"></script>
-<script src="/statics/js/bootstrap.min.js"></script>
-<script src="/statics/js/artDialog/artDialog.js?skin=default"></script>
-<script src="/statics/js/artDialog/jquery.artDialog.js?skin=default"></script>
-<script src="/statics/js/artDialog/plugins/iframeTools.js"></script>
-<script src="/statics/js/page/seltab.js"></script>
-<script src="/statics/js/page/common.js"></script>
+<script src="https://northpark.cn/statics/js/jquery-1.7.2.js"></script>
+<script src="https://northpark.cn/statics/js/bootstrap.min.js"></script>
+<script src="https://northpark.cn/statics/js/artDialog/artDialog.js?skin=default"></script>
+<script src="https://northpark.cn/statics/js/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="https://northpark.cn/statics/js/artDialog/plugins/iframeTools.js"></script>
+<script src="https://northpark.cn/statics/js/page/seltab.js"></script>
+<script src="https://northpark.cn/statics/js/page/common.js"></script>
 <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;

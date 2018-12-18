@@ -17,7 +17,6 @@ import cn.northpark.model.User;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.ObjectUtil;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 接收mq消息来处理邮件通知
@@ -25,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Component
-@Slf4j
 public class MailListener implements  ChannelAwareMessageListener {
 
     @Autowired
@@ -62,12 +60,13 @@ public class MailListener implements  ChannelAwareMessageListener {
 			try {
 	            EmailUtils.emailUtil.changePwd(email, userid, code);
 	        } catch (Exception e) {
-	        	log.error("重置密码邮件错误========>{}",e);
+//	        	log.error("重置密码邮件错误========>{}",e);
+	        	e.printStackTrace();
 	        }
 		}
 		
 		
-		log.info("bruce: received mq msg========>{}",JsonUtil.object2json(data));
+		System.out.println("bruce: received mq msg========>{"+JsonUtil.object2json(data)+"}");
 	}
 
 

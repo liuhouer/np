@@ -15,7 +15,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/statics/img/favicon.ico">
+    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
     <title>小布静听构建 | NorthPark</title>
     <meta name="keywords" content="NorthPark,小布静听,音乐播放器,NorthPark中文网">
     <meta name="description"

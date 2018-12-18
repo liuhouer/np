@@ -1,8 +1,7 @@
 package cn.northpark.manager.impl;
 
-import javax.annotation.Resource;
-
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.northpark.manager.MQProducerManager;
@@ -18,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MQProducerManagerImpl implements MQProducerManager {
 
-	@Resource
+	@Autowired
     private AmqpTemplate amqpTemplate;
 
 

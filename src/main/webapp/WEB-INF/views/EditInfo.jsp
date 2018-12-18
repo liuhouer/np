@@ -14,7 +14,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/statics/img/favicon.ico">
+    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
     <title>编辑我的档案 | NorthPark</title>
     <meta name="keywords" content="NorthPark,NorthPark中文网,编辑档案">
     <meta name="description"
@@ -83,7 +83,7 @@
                                 <div class="col-xs-3" id="preview">
                                     <img id="imghead" alt="avatar"
                                     <c:if test="${MyInfo.headpath==null }">
-                                         src="/statics/img/davatar.jpg"
+                                         src="https://northpark.cn/statics/img/davatar.jpg"
                                     </c:if>
                                     <c:if test="${MyInfo.headpath!=null }">
                                     <c:choose>
@@ -222,8 +222,8 @@
 
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
-<script src="/statics/js/page/editinfo.js"></script>
-<script src="/statics/js/bootstrap-datepicker.js"></script>
+<script src="https://northpark.cn/statics/js/page/editinfo.js"></script>
+<script src="https://northpark.cn/statics/js/bootstrap-datepicker.js"></script>
 
 </body>
 </html>

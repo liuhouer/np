@@ -49,7 +49,7 @@ if (keyword) {
 
 
 function beforeSend(XMLHttpRequest) {
-    $("#J_progress").append("<div><img src='/statics/img/loading.gif' style='width:48px;height:48px;' /><div>");
+    $("#J_progress").append("<div><img src='https://northpark.cn/statics/img/loading.gif' style='width:48px;height:48px;' /><div>");
 }
 
 function complete(XMLHttpRequest, textStatus) {

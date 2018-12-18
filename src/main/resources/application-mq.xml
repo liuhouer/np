@@ -41,6 +41,7 @@
     <rabbit:template id="rabbitTemplate" connection-factory="connectionFactory" exchange="rest-content-exchange"/>
     
     
+    
     <!-- 消费者需要以下 -->
     <!-- 定义队列 -->
    <!--  <rabbit:queue name="rest-sms-queue" durable="true" auto-declare="true"/>

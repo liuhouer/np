@@ -15,7 +15,7 @@
 
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
-    <link rel="shortcut icon" href="/statics/img/favicon.ico">
+    <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
     <title>${MyInfo.username}生命中的最爱 | NorthPark</title>
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
 
@@ -84,7 +84,7 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
 
-<script src="/statics/js/page/space.js"></script>
+<script src="https://northpark.cn/statics/js/page/space.js"></script>
 
 
 </body>
