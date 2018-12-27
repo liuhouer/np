@@ -3,8 +3,6 @@ package cn.northpark.test;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,9 +25,12 @@ public class Test_MQ  extends BaseTest{
 	
     public void runTask() {
     	   //发送消息通知发邮件
-        Map<String,Object> mqData=new HashMap<String,Object>();
-        mqData.put("email", "654714226@qq.com");
-        messageProducer.sendDataToQueue(BC_Constant.MQ_MAIL_JOIN, mqData);    	
+    	for (int i = 0; i < 3; i++) {
+			
+    		Map<String,Object> mqData=new HashMap<String,Object>();
+    		mqData.put("email", "r48866@gmail.com");
+    		messageProducer.sendDataToQueue(BC_Constant.MQ_MAIL_JOIN, mqData);    	
+		}
     }
 
 

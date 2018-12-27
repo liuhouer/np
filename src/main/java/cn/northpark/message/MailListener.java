@@ -28,6 +28,7 @@ public class MailListener implements  ChannelAwareMessageListener {
 
     @Autowired
     private UserManager userManager;
+    
 	@Override
 	public void onMessage(Message message, Channel channel) throws Exception {
 		// TODO Auto-generated method stub
@@ -40,7 +41,7 @@ public class MailListener implements  ChannelAwareMessageListener {
 			 //发送邮件                                                   
 			   try {                                                  
 			   	                                                   
-			   	EmailUtils.ThanksReg(email);                       
+				   EmailUtils.getInstance().ThanksReg(email);                       
 			   } catch (Exception e) {    
 				  //发送失败禁用账户
 				   List<User> list = userManager.querySql( " select * from bc_user where email = ?",email);
@@ -58,7 +59,7 @@ public class MailListener implements  ChannelAwareMessageListener {
 			 String code = (String) data.get("code");
 			
 			try {
-	            EmailUtils.emailUtil.changePwd(email, userid, code);
+				EmailUtils.getInstance().changePwd(email, userid, code);
 	        } catch (Exception e) {
 //	        	log.error("重置密码邮件错误========>{}",e);
 	        	e.printStackTrace();

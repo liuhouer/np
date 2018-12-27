@@ -18,7 +18,6 @@ import java.util.Random;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -687,7 +686,7 @@ public class HTMLParserUtil {
 
                             HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(), date);
 
-                            String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "vps/" + date + "/" + map22.get("key"));
+                            String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "vps/" + date + "/" + map22.get("key"));
 
                             //-------------结束--------------------------------
 
@@ -1031,7 +1030,7 @@ public class HTMLParserUtil {
                         //处理软件logo上传
                         HashMap<String, String> map11 = HTMLParserUtil.webPic2Disk(img_url, getLocalFolderByOS(), date);
 
-                        String logo_url = QiniuUtils.getInstance.upload(map11.get("localpath"), "soft/" + date + "/" + map11.get("key"));
+                        String logo_url = QiniuUtils.getInstance().upload(map11.get("localpath"), "soft/" + date + "/" + map11.get("key"));
 
                         String logo_p = "<p><img class=\"aligncenter size-full wp-image-" + code + "\" title=\"" + title + "\" alt=\"" + title + "\" src=\"" + logo_url + "\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\">";
 
@@ -1466,7 +1465,7 @@ public class HTMLParserUtil {
 
 		        HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOSMovies(), date);
 
-		        String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "movies/" + date + "/" + map22.get("key"));
+		        String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "movies/" + date + "/" + map22.get("key"));
 
 		        //-------------结束--------------------------------
 
@@ -1659,7 +1658,7 @@ public class HTMLParserUtil {
 
                                     HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOSMovies(), date);
 
-                                    String rs = QiniuUtils.getInstance.upload(map22.get("localpath"), "movies/" + date + "/" + map22.get("key"));
+                                    String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "movies/" + date + "/" + map22.get("key"));
 
                                     //-------------结束--------------------------------
 

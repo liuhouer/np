@@ -8,12 +8,12 @@ public class BC_Constant {
     /**
      * 用户注册邮件
      */
-    public static final String MQ_MAIL_JOIN = "rest.mail.join";
+    public static final String MQ_MAIL_JOIN = "mail.join";
     
     /**
      * 用户重置邮件
      */
-    public static final String MQ_MAIL_RESET = "rest.mail.reset";
+    public static final String MQ_MAIL_RESET = "mail.reset";
     
     
     /**

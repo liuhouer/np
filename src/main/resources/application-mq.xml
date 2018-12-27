@@ -27,18 +27,18 @@
     
     <!-- 生产者需要以下 -->
     <!-- 定义交换机 -->
-    <rabbit:topic-exchange name="rest-content-exchange" durable="true" >
+    <rabbit:topic-exchange name="mailchange" durable="true" >
         <!-- 如果是2个不同的系统进行通知，那就手动在管理后台进行绑定 -->
         <rabbit:bindings>
             <!-- <rabbit:binding queue="rest-sms-queue" pattern="rest.sms.#"/>
             <rabbit:binding queue="rest-jpush-queue" pattern="rest.jpush.#"/>
             <rabbit:binding queue="rest-sysmsg-queue" pattern="rest.sysmsg.#"/> -->
-            <rabbit:binding queue="rest-mail-queue" pattern="rest.mail.#"/>
+            <rabbit:binding queue="mail" pattern="mail.#"/>
         </rabbit:bindings>
     </rabbit:topic-exchange>
     
     <!-- 定义rabbitTemplate -->
-    <rabbit:template id="rabbitTemplate" connection-factory="connectionFactory" exchange="rest-content-exchange"/>
+    <rabbit:template id="rabbitTemplate" connection-factory="connectionFactory" exchange="mailchange"/>
     
     
     
@@ -47,22 +47,19 @@
    <!--  <rabbit:queue name="rest-sms-queue" durable="true" auto-declare="true"/>
     <rabbit:queue name="rest-jpush-queue" durable="true" auto-declare="true"/>
     <rabbit:queue name="rest-sysmsg-queue" durable="true" auto-declare="true"/> -->
-    <rabbit:queue name="rest-mail-queue" durable="true" />
+    
+   <rabbit:queue name="mail" durable="true" /> 
     
     <!-- 消费者 -->
-   <!--  <bean id="smsHandler" class="com.dingli.components.mq.handler.SmsHandler"></bean>
-    <bean id="jpushHandler" class="com.dingli.components.mq.handler.JpushHandler"></bean>
-    <bean id="saveSysMsgHandler" class="com.dingli.components.mq.handler.SaveSysMsgHandler"></bean> -->
-    <bean id="mailHandler" class="cn.northpark.message.MailListener"></bean>
+    <!--  <bean id="smsHandler" class="com.dingli.components.mq.handler.SmsHandler"></bean>  -->
+    
+    <bean id="mailHandler" class="cn.northpark.message.MailListener"></bean> 
     
     <!-- 队列监听 -->
     <!-- TODO 注释了后台不会滚动显示  这里需要注意acknowledge，这个属性默认是auto，如果消费者报错了，会一直报错，因为他是轮询监听的，可以修改为none或者manul -->
     <rabbit:listener-container connection-factory="connectionFactory" acknowledge="none" >
-       <!--  <rabbit:listener ref="smsHandler" method="excute" queue-names="rest-sms-queue" />
-        <rabbit:listener ref="jpushHandler" method="excute" queue-names="rest-jpush-queue" />
-        <rabbit:listener ref="saveSysMsgHandler" method="saveMsgExcute" queue-names="rest-sysmsg-queue" /> -->
-        <rabbit:listener ref="mailHandler" method="excute" queue-names="rest-mail-queue" />
-    </rabbit:listener-container>
+        <rabbit:listener ref="mailHandler" method="onMessage" queue-names="mail" />
+    </rabbit:listener-container> 
 
 	
 </beans>

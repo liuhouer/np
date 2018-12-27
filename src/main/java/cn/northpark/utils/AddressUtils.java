@@ -31,11 +31,15 @@ public class AddressUtils {
     /**
      * 获取一个处理IP 和 区域的实例
      */
-    private static AddressUtils instance = null;
+    private volatile static AddressUtils instance = null;
 
-    public synchronized static AddressUtils getInstance() {
+    public  static AddressUtils getInstance() {
         if (instance == null) {
-        	instance = new AddressUtils();
+        	synchronized (AddressUtils.class) {
+        		  if (instance == null) {
+        			  instance = new AddressUtils();
+        		  }
+			}
         }
         return instance;
     }

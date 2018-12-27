@@ -3,57 +3,40 @@ package cn.northpark.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.HtmlEmail;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author Administrator
+ * @author jeyy
+ * 
  */
 @Slf4j
 public class EmailUtils {
-    public static final EmailUtils emailUtil = new EmailUtils();
-
-    /**
-     * 日志分析auto发送
-     *
-     * @param toEmail
-     * @param usrId
-     * @param authCode
-     */
-    public static void analyseLog(String toEmail, String cont) {
-        try {
-
-            String host = "smtp.163.com";
-            String myEmail = "qhdsoftware@163.com";
-            String myPassword = Base64Util.JIEMI("MTM0ODM3MjQwNTEwMDAwMDA=");
-            // 接收者邮箱
-            String to = toEmail;
-            String subject = "日志分析";
-
-            HtmlEmail email = new HtmlEmail();
-            email.setAuthentication(myEmail, myPassword);
-            email.setHostName(host);
-            email.addTo(to, "亲");
-            email.setFrom(myEmail);
-            email.setSubject(subject);
-            // 注意，发送内容时，后面这段会让中文正常显示，否则乱码
-            email.setCharset("utf-8");
-            email.setHtmlMsg(cont); /* 邮件内容 */
-            // 添加附件对象
-            // email.attach(attachment);
-            // 发送
-            email.send();
-            log.info("邮件发送成功");
-        } catch (Exception e) {
-            // TODO: handle exception
-            log.error("EmailUtils------->", e);
-            ;
-            log.info("邮件发送失败");
-        }
-
-    }
-
+	
+	private EmailUtils() {
+		
+	}
+	
+	
+	private volatile static EmailUtils instance = null;
+	
+	/**
+	 *  双重同步锁模式【volatile出坑】
+	 	在对象声明时使用volatile关键字修饰，阻止CPU的指令重排。
+	 */
+	public static EmailUtils getInstance() {
+		if(instance == null) {
+			synchronized (EmailUtils.class) {
+				if(instance == null) {
+					instance = new EmailUtils();
+				}
+			}
+		}
+		return instance;
+	}
+	
 
     /**
      * 多谢注册northpark
@@ -62,7 +45,7 @@ public class EmailUtils {
      * @param usrId
      * @param authCode
      */
-    public static void ThanksReg(String toEmail) {
+    public  void ThanksReg(String toEmail) {
         try {
 
             //smtp.qq.com || smtp.163.com
@@ -75,11 +58,13 @@ public class EmailUtils {
 
 
             HtmlEmail email = new HtmlEmail();
-            email.setAuthentication(myEmail, myPassword);
             email.setHostName(host);
-            email.addTo(to, toEmail);           //对方 邮件+对方名字
+            email.setAuthenticator(new DefaultAuthenticator(myEmail, myPassword));
+            email.setSSLOnConnect(true);
+            email.setSmtpPort(465);
             email.setFrom(myEmail, "northpark官方");// 我方 邮件+我方显示名字
             email.setSubject(subject);// 标题
+            email.addTo(to, toEmail);           //对方 邮件+对方名字
             // 注意，发送内容时，后面这段会让中文正常显示，否则乱码
             email.setCharset("utf-8");
             //email.setContent(aObject, aContentType);
@@ -133,12 +118,17 @@ public class EmailUtils {
             String to = toEmail;
             String subject = "~~~~(>_<)~~~~找回northpark的密码";
 
+
             HtmlEmail email = new HtmlEmail();
-            email.setAuthentication(myEmail, myPassword);
             email.setHostName(host);
-            email.addTo(to, toEmail);           //对方 邮件+对方名字
+            email.setAuthenticator(new DefaultAuthenticator(myEmail, myPassword));
+            email.setSSLOnConnect(true);
+            email.setSmtpPort(465);
             email.setFrom(myEmail, "northpark官方");// 我方 邮件+我方显示名字
             email.setSubject(subject);// 标题
+            email.addTo(to, toEmail);           //对方 邮件+对方名字
+            // 注意，发送内容时，后面这段会让中文正常显示，否则乱码
+            email.setCharset("utf-8");
             String dm = "northpark.cn";//URLUtil.getDomain(request);
             // 注意，发送内容时，后面这段会让中文正常显示，否则乱码
             email.setCharset("utf-8");
@@ -151,7 +141,7 @@ public class EmailUtils {
                     + TimeUtils.nowTime()
                     + "收到了您的 帐号重置密码的请求。<br/><br/>"
                     + "如果要重置密码，请单击下面的链接： <br/><br/> "
-                    + "<a target=\"_blank\" href=\"http://"
+                    + "<a target=\"_blank\" href=\"https://"
                     + dm
                     + "/cm/reset?userid="
                     + usrId
@@ -209,7 +199,7 @@ public class EmailUtils {
     	//        list.add("2319113876@qq.com");
     	//        list.add("1275566257@qq.com");
     	//        list.add("maoxiaoyan@biosan.cn");
-                 list.add("hyy_10@126.com");
+//                 list.add("hyy_10@126.com");
     	//        list.add("i@iliji.cn");
     	//        list.add("duanxiaokang@me.com");
     	//        list.add("enrike_rokr@hotmail.com");
@@ -327,10 +317,74 @@ public class EmailUtils {
     	//		  list.add("973741142@qq.com");
     	//		  list.add("232475782@qq.com");
 
-
+    	//        list.add("r48866@gmail.com");
+//    	list.add("r48866@gmail.com");    	
+//    	list.add("807876064@qq.com");
+//    	list.add("370429633@qq.com");
+//    	list.add("pollux.liu@gmail.com");
+//    	list.add("609426404@qq.com");
+//    	list.add("860541352@qq.com");
+//    	list.add("924930177@qq.com");
+//    	list.add("370524420@qq.com");
+//    	list.add("1436832217@qq.com");
+//    	list.add("1933467704@qq.com");
+//    	list.add("18006357629@163.com");
+//    	list.add("291855752@qq.com");
+//    	list.add("a13956193378@outlook.com");
+//    	list.add("liarmirror@qq.com");
+//    	list.add("1964028093@qq.com");
+//    	list.add("609222321@qq.com");
+//    	list.add("171759794@qq.com");
+//    	list.add("cowxu1207@hotmail.com");
+//    	list.add("1073832321@qq.com");
+//    	list.add("3864491@qq.com");
+//    	list.add("204995183@qq.com");
+//    	list.add("18599997486@163.com");
+//    	list.add("cvzxcv2@q.com");
+//    	list.add("zaojunfan@126.com");
+//    	list.add("654812205@qq.com");
+//    	list.add("1322851217@qq.com");
+//    	list.add("zhaolx2121@126.com");
+//    	list.add("kanetoku@gmail.com");
+//    	list.add("liaisky@163.com");
+//    	list.add("2528032002@qq.com");
+//    	list.add("pologer@126.com");
+//    	list.add("matthewlok18c@gmail.com");
+//    	list.add("24919010@qq.com");
+//    	list.add("172238529@qq.com");
+//    	list.add("2324309528@qq.com");
+//    	list.add("th241@163.com");
+//    	list.add("494209219@qq.com");
+//    	list.add("mofaliren@gmail.com");
+//    	list.add("769932247@qq.com");
+//    	list.add("812542106@qq.com");
+//    	list.add("myleonardo@qq.com");
+//    	list.add("jixing475@gmail.com");
+//    	list.add("89281944@163.com");
+//    	list.add("776362265@qq.com");
+//    	list.add("24959248@qq.com");
+//    	list.add("312910298@sohu.com");
+//    	list.add("lijiadong14@gail.com");
+//    	list.add("270753031@qq.com");
+//    	list.add("qlkdsalkl@shit.com");  
+    	
+    	
+//    	list.add("lightinfection@sina.com");
+//    	list.add("carolding1013@163.com");
+//    	list.add("hhhzy113@gmail.com");
+//    	list.add("fnftfe@163.com");
+//    	list.add("1353131605@qq.com");
+//    	list.add("511068174@qq.com");
+//    	list.add("yzfd2013@qq.com");
+//    	list.add("382215239@qq.com");
+//    	list.add("hjkl345672655@yahoo.com.tw");
+//    	list.add("253019169@qq.com");
+//    	list.add("616012777@qq.com");
+//    	list.add("475124896@qq.com");
+    	
+    	
     	for (int i = 0; i < list.size(); i++) {
-
-    		EmailUtils.ThanksReg(list.get(i));
+    		EmailUtils.getInstance().ThanksReg(list.get(i));
     	}
     }
 }

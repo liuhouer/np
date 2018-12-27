@@ -1,6 +1,5 @@
 package cn.northpark.utils;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +18,7 @@ import redis.clients.jedis.JedisPoolConfig;
 public class RedisClusterUtil {
 	
 	
-
+	
 //redis.clusterNodes=114.215.142.252:6379
 //#redis.clusterNodes=127.0.0.1:6379
 //redis.password=bugu
@@ -34,11 +33,18 @@ public class RedisClusterUtil {
     public static final Integer DAY_SECONDS = 60 * 60 * 24;
     public static final Integer HOUR_SECONDS = 60 * 60;
 
- 
-
     private static Set<HostAndPort> jedisClusterNodes;
     private static JedisPoolConfig config;
+    
+    // 改造单例模式和高并发出现的错误
+    // 单例对象 volatile + 双重检测机制 -> 禁止指令重排
+    private volatile static JedisCluster instance = null;
 
+    // 私有构造函数
+    private RedisClusterUtil() {
+    	
+    }
+    
 
     static {
 
@@ -68,6 +74,25 @@ public class RedisClusterUtil {
             log.error("初始化异常", e);
         }
     }
+    
+    
+    /**
+     * 获取Jedis实例
+     * 改造单例模式和高并发出现的错误
+     * @return
+     */
+    public static JedisCluster getInstance() {
+    	
+    	if(instance == null) { // 双重检测机制        // B
+    		synchronized (RedisClusterUtil.class) { // 同步锁
+				if(instance == null) {
+												//节点，超时时间、最多重定向次数，连接池
+					instance = new JedisCluster(jedisClusterNodes, 2000, 100, config);
+				}
+			}
+    	}
+        return instance;
+    }
 
     /**
      * 释放资源
@@ -78,49 +103,49 @@ public class RedisClusterUtil {
         if (jedisCluster != null) {
             try {
                 jedisCluster.close();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 log.error("redis cluster 释放失败", e);
             }
         }
     }
 
-    /**
-     * 获取Jedis实例
-     *
-     * @return
-     */
-    public static JedisCluster getJedisCluster() {
-        /**
-         * 节点，超时时间、最多重定向次数，连接池
-         * */
-        JedisCluster jedisCluster = new JedisCluster(jedisClusterNodes, 2000, 100, config);
-        return jedisCluster;
-    }
+   
 
 
 
     public static void set(String str,String value) {
-    	JedisCluster cluster = null;
     	try {
-    		cluster =  RedisClusterUtil.getJedisCluster();
-    		cluster.set(str,value);
+    		instance =  RedisClusterUtil.getInstance();
+    		instance.set(str,value);
    	     	log.info( new Date()+"--->set--->"+str);	 
 		} finally {
 			// TODO: handle finally clause
-			RedisClusterUtil.release(cluster);
+			RedisClusterUtil.release(instance);
 		}
     	 
     }
+    
+    
+    public static String get(String key) {
+    	try {
+    		instance =  RedisClusterUtil.getInstance();
+    		return instance.get(key);
+		} finally {
+			// TODO: handle finally clause
+			RedisClusterUtil.release(instance);
+		}
+    	 
+    }
+    
 
 
 	public static void main(String[] args) {
 		
-		 JedisCluster cluster = RedisClusterUtil.getJedisCluster();
+		 JedisCluster cluster = RedisClusterUtil.getInstance();
 	     cluster.set("shit", "nice");
 	    
 	     log.info( cluster.get("shit"));	 
 //	     RedisClusterUtil.release(cluster);
-	     
 	}
 
 }

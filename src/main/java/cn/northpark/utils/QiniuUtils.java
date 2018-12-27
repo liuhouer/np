@@ -12,14 +12,53 @@ import com.qiniu.util.Auth;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class QiniuUtils {
-    public static QiniuUtils getInstance = new QiniuUtils();
 
-    public static final String ACCESS_KEY = "HYyj45Ad7f68EsFWVhZuc6qvu1ydgd-CEzFiyabI"; // 你的access_key
-    public static final String SECRET_KEY = "uQqRoiPSk4414gIAdCJdXynjDHYRAT8AecVjubyh"; // 你的secret_key
-    public static final String BUCKET_NAME = "soft"; // 你的空間名稱
+	private static final String ACCESS_KEY = "HYyj45Ad7f68EsFWVhZuc6qvu1ydgd-CEzFiyabI"; // 你的access_key
+	private static final String SECRET_KEY = "uQqRoiPSk4414gIAdCJdXynjDHYRAT8AecVjubyh"; // 你的secret_key
+	private static final String BUCKET_NAME = "soft"; // 你的空間名稱
 
     private static final String BUCKET_HOST_NAME = "http://qiniupic.heartill.com/";
-
+    
+    
+    /**
+     * 私有构造函数
+     */
+    private QiniuUtils(){
+    	
+    }
+    
+    /**
+     * @author w_zhangyang
+     * 枚举模式的单例模式，归并高并发的风险
+     */
+    public enum Singleton {
+    	INSTANCE;
+    	private QiniuUtils singleton;
+    	
+    	/**
+    	 * 构造函数 
+    	 */
+    	Singleton() {
+    		singleton = new QiniuUtils();
+    	}
+    	
+    	
+    	public QiniuUtils getInstance() {
+            return singleton;
+        }
+    }
+    
+    
+   
+    /**
+     * 获取一个唯一的实例
+     * @return
+     */
+    public static QiniuUtils getInstance() {
+        return Singleton.INSTANCE.getInstance();
+    }
+    
+    
 
     /*
      * try {
