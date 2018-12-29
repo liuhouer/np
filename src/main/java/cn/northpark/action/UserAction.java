@@ -43,6 +43,7 @@ import cn.northpark.model.Reset;
 import cn.northpark.model.User;
 import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
+import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.AddressUtils;
 import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.CookieUtil;
@@ -328,7 +329,8 @@ public class UserAction {
     public String pcentral(ModelMap map, HttpServletRequest request) {
 
         String rs = "/myself";
-        User user = (User) request.getSession().getAttribute("user");
+//        User user = (User) request.getSession().getAttribute("user");
+        User user = RequestHolder.get();
         request.getSession().removeAttribute("tabs");
         request.getSession().setAttribute("tabs", "pcenter");
         map.put("MyInfo", user);
@@ -571,7 +573,8 @@ public class UserAction {
     @CheckLogin
     public String toEditInfo(ModelMap map, HttpServletRequest request) {
 
-        User u = (User) request.getSession().getAttribute("user");
+//        User u = (User) request.getSession().getAttribute("user");
+    	User u = RequestHolder.get();
         map.put("MyInfo", u);
         Userprofile Duser = userprofileManager.getModelByUserid(String.valueOf(u.getId()));
         map.put("Dinfo", Duser);

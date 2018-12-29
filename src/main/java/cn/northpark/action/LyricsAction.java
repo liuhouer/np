@@ -78,7 +78,7 @@ public class LyricsAction {
 
     @RequestMapping("/lyrics/remove/{lyricsid}/{userlyricsid}")
     public String remove(@PathVariable("lyricsid") Integer lyricsid, String userid, @PathVariable("userlyricsid") Integer userlyricsid, HttpServletRequest request) {
-        User u = (User) request.getSession().getAttribute("user");
+    	User u = (User) request.getSession().getAttribute("user");
         userid = String.valueOf(u.getId());
         if (StringUtils.isNotEmpty(userid)) {
             lyricsManager.delLyrics(lyricsid);
