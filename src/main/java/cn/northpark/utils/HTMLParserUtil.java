@@ -1077,12 +1077,10 @@ public class HTMLParserUtil {
                         String path = "";
 
 
-                        Elements article_alls = parse.select("div.post-content");
-                        if (!article_alls.isEmpty()) {
-                            for (int i1 = 0; i1 < article_alls.size(); i1++) {
+                        Element articles = parse.select("div.post-content").get(0);
 
                                 //处理征文图像
-                                Elements imgs = article_alls.get(i1).select("img");
+                                Elements imgs = articles.select("img");
                                 for (int j = 0; j < imgs.size(); j++) {
                                     try {
 //                                     String weburl = imgs.get(j).attr("src");
@@ -1109,7 +1107,7 @@ public class HTMLParserUtil {
 
 
                                 //处理正文的不合法url
-                                Elements a1 = article_alls.get(i1).select("a");
+                                Elements a1 = articles.select("a");
                                 for (Element s : a1) {
                                     if (s.attr("href").contains("/tag")) {
                                         s.before(s.text());
@@ -1126,7 +1124,7 @@ public class HTMLParserUtil {
                                 //处理下载地址
                                 StringBuilder sb_path = new StringBuilder();
                                 //执行2次抓取下载地址
-                                Elements last = article_alls.get(i1).select("a");
+                                Elements last = articles.select("a");
                                 if(!CollectionUtils.isEmpty(last)) {
                                 	
                                 	for (Element element : last) {
@@ -1154,16 +1152,15 @@ public class HTMLParserUtil {
                                 path = sb_path.toString();
 
                                 //设置正文
-                                article = article_alls.get(i1).html();
+                                article = articles.html();
                                 brief.append(logo_p);
                                 brief.append("<p>");
-                                brief.append(article_alls.get(i1).select("p").get(0).html());
+                                brief.append(articles.select("p").get(0).html());
                                 brief.append("</p>");
                                 System.out.println("===================================================================================================");
-                                System.out.println("正文内容===================>"+article_alls.get(i1).html());
+                                System.out.println("正文内容===================>"+articles.html());
                                 System.out.println("===================================================================================================");
-                            }
-                        }
+                            
 
                         map = new HashMap<>();
                         map.put("title", title);
