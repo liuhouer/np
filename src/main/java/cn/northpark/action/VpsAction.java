@@ -18,6 +18,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.google.common.collect.Maps;
+
 import cn.northpark.manager.VpsManager;
 import cn.northpark.model.Vps;
 import cn.northpark.query.VpsQuery;
@@ -101,7 +103,7 @@ public class VpsAction {
             log.info("sql ---" + whereSql);
 
             //排序条件
-            LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+            LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
             order.put("date", "desc");
 
 
@@ -166,7 +168,7 @@ public class VpsAction {
         log.info("sql ---" + whereSql);
 
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("date", "desc");
 
 
@@ -215,7 +217,7 @@ public class VpsAction {
 
         log.info("sql ---" + whereSql);
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("date", "desc");
 
         //获取pageview
@@ -265,7 +267,7 @@ public class VpsAction {
         log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("date", "desc");
 
         //获取pageview

@@ -17,6 +17,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.google.common.collect.Maps;
+
 import cn.northpark.manager.EqManager;
 import cn.northpark.model.Eq;
 import cn.northpark.query.EqQuery;
@@ -59,7 +61,6 @@ public class EqAction {
         } catch (Exception e) {
             // TODO: handle exception
             log.error("eqacton------>", e);
-            log.error("eqacton------>", e);
         }
         return "/page/eq/article";
     }
@@ -80,7 +81,7 @@ public class EqAction {
             log.info("sql ---" + whereSql);
 
             //排序条件
-            LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+            LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
             order.put("date", "desc");
 
 
@@ -125,7 +126,7 @@ public class EqAction {
         log.info("sql ---" + whereSql);
 
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("date", "desc");
 
 

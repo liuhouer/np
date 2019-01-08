@@ -1,9 +1,10 @@
 package cn.northpark.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+
+import com.google.common.collect.Lists;
 
 import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.Jedis;
@@ -64,7 +65,7 @@ public class RedisUtil {
 	                   port, 10000,
 	                   bundle.getString("redis.password"));
 	           // slave链接
-	           List<JedisShardInfo> shards = new ArrayList<JedisShardInfo>();
+	           List<JedisShardInfo> shards = Lists.newArrayList();
 	           shards.add(new JedisShardInfo(ip,  port1));
 	           shardedJedisPool = new ShardedJedisPool(config, shards);
 	           log.info("初始化Redis连接池success");

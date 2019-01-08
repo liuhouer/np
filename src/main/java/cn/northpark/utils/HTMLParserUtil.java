@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -23,6 +22,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.util.CollectionUtils;
+
+import com.google.common.collect.Lists;
 
 import cn.northpark.manager.MoviesManager;
 import lombok.extern.slf4j.Slf4j;
@@ -483,7 +484,7 @@ public class HTMLParserUtil {
      * @throws IOException
      */
     public static List<Map<String,String>> retEQArticle() throws IOException {
-        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+        List<Map<String,String>> list = Lists.newArrayList();
 //        for(int i=11;i<=20;i++){
             try{
 //            String initUrl = "http://chuansong.me/account/loveudavid?start=" + i*12 ;
@@ -607,7 +608,7 @@ public class HTMLParserUtil {
      */
     public static List<Map<String, String>> retCoupon(Integer index, String retlink) {
         // TODO Auto-generated method stub
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> list = Lists.newArrayList();
         HashMap<String, String> map = null;
         try {
 
@@ -954,7 +955,7 @@ public class HTMLParserUtil {
      */
     public static List<Map<String, String>> retSoftNew(Integer index) {
         // TODO Auto-generated method stub
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> list = Lists.newArrayList();
         HashMap<String, String> map = null;
         try {
 
@@ -1201,7 +1202,7 @@ public class HTMLParserUtil {
      */
     public static List<Map<String, String>> retMovies(Integer index, String rettype) {
         // TODO Auto-generated method stub
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> list = Lists.newArrayList();
         HashMap<String, String> map = null;
         try {
 
@@ -1538,7 +1539,7 @@ public class HTMLParserUtil {
      */
     public static List<Map<String, String>> retPoem(Integer index) {
         // TODO Auto-generated method stub
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> list = Lists.newArrayList();
         try {
 
             log.info("page=============================" + index + "============================页");
@@ -1811,8 +1812,8 @@ public class HTMLParserUtil {
      * @return
      */
     public static List<String> url2markdown() {
-        List<String> urilist = new ArrayList<String>();
-        List<String> list = new ArrayList<String>();
+        List<String> urilist = Lists.newArrayList();
+        List<String> list = Lists.newArrayList();
         try {
             File in = new File("C:\\Users\\bruce\\Desktop\\111\\aaaa.html");
 
@@ -1847,7 +1848,7 @@ public class HTMLParserUtil {
      * @return
      */
     public static List<String> gegeMEIZITU() {
-        List<String> meizi = new ArrayList<String>();
+        List<String> meizi = Lists.newArrayList();
 
         for (int i = 1; i <= 18; i++) {
             String img = "/static/img/eq/tumblr_o" + i + ".png";
@@ -1956,7 +1957,7 @@ public class HTMLParserUtil {
      * @throws IOException
      */
     public static List<String> retMeizitu() throws IOException {
-        List<String> list = new ArrayList<String>();
+        List<String> list = Lists.newArrayList();
         try {
             Document doc = Jsoup.connect("http://huaban.com/from/meizitu.com/?inepv8xm&max=695360534&limit=300&wfl=1").get();
             //src

@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.collect.Maps;
+
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.NoteManager;
@@ -159,7 +161,7 @@ public class NoteAction {
         PageView<Note> pageview = new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT);
 
 
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("createtime", "desc");
 
         QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,
@@ -235,7 +237,7 @@ public class NoteAction {
         //定义pageview
         PageView<Note> pageview = new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT);
 
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("createtime", "desc");
 
         QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,

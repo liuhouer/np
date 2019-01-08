@@ -4,7 +4,6 @@ package cn.northpark.utils;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +12,8 @@ import org.apache.log4j.FileAppender;
 import org.apache.log4j.Layout;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author bruce
@@ -176,7 +177,7 @@ public class NorhtParkLogAppender extends FileAppender {
      */
     List<String> getMaxBackupIndexDates() {
         
-        List<String> result = new ArrayList<String>();
+        List<String> result = Lists.newArrayList();
         if (maxBackupIndex > 0) {
             for (int i = 1; i <= maxBackupIndex; i++) {
                 Calendar calendar = Calendar.getInstance();

@@ -3,8 +3,6 @@ package cn.northpark.action;
 
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 /*
  *@author bruce
@@ -26,6 +24,9 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import cn.northpark.annotation.BruceOperation;
 import cn.northpark.constant.ResultEnum;
@@ -239,7 +240,7 @@ public class MoviesAction {
         log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("hotindex,id", "desc");
 
         //获取pageview
@@ -301,7 +302,7 @@ public class MoviesAction {
         log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("hotindex,id", "desc");
 
         //获取pageview
@@ -392,7 +393,7 @@ public class MoviesAction {
         log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         String orderby = request.getParameter("orderby");
         if (StringUtils.isNotEmpty(orderby)) {
             if ("hot".equals(orderby)) {
@@ -447,9 +448,9 @@ public class MoviesAction {
                     if (tags.length != tagcodes.length) {
                     	throw new NorthParkException(ResultEnum.Movie_Tag_Not_Match);
                     }
-                    List<Map<String, String>> taglist = new ArrayList<Map<String, String>>();
+                    List<Map<String, String>> taglist = Lists.newArrayList();
                     for (int i = 0; i < tags.length; i++) {
-                        Map<String, String> map = new HashMap<String, String>();
+                        Map<String, String> map = Maps.newHashMap();
                         map.put("tag", tags[i]);
                         map.put("tagcode", tagcodes[i]);
                         taglist.add(map);

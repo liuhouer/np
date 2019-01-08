@@ -1,7 +1,6 @@
 package cn.northpark.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,8 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.GenericGenerator;
+
+import com.google.common.collect.Lists;
 
 import lombok.Data;
 
@@ -76,7 +77,7 @@ public class Vps implements Serializable {
         this.tags = tags;
 
         //设置taglist
-        List<Map<String, String>> taglist2 = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> taglist2 = Lists.newArrayList();
         if (StringUtils.isNotEmpty(tags)) {
             String[] tagarr = tags.split(",");
             for (int i = 0; i < tagarr.length; i++) {

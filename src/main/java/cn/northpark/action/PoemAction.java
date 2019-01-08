@@ -17,6 +17,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.google.common.collect.Maps;
+
 import cn.northpark.manager.PoemManager;
 import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Poem;
@@ -83,7 +85,7 @@ public class PoemAction {
 
         String currentpage = "1";
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("rand()", "asc");
 
         //获取pageview
@@ -171,7 +173,7 @@ public class PoemAction {
 
         log.info("sql ---" + whereSql);
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("rand()", "asc");
 
 
@@ -233,7 +235,7 @@ public class PoemAction {
         log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("id", "asc");
 
         //获取pageview
@@ -289,7 +291,7 @@ public class PoemAction {
         log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("id", "asc");
 
         //获取pageview

@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.collect.Maps;
+
 import cn.northpark.annotation.BruceOperation;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
@@ -186,7 +188,7 @@ public class SoftAction {
         log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("UNIX_TIMESTAMP(postdate)", "desc");
 
         //获取pageview
@@ -299,7 +301,7 @@ public class SoftAction {
             log.info("sql ---" + whereSql);
             String currentpage = page;
             //排序条件
-            LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+            LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
             order.put("UNIX_TIMESTAMP(postdate)", "desc");
 
             //获取pageview
@@ -363,7 +365,7 @@ public class SoftAction {
         log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
-        LinkedHashMap<String, String> order = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("UNIX_TIMESTAMP(postdate)", "desc");
 
         //获取pageview

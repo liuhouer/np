@@ -7,6 +7,7 @@ import java.util.Map;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.google.common.collect.Lists;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -193,7 +194,7 @@ public class JsonUtil {
 	 * @return
 	 */
 	public static List<Map<String, Object>> getListMap(String jsonString) {
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> list = Lists.newArrayList();
 		try {
 			// 两种写法
 			// list = JSON.parseObject(jsonString, new

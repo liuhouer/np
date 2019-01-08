@@ -3,7 +3,6 @@ package cn.northpark.action;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.common.collect.Lists;
 
 import cn.northpark.annotation.CheckLogin;
 import cn.northpark.constant.BC_Constant;
@@ -367,7 +368,7 @@ public class UserAction {
         map.put("MyInfo", user);
 
         //查询该用户的粉丝列表
-        List<Map<String, Object>> fanlist = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> fanlist = Lists.newArrayList();
         List<UserFollow> fan_list = userfollowManager.findByCondition(" where author_id = '" + user.getId() + "' ").getResultlist();
         if (!CollectionUtils.isEmpty(fan_list)) {
             for (int i = 0; i < fan_list.size(); i++) {
@@ -404,7 +405,7 @@ public class UserAction {
             map.put("MyInfo", user);
 
             //查询该用户的粉丝列表
-            List<Map<String, Object>> fanlist = new ArrayList<Map<String, Object>>();
+            List<Map<String, Object>> fanlist = Lists.newArrayList();
             List<UserFollow> fan_list = userfollowManager.findByCondition(" where author_id = '" + userid + "' ").getResultlist();
             if (!CollectionUtils.isEmpty(fan_list)) {
                 for (int i = 0; i < fan_list.size(); i++) {

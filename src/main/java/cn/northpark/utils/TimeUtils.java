@@ -2,7 +2,6 @@ package cn.northpark.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,6 +10,8 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
+
+import com.google.common.collect.Lists;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -738,6 +739,6 @@ public class TimeUtils {
 		
 		set.addAll(Arrays.asList(toAddStr));
 		
-		System.out.println(JsonUtil.object2json(new ArrayList<>(set)));
+		System.out.println(JsonUtil.object2json(Lists.newArrayList(set)));
 	}
 }

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +25,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author caomin
@@ -206,7 +207,7 @@ public class HttpGetUtils {
 	 */
     public static String sendPost(String url, Map<String, String> map) {
     	CloseableHttpClient httpclient = HttpClients.createDefault();
-    	List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+    	List<NameValuePair> formparams = Lists.newArrayList();
     	for (Map.Entry<String, String> entry : map.entrySet()) {
     		//给参数赋值
     		formparams.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));

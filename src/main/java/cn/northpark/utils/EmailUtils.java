@@ -1,10 +1,11 @@
 package cn.northpark.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.HtmlEmail;
+
+import com.google.common.collect.Lists;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -185,7 +186,7 @@ public class EmailUtils {
 
     public static void main(String[] args) {
 
-    	List<String> list = new ArrayList<String>();
+    	List<String> list = Lists.newArrayList();
     	//        list.add("119207145@qq.com");
     	//        list.add("102757503@qq.com");
     	//        list.add("1989866937@qq.com");

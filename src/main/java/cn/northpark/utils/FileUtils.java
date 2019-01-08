@@ -15,7 +15,6 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -26,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.common.collect.Lists;
 
 import lombok.extern.slf4j.Slf4j;
 import sun.misc.BASE64Decoder;
@@ -102,7 +103,7 @@ public class FileUtils {
     public static List<String> commonUpload(MultipartFile[] file, String suffix) {
         log.info("-------------------------------------->开始");
 
-        List<String> list = new ArrayList<String>();
+        List<String> list = Lists.newArrayList();
         Properties prop = System.getProperties();
 
         String os = prop.getProperty("os.name");
@@ -333,7 +334,7 @@ public class FileUtils {
     }
 
     public static List<String> showAllFiles(File dir) throws Exception {
-        List<String> filelist = new ArrayList<String>();
+        List<String> filelist = Lists.newArrayList();
         File[] fs = dir.listFiles();
         for (int i = 0; i < fs.length; i++) {
             //log.info(fs[i].getAbsolutePath());
@@ -442,7 +443,7 @@ public class FileUtils {
      */
     public static List<String> ReadFile(String Path) {
         File file = new File(Path);
-        List<String> list = new ArrayList<String>();
+        List<String> list = Lists.newArrayList();
         Scanner scanner = null;
         try {
             scanner = new Scanner(file, "utf-8");
