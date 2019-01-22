@@ -1,5 +1,10 @@
 # np-web
 
+## 2019年1月22日
+- 准备开发一个知识网站，搜集各种知识资料
+- 用know.northpark.cn吧
+- 页面简介优雅白色系
+
 ## 2018年12月14日
 - docker: tomcat8.5集群 与 redis session 共享
 
