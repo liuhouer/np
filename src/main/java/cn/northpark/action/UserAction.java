@@ -29,7 +29,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.common.collect.Lists;
 
 import cn.northpark.annotation.CheckLogin;
-import cn.northpark.constant.BC_Constant;
 import cn.northpark.constant.CookieConstant;
 import cn.northpark.constant.RedisConstant;
 import cn.northpark.constant.ResultEnum;
@@ -48,6 +47,7 @@ import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.AddressUtils;
 import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.CookieUtil;
+import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
 import cn.northpark.utils.IDUtils;
 import cn.northpark.utils.JsonUtil;
@@ -167,12 +167,17 @@ public class UserAction {
         
         
         //发送消息通知发邮件
-        Map<String,Object> mqData=new HashMap<String,Object>();
-        mqData.put("email", email);
-        mqData.put("userid",userid);
-        mqData.put("code",code);
-		
-        messageProducer.sendDataToQueue(BC_Constant.MQ_MAIL_RESET, mqData);
+        try {
+			EmailUtils.getInstance().changePwd(email, userid, code);
+        } catch (Exception e) {
+        	log.error("重置密码邮件错误========>{}",e);
+        }
+//        Map<String,Object> mqData=new HashMap<String,Object>();
+//        mqData.put("email", email);
+//        mqData.put("userid",userid);
+//        mqData.put("code",code);
+//		
+//        messageProducer.sendDataToQueue(BC_Constant.MQ_MAIL_RESET, mqData);
         return  ResultGenerator.genSuccessResult("ok");
     }
 
@@ -777,12 +782,18 @@ public class UserAction {
             session.setAttribute("user", user);
             map.put("user", user);
             
+            this.userManager.addUser(user);
+
             //发送消息通知发邮件
-            Map<String,Object> mqData=new HashMap<String,Object>();
-            mqData.put("email", email);
-            messageProducer.sendDataToQueue(BC_Constant.MQ_MAIL_JOIN, mqData);
+            try {
+    			EmailUtils.getInstance().ThanksReg(email);
+            } catch (Exception e) {
+            	log.error("发送注册邮件错误========>{}",e);
+            }
+//            Map<String,Object> mqData=new HashMap<String,Object>();
+//            mqData.put("email", email);
+//            messageProducer.sendDataToQueue(BC_Constant.MQ_MAIL_JOIN, mqData);
             
-		    this.userManager.addUser(user);
 		    return ResultGenerator.genSuccessResult("ok");
            
         }

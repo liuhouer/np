@@ -30,7 +30,7 @@
 //		StringBuilder sb = new StringBuilder();
 //		List<Map<String, Object>> list = softManager.querySqlMap(" select id from bc_movies where id > "+lastNum+" order by id desc ");
 //		for(Map<String, Object> map :list){
-//			Object retcode = (Object) map.get("id");
+//			Object retcode = map.get("id");
 //			sb.append("<url>");
 //			sb.append("<loc>https://northpark.cn/movies/post-");
 //			sb.append(retcode+".html</loc>");
@@ -55,7 +55,7 @@
 //
 //    @Test
 //    public void save() {
-//        runTask(681531);
+//        runTask(681600);
 //    }
 //
 //}
