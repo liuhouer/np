@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
  * BASE64加解密工具类
  *
  * @Author : bruce
- * @date:2016年5月20日 下午5:05:30
  *
  */
 @Slf4j

@@ -11,7 +11,6 @@ import javax.crypto.spec.DESKeySpec;
  * DES加解密工具类
  *
  * @Author : bruce
- * @date:2016年5月20日 下午5:19:00
  *
  */
 class DESUtils {
@@ -22,7 +21,6 @@ class DESUtils {
 	 * DES加密
 	 * 
 	 * @author : bruce
-	 * @date : 2016年5月20日 下午5:51:37
 	 *
 	 * @param data
 	 * 				待加密字符串
@@ -55,7 +53,6 @@ class DESUtils {
      * DES解密
      * 
      * @author : bruce
-     * @date : 2016年5月20日 下午5:52:23
      *
      * @param cryptData
      * 						待解密密文
