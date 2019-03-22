@@ -27,7 +27,7 @@ public class IDUtils {
 	 */
 	public static IDUtils getInstance() {
 		if(instance == null) {
-			synchronized (EmailUtils.class) {
+			synchronized (IDUtils.class) {
 				if(instance == null) {
 					instance = new IDUtils();
 				}
