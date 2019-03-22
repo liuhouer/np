@@ -26,6 +26,7 @@ import org.springframework.util.CollectionUtils;
 import com.google.common.collect.Lists;
 
 import cn.northpark.manager.MoviesManager;
+import cn.northpark.utils.encrypt.EnDecryptUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -452,7 +453,7 @@ public class HTMLParserUtil {
 //
 //
 //                // 生成码
-//                String retcode = MD5Utils.encoding(title);
+//                String retcode = EnDecryptUtils.md5Encrypt(title);
 //
 //                map.put("title", title);
 //                map.put("aurl", aurl);
@@ -565,7 +566,7 @@ public class HTMLParserUtil {
                 
                 
                 // 生成码
-                String retcode = MD5Utils.encoding(title);
+                String retcode = EnDecryptUtils.md5Encrypt(title);
 
                 map.put("title", title);
                 map.put("aurl", aurl);
@@ -641,7 +642,7 @@ public class HTMLParserUtil {
                     
                     Md5Crypt.apr1Crypt(title);
 
-                    String retcode = MD5Utils.encoding(title);
+                    String retcode = EnDecryptUtils.md5Encrypt(title);
 
                     String date = li.select("p[class=text-muted time]").get(0).text();
 
@@ -1228,7 +1229,7 @@ public class HTMLParserUtil {
 
                     String title = li.select("h3.dytit").get(0).text();
 
-                    String retcode = MD5Utils.encoding(title);
+                    String retcode = EnDecryptUtils.md5Encrypt(title);
                     
                     String path = "";
                     
@@ -1605,7 +1606,7 @@ public class HTMLParserUtil {
 
 
                     //生成代码
-                    String retcode = MD5Utils.encoding(title + types + author + detail_url);
+                    String retcode = EnDecryptUtils.md5Encrypt(title + types + author + detail_url);
 
 
                     log.info("title==============>" + title);
@@ -2081,7 +2082,7 @@ public class HTMLParserUtil {
 
 
 //            	retPoem(26);
-//            	log.info(MD5Utils.encoding("速度与激情8"));
+//            	log.info(EnDecryptUtils.md5Encrypt("速度与激情8"));
 //            	retEQArticle();
 //            	retCoupon(1, BC_Constant.Coupon_VPS_7);
 //            	retCaiMai(1);

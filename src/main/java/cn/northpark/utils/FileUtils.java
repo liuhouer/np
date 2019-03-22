@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.collect.Lists;
 
+import cn.northpark.utils.encrypt.EnDecryptUtils;
 import lombok.extern.slf4j.Slf4j;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -361,7 +362,7 @@ public class FileUtils {
         File root = new File("/mnt/apk/album");
         List<String> flist = showAllFiles(root);
         for (int i = 0; i < flist.size(); i++) {
-            if (MD5Utils.encoding(new FileInputStream(flist.get(i))).equals(pic1)) {//替换图片
+            if (EnDecryptUtils.md5Encrypt(flist.get(i)).equals(pic1)) {//替换图片
                 log.info(i + "---" + flist.get(i));
                 String new_pic = getRandomPic(flist);
 
@@ -425,7 +426,7 @@ public class FileUtils {
         String path = "";
         try {
             path = list.get(getRandomOne(list));
-            if (MD5Utils.encoding(new FileInputStream(path)).equals(pic1)) {
+            if (EnDecryptUtils.md5Encrypt(path).equals(pic1)) {
                 getRandomPic(list);
             }
         } catch (Exception e) {

@@ -45,7 +45,6 @@ import cn.northpark.model.UserFollow;
 import cn.northpark.model.Userprofile;
 import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.AddressUtils;
-import cn.northpark.utils.Base64Util;
 import cn.northpark.utils.CookieUtil;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.FileUtils;
@@ -54,6 +53,7 @@ import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.RedisUtil;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.encrypt.EnDecryptUtils;
 import cn.northpark.utils.safe.WAQ;
 import lombok.extern.slf4j.Slf4j;
 
@@ -155,7 +155,7 @@ public class UserAction {
         //添加重置的信息============================================
         Reset reset = new Reset();
         reset.setCreated_time(TimeUtils.nowTime());
-        String code = IDUtils.geneInt();
+        String code = IDUtils.getInstance().geneInt();
         reset.setAuth_code(code);
         reset.setInvalid_time(TimeUtils.getDayAfter(TimeUtils.nowTime()));
         reset.setIs_email_authed(0);
@@ -200,7 +200,7 @@ public class UserAction {
                                 gtmodel.getInvalid_time()) && (0 == gtmodel.getIs_email_authed())) {// 时间未过期
                             User user = userManager.findUser(Integer.parseInt(userid));
                             if (user != null) {
-                                user.setPassword(Base64Util.JIAMI(auth_code));
+                                user.setPassword(EnDecryptUtils.diyEncrypt(auth_code));
                                 userManager.updateUser(user);
 
                                 request.getSession().setAttribute("user", user);
@@ -216,7 +216,7 @@ public class UserAction {
                         if (0 == gtmodel.getIs_email_authed()) {
                             User user = userManager.findUser(Integer.parseInt(userid));
                             if (user != null) {
-                                user.setPassword(Base64Util.JIAMI(auth_code));
+                                user.setPassword(EnDecryptUtils.diyEncrypt(auth_code));
                                 userManager.updateUser(user);
                                 request.getSession().setAttribute("user", user);
                                 //更新数据
@@ -633,7 +633,7 @@ public class UserAction {
 
         //处理密码信息
         if (!StringUtils.isEmpty(new_password) && !StringUtils.isEmpty(new_password_confirmation) && new_password.equals(new_password_confirmation)) {
-            user.setPassword(Base64Util.JIAMI(new_password));
+            user.setPassword(EnDecryptUtils.diyEncrypt(new_password));
         }
         //处理密码信息
         userManager.updateUser(user);
@@ -777,7 +777,7 @@ public class UserAction {
             //设置注册者的详细信息
             user.setLast_login(JsonUtil.object2json(user.getDate_joined()+ipAndDetail));
             user.setTail_slug(username + TimeUtils.getRandomDay());
-            user.setPassword(Base64Util.JIAMI(password));
+            user.setPassword(EnDecryptUtils.diyEncrypt(password));
             user.setEmail_flag("1");//暂时设置为1， 邮件发送失败再禁用账户
             session.setAttribute("user", user);
             map.put("user", user);
@@ -838,7 +838,7 @@ public class UserAction {
         if (!StringUtils.isEmpty(email) && !StringUtils.isEmpty(password)) {
             //防止sql注入--email
             email = WAQ.forSQL().escapeSql(email);
-            password = Base64Util.JIAMI(password);
+            password = EnDecryptUtils.diyEncrypt(password);
             User user = userManager.login(email, password,ipAndDetail);
             if (user != null && !user.getEmail_flag().equals("0")) {
             	 //2.登录成功

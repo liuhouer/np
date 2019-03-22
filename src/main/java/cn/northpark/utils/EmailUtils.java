@@ -7,6 +7,7 @@ import org.apache.commons.mail.HtmlEmail;
 
 import com.google.common.collect.Lists;
 
+import cn.northpark.utils.encrypt.EnDecryptUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -52,7 +53,7 @@ public class EmailUtils {
             //smtp.qq.com || smtp.163.com
             String host = "smtp.163.com";
             String myEmail = "qhdsoftware@163.com";
-            String myPassword = Base64Util.JIEMI("emhhbmd5YW5nMjI2MDAwMDAw");
+            String myPassword = EnDecryptUtils.diyDecrypt("emhhbmd5YW5nMjI2MDAwMDAw");
             // 接收者邮箱
             String to = toEmail;
             String subject = "欢迎加入Northpark";
@@ -114,7 +115,7 @@ public class EmailUtils {
             //smtp.qq.com || smtp.163.com
             String host = "smtp.163.com";
             String myEmail = "qhdsoftware@163.com";
-            String myPassword = Base64Util.JIEMI("emhhbmd5YW5nMjI2MDAwMDAw");
+            String myPassword = EnDecryptUtils.diyDecrypt("emhhbmd5YW5nMjI2MDAwMDAw");
             // 接收者邮箱
             String to = toEmail;
             String subject = "~~~~(>_<)~~~~找回northpark的密码";
