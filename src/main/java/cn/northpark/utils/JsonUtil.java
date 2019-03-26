@@ -25,6 +25,18 @@ public class JsonUtil {
 	 *          the json string of object
 	 */
 	public static String object2json(Object object) {
+		return JSON.toJSONString(object);
+	}
+	
+	/**
+	 * object to json
+	 *
+	 * @param object
+	 *          the object that will transform to json string
+	 * @return
+	 *          the json string of object
+	 */
+	public static String object2jsonWriteNullValue(Object object) {
 		return JSON.toJSONString(object,SerializerFeature.PrettyFormat,SerializerFeature.WriteMapNullValue,SerializerFeature.WriteNullListAsEmpty,SerializerFeature.WriteNullStringAsEmpty,SerializerFeature.WriteBigDecimalAsPlain);
 	}
 
