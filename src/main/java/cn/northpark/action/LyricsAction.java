@@ -324,7 +324,7 @@ public class LyricsAction {
 		List<Map<String, Object>> loveList = null;
 		String str = RedisUtil.get("loveList");
 		if(StringUtils.isNotEmpty(str)) {
-			loveList = JsonUtil.getListMap(str);
+			loveList = JsonUtil.json2ListMap(str);
 		}
 		
 		if(CollectionUtils.isEmpty(loveList)) {

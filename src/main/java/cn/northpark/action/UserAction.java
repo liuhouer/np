@@ -825,7 +825,7 @@ public class UserAction {
         	 String userstr = RedisUtil.get(String.format(RedisConstant.TOKEN_TEMPLATE, cookie.getValue()));
         	 
         	 if(StringUtils.isNotEmpty(userstr)) {
-        		 User user = JsonUtil.json2Bean(userstr, User.class);
+        		 User user = JsonUtil.json2object(userstr, User.class);
         		 //6.本次session存放
             	 request.getSession().setAttribute("user", user);
             	 return ResultGenerator.genSuccessResult();

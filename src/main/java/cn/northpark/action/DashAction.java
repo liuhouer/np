@@ -144,7 +144,7 @@ public class DashAction {
     	//从redis取
     	String str = RedisUtil.get("home_movieslist");
 		if(StringUtils.isNotEmpty(str)) {
-			home_movieslist = JsonUtil.getListMap(str);
+			home_movieslist = JsonUtil.json2ListMap(str);
 		}
 
 		
@@ -202,7 +202,7 @@ public class DashAction {
     	//从redis取
     	String str = RedisUtil.get("home_notelist");
 		if(StringUtils.isNotEmpty(str)) {
-			home_notelist = JsonUtil.getListMap(str);
+			home_notelist = JsonUtil.json2ListMap(str);
 		}	
 		
 		//从数据库取 :1天刷新
@@ -242,7 +242,7 @@ public class DashAction {
     	//从redis取
     	String str = RedisUtil.get("home_lovelist");
 		if(StringUtils.isNotEmpty(str)) {
-			home_lovelist = JsonUtil.getListMap(str);
+			home_lovelist = JsonUtil.json2ListMap(str);
 		}
     	
 		//从数据库取

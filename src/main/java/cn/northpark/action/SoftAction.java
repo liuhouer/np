@@ -408,9 +408,9 @@ public class SoftAction {
         
         if(StringUtils.isNotEmpty(soft_tags_str) && StringUtils.isNotEmpty(soft_hot_list_str) && StringUtils.isNotEmpty(soft_date_list_str)) {
         	
-        	tags = JsonUtil.getListMap(soft_tags_str);
-        	hotlist = JsonUtil.getListMap(soft_hot_list_str);
-        	datelist = JsonUtil.getListMap(soft_date_list_str);
+        	tags = JsonUtil.json2ListMap(soft_tags_str);
+        	hotlist = JsonUtil.json2ListMap(soft_hot_list_str);
+        	datelist = JsonUtil.json2ListMap(soft_date_list_str);
         }
 
         //从数据库取

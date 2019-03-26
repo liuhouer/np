@@ -59,7 +59,7 @@ public class RedisAspect {
 			
 			    //返回listmap
 			if(type.equals(RedisReturnType.listmap.getType())) {
-				result = JsonUtil.getListMap(redisRS);
+				result = JsonUtil.json2ListMap(redisRS);
 			}else if(type.equals(RedisReturnType.map.getType())){
 				//返回map
 				result = JsonUtil.json2map(redisRS);

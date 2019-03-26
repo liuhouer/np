@@ -509,7 +509,7 @@ public class MoviesAction {
         String movies_hot_list_str = RedisUtil.get("movies_hot_list");
         if(StringUtils.isNotEmpty(tags_str) && StringUtils.isNotEmpty(movies_hot_list_str)) {
         	
-        	movies_hot_list = JsonUtil.getListMap(movies_hot_list_str);
+        	movies_hot_list = JsonUtil.json2ListMap(movies_hot_list_str);
         	tags = JsonUtil.json2list(tags_str, Tags.class);
         }
 

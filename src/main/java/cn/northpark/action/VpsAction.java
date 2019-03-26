@@ -309,7 +309,7 @@ public class VpsAction {
     	//从redis取
     	String str = RedisUtil.get("vps_tag_cloud");
 		if(StringUtils.isNotEmpty(str)) {
-			rs = JsonUtil.getListMap(str);
+			rs = JsonUtil.json2ListMap(str);
 		}
     	
     	//从数据库取
