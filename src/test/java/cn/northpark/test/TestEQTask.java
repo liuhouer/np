@@ -416,7 +416,7 @@ public class TestEQTask {
 			log.info("soft task==============start=" + TimeUtils.getNowTime());
 			Map<String, String> map = null;
 
-			for (int k = 1; k <= 3; k++) {
+			for (int k = 1; k <= 2; k++) {
 
 				try {
 
