@@ -1389,13 +1389,19 @@ public class HTMLParserUtil {
       					  
       					  
       					//删除播放器样式
-      					detail.select("div.MinePlayer").remove();
-      					detail.select("link").remove();
-      					detail.select("div.MineBottomList").remove();
-      					detail.select("script").remove();
-      					detail.select("div.uc-rating").remove();
-      					detail.select("div.uc-favorite-2").remove();
-      					detail.getElementById("sociables").remove();
+                        try {
+							
+                        	detail.select("div.MinePlayer").remove();
+                        	detail.select("link").remove();
+                        	detail.select("div.MineBottomList").remove();
+                        	detail.select("script").remove();
+                        	detail.select("div.uc-rating").remove();
+                        	detail.select("div.uc-favorite-2").remove();
+                        	detail.getElementById("sociables").remove();
+						} catch (Exception e) {
+							// TODO: handle exception
+							log.error("del ex--->{}",e);
+						}
       					 desc += info.html();
       					 
       					 desc += detail.html();
