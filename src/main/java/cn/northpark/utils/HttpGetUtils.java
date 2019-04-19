@@ -26,6 +26,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.google.common.collect.Lists;
 
 /**
@@ -236,6 +240,47 @@ public class HttpGetUtils {
     public static void main(String[] args) {
     	System.out.println(StandardCharsets.UTF_8.toString());
     	System.out.println(StandardCharsets.UTF_8.name());
+	}
+
+	/**
+	 * 使用htmlunit工具来获取页面数据，可以处理异步数据
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public static String getDataByHtmlUnit(String url) {
+		 String pageXml = "";
+		try {
+			// TODO Auto-generated method stub
+			 WebClient wc = new WebClient(BrowserVersion.CHROME);
+			 // 启用JS解释器，默认为true
+			 wc.getOptions().setJavaScriptEnabled(false);
+			 // 禁用css支持
+			 wc.getOptions().setCssEnabled(false);
+			 // js运行错误时，是否抛出异常
+			 wc.getOptions().setThrowExceptionOnScriptError(false);
+			 // 状态码错误时，是否抛出异常
+			 wc.getOptions().setThrowExceptionOnFailingStatusCode(false);
+			 // 设置连接超时时间 ，这里是5S。如果为0，则无限期等待
+			 wc.getOptions().setTimeout(5000);
+			 // 是否允许使用ActiveX
+			 wc.getOptions().setActiveXNative(false);
+			 // 等待js时间
+			 wc.waitForBackgroundJavaScript(1 * 5000);
+			 // 设置Ajax异步处理控制器即启用Ajax支持
+			 wc.setAjaxController(new NicelyResynchronizingAjaxController());
+			 // 不跟踪抓取
+			 wc.getOptions().setDoNotTrackEnabled(false);
+			 HtmlPage page = wc.getPage(url);
+			//设置一个运行JavaScript的时间
+//			 wc.waitForBackgroundJavaScript(5000);
+			 // 以xml的形式获取响应文本
+			 pageXml = page.asXml();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return pageXml;
 	}
 }
 

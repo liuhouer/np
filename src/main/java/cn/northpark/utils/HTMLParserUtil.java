@@ -950,6 +950,7 @@ public class HTMLParserUtil {
 //    }
 
 
+    
     /**
      * 爱情守望者
      * 爬取1页的mac软件内容
@@ -962,7 +963,7 @@ public class HTMLParserUtil {
 
 
             String initUrl = "https://www.waitsun.com/page/" + index;
-            final String dataResult = HttpGetUtils.getDataResult(initUrl);
+            final String dataResult = HttpGetUtils.getDataByHtmlUnit(initUrl);
 
             System.out.println(dataResult);
             Document doc = Jsoup.parse(dataResult, initUrl);
@@ -986,11 +987,11 @@ public class HTMLParserUtil {
                 try {
 
                     String url = e.select("a").get(0).attr("href");
-                    String img_url = e.select("img").get(0).attr("src");
+                    String img_url = e.select("img").get(0).attr("data-original");
 
 
                     //获取全文的内容
-                    String dataResult1 = HttpGetUtils.getDataResult(url);
+                    String dataResult1 = HttpGetUtils.getDataByHtmlUnit(url);
 
                     /*System.out.println(dataResult1);*/
                     Document parse = Jsoup.parse(dataResult1, url);
@@ -2117,6 +2118,7 @@ public class HTMLParserUtil {
         	
 //        	retMovies(1,"http://m.orisi.cn/movie_bt_series/movie/page/");
         	retSoftNew(1);
+        	
         } catch (Exception e) {
             // TODO Auto-generated catch block
             log.error("HTMLPARSERutils------->", e);
