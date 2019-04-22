@@ -16,6 +16,7 @@ import cn.northpark.manager.SoftManager;
 import cn.northpark.manager.VpsManager;
 import cn.northpark.model.Soft;
 import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.utils.IDUtils;
 import cn.northpark.utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -416,7 +417,7 @@ public class TestEQTask {
 			log.info("soft task==============start=" + TimeUtils.getNowTime());
 			Map<String, String> map = null;
 
-			for (int k = 4; k <= 9; k++) {
+			for (int k = 3; k <= 10; k++) {
 
 				try {
 
@@ -433,7 +434,7 @@ public class TestEQTask {
 							String date = map.get("date");
 							String article = map.get("article");
 							String tag = map.get("tag");
-							String code = map.get("code");
+							String code = map.get("code")+"-"+IDUtils.getInstance().generateNumberString(3);
 							String os = map.get("os");
 							String month = map.get("month");
 							String year = map.get("year");
@@ -441,7 +442,7 @@ public class TestEQTask {
 							String path = map.get("path");
 
 							// 是不存在的文章
-							int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
+							int flag = softManager.countHql(" where o.title= '" + title + "' and o.retcode = '"+code+"' ");
 
 							if (flag <= 0) {
 
