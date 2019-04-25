@@ -417,7 +417,7 @@ public class TestEQTask {
 			log.info("soft task==============start=" + TimeUtils.getNowTime());
 			Map<String, String> map = null;
 
-			for (int k = 3; k <= 10; k++) {
+			for (int k = 2; k <= 2; k++) {
 
 				try {
 
@@ -442,7 +442,7 @@ public class TestEQTask {
 							String path = map.get("path");
 
 							// 是不存在的文章
-							int flag = softManager.countHql(" where o.title= '" + title + "' and o.retcode = '"+code+"' ");
+							int flag = softManager.countHql(" where o.title= '" + title + "' or o.retcode = '"+code+"' ");
 
 							if (flag <= 0) {
 
