@@ -154,6 +154,8 @@ $("body").on('click', '.click2flip', function () {
     $($(this).data('show')).slideDown();
 });
 
+
+
 //复制内容自动添加版权信息 
 /*var Sys = {}; 
    var ua = navigator.userAgent.toLowerCase(); 

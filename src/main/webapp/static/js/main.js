@@ -142,3 +142,21 @@ $(function () {
     });
 });
 
+
+var num = 0;
+if(num==0){
+	art.dialog({
+	    id: 'msg',
+	    title: '公告',
+	    content: '服务期到期了，维护了几天，请大家谅解。。。',
+	    width: 320,
+	    height: 240,
+	    left: '100%',
+	    top: '100%',
+	    fixed: true,
+	    drag: false,
+	    resize: false
+	})
+	num ++;
+}
+
