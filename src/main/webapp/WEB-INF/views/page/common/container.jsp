@@ -8,9 +8,10 @@
                 2014 © <span class="glyphicon glyphicon-heart"></span> NorthPark. ALL Rights Reserved.
             </p1>
             <p2>
+                <a target="_blank" href="http://know.NorthPark.cn" rel="nofollow" title="NorthPark知识共享">NorthPark知识共享<span class="badge green-badge">new</span></a>
                 <a target="_blank" href="http://blog.NorthPark.cn" rel="nofollow" title="NorthPark博客">NorthPark博客</a>
                 <a target="_blank" href="/poem/index.html" title="诗词秀">诗词秀</a>
-                <a target="_blank" href="/vps" title="优惠vps、vps测评">优惠VPS<span class="badge green-badge">new</span></a>
+                <a target="_blank" href="/vps" title="优惠vps、vps测评">优惠VPS</a>
                 <a target="_blank" href="/romeo" title="情圣时刻">情商提升</a>
                 <a target="_blank" href="/cm/xbjt" title="原创音乐播放器">小布静听</a>
                 <a target="_blank" href="/donate" title="赞助本站">赞助我们</a>
