@@ -987,7 +987,7 @@ public class HTMLParserUtil {
                 try {
 
                     String url = e.select("a").get(0).attr("href");
-                    String img_url = e.select("img").get(0).attr("data-original");
+                    String img_url = e.select("img").get(0).attr("src");
 
 
                     //获取全文的内容
@@ -1790,8 +1790,9 @@ public class HTMLParserUtil {
             byte[] img_byte = HttpGetUtils.getImg(weburl);
 
             //拼接名字
-
             name = weburl.substring(weburl.lastIndexOf("/") + 1, weburl.length());
+            
+            name = name.substring(0, name.indexOf("?"));
 
             path = localpath;//"/Users/zhangyang/Pictures/";
 
