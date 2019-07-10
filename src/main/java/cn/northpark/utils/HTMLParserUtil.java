@@ -1024,10 +1024,27 @@ public class HTMLParserUtil {
 
 
                         //标题
-                        String title = parse.select("div.post-title").select("h1").get(0).text();
+                        String title = "";
+                        try {
+                        	title =  parse.select("div.post-title").select("h1").get(0).text();
+						} catch (Exception e2) {
+							// TODO: handle exception
+							log.info("---->",parse.select("div.post-title"));
+							log.error("div.post-title不包含h1标题，请检查文本内容");
+						}
 
                         //标签
-                        String tag = parse.select("div.breadcrumbs").select("span[itemprop=name]").get(1).text();
+                        String tag = "";
+                        
+                        try {
+                        	tag =  parse.select("div.breadcrumbs").select("span[itemprop=name]").get(1).text();
+						} catch (Exception e2) {
+							// TODO: handle exception
+							log.info("---->",parse.select("div.breadcrumbs"));
+							log.error("div.breadcrumbs不包含tag标签，请检查文本内容");
+						}
+                        
+                        
 
 
                         //处理软件logo上传
@@ -1790,19 +1807,26 @@ public class HTMLParserUtil {
             byte[] img_byte = HttpGetUtils.getImg(weburl);
 
             //拼接名字
-            name = weburl.substring(weburl.lastIndexOf("/") + 1, weburl.length());
+            if(StringUtils.isNotEmpty(weburl) && weburl.contains("/")) {
+            	name = weburl.substring(weburl.lastIndexOf("/") + 1, weburl.length());
+            }
+            if(name.contains("?")) {
+            	name = name.substring(0, name.indexOf("?"));
+
+            }
             
-            name = name.substring(0, name.indexOf("?"));
+            if(StringUtils.isNotEmpty(name)) {
+            	 path = localpath;//"/Users/zhangyang/Pictures/";
 
-            path = localpath;//"/Users/zhangyang/Pictures/";
+                 date = date + "/";
 
-            date = date + "/";
+                 //拼接路径
+                 path = path + date;
 
-            //拼接路径
-            path = path + date;
-
-            //写入文件
-            FileUtils.writeByteArrayToFile(new File(path + name), img_byte);
+                 //写入文件
+                 FileUtils.writeByteArrayToFile(new File(path + name), img_byte);
+            }
+           
 
             map.put("key", name);
             map.put("localpath", path + name);
