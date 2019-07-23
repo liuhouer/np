@@ -2,12 +2,10 @@
 package cn.northpark.utils;
 
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
+import java.util.Date;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
-import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,8 +28,16 @@ public class NPQueryRunner extends QueryRunner{
 	
 	public static void main(String[] args) throws SQLException {
 		NPQueryRunner runner = new NPQueryRunner();
-		List<Map<String, Object>> query = runner.query(JdbcUtils.getConnection(), "select * from bc_soft limit 0,50",  new MapListHandler());
-		log.info("--->,{}",JsonUtil.object2json(query));
+//		List<Map<String, Object>> query = runner.query(JdbcUtils.getConnection(), "select * from bc_soft limit 0,50",  new MapListHandler());
+		
+		String insSql = "INSERT INTO `northpark`.`bc_knowledge_test`(`id`, `addtime1`, `addtime2`, `addtime3`) VALUES (00000521735, '2019-07-23 02:37:19', '2019-07-23', '2019-07-23 02:37:19');\r\n" + 
+				"";
+		
+		
+		String insSql2 = "INSERT INTO `northpark`.`bc_knowledge_test`(`id`, `addtime1`, `addtime2`, `addtime3`) VALUES (00000521736, ?, ?, ?)";
+		
+		
+		runner.update(JdbcUtils.getConnection(),insSql2,new Date(),new Date(),new Date());
 	}
 }
 
