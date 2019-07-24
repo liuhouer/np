@@ -1,6 +1,7 @@
 package cn.northpark.utils;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
@@ -8,6 +9,7 @@ import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
+import com.qiniu.util.StringMap;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -99,16 +101,25 @@ public class QiniuUtils {
     UploadManager uploadManager = new UploadManager(c);
 
 
-    //简单上传，使用默认策略，只需要设置上传的空间名就可以了
-    public String getUpToken() {
-        return auth.uploadToken(BUCKET_NAME);
+   
+    
+    /**
+     *  //覆盖上传
+     * @param key
+     * @return
+     */
+    public String getUpToken(String key) {
+    	//insertOnly 如果希望只能上传指定key的文件，并且不允许修改，那么可以将下面的 insertOnly 属性值设为 1
+        return auth.uploadToken(BUCKET_NAME, key, 3600, new StringMap().put("insertOnly", 0));
     }
 
     public String upload(String FilePath, String key) throws IOException {
         String rs = "";
         try {
+        	String token = getUpToken(key);//获取 token
+        	log.info("token--->",token);
             //调用put方法上传
-            Response res = uploadManager.put(FilePath, key, getUpToken());
+            Response res = uploadManager.put(FilePath, key, token);
             //打印返回的信息
             log.info(res.bodyString());
             rs = BUCKET_HOST_NAME + (String) res.jsonToMap().get("key");
@@ -135,9 +146,9 @@ public class QiniuUtils {
 
         //-------------开始--------------------------------
 
-//		HashMap<String, String> map = HTMLParserUtil.webPic2Disk("http://www.sdifenzhou.com/wp-content/uploads/2016/02/Fantastical2.jpg", "D:\\BZ\\soft\\");
-//		
-//		QiniuUtils.getInstance.upload(map.get("localpath"), map.get("key"));
+		HashMap<String, String> map = HTMLParserUtil.webPic2Disk("http://www.sdifenzhou.com/wp-content/uploads/2016/02/Fantastical2.jpg", "D:\\BZ\\soft\\","20190724");
+		
+		QiniuUtils.getInstance().upload(map.get("localpath"), map.get("key"));
 
         //-------------结束--------------------------------
 
