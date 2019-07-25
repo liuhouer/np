@@ -190,8 +190,8 @@
 
     $(function () {
     	$(".bg-white").find("img").each(function () {
-    		var maxw = $(this).parent().width();
-            $(this).css('max-width', maxw);
+            $(this).css('max-width', ($("#J_white_div").width() * 0.85));
+            $(this).css('margin-right', '20%');
         })
 
 
