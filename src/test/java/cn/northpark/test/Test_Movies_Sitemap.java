@@ -55,7 +55,7 @@ public class Test_Movies_Sitemap  extends BaseTest{
 
     @Test
     public void save() {
-        runTask(0);//NEWLY 2019年3月29日
+        runTask(682282);//NEWLY 2019年3月29日
     }
 
 }
