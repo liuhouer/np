@@ -1008,7 +1008,14 @@ public class HTMLParserUtil {
 //                    if (flag <= 0) {
 
                         //日期
-                        String date = parse.select("span.postclock").get(0).text();
+                        String date = "";
+                        try {
+                        	date = parse.select("span.postclock").get(0).text();
+							
+						} catch (Exception e2) {
+							// TODO: handle exception
+							date = TimeUtils.nowdate();
+						}
 
 
                         if(StringUtils.isNotEmpty(date) && date.contains("前")) date  = TimeUtils.nowdate();
