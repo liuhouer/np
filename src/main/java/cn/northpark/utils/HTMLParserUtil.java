@@ -1038,17 +1038,31 @@ public class HTMLParserUtil {
 							// TODO: handle exception
 							log.info("---->",parse.select("div.post-title"));
 							log.error("div.post-title不包含h1标题，请检查文本内容");
+							try {
+	                        	title =  parse.select("div.post-title").select("h1").get(0).text();
+							}catch (Exception ignore) {
+								// TODO: handle exception
+								log.info("---->",parse.select("div.post-title"));
+								log.error("div.post-title不包含h1标题，请检查文本内容");
+							}
 						}
 
                         //标签
                         String tag = "";
                         
                         try {
-                        	tag =  parse.select("div.breadcrumbs").select("span[itemprop=name]").get(1).text();
+                        	tag =  parse.select("span.postcat").select("a").get(0).text();
 						} catch (Exception e2) {
 							// TODO: handle exception
-							log.info("---->",parse.select("div.breadcrumbs"));
-							log.error("div.breadcrumbs不包含tag标签，请检查文本内容");
+							log.info("---->",parse.select("span.postcat"));
+							log.error("span.postcat不包含tag标签，请检查文本内容");
+							try {
+	                        	tag =  parse.select("div.breadcrumbs").select("span[itemprop=name]").get(1).text();
+							} catch (Exception ignore) {
+								// TODO: handle exception
+								log.info("---->",parse.select("div.breadcrumbs"));
+								log.error("div.breadcrumbs不包含tag标签，请检查文本内容");
+							}
 						}
                         
                         
