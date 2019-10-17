@@ -1277,10 +1277,10 @@ public class HTMLParserUtil {
 
                     //判断code在系统不存在再去处理后面的事
 
-                    MoviesManager moviesManager = (MoviesManager) SpringContextUtils.getBean("MoviesManager");
-                    int flag = moviesManager.countHql(" where o.retcode= '" + retcode + "' ");
+//                    MoviesManager moviesManager = (MoviesManager) SpringContextUtils.getBean("MoviesManager");
+//                    int flag = moviesManager.countHql(" where o.retcode= '" + retcode + "' ");
 
-                    if (flag <= 0) {
+//                    if (flag <= 0) {
 
                         map = new HashMap<String, String>();
                         StringBuilder sb_brief = new StringBuilder();
@@ -1465,7 +1465,7 @@ public class HTMLParserUtil {
                     }
 
                 }
-            }
+//            }
 
 //                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 

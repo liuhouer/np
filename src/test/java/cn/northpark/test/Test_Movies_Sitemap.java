@@ -15,25 +15,20 @@ import cn.northpark.manager.SoftManager;
  * <p>
  * 定时爬取今日情圣文章
  */
-public class Test_Movies_Sitemap  extends BaseTest{
-
-    //
-    @Autowired
-    public SoftManager softManager;
+public class Test_Movies_Sitemap{
 
 
-    public void runTask(Integer lastNum) {
+
+    public void runTask(Integer lastNum ,Integer NewNum) {
     	
     	//=========================================================新url的sitemap===========================================================================================
 
     	//电影的网站地图
 		StringBuilder sb = new StringBuilder();
-		List<Map<String, Object>> list = softManager.querySqlMap(" select id from bc_movies where id > "+lastNum+" order by id desc ");
-		for(Map<String, Object> map :list){
-			Object retcode = map.get("id");
+		for(int i=NewNum;i>lastNum;i--){
 			sb.append("<url>");
 			sb.append("<loc>https://northpark.cn/movies/post-");
-			sb.append(retcode+".html</loc>");
+			sb.append(i+".html</loc>");
 			sb.append("</url>");
 		}
 		
@@ -55,7 +50,7 @@ public class Test_Movies_Sitemap  extends BaseTest{
 
     @Test
     public void save() {
-        runTask(682282);//NEWLY 2019年3月29日
+        runTask(682282,682585);//NEWLY 2019年3月29日
     }
 
 }
