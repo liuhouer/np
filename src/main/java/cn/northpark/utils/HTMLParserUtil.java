@@ -1258,7 +1258,7 @@ public class HTMLParserUtil {
 
             System.out.println(dataResult);
             Document doc = Jsoup.parse(dataResult, url);
-            Element ul = doc.select("div[class=bt_img mi_ne_kd mrb]").get(0);
+            Element ul = doc.select("div[class=bt_img mi_ne_kd newindex]").get(0);
             Elements lis = ul.select("li");
             if (!lis.isEmpty()) {
                 for (int i = 0; i < lis.size(); i++) {
