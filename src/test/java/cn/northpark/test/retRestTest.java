@@ -7,8 +7,6 @@ import java.util.Map;
 
 import org.apache.http.client.ClientProtocolException;
 
-import com.google.common.collect.Maps;
-
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.HttpGetUtils;
 import cn.northpark.utils.JsonUtil;
