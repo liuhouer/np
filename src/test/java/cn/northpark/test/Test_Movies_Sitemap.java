@@ -20,25 +20,25 @@ public class Test_Movies_Sitemap{
 
 
     public void runTask(Integer lastNum ,Integer NewNum) {
-    	
-    	//=========================================================新url的sitemap===========================================================================================
 
-    	//电影的网站地图
-		StringBuilder sb = new StringBuilder();
-		for(int i=NewNum;i>lastNum;i--){
-			sb.append("<url>");
-			sb.append("<loc>https://northpark.cn/movies/post-");
-			sb.append(i+".html</loc>");
-			sb.append("</url>");
-		}
-		
-		try {
-			org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\movies-sitemap.xml"), sb.toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+        //=========================================================新url的sitemap===========================================================================================
+
+        //电影的网站地图
+        StringBuilder sb = new StringBuilder();
+        for(int i=NewNum;i>lastNum;i--){
+            sb.append("<url>");
+            sb.append("<loc>https://northpark.cn/movies/post-");
+            sb.append(i+".html</loc>");
+            sb.append("</url>");
+        }
+
+        try {
+            org.apache.commons.io.FileUtils.writeStringToFile(new File("d:\\movies-sitemap.xml"), sb.toString());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
 
 
 
