@@ -1941,7 +1941,9 @@ public class HTMLParserUtil {
             String os = prop.getProperty("os.name");
             if (os.startsWith("win") || os.startsWith("Win")) {// windows操作系统
 
-            } else {  //linux || mac osx
+            }else if (os.startsWith("mac") || os.startsWith("Mac")) {// mac操作系统
+                rs = "/tmp/apk/soft/";
+            }else {  //linux || mac osx
                 rs = "/mnt/apk/soft/";
             }
         } catch (Exception e) {
@@ -1966,6 +1968,8 @@ public class HTMLParserUtil {
             String os = prop.getProperty("os.name");
             if (os.startsWith("win") || os.startsWith("Win")) {// windows操作系统
 
+            }else if (os.startsWith("mac") || os.startsWith("Mac")) {// mac操作系统
+                rs = "/tmp/apk/" + retType + "/";
             } else {  //linux || mac osx
                 rs = "/mnt/apk/" + retType + "/";
             }
