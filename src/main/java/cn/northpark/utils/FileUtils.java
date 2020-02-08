@@ -1,37 +1,21 @@
 package cn.northpark.utils;
 
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.Properties;
-import java.util.Random;
-import java.util.Scanner;
+import cn.northpark.utils.encrypt.EnDecryptUtils;
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.google.common.collect.Lists;
-
-import cn.northpark.utils.encrypt.EnDecryptUtils;
-import lombok.extern.slf4j.Slf4j;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
 
 
 /**
@@ -343,7 +327,7 @@ public class FileUtils {
                 try {
                     showAllFiles(fs[i]);
                 } catch (Exception e) {
-
+                    log.error(e.getMessage());
                 }
             }
             filelist.add(fs[i].getAbsolutePath());
@@ -464,6 +448,36 @@ public class FileUtils {
         }
 
         return list;
+    }
+
+    public static void main(String[] args) throws Exception {
+        String path = "E:\\学习视频\\flink从入门到精通-星火哥";
+
+        File dir = new File(path);
+
+        List<File> fileNames = Arrays.asList(dir.listFiles());
+
+        for (int i = 0; i < fileNames.size(); i++) {
+            //拿到eg. 67Flink的Checkpoint详解
+            String rename = fileNames.get(i).getName();
+            log.info(rename);
+            File fileN = fileNames.get(i);
+            List<File> filesNNames = Arrays.asList(fileN.listFiles());
+
+            for (File filesNName : filesNNames) {
+                File[] realfiles = filesNName.listFiles();
+                for (File realfile : realfiles) {
+                    String pathname = "E:\\学习视频\\flink从入门到精通-星火哥\\" + rename + ".mp4";
+                    log.info(pathname);
+                    realfile.renameTo(new File(pathname));
+                }
+            }
+            log.info(JsonUtil.object2jsonWriteNullValue(filesNNames));
+
+        }
+
+
+//        log.info(JsonUtil.object2jsonWriteNullValue(fileNames));
     }
 
 
