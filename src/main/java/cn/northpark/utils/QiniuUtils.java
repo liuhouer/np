@@ -19,7 +19,7 @@ public class QiniuUtils {
 	private static final String SECRET_KEY = "uQqRoiPSk4414gIAdCJdXynjDHYRAT8AecVjubyh"; // 你的secret_key
 	private static final String BUCKET_NAME = "soft"; // 你的空間名稱
 
-    private static final String BUCKET_HOST_NAME = "http://qiniupic.memorymaple.com/";
+    private static final String BUCKET_HOST_NAME = "http://qiniupic.python-project.com/";
     
     
     /**

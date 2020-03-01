@@ -19,7 +19,7 @@ public class retRestTest2 {
 	
 	public static void main(String[] args) {
 		List<Map<String, String>> collect = new ArrayList<>();
-		for (int k = 7; k <= 9; k++) {
+		for (int k = 1; k <= 3; k++) {
 
 			try {
 

@@ -324,7 +324,7 @@ public class HttpGetUtils {
 			 wc.getOptions().setDoNotTrackEnabled(false);
 			 HtmlPage page = wc.getPage(url);
 			//设置一个运行JavaScript的时间
-//			 wc.waitForBackgroundJavaScript(5000);
+			 wc.waitForBackgroundJavaScript(5000);
 			 // 以xml的形式获取响应文本
 			 pageXml = page.asXml();
 		} catch (Exception e) {
