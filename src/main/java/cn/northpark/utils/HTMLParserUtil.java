@@ -1268,19 +1268,12 @@ public class HTMLParserUtil {
             //取得一页内容梗概
             soft11 = doc.select("div.site-content").select("article");
 
-//             String baseUrl=initUrl;
-//
-//             //获取所有我需要格式匹配的链接
-//             HashMap<String, String> allUrls = StartImg.getAllUrls(dataResult,baseUrl);
-//
-//             Set<String> keySet = allUrls.keySet();
 
             for (Element e : soft11) {
                 try {
 
                     String url = e.select("a").get(0).attr("href");
                     String img_url = e.select("img").get(0).attr("src");
-
 
                     //获取全文的内容
                     String dataResult1 = HttpGetUtils.getDataByHtmlUnit(url);
@@ -1295,14 +1288,8 @@ public class HTMLParserUtil {
                     String code = url.substring(url.lastIndexOf("/") + 1, url.length()).replaceAll(".html", "");
 
 
-                    //判断code在系统不存在再去处理后面的事
 
-//                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
-//                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
-//
-//                    if (flag <= 0) {
-
-                    //日期
+                    //日期======================================================================================================================================
                     String date = "";
                     try {
                         date = parse.select("div.single-content").select("div.videos-content").select("span.date").get(0).ownText();
@@ -1314,8 +1301,7 @@ public class HTMLParserUtil {
 
 
                     if (StringUtils.isNotEmpty(date) && date.contains("前")) date = TimeUtils.nowdate();
-                    date = date.replaceAll(" ", "");
-                    date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
+                    date = date.replace(" ", "").replace("年", "-").replace("月", "-").replace("日", "");
                     log.info("date====================" + date);
 
                     //月
@@ -1324,26 +1310,19 @@ public class HTMLParserUtil {
                     //年
                     String year = month.substring(0, month.lastIndexOf("-"));
                     log.info("year====================" + year);
-
+                    //日期======================================================================================================================================
 
                     //标题
                     String title = "";
                     try {
-                        title = parse.select("header.entry-header").get(0).text();
+                        title = parse.select("header.entry-header").select("h1").get(0).text();
                     } catch (Exception e2) {
                         // TODO: handle exception
                         log.info("---->", parse.select("h1.title-detail"));
                         log.error("h1.title-detail不包含h1标题，请检查文本内容");
-                        try {
-                            title = parse.select("div.bread-crumbs").select("strong").get(0).text();
-                        } catch (Exception ignore) {
-                            // TODO: handle exception
-                            log.info("---->", parse.select("div.bread-crumbs").select("strong"));
-                            log.error("面包屑不包含标题，请检查文本内容");
-                        }
                     }
 
-                    //标签
+                    //标签===================================================================================================
                     String tag = "";
 
                     try {
@@ -1353,16 +1332,6 @@ public class HTMLParserUtil {
                         log.info("---->", parse.select("div.hot-tags"));
                         log.error("div.hot-tags不包含tag标签，请检查文本内容");
                     }
-
-
-                    //处理软件logo上传
-                    HashMap<String, String> map11 = HTMLParserUtil.webPic2Disk(img_url, getLocalFolderByOS(), date);
-
-                    String logo_url = QiniuUtils.getInstance().upload(map11.get("localpath"), "soft/" + date + "/" + map11.get("key"));
-
-                    String logo_p = "<p><img class=\"aligncenter size-full wp-image-" + code + "\" title=\"" + title + "\" alt=\"" + title + "\" src=\"" + logo_url + "\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\">";
-
-
                     //计算标签编码、
                     String tagcode = "005";
                     if (tag.contains("应用") || tag.contains("系统")) {
@@ -1394,20 +1363,34 @@ public class HTMLParserUtil {
                         tag = "其他软件";
                     }
                     log.info("tagcode====================" + tagcode);
+                    //标签===================================================================================================
 
-                    //正文
+
+                    //处理软件logo上传
+                    HashMap<String, String> map11 = HTMLParserUtil.webPic2Disk(img_url, getLocalFolderByOS(), date);
+
+                    String logo_url = QiniuUtils.getInstance().upload(map11.get("localpath"), "soft/" + date + "/" + map11.get("key"));
+
+                    String logo_p = "<p><img class=\"aligncenter size-full wp-image-" + code + "\" title=\"" + title + "\" alt=\"" + title + "\" src=\"" + logo_url + "\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\">";
+
+
+
+
+                    //正文==============================================================================================================
                     String article = "";
 
-                    //简介
-                    StringBuilder brief = new StringBuilder();
+                    Elements articles = parse.select("article").select("div.entry-content");
 
-                    //下载地址
-                    String path = "";
+                    //删除概览
+                    articles.select("div.videos-content").remove();
+                    //删除微信
+                    articles.select("div.s-weixin-one").remove();
+                    //删除分享
+                    articles.select("div[id=social]").remove();
+                    //删除footer
+                    articles.select("footer.single-footer").remove();
 
-                    parse.select("div.videos-content").remove();
-                    Elements articles = parse.getAllElements();
-
-                    //处理征文图像
+                    //处理正文图像
                     Elements imgs = articles.select("img");
                     for (int j = 0; j < imgs.size(); j++) {
                         try {
@@ -1415,15 +1398,17 @@ public class HTMLParserUtil {
                             //   web图片上传到七牛
 
                             //-------------开始--------------------------------
-//
-//                            HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(), date);
-//
-//                            String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "soft/" + date + "/" + map22.get("key"));
-//
-//                            //-------------结束--------------------------------
-//                            if (StringUtils.isNotEmpty(rs)) {
-//                                imgs.get(j).attr("src", rs);
-//                            }
+
+                            HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(), date);
+
+                            String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "soft/" + date + "/" + map22.get("key"));
+
+                            //-------------结束--------------------------------
+                            if (StringUtils.isNotEmpty(rs)) {
+                                imgs.get(j).attr("src", rs);
+                            }
+                            imgs.get(j).removeAttr("srcset");
+                            imgs.get(j).removeAttr("sizes");
                             imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                         } catch (Exception e1) {
                             // TODO: handle exception
@@ -1432,7 +1417,6 @@ public class HTMLParserUtil {
                         }
 
                     }
-
 
                     //处理正文的不合法url
                     Elements a1 = articles.select("a");
@@ -1449,39 +1433,54 @@ public class HTMLParserUtil {
                         }
                     }
 
-                    //处理下载地址
-                    StringBuilder sb_path = new StringBuilder();
+                    //正文==============================================================================================================
 
 
-                    //新的解析下载地址
-                    String downLoadUrl = articles.select("div.down-form").select("a").get(0).attr("href");
-                    String downPage = HttpGetUtils.getDataByHtmlUnit(downLoadUrl);
 
-                    Document downInfo = Jsoup.parse(downPage, downLoadUrl);
 
-                    Elements downs = downInfo.select("div.site-content").select("div.down-main");
-                    Elements downBtns = downs.select("div.down-list-box").select("div.down-but");
+                    //下载地址==============================================================================================================
+                        String path = "";
 
-                    for (int i = 0; i < downBtns.size(); i++) {
-                        if(downBtns.get(i).outerHtml().contains("正版")){
-                            downBtns.get(i).addClass("removesByBruce");
+                        //处理下载地址
+                        StringBuilder sb_path = new StringBuilder();
+
+
+                        //新的解析下载地址
+                        String downLoadUrl = articles.select("div.down-form").select("a").get(0).attr("href");
+                        String downPage = HttpGetUtils.getDataByHtmlUnit(downLoadUrl);
+
+                        Document downInfo = Jsoup.parse(downPage, downLoadUrl);
+
+                        Elements downs = downInfo.select("div.down-main");
+                        Elements downBtns = downs.select("div.down-list-box").select("div.down-but");
+
+                        for (int i = 0; i < downBtns.size(); i++) {
+                            if(downBtns.get(i).outerHtml().contains("正版")){
+                                downBtns.get(i).addClass("removesByBruce");
+                            }else{
+                                downBtns.get(i).addClass("btn btn-hero");
+                            }
                         }
-                    }
-                    downBtns.select(".removesByBruce").remove();
+                        downBtns.select(".removesByBruce").remove();
 
-                    sb_path.append(downs.html());
-                    System.out.println("sb_path===================>" + sb_path.toString());
-                    path = sb_path.toString();
+                        sb_path.append(downs.html());
+                        System.out.println("sb_path===================>" + sb_path.toString());
+                        path = sb_path.toString();
+
+                        //删除正文的下载模块
+                        articles.select("div.down-form").remove();
+                    //下载地址==============================================================================================================
 
                     //设置正文
                     article = articles.html();
+
+                    //简介
+                    StringBuilder brief = new StringBuilder();
                     brief.append(logo_p);
                     brief.append("<p>");
                     brief.append(articles.select("p").get(0).html());
                     brief.append("</p>");
-                    System.out.println("===================================================================================================");
-                    System.out.println("正文内容===================>" + articles.html());
-                    System.out.println("===================================================================================================");
+
 
 
                     map = new HashMap<>();
