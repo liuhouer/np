@@ -223,6 +223,16 @@ public class TimeUtils {
     }
 
     /**
+     * @author bruce 取得时钟表时间 hh:mm:ss
+     */
+    public static String nowClock() {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(new Date().getTime());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        return dateFormat.format(c.getTime());
+    }
+
+    /**
      * @author bruce 取得当前日期
      */
     public static String nowdate() {
@@ -744,6 +754,60 @@ public class TimeUtils {
         Date parse = formatter.parse(date);
         SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
         return formatter2.format(parse);
+    }
+
+    /**
+     * 判断当前时间是否在[startTime, endTime]区间，注意时间格式要一致
+     *
+     * @param nowTime 当前时间
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return
+     * @author bruce
+     */
+    public static boolean isEffectiveDate(Date nowTime, Date startTime, Date endTime) {
+        if (nowTime.getTime() == startTime.getTime()
+                || nowTime.getTime() == endTime.getTime()) {
+            return true;
+        }
+
+        Calendar date = Calendar.getInstance();
+        date.setTime(nowTime);
+
+        Calendar begin = Calendar.getInstance();
+        begin.setTime(startTime);
+
+        Calendar end = Calendar.getInstance();
+        end.setTime(endTime);
+
+        if (date.after(begin) && date.before(end)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 判断当前时间是否在工作时间点[startTime, endTime]区间，注意时间格式要一致
+     *
+     * @return
+     * @author bruce
+     */
+    public static boolean isWorkClockTime() {
+        boolean flag = false;
+        try {
+            String format = "HH:mm:ss";
+            System.out.println("now clock--"+TimeUtils.nowClock());
+            Date nowTime = new SimpleDateFormat(format).parse(TimeUtils.nowClock());
+            Date startTime = new SimpleDateFormat(format).parse("09:00:00");
+            Date endTime = new SimpleDateFormat(format).parse("19:00:00");
+            flag = isEffectiveDate(nowTime, startTime, endTime);
+            System.out.println(flag);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return  flag;
     }
 
 
