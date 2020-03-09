@@ -972,12 +972,6 @@ public class HTMLParserUtil {
             //取得一页内容梗概
             soft11 = doc.select("div.articles-list").select("article.post");
 
-//             String baseUrl=initUrl;
-//
-//             //获取所有我需要格式匹配的链接
-//             HashMap<String, String> allUrls = StartImg.getAllUrls(dataResult,baseUrl);
-//             
-//             Set<String> keySet = allUrls.keySet();
 
             for (Element e : soft11) {
                 try {
@@ -987,7 +981,7 @@ public class HTMLParserUtil {
                         continue;
                     }
                     String url = e.select("a").get(0).attr("href");
-                    String img_url = e.select("img").get(0).attr("src");
+                    String img_url = e.select("img").get(0).attr("data-src");
 
 
                     //获取全文的内容
@@ -1000,12 +994,6 @@ public class HTMLParserUtil {
                     String code = url.substring(url.lastIndexOf("/") + 1, url.length()).replaceAll(".html", "");
 
 
-                    //判断code在系统不存在再去处理后面的事
-
-//                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
-//                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
-//
-//                    if (flag <= 0) {
 
                     //日期
                     String date = "";
@@ -1063,13 +1051,6 @@ public class HTMLParserUtil {
                         // TODO: handle exception
                         log.info("---->", parse.select("div.hot-tags"));
                         log.error("div.hot-tags不包含tag标签，请检查文本内容");
-//							try {
-//	                        	tag =  parse.select("div.breadcrumbs").select("span[itemprop=name]").get(1).text();
-//							} catch (Exception ignore) {
-//								// TODO: handle exception
-//								log.info("---->",parse.select("div.breadcrumbs"));
-//								log.error("div.breadcrumbs不包含tag标签，请检查文本内容");
-//							}
                     }
 
 
@@ -1133,15 +1114,15 @@ public class HTMLParserUtil {
                             //   web图片上传到七牛
 
                             //-------------开始--------------------------------
-//
-//                                     HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS() ,date);
-//
-//                                     String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "soft/"+date+"/"+map22.get("key"));
-//
-//                                     //-------------结束--------------------------------
-//                                     if(StringUtils.isNotEmpty(rs)){
-//                                    	 imgs.get(j).attr("src", rs);
-//                                     }
+
+                            HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(), date);
+
+                            String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "soft/" + date + "/" + map22.get("key"));
+
+                            //-------------结束--------------------------------
+                            if (StringUtils.isNotEmpty(rs)) {
+                                imgs.get(j).attr("src", rs);
+                            }
                             imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                         } catch (Exception e1) {
                             // TODO: handle exception
@@ -1153,19 +1134,19 @@ public class HTMLParserUtil {
 
 
                     //处理正文的不合法url
-//                                Elements a1 = articles.select("a");
-//                                for (Element s : a1) {
-//                                    if (s.attr("href").contains("/tag")) {
-//                                        s.before(s.text());
-//                                        s.remove();
-//                                    } else if (s.attr("href").contains("/xpay-html")) {
-//                                        s.remove();
-//                                    } else if (s.attr("href").endsWith(".jpg") || s.attr("href").endsWith(".jpeg") || s.attr("href").endsWith(".png")) {
-//                                        s.attr("href", "");
-//                                    } else if (s.attr("href").contains("waitsun.com/?dl_id")) {//改成短连接  并且改样式
-//                                        s.addClass("btn-warning").addClass("btn");
-//                                    }
-//                                }
+                    Elements a1 = articles.select("a");
+                    for (Element s : a1) {
+                        if (s.attr("href").contains("/tag")) {
+                            s.before(s.text());
+                            s.remove();
+                        } else if (s.attr("href").contains("/xpay-html")) {
+                            s.remove();
+                        } else if (s.attr("href").endsWith(".jpg") || s.attr("href").endsWith(".jpeg") || s.attr("href").endsWith(".png")) {
+                            s.attr("href", "");
+                        } else if (s.attr("href").contains("waitsun.com/?dl_id")) {//改成短连接  并且改样式
+                            s.addClass("btn-warning").addClass("btn");
+                        }
+                    }
 
                     //处理下载地址
                     StringBuilder sb_path = new StringBuilder();
@@ -1199,8 +1180,28 @@ public class HTMLParserUtil {
                      **/
 
                     //新的解析下载地址
-                    sb_path.append(parse.select("div.version-box").html());
-                    System.out.println("sb_path===================>" + sb_path.toString());
+                    Elements downSelect = parse.select("div.version-box");
+                    downSelect.select("table").removeClass("table").removeClass("table-version");
+                    downSelect.select(".icon").select("icon-bdpan").remove();
+
+                    downSelect.select("td").after("<span>  </span>");
+                    downSelect.select("th").after("<span>  </span>");
+                    downSelect.select("a:contains(下载)").forEach(i -> {
+                        i.select("svg").remove();
+                        i.addClass("btn btn-hero").attr("href",i.attr("data-dl-url"));
+
+                        try {
+                            i.append(i.attr("data-clipboard-text"));
+                        } catch (Exception ex) {
+
+                        }
+                    });
+                    downSelect.select("div.view-more-bar").remove();
+
+                    System.out.println("处理后的下载样式---->"+downSelect.html());
+
+                    sb_path.append(downSelect.html());
+                    System.out.println("sb_path===================>" + sb_path.toString().replace("svg","span"));
                     path = sb_path.toString();
 
                     //设置正文
@@ -2429,8 +2430,8 @@ public class HTMLParserUtil {
 //        	retSoftNew(0);
 
 //        	retMovies(1,"http://m.orisi.cn/movie_bt_series/movie/page/");
-            retSoftChaoxzCom(1);
-//            retSoftNew(1);
+//            retSoftChaoxzCom(1);
+            retSoftNew(1);
 
         } catch (Exception e) {
             // TODO Auto-generated catch block

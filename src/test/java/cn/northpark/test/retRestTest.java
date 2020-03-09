@@ -22,7 +22,7 @@ public class retRestTest {
 
             try {
 
-                List<Map<String, String>> list = HTMLParserUtil.retSoftChaoxzCom(k);
+                List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
                 collect.addAll(list);
             } catch (Exception e) {
                 // TODO: handle exception
