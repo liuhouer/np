@@ -2,6 +2,7 @@ package cn.northpark.utils;
 
 
 import cn.northpark.utils.encrypt.EnDecryptUtils;
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -20,11 +21,6 @@ import java.util.*;
 
 /**
  * @author Bruce
- */
-
-/**
- * @author Bruce
- *
  */
 @Slf4j
 public class FileUtils {
@@ -50,6 +46,7 @@ public class FileUtils {
 
     /**
      * 以下为northpark文件删除方法
+     *
      * @param oldpath
      * @param file
      */
@@ -81,6 +78,7 @@ public class FileUtils {
 
     /**
      * 以下为northpark上传upload相关方法
+     *
      * @param file
      * @param suffix
      * @return 保存的路径数值集合
@@ -139,6 +137,7 @@ public class FileUtils {
 
     /**
      * 获得网络图片地址。或者图片地址
+     *
      * @param url
      * @return
      */
@@ -180,6 +179,7 @@ public class FileUtils {
 
     /**
      * 将图片内容用post方式发送到url中
+     *
      * @param url
      * @param postcontent
      */
@@ -218,6 +218,7 @@ public class FileUtils {
 
     /**
      * 在服务器端获取发送过来的内容
+     *
      * @param request
      * @return
      */
@@ -240,6 +241,7 @@ public class FileUtils {
 
     /**
      * 将接受过来的信息生成文件
+     *
      * @param request
      * @param filename
      */
@@ -339,6 +341,7 @@ public class FileUtils {
 
     /**
      * 替换某文件夹下面所有默认图片
+     *
      * @throws Exception
      */
     public static void replaceFiles() throws Exception {
@@ -384,8 +387,8 @@ public class FileUtils {
 
 
     /**
-     * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
      * @return
+     * @desc 随机取出一个数【size 为  10 ，取得类似0-9的区间数】
      */
     public static Integer getRandomOne(List<?> list) {
 
@@ -403,6 +406,7 @@ public class FileUtils {
 
     /**
      * 取得一张不是默认图的图片地址
+     *
      * @param list
      * @return
      */
@@ -423,6 +427,7 @@ public class FileUtils {
 
     /**
      * 读取文件返回string
+     *
      * @param Path
      * @return
      */
@@ -450,7 +455,37 @@ public class FileUtils {
         return list;
     }
 
-    public static void main(String[] args) throws Exception {
+
+    /**
+     * 重命名酷我下载的音乐名字
+     */
+    private static void reNameMusicFiles() {
+        String path = "/Users/bruce/Music/down";
+
+        File dir = new File(path);
+
+        List<File> fileNames = Arrays.asList(dir.listFiles());
+
+        for (int i = 0; i < fileNames.size(); i++) {
+            //拿到  三年二班-周杰伦-238209.mp3
+            String fileName = fileNames.get(i).getName();
+            log.info(fileName);
+            List<String> strings = Splitter.on("-").omitEmptyStrings().splitToList(fileName);
+            String reName = strings.get(0) + "-" + strings.get(1) + ".mp3";
+            log.info(reName);
+
+            String pathname = path + "/" + reName;
+
+            fileNames.get(i).renameTo(new File(pathname));
+
+
+        }
+    }
+
+    /**
+     * 重命名解析B站下载的视频
+     */
+    private static void reNameBlibiliFile() {
         String path = "E:\\学习视频\\flink从入门到精通-星火哥";
 
         File dir = new File(path);
@@ -475,9 +510,13 @@ public class FileUtils {
             log.info(JsonUtil.object2jsonWriteNullValue(filesNNames));
 
         }
+    }
 
 
-//        log.info(JsonUtil.object2jsonWriteNullValue(fileNames));
+    public static void main(String[] args) throws Exception {
+
+
+        reNameMusicFiles();
     }
 
 
