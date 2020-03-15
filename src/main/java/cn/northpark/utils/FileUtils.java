@@ -16,6 +16,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.*;
 
 
@@ -459,7 +460,7 @@ public class FileUtils {
     /**
      * 重命名酷我下载的音乐名字
      */
-    private static void reNameMusicFiles() {
+    private static void reNameMusicFiles() throws UnsupportedEncodingException {
         String path = "/Users/bruce/Music/down";
 
         File dir = new File(path);
@@ -471,7 +472,7 @@ public class FileUtils {
             String fileName = fileNames.get(i).getName();
             log.info(fileName);
             List<String> strings = Splitter.on("-").omitEmptyStrings().splitToList(fileName);
-            String reName = strings.get(0) + "-" + strings.get(1) + ".mp3";
+            String reName = strings.get(0) + "-" + new String(strings.get(1).getBytes(), "UTF-8") + ".mp3";
             log.info(reName);
 
             String pathname = path + "/" + reName;
@@ -482,6 +483,30 @@ public class FileUtils {
         }
     }
 
+    /**
+     * 重命名酷我下载的音乐名字
+     */
+    private static void reNameMusicFilesCharSet() throws UnsupportedEncodingException {
+        String path = "/Users/bruce/Music/down";
+
+        File dir = new File(path);
+
+        List<File> fileNames = Arrays.asList(dir.listFiles());
+
+        for (int i = 0; i < fileNames.size(); i++) {
+            //拿到  三年二班-周杰伦.mp3
+            String fileName = fileNames.get(i).getName();
+            log.info(fileName);
+            String reName =  new String(fileName.getBytes("GBK"), "utf-8") ;
+            log.info(reName);
+
+//            String pathname = new String((path + "/" + reName).getBytes(),"utf-8");
+//
+//            fileNames.get(i).renameTo(new File(pathname));
+
+
+        }
+    }
     /**
      * 重命名解析B站下载的视频
      */
