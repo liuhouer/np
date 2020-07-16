@@ -744,7 +744,13 @@ public class UserAction {
     	String password = request.getParameter("password");
     	
     	//获取ip信息
-    	String ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+        String ipAndDetail = "";
+        try {
+            ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+        }catch (Exception ignore){
+            log.error(ignore.getMessage());
+        }
+
         email = WAQ.forSQL().escapeSql(email);
         password = WAQ.forSQL().escapeSql(password);
         int num = userManager.countHql(" where email= '" + email + "' ");
@@ -834,7 +840,13 @@ public class UserAction {
          }
     	
         //获取IP+地址
-        String ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+         String ipAndDetail = "";
+         try {
+             ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+         }catch (Exception ignore){
+             log.error(ignore.getMessage());
+         }
+
         if (!StringUtils.isEmpty(email) && !StringUtils.isEmpty(password)) {
             //防止sql注入--email
             email = WAQ.forSQL().escapeSql(email);
