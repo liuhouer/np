@@ -1110,19 +1110,19 @@ public class HTMLParserUtil {
                     Elements imgs = articles.select("img");
                     for (int j = 0; j < imgs.size(); j++) {
                         try {
-                            String weburl = imgs.get(j).attr("src");
-                            //   web图片上传到七牛
-
-                            //-------------开始--------------------------------
-
-                            HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(), date);
-
-                            String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "soft/" + date + "/" + map22.get("key"));
-
-                            //-------------结束--------------------------------
-                            if (StringUtils.isNotEmpty(rs)) {
-                                imgs.get(j).attr("src", rs);
-                            }
+//                            String weburl = imgs.get(j).attr("src");
+//                            //   web图片上传到七牛
+//
+//                            //-------------开始--------------------------------
+//
+//                            HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(), date);
+//
+//                            String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "soft/" + date + "/" + map22.get("key"));
+//
+//                            //-------------结束--------------------------------
+//                            if (StringUtils.isNotEmpty(rs)) {
+//                                imgs.get(j).attr("src", rs);
+//                            }
                             imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                         } catch (Exception e1) {
                             // TODO: handle exception

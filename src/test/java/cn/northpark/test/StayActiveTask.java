@@ -53,12 +53,9 @@ public class StayActiveTask {
         Thread thread = new Thread() {
             public void run() {
                 try {
-                    while (true) {
+                    while (TimeUtils.isWorkClockTime()) {
 
-                        if(TimeUtils.isWorkClockTime()){
-
-                            moveFunction();
-                        }
+                        moveFunction();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
