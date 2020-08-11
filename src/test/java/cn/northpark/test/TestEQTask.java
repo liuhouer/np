@@ -67,9 +67,6 @@ public class TestEQTask {
 	// @Autowired
 	// public PoemManager poemManager;
 	//
-	//
-	// @Autowired
-	// public PoemEnjoyManager poemenjoyManager;
 
 	public void runTask() {
 
