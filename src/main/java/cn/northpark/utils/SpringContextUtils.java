@@ -11,26 +11,27 @@ import org.springframework.context.ApplicationContextAware;
  */
 public class SpringContextUtils implements ApplicationContextAware {//extends ApplicationObjectSupport{
 
-    private static ApplicationContext context = null;
-    private static SpringContextUtils stools = null;
+    private static ApplicationContext applicationContext = null;
 
-    public synchronized static SpringContextUtils init() {
-        if (stools == null) {
-            stools = new SpringContextUtils();
-        }
-        return stools;
-    }
-
-
-    public synchronized static Object getBean(String beanName) {
-        return context.getBean(beanName);
-    }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext)
-            throws BeansException {
-        // TODO Auto-generated method stub
-        context = applicationContext;
+    public void setApplicationContext(ApplicationContext appContext) throws BeansException {
+        if (SpringContextUtils.applicationContext == null) {
+            SpringContextUtils.applicationContext = appContext;
+            System.out.println(
+                    "========ApplicationContext配置成功,在普通类可以通过调用ToolSpring.getAppContext()获取applicationContext对象,applicationContext="
+                            + applicationContext + "========");
+        }
     }
+
+
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
+    public static Object getBean(String name) {
+        return getApplicationContext().getBean(name);
+    }
+
 
 }

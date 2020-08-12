@@ -24,7 +24,10 @@
 	    <property name="connectionTestQuery" value="SELECT 1" />
 	    <property name="dataSourceClassName" value="${hibernate.hikari.dataSourceClassName}" />
 	    <property name="maximumPoolSize" value="${hibernate.hikari.maximumPoolSize}" />
+	    <property name="minimumIdle" value="${hibernate.hikari.minimumIdle}" />
 	    <property name="idleTimeout" value="${hibernate.hikari.idleTimeout}" />
+	    <property name="connectionTimeout" value="${hibernate.hikari.connection-timeout}" />
+		<property name="maxLifetime" value="${hibernate.hikari.maxLifetime}" />
 	
 	    <property name="dataSourceProperties">
 	        <props>
