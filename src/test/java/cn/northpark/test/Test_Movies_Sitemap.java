@@ -15,20 +15,19 @@ import cn.northpark.manager.SoftManager;
  * <p>
  * 定时爬取今日情圣文章
  */
-public class Test_Movies_Sitemap{
+public class Test_Movies_Sitemap {
 
 
-
-    public void runTask(Integer lastNum ,Integer NewNum) {
+    public void runTask(Integer lastNum, Integer NewNum) {
 
         //=========================================================新url的sitemap===========================================================================================
 
         //电影的网站地图
         StringBuilder sb = new StringBuilder();
-        for(int i=NewNum;i>lastNum;i--){
+        for (int i = NewNum; i > lastNum; i--) {
             sb.append("<url>");
             sb.append("<loc>https://northpark.cn/movies/post-");
-            sb.append(i+".html</loc>");
+            sb.append(i + ".html</loc>");
             sb.append("</url>");
         }
 
@@ -40,8 +39,6 @@ public class Test_Movies_Sitemap{
         }
 
 
-
-
     }
 
 
@@ -50,7 +47,7 @@ public class Test_Movies_Sitemap{
 
     @Test
     public void save() {
-        runTask(682282,682585);//NEWLY 2019年3月29日
+        runTask(682282, 682585);//NEWLY 2019年3月29日
     }
 
 }

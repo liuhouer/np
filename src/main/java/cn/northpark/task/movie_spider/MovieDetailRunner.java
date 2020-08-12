@@ -1,4 +1,4 @@
-package cn.northpark.utils.movie;
+package cn.northpark.task.movie_spider;
 
 import com.geccocrawler.gecco.annotation.*;
 import com.geccocrawler.gecco.request.HttpRequest;
@@ -14,6 +14,9 @@ public class MovieDetailRunner implements HtmlBean {
 
     private static final long serialVersionUID = 1L;
 
+    private static final String down_CSS="b799db63";
+    private static final String detail_CSS="b512";
+
     @Request
     private HttpRequest request;
 
@@ -25,12 +28,12 @@ public class MovieDetailRunner implements HtmlBean {
 
 
     @Html
-    @HtmlField(cssPath="div.ba97:nth-child(1)")
+    @HtmlField(cssPath="div."+detail_CSS+":nth-child(1)")
     private String detail;
 
 
     @Html
-    @HtmlField(cssPath="div.bc74a132")
+    @HtmlField(cssPath="div."+down_CSS+"")
     private String download;
 
 

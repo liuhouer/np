@@ -1,20 +1,17 @@
-package cn.northpark.utils.movie;
+package cn.northpark.task.movie_spider;
 
-import cn.northpark.manager.impl.MoviesManagerImpl;
 import cn.northpark.model.Movies;
 import cn.northpark.utils.*;
 import cn.northpark.utils.encrypt.EnDecryptUtils;
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
 import org.apache.http.client.ClientProtocolException;
-import org.junit.runner.RunWith;
-import org.springframework.context.ApplicationContext;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.PrePersist;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -44,10 +41,20 @@ public class MovieDetailPipeline implements Pipeline<MovieDetailRunner> {
                     String title = brief.getTitle();
                     model.setMoviename(title);
                     model.setAddtime(brief.getDate());
-                    model.setDescription(movieDetailRunner.getDetail());
+                    //处理a标签====================================
+                    String detail = movieDetailRunner.getDetail();
+                    Document parseDetail = Jsoup.parse(detail);
+                    parseDetail.select("a").attr("href","");
+                    detail = parseDetail.html();
+                    //处理a标签====================================
+                    model.setDescription(detail);
                     model.setPrice(Integer.valueOf(1));
                     model.setRetcode(EnDecryptUtils.md5Encrypt(title));
                     String tags = brief.getTags();
+                    tags = tags.replace(" ", "").replace("/",",");
+                    while (tags.startsWith(",")) {
+                        tags = tags.substring(1);
+                    }
                     model.setTag(tags);
                     model.setTagcode(PinyinUtil.paraseStringToPinyin(tags).toLowerCase());
                     model.setViewnum(Integer.valueOf(HTMLParserUtil.geneViewNum()));
@@ -58,7 +65,7 @@ public class MovieDetailPipeline implements Pipeline<MovieDetailRunner> {
                     String jsonData = JsonUtil.object2json(model);
 
 
-                    String url = "http://localhost:8082/ret/movies/json";
+                    String url = "https://northpark.cn/ret/movies/json";
                     try {
                         HttpGetUtils.sendPostJsonData(url, jsonData);
                     } catch (ClientProtocolException e) {

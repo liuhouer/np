@@ -1,15 +1,5 @@
 package cn.northpark.action;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.MoviesManager;
@@ -19,7 +9,17 @@ import cn.northpark.model.Soft;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.IDUtils;
 import cn.northpark.utils.PinyinUtil;
+import com.geccocrawler.gecco.GeccoEngine;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -50,6 +50,30 @@ public class RetRestAction {
         StringBuilder rs = new StringBuilder("success");
         retMoviesPage(list);
         return ResultGenerator.genSuccessResult(rs.toString());
+    }
+
+    @RequestMapping({"/ret/taskMovies"})
+    @ResponseBody
+    public Result<String> taskMovies(@RequestBody List<Map<String, String>> list) {
+        for (int i = 2; i <= 896; i++) {
+            GeccoEngine.create()
+                    //Gecco搜索的包路径
+                    .classpath("cn.northpark.task.movie_spider")
+                    //开始抓取的页面地址
+                    .start("http://www.btbuluo.com/moive/?p="+i)
+                    //开启几个爬虫线程
+                    .thread(1)
+                    //单个爬虫每次抓取完一个请求后的间隔时间
+                    .interval(2000)
+                    .run();
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return ResultGenerator.genSuccessResult("ok");
     }
 
 

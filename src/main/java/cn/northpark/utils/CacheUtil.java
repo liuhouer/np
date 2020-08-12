@@ -1,6 +1,6 @@
 package cn.northpark.utils;
 
-import cn.northpark.utils.movie.MovieListPage;
+import cn.northpark.task.movie_spider.MovieListPage;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;

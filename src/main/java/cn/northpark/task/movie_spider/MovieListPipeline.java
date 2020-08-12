@@ -1,4 +1,4 @@
-package cn.northpark.utils.movie;
+package cn.northpark.task.movie_spider;
 
 import cn.northpark.utils.CacheUtil;
 import com.geccocrawler.gecco.annotation.PipelineName;

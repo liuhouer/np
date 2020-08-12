@@ -1,4 +1,4 @@
-package cn.northpark.utils.movie;
+package cn.northpark.task.movie_spider;
 
 import com.geccocrawler.gecco.annotation.Href;
 import com.geccocrawler.gecco.annotation.HtmlField;
@@ -14,11 +14,11 @@ public class MovieListPage implements HtmlBean {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String titleCSS = "bbd66a8f60b";
-    public static final String a_hrefCSS = "baca92c9178ea";
-    public static final String img_urlCSS = "be5269";
-    public static final String dateCSS = "b027c";
-    public static final String tagsCSS = "b357aa9baf";
+    public static final String titleCSS = "b1e5f56717b";
+    public static final String a_hrefCSS = "b6572f3ec8bd1";
+    public static final String img_urlCSS = "b8f2f7";
+    public static final String dateCSS = "b9e2a";
+    public static final String tagsCSS = "b3d71fb1c9";
 
     @Text
     @HtmlField(cssPath = "span."+titleCSS+"")
