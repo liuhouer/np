@@ -348,7 +348,7 @@ public class HttpGetUtils {
             }
 
             //该方法阻塞线程
-            wc.waitForBackgroundJavaScript(waitForBackgroundJavaScript);
+//            wc.waitForBackgroundJavaScript(waitForBackgroundJavaScript);
 
             // 以xml的形式获取响应文本
             pageXml = page.asXml();
