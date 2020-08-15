@@ -65,13 +65,25 @@ public class MovieRunner implements HtmlBean {
 
     public static void main(String[] args) {
 
+        for (int i = 179; i <= 896; i++) {
+
+            MovieListPipeline.detailRequests.clear();
+            CacheUtil.getCache().cleanUp();
+
+
+            //先获取分类列表
+            while (CollectionUtils.isEmpty(MovieListPipeline.detailRequests)) {
+                genePageList(i);
+            }
+
+
+            //分类列表下的商品列表采用3线程抓取
             GeccoEngine.create()
-                    //Gecco搜索的包路径
                     .classpath("cn.northpark.task.movie_spider")
                     //开始抓取的页面地址
-                    .start("http://www.btbuluo.com/moive/?p=3")
+                    .start(MovieListPipeline.detailRequests)
                     //开启几个爬虫线程
-                    .thread(1)
+                    .thread(4)
                     //单个爬虫每次抓取完一个请求后的间隔时间
                     .interval(3000)
                     .run();
