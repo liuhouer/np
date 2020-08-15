@@ -5,6 +5,8 @@ import cn.northpark.utils.*;
 import cn.northpark.utils.encrypt.EnDecryptUtils;
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
+import com.geccocrawler.gecco.request.HttpRequest;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,6 +17,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -28,8 +31,23 @@ public class MovieDetailPipeline implements Pipeline<MovieDetailRunner> {
 
     List<MovieListPage> briefList = null;
 
+//    public static List<HttpRequest> detail_RS_Requests = null;
+
     @Override
     public void process(MovieDetailRunner movieDetailRunner) {
+
+        //判定获取详情是否成功==========================================
+
+//        HttpRequest currRequest = movieDetailRunner.getRequest();
+//
+//        if(StringUtils.isNotEmpty(movieDetailRunner.getA_href())){
+//            detail_RS_Requests = new ArrayList<>();
+//            detail_RS_Requests.add(currRequest.subRequest(movieDetailRunner.getA_href()));
+//        }
+
+        //判定获取详情是否成功==========================================
+
+
         try {
             briefList = CacheUtil.getCache().get("briefList");
         } catch (ExecutionException e) {

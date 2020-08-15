@@ -403,7 +403,7 @@ public class MoviesAction {
             }
             map.put("orderby", orderby);
         } else {
-            order.put("hotindex", "desc");
+            order.put("addtime", "desc");
             order.put("id", "desc");
         }
 
