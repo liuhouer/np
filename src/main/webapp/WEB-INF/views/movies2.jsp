@@ -284,7 +284,7 @@
 
     $(function () {
         $(".bg-white").find("img").each(function () {
-            $(this).css('max-width', ($("#J_white_div").width() * 0.85));
+            $(this).css('max-width', ($(".bg-white").width() * 0.85));
             $(this).css('margin-right', '20%');
         })
 
