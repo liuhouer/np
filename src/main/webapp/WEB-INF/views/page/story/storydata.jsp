@@ -59,20 +59,30 @@
 
                                 title="${s.username}的最爱">${s.username}</a> 写到：
                         </p>
-                        <div id="brief_${ss.index}">
+                        <div id="brief_${ss.index}" class="note-brief">
 
-                                ${s.brief }
-                            <c:if test="${s.brief!=s.note }">
-                                <button class="clearfix btn btn-gray btn-xs click2show"
-                                        data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}"> &nbsp; <span
-                                        class="glyphicon glyphicon-chevron-down"></span> &nbsp;
-                                </button>
+                            <c:if test="${!fn:startsWith(s.brief, '<')}">
+                            <p></p>
+                            <p>
+                                </c:if>
+                                    ${s.brief }
+
+                                <c:if test="${!fn:endsWith(s.brief, '>')}">
+                            </p>
                             </c:if>
+
+
                         </div>
                         <div class="clearfix hidden" id="text_${ss.index}">
                                 ${s.note }
                         </div>
 
+                        <c:if test="${s.brief!=s.note }">
+                            <button class="clearfix btn btn-gray btn-xs click2show margin-b5 padding-b20"
+                                    data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}"> &nbsp; <span
+                                    class="glyphicon glyphicon-chevron-down"></span> &nbsp;
+                            </button>
+                        </c:if>
                     </div>
                 </div>
             </div>
