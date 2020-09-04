@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
  * @date 2020年08月11日 21:52:08
  */
 
-@Gecco(matchUrl = "http://www.btbuluo.com/tv/?p={p}", pipelines = {"consolePipeline", "MovieListPipeline"})
+@Gecco(matchUrl = "http://www.btbuluo.com/moive/?p={p}", pipelines = {"consolePipeline", "MovieListPipeline"})
 public class MovieRunner implements HtmlBean {
 
     //MAX MOVIE ID 690356
@@ -29,7 +29,7 @@ public class MovieRunner implements HtmlBean {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String eachMovieDIV = "b9288";
+    public static final String eachMovieDIV = "bc7e4";
 
     @RequestParameter
     private String p;
@@ -69,7 +69,7 @@ public class MovieRunner implements HtmlBean {
 
     public static void main(String[] args) {
 
-        for (int i = 14; i <= 114; i++) {
+        for (int i = 1; i <= 3; i++) {
 
             MovieListPipeline.detailRequests.clear();
             CacheUtil.getCache().cleanUp();
@@ -100,7 +100,7 @@ public class MovieRunner implements HtmlBean {
 
     private static void genePageList(int i) {
         //先获取分类列表
-        HttpGetRequest start = new HttpGetRequest("http://www.btbuluo.com/tv/?p=" + i);
+        HttpGetRequest start = new HttpGetRequest("http://www.btbuluo.com/moive/?p=" + i);
         start.setCharset("UTF-8");
         GeccoEngine.create()
                 .classpath("cn.northpark.task.movie_spider")

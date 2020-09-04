@@ -14,11 +14,11 @@ public class MovieListPage implements HtmlBean {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String titleCSS = "b058d564a09";
-    public static final String a_hrefCSS = "b7017b5920850";
-    public static final String img_urlCSS = "b2d816";
-    public static final String dateCSS = "b30e5";
-    public static final String tagsCSS = "b987b3f035";
+    public static final String titleCSS = "b57352303ba";
+    public static final String a_hrefCSS = "b26202fe1a165";
+    public static final String img_urlCSS = "bb1463";
+    public static final String dateCSS = "b611d";
+    public static final String tagsCSS = "b91e23edff";
 
     @Text
     @HtmlField(cssPath = "span."+titleCSS+"")

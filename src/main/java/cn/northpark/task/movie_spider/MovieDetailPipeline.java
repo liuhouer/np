@@ -113,9 +113,17 @@ public class MovieDetailPipeline implements Pipeline<MovieDetailRunner> {
 //                    }
 
 
-                    String url = "http://localhost:8082/ret/movies/json";
+//                    String url = "http://localhost:8082/ret/movies/json";
+
+                    String url = "https://northpark.cn/ret/movies/json";
                     try {
                         HttpGetUtils.sendPostJsonData(url, jsonData);
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     } catch (ClientProtocolException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

@@ -78,7 +78,7 @@
                         </div>
 
                         <c:if test="${s.brief!=s.note }">
-                            <button class="clearfix btn btn-gray btn-xs click2show margin-b5 padding-b20"
+                            <button class="clearfix btn btn-gray btn-xs click2show "
                                     data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}"> &nbsp; <span
                                     class="glyphicon glyphicon-chevron-down"></span> &nbsp;
                             </button>
