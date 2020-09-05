@@ -11,9 +11,7 @@ import com.geccocrawler.gecco.request.HttpRequest;
 import com.geccocrawler.gecco.spider.HtmlBean;
 import org.springframework.util.CollectionUtils;
 
-import java.net.SocketTimeoutException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author zy
