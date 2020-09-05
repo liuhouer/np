@@ -73,7 +73,7 @@
 
 
                         </div>
-                        <div class="clearfix hidden" id="text_${ss.index}">
+                        <div class="clearfix note-brief hidden" id="text_${ss.index}">
                                 ${s.note }
                         </div>
 
