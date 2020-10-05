@@ -6,6 +6,12 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -16,7 +22,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.*;
 
 
@@ -535,6 +540,63 @@ public class FileUtils {
             log.info(JsonUtil.object2jsonWriteNullValue(filesNNames));
 
         }
+    }
+
+    /**
+     * 按行读取excel数据
+     * @param path
+     * @return
+     */
+    public static List<List<String>> readExcel(String path) {
+        List<List<String>> list = new ArrayList<List<String>>();
+        try {
+            Workbook wb;
+            InputStream is = null;
+            try {
+                is = new FileInputStream(path);
+                //读取2007版Excel
+                wb = new XSSFWorkbook(is);
+            } catch (Exception e) {
+                //防止异常导致输入流关闭
+                is = new FileInputStream(path);
+                //读取2003版Excel
+                wb = new HSSFWorkbook(is);
+            }
+            for (int i = 0; i < wb.getNumberOfSheets(); i++) {
+                //读取Sheet
+                Sheet sheet = wb.getSheetAt(i);
+                if (sheet == null) {
+                    continue;
+                }
+                //处理当前页，循环每一行
+                for (int j = 0; j < sheet.getPhysicalNumberOfRows(); j++) {
+                    //得到当前行
+                    Row row = sheet.getRow(j);
+                    //当前行第一个单元格
+                    int minCells = row.getFirstCellNum();
+                    //当前行最后一个单元格
+                    int maxCells = row.getLastCellNum();
+                    List<String> sl = new ArrayList<String>();
+                    for (int k = minCells; k < maxCells; k++) {
+                        //每一个单元格
+                        Cell cell = row.getCell(k);
+                        if (cell == null) {
+                            continue;
+                        }
+                        sl.add(cell.toString());
+                    }
+                    list.add(sl);
+                }
+            }
+            if (is != null) {
+                is.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
 

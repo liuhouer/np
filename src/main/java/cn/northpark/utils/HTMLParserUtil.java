@@ -1,21 +1,8 @@
 package cn.northpark.utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.text.ParseException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Random;
-
-import org.apache.commons.codec.digest.Md5Crypt;
+import cn.northpark.utils.encrypt.EnDecryptUtils;
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
@@ -24,11 +11,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.util.CollectionUtils;
 
-import com.google.common.collect.Lists;
-
-import cn.northpark.manager.MoviesManager;
-import cn.northpark.utils.encrypt.EnDecryptUtils;
-import lombok.extern.slf4j.Slf4j;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.ParseException;
+import java.util.*;
 
 /**
  * @author bruce
@@ -640,8 +630,6 @@ public class HTMLParserUtil {
                     String title = a.attr("title");
 
                     title = title.replace("-VPS推荐网", "");
-
-                    Md5Crypt.apr1Crypt(title);
 
                     String retcode = EnDecryptUtils.md5Encrypt(title);
 

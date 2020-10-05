@@ -8,12 +8,12 @@ import java.security.NoSuchAlgorithmException;
  * 
  * @Author : bruce
  */
-class MD5Utils {
-	protected final static String MD5_KEY = "MD5";
-	
-	protected final static String SHA_KEY = "SHA1";
-	
-	protected static String encrypt(String value,String key) {
+public class MD5Utils {
+	public final static String MD5_KEY = "MD5";
+
+	public final static String SHA_KEY = "SHA1";
+
+	public static String encrypt(String value,String key) {
 		try {
 			// 拿到一个MD5转换器（如果想要SHA1参数换成”SHA1”）
 			MessageDigest messageDigest = MessageDigest.getInstance(key);
@@ -30,7 +30,7 @@ class MD5Utils {
 		}
 	}
 
-	private static String byteArrayToHex(byte[] byteArray) {
+	public static String byteArrayToHex(byte[] byteArray) {
 
 		// 首先初始化一个字符数组，用来存放每个16进制字符
 		char[] hexDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
