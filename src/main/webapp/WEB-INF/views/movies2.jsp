@@ -280,6 +280,15 @@
 </script>
 <script src="https://northpark.cn/statics/js/page/movies.js"></script>
 
+<script>
 
+    $(function () {
+        $(".bg-white").find("img").each(function () {
+            $(this).css('max-width', ($(".bg-white").width() * 0.85));
+            $(this).css('margin-right', '20%');
+        })
+
+    })
+</script>
 </body>
 </html>

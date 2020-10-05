@@ -14,8 +14,8 @@ public class MovieDetailRunner implements HtmlBean {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String down_CSS="b799db63";
-    private static final String detail_CSS="b512";
+    private static final String detail_CSS="b41fef3b897";
+    private static final String down_CSS="b5faf2c2";
 
     @Request
     private HttpRequest request;

@@ -17,15 +17,6 @@
 //	}
 
 
-$(function () {
-	$(".bg-white").find("img").each(function () {
-		var maxw = $(this).parent().width();
-        $(this).css('max-width', maxw);
-    })
-
-
-})
-
 function handup(id) {
     $.ajax({
         url: "/movies/handup",

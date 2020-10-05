@@ -14,18 +14,18 @@ public class MovieListPage implements HtmlBean {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String titleCSS = "b1e5f56717b";
-    public static final String a_hrefCSS = "b6572f3ec8bd1";
-    public static final String img_urlCSS = "b8f2f7";
-    public static final String dateCSS = "b9e2a";
-    public static final String tagsCSS = "b3d71fb1c9";
+    public static final String titleCSS = "b57352303ba";
+    public static final String a_hrefCSS = "b26202fe1a165";
+    public static final String img_urlCSS = "bb1463";
+    public static final String dateCSS = "b611d";
+    public static final String tagsCSS = "b91e23edff";
 
     @Text
     @HtmlField(cssPath = "span."+titleCSS+"")
     private String title;
 
-    @Href(click = true)
     @HtmlField(cssPath = "a."+a_hrefCSS+"")
+    @Href(click = false,value = "href")
     private String a_href;
 
 

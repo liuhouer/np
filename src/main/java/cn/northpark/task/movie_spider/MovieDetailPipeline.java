@@ -1,13 +1,13 @@
 package cn.northpark.task.movie_spider;
 
 import cn.northpark.model.Movies;
-import cn.northpark.utils.CacheUtil;
-import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.JsonUtil;
-import cn.northpark.utils.PinyinUtil;
+import cn.northpark.utils.*;
 import cn.northpark.utils.encrypt.EnDecryptUtils;
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
+import com.geccocrawler.gecco.request.HttpRequest;
+import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.ClientProtocolException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -29,8 +31,23 @@ public class MovieDetailPipeline implements Pipeline<MovieDetailRunner> {
 
     List<MovieListPage> briefList = null;
 
+//    public static List<HttpRequest> detail_RS_Requests = null;
+
     @Override
     public void process(MovieDetailRunner movieDetailRunner) {
+
+        //判定获取详情是否成功==========================================
+
+//        HttpRequest currRequest = movieDetailRunner.getRequest();
+//
+//        if(StringUtils.isNotEmpty(movieDetailRunner.getA_href())){
+//            detail_RS_Requests = new ArrayList<>();
+//            detail_RS_Requests.add(currRequest.subRequest(movieDetailRunner.getA_href()));
+//        }
+
+        //判定获取详情是否成功==========================================
+
+
         try {
             briefList = CacheUtil.getCache().get("briefList");
         } catch (ExecutionException e) {
@@ -70,42 +87,52 @@ public class MovieDetailPipeline implements Pipeline<MovieDetailRunner> {
 
 
                     //需要写入的文件的路径
-                    String filePath = "D:/beanList.txt";
+//                    String filePath = "D:/beanList.txt";
+//
+//                    try {
+//                        File file = new File(filePath);
+//                        FileOutputStream fos = null;
+//                        if (!file.exists()) {
+//                            file.createNewFile();//如果文件不存在，就创建该文件
+//                            fos = new FileOutputStream(file);//首次写入获取
+//                        } else {
+//                            //如果文件已存在，那么就在文件末尾追加写入
+//                            fos = new FileOutputStream(file, true);//这里构造方法多了一个参数true,表示在文件末尾追加写入
+//                        }
+//
+//                        OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");//指定以UTF-8格式写入文件
+//
+//                        osw.write(jsonData);
+//
+//                        //每写入一个Map就换一行
+//                        osw.write("\r\n");
+//                        //写入完成关闭流
+//                        osw.close();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
 
+
+//                    String url = "http://localhost:8082/ret/movies/json";
+
+                    String url = "https://northpark.cn/ret/movies/json";
                     try {
-                        File file = new File(filePath);
-                        FileOutputStream fos = null;
-                        if (!file.exists()) {
-                            file.createNewFile();//如果文件不存在，就创建该文件
-                            fos = new FileOutputStream(file);//首次写入获取
-                        } else {
-                            //如果文件已存在，那么就在文件末尾追加写入
-                            fos = new FileOutputStream(file, true);//这里构造方法多了一个参数true,表示在文件末尾追加写入
+                        HttpGetUtils.sendPostJsonData(url, jsonData);
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-
-                        OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");//指定以UTF-8格式写入文件
-
-                        osw.write(jsonData);
-
-                        //每写入一个Map就换一行
-                        osw.write("\r\n");
-                        //写入完成关闭流
-                        osw.close();
-                    } catch (Exception e) {
+                    } catch (ClientProtocolException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
 
 
-//                    String url = "https://northpark.cn/ret/movies/json";
-//                    try {
-//                        HttpGetUtils.sendPostJsonData(url, jsonData);
-//                    } catch (ClientProtocolException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    } catch (IOException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
                 }
             }
         }

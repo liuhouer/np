@@ -4,12 +4,12 @@
 <div class="col-md-12 margin-t10">
 
 
-	<div class="col-xs-10 clearfix border-bottom">
-       <img class="alignnone size-full max-width-200 padding-b20"
-								src="https://northpark.cn/statics/img/pay/alipay-hongbao.png"
-								height="270" >
+<%--	<div class="col-xs-10 clearfix border-bottom">--%>
+<%--       <img class="alignnone size-full max-width-200 padding-b20"--%>
+<%--								src="https://northpark.cn/statics/img/pay/alipay-hongbao.png"--%>
+<%--								height="270" >--%>
 
-    </div>
+<%--    </div>--%>
 
     <div class="col-xs-10 clearfix border-bottom">
         <p>

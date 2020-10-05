@@ -132,27 +132,31 @@ function clacImgZoomParam(maxWidth, maxHeight, width, height) {
 
 //下拉查看更多的事件
 
-$("body").on('click', '.click2show', function () {
-    if ($(this).data('dismiss'))
-        $($(this).data('dismiss')).hide();
-    else
-        $(this).hide();
-    $($(this).data('target')).removeClass('hidden');
-});
+$("body").on('click', '.click2show', function() {
+    var brief_id = $(this).data('dismiss');
+    var article_id = $(this).data('target');
+
+    $(brief_id).toggle();
+    $(article_id).removeClass('hidden');
+
+    $(this).find("span").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+    $(this).removeClass('click2show').addClass('click2hide');
 
 
-$("body").on('click', '.click2hide', function () {
-    $($(this).data('target')).slideDown();
 });
 
-$("body").on('click', '.click2toggle', function () {
-    $($(this).data('target')).slideToggle();
+$("body").on('click', '.click2hide', function() {
+
+    var brief_id = $(this).data('dismiss');
+    var article_id = $(this).data('target');
+
+    $(brief_id).toggle();
+    $(article_id).addClass('hidden');
+
+    $(this).find("span").removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+    $(this).removeClass('click2hide').addClass('click2show');
 });
 
-$("body").on('click', '.click2flip', function () {
-    $($(this).data('hide')).slideUp();
-    $($(this).data('show')).slideDown();
-});
 
 
 
