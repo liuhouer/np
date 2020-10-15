@@ -274,25 +274,23 @@ public class Graph<T extends Comparable> implements GraphInterface<T>, java.io.S
 
     @Override
     public double Dijkstra(T begin, T end, Stack<Edge<T>> path) {
+        
         resetVertices();
-        boolean done = false;//标记整个遍历过程是否完成
-        Queue<VertexInterface<T>> vertexQueue = new LinkedList<>();
         VertexInterface<T> beginVertex = vertices.get(begin);
         VertexInterface<T> endVertex = vertices.get(end);
 
-        Preconditions.checkNotNull(beginVertex.getID(),"带权图-构造函数创建的顶点对象ID不能为空");
+        Preconditions.checkNotNull(beginVertex.getID(), "带权图-构造函数创建的顶点对象ID不能为空");
 
 
         // 使用索引堆记录当前找到的到达每个顶点的最短距离
-        IndexMinHeap<Integer> ipq = new IndexMinHeap<Integer>(getSizeOfVertices()+1);
+        IndexMinHeap<Integer> ipq = new IndexMinHeap<Integer>(getSizeOfVertices() + 1);
 
         beginVertex.visit();
-        vertexQueue.offer(beginVertex);
         ipq.insert(0, 9999); //0位置占位
         ipq.insert(beginVertex.getID(), 8888); //起点,设置个最大值，因为这个为0没意义
 
-        Number[] distTo = new Number[getSizeOfVertices()+1];     // distTo[i]存储从起始点s到i的最短路径长度
-        Edge<T>[] from = new Edge[getSizeOfVertices()+1];  // from[i]记录最短路径中, 到达i点的边是哪一条
+        Number[] distTo = new Number[getSizeOfVertices() + 1];     // distTo[i]存储从起始点s到i的最短路径长度
+        Edge<T>[] from = new Edge[getSizeOfVertices() + 1];  // from[i]记录最短路径中, 到达i点的边是哪一条
 
         Map<Integer, VertexInterface<T>> vertexIDMap = new TreeMap<>();
 
@@ -300,18 +298,18 @@ public class Graph<T extends Comparable> implements GraphInterface<T>, java.io.S
         distTo[beginVertex.getID()] = 0.0;
 
         //起点设置
-        vertexIDMap.put(beginVertex.getID(),beginVertex);
+        vertexIDMap.put(beginVertex.getID(), beginVertex);
 
-        while (!done && !vertexQueue.isEmpty() && !ipq.isEmpty()) {
+        while (!ipq.isEmpty() && vertexIDMap.get(ipq.getMinIndex()) != null) {//排除最小索引堆的0占位符
             int v = ipq.extractMinIndex();
 
             //1.从起点找到所有相邻点，并且标记所有花费
-            VertexInterface<T> frontVertex = vertexQueue.poll();
+            VertexInterface<T> frontVertex = vertexIDMap.get(v);
             Iterator<VertexInterface<T>> neighbors = frontVertex.getNeighborInterator();
-            while (!done && neighbors.hasNext()) {
+            while (neighbors.hasNext()) {
                 VertexInterface<T> nextNeighbor = neighbors.next();
                 //一次遍历过程完成map的映射
-                vertexIDMap.put(nextNeighbor.getID(),nextNeighbor);
+                vertexIDMap.put(nextNeighbor.getID(), nextNeighbor);
 
                 // 如果nextNeighbor点以前没有访问过,
                 // 或者访问过, 但是通过当前的v点到nextNeighbor点距离更短, 则进行更新
@@ -334,41 +332,20 @@ public class Graph<T extends Comparable> implements GraphInterface<T>, java.io.S
 
                         ipq.insert(id, distTo[id].intValue());
                     }
-
-
                 }
-
-
-
-
-
-
             }//end inner while
-
-            //每层节点offer添加一个最小值队列
-            VertexInterface<T> minVertexHander = vertexIDMap.get(ipq.getMinIndex());
-            if(minVertexHander!=null){
-                vertexQueue.offer(minVertexHander);
-            }
-
-
         }//end outer while. and traverse over
-
 
         int endID = endVertex.getID();
         Edge<T> e = from[endID];
 
-        while (e.getStart()!= beginVertex){
+        while (e.getStart() != beginVertex) {
             path.push(e);
             e = from[e.getStart().getID()];
         }
         path.push(e); //e.parent = start , add e
-
-
         //最短路径长度
-        Number distToLength = distTo[endID];
-
-        return distToLength.intValue();
+        return distTo[endID].intValue();
     }
 
     //设置顶点的初始状态,时间复杂度为O(V)
