@@ -95,7 +95,7 @@
                                     </button>
                                     <div id="QR" style="display: none;">
 
-                                        <div id="wechat" style="display: inline-block">
+                                        <div id="wechat" style="display: inline-block ;margin-right: 20px;">
                                             <a href="http://liuhouer.python-project.com/blog/donate/praise.jpg"
                                                class="fancybox" rel="group"><img id="wechat_qr"
                                                                                  src="http://liuhouer.python-project.com/blog/donate/praise.jpg"
@@ -105,7 +105,7 @@
                                         </div>
 
 
-                                        <div id="alipay" style="display: inline-block">
+                                        <div id="alipay" style="display: inline-block ;margin-right: 20px;">
                                             <a href="http://liuhouer.python-project.com/blog/donate/alipay.png"
                                                class="fancybox" rel="group"><img id="alipay_qr"
                                                                                  src="http://liuhouer.python-project.com/blog/donate/alipay.png"
