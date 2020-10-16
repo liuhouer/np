@@ -44,7 +44,7 @@
 
                                 <li oname="白羊座" cname="BAIYANG" oid="1">
                                     <a class="astroa">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E7%89%A1%E7%BE%8A%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E7%89%A1%E7%BE%8A%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>白羊座</span>
@@ -52,7 +52,7 @@
                                 </li>
                                 <li oname="金牛座" cname="JINNIU" oid="2">
                                     <a class="astroa">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E9%87%91%E7%89%9B%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E9%87%91%E7%89%9B%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>金牛座</span>
@@ -60,7 +60,7 @@
                                 </li>
                                 <li oname="双子座" cname="SHUANGZI" oid="3">
                                     <a class="astroa">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E5%8F%8C%E5%AD%90%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E5%8F%8C%E5%AD%90%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>双子座</span>
@@ -68,7 +68,7 @@
                                 </li>
                                 <li oname="巨蟹座" cname="JUXIE" oid="4">
                                     <a class="astroa">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E5%B7%A8%E8%9F%B9%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E5%B7%A8%E8%9F%B9%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>巨蟹座</span>
@@ -76,7 +76,7 @@
                                 </li>
                                 <li oname="狮子座" cname="SHIZI" oid="5">
                                     <a class="astroa">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E7%8B%AE%E5%AD%90%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E7%8B%AE%E5%AD%90%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>狮子座</span>
@@ -84,7 +84,7 @@
                                 </li>
                                 <li oname="处女座" cname="CHUNV" oid="6">
                                     <a class="astroa">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E5%A4%84%E5%A5%B3%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E5%A4%84%E5%A5%B3%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>处女座</span>
@@ -92,7 +92,7 @@
                                 </li>
                                 <li oname="天秤座" cname="TIANCHENG" oid="7">
                                     <a class="astroa">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E5%A4%A9%E7%A7%A4%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E5%A4%A9%E7%A7%A4%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>天秤座</span>
@@ -100,7 +100,7 @@
                                 </li>
                                 <li oname="天蝎座" cname="TIANXIE" oid="8">
                                     <a class="astroa">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E5%A4%A9%E8%9D%8E%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E5%A4%A9%E8%9D%8E%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>天蝎座</span>
@@ -108,7 +108,7 @@
                                 </li>
                                 <li oname="射手座" cname="SHESHOU" oid="9">
                                     <a class="astroa">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E5%B0%84%E6%89%8B%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E5%B0%84%E6%89%8B%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>射手座</span>
@@ -116,7 +116,7 @@
                                 </li>
                                 <li oname="摩羯座" cname="MOJIE" oid="10">
                                     <a class="astroa" id="J_moji">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E6%91%A9%E7%BE%AF%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E6%91%A9%E7%BE%AF%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>摩羯座</span>
@@ -124,7 +124,7 @@
                                 </li>
                                 <li oname="水瓶座" cname="SHUIPING" oid="11">
                                     <a class="astroa">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E6%B0%B4%E7%93%B6%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E6%B0%B4%E7%93%B6%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>水瓶座</span>
@@ -132,7 +132,7 @@
                                 </li>
                                 <li oname="双鱼座" cname="SHUANGYU" oid="12">
                                     <a class="astroa">
-                                        <img src="http://liuhouer.liuhouer.python-project.com/%E5%8F%8C%E9%B1%BC%E5%BA%A7.png"
+                                        <img src="http://liuhouer.python-project.com/%E5%8F%8C%E9%B1%BC%E5%BA%A7.png"
                                              class="img-circle max-width-50" height="40"
                                              width="40"><br>
                                         <span>双鱼座</span>

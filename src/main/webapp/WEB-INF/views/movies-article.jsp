@@ -106,9 +106,9 @@
 
 												<div id="wechat" style="display: inline-block">
 													<a
-														href="http://liuhouer.liuhouer.python-project.com/blog/donate/praise.jpg"
+														href="http://liuhouer.python-project.com/blog/donate/praise.jpg"
 														class="fancybox" rel="group"><img id="wechat_qr"
-														src="http://liuhouer.liuhouer.python-project.com/blog/donate/praise.jpg"
+														src="http://liuhouer.python-project.com/blog/donate/praise.jpg"
 														alt="Bruce WeChat Pay"
 														style="width: 200px; height: 200px; max-width: 100%; display: inline-block"></a>
 													<p>微信打赏</p>
@@ -117,9 +117,9 @@
 
 												<div id="alipay" style="display: inline-block">
 													<a
-														href="http://liuhouer.liuhouer.python-project.com/blog/donate/alipay.png"
+														href="http://liuhouer.python-project.com/blog/donate/alipay.png"
 														class="fancybox" rel="group"><img id="alipay_qr"
-														src="http://liuhouer.liuhouer.python-project.com/blog/donate/alipay.png"
+														src="http://liuhouer.python-project.com/blog/donate/alipay.png"
 														alt="Bruce Alipay"
 														style="width: 200px; height: 200px; max-width: 100%; display: inline-block"></a>
 													<p>支付宝打赏</p>
