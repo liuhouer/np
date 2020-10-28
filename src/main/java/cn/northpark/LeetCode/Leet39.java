@@ -42,7 +42,40 @@ import java.util.List;
  */
 public class Leet39 {
 
-    public static void main(String[] args) {
+    //解法：回溯法，就和树的深度遍历类似,不过先从小到大排序，可以直接省略很多遍历节点。添加了break退出循环的剪枝。
+    //                7
+    //           5  /  | \ \
+    //             2   3  6  7
+    //         3 / |\ \
+    //    (x)   2  3 6 7
+    //    (x)1 /|\\
+    //        2 3 6 7 
+    //
+    List<List<Integer>> rs = new ArrayList<>();
+    List<Integer> list = new ArrayList<>();
+    
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        helper(candidates, 0, target);
+        return rs;
+    }
+
+    private void helper(int[] candidates, int start, int target) {
+
+        if (target == 0) {
+            rs.add(new ArrayList<>(list));
+            return;
+        }
+
+        for (int i = start; i < candidates.length; i++) {
+            if (candidates[i] > target) break;
+            list.add(candidates[i]);
+            helper(candidates, i, target - candidates[i]);
+            list.remove(list.size()-1);
+        }
+    }
+    
+   public static void main(String[] args) {
         Leet39 leet39 = new Leet39();
         int[] candidates = {3,5,8,11};
         int target = 11;
@@ -51,111 +84,5 @@ public class Leet39 {
             System.err.println(i.toString());
         });
     }
-
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> rs = new ArrayList<>();
-        //每次处理一个元素位置
-        int startIndex = 0;
-        get_rs_of_index(startIndex, rs, candidates, target, 0);
-        return rs;
-    }
-
-
-    /**
-     * @param startIndex
-     * @param rs
-     * @param candidates
-     * @param target
-     * @param lastAddRS  -上次累加结果
-     */
-    //每次处理一个元素位置
-    private void get_rs_of_index(int startIndex, List<List<Integer>> rs, int[] candidates, int target, int lastAddRS) {
-
-        //终止条件
-        if (startIndex == candidates.length) {
-            return;
-        }
-
-        int candidate = candidates[startIndex];
-        if (candidate == target) {
-            List<Integer> itemIndex = new ArrayList<>();
-            itemIndex.add(candidate);
-            rs.add(itemIndex);
-        } else if (candidate < target) {
-            //1> lastAddRS==0
-            if(lastAddRS==0){
-                //1_1. 处理整除
-                //lastAddRS!=0整除 ，单个数整除
-                if ( (target) % candidate == 0 && (target) / candidate >= 1 && (target) / candidate <= 30) {
-                    List<Integer> itemIndex = new ArrayList<>();
-                    for (int i = 0; i < target / candidate; i++) {
-                        itemIndex.add(candidate);
-                    }
-                    rs.add(itemIndex);
-
-                }
-            }else{
-            //2> lastAddRS!=0
-                //2_1>. 处理整除
-                //lastAddRS!=0整除 ，单个数整除
-                if ( (target) % candidate == 0 && (target) / candidate >= 1 && (target) / candidate <= 30) {
-                    List<Integer> itemIndex = new ArrayList<>();
-                    for (int i = 0; i < target / candidate; i++) {
-                        itemIndex.add(candidate);
-                    }
-                    rs.add(itemIndex);
-
-                }
-                //  lastAddRS!=0 差值整除  candidate
-                if ((target - lastAddRS) % candidate == 0 && (target - lastAddRS) / candidate >= 1 && (target - lastAddRS) / candidate <= 30) {
-                    List<Integer> itemIndex = new ArrayList<>();
-                    if (lastAddRS > 0) {
-                        itemIndex.add(lastAddRS);
-                    }
-                    for (int i = 0; i < target / candidate; i++) {
-                        itemIndex.add(candidate);
-                    }
-                    rs.add(itemIndex);
-                    //    lastAddRS!=0 差值整除  lastAddRS
-                }else if ((target - candidate) % lastAddRS == 0 && (target - candidate) / lastAddRS >= 1 && (target - candidate) / lastAddRS <= 30) {
-                    List<Integer> itemIndex = new ArrayList<>();
-                    for (int i = 0; i < target / candidate; i++) {
-                        itemIndex.add(lastAddRS);
-                    }
-                    if (candidate > 0) {
-                        itemIndex.add(candidate);
-                    }
-                    rs.add(itemIndex);
-                }
-                //2_2> .非整除
-                if ((target - lastAddRS) % candidate > 0) {
-                    //candidates = [2,3,5], target = 8,
-                    // * 所求解集为：
-                    // * [
-                    // *   [2,2,2,2],
-                    // *   [2,3,3],
-                    //     [3,5]
-
-                    //2_3 处理遍历相邻元素到end 判断相加
-                    for (int t=startIndex;t<candidates.length;t++){
-                        if (lastAddRS + candidates[t] == target) {
-                            List<Integer> itemIndex = new ArrayList<>();
-                            if (lastAddRS > 0)
-                                itemIndex.add(lastAddRS);
-                            itemIndex.add(candidates[t]);
-                            rs.add(itemIndex);
-                        }
-                    }
-
-                }
-            }
-
-
-
-            startIndex++;
-            get_rs_of_index(startIndex, rs, candidates, target, candidate);
-        }
-
-
-    }
+    
 }
