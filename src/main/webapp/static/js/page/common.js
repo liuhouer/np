@@ -158,6 +158,58 @@ $("body").on('click', '.click2hide', function() {
 });
 
 
+/***
+ * 点击评论按钮
+ */
+
+$("body").on('click', '.click2comment', function() {
+    var comment_id = $(this).data('target');
+
+    $(comment_id).removeClass('hidden');
+
+
+});
+
+
+/***
+ * 点击评论save按钮
+ */
+
+$("body").on('click', '.click2save', function() {
+
+    var topic_id = $(this).attr('topic-id');
+    var topic_type = $(this).attr('topic-type');
+    var from_uid = $(this).attr('from-uid');
+    var from_uname = $(this).attr('from-uname');
+    var to_uid;
+    var comment_content= $("#cm"+topic_id).val();
+
+
+    console.log(topic_id,topic_type,from_uid,from_uname,to_uid,comment_content);
+
+
+    return;
+
+    $.ajax({
+        url: "/topicComment/save",
+        type: "post",
+        data: {"topic_id": topic_id, "topic_type": topic_type,"from_uid": from_uid,"from_uname": from_uname,"comment_content": comment_content,"to_uid": to_uid},
+        beforeSend: beforeSend, //发送请求
+        complete: complete,
+        success: function (data) {
+            if (data) {
+
+                console.log(data);
+                    //TODO 展开详情展示评论，隐藏评论框
+            }
+        }
+    });
+
+});
+
+
+
+
 
 
 //复制内容自动添加版权信息 

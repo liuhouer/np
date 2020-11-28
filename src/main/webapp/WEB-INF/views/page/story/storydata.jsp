@@ -77,12 +77,32 @@
                                 ${s.note }
                         </div>
 
+                        <c:if test="${user!=null }">
+                            <div class="clearfix note-comment hidden" id="comment_${ss.index}">
+                                <textarea id="cm${s.noteid}" >
+
+                                </textarea>
+                                <button topic-id="${s.noteid}"
+                                        topic-type="1"
+                                        from-uid="${user.id}"
+                                        from-uname="${user.username}"
+                                        class="glyphicon glyphicon-ok-sign click2save"></button>
+                            </div>
+                        </c:if>
+
+
                         <c:if test="${s.brief!=s.note }">
                             <button class="clearfix btn btn-gray btn-xs click2show "
                                     data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}"> &nbsp; <span
                                     class="glyphicon glyphicon-chevron-down"></span> &nbsp;
                             </button>
                         </c:if>
+
+                        <button class="clearfix btn btn-gray btn-xs click2comment "
+                                data-dismiss="#comment_${ss.index}"
+                                data-target="#comment_${ss.index}"> &nbsp; <span
+                                class="glyphicon glyphicon-comment"></span> &nbsp;
+                        </button>
                     </div>
                 </div>
             </div>
