@@ -4,12 +4,85 @@
 <div class="col-md-12 margin-t10">
 
 
-    <%--	<div class="col-xs-10 clearfix border-bottom">--%>
-    <%--       <img class="alignnone size-full max-width-200 padding-b20"--%>
-    <%--								src="https://northpark.cn/statics/img/pay/alipay-hongbao.png"--%>
-    <%--								height="270" >--%>
 
-    <%--    </div>--%>
+    <div class="col-xs-10 clearfix border-bottom">
+        <p>
+            <span class="glyphicon glyphicon-time margin5"></span>
+            2020-11-27 12:36
+        </p>
+
+        <p>
+
+        <p>
+            <span class="glyphicon glyphicon-user margin5"></span>
+            *军梅
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-barcode margin5"></span>
+            2020112722001435345741055746
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-comment margin5"></span>
+            匿名赞赏
+        </p>
+        <p>
+            <span class="glyphicon  margin5">￥</span>
+            550.00
+        </p>
+
+    </div>
+    <div class="col-xs-10 clearfix border-bottom">
+        <p>
+            <span class="glyphicon glyphicon-time margin5"></span>
+            2020-11-26 13:33
+        </p>
+
+        <p>
+
+        <p>
+            <span class="glyphicon glyphicon-user margin5"></span>
+            *仲枢
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-barcode margin5"></span>
+            2020112622001409885746197427
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-comment margin5"></span>
+            匿名赞赏
+        </p>
+        <p>
+            <span class="glyphicon  margin5">￥</span>
+            0.56
+        </p>
+
+    </div>
+    <div class="col-xs-10 clearfix border-bottom">
+        <p>
+            <span class="glyphicon glyphicon-time margin5"></span>
+            2020-11-28 08:50
+        </p>
+
+        <p>
+
+        <p>
+            <span class="glyphicon glyphicon-user margin5"></span>
+            *泊
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-barcode margin5"></span>
+            2020112822001479551416866867
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-comment margin5"></span>
+            匿名赞赏
+        </p>
+        <p>
+            <span class="glyphicon  margin5">￥</span>
+            0.17
+        </p>
+
+    </div>
 
     <div class="col-xs-10 clearfix border-bottom">
         <p>
