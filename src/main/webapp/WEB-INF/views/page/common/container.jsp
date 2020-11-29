@@ -31,6 +31,7 @@
 <script src="https://northpark.cn/statics/js/artDialog/plugins/iframeTools.js"></script>
 <script src="https://northpark.cn/statics/js/page/seltab.js"></script>
 <script src="https://northpark.cn/statics/js/page/common.js"></script>
+<script src="/static/js/page/common.js"></script>
 <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
