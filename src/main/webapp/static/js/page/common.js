@@ -139,7 +139,7 @@ $("body").on('click', '.click2show', function() {
     var topic_id = $(this).attr("topic-id");
 
     $(brief_id).addClass('hidden');
-    $(article_id).removeClass('hidden');
+    $(article_id).removeClass('hidden').css('display', 'block');
 
     $(this).find("span").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
     $(this).removeClass('click2show').addClass('click2hide');
