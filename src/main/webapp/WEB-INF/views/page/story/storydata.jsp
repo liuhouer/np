@@ -93,7 +93,7 @@
 
 
                         <c:if test="${user!=null }">
-                            <div class="form-group clearfix note-comment hidden" id="comment_${s.noteid}_${ss.index}">
+                            <div class="form-group clearfix note-comment" id="comment_${s.noteid}_${ss.index}" style="display: none">
                                 <textarea id="input_cm_${s.noteid}_${ss.index}" class="form-inline input-lg grid80 border-light-1 bg-lyellow radius-0" style="height: 49px;max-height: 400px;margin: 0px 10px 0px 0px;" rows="3">
 
                                 </textarea>

@@ -183,11 +183,14 @@ $("body").on('click', '.click2hide', function() {
 $("body").on('click', '.click2comment', function() {
     var comment_id = $(this).data('target');
 
-    if( $(comment_id).hasClass("hidden")){
-        $(comment_id).removeClass('hidden');
-    }else{
-        $(comment_id).addClass('hidden');
+
+    var display = $(comment_id).css("display");
+    if(display=='none'){
+        $(comment_id).removeClass("hidden").css("display","block");
+    }else if(display=='block'){
+        $(comment_id).addClass("hidden").css("display","none");
     }
+
 
 
 });

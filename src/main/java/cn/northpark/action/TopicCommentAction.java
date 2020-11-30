@@ -6,6 +6,7 @@ import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.TopicCommentManager;
 import cn.northpark.model.TopicComment;
 import cn.northpark.query.TopicCommentQuery;
+import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.safe.WAQ;
 import org.apache.commons.lang.StringUtils;
@@ -49,7 +50,7 @@ public class TopicCommentAction {
     public Result<String> addItem(ModelMap map, TopicComment model) throws Exception {
         String rs = "success";
 
-        assert model!=null && StringUtils.isNotEmpty(model.getContent());
+        assert model != null && StringUtils.isNotEmpty(model.getContent());
         model.setContent(WAQ.forSQL().escapeSql(model.getContent()));
         //更新
         if (model.getId() != null && model.getId() != 0) {
@@ -61,6 +62,16 @@ public class TopicCommentAction {
             topicCommentManager.updateTopicComment(old);
 
         } else {//新增
+
+            //默认字符头像===================================================
+            if (StringUtils.isNotEmpty(model.getFrom_uname())) {
+                String abc = PinyinUtil.paraseStringToPinyin(model.getFrom_uname());
+                if (StringUtils.isNotEmpty(abc)) {
+                    String headspan = abc.substring(0, 1).toUpperCase();
+                    model.setFrom_span(headspan);
+                }
+            }
+            //默认字符头像===================================================
 
             model.setAdd_time(TimeUtils.nowTime());
             topicCommentManager.addTopicComment(model);

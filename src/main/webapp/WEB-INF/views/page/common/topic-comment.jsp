@@ -5,7 +5,7 @@
 <c:forEach var="y" items="${list }" varStatus="ss">
     <div class="row">
         <div class="col-xs-3 col-sm-2 avatar">
-            <span class="imgbreath text-w">W</span>
+            <span class="imgbreath text-${y.from_span.toLowerCase()}">${y.from_span}</span>
         </div>
         <div class="col-xs-9 col-sm-10">
             <p>

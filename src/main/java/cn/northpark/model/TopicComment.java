@@ -1,16 +1,10 @@
 package cn.northpark.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author bruce
@@ -54,6 +48,9 @@ private static final long serialVersionUID = 1L;
 	@Column(length = 11)
 	private Integer from_uid;
 
+	@Column(length = 5)
+	private String from_span;
+
 	@Column(length = 11)
 	private Integer to_uid;
 
@@ -65,7 +62,6 @@ private static final long serialVersionUID = 1L;
 
 	@Column(length = 32)
 	private String add_time;
-
 
 	public Integer getId() {
 		return id;	
@@ -131,65 +127,17 @@ private static final long serialVersionUID = 1L;
 		this.add_time = add_time;
 	}
 
+	public String getFrom_span() {
+		return from_span;
+	}
+
+	public void setFrom_span(String from_span) {
+		this.from_span = from_span;
+	}
+
     @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
 	
-	/*这里是mybatis部分代码
-	
-	id,topic_id,topic_type,content,from_uid,to_uid,from_uname,to_uname,add_time,	
-
-		#{id},	#{topic_id},	#{topic_type},	#{content},	#{from_uid},	#{to_uid},	#{from_uname},	#{to_uname},	#{add_time},	
-	<update id="updateModel" parameterType="com.mai.app.entity.TopicComment">
-        update TopicComment
-        <set>
-                
-	   	 id = #{id},
-	   	 
-	            
-	   	 topic_id = #{topic_id},
-	   	 
-	            
-	   	 topic_type = #{topic_type},
-	   	 
-	            
-	   	 content = #{content},
-	   	 
-	            
-	   	 from_uid = #{from_uid},
-	   	 
-	            
-	   	 to_uid = #{to_uid},
-	   	 
-	            
-	   	 from_uname = #{from_uname},
-	   	 
-	            
-	   	 to_uname = #{to_uname},
-	   	 
-	            
-	   	 add_time = #{add_time},
-	   	 
-	            </set>
-        <where>
-         id = #{id}
-        </where>
-    </update>
-    
-    
-    
-    <select id="findAllByPage"  
-            resultType="com.mai.X.entity.TopicComment">
-        select * from modelName
-    </select>
-    
-    <select id="findByID"  parameterType="string"
-            resultType="com.mai.X.entity.TopicComment">
-        select * from TopicComment where TopicCommentID = #{id}
-    </select>
-	
-	
-	
-	*/
 }
