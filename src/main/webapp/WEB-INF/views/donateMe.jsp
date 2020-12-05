@@ -27,8 +27,8 @@
 <%@ include file="/WEB-INF/views/page/common/navigation.jsp" %>
 
 <!-- 页面标题 -->
-<div class="clearfix maincontent">
-    <div class="container">
+<div class="clearfix maincontent grayback">
+    <div class="container mainbody">
 
 
             <div class="align-center bg-white radius-5 padding10 max-width-700 " style="margin-top: 60px;">
@@ -40,6 +40,7 @@
 
 
 					<div class="content margin-b20">
+						<p>NorthPark中文网为出于兴趣所作，MAC应用和影视资源均免费，目前注册用户5万+</p>
 						<p>为了给大家提供更好更优秀的服务，即日起，NorthPark中文网在原有基础上推出赞助VIP荣誉会员，同时针对VIP荣誉会员，增加特以下荣誉会员增值服务（直接打赏，NorthPark中文网也很欢迎哦~）</p>
 						<ul>
 							<li>优先响应软件，游戏，影视资源求档请求；</li>
