@@ -3,6 +3,59 @@
 
 <div class="col-md-12 margin-t10">
 
+    <div class="col-xs-10 clearfix border-bottom">
+        <p>
+            <span class="glyphicon glyphicon-time margin5"></span>
+            2020-12-05 17:44
+        </p>
+
+        <p>
+
+        <p>
+            <span class="glyphicon glyphicon-user margin5"></span>
+            *金燕
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-barcode margin5"></span>
+            2020120522001438851412515632
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-comment margin5"></span>
+            匿名赞赏
+        </p>
+        <p>
+            <span class="glyphicon  margin5">￥</span>
+            178.00
+        </p>
+
+    </div>
+
+    <div class="col-xs-10 clearfix border-bottom">
+        <p>
+            <span class="glyphicon glyphicon-time margin5"></span>
+            2020-12-01 00:37
+        </p>
+
+        <p>
+
+        <p>
+            <span class="glyphicon glyphicon-user margin5"></span>
+            *雷
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-barcode margin5"></span>
+            2020120122001431351435614163
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-comment margin5"></span>
+            匿名赞赏
+        </p>
+        <p>
+            <span class="glyphicon  margin5">￥</span>
+            1.50
+        </p>
+
+    </div>
 
 
     <div class="col-xs-10 clearfix border-bottom">
