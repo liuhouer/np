@@ -189,12 +189,7 @@
 <script type="text/javascript">
 
     $(function () {
-    	$(".bg-white").find("img").each(function () {
-            $(this).css('max-width', ($("#J_white_div").width() * 0.85));
-            $(this).css('margin-right', '20%');
-        })
-
-
+	
         //删除评论多余的代码---来必力
 
       //设置定向uri
