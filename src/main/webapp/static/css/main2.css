@@ -1585,6 +1585,12 @@ a.project-card-link {
     font-size: 16px;
     font-weight: normal;
     line-height: 1.7;
+    width: inherit;	
+}
+
+.post_article img {
+    width: 100%;
+    height: 100%;
 }
 
 /* timeline */
