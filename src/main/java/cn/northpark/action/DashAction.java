@@ -1,19 +1,6 @@
 
 package cn.northpark.action;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import cn.northpark.annotation.Desc;
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.manager.EqManager;
@@ -29,6 +16,17 @@ import cn.northpark.utils.RedisUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -131,6 +129,54 @@ public class DashAction {
 
 
         return "/page/dash/moviesdata";
+    }
+
+    @RequestMapping(value = "/dash/getDonates")
+    @Desc(value="异步获取捐赠数据")
+    public String getDonates(ModelMap map) {
+
+
+        pushDonates2Map(map);
+
+
+        return "/page/dash/moviesdata";
+    }
+
+    /**
+     * @param map
+     */
+    public void pushDonates2Map(ModelMap map) {
+        //取出捐赠数据
+        List<Map<String, Object>> donates_list_min = null;
+        List<Map<String, Object>> donates_list_medium = null;
+        List<Map<String, Object>> donates_list_max = null;
+
+        //从redis取
+        String str = RedisUtil.get("donates_list_min");
+        if(StringUtils.isNotEmpty(str)) {
+            donates_list_min = JsonUtil.json2ListMap(str);
+        }
+
+
+        //从数据库取 :1天刷新
+        if(CollectionUtils.isEmpty(donates_list_min)) {
+
+            String min_sql = "SELECT add_time, alipay_trans_id, account_name, order_amount, CASE WHEN reward_msg IS NULL THEN '匿名赞赏' ELSE reward_msg END FROM bc_donates WHERE order_amount > 0 AND order_amount < 10 ";
+            String medium_sql = "SELECT add_time, alipay_trans_id, account_name, order_amount, CASE WHEN reward_msg IS NULL THEN '匿名赞赏' ELSE reward_msg END FROM bc_donates WHERE order_amount >= 10 AND order_amount < 100 ";
+            String max_sql = "SELECT add_time, alipay_trans_id, account_name, order_amount, CASE WHEN reward_msg IS NULL THEN '匿名赞赏' ELSE reward_msg END FROM bc_donates WHERE order_amount >=100 ";
+            donates_list_min = moviesManager.querySqlMap(min_sql);
+            donates_list_medium = moviesManager.querySqlMap(medium_sql);
+            donates_list_max = moviesManager.querySqlMap(max_sql);
+
+            RedisUtil.set("donates_list_min", JsonUtil.object2json(donates_list_min), 24 * 60 * 60);
+            RedisUtil.set("donates_list_medium", JsonUtil.object2json(donates_list_medium), 24 * 60 * 60);
+            RedisUtil.set("donates_list_max", JsonUtil.object2json(donates_list_max), 24 * 60 * 60);
+
+        }
+
+        map.addAttribute("donates_list_min", donates_list_min);
+        map.addAttribute("donates_list_medium", donates_list_medium);
+        map.addAttribute("donates_list_max", donates_list_max);
     }
 
 
