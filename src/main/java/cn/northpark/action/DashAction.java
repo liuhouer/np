@@ -3,6 +3,8 @@ package cn.northpark.action;
 
 import cn.northpark.annotation.Desc;
 import cn.northpark.constant.BC_Constant;
+import cn.northpark.constant.DonatesEnum;
+import cn.northpark.constant.DonatesRedisKeyEnum;
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.NoteManager;
@@ -133,50 +135,47 @@ public class DashAction {
 
     @RequestMapping(value = "/dash/getDonates")
     @Desc(value="异步获取捐赠数据")
-    public String getDonates(ModelMap map) {
+    public String getDonates(HttpServletRequest request,ModelMap map) {
+
+        String type_id = request.getParameter("type_id");
+
+        assert StringUtils.isNotBlank(type_id);
+
+        String result = DonatesRedisKeyEnum.match(type_id).getRedis_key();
+
+        pushDonates2Map(map,type_id,result);
 
 
-        pushDonates2Map(map);
-
-
-        return "/page/dash/moviesdata";
+        return "/page/common/"+result;
     }
 
     /**
      * @param map
      */
-    public void pushDonates2Map(ModelMap map) {
+    public void pushDonates2Map(ModelMap map,String type_id,String result) {
         //取出捐赠数据
-        List<Map<String, Object>> donates_list_min = null;
-        List<Map<String, Object>> donates_list_medium = null;
-        List<Map<String, Object>> donates_list_max = null;
+
+
+        List<Map<String, Object>> list = null;
 
         //从redis取
-        String str = RedisUtil.get("donates_list_min");
-        if(StringUtils.isNotEmpty(str)) {
-            donates_list_min = JsonUtil.json2ListMap(str);
+        String str = RedisUtil.get(result);
+        if (StringUtils.isNotEmpty(str)) {
+            list = JsonUtil.json2ListMap(str);
         }
-
 
         //从数据库取 :1天刷新
-        if(CollectionUtils.isEmpty(donates_list_min)) {
+        if (CollectionUtils.isEmpty(list)) {
 
-            String min_sql = "SELECT add_time, alipay_trans_id, account_name, order_amount, CASE WHEN reward_msg IS NULL THEN '匿名赞赏' ELSE reward_msg END FROM bc_donates WHERE order_amount > 0 AND order_amount < 10 ";
-            String medium_sql = "SELECT add_time, alipay_trans_id, account_name, order_amount, CASE WHEN reward_msg IS NULL THEN '匿名赞赏' ELSE reward_msg END FROM bc_donates WHERE order_amount >= 10 AND order_amount < 100 ";
-            String max_sql = "SELECT add_time, alipay_trans_id, account_name, order_amount, CASE WHEN reward_msg IS NULL THEN '匿名赞赏' ELSE reward_msg END FROM bc_donates WHERE order_amount >=100 ";
-            donates_list_min = moviesManager.querySqlMap(min_sql);
-            donates_list_medium = moviesManager.querySqlMap(medium_sql);
-            donates_list_max = moviesManager.querySqlMap(max_sql);
+            list = moviesManager.querySqlMap(DonatesEnum.match(type_id).getSql_fetch());
 
-            RedisUtil.set("donates_list_min", JsonUtil.object2json(donates_list_min), 24 * 60 * 60);
-            RedisUtil.set("donates_list_medium", JsonUtil.object2json(donates_list_medium), 24 * 60 * 60);
-            RedisUtil.set("donates_list_max", JsonUtil.object2json(donates_list_max), 24 * 60 * 60);
+            RedisUtil.set(result, JsonUtil.object2json(list), 24 * 60 * 60);
 
         }
 
-        map.addAttribute("donates_list_min", donates_list_min);
-        map.addAttribute("donates_list_medium", donates_list_medium);
-        map.addAttribute("donates_list_max", donates_list_max);
+        map.addAttribute(result, list);
+
+
     }
 
 
