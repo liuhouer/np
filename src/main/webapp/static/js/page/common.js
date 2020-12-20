@@ -269,6 +269,24 @@ function loadComment(topic_id,topic_type) {
 }
 
 
+//加载打赏数据
+function loadDonates(type_id){
+    $.ajax({
+        url: "/dash/getDonates",
+        type: "get",
+        data: {"type_id": type_id },
+        success: function (data) {
+            if (data) {
+                $("#donateContent").text("").append(data);
+
+            }
+        }
+    });
+}
+
+
+
+
 
 
 //复制内容自动添加版权信息 
