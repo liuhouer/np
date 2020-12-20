@@ -243,5 +243,10 @@
 
 </script>
 
+<script>
+
+    loadDonates(1);
+
+</script>
 </body>
 </html>
