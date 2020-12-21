@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<div class="tab-pane fade in active" id="1">
+<div class="col-md-12 margin-t10" id="1">
 
 
     <c:forEach var="y" items="${donates_list_max }" varStatus="ss">
