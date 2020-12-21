@@ -7,7 +7,14 @@
 
 
     <c:forEach var="y" items="${donates_list_max }" varStatus="ss">
-        <div class="col-xs-10 clearfix border-bottom padding-t20">
+        <div 
+                    <c:if test="${ss.index == 0 }">
+                       class="col-xs-10 clearfix border-bottom padding-t10"
+		  </c:if>
+                    <c:if test="${ss.index > 0 }">
+                       class="col-xs-10 clearfix border-bottom padding-t20"
+		  </c:if>
+         >
             <p>
                 <span class="glyphicon glyphicon-time margin5"></span>
                     ${y.add_time}
