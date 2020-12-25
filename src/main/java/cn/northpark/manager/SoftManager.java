@@ -1,13 +1,13 @@
 
 package cn.northpark.manager;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import cn.northpark.model.Soft;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author bruce
@@ -79,6 +79,13 @@ public interface SoftManager {
      * @return int
      */
     public int countHql(String wheresql);
+
+    /**
+     * 直接执行sql语句  更新、删除..
+     *
+     * @param sql SQL语句
+     */
+    public void executeSql(String sql);
 
 
 }

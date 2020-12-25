@@ -11,8 +11,7 @@ public enum TopicTypeEnum {
     SOFT("3"),
     MOVIE("4"),
     POEM("5"),
-    VPS("6"),
-    EQ("7"),
+    EQ("6"),
 
     ;
 
@@ -21,8 +20,7 @@ public enum TopicTypeEnum {
     //    3-软件
     //    4-电影
     //    5-诗词秀
-    //    6-VPS
-    //    7-情商提升
+    //    6-情商提升
     private String code;
 
     TopicTypeEnum(String code) {

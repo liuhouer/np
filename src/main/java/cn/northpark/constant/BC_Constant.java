@@ -134,24 +134,7 @@ public class BC_Constant {
     public static final String RET_guochanju = "http://www.fbdhqh.cn/movie_bt_series/guochanju/page/";
 
 
-    /**
-     * xiao 7博客
-     */
-    public static final String Coupon_VPS_7 = "https://www.xqblog.com/category/vps/page/";
 
-    /**
-     * 如有乐享
-     */
-//    public static final String Coupon_VPS_ruyo = "http://51.ruyo.net/page/";
-
-    /**
-     * Leonn 的博客
-     */
-//    public static final String Coupon_VPS_Leonn = "https://liyuans.com/page/";
-
-    
-    
-    
     //==========================================================微信==============================================================================================
     
 //    public static String WX_url_menu_create = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";

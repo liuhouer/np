@@ -1,8 +1,13 @@
 package cn.northpark.test;
 
-import java.util.List;
-import java.util.Map;
-
+import cn.northpark.manager.EqManager;
+import cn.northpark.manager.MoviesManager;
+import cn.northpark.manager.SoftManager;
+import cn.northpark.model.Soft;
+import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.utils.IDUtils;
+import cn.northpark.utils.TimeUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +15,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.CollectionUtils;
 
-import cn.northpark.manager.EqManager;
-import cn.northpark.manager.MoviesManager;
-import cn.northpark.manager.SoftManager;
-import cn.northpark.manager.VpsManager;
-import cn.northpark.model.Soft;
-import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.IDUtils;
-import cn.northpark.utils.TimeUtils;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhangyang
@@ -34,8 +32,6 @@ public class TestEQTask {
     @Autowired
     public EqManager EqManager;
 
-    @Autowired
-    public VpsManager vpsManager;
     //
     @Autowired
     public SoftManager softManager;
@@ -341,72 +337,6 @@ public class TestEQTask {
 
         // =========================================================情圣===========================================================================================
 
-        // =========================================================主机===========================================================================================
-
-        // log.info("VPS任务开始"+TimeUtils.getNowTime());
-        // try {
-        //
-        //
-        // for (int k = 5; k <= 10; k++) {
-        // List<Map<String, String>> lift = HTMLParserUtil.retCoupon(k,
-        // BC_Constant.Coupon_VPS_7);
-        // for (int i = 0; i < lift.size(); i++) {
-        //
-        // String title = lift.get(i).get("title");
-        // String brief = lift.get(i).get("brief");
-        // String date = lift.get(i).get("date");
-        // String article = lift.get(i).get("article");
-        // String retcode = lift.get(i).get("retcode");
-        // String returl = lift.get(i).get("aurl");
-        // String tags = lift.get(i).get("tags");
-        // //是不存在的文章
-        // int flag = vpsManager.countHql(" where o.retcode= '"+retcode+"' ");
-        //
-        // if(flag<=0){
-        // Vps model = new Vps();
-        // model.setArticle(article);
-        // model.setBrief(brief);
-        // model.setDate(date);
-        // model.setTitle(title);
-        // model.setReturl(returl);
-        // model.setTags(tags);
-        // model.setColor(PinyinUtil.getFanyi1(model.getTitle()));
-        // model.setRetcode(retcode);
-        // vpsManager.addVps(model);
-        // }
-        //
-        // }
-        //
-        //
-        // //休眠
-        // try {
-        // Thread.sleep(1000*1);
-        // log.info("第"+k+"页================");
-        // } catch (InterruptedException e) {
-        // // TODO Auo-generated catch block
-        // e.printStackTrace();
-        // }
-        //
-        // }
-        //
-        //
-        //
-        //
-        // //去重
-        // String delsql = "DELETE FROM bc_vps WHERE id IN (SELECT * FROM (SELECT id
-        // FROM bc_vps GROUP BY date HAVING ( COUNT(retcode) > 1 )) AS p)" ;
-        //
-        // vpsManager.executeSql(delsql);
-        //
-        //
-        //
-        // } catch (Exception e) {
-        // // TODO: handle exception
-        // log.error("TestEQTask=======>"+e);
-        // }
-        //
-        // log.info("VPS任务结束"+TimeUtils.getNowTime());
-        // =========================================================主机===========================================================================================
 
         // =========================================================软件===========================================================================================
         try {
@@ -414,7 +344,7 @@ public class TestEQTask {
             log.info("soft task==============start=" + TimeUtils.getNowTime());
             Map<String, String> map = null;
 
-            for (int k = 2; k <= 30; k++) {
+            for (int k = 1; k <= 1; k++) {
 
                 try {
 
@@ -904,7 +834,7 @@ public class TestEQTask {
         // String sql2 = "select id from bc_user where tail_slug in ("+retCaiMaiZAN+")";
         //
         //
-        // List<Map<String, Object>> useridlist = vpsManager.querySqlMap(sql2);
+        // List<Map<String, Object>> useridlist = softManager.querySqlMap(sql2);
         //
         // for (int i = 0; i < useridlist.size(); i++) {
         // LyricsZan lz = new LyricsZan();

@@ -1,18 +1,17 @@
 
 package cn.northpark.manager.impl;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import cn.northpark.dao.SoftDao;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Soft;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -107,6 +106,11 @@ public class SoftManagerImpl implements SoftManager {
     public int countHql(String wheresql) {
         // TODO Auto-generated method stub
         return softDao.countHql(Soft.class, wheresql);
+    }
+
+    @Override
+    public void executeSql(String sql) {
+        softDao.executess(sql);
     }
 
     @Override

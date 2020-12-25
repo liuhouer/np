@@ -1,21 +1,18 @@
 package cn.northpark.task;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
-import cn.northpark.manager.VpsManager;
 import cn.northpark.model.Movies;
-import cn.northpark.model.Vps;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -30,50 +27,10 @@ public class EQTask {
     public SoftManager softManager;
     @Autowired
     public MoviesManager moviesManager;
-    @Autowired
-    public VpsManager vpsManager;
 
 
     public void runTask() {
 
-        //爬虫VPS资源代码start---------------------------------------------------------------------
-        log.info("VPS任务开始" + TimeUtils.getNowTime());
-        try {
-
-
-            List<Map<String, String>> lift = HTMLParserUtil.retCoupon(1, BC_Constant.Coupon_VPS_7);
-            for (int i = 0; i < lift.size(); i++) {
-
-                String title = lift.get(i).get("title");
-                String brief = lift.get(i).get("brief");
-                String date = lift.get(i).get("date");
-                String article = lift.get(i).get("article");
-                String retcode = lift.get(i).get("retcode");
-                String returl = lift.get(i).get("aurl");
-                String tags = lift.get(i).get("tags");
-                //是不存在的文章
-                int flag = vpsManager.countHql(" where o.retcode= '" + retcode + "' ");
-
-                if (flag <= 0) {
-                    Vps model = new Vps();
-                    model.setArticle(article);
-                    model.setBrief(brief);
-                    model.setDate(date);
-                    model.setTitle(title);
-                    model.setReturl(returl);
-                    model.setTags(tags);
-                    model.setColor(PinyinUtil.getFirstChar(model.getTitle()));
-                    model.setRetcode(retcode);
-                    vpsManager.addVps(model);
-                }
-
-            }
-
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            log.error("TestEQTask=======>" + e);
-        }
 
 //=================================删除重复的记录=======================================
 //        DELETE                                                                  /
@@ -99,7 +56,6 @@ public class EQTask {
 //        			) AS tab                                                      /
 //        	);                                                                    /
 //=================================删除重复的记录=======================================        
-        log.info("VPS任务结束" + TimeUtils.getNowTime());
 
         //爬虫软件资源代码---2页---start---------------------------------------------------------------------
 		/*try {
@@ -257,7 +213,7 @@ public class EQTask {
 					+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(moviename) AS count "
 					+ "FROM bc_movies GROUP BY moviename HAVING count > 1 ORDER BY count DESC ) AS tab )";
 			
-			vpsManager.executeSql(delmovie_sql); 
+			softManager.executeSql(delmovie_sql);
 
             log.info("movies task==============end=" + TimeUtils.getNowTime());
         } catch (Exception e) {

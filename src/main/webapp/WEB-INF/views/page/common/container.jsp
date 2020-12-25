@@ -20,8 +20,6 @@
 
                 <a target="_blank" href="/poem/index.html" title="诗词秀">诗词秀</a>
 
-                <a target="_blank" href="/vps" title="优惠vps、vps测评">优惠VPS</a>
-
                 <a target="_blank" href="/romeo" title="情圣时刻">情商提升</a>
 
                 <a target="_blank" href="/cm/xbjt" title="原创音乐播放器">小布静听</a>

@@ -83,7 +83,6 @@
 ## 2018年7月4日
 - https://northpark.cn/sitemap/soft.xml
 - https://northpark.cn/sitemap/movies.xml
-- https://northpark.cn/sitemap/vps.xml
 - https://northpark.cn/sitemap/poem.xml
 - https://northpark.cn/sitemap/love.xml
 - https://northpark.cn/sitemap/qingsheng.xml

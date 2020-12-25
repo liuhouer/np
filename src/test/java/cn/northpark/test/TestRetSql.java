@@ -1,16 +1,10 @@
 package cn.northpark.test;
 
-import cn.northpark.manager.EqManager;
-import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
-import cn.northpark.manager.VpsManager;
 import cn.northpark.model.Soft;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.IDUtils;
-import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.TimeUtils;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
