@@ -16,7 +16,7 @@ import cn.northpark.manager.SoftManager;
  * <p>
  * 定时爬取今日情圣文章
  */
-public class Test_Soft_Sitemap extends BaseTest {
+public class Gen_Soft_Sitemap extends BaseTest {
 
     //
     @Autowired
@@ -39,7 +39,7 @@ public class Test_Soft_Sitemap extends BaseTest {
         }
 
         try {
-            FileUtils.writeStringToFile(new File("d:\\soft.xml"), sb.toString());
+            FileUtils.writeStringToFile(new File("/Users/bruce/Downloads/soft.xml"), sb.toString());
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class Test_Soft_Sitemap extends BaseTest {
 
     @Test
     public void save() {
-        runTask(519602);//NEWLY 2019年3月29日
+        runTask(519603);//NEWLY 2020年12月26日
     }
 
 }
