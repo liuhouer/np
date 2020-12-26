@@ -1063,7 +1063,12 @@ public class HTMLParserUtil {
 
                     sb_path.append(downSelect.html());
                     System.out.println("sb_path===================>" + sb_path.toString().replace("svg","span"));
-                    path = sb_path.toString();
+                    path = sb_path.toString()
+                            .replace("<div class=\"vb-inner\">","<div class=\"vb-inner  table-responsive\">")
+                            .replace("<table class=\"\">","<table class=\"table text-nowrap table-striped\" style=\"overflow: auto;\">")
+                            .replace("<svg","<i")
+                            .replace("/svg>","/i>")
+                    ;
 
                     //设置正文
                     article = articles.html();
