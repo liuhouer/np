@@ -152,7 +152,8 @@
                 ['viewSourceCode'],
                 ['fontFamily', 'fontSize', 'bold', 'setHead'],
                 ['list', 'justify', 'blockquote'],
-                ['createLink', 'insertHr', 'undo']
+                ['createLink', 'insertHr', 'undo'],
+                ['insertImage', 'insertVideo', 'insertLocation', 'insertCode']
             ]
         });
         
@@ -161,7 +162,8 @@
                 ['viewSourceCode'],
                 ['fontFamily', 'fontSize', 'bold', 'setHead'],
                 ['list', 'justify', 'blockquote'],
-                ['createLink', 'insertHr', 'undo']
+                ['createLink', 'insertHr', 'undo'],
+                ['insertImage', 'insertVideo', 'insertLocation', 'insertCode']
             ]
         });
         
@@ -170,7 +172,8 @@
                 ['viewSourceCode'],
                 ['fontFamily', 'fontSize', 'bold', 'setHead'],
                 ['list', 'justify', 'blockquote'],
-                ['createLink', 'insertHr', 'undo']
+                ['createLink', 'insertHr', 'undo'],
+                ['insertImage', 'insertVideo', 'insertLocation', 'insertCode']
             ]
         });
 
