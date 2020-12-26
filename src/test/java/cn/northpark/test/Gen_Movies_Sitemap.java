@@ -32,8 +32,8 @@ public class Gen_Movies_Sitemap {
 
         //=========================================================新url的sitemap===========================================================================================
 
-//        List<Map<String, Object>> mapList = moviesManager.querySqlMap("select id from bc_movies where id > " + lastNum + " and id <=" + NewNum + " order by id desc");
-        List<Map<String, Object>> mapList = moviesManager.querySqlMap("select id from bc_movies  order by id desc");
+        List<Map<String, Object>> mapList = moviesManager.querySqlMap("select id from bc_movies where id > " + lastNum + " and id <=" + NewNum + " order by id desc");
+//        List<Map<String, Object>> mapList = moviesManager.querySqlMap("select id from bc_movies  order by id desc");
 
         //电影的网站地图
         StringBuilder sb = new StringBuilder();
