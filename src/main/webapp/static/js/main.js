@@ -143,21 +143,21 @@ $(function () {
 });
 
 
-var num = 0;
-if(num==0){
-	art.dialog({
-	    id: 'msg',
-	    title: '公告',
-	    time: 3,
-	    content: '上个月国外网络段封锁，今天重新上线，请大家谅解。。。',
-	    width: 320,
-	    height: 240,
-	    left: '100%',
-	    top: '100%',
-	    fixed: true,
-	    drag: false,
-	    resize: false
-	})
-	num ++;
-}
+// var num = 0;
+// if(num==0){
+// 	art.dialog({
+// 	    id: 'msg',
+// 	    title: '公告',
+// 	    time: 3,
+// 	    content: '上个月国外网络段封锁，今天重新上线，请大家谅解。。。',
+// 	    width: 320,
+// 	    height: 240,
+// 	    left: '100%',
+// 	    top: '100%',
+// 	    fixed: true,
+// 	    drag: false,
+// 	    resize: false
+// 	})
+// 	num ++;
+// }
 
