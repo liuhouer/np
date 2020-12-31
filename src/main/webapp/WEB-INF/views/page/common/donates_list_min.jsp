@@ -11,10 +11,10 @@
                
                   <div 
                              <c:if test="${ss.index == 0 }">
-                                class="col-xs-10 clearfix border-bottom padding-t10"
+                                class=" clearfix border-bottom padding-t10"
                              </c:if>
                              <c:if test="${ss.index > 0 }">
-                                class="col-xs-10 clearfix border-bottom padding-t20"
+                                class=" clearfix border-bottom padding-t20"
                              </c:if>
                   >     
                     <p>
@@ -43,7 +43,7 @@
             </c:forEach>
 
 
-            <div class="col-xs-10 clearfix border-bottom padding-t20">
+            <div class=" clearfix border-bottom padding-t20">
                 <p>
                     <span class="glyphicon glyphicon-time margin5"></span>
                     2017-09-20 16:52:12
@@ -76,7 +76,7 @@
 
             </div>
 
-            <div class="col-xs-10 clearfix border-bottom padding-t20">
+            <div class=" clearfix border-bottom padding-t20">
                 <p>
                     <span class="glyphicon glyphicon-time margin5"></span>
                     2017-08-01 03:19:04
@@ -106,7 +106,7 @@
 
 
 
-            <div class="col-xs-10 clearfix ">
+            <div class=" clearfix ">
                 <p>
                     <span class="glyphicon  glyphicon-asterisk margin5"></span>
 
