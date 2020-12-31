@@ -9,10 +9,10 @@
     <c:forEach var="y" items="${donates_list_max }" varStatus="ss">
         <div 
                     <c:if test="${ss.index == 0 }">
-                       class="col-xs-10 clearfix border-bottom padding-t10"
+                       class=" clearfix border-bottom padding-t10"
 		  </c:if>
                     <c:if test="${ss.index > 0 }">
-                       class="col-xs-10 clearfix border-bottom padding-t20"
+                       class=" clearfix border-bottom padding-t20"
 		  </c:if>
          >
             <p>
@@ -41,7 +41,7 @@
     </c:forEach>
 
 
-    <div class="col-xs-10 clearfix border-bottom padding-t20">
+    <div class=" clearfix border-bottom padding-t20">
         <p>
             <span class="glyphicon glyphicon-time margin5"></span>
             2018-04-10 08:51
@@ -75,7 +75,7 @@
     </div>
 
 
-    <div class="col-xs-10 clearfix border-bottom padding-t20">
+    <div class=" clearfix border-bottom padding-t20">
         <p>
             <span class="glyphicon glyphicon-time margin5"></span>
             2018-03-29 22:17:15
@@ -103,7 +103,7 @@
         </p>
 
     </div>
-    <div class="col-xs-10 clearfix border-bottom padding-t20">
+    <div class=" clearfix border-bottom padding-t20">
         <p>
             <span class="glyphicon glyphicon-time margin5"></span>
             2018-03-29 10:56:54
@@ -131,7 +131,7 @@
         </p>
 
     </div>
-    <div class="col-xs-10 clearfix border-bottom padding-t20">
+    <div class=" clearfix border-bottom padding-t20">
         <p>
             <span class="glyphicon glyphicon-time margin5"></span>
             2018-02-12 15:42
@@ -168,7 +168,7 @@
         </p>
 
     </div>
-    <div class="col-xs-10 clearfix border-bottom padding-t20">
+    <div class=" clearfix border-bottom padding-t20">
         <p>
             <span class="glyphicon glyphicon-time margin5"></span>
             2018-01-09 22:30
@@ -206,7 +206,7 @@
     </div>
 
 
-    <div class="col-xs-10 clearfix border-bottom padding-t20">
+    <div class=" clearfix border-bottom padding-t20">
         <p>
             <span class="glyphicon glyphicon-time margin5"></span>
             2017-08-29 22:00
@@ -238,7 +238,7 @@
         </p>
 
     </div>
-    <div class="col-xs-10 clearfix border-bottom padding-t20">
+    <div class=" clearfix border-bottom padding-t20">
         <p>
             <span class="glyphicon glyphicon-time margin5"></span>
             2017-08-13 01:31
@@ -270,7 +270,7 @@
         </p>
 
     </div>
-    <div class="col-xs-10 clearfix border-bottom padding-t20">
+    <div class=" clearfix border-bottom padding-t20">
         <p>
             <span class="glyphicon glyphicon-time margin5"></span>
             2017-08-05 23:02:42
@@ -303,7 +303,7 @@
     </div>
 
 
-    <div class="col-xs-10 clearfix border-bottom padding-t20">
+    <div class=" clearfix border-bottom padding-t20">
         <p>
             <span class="glyphicon glyphicon-time margin5"></span>
             2017-07-03 18:41
@@ -337,7 +337,7 @@
     </div>
 
 
-    <div class="col-xs-10 clearfix border-bottom padding-t20">
+    <div class=" clearfix border-bottom padding-t20">
         <p>
             <span class="glyphicon glyphicon-time margin5"></span>
             2017-04-28 23:08:59
@@ -372,7 +372,7 @@
     </div>
 
 
-    <div class="col-xs-10 clearfix ">
+    <div class=" clearfix ">
         <p>
             <span class="glyphicon  glyphicon-asterisk margin5"></span>
 
