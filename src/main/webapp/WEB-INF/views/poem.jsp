@@ -125,7 +125,7 @@
 
                     <!-- 轮播开始 -->
                     <div class="row padding-t20  bg-lyellow">
-                        <div class="col-md-8 col-md-offset-2">
+                        <div class="col-md-10 col-md-offset-1">
                             <div class="testimonails-slider">
 
                                 <div class="flex-viewport"
