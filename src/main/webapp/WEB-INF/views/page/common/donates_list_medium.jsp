@@ -8,10 +8,10 @@
        
          <div 
                     <c:if test="${ss.index == 0 }">
-                       class="col-xs-10 clearfix border-bottom padding-t10"
+                       class=" clearfix border-bottom padding-t10"
 		  </c:if>
                     <c:if test="${ss.index > 0 }">
-                       class="col-xs-10 clearfix border-bottom padding-t20"
+                       class=" clearfix border-bottom padding-t20"
 		  </c:if>
          >     
                  
@@ -41,7 +41,7 @@
     </c:forEach>
 
 
-    <div class="col-xs-10 clearfix ">
+    <div class=" clearfix ">
         <p>
             <span class="glyphicon  glyphicon-asterisk margin5"></span>
 
