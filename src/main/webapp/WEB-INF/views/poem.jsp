@@ -124,7 +124,7 @@
                 <div class="col-md-4 ">
 
                     <!-- 轮播开始 -->
-                    <div class="row padding-t20 ">
+                    <div class="row padding-t20  bg-lyellow">
                         <div class="col-md-8 col-md-offset-2">
                             <div class="testimonails-slider">
 
@@ -186,7 +186,7 @@
 
                     <!-- 轮播结束 -->
                     <!-- hot  -->
-                    <div class="clearfix sidebar radius-5 ">
+                    <div class="row margin-t20 clearfix sidebar radius-5  bg-lyellow ">
                         <div class="clearfix border-bottom">
                             <h4><span class=" glyphicon glyphicon-leaf margin5"></span> 朝代</h4>
                         </div>
@@ -211,7 +211,7 @@
 
 
                     <!-- tags  -->
-                    <div class="clearfix sidebar radius-10 ">
+                    <div class="row margin-t20 clearfix sidebar radius-10   bg-lyellow">
                         <div class="clearfix border-bottom">
                             <h4><span class=" glyphicon glyphicon-tags margin5"></span> 词牌类别</h4>
                         </div>
