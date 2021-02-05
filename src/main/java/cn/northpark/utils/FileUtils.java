@@ -2,9 +2,11 @@ package cn.northpark.utils;
 
 
 import cn.northpark.utils.encrypt.EnDecryptUtils;
+import cn.northpark.vo.BiliVO;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -22,6 +24,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.*;
 
 
@@ -543,6 +546,56 @@ public class FileUtils {
     }
 
     /**
+     * 一键根据B站下载文件重命名成实体Json内的名称
+     */
+    private static void renameBiliFile() throws Exception {
+        String basePath = "E:\\电影\\801254790";
+
+        File dir = new File(basePath);
+
+        List<File> fileNames = Arrays.asList(dir.listFiles());
+
+        for (int i = 0; i < fileNames.size(); i++) {
+            String ep_path = fileNames.get(i).getName();
+            ep_path = basePath+"\\"+ep_path;
+            log.info(ep_path);
+
+            File dir_ep = new File(ep_path);
+            File[] ep_files = dir_ep.listFiles();
+            for (File ep_file : ep_files) {
+                if(ep_file.getName().equals("entry.json")){
+                    String json = IOUtils.toString(new FileInputStream(ep_file), Charset.forName("utf8"));
+                    BiliVO biliVO = JsonUtil.json2object(json, BiliVO.class);
+                    String title = biliVO.getPageData().getPart();
+                    System.err.println(title);
+
+
+                    assert StringUtils.isNotEmpty(title);
+
+                    //重命名视频和音频文件
+                    String videoPath = ep_path+"\\"+"80";
+                    File dir_video = new File(videoPath);
+                    File[] vdlist = dir_video.listFiles();
+                    for (File vd : vdlist) {
+                        if(vd.getName().equals("audio.m4s")){
+                            String audioName = ep_path +"\\" +title+".mp3";
+                            log.info(audioName);
+                            vd.renameTo(new File(audioName));
+                        }
+                        if(vd.getName().equals("video.m4s")){
+                            String videoName = ep_path +"\\" +title+".mp4";
+                            log.info(videoName);
+                            vd.renameTo(new File(videoName));
+                        }
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    /**
      * 按行读取excel数据
      * @param path
      * @return
@@ -603,7 +656,7 @@ public class FileUtils {
     public static void main(String[] args) throws Exception {
 
 
-        reNameMusicFiles();
+        renameBiliFile();
     }
 
 
