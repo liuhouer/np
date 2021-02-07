@@ -1,24 +1,23 @@
 package cn.northpark.test;
 
+import cn.northpark.utils.HTMLParserUtil;
+import cn.northpark.utils.HttpGetUtils;
+import cn.northpark.utils.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.http.client.ClientProtocolException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.client.ClientProtocolException;
-
-import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.HttpGetUtils;
-import cn.northpark.utils.JsonUtil;
-import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
-public class retRestTest {
+public class retRestSoft {
 
 
     public static void main(String[] args) {
         List<Map<String, String>> collect = new ArrayList<>();
-        for (int k = 1; k <= 5; k++) {
+        for (int k = 1; k <= 1; k++) {
 
             try {
 

@@ -1,29 +1,28 @@
 package cn.northpark.test;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.http.client.ClientProtocolException;
-
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.HttpGetUtils;
 import cn.northpark.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.client.ClientProtocolException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
-public class retRestTest2 {
+public class retRestDIANSHIJU {
 
 
     public static void main(String[] args) {
         List<Map<String, String>> collect = new ArrayList<>();
-        for (int k = 1; k <= 3; k++) {
+        for (int k = 21; k <= 40; k++) {
 
             try {
 
-                List<Map<String, String>> list = HTMLParserUtil.retMovies(k, BC_Constant.RET_dianying);
+                List<Map<String, String>> list = HTMLParserUtil.retMovies(k, BC_Constant.RET_guochanju);
                 collect.addAll(list);
             } catch (Exception e) {
                 // TODO: handle exception

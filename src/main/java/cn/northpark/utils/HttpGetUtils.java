@@ -2,24 +2,14 @@ package cn.northpark.utils;/**
  * Created by Administrator on 2017/5/10.
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.Consts;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
+import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -32,11 +22,14 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.google.common.collect.Lists;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 
 /**
  * @author caomin
@@ -321,7 +314,7 @@ public class HttpGetUtils {
 
             wc.getOptions().setCssEnabled(false);// 禁用css支持
 
-            wc.getOptions().setThrowExceptionOnScriptError(false);// js运行错误时，是否抛出异常
+            wc.getOptions().setThrowExceptionOnScriptError(true);// js运行错误时，是否抛出异常
 
             wc.getOptions().setThrowExceptionOnFailingStatusCode(false);// 状态码错误时，是否抛出异常
 
@@ -348,7 +341,7 @@ public class HttpGetUtils {
             }
 
             //该方法阻塞线程
-//            wc.waitForBackgroundJavaScript(waitForBackgroundJavaScript);
+            wc.waitForBackgroundJavaScript(waitForBackgroundJavaScript);
 
             // 以xml的形式获取响应文本
             pageXml = page.asXml();

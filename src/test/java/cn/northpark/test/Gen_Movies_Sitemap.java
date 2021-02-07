@@ -1,18 +1,16 @@
 package cn.northpark.test;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 import cn.northpark.manager.MoviesManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import cn.northpark.manager.SoftManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhangyang
@@ -45,7 +43,7 @@ public class Gen_Movies_Sitemap {
         }
 
         try {
-            org.apache.commons.io.FileUtils.writeStringToFile(new File("/Users/bruce/Downloads/movies.xml"), sb.toString());
+            org.apache.commons.io.FileUtils.writeStringToFile(new File("D://movies.xml"), sb.toString());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -60,7 +58,7 @@ public class Gen_Movies_Sitemap {
 
     @Test
     public void save() {
-        runTask(682585, 704464);//NEWLY 2020年12月26日
+        runTask(704465,705341);//NEWLY 2020年12月26日
     }
 
 }
