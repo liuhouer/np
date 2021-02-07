@@ -8,10 +8,49 @@
             <div class="flexslider">
                 <ul class="slides">
 
+                    <li>
+                        <div class="slider-caption">
+                            <img src="https://northpark.cn/statics/img/index/slide05.jpg" alt="影视窝-最新热映电影、BT、云盘、火热资源"/>
+
+                            <span>
+
+											 <h2>影视窝</h2>
+												<p>
+													最新热映电影、BT、云盘、火热资源
+													<br>
+													<br>每周更新
+												</p>
+												<a href="/movies">Get Ready</a>
+
+											 </span>
+                        </div>
+
+
+                    </li>
 
                     <li>
                         <div class="slider-caption">
-                            <img src="https://northpark.cn/statics/img/index/slide05.jpg" alt="最爱主题图册"/>
+                            <img src="https://northpark.cn/statics/img/index/slide-mac.jpg" alt="Mac软件-丰富的Mac软件资源、破解资源、Mac使用技巧、Mac私人教程"/>
+
+							<span>
+
+											 <h2>Mac软件</h2>
+												<p>
+													丰富的Mac软件资源、破解资源
+													<br>
+													<br>每周更新
+												</p>
+												<a href="/soft/mac">Learn More</a>
+
+                            </span>
+                        </div>
+
+
+                    </li>
+
+                    <li>
+                        <div class="slider-caption">
+                            <img src="https://northpark.cn/statics/img/index/slide4.jpg" alt="最爱主题图册"/>
 
 
                             <span>
@@ -59,25 +98,7 @@
 												
 										 </span>
                         </div>
-                    <li>
-                        <div class="slider-caption">
-                            <img src="https://northpark.cn/statics/img/index/slide4.jpg" alt="影视窝-最新热映电影、BT、云盘、火热资源"/>
 
-                            <span>
-											 
-											 <h2>影视窝</h2>
-												<p>
-													最新热映电影、BT、云盘、火热资源
-													<br>
-													<br>每周更新
-												</p>
-												<a href="/movies">Get Ready</a>
-													
-											 </span>
-                        </div>
-
-
-                    </li>
                 </ul>
             </div>
         </section>
