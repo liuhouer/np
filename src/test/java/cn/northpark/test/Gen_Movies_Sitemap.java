@@ -58,7 +58,7 @@ public class Gen_Movies_Sitemap {
 
     @Test
     public void save() {
-        runTask(704465,705341);//NEWLY 2020年12月26日
+        runTask(705342,705622);//NEWLY 2020年12月26日
     }
 
 }

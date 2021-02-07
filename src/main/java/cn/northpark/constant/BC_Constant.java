@@ -123,6 +123,13 @@ public class BC_Constant {
      * 爬虫电影资源
      */
     public static final String RET_dianying = "http://m.fangpao.wang/movie_bt_series/movie/page/";
+
+
+    /**
+     * SQ电影
+     */
+    public static final String RET_SQ_MOVIE = "http://m.fangpao.wang/movie_bt/movie_bt_tags/%e6%83%85%e8%89%b2/page/";
+
     /**
      * 爬虫动漫源
      */
