@@ -29,7 +29,7 @@ public class retRestSoft {
             }
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(3000);
                 log.info("第" + k + "页================");
             } catch (InterruptedException e) {
                 // TODO Auo-generated catch block

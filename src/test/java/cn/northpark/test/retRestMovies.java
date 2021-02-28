@@ -18,7 +18,7 @@ public class retRestMovies {
 
     public static void main(String[] args) {
         List<Map<String, String>> collect = new ArrayList<>();
-        for (int k = 51; k <= 60; k++) {
+        for (int k = 1; k <= 5; k++) {
 
             try {
 
@@ -30,7 +30,7 @@ public class retRestMovies {
             }
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 log.info("第" + k + "页================");
             } catch (InterruptedException e) {
                 // TODO Auo-generated catch block
