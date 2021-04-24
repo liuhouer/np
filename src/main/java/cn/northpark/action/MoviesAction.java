@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
  **/
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -178,6 +179,12 @@ public class MoviesAction {
     @ResponseBody
     @BruceOperation
     public Result<String> addItem(ModelMap map, Movies model) {
+
+        assert Objects.nonNull(model)
+                && StringUtils.isNotBlank(model.getDescription())
+                && StringUtils.isNotBlank(model.getMoviename())
+                && StringUtils.isNotBlank(model.getPath())
+                && StringUtils.isNotBlank(model.getColor());
         String rs = "success";
         try {
         	//更新
