@@ -16,7 +16,7 @@ public class NorthParkException extends RuntimeException{
 	private String extendMsg;
 	/**
 	 * @author 自定义异常
-	 * @param resultEnum自定义错误枚举
+	 * @param resultEnum 自定义错误枚举
 	 * 
 	 */
 	public NorthParkException(ResultEnum resultEnum) {
@@ -26,7 +26,7 @@ public class NorthParkException extends RuntimeException{
 	
 	/**
 	 * @author 自定义异常
-	 * @param resultEnum自定义错误枚举 +自定义消息 带拼接
+	 * @param resultEnum 自定义错误枚举 +自定义消息 带拼接
 	 * 
 	 */
 	public NorthParkException(ResultEnum resultEnum,String extendMsg) {
