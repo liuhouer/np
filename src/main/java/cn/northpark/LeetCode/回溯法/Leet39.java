@@ -1,4 +1,4 @@
-package cn.northpark.LeetCode;
+package cn.northpark.LeetCode.回溯法;
 
 import java.util.ArrayList;
 import java.util.Arrays;

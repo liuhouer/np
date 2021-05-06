@@ -1,4 +1,4 @@
-package cn.northpark.LeetCode;
+package cn.northpark.LeetCode.链表;
 
 import java.util.HashSet;
 

@@ -1,4 +1,4 @@
-package cn.northpark.leet;
+package cn.northpark.LeetCode.队列;
 
 import java.util.*;
 
