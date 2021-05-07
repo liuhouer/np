@@ -54,8 +54,6 @@ public class L206 {
     }
 
 
-
-
     /**
      * 递归
      * @param head
@@ -96,7 +94,6 @@ public class L206 {
     }
 
 
-
     public static void main(String[] args) {
         L206 l203 = new L206();
         ListNode node1 = l203.new ListNode(1);
@@ -116,7 +113,6 @@ public class L206 {
             System.err.print(listNode.val+"--->");
             listNode = listNode.next;
         }
-
 
     }
 }
