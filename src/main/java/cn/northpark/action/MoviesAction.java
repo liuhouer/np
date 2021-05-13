@@ -260,6 +260,15 @@ public class MoviesAction {
         		old.setColor(model.getColor());
         		old.setDescription(model.getDescription());
         		moviesManager.updateMovies(old);
+
+                //从redis set里面删除更新的失效资源
+                if(RedisUtil.getJedis().smembers(BC_Constant.REDIS_FEEDBACK).toString().contains(model.getId().toString())){
+                    RedisUtil.getJedis().smembers(BC_Constant.REDIS_FEEDBACK).forEach(item->{
+                        if(item.contains(model.getId().toString())) {
+                            RedisUtil.getJedis().srem(BC_Constant.REDIS_FEEDBACK, item);
+                        }
+                    });
+                }
         			
         	}else {//新增
         		

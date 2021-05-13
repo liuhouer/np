@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import cn.northpark.constant.BC_Constant;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +122,16 @@ public class SoftAction {
         		old.setBrief(model.getBrief());
         		old.setRetcode(model.getRetcode());
         		softManager.updateSoft(old);
+
+
+                //从redis set里面删除更新的失效资源
+                if(RedisUtil.getJedis().smembers(BC_Constant.REDIS_FEEDBACK).toString().contains(model.getId().toString())){
+                    RedisUtil.getJedis().smembers(BC_Constant.REDIS_FEEDBACK).forEach(item->{
+                        if(item.contains(model.getId().toString())) {
+                            RedisUtil.getJedis().srem(BC_Constant.REDIS_FEEDBACK, item);
+                        }
+                    });
+                }
         			
         	}else {//新增
         		

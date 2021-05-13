@@ -3,7 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<h4 class="center"><span class=" glyphicon  glyphicon-exclamation-sign margin5"></span>已失效资源</h4>
+<c:if test="${feedback_list!=null}">
+
+	<h4 class="center"><span class=" glyphicon  glyphicon-exclamation-sign margin5"></span>已失效资源</h4>
+
+</c:if>
+
 
 <div class="clearfix sidebar " >
 
