@@ -15,6 +15,11 @@ public class BC_Constant {
      */
     public static final String MQ_MAIL_RESET = "mail.reset";
     
+    /**
+     * 用户重置邮件
+     */
+    public static final String REDIS_FEEDBACK = "R_FEEDBACK";
+    
     
     /**
      * redis返回类型自定义
