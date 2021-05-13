@@ -3,6 +3,7 @@ package cn.northpark.action;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 /*
  *@author bruce
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,6 +32,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import cn.northpark.annotation.BruceOperation;
+import cn.northpark.annotation.Desc;
+import cn.northpark.constant.BC_Constant;
 import cn.northpark.constant.ResultEnum;
 import cn.northpark.exception.NorthParkException;
 import cn.northpark.exception.Result;
@@ -38,6 +42,7 @@ import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Movies;
 import cn.northpark.model.Tags;
+import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.RedisUtil;
 import cn.northpark.utils.TimeUtils;
@@ -61,6 +66,66 @@ public class MoviesAction {
      * 每页展示多少条电影数
      */
     private static int MoviesCount = 6;
+    
+    /**
+     * @param request
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "/movies/getFeedBack")
+    @Desc(value="异步获取资源失效反馈")
+	public String getFeedBack(HttpServletRequest request, ModelMap map) {
+
+		String result = "feedback_list";
+
+		List<Map<String, Object>> rs = new ArrayList<>();
+
+		RedisUtil.getJedis().smembers(BC_Constant.REDIS_FEEDBACK).forEach(i -> {
+			rs.add(JsonUtil.json2map(i));
+		});
+
+		map.put("feedback_list", rs);
+
+		return "/page/common/" + result;
+	}
+    
+    /**
+     * @param map
+     * @return
+     * @author Bruce
+     * 资源失效反馈，找站长
+     */
+    @RequestMapping("/movies/resFeedBack")
+    @ResponseBody
+    @Desc("资源失效反馈，找站长")
+	public Result<String> resFeedBack(HttpServletRequest request, @RequestBody Object map) {
+		String rs = "success";
+		try {
+			System.out.println(String.valueOf(map));
+			if (RedisUtil.getJedis().sismember(BC_Constant.REDIS_FEEDBACK, String.valueOf(map))) {
+				return ResultGenerator.genSuccessResult(rs);
+			} else {
+
+				// 给站长发邮件
+				try {
+					EmailUtils.getInstance().resFeedBack(String.valueOf(map));
+					
+				} catch (Exception ignore) {
+					log.error(ignore.getMessage());
+				}
+
+				// 添加到集合中
+				RedisUtil.getJedis().sadd(BC_Constant.REDIS_FEEDBACK, String.valueOf(map));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("resFeedBack------>", e);
+			rs = "ex";
+		}
+		return ResultGenerator.genSuccessResult(rs);
+	}
+
 
     /**
      * @param map
