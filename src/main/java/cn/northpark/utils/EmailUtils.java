@@ -101,6 +101,65 @@ public class EmailUtils {
         }
 
     }
+    
+    /**
+     * 资源失效反馈>>邮件提醒
+     *
+     * @param toEmail
+     * @param usrId
+     * @param authCode
+     */
+    public void resFeedBack(String msg) {
+        try {
+
+            //smtp.qq.com || smtp.163.com
+            String host = "smtp.163.com";
+            String myEmail = "qhdsoftware@163.com";
+            String myPassword = EnDecryptUtils.diyDecrypt("emhhbmd5YW5nMjI2MDAwMDAw");
+            // 接收者邮箱
+            String to = "zhangyang226@gmail.com";
+            String subject = "~~~~(>_<)~~~~资源失效反馈>>邮件提醒";
+
+
+            HtmlEmail email = new HtmlEmail();
+            email.setHostName(host);
+            email.setAuthenticator(new DefaultAuthenticator(myEmail, myPassword));
+            email.setSSLOnConnect(true);
+            email.setSmtpPort(465);
+            email.setFrom(myEmail, "northpark官方");// 我方 邮件+我方显示名字
+            email.setSubject(subject);// 标题
+            email.addTo(to, "NorthPark站长");           //对方 邮件+对方名字
+            // 注意，发送内容时，后面这段会让中文正常显示，否则乱码
+            email.setCharset("utf-8");
+            String dm = "northpark.cn";//URLUtil.getDomain(request);
+            // 注意，发送内容时，后面这段会让中文正常显示，否则乱码
+            email.setCharset("utf-8");
+            email.setHtmlMsg("<html><body><style type=\"text/css\">.aboutWrapper{background-image:url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/64876897.jpg);background-repeat:no-repeat;background-position:center top}.reservationsWrapper{margin-top:70px}.aboutWrapper{background-color:#ebebeb;padding-bottom:40px;position:relative;margin-bottom:350px}.aboutWrapper:before{content:' ';display:block;position:absolute;bottom:-150px;background-image:url(http://o8a5h1k2v.bkt.clouddn.com/16-7-28/34631260.jpg);max-width:100%;left:0;height:291px;width:100%}</style>"
+                    + "<div style=\"width: 83.33333333%;text-align:center;background: #f5f5f5;\"><div class=\"aboutWrapper reservationsWrapper\"><div class=\"clearfix margin-b10 center\" style=\"padding-top:10px;\">"
+                    + "<div style=\"padding-top:10%;\">"
+                    + "<h2>Northpark</h2>"
+                    + "<br/><br/>"
+                    + "【northpark官方】在"
+                    + TimeUtils.nowTime()
+                    + "收到了资源失效反馈>>邮件提醒<br/><br/>"
+                    + msg
+                    + "</a><br/><br/>"
+                    + "小布<br/><br/>" + "欢迎来我的博客" + "<a href=\"http://blog.northpark.cn\">NorthPark博客</a>" + "<br/><br/>"
+                    + "</div></div></div></div>"
+                    + "</body></html>"); /* 邮件内容 */
+            // 添加附件对象
+            // email.attach(attachment);
+            // 发送
+            email.send();
+            log.info("邮件发送成功");
+        } catch (Exception e) {
+            // TODO: handle exception
+            log.error("邮件发送失败");
+            log.error("EmailUtils------->", e);
+            ;
+        }
+
+    }
 
     /**
      * 找回密码邮件认证
