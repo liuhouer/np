@@ -12,7 +12,7 @@
 
 <div class="clearfix sidebar " >
 
-	<c:forEach var="y" items="${feedback_list }" varStatus="ss">
+	<c:forEach var="y" items="${feedback_list}" varStatus="ss" >
 
 		<div class="col-md-12 margin-t10">
 			<div class="col-xs-2 avatar">
@@ -23,7 +23,7 @@
 			<div class="col-xs-10">
 
 				<a style="font-size: 14px; line-height: 32px; color: #888"
-					href="${y.href}" title="${y.title }">${y.title } </a>
+					href="${y.href}" title="${y.title}">${y.title} </a>
 
 			</div>
 
