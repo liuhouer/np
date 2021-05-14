@@ -76,12 +76,13 @@
 
 									<c:if test="${model.path!=null && model.path!=''}">
 										<p class="col-md-12">
-										<div class="dashed left  col-md-10">
+										<div class="dashed center col-md-10 padding-b20">
 
 											<c:if test="${user==null }">
 												<p class="center red">
-													本文隐藏内容 <a target="_blank" class="flatbtn" id="J_login_see"><i
-														class="be be-timerauto"></i>登录</a> 后才可以浏览
+													本文隐藏内容 <a target="_blank" class="flatbtn green-text"
+														id="J_login_see"><i class="be be-timerauto"></i>登录</a>
+													后才可以浏览
 												</p>
 											</c:if>
 											<c:if test="${user!=null }">
@@ -89,9 +90,9 @@
 											</c:if>
 
 											<small class="text-color-G">资源失效、缺失、错误 </small> <span
-												class="text-color-J">不要慌 </span>
-											<button class="text-color-B margin10" id="J_feedback_btn">
-												<span class="glyphicon glyphicon-hand-right margin10"></span>戳我，一键反馈，有事找站长
+												class="text-color-J padding-l10">不要慌 </span>
+											<button class="text-color-B margin-l10" id="J_feedback_btn">
+												<span class="glyphicon glyphicon-hand-right"></span>戳我，一键反馈，有事找站长
 											</button>
 										</div>
 										</p>
