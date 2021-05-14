@@ -101,10 +101,7 @@ public class UserAction {
     }
 
     /**
-     * @param request
-     * @param response
-     * @param map
-     * @param url
+     * @param email
      * @return 0、1 【0：没有 | 1：有】
      * @ 判断email的存在性
      */
@@ -125,7 +122,6 @@ public class UserAction {
      * @param request
      * @param response
      * @param map
-     * @param url
      * @return 0、1 【0：没有 | 1：有】
      * @ 判断tail_slug的存在性
      */
@@ -591,15 +587,12 @@ public class UserAction {
      * 保存个人资料
      *
      * @param session
-     * @param model
      * @param map
-     * @param oldpath
      * @param file
      * @param new_password
      * @param new_password_confirmation
      * @param courseware
      * @param year_of_birth
-     * @param user_slug
      * @return
      */
     @RequestMapping("/cm/saveEditInfo")
@@ -814,10 +807,8 @@ public class UserAction {
      * 
      * @param request
      * @param response
-     * @param session
      * @param email
      * @param password
-     * @param map
      * @return
      * @throws IOException
      */

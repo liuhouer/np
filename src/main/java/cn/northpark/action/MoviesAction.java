@@ -128,7 +128,7 @@ public class MoviesAction {
 
 
     /**
-     * @param map
+     * @param request
      * @return
      * @author Bruce
      * 置顶的方法
@@ -166,7 +166,7 @@ public class MoviesAction {
     /**
      * 隐藏电影的方法
      *
-     * @param map
+     * @param request
      * @return
      */
     @RequestMapping("/movies/hideup")
@@ -210,10 +210,8 @@ public class MoviesAction {
      * 跳转到电影编辑页面
      *
      * @param map
-     * @param condition
+     * @param id
      * @param request
-     * @param response
-     * @param session
      * @return
      */
     @RequestMapping(value = "/movies/edit/{id}")
@@ -288,8 +286,8 @@ public class MoviesAction {
      * 按照日期计算
      *
      * @param map
-     * @param retcode
-     * @param requestk
+     * @param tagscode
+     * @param request
      * @return
      */
     @RequestMapping("/movies/date/{tagscode}")
@@ -302,7 +300,7 @@ public class MoviesAction {
      * 按照日期分页计算
      *
      * @param map
-     * @param retcode
+     * @param page
      * @param request
      * @return
      */
@@ -350,8 +348,8 @@ public class MoviesAction {
      * 按照标签计算
      *
      * @param map
-     * @param retcode
-     * @param requestk
+     * @param tagscode
+     * @param request
      * @return
      */
     @RequestMapping("/movies/tag/{tagscode}")
@@ -364,7 +362,7 @@ public class MoviesAction {
      * 按照标签分页计算
      *
      * @param map
-     * @param retcode
+     * @param page
      * @param request
      * @return
      */
@@ -418,11 +416,6 @@ public class MoviesAction {
     /**
      * 查询列表
      *
-     * @param map
-     * @param condition
-     * @param request
-     * @param response
-     * @param session
      * @return
      */
     @RequestMapping(value = "/movies")
@@ -437,7 +430,6 @@ public class MoviesAction {
      * @param map
      * @param page
      * @param request
-     * @param response
      * @param session
      * @return
      * @throws IOException
@@ -550,7 +542,6 @@ public class MoviesAction {
      * 跳转到电影详情页面
      *
      * @param map
-     * @param condition
      * @param request
      * @param response
      * @param session

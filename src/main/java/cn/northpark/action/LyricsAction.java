@@ -131,27 +131,28 @@ public class LyricsAction {
 
     /**
      * 保存最爱
-     *
      * @param lyricsForm
-     * @param userid
+     * @param bindingResult
      * @param request
      * @param file
-     * @param map
      * @return
      */
     @RequestMapping("/lyrics/addLyrics")
     @CheckLogin
-    public String addLyrics(@Valid LyricsForm lyricsForm,BindingResult bindingResult,  HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile[] file) {
+    public String addLyrics(@Valid LyricsForm lyricsForm,
+                            BindingResult bindingResult,
+                            HttpServletRequest request,
+                            @RequestParam(value = "file", required = false) MultipartFile[] file) {
 
-    	//验证表单
-    	if(bindingResult.hasErrors()) {
-    		log.error("【添加主题】 参数不正确,lyricsForm={}", lyricsForm);
-    		throw new NorthParkException(ResultEnum.Lyrics_Param_Not_Valid, bindingResult.getFieldError().getDefaultMessage());
-    	}
-    	
+        //验证表单
+        if(bindingResult.hasErrors()) {
+            log.error("【添加主题】 参数不正确,lyricsForm={}", lyricsForm);
+            throw new NorthParkException(ResultEnum.Lyrics_Param_Not_Valid, bindingResult.getFieldError().getDefaultMessage());
+        }
+
         User u = (User) request.getSession().getAttribute("user");
         if (u != null) {
-        	Lyrics model = new Lyrics();
+            Lyrics model = new Lyrics();
             //上传
             String albumpath = "";
             List<String> filelist = FileUtils.commonUpload(file, FileUtils.suffix_album);
@@ -170,7 +171,7 @@ public class LyricsAction {
             userlyrics.setLyricsid(model.getId());
             userlyrics.setUserid(u.getId());
             this.userlyricsManager.addUserLyrics(userlyrics);
-        } 
+        }
         return LIST_ACTION2;
     }
 
@@ -181,7 +182,6 @@ public class LyricsAction {
      * @param request
      * @param lyricsid
      * @param map
-     * @param userid
      * @return
      */
     @RequestMapping("/lyrics/getMoreZan")
@@ -263,7 +263,7 @@ public class LyricsAction {
      * 最爱主题页面-评论、爱上列表、点赞列表
      *
      * @param request
-     * @param lyricsid
+     * @param titlecode
      * @param map
      * @param userid
      * @return
@@ -343,7 +343,6 @@ public class LyricsAction {
      * 最爱分页查询 【跳转】
      *
      * @param map
-     * @param condition
      * @param page
      * @param request
      * @param response
@@ -380,9 +379,7 @@ public class LyricsAction {
      * 最爱查询 【跳转】
      *
      * @param map
-     * @param condition
      * @param request
-     * @param response
      * @param session
      * @param userid
      * @return

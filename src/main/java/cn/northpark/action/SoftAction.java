@@ -78,10 +78,8 @@ public class SoftAction {
      * 跳转到软件编辑页面
      *
      * @param map
-     * @param condition
+     * @param id
      * @param request
-     * @param response
-     * @param session
      * @return
      */
     @RequestMapping(value = "/edit/{id}")
@@ -152,11 +150,7 @@ public class SoftAction {
     /**
      * 查询列表
      *
-     * @param map
-     * @param condition
      * @param request
-     * @param response
-     * @param session
      * @return
      */
     @RequestMapping(value = "/mac")
@@ -253,7 +247,7 @@ public class SoftAction {
      * 按照日期计算
      *
      * @param map
-     * @param retcode
+     * @param postdate
      * @param request
      * @return
      */
@@ -283,7 +277,7 @@ public class SoftAction {
      * 按照月份计算
      *
      * @param map
-     * @param retcode
+     * @param month
      * @param request
      * @return
      */
@@ -296,7 +290,7 @@ public class SoftAction {
      * 按照月份计算
      *
      * @param map
-     * @param retcode
+     * @param page
      * @param request
      * @return
      */
@@ -343,8 +337,8 @@ public class SoftAction {
      * 按照标签计算
      *
      * @param map
-     * @param retcode
-     * @param requestk
+     * @param tagscode
+     * @param request
      * @return
      */
     @RequestMapping("/tag/{tagscode}")
@@ -357,7 +351,7 @@ public class SoftAction {
      * 按照标签分页计算
      *
      * @param map
-     * @param retcode
+     * @param tagscode
      * @param request
      * @return
      */

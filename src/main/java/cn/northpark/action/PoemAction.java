@@ -202,8 +202,8 @@ public class PoemAction {
      * 按照朝代计算
      *
      * @param map
-     * @param retcode
-     * @param requestk
+     * @param tagscode
+     * @param request
      * @return
      */
     @RequestMapping("/dynasty/{tagscode}")
@@ -216,7 +216,7 @@ public class PoemAction {
      * 按照朝代分页计算
      *
      * @param map
-     * @param retcode
+     * @param tagscode
      * @param request
      * @return
      */
@@ -258,8 +258,8 @@ public class PoemAction {
      * 按照诗词类型计算
      *
      * @param map
-     * @param retcode
-     * @param requestk
+     * @param tagscode
+     * @param request
      * @return
      */
     @RequestMapping("/types/{tagscode}")
@@ -272,7 +272,7 @@ public class PoemAction {
      * 按照诗词类型分页计算
      *
      * @param map
-     * @param retcode
+     * @param page
      * @param request
      * @return
      */
