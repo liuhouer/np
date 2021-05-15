@@ -1,18 +1,12 @@
 package cn.northpark.utils;
 
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
+import redis.clients.jedis.*;
+
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
-
-import com.google.common.collect.Lists;
-
-import lombok.extern.slf4j.Slf4j;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisShardInfo;
-import redis.clients.jedis.ShardedJedis;
-import redis.clients.jedis.ShardedJedisPool;
 
 /**
  * redis缓存 
@@ -20,13 +14,12 @@ import redis.clients.jedis.ShardedJedisPool;
  * 
  */
 @Slf4j
-public class RedisUtil {
-
-//		   instance = new RedisUtil("69.12.82.101", 6379,"Cpdwvs678900");
-
+public class RedisUtil{
 
 	   private static JedisPool jedisPool = null;
+	   
 	   private static ShardedJedisPool shardedJedisPool = null;
+	   
 	   /**
 	    * 初始化Redis连接池
 	    */
@@ -76,10 +69,14 @@ public class RedisUtil {
 
 	   /**
 	    * 获取Jedis实例
-	    * 
+		*
+		*  注意：手动调用获取jedis 必须要finally释放掉！！！！！！！！
+		*
+	    * 不建议调用
+		*
 	    * @return
 	    */
-	   public synchronized static Jedis getJedis() {
+	   public static Jedis getJedis() {
 	       try {
 	           if (jedisPool != null) {
 	               Jedis resource = jedisPool.getResource();
@@ -95,7 +92,8 @@ public class RedisUtil {
 
 	   /**
 	    * 获取shardedJedis实例
-	    * 
+	    * 注意：手动调用获取jedis 必须要finally释放掉！！！！！！！！
+		* 不建议调用
 	    * @return
 	    */
 	   public static ShardedJedis getShardedJedis() {
@@ -126,7 +124,7 @@ public class RedisUtil {
 	   /**
 	    * 释放shardedJedis资源
 	    * 
-	    * @param jedis
+	    * @param shardedJedis
 	    */
 	   public static void returnResource(final ShardedJedis shardedJedis) {
 	       if (shardedJedis != null) {
@@ -454,6 +452,64 @@ public class RedisUtil {
 	       returnResource(jedis);
 	     }
 	   }
+	   
+	   
+	   //set集合相关--集合获取
+	   public static Set<String> smembers(String key){
+		   Jedis jedis = null;
+		   try {
+			   jedis = jedisPool.getResource();
+			   return jedis.smembers(key);
+		   } catch (Exception e) {
+			   log.error("删除所有DB出错", e);
+		   } finally {
+			   returnResource(jedis);
+		   }
+		   return null;
+	   }
+
+		//set集合相关--集合删除元素
+		public static Long srem(String key,String member) {
+			Jedis jedis = null;
+			try {
+				jedis = jedisPool.getResource();
+				return jedis.srem(key, member);
+			} catch (Exception e) {
+				log.error("删除一个set出错", e);
+			} finally {
+				returnResource(jedis);
+			}
+			return null;
+		}
+
+	//set集合相关--集合添加元素
+	public static Long sadd(String key,String member) {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			return jedis.sadd(key, member);
+		} catch (Exception e) {
+			log.error("set add 一个元素出错", e);
+		} finally {
+			returnResource(jedis);
+		}
+		return null;
+	}
+
+
+	//set集合相关--集合包含元素
+	public static Boolean sismember(String key,String member) {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			return jedis.sismember(key, member);
+		} catch (Exception e) {
+			log.error("set 包含一个元素出错", e);
+		} finally {
+			returnResource(jedis);
+		}
+		return null;
+	}
 	   
 	   
 	   public static void main(String[] args) {

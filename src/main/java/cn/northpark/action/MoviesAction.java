@@ -1,36 +1,6 @@
 
 package cn.northpark.action;
 
-import java.io.IOException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-/*
- *@author bruce
- *
- **/
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang.StringUtils;
-import org.jsoup.Jsoup;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import cn.northpark.annotation.BruceOperation;
 import cn.northpark.annotation.Desc;
 import cn.northpark.constant.BC_Constant;
@@ -49,7 +19,31 @@ import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.jsoup.Jsoup;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.*;
+
+/*
+ *@author bruce
+ *
+ **/
 
 @Controller
 @Slf4j
@@ -80,7 +74,7 @@ public class MoviesAction {
 
 		List<Map<String, Object>> rs = new ArrayList<>();
 
-		RedisUtil.getJedis().smembers(BC_Constant.REDIS_FEEDBACK).forEach(i -> {
+		RedisUtil.smembers(BC_Constant.REDIS_FEEDBACK).forEach(i -> {
 			rs.add(JsonUtil.json2map(i));
 		});
 
@@ -102,7 +96,7 @@ public class MoviesAction {
 		String rs = "success";
 		try {
 			System.out.println(String.valueOf(map));
-			if (RedisUtil.getJedis().sismember(BC_Constant.REDIS_FEEDBACK, String.valueOf(map))) {
+			if (RedisUtil.sismember(BC_Constant.REDIS_FEEDBACK, String.valueOf(map))) {
 				return ResultGenerator.genSuccessResult(rs);
 			} else {
 
@@ -115,7 +109,7 @@ public class MoviesAction {
 				}
 
 				// 添加到集合中
-				RedisUtil.getJedis().sadd(BC_Constant.REDIS_FEEDBACK, String.valueOf(map));
+				RedisUtil.sadd(BC_Constant.REDIS_FEEDBACK, String.valueOf(map));
 			}
 
 		} catch (Exception e) {
@@ -260,10 +254,10 @@ public class MoviesAction {
         		moviesManager.updateMovies(old);
 
                 //从redis set里面删除更新的失效资源
-                if(RedisUtil.getJedis().smembers(BC_Constant.REDIS_FEEDBACK).toString().contains(model.getId().toString())){
-                    RedisUtil.getJedis().smembers(BC_Constant.REDIS_FEEDBACK).forEach(item->{
+                if(RedisUtil.smembers(BC_Constant.REDIS_FEEDBACK).toString().contains(model.getId().toString())){
+                    RedisUtil.smembers(BC_Constant.REDIS_FEEDBACK).forEach(item->{
                         if(item.contains(model.getId().toString())) {
-                            RedisUtil.getJedis().srem(BC_Constant.REDIS_FEEDBACK, item);
+                            RedisUtil.srem(BC_Constant.REDIS_FEEDBACK, item);
                         }
                     });
                 }
