@@ -224,11 +224,11 @@
 					var spanID = '${model.id}';
 					var title = '${model.moviename}';
 					var href = window.location.href;
-
 					var data = {
 						"spanID" : spanID,
 						"title" : title,
-						"href" : href
+						"href" : href,
+						"uID"  : u
 					};
 
 					$.ajax({

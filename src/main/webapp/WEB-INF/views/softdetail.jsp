@@ -46,6 +46,9 @@
 											</h1>
 										</small>
 									</p>
+
+
+
 									<div class="clearfix visible-xs">
 										<hr>
 									</div>
@@ -57,8 +60,17 @@
 											${article.postdate} </a></strong> <strong><a
 										class="common-a-right" title="${article.tags}"
 										href="/soft/tag/${article.tagscode }"> ${article.tags} </a></strong> <strong><a
-										class="common-a" title="${article.os}"
+										class="common-a-right" title="${article.os}"
 										href="/soft/${article.os }"> ${article.os} </a></strong>
+
+										<c:if test="${user!=null }">
+											<c:if
+													test="${user.email == '654714226@qq.com' || user.email == 'qhdsoft@126.com' || user.email == 'woaideni@qq.com'}">
+												<span class="glyphicon glyphicon-pencil margin10"></span>
+												<a class="common-a" title="编辑"
+												   href="/soft/edit/${article.id}">快速编辑</a>
+											</c:if>
+										</c:if>
 								</p>
 								<p id="content_${article.id}">${article.content }</p>
 
@@ -201,11 +213,11 @@
 					var spanID = '${article.id}';
 					var title = '${article.title}';
 					var href = window.location.href;
-
 					var data = {
 						"spanID" : spanID,
 						"title" : title,
-						"href" : href
+						"href" : href,
+						"uID"  : u
 					};
 
 					$.ajax({

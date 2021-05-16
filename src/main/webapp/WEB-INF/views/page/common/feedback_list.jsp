@@ -21,7 +21,7 @@
 				<div class="col-xs-10">
 
 					<a style="font-size: 14px; line-height: 32px; color: #888"
-					   href="${y.href}" title="${y.title}">${y.title} </a>
+					   href="${y.href}?u=${y.uID}" title="${y.title}">${y.title} </a>
 
 				</div>
 
