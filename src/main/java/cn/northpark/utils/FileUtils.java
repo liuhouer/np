@@ -24,6 +24,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.*;
 
@@ -650,6 +651,40 @@ public class FileUtils {
             e.printStackTrace();
         }
         return list;
+    }
+
+
+
+
+    /**
+     * 通过url下载图片保存到本地  urlString 图片链接地址  localImgName 图片名称
+     * @param urlString
+     * @param localImgName
+     * @throws Exception
+     */
+    public static void downloadUrlFile2Local(String urlString, String localImgName) throws Exception {
+        // 构造URL
+        URL url = new URL(urlString);
+        // 打开连接
+        URLConnection con = url.openConnection();
+        // 输入流
+        InputStream is = con.getInputStream();
+        // 1K的数据缓冲
+        byte[] bs = new byte[1024];
+        // 读取到的数据长度
+        int len;
+        // 输出的文件流
+        String filename = localImgName;  //本地路径及图片名称
+        File file = new File(filename);
+        FileOutputStream os = new FileOutputStream(file, true);
+        // 开始读取
+        while ((len = is.read(bs)) != -1) {
+            os.write(bs, 0, len);
+        }
+        System.out.println(filename);
+        // 完毕，关闭所有链接
+        os.close();
+        is.close();
     }
 
 

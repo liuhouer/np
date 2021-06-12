@@ -26,7 +26,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -44,6 +43,18 @@ public class HttpGetUtils {
      * @return
      */
     public static String getDataResult(String url) {
+
+        return getDataResult(url,"utf-8");
+
+    }
+
+    /**
+     * get 方法
+     *
+     * @param url
+     * @return
+     */
+    public static String getDataResult(String url,String charSet) {
         String result = "";
         try {
             //获取httpclient实例
@@ -67,7 +78,7 @@ public class HttpGetUtils {
 
                     //设置编码
                     Header[] headers = response.getHeaders("Content-Type");
-                    String charset = "utf-8";
+                    String charset = charSet;
                     String contentType = headers[0].getValue();
 
                     int i = contentType.indexOf("=");
@@ -76,7 +87,7 @@ public class HttpGetUtils {
                     }
                     HttpEntity entity = response.getEntity();
                     InputStream content = entity.getContent();
-                    result = IOUtils.toString(content, StandardCharsets.UTF_8.toString());
+                    result = IOUtils.toString(content,charset);
                 }
             } finally {
                 httpclient.close();
@@ -284,10 +295,10 @@ public class HttpGetUtils {
     }
 
 
-    public static void main(String[] args) {
-        System.out.println(StandardCharsets.UTF_8.toString());
-        System.out.println(StandardCharsets.UTF_8.name());
-    }
+//    public static void main(String[] args) {
+//        System.out.println(StandardCharsets.UTF_8.toString());
+//        System.out.println(StandardCharsets.UTF_8.name());
+//    }
 
     /**
      * 使用htmlunit工具来获取页面数据，可以处理异步数据
@@ -352,6 +363,17 @@ public class HttpGetUtils {
         }
 
         return pageXml;
+    }
+
+
+
+
+    public static void main(String[] args) throws Exception{
+        String url = "http://www.hemabt.com/pic/uploadimg/2021-5/202152615576_60ade4bd8cec0.jpg";
+
+
+//        downloadUrlFile2Local(url,"E:\\bruce\\mv\\MV_2021-6-12.jpg");
+
     }
 }
 

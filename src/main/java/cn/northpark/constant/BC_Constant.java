@@ -118,7 +118,31 @@ public class BC_Constant {
             this.index = index;
         }
     }
-    
+
+
+    /**
+     * 河马BT影视站
+     */
+    public enum HEMA_BT {
+
+        //sq
+        SQ("/bttype/93-"),
+        //鬼父
+        GUIFU("search.asp?page=2&searchword=%B9%ED%B8%B8&searchtype=-1&ordertype=&TypeId="),
+
+        ;
+        // 成员变量
+        private String name;
+
+        // 构造方法
+        private HEMA_BT(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
 
     /**
      * 爬虫美剧资源

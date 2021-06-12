@@ -1,9 +1,10 @@
 package cn.northpark.utils;
 
+import cn.northpark.constant.BC_Constant;
 import cn.northpark.utils.encrypt.EnDecryptUtils;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
+import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -1381,6 +1382,155 @@ public class HTMLParserUtil {
     }
 
     /**
+     * 爬取 河马BT电影站的电影-SQ
+     * @param index
+     * @return
+     */
+    public static List<Map<String, String>> ret_SQ_hema(Integer index) {
+
+        return ret_hema_type(index,BC_Constant.HEMA_BT.SQ);
+    }
+
+    /**
+     * 爬取 河马BT电影站的电影
+     * @param index
+     * @return
+     */
+    public static List<Map<String, String>> ret_hema_type(Integer index, BC_Constant.HEMA_BT bt_type) {
+
+        List<Map<String, String>> list = Lists.newArrayList();
+        final String BT_HM = "http://www.hemabt.com";
+
+        String url = BT_HM+bt_type.getName()+index+".html";
+
+        final String dataResult = HttpGetUtils.getDataResult(url,"gb2312");
+
+        System.out.println(dataResult);
+        Document doc = Jsoup.parse(dataResult, url);
+
+//     w700->listpic | listtxt   w960tv
+
+        Element ul = doc.select("div[class=w700]").get(0);
+
+        Elements lis = ul.select("div[class=listpic]");
+
+        if (!lis.isEmpty()) {
+            for (int i = 0; i < lis.size(); i++) {
+                HashMap<String, String> map = new HashMap<>();
+                    Element li = lis.get(i);
+                    String logo_url = BT_HM + li.select("img").get(0).attr("src");
+
+                    HashMap<String, String> pic2Disk = HTMLParserUtil.webPic2Disk(logo_url, getLocalFolderByOS("mv"), "mv_");
+//
+
+                    String logo_p = "";
+
+                    String aurl = BT_HM + li.select("a").get(0).attr("href");
+                    String title = li.select("a").get(0).attr("title");
+                    map.put("title", title);
+                    System.err.println(logo_url);
+                    System.err.println(aurl);
+                    System.err.println(JsonUtil.object2json(pic2Disk));
+
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        // TODO Auo-generated catch block
+                        e.printStackTrace();
+                    }
+                    //获取详情
+                    String dataResult_ = HttpGetUtils.getDataResult(aurl,"gb2312");
+
+                    Document doc_ = Jsoup.parse(dataResult_, aurl);
+
+                    //获取详情1
+                    //w960tv -> nrwjm
+                    Element info = doc_.select("div.nrwjm").get(0);
+
+                    info.select("a").removeAttr("href");
+
+                    Elements info_lis = info.select("li");
+
+                    map.put("aurl", aurl);
+                    if(!CollectionUtils.isEmpty(info_lis)){
+                        for (Element info_li : info_lis) {
+                            String html = info_li.html();
+                            if(html.contains("<h3")){
+                                String retcode = EnDecryptUtils.md5Encrypt(title);
+
+                                map.put("retcode", retcode);
+
+                                logo_p = "<p><img class=\"aligncenter size-full wp-image-" + retcode + "\" title=\"" + title + "\" alt=\"" + title + "\" " +
+                                        "src=\"/" +
+                                        pic2Disk.get("trimPan") + "\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\">"
+                                +"</p><p></p>";
+
+
+                            }else if(html.contains("地区")){
+                                String tag = info_li.text().replace("地区：", "");
+                                String tagcode = PinyinUtil.paraseStringToPinyin(tag).toLowerCase();
+                                tag = tag +",情色";
+                                tagcode = tagcode +",qingse";
+
+                                map.put("tag", tag);
+                                map.put("tagcode", tagcode);
+                            }
+                        }
+                    }
+
+                    //获取详情2 下载地址
+                    Element down = doc_.select("div.play").get(0);
+                    Elements down_lis = down.select("li");
+                    if(!CollectionUtils.isEmpty(down_lis)){
+                        Element lastDown = down_lis.get(down_lis.size() - 1);
+                        String down_href = BT_HM + lastDown.select("a").attr("onclick");
+                        down_href = down_href.replace("document.getElementById('down2').href", "").replace(" ", "").replace("=", "").replace(";", "");
+                        down_href  = down_href.replace("'", "");
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            // TODO Auo-generated catch block
+                            e.printStackTrace();
+                        }
+
+                        String downResult_ = HttpGetUtils.getDataResult(down_href,"gb2312");
+                        Document down_doc_ = Jsoup.parse(downResult_, down_href);
+                        String path = "<p>"+down_doc_.getElementById("downbox").select("a").text()+"</p>";
+                        map.put("path", path);
+                    }
+
+                    //获取详情3 w960nr
+                    Element info3 = doc_.select("div.w960nr").get(0);
+
+                    //del href
+                    info3.select("a").removeAttr("href").removeAttr("target");
+
+                    String replace = info3.html().replace("河马BT电影站", "NorthPark")
+                            .replace("小编", " Bot")
+                            .replace("请记住我们的网址", "")
+                            .replace("http://www.hemabt.com/btcontent/", "");
+
+                    replace = replace.substring(0, replace.indexOf("<br>"));
+                    String info3_html = "<h2>《"+map.get("title")+"》剧情介绍</h2><hr/><p></p><p></p>"
+                            +replace;
+
+                    String desc = logo_p + info.html() +"<p></p>" + info3_html;
+
+
+                    map.put("date", TimeUtils.nowdate());
+                    map.put("article", desc);
+
+                    System.err.println(JsonUtil.object2json(map));
+                    list.add(map);
+
+            }
+        }
+        return list;
+    }
+
+    /**
      * 爬取1页的电影图书资源
      */
     public static List<Map<String, String>> retMovies(Integer index, String rettype) {
@@ -1955,7 +2105,7 @@ public class HTMLParserUtil {
         String name = "";
         try {
 
-            byte[] img_byte = HttpGetUtils.getImg(weburl);
+//            byte[] img_byte = HttpGetUtils.getImg(weburl);
 
             //拼接名字
             if (StringUtils.isNotEmpty(weburl) && weburl.contains("/")) {
@@ -1969,19 +2119,28 @@ public class HTMLParserUtil {
             if (StringUtils.isNotEmpty(name)) {
                 path = localpath;//"/Users/zhangyang/Pictures/";
 
+//                date = date + "/"; 爬虫SQ注释掉
                 date = date + "/";
 
                 //拼接路径
                 path = path + date;
 
                 //写入文件
-                FileUtils.writeByteArrayToFile(new File(path + name), img_byte);
+                FileUtils.downloadUrlFile2Local(weburl,path + name);
+
+
+                //图片压缩处理 BRUCE TIPS！
+                Thumbnails.of(path + name)
+                        .scale(1f)
+                        .outputQuality(0.5f)
+                        .toFile(path + name);
             }
 
 
             map.put("key", name);
             map.put("localpath", path + name);
             map.put("trimpath", (path + name).replace("E:\\bruce\\", ""));
+            map.put("trimPan", (path + name).replace("E:\\", ""));
 
 
         } catch (Exception e) {
@@ -2295,13 +2454,16 @@ public class HTMLParserUtil {
 
 //        	retMovies(1,"http://m.orisi.cn/movie_bt_series/movie/page/");
 //            retSoftChaoxzCom(1);
-            retSoftNew(1);
+//            retSoftNew(1);
 
+
+//            retSQ_hema()
         } catch (Exception e) {
             // TODO Auto-generated catch block
             log.error("HTMLPARSERutils------->", e);
             ;
         }
     }
+
 
 }
