@@ -74,6 +74,14 @@
 								</p>
 								<p id="content_${article.id}">${article.content }</p>
 
+								<p style="color: #e071a4;" class="bold-text">
+									蓝奏云下载地址如果打不开解决办法：<br/>
+
+									lanzous.com <br/>
+
+									URL改为 lanzoux.com 或者 lanzoui.com就可以了<br/>
+								</p>
+
 								<p class="col-md-12">
 								<div class="dashed center col-md-10 padding-b20">
 
