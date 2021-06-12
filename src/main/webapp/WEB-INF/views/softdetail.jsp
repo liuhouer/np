@@ -74,7 +74,7 @@
 								</p>
 								<p id="content_${article.id}">${article.content }</p>
 
-								<p style="color: #e071a4;" class="bold-text">
+								<p style="color: #e071a4;">
 									蓝奏云下载地址如果打不开解决办法：<br/>
 
 									lanzous.com <br/>
