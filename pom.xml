@@ -208,7 +208,15 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.5.2</version>
 		</dependency>
-		
+
+		<!-- 代理IP爬虫 访问受限的网站进行爬取（例如需要登录、切换代理），往往需要进行自定义http请求。 -->
+		<dependency>
+			<groupId>cn.edu.hfut.dmic.webcollector</groupId>
+			<artifactId>WebCollector</artifactId>
+			<version>2.71</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>net.sourceforge.htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>

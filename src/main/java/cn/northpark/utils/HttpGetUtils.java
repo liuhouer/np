@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -59,15 +60,25 @@ public class HttpGetUtils {
         try {
             //获取httpclient实例
             CloseableHttpClient httpclient = HttpClients.createDefault();
-            //获取方法实例。GET
+
             HttpGet httpGet = new HttpGet(url);
-            httpGet.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;");
-            httpGet.setHeader("Accept-Language", "zh-CN,zh;q=0.8");
-            httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36");
-            httpGet.setHeader("Keep-Alive", "3000");
-            httpGet.setHeader("Connection", "Keep-Alive");
-            httpGet.setHeader("Cache-Control", "no-cache");
-            //httpGet.setHeader("Referer", referer);
+
+
+            //设置代理IP，设置连接超时时间 、 设置 请求读取数据的超时时间 、 设置从connect Manager获取Connection超时时间、
+//            HttpHost proxy = ProxyGenerator.generatorProxyHost(ProxyGenerator.list);
+            HttpHost proxy = new HttpHost("103.101.100.27",8080);
+            RequestConfig requestConfig = RequestConfig.custom()
+                    .setProxy(proxy)
+                    .setConnectTimeout(10000)
+                    .setSocketTimeout(10000)
+                    .setConnectionRequestTimeout(3000)
+                    .build();
+            httpGet.setConfig(requestConfig);
+
+
+            //设置请求头消息
+            httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
+
             //执行方法得到响应
             CloseableHttpResponse response = httpclient.execute(httpGet);
             try {
@@ -87,7 +98,7 @@ public class HttpGetUtils {
                     }
                     HttpEntity entity = response.getEntity();
                     InputStream content = entity.getContent();
-                    result = IOUtils.toString(content,charset);
+                    result = IOUtils.toString(content, charset);
                 }
             } finally {
                 httpclient.close();
@@ -370,7 +381,9 @@ public class HttpGetUtils {
 
     public static void main(String[] args) throws Exception{
         String url = "http://www.hemabt.com/pic/uploadimg/2021-5/202152615576_60ade4bd8cec0.jpg";
+        String url1 = "http://www.hemabt.com/bttype/93-274.html";
 
+        System.err.println(HttpGetUtils.getDataResult(url1,"gb2312"));
 
 //        downloadUrlFile2Local(url,"E:\\bruce\\mv\\MV_2021-6-12.jpg");
 

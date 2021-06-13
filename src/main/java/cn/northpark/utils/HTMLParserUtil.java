@@ -1433,12 +1433,6 @@ public class HTMLParserUtil {
                     System.err.println(JsonUtil.object2json(pic2Disk));
 
 
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        // TODO Auo-generated catch block
-                        e.printStackTrace();
-                    }
                     //获取详情
                     String dataResult_ = HttpGetUtils.getDataResult(aurl,"gb2312");
 
@@ -1487,13 +1481,6 @@ public class HTMLParserUtil {
                         String down_href = BT_HM + lastDown.select("a").attr("onclick");
                         down_href = down_href.replace("document.getElementById('down2').href", "").replace(" ", "").replace("=", "").replace(";", "");
                         down_href  = down_href.replace("'", "");
-
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            // TODO Auo-generated catch block
-                            e.printStackTrace();
-                        }
 
                         String downResult_ = HttpGetUtils.getDataResult(down_href,"gb2312");
                         Document down_doc_ = Jsoup.parse(downResult_, down_href);
@@ -2119,8 +2106,8 @@ public class HTMLParserUtil {
             if (StringUtils.isNotEmpty(name)) {
                 path = localpath;//"/Users/zhangyang/Pictures/";
 
-//                date = date + "/"; 爬虫SQ注释掉
-                date = date + "/";
+//                date = date + "/"; //爬虫SQ注释掉
+//                date = date + "/";
 
                 //拼接路径
                 path = path + date;

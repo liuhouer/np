@@ -27,7 +27,10 @@ public class retRestSQ_BT_hema {
                 List<Map<String, String>> list = HTMLParserUtil.ret_SQ_hema(k);
 
                 collect.addAll(list);
-            } catch (Exception e) {
+            }catch (Exception e ) {
+                if(e instanceof java.net.SocketException){
+                    break;
+                }
                 // TODO: handle exception
                 e.printStackTrace();
             }
