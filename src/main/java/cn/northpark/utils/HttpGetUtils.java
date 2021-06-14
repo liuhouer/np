@@ -66,9 +66,8 @@ public class HttpGetUtils {
 
             //设置代理IP，设置连接超时时间 、 设置 请求读取数据的超时时间 、 设置从connect Manager获取Connection超时时间、
 //            HttpHost proxy = ProxyGenerator.generatorProxyHost(ProxyGenerator.list);
-            HttpHost proxy = new HttpHost("103.101.100.27",8080);
+            //proxy 改为由clash代理，解决爬虫封锁ip的问题
             RequestConfig requestConfig = RequestConfig.custom()
-                    .setProxy(proxy)
                     .setConnectTimeout(10000)
                     .setSocketTimeout(10000)
                     .setConnectionRequestTimeout(3000)

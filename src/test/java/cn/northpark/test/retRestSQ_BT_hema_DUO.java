@@ -27,7 +27,7 @@ public class retRestSQ_BT_hema_DUO {
         ThreadPoolExecutor executor = new ThreadPoolExecutor(8, 16, 200, TimeUnit.MILLISECONDS,
                 new ArrayBlockingQueue<Runnable>(1500));
 
-        for(int i=1159;i<= 1366;i++){
+        for(int i=1235;i<= 1366;i++){
             RetOnePageTask myTask = new RetOnePageTask(i);
             executor.execute(myTask);
             System.out.println("线程池中线程数目："+executor.getPoolSize()+"，队列中等待执行的任务数目："+

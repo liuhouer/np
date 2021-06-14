@@ -2117,10 +2117,13 @@ public class HTMLParserUtil {
 
 
                 //图片压缩处理 BRUCE TIPS！
-                Thumbnails.of(path + name)
-                        .scale(1f)
-                        .outputQuality(0.5f)
-                        .toFile(path + name);
+                synchronized (Thumbnails.class){
+                    Thumbnails.of(path + name)
+                            .scale(1f)
+                            .outputQuality(0.5f)
+                            .toFile(path + name);
+                }
+
             }
 
 
