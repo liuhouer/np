@@ -1,5 +1,6 @@
 package cn.northpark.test;
 
+import cn.northpark.constant.BC_Constant;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.HttpGetUtils;
 import cn.northpark.utils.JsonUtil;
@@ -18,13 +19,13 @@ public class retRestSQ_BT_hema {
     public static void main(String[] args) {
 
         //1366
-        for (int k=271;k<= 1366; k++) {
+        for (int k=1; k<= 3; k++) {
 
             List<Map<String, String>> collect = new ArrayList<>();
 
             try {
 
-                List<Map<String, String>> list = HTMLParserUtil.ret_SQ_hema(k);
+                List<Map<String, String>> list = HTMLParserUtil.ret_hema_type(k, BC_Constant.HEMA_BT.GUIFU);
 
                 collect.addAll(list);
             }catch (Exception e ) {

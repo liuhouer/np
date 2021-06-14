@@ -126,21 +126,37 @@ public class BC_Constant {
     public enum HEMA_BT {
 
         //sq
-        SQ("/bttype/93-"),
+        SQ("/bttype/93-","qingse","情色"),
         //鬼父
-        GUIFU("search.asp?page=2&searchword=%B9%ED%B8%B8&searchtype=-1&ordertype=&TypeId="),
+        GUIFU("/search.asp?searchword=%B9%ED%B8%B8&searchtype=-1&ordertype=&TypeId=&page=","qingse,dongman","情色,动漫"),
 
         ;
         // 成员变量
         private String name;
+        private String tagCode;
+        private String tag;
 
         // 构造方法
         private HEMA_BT(String name) {
             this.name = name;
         }
 
+        private HEMA_BT(String name,String tagCode,String tag) {
+            this.name = name;
+            this.tagCode = tagCode;
+            this.tag = tag;
+        }
+
         public String getName() {
             return name;
+        }
+
+        public String getTagCode() {
+            return tagCode;
+        }
+
+        public String getTag() {
+            return tag;
         }
     }
 

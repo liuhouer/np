@@ -1400,8 +1400,14 @@ public class HTMLParserUtil {
 
         List<Map<String, String>> list = Lists.newArrayList();
         final String BT_HM = "http://www.hemabt.com";
+        String url = null;
 
-        String url = BT_HM+bt_type.getName()+index+".html";
+        if(bt_type.name().equals("GUIFU")){
+             url = BT_HM+bt_type.getName()+index;
+        }else {
+             url = BT_HM+bt_type.getName()+index+".html";
+        }
+
 
         final String dataResult = HttpGetUtils.getDataResult(url,"gb2312");
 
@@ -1464,8 +1470,8 @@ public class HTMLParserUtil {
                             }else if(html.contains("地区")){
                                 String tag = info_li.text().replace("地区：", "");
                                 String tagcode = PinyinUtil.paraseStringToPinyin(tag).toLowerCase();
-                                tag = tag +",情色";
-                                tagcode = tagcode +",qingse";
+                                tag = tag  + bt_type.getTag();
+                                tagcode = tagcode  + bt_type.getTagCode();
 
                                 map.put("tag", tag);
                                 map.put("tagcode", tagcode);
