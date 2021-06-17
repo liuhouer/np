@@ -1,11 +1,10 @@
 package cn.northpark.utils.encrypt;
 
-import java.security.SecureRandom;
-
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import java.security.SecureRandom;
 
 /**
  * DES加解密工具类
@@ -13,9 +12,9 @@ import javax.crypto.spec.DESKeySpec;
  * @Author : bruce
  *
  */
-class DESUtils {
+public class DESUtils {
 	/** 默认key */
-	protected final static String KEY = "ScAKC0XhadTHT3Al0QIDAQAB";
+    public final static String KEY = "ScAKC0XhadTHT3Al0QIDAQAB";
 	
 	/**
 	 * DES加密
@@ -29,7 +28,7 @@ class DESUtils {
 	 * @return
 	 */
     @SuppressWarnings("restriction")
-	protected static String encrypt(String data,String key) {  
+    public static String encrypt(String data,String key) {
         String encryptedData = null;  
         try {  
             // DES算法要求有一个可信任的随机数源  
@@ -61,7 +60,7 @@ class DESUtils {
      * @return
      */
     @SuppressWarnings("restriction")
-	protected static String decrypt(String cryptData,String key) {  
+    public static String decrypt(String cryptData,String key) {
         String decryptedData = null;  
         try {  
             // DES算法要求有一个可信任的随机数源  
@@ -79,6 +78,6 @@ class DESUtils {
             throw new RuntimeException("解密错误，错误信息：", e);  
         }  
         return decryptedData;  
-    }  
-	     
+    }
+
 }
