@@ -659,10 +659,11 @@ public class FileUtils {
     /**
      * 通过url下载图片保存到本地  urlString 图片链接地址  localImgName 图片名称
      * @param urlString
+     * @param path
      * @param localImgName
      * @throws Exception
      */
-    public static void downloadUrlFile2Local(String urlString, String localImgName) throws Exception {
+    public static void downloadUrlFile2Local(String urlString,String path, String localImgName) throws Exception {
         // 构造URL
         URL url = new URL(urlString);
         // 打开连接
@@ -676,6 +677,12 @@ public class FileUtils {
         // 输出的文件流
         String filename = localImgName;  //本地路径及图片名称
         File file = new File(filename);
+        File fold = new File(path);
+        if (!file.exists() && !fold.isDirectory()) {
+            fold.mkdirs();
+            System.out.println("创建文件夹--->"+path);
+        }
+        //写入文件
         FileOutputStream os = new FileOutputStream(file, true);
         // 开始读取
         while ((len = is.read(bs)) != -1) {
@@ -685,6 +692,7 @@ public class FileUtils {
         // 完毕，关闭所有链接
         os.close();
         is.close();
+
     }
 
 

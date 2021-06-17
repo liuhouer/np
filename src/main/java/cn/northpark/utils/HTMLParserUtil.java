@@ -2113,13 +2113,13 @@ public class HTMLParserUtil {
                 path = localpath;//"/Users/zhangyang/Pictures/";
 
 //                date = date + "/"; //爬虫SQ注释掉
-//                date = date + "/";
+                date = date + "/";
 
                 //拼接路径
                 path = path + date;
 
                 //写入文件
-                FileUtils.downloadUrlFile2Local(weburl,path + name);
+                FileUtils.downloadUrlFile2Local(weburl,path ,path + name);
 
 
                 //图片压缩处理 BRUCE TIPS！
@@ -2136,7 +2136,7 @@ public class HTMLParserUtil {
             map.put("key", name);
             map.put("localpath", path + name);
             map.put("trimpath", (path + name).replace("E:\\bruce\\", ""));
-            map.put("trimPan", (path + name).replace("E:\\", ""));
+            map.put("trimPan", (path + name).replace("E:\\", "")).replace("D:\\","/bruce/");
 
 
         } catch (Exception e) {
