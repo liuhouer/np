@@ -116,7 +116,7 @@
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
-<script src="https://northpark.cn/statics/js/page/login2.js"></script>
+<script data-cfasync="false" src="https://northpark.cn/statics/js/page/login2.js"></script>
 
 
 

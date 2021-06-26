@@ -208,7 +208,7 @@
 
 
 
-	<script type="text/javascript">
+	<script type="text/javascript" data-cfasync="false" >
 		$(function() {
 			//设置定向uri
 			$("#J_login_see").attr("href",

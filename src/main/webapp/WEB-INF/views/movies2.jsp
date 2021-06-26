@@ -207,7 +207,7 @@
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
-<script type="text/javascript">
+<script data-cfasync="false" type="text/javascript">
     //禁止图片拉伸
     $(function () {
 
@@ -227,7 +227,7 @@
     })
 </script>
 
-<script type="text/javascript">
+<script data-cfasync="false" type="text/javascript">
 
     $(function () {
         //搜索事件处理
@@ -278,7 +278,7 @@
 
 
 </script>
-<script src="https://northpark.cn/statics/js/page/movies.js"></script>
+<script data-cfasync="false" src="https://northpark.cn/statics/js/page/movies.js"></script>
 
 <script>
 

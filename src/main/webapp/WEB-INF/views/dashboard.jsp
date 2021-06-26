@@ -187,7 +187,7 @@
 <!-- load js -->
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 <script type="text/javascript" src="https://northpark.cn/statics/js/jquery.flexslider.js"></script><!-- 碎碎念轮播js -->
-<script src="https://northpark.cn/statics/js/main.js"></script>
+<script data-cfasync="false" src="https://northpark.cn/statics/js/main.js"></script>
 
 </body>
 

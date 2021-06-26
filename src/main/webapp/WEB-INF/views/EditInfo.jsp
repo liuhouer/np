@@ -222,8 +222,8 @@
 
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
-<script src="https://northpark.cn/statics/js/page/editinfo.js"></script>
-<script src="https://northpark.cn/statics/js/bootstrap-datepicker.js"></script>
+<script data-cfasync="false" src="https://northpark.cn/statics/js/page/editinfo.js"></script>
+<script data-cfasync="false" src="https://northpark.cn/statics/js/bootstrap-datepicker.js"></script>
 
 </body>
 </html>

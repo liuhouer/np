@@ -53,7 +53,7 @@
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
-<script type="text/javascript">
+<script data-cfasync="false" type="text/javascript">
 
 $(function () {
     $("#mes").click(function () {

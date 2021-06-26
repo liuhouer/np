@@ -48,7 +48,7 @@
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
 
-<script src="https://northpark.cn/statics/js/page/welcome.js"></script>
+<script data-cfasync="false" src="https://northpark.cn/statics/js/page/welcome.js"></script>
 </body>
 
 </html>    

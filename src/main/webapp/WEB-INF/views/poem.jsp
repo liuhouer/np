@@ -256,7 +256,7 @@
 
 <script src="https://northpark.cn/statics/js/poem/dualSlider.js" type="text/javascript"></script>
 
-<script type="text/javascript">
+<script data-cfasync="false" type="text/javascript">
 
     $(function () {
         //搜索事件处理
@@ -282,7 +282,7 @@
 </script>
 <link media="all" type="text/css" rel="stylesheet" href="https://northpark.cn/statics/css/flexslider.css"><!-- 轮播css -->
 <script type="text/javascript" src="https://northpark.cn/statics/js/jquery.flexslider.js"></script><!-- 轮播js -->
-<script type="text/javascript">
+<script data-cfasync="false" type="text/javascript">
 
     $(document).ready(function () {
 

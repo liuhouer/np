@@ -88,7 +88,7 @@
 
 <script src="https://northpark.cn/statics/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="https://northpark.cn/statics/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
-<script type="text/javascript">
+<script data-cfasync="false" type="text/javascript">
     $(function () {
         var editor = $('#J_md_text').wangEditor({
             'menuConfig': [

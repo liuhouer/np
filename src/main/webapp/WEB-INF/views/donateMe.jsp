@@ -200,9 +200,9 @@ pageEncoding="UTF-8" %>
 					</div>
 				</div>
 				<%@ include file="/WEB-INF/views/page/common/container.jsp" %>
-					<script src="https://northpark.cn/statics/js/page/forget.js">
+					<script data-cfasync="false" src="https://northpark.cn/statics/js/page/forget.js">
 					</script>
-					<script>
+					<script data-cfasync="false">
 						loadDonates(1);
 					</script>
 		</body>

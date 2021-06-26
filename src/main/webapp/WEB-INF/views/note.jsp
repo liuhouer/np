@@ -114,7 +114,7 @@
 <script src="https://northpark.cn/statics/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
 
 
-<script src="https://northpark.cn/statics/js/page/note.js"></script>
+<script data-cfasync="false" src="https://northpark.cn/statics/js/page/note.js"></script>
 
 </body>
 </html>

@@ -90,7 +90,7 @@
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 <script type="text/javascript" src="https://northpark.cn/statics/js/canvas-particle.js"></script>
-<script type="text/javascript">
+<script data-cfasync="false" type="text/javascript">
     //禁止图片拉伸
     $(function () {
     	$(".bg-white").find("img").each(function () {
@@ -109,7 +109,7 @@
     });
 
 </script>
-<script type="text/javascript">
+<script data-cfasync="false" type="text/javascript">
     window.onload = function () {
         //配置
         var config = {
