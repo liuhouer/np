@@ -1,3 +1,4 @@
+<%@ page import="cn.northpark.utils.page.PageView" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -5,8 +6,14 @@
 
 <div class="col-md-12 margin-t10" id="1">
 
+    <%
+        PageView pageView = (PageView) request.getAttribute("pageView");
 
-    <c:forEach var="y" items="${donates_list_max }" varStatus="ss">
+        String type_id = (String) request.getAttribute("type_id");
+
+    %>
+
+    <c:forEach var="y" items="${list }" varStatus="ss">
         <div 
                     <c:if test="${ss.index == 0 }">
                        class=" clearfix border-bottom padding-t10"
@@ -371,15 +378,41 @@
 
     </div>
 
-
+	<div class=" clearfix center pageinfo ">
+    <ul class="qinco-pagination pagination-sm ">
+        <li><a onclick="loadDonates(<%=type_id%>,1)">‹‹</a></li>
+        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getCurrentpage() - 1%>)">‹</a></li>
+        <%
+            //<显示分页码
+            for (int i = pageView.getPageindex().getStartindex(); i <= pageView.getPageindex().getEndindex(); i++) {
+                if (i != pageView.getCurrentpage()) {//如果i不等于当前页
+        %>
+        <li><a onclick="loadDonates(<%=type_id%>,<%=i%>)"><%=i%>
+        </a></li>
+        <%
+        } else {
+        %>
+        <li class="active"><a><%=i%>
+        </a></li>
+        <%
+                }
+            }//显示分页码>
+        %>
+        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getCurrentpage() + 1%>)">›</a></li>
+        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getTotalpage()%>)">››</a></li>
+    </ul>
+	
+	</div> 
+	
     <div class=" clearfix ">
-        <p>
+        <!-- <p>
             <span class="glyphicon  glyphicon-asterisk margin5"></span>
 
-        </p>
+        </p> -->
         <p>
             ~ 生活不止苟且，还有诗和远方 ~
         </p>
     </div>
 
+	
 </div>

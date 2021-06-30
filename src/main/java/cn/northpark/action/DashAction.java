@@ -29,6 +29,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -133,47 +136,76 @@ public class DashAction {
         return "/page/dash/moviesdata";
     }
 
+    
+
     @RequestMapping(value = "/dash/getDonates")
     @Desc(value="异步获取捐赠数据")
     public String getDonates(HttpServletRequest request,ModelMap map) {
 
         String type_id = request.getParameter("type_id");
 
+        String page = request.getParameter("page");
+
+        if(StringUtils.isEmpty(page)){
+            page = "1";
+        }
+
         assert StringUtils.isNotBlank(type_id);
 
         String result = DonatesRedisKeyEnum.match(type_id).getRedis_key();
 
-        pushDonates2Map(map,type_id,result);
+        pushDonates2Map(map,type_id,result,page);
 
 
-        return "/page/common/"+result;
+        return "/page/common/"+result.replace("_z", "");
     }
 
     /**
      * @param map
+     * @param page
      */
-    public void pushDonates2Map(ModelMap map,String type_id,String result) {
+    public void pushDonates2Map(ModelMap map, String type_id, String result, String page) {
         //取出捐赠数据
 
 
         List<Map<String, Object>> list = null;
 
+        //组装+计算分页信息=================
+        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), MyConstant.MAXRESULT, 3);
+        pageview = noteManager.getMixMapPage(pageview, DonatesEnum.match(type_id).getSql_fetch());
+        //组装+计算分页信息=================
+
         //从redis取
-        String str = RedisUtil.get(result);
-        if (StringUtils.isNotEmpty(str)) {
-            list = JsonUtil.json2ListMap(str);
+
+        //获取数据条数
+        Long zcard = RedisUtil.zcard(result + page);
+
+        //从redis查询
+        if (Objects.nonNull(zcard) && zcard.intValue() > 0) {
+
+            //从redis获取数据
+            Set<String> zrevrangebyscore = RedisUtil.zrevrangebyscore(result + page, MyConstant.MAXRESULT + "", "0", 0, MyConstant.MAXRESULT);
+            list = zrevrangebyscore.stream().map(i -> JsonUtil.json2map(i)).collect(Collectors.toList());
+
+        } else {
+
+            //没有结果-从数据库取
+
+            //根据计算的分页仅仅获取数据
+            list = this.noteManager.findmixByCondition(pageview, DonatesEnum.match(type_id).getSql_fetch());
+
+            //写入redis
+            for (int i = 0; i < list.size(); i++) {
+                RedisUtil.zadd(result + page, i, JsonUtil.object2json(list.get(i)));
+            }
         }
 
-        //从数据库取 :1天刷新
-        if (CollectionUtils.isEmpty(list)) {
-
-            list = moviesManager.querySqlMap(DonatesEnum.match(type_id).getSql_fetch());
-
-            RedisUtil.set(result, JsonUtil.object2json(list), 24 * 60 * 60);
-
-        }
-
-        map.addAttribute(result, list);
+        //组装默认分页信息=================
+        map.addAttribute("pageView", pageview);
+        map.addAttribute("type_id", type_id);
+        map.addAttribute("page", page);
+        map.addAttribute("list", list);
+        //组装默认分页信息=================
 
 
     }

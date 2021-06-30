@@ -7,9 +7,9 @@ package cn.northpark.constant;
 public enum DonatesRedisKeyEnum {
 
 
-    大老板("1","donates_list_max"),
-    老板("2","donates_list_medium"),
-    好心人("3","donates_list_min"),
+    大老板("1","donates_list_max_z"),
+    老板("2","donates_list_medium_z"),
+    好心人("3","donates_list_min_z"),
 
     ;
 

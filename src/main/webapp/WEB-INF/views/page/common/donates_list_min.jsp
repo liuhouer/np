@@ -1,3 +1,4 @@
+<%@ page import="cn.northpark.utils.page.PageView" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -5,9 +6,15 @@
 
 <div class="col-md-12 margin-t10">
 
+ <%
+        PageView pageView = (PageView) request.getAttribute("pageView");
+
+        String type_id = (String) request.getAttribute("type_id");
+
+    %>
         <div class="tab-pane fade in active" id="3">
 
-            <c:forEach var="y" items="${donates_list_min }" varStatus="ss">
+            <c:forEach var="y" items="${list }" varStatus="ss">
                
                   <div 
                              <c:if test="${ss.index == 0 }">
@@ -42,75 +49,40 @@
                 </div>
             </c:forEach>
 
+	
 
-            <div class=" clearfix border-bottom padding-t20">
-                <p>
-                    <span class="glyphicon glyphicon-time margin5"></span>
-                    2017-09-20 16:52:12
-                </p>
-
-                <p>
-
-                <p>
-                    <span class="glyphicon glyphicon-user margin5"></span>
-                    匿名用户
-                </p>
-                <p>
-                    <span class="glyphicon glyphicon-barcode margin5"></span>
-                    10000503012***267214285
-                </p>
-                <p>
-                    <span class="glyphicon glyphicon-comment margin5"></span>
-                    WinclonePro5.5MacCN
-                </p>
-                <p>
-                    <span class="glyphicon glyphicon-link margin5"></span>
-
-                    <a href="https://northpark.cn/soft/post-14058.html" target="_blank">Winclone Pro 5.5 Mac中文破解版</a>
-
-                </p>
-                <p>
-                    <span class="glyphicon  margin5">￥</span>
-                    3.00
-                </p>
-
-            </div>
-
-            <div class=" clearfix border-bottom padding-t20">
-                <p>
-                    <span class="glyphicon glyphicon-time margin5"></span>
-                    2017-08-01 03:19:04
-                </p>
-
-                <p>
-
-                <p>
-                    <span class="glyphicon glyphicon-user margin5"></span>
-                    匿名用户
-                </p>
-                <p>
-                    <span class="glyphicon glyphicon-barcode margin5"></span>
-                    10000503012***034005463
-                </p>
-                <p>
-                    <span class="glyphicon glyphicon-comment margin5"></span>
-                    多谢你分享的stata!
-                </p>
-
-                <p>
-                    <span class="glyphicon  margin5">￥</span>
-                    5.00
-                </p>
-
-            </div>
-
-
+		<div class=" clearfix center pageinfo ">
+		    <ul class="qinco-pagination pagination-sm ">
+		    	<li><a onclick="loadDonates(<%=type_id%>,1)">‹‹</a></li>
+		    	<li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getCurrentpage() - 1%>)">‹</a></li>
+		        <%
+		            //<显示分页码
+		            for (int i = pageView.getPageindex().getStartindex(); i <= pageView.getPageindex().getEndindex(); i++) {
+		                if (i != pageView.getCurrentpage()) {//如果i不等于当前页
+		        %>
+		        <li><a onclick="loadDonates(<%=type_id%>,<%=i%>)"><%=i%>
+		        </a></li>
+		        <%
+		        } else {
+		        %>
+		        <li class="active"><a><%=i%>
+		        </a></li>
+		        <%
+		                }
+		            }//显示分页码>
+		        %>
+		        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getCurrentpage() + 1%>)">›</a></li>
+		        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getTotalpage()%>)">››</a></li>
+            
+		    </ul>
+			
+			</div> 
 
             <div class=" clearfix ">
-                <p>
+               <%-- <p>
                     <span class="glyphicon  glyphicon-asterisk margin5"></span>
 
-                </p>
+                </p>--%>
                 <p>
                     ~ 生活不止苟且，还有诗和远方 ~
                 </p>

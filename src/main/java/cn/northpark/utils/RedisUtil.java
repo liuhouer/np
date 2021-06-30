@@ -504,6 +504,81 @@ public class RedisUtil {
 		}
 		return null;
 	}
+	
+	/**
+	 * 有序set
+	 * Redis Zadd 命令用于将一个或多个成员元素及其分数值加入到有序集当中。
+		如果某个成员已经是有序集的成员，那么更新这个成员的分数值，并通过重新插入这个成员元素，来保证该成员在正确的位置上。
+		分数值可以是整数值或双精度浮点数。
+		如果有序集合 key 不存在，则创建一个空的有序集并执行 ZADD 操作。
+		当 key 存在但不是有序集类型时，返回一个错误。
+	 * @param key
+	 * @param score
+	 * @param member
+	 * @return 被成功添加的新成员的数量，不包括那些被更新的、已经存在的成员。
+	 */
+	public static Long zadd(String key, double score, String member) {
+		
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			Long result = jedis.zadd(key, score, member);
+			return result;
+		} catch (Exception e) {
+			log.error("zadd 出错", e);
+		} finally {
+			returnResource(jedis);
+		}
+		
+		return null;
+	}
+	
+	
+	/**
+	 * Redis Zrevrangebyscore 返回有序集中指定分数区间内的所有的成员。有序集成员按分数值递减(从大到小)的次序排列。
+		具有相同分数值的成员按字典序的逆序(reverse lexicographical order )排列。
+		除了成员按分数值递减的次序排列这一点外， ZREVRANGEBYSCORE 命令的其他方面和 ZRANGEBYSCORE 命令一样。
+	 * @param key
+	 * @param max
+	 * @param min
+	 * @param offset
+	 * @param count
+	 * @return 指定区间内，带有分数值(可选)的有序集成员的列表。
+	 */
+	public static Set<String> zrevrangebyscore(String key, String max, String min, int offset, int count){
+		
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			Set<String> result =  jedis.zrevrangeByScore(key, max, min, offset, count);
+			return result;
+		} catch (Exception e) {
+			log.error("Zrevrangebyscore 出错", e);
+		} finally {
+			returnResource(jedis);
+		}
+		return null;
+		
+	}
+
+	/**
+	 * 有序集合：获取条数
+	 * Redis Zcard 命令用于计算集合中元素的数量。
+	 * @param key
+	 */
+	public static Long zcard(String key) {
+
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			return jedis.zcard(key);
+		} catch (Exception e) {
+			log.error("zcard  出错", e);
+		} finally {
+			returnResource(jedis);
+		}
+		return null;
+	}
 
 	public static void main(String[] args) {
 		RedisUtil re = new RedisUtil();

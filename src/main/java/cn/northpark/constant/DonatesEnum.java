@@ -8,8 +8,8 @@ public enum DonatesEnum {
 
 
     大老板("1","SELECT add_time, alipay_trans_id, account_name, order_amount, CASE WHEN reward_msg IS NULL THEN '匿名赞赏' ELSE reward_msg END as reward_msg FROM bc_donates WHERE order_amount >=100 order by add_time desc"),
-    老板("2","SELECT add_time, alipay_trans_id, account_name, order_amount, CASE WHEN reward_msg IS NULL THEN '匿名赞赏' ELSE reward_msg END as reward_msg FROM bc_donates WHERE order_amount >= 10 AND order_amount < 100 order by add_time desc"),
-    好心人("3","SELECT add_time, alipay_trans_id, account_name, order_amount, CASE WHEN reward_msg IS NULL THEN '匿名赞赏' ELSE reward_msg END as reward_msg FROM bc_donates WHERE order_amount > 0 AND order_amount < 10 order by add_time desc"),
+    老板( "2" ,"SELECT add_time, alipay_trans_id, account_name, order_amount, CASE WHEN reward_msg IS NULL THEN '匿名赞赏' ELSE reward_msg END as reward_msg FROM bc_donates WHERE order_amount >= 10 AND order_amount < 100 order by add_time desc"),
+    好心人("3","SELECT add_time, alipay_trans_id, account_name, order_amount, CASE WHEN reward_msg IS NULL THEN '匿名赞赏' ELSE reward_msg END as reward_msg FROM bc_donates WHERE order_amount > 0 AND order_amount < 10 order by order_amount desc,add_time desc"),
 
     ;
 

@@ -277,13 +277,25 @@ function loadDonates(type_id){
         data: {"type_id": type_id },
         success: function (data) {
             if (data) {
-                $("#donateContent").text("").append(data);
-
+               $("#donateContent").text("").append(data);
             }
         }
     });
 }
 
+//加载打赏数据
+function loadDonates(type_id,page){
+    $.ajax({
+        url: "/dash/getDonates",
+        type: "get",
+        data: {"type_id": type_id ,"page":page},
+        success: function (data) {
+            if (data) {
+                $("#donateContent").text("").append(data);
+            }
+        }
+    });
+}
 
 
 

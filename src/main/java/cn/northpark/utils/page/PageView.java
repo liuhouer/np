@@ -70,6 +70,23 @@ public class PageView<T> {
         this.currentpage = currentpage;
     }
 
+    /**
+     * 構造函數===========當前頁碼，每頁顯示記錄數============================
+     *
+     * @param currentpage
+     * @param maxresult
+     * @param pagecode 限制前台展示的页码数量比如12345 : 5  345678:6
+     */
+    public PageView(int currentpage, int maxresult, int pagecode) {
+        this.maxresult = maxresult;
+        //兼容错误
+        if (currentpage <= 0) {
+            currentpage = 1;
+        }
+        this.currentpage = currentpage;
+        this.pagecode = pagecode;
+    }
+
 
     /**
      * 計算startindex
@@ -136,7 +153,7 @@ public class PageView<T> {
      */
     public void setTotalpage(int totalpage) {
         this.totalpage = totalpage;
-        this.pageindex = PageIndex.getPageIndex(pagecode, currentpage, totalpage);
+        this.pageindex = PageIndex.getPageIndex(this.pagecode, currentpage, totalpage);
     }
 
     public PageIndex getPageindex() {
@@ -172,6 +189,8 @@ public class PageView<T> {
     public void setMaprecords(List<Map<String, Object>> maprecords) {
         this.maprecords = maprecords;
     }
+    
+    
 
 
 }
