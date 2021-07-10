@@ -1018,7 +1018,7 @@ a.project-card-link {
     background: #FF5722;
 }
 
-.avatar .text-m, .avatar .text-z {
+.avatar .text-m, .avatar .text-z ,.avatar .text-\[,.avatar .text-【{
     background: #FF6639;
 }
 
@@ -1071,7 +1071,7 @@ a.project-card-link {
     color: #FF5722;
 }
 
-.text-color-M, .text-color-Z {
+.text-color-M, .text-color-Z , .text-color-\[,text-color-【{
     color: #FF6639;
 }
 
