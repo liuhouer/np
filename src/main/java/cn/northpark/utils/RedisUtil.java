@@ -532,9 +532,37 @@ public class RedisUtil {
 		
 		return null;
 	}
-	
+
+	/**
+	 * score正序排列
+	 * Redis Zrevrangebyscore 返回有序集中指定分数区间内的所有的成员。有序集成员按分数值递减(从大到小)的次序排列。
+	 具有相同分数值的成员按字典序的逆序(reverse lexicographical order )排列。
+	 除了成员按分数值递减的次序排列这一点外， ZREVRANGEBYSCORE 命令的其他方面和 ZRANGEBYSCORE 命令一样。
+	 * @param key
+	 * @param max
+	 * @param min
+	 * @param offset
+	 * @param count
+	 * @return 指定区间内，带有分数值(可选)的有序集成员的列表。
+	 */
+	public static Set<String> zRangebyScore(String key, String max, String min, int offset, int count){
+
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			Set<String> result =  jedis.zrangeByScore(key, min, max , offset, count);
+			return result;
+		} catch (Exception e) {
+			log.error("zRangebyScore 出错", e);
+		} finally {
+			returnResource(jedis);
+		}
+		return null;
+
+	}
 	
 	/**
+	 * 倒序
 	 * Redis Zrevrangebyscore 返回有序集中指定分数区间内的所有的成员。有序集成员按分数值递减(从大到小)的次序排列。
 		具有相同分数值的成员按字典序的逆序(reverse lexicographical order )排列。
 		除了成员按分数值递减的次序排列这一点外， ZREVRANGEBYSCORE 命令的其他方面和 ZRANGEBYSCORE 命令一样。
@@ -550,7 +578,7 @@ public class RedisUtil {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
-			Set<String> result =  jedis.zrevrangeByScore(key, max, min, offset, count);
+			Set<String> result =  jedis.zrevrangeByScore(key, max, min , offset, count);
 			return result;
 		} catch (Exception e) {
 			log.error("Zrevrangebyscore 出错", e);
@@ -581,7 +609,10 @@ public class RedisUtil {
 	}
 
 	public static void main(String[] args) {
-		RedisUtil re = new RedisUtil();
-		re.set("a", "b");
+//		RedisUtil re = new RedisUtil();
+//		re.set("a", "b");
+
+		Set<String> donates_list_min_z1 = zRangebyScore("donates_list_min_z1", "12", "0", 0, 12);
+		System.err.println(donates_list_min_z1);
 	}
 }

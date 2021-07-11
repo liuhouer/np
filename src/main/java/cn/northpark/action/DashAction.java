@@ -184,7 +184,7 @@ public class DashAction {
         if (Objects.nonNull(zcard) && zcard.intValue() > 0) {
 
             //从redis获取数据
-            Set<String> zrevrangebyscore = RedisUtil.zrevrangebyscore(result + page, MyConstant.MAXRESULT + "", "0", 0, MyConstant.MAXRESULT);
+            Set<String> zrevrangebyscore = RedisUtil.zRangebyScore(result + page, MyConstant.MAXRESULT + "", "0", 0, MyConstant.MAXRESULT);
             list = zrevrangebyscore.stream().map(i -> JsonUtil.json2map(i)).collect(Collectors.toList());
 
         } else {
