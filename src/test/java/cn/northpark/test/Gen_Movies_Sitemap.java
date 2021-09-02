@@ -43,7 +43,7 @@ public class Gen_Movies_Sitemap {
         }
 
         try {
-            org.apache.commons.io.FileUtils.writeStringToFile(new File("D://movies.xml"), sb.toString());
+            org.apache.commons.io.FileUtils.writeStringToFile(new File("C:\\Users\\Bruce\\Documents\\movies.xml"), sb.toString());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class Gen_Movies_Sitemap {
 
     @Test
     public void save() {
-        runTask(732316,732353);//NEWLY 2020年12月26日
+        runTask(732353,732793);//NEWLY 2020年12月26日
     }
 
 }
