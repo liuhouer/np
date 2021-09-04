@@ -1,5 +1,7 @@
 package cn.northpark.constant;
 
+import com.google.common.collect.ImmutableList;
+
 public class BC_Constant {
 
     public static final String Domain = "northpark.cn";
@@ -19,8 +21,9 @@ public class BC_Constant {
      * 用户重置邮件
      */
     public static final String REDIS_FEEDBACK = "R_FEEDBACK";
-    
-    
+
+
+
     /**
      * redis返回类型自定义
      */
@@ -185,7 +188,28 @@ public class BC_Constant {
      */
     public static final String RET_guochanju = "http://m.fangpao.wang/movie_bt_series/guochanju/page/";
 
+    /**
+     * 人人电影
+     * -迅雷
+     * -迅雷网盘
+     * -百度网盘
+     */
+    public static final String RET_RR_MOVIES = "https://www.rrdyw.cc/movie/list_2_";
 
+    /**
+     * 人人电影 domain
+     */
+    public static final String RET_RR_BASE = "https://www.rrdyw.cc/";
+
+
+    /**
+     * 忽略的图片地址
+     */
+    public static final ImmutableList<String> ignore_pic_list = ImmutableList.of(
+            "https://bbs.djicdn.com/data/attachment/album/202011/18/095815gkkv3xxks13max3c.jpg",
+            "https://bbs.djicdn.com/data/attachment/album/202011/18/100025slp1xil1xptpxhml.jpg"
+
+            );
 
     //==========================================================微信==============================================================================================
     
@@ -216,4 +240,8 @@ public class BC_Constant {
 
   //==========================================================微信==============================================================================================
 
+    public static void main(String[] args) {
+        boolean contains = BC_Constant.ignore_pic_list.contains("https://bbs.djicdn.com/data/attachment/album/202011/18/100025slp1xil1xptpxhml.jpg");
+        System.err.println(contains);
+    }
 }

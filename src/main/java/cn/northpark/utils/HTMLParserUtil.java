@@ -1668,9 +1668,9 @@ public class HTMLParserUtil {
 
                     StringBuilder sb_tag = new StringBuilder();
                     //处理所有A链接
-                    handelAlinkHref(info, sb_tag);
+                    handelAlinkHrefOrGenTag(info, sb_tag);
                     //处理所有A链接
-                    handelAlinkHref(detail, sb_tag);
+                    handelAlinkHrefOrGenTag(detail, sb_tag);
 
                     //美化图库的样式
                     detail.select("div[id=gallery-1]").attr("class", "row");
@@ -1747,7 +1747,196 @@ public class HTMLParserUtil {
         return list;
     }
 
-    private static void handelAlinkHref(Element info, StringBuilder sb_tag) {
+    /**
+     * 爬取1页的人人电影资源
+     */
+    public static List<Map<String, String>> retRRMovies(Integer index, String rettype) {
+        // TODO Auto-generated method stub
+        List<Map<String, String>> list = Lists.newArrayList();
+        HashMap<String, String> map = null;
+        try {
+
+            log.info("page=============================" + index + "============================页");
+
+            String url = rettype + index + ".html";
+
+            final String dataResult = HttpGetUtils.getDataResult(url);
+
+            System.out.println(dataResult);
+            Document doc = Jsoup.parse(dataResult, url);
+            Element ul = doc.select("#movielist").get(0);
+            Elements lis = ul.select("li");
+            if (!lis.isEmpty()) {
+                for (int i = 0; i < lis.size(); i++) {
+                    Element li = lis.get(i);
+
+                    //标题
+                    String title = li.select("div.pure-u-19-24 > div > h2 >a").get(0).attr("title");
+
+                    String retcode = EnDecryptUtils.md5Encrypt(title);
+
+                    String path = "";
+
+                    //日期
+                    String date = "";
+                    try {
+                        date = li.select("div.pure-u-19-24 > div > div.tags").get(0).ownText();
+                    }catch (Exception e){
+                        date =  TimeUtils.nowdate();
+                    }
+
+
+
+
+                    //判断code在系统不存在再去处理后面的事
+                    map = new HashMap<String, String>();
+                    StringBuilder sb_brief = new StringBuilder();
+
+                    //获取正文内容
+
+                    String aurl = BC_Constant.RET_RR_BASE + li.select("a").get(0).attr("href");
+
+
+                    String desc = "";
+
+
+                    //休眠
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        // TODO Auo-generated catch block
+                        e.printStackTrace();
+                    }
+
+                    String dataResult_ = HttpGetUtils.getDataResult(aurl);
+
+                    Document doc_ = Jsoup.parse(dataResult_, aurl);
+
+
+                    Element detail = doc_.select("div.movie-des.shadow > div.movie-txt").get(0);
+
+
+                    //========================解析路径start======================================
+                    //删除打赏和微信二维码信息
+
+                    StringBuilder sb = new StringBuilder();
+
+
+                    //处理a连接，就去a连接查找下载地址，删除后，设置到path
+                    Elements links = detail.select("a");
+                    if (!CollectionUtils.isEmpty(links)) {
+                        for (Iterator iterator = links.iterator(); iterator.hasNext(); ) {
+                            Element link = (Element) iterator.next();
+                            //把iterater里面的元素连接提取到path中
+                            handleLink(sb, link, "a");
+
+                        }
+                    }
+
+
+                    //处理p中的连接，就去p磁力链查找下载地址，删除后，设置到path
+                    Elements ps = detail.select("p");
+                    if (!CollectionUtils.isEmpty(ps)) {
+                        for (Iterator iterator = ps.iterator(); iterator.hasNext(); ) {
+                            Element link = (Element) iterator.next();
+                            //把iterater里面的元素连接提取到path中
+                            handleLink(sb, link, "p");
+                        }
+                    }
+
+
+                    path = sb.toString();
+
+                    //========================解析路径======================================
+
+
+                    //处理图片上传和格式化
+
+                    handleMoviePic(title, date, detail);
+
+                    StringBuilder sb_tag = new StringBuilder();
+
+                    //处理所有A链接 | 根据div生成电影标签
+                    handelAlinkHrefOrGenTag(detail, sb_tag);
+
+                    //美化图库的样式
+
+                    //生成标签 类型:
+                    String tag = "";
+                    String sb_tag_str = sb_tag.toString();
+                    if (sb_tag_str.endsWith(",")) {
+                        tag = sb_tag_str.substring(0, sb_tag_str.length() - 1);
+                        System.out.println(tag);
+                    }
+                    String tagcode = "";
+                    try {
+
+                        tagcode = PinyinUtil.paraseStringToPinyin(tag).toLowerCase();
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                        tagcode = "";
+                    }
+
+
+                    desc = "#电影简介\n";
+
+//                              desc +=desc+preText+markText;
+
+
+                    //删除播放器样式
+                    try {
+
+                        detail.select("div.MinePlayer").remove();
+                        detail.select("link").remove();
+                        detail.select("div.MineBottomList").remove();
+                        detail.select("script").remove();
+                        detail.select("div.uc-rating").remove();
+                        detail.select("div.uc-favorite-2").remove();
+                        detail.getElementById("sociables").remove();
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                        log.error("del ex--->{}", e);
+                    }
+
+                    desc += detail.html();
+
+
+                    log.info("title==============>" + title);
+                    log.info("aurl==============>" + aurl);
+                    log.info("date==============>" + date);
+                    log.info("tag==============>" + tag);
+                    log.info("tagcode==============>" + tagcode);
+                    log.info("desc==============>" + desc);
+
+                    map.put("title", title);
+                    map.put("aurl", aurl);
+                    map.put("date", date);
+                    map.put("article", desc);
+                    map.put("retcode", retcode);
+                    map.put("tag", tag);
+                    map.put("tagcode", tagcode);
+                    map.put("path", path);
+                    list.add(map);
+                }
+
+            }
+//            }
+
+//                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+
+        } catch (Exception e) {
+            log.error("HTMLPARSERutils------->", e);
+        }
+
+        return list;
+    }
+
+    /**
+     * 处理所有A链接 | 根据div生成电影标签
+     * @param info
+     * @param sb_tag
+     */
+    private static void handelAlinkHrefOrGenTag(Element info, StringBuilder sb_tag) {
         Elements alinks = info.select("a");
         for (Element alink : alinks) {
             //获取标签
@@ -1760,6 +1949,26 @@ public class HTMLParserUtil {
             }
 
             //
+        }
+
+        Elements divs = info.select("div");
+        for (Element div : divs) {
+            //获取标签
+            try {
+                String span = div.select("span").get(0).text();
+                System.err.println(span);
+                if (span.contains("类型: ")) {
+                    String[] split = span.replace("类型: ", "").split("/");
+                    for (int i = 0; i < split.length; i++) {
+                        sb_tag.append(split[i].trim()).append(",");
+                    }
+
+                }
+            }catch (Exception e){
+                continue;
+            }
+
+
         }
     }
 
@@ -1775,21 +1984,24 @@ public class HTMLParserUtil {
         for (int j = 0; j < imgs.size(); j++) {
             try {
                 String weburl = imgs.get(j).attr("src");
-                //web图片上传到七牛
+                if(!BC_Constant.ignore_pic_list.contains(weburl)){
+                    //web图片上传到七牛
 
-                //-------------开始--------------------------------
+                    //-------------开始--------------------------------
 
-                HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOSMovies(), date);
+                    HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOSMovies(), date);
 
-                String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "movies/" + date + "/" + map22.get("key"));
+                    String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "movies/" + date + "/" + map22.get("key"));
 
-                //-------------结束--------------------------------
+                    //-------------结束--------------------------------
 
-                imgs.get(j).attr("src", rs);
-                imgs.get(j).removeAttr("srcset");
-                imgs.get(j).removeAttr("sizes");
-                imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
-                imgs.get(j).addClass("col-xs-12 col-sm-6 margin-b20");
+                    imgs.get(j).attr("src", rs);
+                    imgs.get(j).removeAttr("srcset");
+                    imgs.get(j).removeAttr("sizes");
+                    imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
+                    imgs.get(j).addClass("col-xs-12 col-sm-6 margin-b20");
+                }
+
             } catch (Exception e) {
                 // TODO: handle exception
                 log.error("ret movies pic exception===>" + e.toString());
@@ -2285,7 +2497,7 @@ public class HTMLParserUtil {
             }
         } catch (Exception e) {
             // TODO: handle exception
-            rs = "D:\\BZ\\movies\\";
+            rs = "C:\\BZ\\movies\\";
         }
 
         return rs;
