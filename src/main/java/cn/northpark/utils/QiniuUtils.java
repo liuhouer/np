@@ -22,7 +22,7 @@ public class QiniuUtils {
     private static final String SECRET_KEY = DESUtils.decrypt("IVDbnm4SLmRO1sbNGEB6fX172QIwyhe+H/MHNhTXEGWnesFPRxXnDhkslMJyXam8",DESUtils.KEY);
     private static final String BUCKET_NAME = "soft"; // 你的空間名稱
 
-    private static final String BUCKET_HOST_NAME = "";
+    private static final String BUCKET_HOST_NAME = "http://qiniupic.python-project.com/";
 
 
     /**

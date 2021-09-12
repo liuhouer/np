@@ -2,6 +2,9 @@ package cn.northpark.constant;
 
 import com.google.common.collect.ImmutableList;
 
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 public class BC_Constant {
 
     public static final String Domain = "northpark.cn";
@@ -210,6 +213,32 @@ public class BC_Constant {
             "https://bbs.djicdn.com/data/attachment/album/202011/18/100025slp1xil1xptpxhml.jpg"
 
             );
+
+    /**
+     * 根据不同系统获取：图片配置的开始目录
+     */
+    public static String getPicStartByOs() {
+        ResourceBundle bundle = ResourceBundle.getBundle("env-config");
+
+        if (bundle == null) {
+            throw new IllegalArgumentException("env-config.properties!");
+        }
+        Properties prop = System.getProperties();
+        String os = prop.getProperty("os.name");
+        if (os.startsWith("win") || os.startsWith("Win")) {// windows操作系统
+
+            return bundle.getString("winPicStart");
+
+        } else if (os.startsWith("mac") || os.startsWith("Mac")) {// mac操作系统
+
+            return bundle.getString("macPicStart");
+
+        } else {  //linux
+
+            return bundle.getString("linuxPicStart");
+        }
+
+    }
 
     //==========================================================微信==============================================================================================
     

@@ -1,6 +1,7 @@
 package cn.northpark.utils;
 
 import cn.northpark.constant.BC_Constant;
+import cn.northpark.constant.RetType;
 import cn.northpark.utils.encrypt.EnDecryptUtils;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -1768,6 +1769,7 @@ public class HTMLParserUtil {
             Elements lis = ul.select("li");
             if (!lis.isEmpty()) {
                 for (int i = 0; i < lis.size(); i++) {
+
                     Element li = lis.get(i);
 
                     //标题
@@ -1822,25 +1824,16 @@ public class HTMLParserUtil {
                     StringBuilder sb = new StringBuilder();
 
 
-                    //处理a连接，就去a连接查找下载地址，删除后，设置到path
-                    Elements links = detail.select("a");
-                    if (!CollectionUtils.isEmpty(links)) {
-                        for (Iterator iterator = links.iterator(); iterator.hasNext(); ) {
-                            Element link = (Element) iterator.next();
-                            //把iterater里面的元素连接提取到path中
-                            handleLink(sb, link, "a");
 
-                        }
-                    }
-
-
-                    //处理p中的连接，就去p磁力链查找下载地址，删除后，设置到path
-                    Elements ps = detail.select("p");
+                    //处理div中的连接，就去p磁力链查找下载地址，删除后，设置到path
+                    Elements ps = detail.select("div.movie-txt > div");
                     if (!CollectionUtils.isEmpty(ps)) {
                         for (Iterator iterator = ps.iterator(); iterator.hasNext(); ) {
                             Element link = (Element) iterator.next();
-                            //把iterater里面的元素连接提取到path中
-                            handleLink(sb, link, "p");
+                            if(link.select("a").size()>0){
+                                //把iterater里面的元素连接提取到path中
+                                handleLink(sb, link, "div");
+                            }
                         }
                     }
 
@@ -1916,6 +1909,7 @@ public class HTMLParserUtil {
                     map.put("tag", tag);
                     map.put("tagcode", tagcode);
                     map.put("path", path);
+                    System.err.println("path--->"+path);
                     list.add(map);
                 }
 
@@ -2056,6 +2050,18 @@ public class HTMLParserUtil {
             ) {
 
                 sb.append(linkHtml);
+                link.remove();
+
+            }
+        }else if (type.equals("div")) {
+            String div_cont = link.html();
+            System.err.println("html--->"+div_cont);
+            if (div_cont.contains("百度网盘") || div_cont.contains("迅雷云盘")
+                    || div_cont.contains("迅雷下载") || div_cont.contains("云盘下载")
+                    || div_cont.contains("下载") || div_cont.contains(BC_Constant.ignore_pic_list.get(0))//迅雷下载图标
+            ) {
+
+                sb.append(link.outerHtml());
                 link.remove();
 
             }
@@ -2324,11 +2330,8 @@ public class HTMLParserUtil {
             if (StringUtils.isNotEmpty(name)) {
                 path = localpath;//"/Users/zhangyang/Pictures/";
 
-//                date = date + "/"; //爬虫SQ注释掉
-                date = date + "/";
-
                 //拼接路径
-                path = path + date;
+                path = path +"/"+ date+"/";
 
                 //写入文件
                 FileUtils.downloadUrlFile2Local(weburl,path ,path + name);
@@ -2432,23 +2435,7 @@ public class HTMLParserUtil {
      */
     public static String getLocalFolderByOS() {
 
-        String rs = "D:\\BZ\\soft\\";
-        try {
-            Properties prop = System.getProperties();
-            String os = prop.getProperty("os.name");
-            if (os.startsWith("win") || os.startsWith("Win")) {// windows操作系统
-
-            } else if (os.startsWith("mac") || os.startsWith("Mac")) {// mac操作系统
-                rs = "/tmp/apk/soft/";
-            } else {  //linux || mac osx
-                rs = "/mnt/apk/soft/";
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-            rs = "D:\\BZ\\soft\\";
-        }
-
-        return rs;
+        return BC_Constant.getPicStartByOs() + "/" + RetType.Soft.getTypeName();
 
     }
 
@@ -2459,23 +2446,7 @@ public class HTMLParserUtil {
      */
     public static String getLocalFolderByOS(String retType) {
 
-        String rs = "E:\\bruce\\" + retType + "\\";
-        try {
-            Properties prop = System.getProperties();
-            String os = prop.getProperty("os.name");
-            if (os.startsWith("win") || os.startsWith("Win")) {// windows操作系统
-
-            } else if (os.startsWith("mac") || os.startsWith("Mac")) {// mac操作系统
-                rs = "/tmp/apk/" + retType + "/";
-            } else {  //linux || mac osx
-                rs = "/mnt/apk/" + retType + "/";
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-            log.error("" + e);
-        }
-
-        return rs;
+        return BC_Constant.getPicStartByOs() + "/" +retType;
 
     }
 
@@ -2486,21 +2457,7 @@ public class HTMLParserUtil {
      */
     public static String getLocalFolderByOSMovies() {
 
-        String rs = "D:\\BZ\\movies\\";
-        try {
-            Properties prop = System.getProperties();
-            String os = prop.getProperty("os.name");
-            if (os.startsWith("win") || os.startsWith("Win")) {// windows操作系统
-
-            } else {  //linux || mac osx
-                rs = "/mnt/apk/movies/";
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-            rs = "C:\\BZ\\movies\\";
-        }
-
-        return rs;
+        return BC_Constant.getPicStartByOs() + "/" + RetType.Movie.getTypeName();
 
     }
 
@@ -2666,6 +2623,10 @@ public class HTMLParserUtil {
 
 
 //            retSQ_hema()
+
+            System.err.println(getLocalFolderByOS());
+            System.err.println(getLocalFolderByOS("mv"));
+            System.err.println(getLocalFolderByOSMovies());
         } catch (Exception e) {
             // TODO Auto-generated catch block
             log.error("HTMLPARSERutils------->", e);
