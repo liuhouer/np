@@ -214,6 +214,12 @@ public class BC_Constant {
 
             );
 
+    //northPark 云盘下载-静态图片
+    public static final String np_cloud_down ="https://northpark.cn/statics/img/down/cloud.jpg";
+
+    //northPark 迅雷下载-静态图片
+    public static final String np_thunder_down ="https://northpark.cn/statics/img/down/thunder.jpg";
+
     /**
      * 根据不同系统获取：图片配置的开始目录
      */
