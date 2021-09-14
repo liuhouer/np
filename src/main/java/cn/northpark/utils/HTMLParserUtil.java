@@ -1769,6 +1769,10 @@ public class HTMLParserUtil {
             Elements lis = ul.select("li");
             if (!lis.isEmpty()) {
                 for (int i = 0; i < lis.size(); i++) {
+//                    测试第一条数据
+//                    if(i!=9){
+//                        continue;
+//                    }
 
                     Element li = lis.get(i);
 
@@ -1834,6 +1838,16 @@ public class HTMLParserUtil {
                                 //把iterater里面的元素连接提取到path中
                                 handleLink(sb, link, "div");
                             }
+                        }
+                    }
+
+                    //处理完div后 处理样式有问题的span
+                    Elements spans = detail.select("div.movie-txt > span");
+                    if (!CollectionUtils.isEmpty(spans)) {
+                        for (Iterator iterator = spans.iterator(); iterator.hasNext(); ) {
+                            Element link = (Element) iterator.next();
+                            //把iterater里面的元素连接提取到path中
+                            handleLink(sb, link, "span");
                         }
                     }
 
@@ -2043,16 +2057,36 @@ public class HTMLParserUtil {
                 link.remove();
 
             }
-        }else if (type.equals("div")||type.equals("span")) {
+        }else if (type.equals("div")) {
             String div_cont = link.html();
             System.err.println("html--->"+div_cont);
-            if (div_cont.contains("百度网盘") || div_cont.contains("迅雷云盘") || div_cont.contains("阿里网盘")
+            if (div_cont.contains("百度网盘") || div_cont.contains("迅雷云盘") || div_cont.contains("阿里网盘")|| div_cont.contains("提取码")
                     || div_cont.contains("迅雷下载") || div_cont.contains("云盘下载")
-                    || div_cont.contains("下载") || div_cont.contains(BC_Constant.ignore_pic_list.get(0))//迅雷下载图标
+                    || div_cont.contains("下载") || div_cont.contains(BC_Constant.ignore_pic_list.get(0)) //迅雷下载图标
             ) {
 
                 sb.append(link.outerHtml());
                 link.remove();
+
+            }
+        }else if (type.equals("span")) {
+            String div_cont = link.html();
+            System.err.println("html--->"+div_cont);
+            if (div_cont.contains("百度网盘") || div_cont.contains("迅雷云盘") || div_cont.contains("阿里网盘")|| div_cont.contains("提取码")
+                    || div_cont.contains("迅雷下载") || div_cont.contains("云盘下载")
+                    || div_cont.contains("下载")
+            ) {
+
+                //迅雷下载图标 && 有a链接
+                if( div_cont.contains(BC_Constant.ignore_pic_list.get(0) )&&link.select("a").size()>0 ){
+                    sb.append(link.outerHtml());
+                    link.remove();
+
+                    //只有迅雷下载图标 && 没有a链接
+                }else  if( div_cont.contains(BC_Constant.ignore_pic_list.get(0) )&&link.select("a").size()==0 ){
+                    link.select("img").remove();
+
+                }
 
             }
         }
