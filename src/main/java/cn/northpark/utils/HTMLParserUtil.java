@@ -1770,7 +1770,7 @@ public class HTMLParserUtil {
             if (!lis.isEmpty()) {
                 for (int i = 0; i < lis.size(); i++) {
 //                    测试第一条数据
-//                    if(i!=9){
+//                    if(i!=8){
 //                        continue;
 //                    }
 
@@ -1821,6 +1821,11 @@ public class HTMLParserUtil {
 
                     Element detail = doc_.select("div.movie-des.shadow > div.movie-txt").get(0);
 
+                    //跳过订阅付费文章
+                    if(detail.html().contains("这篇文档需要") && detail.html().contains("包月VIP")){
+                        continue;
+                    }
+
 
                     //========================解析路径start======================================
                     //删除打赏和微信二维码信息
@@ -1865,6 +1870,19 @@ public class HTMLParserUtil {
 
                     //处理所有A链接 | 根据div生成电影标签
                     handelAlinkHrefOrGenTag(detail, sb_tag);
+
+                    //处理图片地址替换
+                    Elements imgs = detail.select("div.movie-txt > img");
+                    if (!CollectionUtils.isEmpty(imgs)) {
+                        for (Iterator iterator = imgs.iterator(); iterator.hasNext(); ) {
+                            Element img = (Element) iterator.next();
+                            if(img.attr("src").equals(BC_Constant.ignore_pic_list.get(0))){
+                                img.attr("src",BC_Constant.np_thunder_down);
+                            }else if(img.attr("src").equals(BC_Constant.ignore_pic_list.get(1))){
+                                img.attr("src",BC_Constant.np_cloud_down);
+                            }
+                        }
+                    }
 
                     //美化图库的样式
 
@@ -2061,7 +2079,7 @@ public class HTMLParserUtil {
             String div_cont = link.html();
             System.err.println("html--->"+div_cont);
             if (div_cont.contains("百度网盘") || div_cont.contains("迅雷云盘") || div_cont.contains("阿里网盘")|| div_cont.contains("提取码")
-                    || div_cont.contains("迅雷下载") || div_cont.contains("云盘下载")
+                    || div_cont.contains("迅雷下载") || div_cont.contains("云盘下载") || linkHtml.contains("ed2k") || linkHtml.contains("magnet")
                     || div_cont.contains("下载") || div_cont.contains(BC_Constant.ignore_pic_list.get(0)) //迅雷下载图标
             ) {
 
@@ -2073,12 +2091,12 @@ public class HTMLParserUtil {
             String div_cont = link.html();
             System.err.println("html--->"+div_cont);
             if (div_cont.contains("百度网盘") || div_cont.contains("迅雷云盘") || div_cont.contains("阿里网盘")|| div_cont.contains("提取码")
-                    || div_cont.contains("迅雷下载") || div_cont.contains("云盘下载")
+                    || div_cont.contains("迅雷下载") || div_cont.contains("云盘下载") || linkHtml.contains("ed2k") || linkHtml.contains("magnet")
                     || div_cont.contains("下载")
             ) {
 
-                //迅雷下载图标 && 有a链接
-                if( div_cont.contains(BC_Constant.ignore_pic_list.get(0) )&&link.select("a").size()>0 ){
+                //包含下载 && 有a链接
+                if( link.select("a").size()>0 ){
                     sb.append(link.outerHtml());
                     link.remove();
 
