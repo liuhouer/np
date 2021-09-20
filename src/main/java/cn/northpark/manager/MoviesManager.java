@@ -1,13 +1,13 @@
 
 package cn.northpark.manager;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import cn.northpark.model.Movies;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public interface MoviesManager {
 
@@ -76,6 +76,7 @@ public interface MoviesManager {
     public List<Map<String, Object>> querySqlMap(String sql);
 
 
+    int exeSql(String up_sql);
 }
 
 

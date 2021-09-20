@@ -1,18 +1,17 @@
 
 package cn.northpark.manager.impl;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import cn.northpark.dao.MoviesDao;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.model.Movies;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service("MoviesManager")
 public class MoviesManagerImpl implements MoviesManager {
@@ -103,7 +102,13 @@ public class MoviesManagerImpl implements MoviesManager {
         return moviesDao.querySql(sql);
     }
 
-	@Override
+    @Override
+    public int exeSql(String up_sql) {
+        moviesDao.executess(up_sql);
+        return 0;
+    }
+
+    @Override
 	public List<Movies> querySqlEntity(String sql) {
 		// TODO Auto-generated method stub
 		return moviesDao.querySql(sql, Movies.class);
