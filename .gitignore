@@ -5,6 +5,7 @@
 *.jar
 *.war
 *.ear
+*.xlsx
 
 # project settings #
 *.class

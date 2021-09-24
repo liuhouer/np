@@ -6,6 +6,7 @@ import cn.northpark.vo.BiliVO;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -126,6 +127,14 @@ public class FileUtils {
                 //保存
                 try {
                     file[i].transferTo(targetFile);
+
+                    //图片压缩处理 BRUCE TIPS！
+                    synchronized (Thumbnails.class){
+                        Thumbnails.of(pre_path+ newName)
+                                .scale(1f)
+                                .outputQuality(0.5f)
+                                .toFile(pre_path+ newName);
+                    }
                 } catch (Exception e) {
                     log.error("上传文件异常------->", e);
                     continue;
