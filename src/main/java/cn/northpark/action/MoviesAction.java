@@ -16,6 +16,7 @@ import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.RedisUtil;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.encrypt.MD5Utils;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
@@ -263,7 +264,8 @@ public class MoviesAction {
                 }
         			
         	}else {//新增
-        		
+
+                 model.setRetcode(MD5Utils.encrypt(model.getMoviename(),MD5Utils.MD5_KEY));
         		 model.setAddtime(TimeUtils.nowdate());
                  moviesManager.addMovies(model);
         	}

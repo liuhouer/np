@@ -58,7 +58,20 @@
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
                                name="color" type="text" value="${model.color }">
                     </div>
+                    <div class="form-group ">
+                        <span class="glyphicon glyphicon-star"></span>电影标签333
+                        <input id="J_tag" placeholder="电影标签" required
+                               class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
+                               name="tag" type="text" value="${model.tag }">
+                    </div>
+                    <div class="form-group ">
+                        <span class="glyphicon glyphicon-star"></span>电影标签-英文
+                        <input id="J_tagcode" placeholder="电影标签-英文" required
+                               class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
+                               name="tagcode" type="text" value="${model.tagcode }">
+                    </div>
                     <div class="form-group">
+                        <span class="glyphicon glyphicon-star"></span>电影内容
 							<textarea id="J_md_text" style="height: 200px; max-height: 400px;"
                                       name="description" rows="5">
 								${model.description }
@@ -115,7 +128,7 @@
 
         //提交表单
         $("#formSubmit").click(function () {
-            if ($("#J_name").val() && $("#J_md_text").val() && $("#J_color").val() && $("#J_path").val()) {
+            if ($("#J_name").val() && $("#J_md_text").val() && $("#J_color").val() && $("#J_path").val() && $("#J_tag").val() && $("#J_tagcode").val() ) {
 
                 $.ajax({
                     url: "/movies/addItem",
