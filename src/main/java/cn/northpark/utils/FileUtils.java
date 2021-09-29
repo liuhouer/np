@@ -1,6 +1,7 @@
 package cn.northpark.utils;
 
 
+import cn.northpark.constant.BC_Constant;
 import cn.northpark.utils.encrypt.EnDecryptUtils;
 import cn.northpark.vo.BiliVO;
 import com.google.common.base.Splitter;
@@ -26,7 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 
@@ -42,7 +43,6 @@ public class FileUtils {
      */
     public static final String suffix_head = "heads";
 
-
     /**
      * 专辑
      */
@@ -52,6 +52,7 @@ public class FileUtils {
      * 文件
      */
     public static final String suffix_upload = "upload";
+
 
     //-------------以下为northpark公用上传 、下载 、删除相关方法-------------------------------------------
 
@@ -65,15 +66,8 @@ public class FileUtils {
         if (file.length >= 1) {
             log.info(file[0].getOriginalFilename() + "------------------------------------------------》》");
 
-            Properties prop = System.getProperties();
+            String path = BC_Constant.getFileStartByOs();
 
-            String os = prop.getProperty("os.name");
-            String path = "/mnt/apk/";
-            if (os.startsWith("win") || os.startsWith("Win")) {// windows操作系统
-                path = "e:/bruce/";
-            } else {
-                path = "/mnt/apk/";
-            }
             if (StringUtils.isNotEmpty(file[0].getOriginalFilename()) && StringUtils.isNotEmpty(oldpath)) {// 新上传了图片才把以前的删除
                 File f = new File(path + oldpath);
                 log.info("要删除文件的绝对路径是：" + f.getAbsolutePath());
@@ -98,17 +92,10 @@ public class FileUtils {
         log.info("-------------------------------------->开始");
 
         List<String> list = Lists.newArrayList();
-        Properties prop = System.getProperties();
 
-        String os = prop.getProperty("os.name");
-        String path = "/mnt/apk/";
+        String path = BC_Constant.getFileStartByOs();
         String fileName = "";
         String newName = "";
-        if (os.startsWith("win") || os.startsWith("Win")) {// windows操作系统
-            path = "e:/bruce/";
-        } else {
-            path = "/mnt/apk/";
-        }
 
         String pre_path = path + suffix + "/"; //["/mnt/apk/heads/"]
 
@@ -118,8 +105,8 @@ public class FileUtils {
             fileName = file[i].getOriginalFilename();
             //fileName为空时证明用户没有上传文件
             if (StringUtils.isNotEmpty(fileName)) {
-                String ext = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
-                newName = String.valueOf(System.currentTimeMillis()) + "." + ext;
+                String ext = fileName.substring(fileName.lastIndexOf(".") + 1);
+                newName = System.currentTimeMillis() + "." + ext;
                 File targetFile = new File(pre_path, newName);
                 if (!targetFile.exists()) {
                     targetFile.mkdirs();
@@ -129,11 +116,11 @@ public class FileUtils {
                     file[i].transferTo(targetFile);
 
                     //图片压缩处理 BRUCE TIPS！
-                    synchronized (Thumbnails.class){
-                        Thumbnails.of(pre_path+ newName)
+                    synchronized (Thumbnails.class) {
+                        Thumbnails.of(pre_path + newName)
                                 .scale(1f)
                                 .outputQuality(0.5f)
-                                .toFile(pre_path+ newName);
+                                .toFile(pre_path + newName);
                     }
                 } catch (Exception e) {
                     log.error("上传文件异常------->", e);
@@ -152,7 +139,7 @@ public class FileUtils {
     }
 
 
-    //-------------以下为爬虫相关方法-------------------------------------------
+    //--------------------------------------------------------以下为爬虫相关方法-------------------------------------------
 
     /**
      * 获得网络图片地址。或者图片地址
@@ -171,11 +158,9 @@ public class FileUtils {
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
                 log.error("------->", e);
-                ;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 log.error("------->", e);
-                ;
             }
         }
         int n = 0;
@@ -191,7 +176,6 @@ public class FileUtils {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             log.error("------->", e);
-            ;
         }
         return filecontent;
     }
@@ -226,11 +210,9 @@ public class FileUtils {
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
             log.error("------->", e);
-            ;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             log.error("------->", e);
-            ;
         }
 
     }
@@ -253,7 +235,6 @@ public class FileUtils {
             }
         } catch (Exception e) {
             log.error("------->", e);
-            ;
         }
         return result;
     }
@@ -277,11 +258,9 @@ public class FileUtils {
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             log.error("------->", e);
-            ;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             log.error("------->", e);
-            ;
         }
 
     }
@@ -291,21 +270,19 @@ public class FileUtils {
         BufferedWriter fw = null;
         try {
             File file = new File("D://text.txt");
-            fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8")); // 指定编码格式，以免读取时中文字符异常
+            fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8)); // 指定编码格式，以免读取时中文字符异常
             fw.append("我写入的内容");
             fw.newLine();
             fw.append("我又写入的内容");
             fw.flush(); // 全部写入缓存中的内容
         } catch (Exception e) {
             log.error("------->", e);
-            ;
         } finally {
             if (fw != null) {
                 try {
                     fw.close();
                 } catch (IOException e) {
                     log.error("------->", e);
-                    ;
                 }
             }
         }
@@ -316,7 +293,7 @@ public class FileUtils {
         String filePath = "/Users/zhangyang/Downloads/start.txt"; // 文件和该类在同个目录下
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8")); // 指定读取文件的编码格式，要和写入的格式一致，以免出现中文乱码,
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8)); // 指定读取文件的编码格式，要和写入的格式一致，以免出现中文乱码,
             String str = null;
             while ((str = reader.readLine()) != null) {
                 long lo = Long.valueOf(str.trim());
@@ -325,16 +302,13 @@ public class FileUtils {
             }
         } catch (FileNotFoundException e) {
             log.error("------->", e);
-            ;
         } catch (IOException e) {
             log.error("------->", e);
-            ;
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
                 log.error("------->", e);
-                ;
             }
         }
     }
@@ -400,7 +374,6 @@ public class FileUtils {
         } catch (Exception e) {
             // TODO: handle exception
             log.error("------->", e);
-            ;
         }
     }
 
@@ -438,7 +411,6 @@ public class FileUtils {
             }
         } catch (Exception e) {
             log.error("------->", e);
-            ;
         }
         return path;
     }
@@ -490,7 +462,7 @@ public class FileUtils {
             String fileName = fileNames.get(i).getName();
             log.info(fileName);
             List<String> strings = Splitter.on("-").omitEmptyStrings().splitToList(fileName);
-            String reName = strings.get(0) + "-" + new String(strings.get(1).getBytes(), "UTF-8") + ".mp3";
+            String reName = strings.get(0) + "-" + new String(strings.get(1).getBytes(), StandardCharsets.UTF_8) + ".mp3";
             log.info(reName);
 
             String pathname = path + "/" + reName;
@@ -515,7 +487,7 @@ public class FileUtils {
             //拿到  三年二班-周杰伦.mp3
             String fileName = fileNames.get(i).getName();
             log.info(fileName);
-            String reName =  new String(fileName.getBytes("GBK"), "utf-8") ;
+            String reName = new String(fileName.getBytes("GBK"), StandardCharsets.UTF_8);
             log.info(reName);
 
 //            String pathname = new String((path + "/" + reName).getBytes(),"utf-8");
@@ -525,6 +497,7 @@ public class FileUtils {
 
         }
     }
+
     /**
      * 重命名解析B站下载的视频
      */
@@ -567,14 +540,14 @@ public class FileUtils {
 
         for (int i = 0; i < fileNames.size(); i++) {
             String ep_path = fileNames.get(i).getName();
-            ep_path = basePath+"\\"+ep_path;
+            ep_path = basePath + "\\" + ep_path;
             log.info(ep_path);
 
             File dir_ep = new File(ep_path);
             File[] ep_files = dir_ep.listFiles();
             for (File ep_file : ep_files) {
-                if(ep_file.getName().equals("entry.json")){
-                    String json = IOUtils.toString(new FileInputStream(ep_file), Charset.forName("utf8"));
+                if (ep_file.getName().equals("entry.json")) {
+                    String json = IOUtils.toString(new FileInputStream(ep_file), StandardCharsets.UTF_8);
                     BiliVO biliVO = JsonUtil.json2object(json, BiliVO.class);
                     String title = biliVO.getPageData().getPart();
                     System.err.println(title);
@@ -583,17 +556,17 @@ public class FileUtils {
                     assert StringUtils.isNotEmpty(title);
 
                     //重命名视频和音频文件
-                    String videoPath = ep_path+"\\"+"80";
+                    String videoPath = ep_path + "\\" + "80";
                     File dir_video = new File(videoPath);
                     File[] vdlist = dir_video.listFiles();
                     for (File vd : vdlist) {
-                        if(vd.getName().equals("audio.m4s")){
-                            String audioName = ep_path +"\\" +title+".mp3";
+                        if (vd.getName().equals("audio.m4s")) {
+                            String audioName = ep_path + "\\" + title + ".mp3";
                             log.info(audioName);
                             vd.renameTo(new File(audioName));
                         }
-                        if(vd.getName().equals("video.m4s")){
-                            String videoName = ep_path +"\\" +title+".mp4";
+                        if (vd.getName().equals("video.m4s")) {
+                            String videoName = ep_path + "\\" + title + ".mp4";
                             log.info(videoName);
                             vd.renameTo(new File(videoName));
                         }
@@ -607,6 +580,7 @@ public class FileUtils {
 
     /**
      * 按行读取excel数据
+     *
      * @param path
      * @return
      */
@@ -663,16 +637,15 @@ public class FileUtils {
     }
 
 
-
-
     /**
      * 通过url下载图片保存到本地  urlString 图片链接地址  localImgName 图片名称
+     *
      * @param urlString
      * @param path
      * @param localImgName
      * @throws Exception
      */
-    public static void downloadUrlFile2Local(String urlString,String path, String localImgName) throws Exception {
+    public static void downloadUrlFile2Local(String urlString, String path, String localImgName) throws Exception {
         // 构造URL
         URL url = new URL(urlString);
         // 打开连接
@@ -689,7 +662,7 @@ public class FileUtils {
         File fold = new File(path);
         if (!file.exists() && !fold.isDirectory()) {
             fold.mkdirs();
-            System.out.println("创建文件夹--->"+path);
+            System.out.println("创建文件夹--->" + path);
         }
         //写入文件
         FileOutputStream os = new FileOutputStream(file, true);

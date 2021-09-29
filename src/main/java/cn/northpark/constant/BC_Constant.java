@@ -246,6 +246,32 @@ public class BC_Constant {
 
     }
 
+    /**
+     * 根据不同系统获取：文件传输起始路径
+     */
+    public static String getFileStartByOs() {
+        ResourceBundle bundle = ResourceBundle.getBundle("env-config");
+
+        if (bundle == null) {
+            throw new IllegalArgumentException("env-config.properties!");
+        }
+        Properties prop = System.getProperties();
+        String os = prop.getProperty("os.name");
+        if (os.startsWith("win") || os.startsWith("Win")) {// windows操作系统
+
+            return bundle.getString("winFileStart");
+
+        } else if (os.startsWith("mac") || os.startsWith("Mac")) {// mac操作系统
+
+            return bundle.getString("macFileStart");
+
+        } else {  //linux
+
+            return bundle.getString("linuxFileStart");
+        }
+
+    }
+
     //==========================================================微信==============================================================================================
     
 //    public static String WX_url_menu_create = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
