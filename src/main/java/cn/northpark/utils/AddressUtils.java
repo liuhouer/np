@@ -11,10 +11,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.northpark.utils.encrypt.DESUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author bruce
@@ -26,61 +29,71 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class AddressUtils {
-    
-    
+
+    private static final String ACCESS_KEY = DESUtils.decrypt("Fr22Vr5R/lpidOAunpLJRM7xoWyZczM2F6OY2KU/BAcZLJTCcl2pvA==", DESUtils.KEY);
+
     /**
      * 获取一个处理IP 和 区域的实例
      */
     private volatile static AddressUtils instance = null;
 
-    public  static AddressUtils getInstance() {
+    public static AddressUtils getInstance() {
         if (instance == null) {
-        	synchronized (AddressUtils.class) {
-        		  if (instance == null) {
-        			  instance = new AddressUtils();
-        		  }
-			}
+            synchronized (AddressUtils.class) {
+                if (instance == null) {
+                    instance = new AddressUtils();
+                }
+            }
         }
         return instance;
     }
 
     /**
-     * @param content  请求的参数 格式为：name=xxx&pwd=xxx
-     * @param encoding 服务器端请求编码。如GBK,UTF-8等
+     * IP定位 2.0
+     * IP定位 2.0 API服务地址：
+     *
+     * URL
+     *
+     * https://restapi.amap.com/v5/ip?parameters
+     *
+     * 请求方式
+     *
+     * GET
+     *                 74a85d61fa92afe35bc66be2f95f0c16
      * @return
      * @throws UnsupportedEncodingException
      */
     public String getAddresses(String content, String encodingString)
             throws UnsupportedEncodingException {
         // 这里调用pconline的接口
-        String urlStr = "http://ip.taobao.com/service/getIpInfo.php";
+        String urlStr = "https://restapi.amap.com/v5/ip";
         // 从http://whois.pconline.com.cn取得IP所在的省市区信息
+        //{
+        //	"status": "1",
+        //	"info": "OK",
+        //	"infocode": "10000",
+        //	"country": "中国",
+        //	"province": "河北省",
+        //	"city": "衡水市",
+        //	"district": "深州市",
+        //	"isp": "中国移动",
+        //	"location": "115.554596,38.00347",
+        //	"ip": "183.198.122.85"
+        //}
         String returnStr = this.getResult(urlStr, content, encodingString);
-        if (returnStr != null) {
+        if (StringUtils.isNotEmpty(returnStr)) {
             // 处理返回的省市区信息
             log.info(returnStr);
-            String[] temp = returnStr.split(",");
-            if (temp.length < 3) {
-                return "0";//无效IP，局域网测试
+            Map<String, Object> datamap = JsonUtil.json2map(returnStr);
+            if (Objects.nonNull(datamap) && !datamap.isEmpty()) {
+                String country = (String) datamap.get("country");
+                String province = (String) datamap.get("province");
+                String city = (String) datamap.get("city");
+                String isp = (String) datamap.get("isp");
+                String rs = "【国家：" + country + "】【省份：" + province + "】【城市：" + city + "】【供应商：" + isp + "】";
+                log.info(rs);
+                return rs;
             }
-//			String region = (temp[5].split(":"))[1].replaceAll("\"", "");
-//			region = decodeUnicode(region);// 省份
-//
-            
-            Map<String, Object> json2map = JsonUtil.json2map(returnStr);
-			Map<String, Object> datamap = (Map<String, Object>) json2map.get("data");
-            //{"area":"","country":"中国","isp_id":"100017","city":"北京","ip":"124.42.107.154","isp":"电信","county":"XX","region_id":"110000","area_id":"","county_id":"xx","region":"北京","country_id":"CN","city_id":"110100"}
-            String country = (String) datamap.get("country");
-            String area =    (String) datamap.get("area");
-            String region =  (String) datamap.get("region");
-            String city =    (String) datamap.get("city");
-            String county =  (String) datamap.get("county");
-            String isp =     (String) datamap.get("isp");
-           
-        	
-            String rs = "【国家："+country + "】【城市："  + city  +"】【区域："+ region + "】【供应商：" + isp+"】";
-            log.info(rs);
-			return rs;
         }
         return null;
     }
@@ -229,38 +242,38 @@ public class AddressUtils {
         }
         return ip;
     }
-    
-    
+
+
     /**
      * 获取IP + 地址字符串
      *
      * @param beat
      * @return
      */
-    public  String getIpAndDetail(HttpServletRequest beat) {
-    	StringBuilder sb = new StringBuilder();
-    	instance= AddressUtils.getInstance();
-    	String ip = instance.getIpAddr(beat);
-    	sb.append("【ip:").append(ip).append("】").append("【");
-    	try {
-			String addresses = instance.getAddresses("ip=" + ip, "utf-8");
-			sb.append("address:").append(addresses);
-			sb.append("】");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public String getIpAndDetail(HttpServletRequest beat) {
+        StringBuilder sb = new StringBuilder();
+        instance = AddressUtils.getInstance();
+        String ip = instance.getIpAddr(beat);
+        sb.append("【ip:").append(ip).append("】").append("【");
+        try {
+            String addresses = instance.getAddresses("ip=" + ip + "&key=" + ACCESS_KEY + "&type=4", "utf-8");
+            sb.append("address:").append(addresses);
+            sb.append("】");
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return sb.toString();
     }
 
-    // 测试
+    //    // 测试
     public static void main(String[] args) {
         AddressUtils addressUtils = new AddressUtils();
         // 测试ip 219.136.134.157 中国=华南=广东省=广州市=越秀区=电信
-        String ip = "104.198.94.104";
+        String ip = "183.198.122.85";
         String address = "";
         try {
-            address = addressUtils.getAddresses("ip=" + ip, "utf-8");
+            address = addressUtils.getAddresses("ip=" + ip + "&key=" + ACCESS_KEY + "&type=4", "utf-8");
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             log.error("AddressUtils------->", e);
