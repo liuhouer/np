@@ -280,7 +280,7 @@ a.btn {
 }
 
 .mainhead-nav > li + li {
-    margin-left: 20px;
+    /*margin-left: 10px;*/
 }
 
 .mainhead-nav > li > a {
