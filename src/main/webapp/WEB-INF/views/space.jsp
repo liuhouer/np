@@ -46,7 +46,7 @@
                             </c:if>
 
                     >最爱</a></li>
-                    <li><a href="/note/viewNotes/${MyInfo.id}">碎碎念</a></li>
+                    <li><a href="/note/viewNotes/${MyInfo.id}">留言</a></li>
                     <li><a href="/cm/fans/${MyInfo.id}">Fans</a></li>
 
                 </ul>

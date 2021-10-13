@@ -53,7 +53,7 @@
                             <small>加入时间：${MyInfo.date_joined }</small>
                         </h3>
 
-                        <h2><a href="/note/findAll" class="btn btn-hero btn-lg">+ 添加碎碎念</a></h2>
+                        <h2><a href="/note/findAll" class="btn btn-hero btn-lg">+ 添加留言</a></h2>
                     </div>
                 </div>
             </div>

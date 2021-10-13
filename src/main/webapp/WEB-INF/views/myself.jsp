@@ -38,7 +38,7 @@
             <div class="clearfix margin-b20">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="/cm/pcentral">最爱</a></li>
-                    <li><a href="/note/findAll">碎碎念</a></li>
+                    <li><a href="/note/findAll">留言</a></li>
                     <li><a href="/cm/myfans">Fans</a></li>
                 </ul>
             </div>
