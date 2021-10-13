@@ -52,12 +52,14 @@ public class RedisUtil {
             config.setTestOnReturn(onreturn);
             jedisPool = new JedisPool(config, ip, port, 10000, bundle.getString("redis.password"));
         }
-        return getJedis();
+        return jedisPool.getResource();
     }
 
     //向连接池返回连接
     public static void returnResource(Jedis jedis) {
-        jedis.close();
+        if(jedis!=null) {
+            jedis.close();
+        }
     }
 
 
