@@ -80,8 +80,8 @@
 
                         <div class="hidden" id="stuffCommentList_${s.noteid}">
 
-                            <h4><span class="glyphicon glyphicon-comment"></span></h4>
-                            <hr>
+                            <h4><span class="glyphicon glyphicon-comment" title="登录后评论"></span></h4>
+                            <hr title="评论列表">
                                 <%--展示评论详情--%>
                             <div class="clearfix" id="stuffCommentBox_${s.noteid}">
 
