@@ -6,3 +6,4 @@
 <link media="all" type="text/css" rel="stylesheet" href="https://northpark.cn/statics/css/qinco.css">
 <link media="all" type="text/css" rel="stylesheet" href="https://northpark.cn/statics/css/main2.css">
 <input type="hidden" id="J_tab_name" value="${ tabs}"/>
+<link rel="stylesheet" href="/static/css/font-awesome.css"><!-- 字体 -->

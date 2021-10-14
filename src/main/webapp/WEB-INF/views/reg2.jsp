@@ -21,7 +21,6 @@
 
     <link media="all" type="text/css" rel="stylesheet" href="https://northpark.cn/statics/css/login/owl-login.css">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
-    <link rel="stylesheet" href="/static/css/font-awesome.css"><!-- 字体 -->
 
 </head>
 
