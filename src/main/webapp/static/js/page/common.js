@@ -29,8 +29,7 @@ function previewImage(file) {
             img.src = evt.target.result;
         }
         reader.readAsDataURL(file.files[0]);
-    }
-    else //兼容IE
+    } else //兼容IE
     {
         var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
         file.select();
@@ -132,7 +131,7 @@ function clacImgZoomParam(maxWidth, maxHeight, width, height) {
 
 //下拉查看更多的事件
 
-$("body").on('click', '.click2show', function() {
+$("body").on('click', '.click2show', function () {
     var brief_id = $(this).data('dismiss');
     var article_id = $(this).data('target');
 
@@ -146,13 +145,13 @@ $("body").on('click', '.click2show', function() {
 
 
     //加载评论
-    $("#stuffCommentList_"+topic_id).removeClass('hidden');
-    loadComment(topic_id,1);
+    $("#stuffCommentList_" + topic_id).removeClass('hidden');
+    loadComment(topic_id, 1);
 
 
 });
 
-$("body").on('click', '.click2hide', function() {
+$("body").on('click', '.click2hide', function () {
 
     var brief_id = $(this).data('dismiss');
     var article_id = $(this).data('target');
@@ -169,8 +168,7 @@ $("body").on('click', '.click2hide', function() {
     $(this).removeClass('click2hide').addClass('click2show');
 
     //隐藏评论
-    $("#stuffCommentList_"+topic_id).addClass('hidden');
-
+    $("#stuffCommentList_" + topic_id).addClass('hidden');
 
 
 });
@@ -180,17 +178,16 @@ $("body").on('click', '.click2hide', function() {
  * 点击评论按钮
  */
 
-$("body").on('click', '.click2comment', function() {
+$("body").on('click', '.click2comment', function () {
     var comment_id = $(this).data('target');
 
 
     var display = $(comment_id).css("display");
-    if(display=='none'){
-        $(comment_id).removeClass("hidden").css("display","block");
-    }else if(display=='block'){
-        $(comment_id).addClass("hidden").css("display","none");
+    if (display == 'none') {
+        $(comment_id).removeClass("hidden").css("display", "block");
+    } else if (display == 'block') {
+        $(comment_id).addClass("hidden").css("display", "none");
     }
-
 
 
 });
@@ -200,7 +197,7 @@ $("body").on('click', '.click2comment', function() {
  * 点击评论save按钮
  */
 
-$("body").on('click', '.click2save', function() {
+$("body").on('click', '.click2save', function () {
 
     var dismiss = $(this).data('dismiss');
     var show = $(this).data('target');
@@ -214,21 +211,37 @@ $("body").on('click', '.click2save', function() {
     var to_uid = $(this).attr('to-uid');
     var to_uname = $(this).attr('to-uname');
 
-    if(to_uid==from_uid){
+    if (to_uid == from_uid) {
         to_uid = '';
         to_uname = '';
     }
 
-    var comment_content= $(input).val();
+    var comment_content = $(input).val();
 
+    if (!comment_content.trim()) {
+        art.dialog.alert('填写必要信息');
+        return;
+    }
 
-    console.log(topic_id,topic_type,from_uid,from_uname,to_uid,comment_content);
+    console.log(topic_id, topic_type, from_uid, from_uname, to_uid, comment_content);
 
+    if (!(topic_id && topic_type && from_uid && from_uname)) {
+        art.dialog.alert('参数非法');
+        return;
+    }
 
     $.ajax({
         url: "/topicComment/addTopicComment",
         type: "post",
-        data: {"topic_id": topic_id, "topic_type": topic_type,"from_uid": from_uid,"from_uname": from_uname,"content": comment_content,"to_uid": to_uid,"to_uname":to_uname},
+        data: {
+            "topic_id": topic_id,
+            "topic_type": topic_type,
+            "from_uid": from_uid,
+            "from_uname": from_uname,
+            "content": comment_content,
+            "to_uid": to_uid,
+            "to_uname": to_uname
+        },
         dataType: "json",
         beforeSend: beforeSend, //发送请求
         complete: complete,
@@ -240,10 +253,10 @@ $("body").on('click', '.click2save', function() {
                 $(dismiss).toggle();
 
                 //展示全文和评论详情
-                loadComment(topic_id,1);
+                loadComment(topic_id, 1);
 
 
-            }else{
+            } else {
                 console.log(data);
             }
         }
@@ -252,16 +265,15 @@ $("body").on('click', '.click2save', function() {
 });
 
 
-
 //加载评论...
-function loadComment(topic_id,topic_type) {
+function loadComment(topic_id, topic_type) {
     $.ajax({
         url: "/topicComment/list",
         type: "get",
-        data: {"topic_id": topic_id ,"topic_type":topic_type},
+        data: {"topic_id": topic_id, "topic_type": topic_type},
         success: function (data) {
             if (data) {
-                $("#stuffCommentBox_"+topic_id).text("").append(data);
+                $("#stuffCommentBox_" + topic_id).text("").append(data);
             }
         }
     });
@@ -270,25 +282,25 @@ function loadComment(topic_id,topic_type) {
 
 
 //加载打赏数据
-function loadDonates(type_id){
+function loadDonates(type_id) {
     $.ajax({
         url: "/dash/getDonates",
         type: "get",
-        data: {"type_id": type_id },
+        data: {"type_id": type_id},
         success: function (data) {
             if (data) {
-               $("#donateContent").text("").append(data);
+                $("#donateContent").text("").append(data);
             }
         }
     });
 }
 
 //加载打赏数据
-function loadDonates(type_id,page){
+function loadDonates(type_id, page) {
     $.ajax({
         url: "/dash/getDonates",
         type: "get",
-        data: {"type_id": type_id ,"page":page},
+        data: {"type_id": type_id, "page": page},
         success: function (data) {
             if (data) {
                 $("#donateContent").text("").append(data);
@@ -298,10 +310,7 @@ function loadDonates(type_id,page){
 }
 
 
-
-
-
-//复制内容自动添加版权信息 
+//复制内容自动添加版权信息
 /*var Sys = {}; 
    var ua = navigator.userAgent.toLowerCase(); 
    if( window.ActiveXObject ) 
