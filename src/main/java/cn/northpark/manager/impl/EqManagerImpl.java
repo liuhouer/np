@@ -87,7 +87,7 @@ public class EqManagerImpl implements EqManager {
     @Override
     public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView) {
         // TODO Auto-generated method stub
-        return eqDao.QuerySQLForMapList(sql, pageView);
+        return eqDao.querySQLForMapList(sql, pageView);
     }
 
     /* (non-Javadoc)
@@ -114,7 +114,7 @@ public class EqManagerImpl implements EqManager {
     @Override
     public void executeSql(String sql) {
         // TODO Auto-generated method stub
-        eqDao.executess(sql);
+        eqDao.execSQL(sql);
     }
 }
 

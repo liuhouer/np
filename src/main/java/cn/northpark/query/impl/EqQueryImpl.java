@@ -1,10 +1,9 @@
 
 package cn.northpark.query.impl;
 
-import org.springframework.stereotype.Service;
-
 import cn.northpark.query.EqQuery;
 import cn.northpark.query.condition.EqQueryCondition;
+import org.springframework.stereotype.Service;
 
 /**
  * @author bruce

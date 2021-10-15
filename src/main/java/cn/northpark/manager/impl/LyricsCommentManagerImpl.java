@@ -82,7 +82,7 @@ public class LyricsCommentManagerImpl implements LyricsCommentManager {
     @Override
     public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView) {
         // TODO Auto-generated method stub
-        return lyricscommentDao.QuerySQLForMapList(sql, pageView);
+        return lyricscommentDao.querySQLForMapList(sql, pageView);
     }
 
     /* (non-Javadoc)
@@ -107,14 +107,14 @@ public class LyricsCommentManagerImpl implements LyricsCommentManager {
     public List<Map<String, Object>> findmixByCondition(
             PageView<List<Map<String, Object>>> pageview, String sql) {
         // TODO Auto-generated method stub
-        return lyricscommentDao.QuerySQLForMapList(sql, pageview);
+        return lyricscommentDao.querySQLForMapList(sql, pageview);
     }
 
     @Override
     public PageView<List<Map<String, Object>>> getMixMapPage(
             PageView<List<Map<String, Object>>> pageview, String sql) {
         // TODO Auto-generated method stub
-        return lyricscommentDao.QuerySQLCountForMapList(sql, pageview);
+        return lyricscommentDao.querySQLCountForMapList(sql, pageview);
     }
 }
 

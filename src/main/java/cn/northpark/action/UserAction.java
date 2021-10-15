@@ -1,20 +1,23 @@
 
 package cn.northpark.action;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import cn.northpark.annotation.CheckLogin;
+import cn.northpark.constant.CookieConstant;
+import cn.northpark.constant.RedisConstant;
+import cn.northpark.constant.ResultEnum;
+import cn.northpark.exception.Result;
+import cn.northpark.exception.ResultGenerator;
+import cn.northpark.manager.*;
+import cn.northpark.model.Reset;
+import cn.northpark.model.User;
+import cn.northpark.model.UserFollow;
+import cn.northpark.model.Userprofile;
+import cn.northpark.threadLocal.RequestHolder;
+import cn.northpark.utils.*;
+import cn.northpark.utils.encrypt.EnDecryptUtils;
+import cn.northpark.utils.safe.WAQ;
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,36 +29,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.common.collect.Lists;
-
-import cn.northpark.annotation.CheckLogin;
-import cn.northpark.constant.CookieConstant;
-import cn.northpark.constant.RedisConstant;
-import cn.northpark.constant.ResultEnum;
-import cn.northpark.exception.Result;
-import cn.northpark.exception.ResultGenerator;
-import cn.northpark.manager.MQProducerManager;
-import cn.northpark.manager.ResetManager;
-import cn.northpark.manager.UserFollowManager;
-import cn.northpark.manager.UserManager;
-import cn.northpark.manager.UserprofileManager;
-import cn.northpark.model.Reset;
-import cn.northpark.model.User;
-import cn.northpark.model.UserFollow;
-import cn.northpark.model.Userprofile;
-import cn.northpark.threadLocal.RequestHolder;
-import cn.northpark.utils.AddressUtils;
-import cn.northpark.utils.CookieUtil;
-import cn.northpark.utils.EmailUtils;
-import cn.northpark.utils.FileUtils;
-import cn.northpark.utils.IDUtils;
-import cn.northpark.utils.JsonUtil;
-import cn.northpark.utils.PinyinUtil;
-import cn.northpark.utils.RedisUtil;
-import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.encrypt.EnDecryptUtils;
-import cn.northpark.utils.safe.WAQ;
-import lombok.extern.slf4j.Slf4j;
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.*;
 
 @Controller
 @Slf4j
@@ -819,7 +800,7 @@ public class UserAction {
     	 //1.cookie登录
     	 Cookie cookie = CookieUtil.get(request, CookieConstant.TOKEN);
          if (cookie != null) {
-        	 String userstr = RedisUtil.get(String.format(RedisConstant.TOKEN_TEMPLATE, cookie.getValue()));
+        	 String userstr = RedisUtil.getInstance().get(String.format(RedisConstant.TOKEN_TEMPLATE, cookie.getValue()));
         	 
         	 if(StringUtils.isNotEmpty(userstr)) {
         		 User user = JsonUtil.json2object(userstr, User.class);
@@ -848,7 +829,7 @@ public class UserAction {
             		
             	 //3. 往redis设置key=UUID,value=xyz
                  String token = UUID.randomUUID().toString();
-                 RedisUtil.set(String.format(RedisConstant.TOKEN_TEMPLATE, token), JsonUtil.object2json(user),  CookieConstant.expire);
+                 RedisUtil.getInstance().set(String.format(RedisConstant.TOKEN_TEMPLATE, token), JsonUtil.object2json(user),  CookieConstant.expire);
 
                  //4. 设置cookie openid = abc
                  CookieUtil.set(response, CookieConstant.TOKEN, token, CookieConstant.expire);

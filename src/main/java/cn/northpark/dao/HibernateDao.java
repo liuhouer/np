@@ -1,44 +1,47 @@
 package cn.northpark.dao;
 
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
+
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.northpark.utils.page.PageView;
-import cn.northpark.utils.page.QueryResult;
-
-@SuppressWarnings("hiding")
 public interface HibernateDao<T, PK extends Serializable> {
 
-    public <T extends Serializable> PK save(T entity);
+    <T extends Serializable> PK save(T entity);
 
-    public <T extends Serializable> void update(T entity);
+    <T extends Serializable> void update(T entity);
 
-    public <T extends Serializable> void update(LinkedHashMap<String, T> update);
+    <T extends Serializable> void update(LinkedHashMap<String, T> update);
 
-    public <T extends Serializable> void update(
-            LinkedHashMap<String, T> update, String where, Object[] parameter);
+    <T extends Serializable> void update(LinkedHashMap<String, T> update,
+                                         String where,
+                                         Object[] parameter);
 
-    public <T extends Serializable> void delete(T entity);
+    <T extends Serializable> void delete(T entity);
 
-    //执行sql返回void
-    public void executess(String sql);
+    /**
+     * 执行sql返回void
+     * @param sql
+     */
+    void execSQL(String sql);
 
-    public void delete(@SuppressWarnings("unchecked") PK... primaryKeyId);
+    void delete(PK... primaryKeyId);
 
-    public void delete(String where, Object[] parameter);
+    void delete(String where, Object[] parameter);
 
-    public T find(PK primarKeyId);
+    T find(PK primarKeyId);
 
-    public List<T> findAll();
+    List<T> findAll();
 
-    public <T extends Serializable> QueryResult<T> findByCondition(
+    <T extends Serializable> QueryResult<T> findByCondition(
             int firstResult, int maxResults, String where,
             LinkedHashMap<String, String> orderBy);
 
 
-    public <T extends Serializable> QueryResult<T> findByCondition(String where);
+    <T extends Serializable> QueryResult<T> findByCondition(String where);
 
 
     /**
@@ -46,9 +49,9 @@ public interface HibernateDao<T, PK extends Serializable> {
      *
      * @param sql SQL语句
      * @param obj 参数列表(顺序对应SQL)
-     * @return List<Map   <   String   ,       Object>>
+     * @return List<Map < String, Object>>
      */
-    public List<Map<String, Object>> querySql(String sql, Object... obj);
+    List<Map<String, Object>> querySql(String sql, Object... obj);
 
     /**
      * SQL查询操作
@@ -56,19 +59,26 @@ public interface HibernateDao<T, PK extends Serializable> {
      * @param clazz 返回Model.clazz
      * @return List<Model>
      */
-    public <T extends Serializable> List<T> querySql(String sql, Class<T> clazz, Object... obj);
+    <T extends Serializable> List<T> querySql(String sql, Class<T> clazz, Object... obj);
 
 
-    public List<Map<String, Object>> QuerySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView);
+    /**
+     * 根据定义的pageView+ sql返回集合
+     *
+     * @param sql
+     * @param pageView
+     * @return
+     */
+    List<Map<String, Object>> querySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView);
 
 
     /**
      * @param sql
      * @param pageView
-     * @return PageView<List   <   Map   <   String   ,       Object>>>
-     * @desc 多表联合查询 只返回封装的pageview  by bruce
+     * @return PageView<List < Map < String, Object>>>
+     * @desc 多表联合查询 只返回封装的pageView
      */
-    public PageView<List<Map<String, Object>>> QuerySQLCountForMapList(String sql, PageView<List<Map<String, Object>>> pageView);
+    PageView<List<Map<String, Object>>> querySQLCountForMapList(String sql, PageView<List<Map<String, Object>>> pageView);
 
     /**
      * 根据sql语句查询条数
@@ -76,14 +86,15 @@ public interface HibernateDao<T, PK extends Serializable> {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+    int countSql(String sql);
 
 
     /**
      * 根据实体查询条数
      *
-     * @param sql SQL语句
+     * @param clazz
+     * @param whereSql
      * @return int
      */
-    public <T extends Serializable> int countHql(Class<T> clazz, String wheresql);
+    <T extends Serializable> int countHql(Class<T> clazz, String whereSql);
 }

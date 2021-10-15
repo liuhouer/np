@@ -44,7 +44,7 @@ public class RedisAspect {
 		String type = modelType.getType();
 		
 		
-		String redisRS = RedisUtil.get(key);
+		String redisRS = RedisUtil.getInstance().get(key);
 		
 		Object result = null;
 		
@@ -83,7 +83,7 @@ public class RedisAspect {
 			//去数据库查询
 			result = jp.proceed(jp.getArgs());
 			//把序列化结果放入缓存
-			RedisUtil.set(key, JsonUtil.object2json(result),cache.expire());
+			RedisUtil.getInstance().set(key, JsonUtil.object2json(result),cache.expire());
 			
 		}
 		

@@ -1,10 +1,9 @@
 
 package cn.northpark.query.impl;
 
-import org.springframework.stereotype.Service;
-
 import cn.northpark.query.LyricsQuery;
 import cn.northpark.query.condition.LyricsQueryCondition;
+import org.springframework.stereotype.Service;
 
 @Service("LyricsQuery")
 

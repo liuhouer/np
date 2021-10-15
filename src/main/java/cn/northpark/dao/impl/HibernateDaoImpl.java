@@ -20,7 +20,6 @@ import cn.northpark.utils.ReflectManager;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 
-@SuppressWarnings({"unchecked", "hiding"})
 public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
         HibernateDao<T, PK> {
 
@@ -114,7 +113,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void executess(String sql) {
+    public void execSQL(String sql) {
         sessionFactory.getCurrentSession().createSQLQuery(sql).executeUpdate();
         sessionFactory.getCurrentSession().flush();
     }
@@ -213,10 +212,10 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
     /**
      * @param sql
      * @param pageView
-     * @return PageView<List   <   Map   <   String   ,       Object>>>
+     * @return PageView<List < Map < String, Object>>>
      * @desc 多表联合查询 包含分页 只返回结果集List<map>集合 by bruce
      */
-    public List<Map<String, Object>> QuerySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
+    public List<Map<String, Object>> querySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
         String resultQueryString = (new StringBuilder(" select t.* from (")).append(sql).append(") as t LIMIT " + pageView.getFirstResult() + "," + pageView.getMaxresult()).toString();
         List<Map<String, Object>> resultlist = querySql(resultQueryString);
         sessionFactory.getCurrentSession().flush();
@@ -227,10 +226,10 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
     /**
      * @param sql
      * @param pageView
-     * @return PageView<List   <   Map   <   String   ,       Object>>>
+     * @return PageView<List < Map < String, Object>>>
      * @desc 多表联合查询 只返回封装的pageview  by bruce
      */
-    public PageView<List<Map<String, Object>>> QuerySQLCountForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
+    public PageView<List<Map<String, Object>>> querySQLCountForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
 
         int countSql = countSql(sql);
         pageView.setTotalrecord(countSql);
@@ -243,7 +242,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
      *
      * @param sql SQL语句
      * @param obj 参数列表(顺序对应SQL)
-     * @return List<Map   <   String   ,       Object>>
+     * @return List<Map < String, Object>>
      */
     public List<Map<String, Object>> querySql(String sql, Object... obj) {
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
@@ -354,19 +353,20 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
     /**
      * 根据实体查询条数
      *
-     * @param sql SQL语句
+     * @param clazz
+     * @param whereSql
      * @return int
      */
     @Transactional(propagation = Propagation.REQUIRED)
-    public <T extends Serializable> int countHql(Class<T> clazz, String wheresql) {
+    public <T extends Serializable> int countHql(Class<T> clazz, String whereSql) {
         String entityName = t.getName();
 
         StringBuilder hql = new StringBuilder();
 
         hql.append("select count(*) from " + entityName + " as o");
 
-        if (StringUtils.isNotEmpty(wheresql)) {
-            hql.append(wheresql);
+        if (StringUtils.isNotEmpty(whereSql)) {
+            hql.append(whereSql);
         }
 
         Query query = sessionFactory.getCurrentSession().createQuery(hql.toString());

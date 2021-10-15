@@ -120,10 +120,10 @@ public class SoftAction {
 
 
                 //从redis set里面删除更新的失效资源
-                if(RedisUtil.smembers(BC_Constant.REDIS_FEEDBACK).toString().contains(model.getId().toString())){
-                    RedisUtil.smembers(BC_Constant.REDIS_FEEDBACK).forEach(item->{
+                if(RedisUtil.getInstance().sMembers(BC_Constant.REDIS_FEEDBACK).toString().contains(model.getId().toString())){
+                    RedisUtil.getInstance().sMembers(BC_Constant.REDIS_FEEDBACK).forEach(item->{
                         if(item.contains(model.getId().toString())) {
-                            RedisUtil.srem(BC_Constant.REDIS_FEEDBACK, item);
+                            RedisUtil.getInstance().sRem(BC_Constant.REDIS_FEEDBACK, item);
                         }
                     });
                 }
@@ -404,9 +404,9 @@ public class SoftAction {
 
         
         //从redis取
-        String soft_tags_str = RedisUtil.get("soft_tags");
-        String soft_hot_list_str = RedisUtil.get("soft_hot_list");
-        String soft_date_list_str = RedisUtil.get("soft_date_list");
+        String soft_tags_str = RedisUtil.getInstance().getInstance().get("soft_tags");
+        String soft_hot_list_str = RedisUtil.getInstance().getInstance().get("soft_hot_list");
+        String soft_date_list_str = RedisUtil.getInstance().getInstance().get("soft_date_list");
         
         if(StringUtils.isNotEmpty(soft_tags_str) && StringUtils.isNotEmpty(soft_hot_list_str) && StringUtils.isNotEmpty(soft_date_list_str)) {
         	
@@ -431,9 +431,9 @@ public class SoftAction {
             datelist = softManager.querySqlMap(datesql);
 
             
-            RedisUtil.set("soft_tags", JsonUtil.object2json(tags), 24 * 60 * 60);
-            RedisUtil.set("soft_hot_list", JsonUtil.object2json(hotlist), 24 * 60 * 60);
-            RedisUtil.set("soft_date_list", JsonUtil.object2json(datelist), 24 * 60 * 60);
+            RedisUtil.getInstance().getInstance().set("soft_tags", JsonUtil.object2json(tags), 24 * 60 * 60);
+            RedisUtil.getInstance().getInstance().set("soft_hot_list", JsonUtil.object2json(hotlist), 24 * 60 * 60);
+            RedisUtil.getInstance().getInstance().set("soft_date_list", JsonUtil.object2json(datelist), 24 * 60 * 60);
         }
         
         map.put("soft_tags", tags);

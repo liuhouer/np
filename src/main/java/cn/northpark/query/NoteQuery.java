@@ -4,7 +4,9 @@ package cn.northpark.query;
 import cn.northpark.query.condition.NoteQueryCondition;
 
 public interface NoteQuery {
-    public String getSql(NoteQueryCondition noteQueryCondition);
+   String getSql(NoteQueryCondition noteQueryCondition);
 
-    public String getMixSql(NoteQueryCondition condition);
+   String getMixSql(NoteQueryCondition condition);
+
+   String getRandSql(NoteQueryCondition condition);
 }

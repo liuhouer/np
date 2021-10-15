@@ -5,6 +5,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -17,17 +18,46 @@ import java.util.Set;
  * >>>
  */
 @Slf4j
-public class RedisUtil {
+public class RedisUtil implements RedisInterface{
+
 
     //私有化构造函数，禁止new
     private RedisUtil() {
     }
 
+    public enum OneLimitEnum {
+        T;
+        private RedisUtil singleton;
+
+        /**
+         * 构造函数
+         */
+        OneLimitEnum() {
+            singleton = new RedisUtil();
+        }
+
+        //get
+        public RedisUtil getInstance() {
+            return singleton;
+        }
+    }
+
+
+    /**
+     * 获取一个唯一的实例
+     *
+     * @return
+     */
+    public static RedisUtil getInstance() {
+        return OneLimitEnum.T.getInstance();
+    }
+
+
 
     private static JedisPool jedisPool = null;
 
     //获取连接
-    public static synchronized Jedis getJedis() {
+    private static synchronized Jedis getJedis() {
         if (jedisPool == null) {
             // 加载redis配置文件
             ResourceBundle bundle = ResourceBundle.getBundle("config");
@@ -56,20 +86,15 @@ public class RedisUtil {
     }
 
     //向连接池返回连接
-    public static void returnResource(Jedis jedis) {
+    private static void returnResource(Jedis jedis) {
         if(jedis!=null) {
             jedis.close();
         }
     }
 
 
-    /**
-     * 根据byte数组key获取数据
-     *
-     * @param key byte[]
-     * @return byte[]
-     */
-    public static byte[] get(byte[] key) {
+    @Override
+    public byte[] get(byte[] key) {
         Jedis jedis = null;
         byte[] bytes = null;
         try {
@@ -83,13 +108,8 @@ public class RedisUtil {
         return bytes;
     }
 
-    /**
-     * 根据String key获取数据
-     *
-     * @param key byte[]
-     * @return String
-     */
-    public static String get(String key) {
+    @Override
+    public String get(String key) {
         Jedis jedis = null;
         String value = null;
         try {
@@ -103,13 +123,8 @@ public class RedisUtil {
         return value;
     }
 
-    /**
-     * 根据key ,value存储,value最大1G
-     *
-     * @param key   byte[]
-     * @param value byte[]
-     */
-    public static void set(byte[] key, byte[] value) {
+    @Override
+    public void set(byte[] key, byte[] value) {
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -122,14 +137,8 @@ public class RedisUtil {
         }
     }
 
-    /**
-     * 根据key ,value ,expire(单位s)过期时间存储,value最大1G
-     *
-     * @param key
-     * @param value
-     * @param expire
-     */
-    public static void set(byte[] key, byte[] value, int expire) {
+    @Override
+    public void set(byte[] key, byte[] value, int expire) {
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -144,11 +153,8 @@ public class RedisUtil {
         }
     }
 
-    /**
-     * @param key
-     * @param value
-     */
-    public static void set(String key, String value) {
+    @Override
+    public void set(String key, String value) {
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -161,14 +167,8 @@ public class RedisUtil {
         }
     }
 
-    /**
-     * 根据key ,value ,expire(单位s)过期时间存储,value最大1G
-     *
-     * @param key
-     * @param value
-     * @param expire
-     */
-    public static void set(String key, String value, int expire) {
+    @Override
+    public void set(String key, String value, int expire) {
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -183,13 +183,8 @@ public class RedisUtil {
         }
     }
 
-    /**
-     * 并发设置key
-     *
-     * @param key
-     * @param value
-     */
-    public static void setnx(String key, String value) {
+    @Override
+    public void setNX(String key, String value) {
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -202,14 +197,8 @@ public class RedisUtil {
         }
     }
 
-    /**
-     * 并发设置key
-     *
-     * @param key
-     * @param value
-     * @param expire
-     */
-    public static void setnx(String key, String value, int expire) {
+    @Override
+    public void setNX(String key, String value, int expire) {
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -225,13 +214,8 @@ public class RedisUtil {
         }
     }
 
-    /**
-     * 并发设置key
-     *
-     * @param key
-     * @param value
-     */
-    public static void setnx(byte[] key, byte[] value) {
+    @Override
+    public void setNX(byte[] key, byte[] value) {
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -244,14 +228,8 @@ public class RedisUtil {
         }
     }
 
-    /**
-     * 并发设置key
-     *
-     * @param key
-     * @param value
-     * @param expire
-     */
-    public static void setnx(byte[] key, byte[] value, int expire) {
+    @Override
+    public void setNX(byte[] key, byte[] value, int expire) {
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -267,12 +245,8 @@ public class RedisUtil {
         }
     }
 
-    /**
-     * 根据key删除缓存
-     *
-     * @param key
-     */
-    public static void del(byte[] key) {
+    @Override
+    public void del(byte[] key) {
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -285,10 +259,8 @@ public class RedisUtil {
         }
     }
 
-    /**
-     * @param key
-     */
-    public static void del(String key) {
+    @Override
+    public void del(String key) {
         Jedis jedis = null;
         try {
             jedis = getJedis();
@@ -301,13 +273,8 @@ public class RedisUtil {
         }
     }
 
-    /**
-     * 获取所有的keys
-     *
-     * @param pattern
-     * @return
-     */
-    public static Set<String> keys(String pattern) {
+    @Override
+    public Set<String> keys(String pattern) {
         Jedis jedis = null;
         Set<String> set = null;
         try {
@@ -321,11 +288,8 @@ public class RedisUtil {
         return set;
     }
 
-    /**
-     * @param pattern
-     * @return
-     */
-    public static Set<byte[]> keys(byte[] pattern) {
+    @Override
+    public Set<byte[]> keys(byte[] pattern) {
         Jedis jedis = null;
         Set<byte[]> set = null;
         try {
@@ -337,6 +301,193 @@ public class RedisUtil {
             returnResource(jedis);
         }
         return set;
+    }
+
+    @Override
+    public Long sAdd(String key, String member) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.sadd(key, member);
+        } catch (Exception e) {
+            log.error("set add 一个元素出错", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public Boolean sIsMember(String key, String member) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.sismember(key, member);
+        } catch (Exception e) {
+            log.error("set 包含一个元素出错", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public Set<String> sMembers(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.smembers(key);
+        } catch (Exception e) {
+            log.error("删除所有DB出错", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public Long sRem(String key, String member) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.srem(key, member);
+        } catch (Exception e) {
+            log.error("删除一个set出错", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public Long lPush(String key, String member) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.lpush(key, member);
+        } catch (Exception e) {
+            log.error("lPush===>",e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+
+    @Override
+    public String lPop(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.lpop(key);
+        } catch (Exception e) {
+            log.error("lPop===>", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public Long lLen(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.llen(key);
+        } catch (Exception e) {
+            log.error("lPop===>", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public List<String> lRange(String key, long start, long end) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.lrange(key,start,end);
+        } catch (Exception e) {
+            log.error("lPop===>", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public Long zAdd(String key, double score, String member) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.zadd(key,score,member);
+        } catch (Exception e) {
+            log.error("lPop===>", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public Set<String> zRangeByScore(String key, String min, String max, int offset, int count) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            Set<String> result = jedis.zrangeByScore(key, min, max, offset, count);
+            return result;
+        } catch (Exception e) {
+            log.error("zRangebyScore===>", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public Set<String> zReRangeByScore(String key, String max, String min, int offset, int count) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            Set<String> result = jedis.zrevrangeByScore(key, max, min, offset, count);
+            return result;
+        } catch (Exception e) {
+            log.error("Zrevrangebyscore 出错", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public Long zRem(String key, String... members) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+
+            return jedis.zrem(key, members);
+        } catch (Exception e) {
+            log.error("zrem 出错", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public Long zCard(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+
+            return jedis.zcard(key);
+        } catch (Exception e) {
+            log.error("zcard 出错", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
     }
 
     /**
@@ -371,174 +522,11 @@ public class RedisUtil {
         }
     }
 
-    // set集合相关--集合获取
-    public static Set<String> smembers(String key) {
-        Jedis jedis = null;
-        try {
-            jedis = getJedis();
-            return jedis.smembers(key);
-        } catch (Exception e) {
-            log.error("删除所有DB出错", e);
-        } finally {
-            returnResource(jedis);
-        }
-        return null;
-    }
-
-    // set集合相关--集合删除元素
-    public static Long srem(String key, String member) {
-        Jedis jedis = null;
-        try {
-            jedis = getJedis();
-            return jedis.srem(key, member);
-        } catch (Exception e) {
-            log.error("删除一个set出错", e);
-        } finally {
-            returnResource(jedis);
-        }
-        return null;
-    }
-
-    // set集合相关--集合添加元素
-    public static Long sadd(String key, String member) {
-        Jedis jedis = null;
-        try {
-            jedis = getJedis();
-            return jedis.sadd(key, member);
-        } catch (Exception e) {
-            log.error("set add 一个元素出错", e);
-        } finally {
-            returnResource(jedis);
-        }
-        return null;
-    }
-
-    // set集合相关--集合包含元素
-    public static Boolean sismember(String key, String member) {
-        Jedis jedis = null;
-        try {
-            jedis = getJedis();
-            return jedis.sismember(key, member);
-        } catch (Exception e) {
-            log.error("set 包含一个元素出错", e);
-        } finally {
-            returnResource(jedis);
-        }
-        return null;
-    }
-
-    /**
-     * 有序set
-     * Redis Zadd 命令用于将一个或多个成员元素及其分数值加入到有序集当中。
-     * 如果某个成员已经是有序集的成员，那么更新这个成员的分数值，并通过重新插入这个成员元素，来保证该成员在正确的位置上。
-     * 分数值可以是整数值或双精度浮点数。
-     * 如果有序集合 key 不存在，则创建一个空的有序集并执行 ZADD 操作。
-     * 当 key 存在但不是有序集类型时，返回一个错误。
-     *
-     * @param key
-     * @param score
-     * @param member
-     * @return 被成功添加的新成员的数量，不包括那些被更新的、已经存在的成员。
-     */
-    public static Long zadd(String key, double score, String member) {
-
-        Jedis jedis = null;
-        try {
-            jedis = getJedis();
-            Long result = jedis.zadd(key, score, member);
-            return result;
-        } catch (Exception e) {
-            log.error("zadd 出错", e);
-        } finally {
-            returnResource(jedis);
-        }
-
-        return null;
-    }
-
-    /**
-     * score正序排列
-     * Redis Zrevrangebyscore 返回有序集中指定分数区间内的所有的成员。有序集成员按分数值递减(从大到小)的次序排列。
-     * 具有相同分数值的成员按字典序的逆序(reverse lexicographical order )排列。
-     * 除了成员按分数值递减的次序排列这一点外， ZREVRANGEBYSCORE 命令的其他方面和 ZRANGEBYSCORE 命令一样。
-     *
-     * @param key
-     * @param max
-     * @param min
-     * @param offset
-     * @param count
-     * @return 指定区间内，带有分数值(可选)的有序集成员的列表。
-     */
-    public static Set<String> zRangebyScore(String key, String max, String min, int offset, int count) {
-
-        Jedis jedis = null;
-        try {
-            jedis = getJedis();
-            Set<String> result = jedis.zrangeByScore(key, min, max, offset, count);
-            return result;
-        } catch (Exception e) {
-            log.error("zRangebyScore 出错", e);
-        } finally {
-            returnResource(jedis);
-        }
-        return null;
-
-    }
-
-    /**
-     * 倒序
-     * Redis Zrevrangebyscore 返回有序集中指定分数区间内的所有的成员。有序集成员按分数值递减(从大到小)的次序排列。
-     * 具有相同分数值的成员按字典序的逆序(reverse lexicographical order )排列。
-     * 除了成员按分数值递减的次序排列这一点外， ZREVRANGEBYSCORE 命令的其他方面和 ZRANGEBYSCORE 命令一样。
-     *
-     * @param key
-     * @param max
-     * @param min
-     * @param offset
-     * @param count
-     * @return 指定区间内，带有分数值(可选)的有序集成员的列表。
-     */
-    public static Set<String> zrevrangebyscore(String key, String max, String min, int offset, int count) {
-
-        Jedis jedis = null;
-        try {
-            jedis = getJedis();
-            Set<String> result = jedis.zrevrangeByScore(key, max, min, offset, count);
-            return result;
-        } catch (Exception e) {
-            log.error("Zrevrangebyscore 出错", e);
-        } finally {
-            returnResource(jedis);
-        }
-        return null;
-
-    }
-
-    /**
-     * 有序集合：获取条数
-     * Redis Zcard 命令用于计算集合中元素的数量。
-     *
-     * @param key
-     */
-    public static Long zcard(String key) {
-
-        Jedis jedis = null;
-        try {
-            jedis = getJedis();
-            return jedis.zcard(key);
-        } catch (Exception e) {
-            log.error("zcard  出错", e);
-        } finally {
-            returnResource(jedis);
-        }
-        return null;
-    }
-
     public static void main(String[] args) {
 //		RedisUtil re = new RedisUtil();
 //		re.set("a", "b");
 
-        Set<String> donates_list_min_z1 = zRangebyScore("donates_list_min_z1", "12", "0", 0, 12);
+        Set<String> donates_list_min_z1 = RedisUtil.getInstance().zRangeByScore("donates_list_min_z1", "12", "0", 0, 12);
         System.err.println(donates_list_min_z1);
     }
 }

@@ -1,6 +1,6 @@
 
 package cn.northpark.query;
-import cn.northpark.model.TopicComment;
+
 import cn.northpark.query.condition.TopicCommentQueryCondition;
 /**
  * @author bruce
@@ -11,7 +11,7 @@ import cn.northpark.query.condition.TopicCommentQueryCondition;
  */
  
 public interface TopicCommentQuery {
-	public String getSql(TopicCommentQueryCondition topiccommentQueryCondition);
+	String getSql(TopicCommentQueryCondition topiccommentQueryCondition);
 	
-	public String getMixSql(TopicCommentQueryCondition condition);
+	String getMixSql(TopicCommentQueryCondition condition);
 }
