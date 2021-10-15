@@ -87,7 +87,7 @@ public class TagsManagerImpl implements TagsManager {
     @Override
     public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView) {
         // TODO Auto-generated method stub
-        return tagsDao.QuerySQLForMapList(sql, pageView);
+        return tagsDao.querySQLForMapList(sql, pageView);
     }
 
     /* (non-Javadoc)

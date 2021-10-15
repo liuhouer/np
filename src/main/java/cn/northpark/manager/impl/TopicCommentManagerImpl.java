@@ -114,14 +114,14 @@ public class TopicCommentManagerImpl implements TopicCommentManager {
     @Override
     public void executeSql(String sql) {
         // TODO Auto-generated method stub
-        topiccommentDao.executess(sql);
+        topiccommentDao.execSQL(sql);
     }
 
     @Override
     public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview, String sql) {
 
 
-        List<Map<String, Object>> list = topiccommentDao.QuerySQLForMapList(sql, pageview);
+        List<Map<String, Object>> list = topiccommentDao.querySQLForMapList(sql, pageview);
 
         return list;
 
@@ -131,7 +131,7 @@ public class TopicCommentManagerImpl implements TopicCommentManager {
     @Override
     public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql) {
 
-        return topiccommentDao.QuerySQLCountForMapList(sql, pageview);
+        return topiccommentDao.querySQLCountForMapList(sql, pageview);
     }
 
 }

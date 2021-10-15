@@ -71,7 +71,7 @@ public class NoteManagerImpl implements NoteManager {
         // TODO Auto-generated method stub
 
 
-        List<Map<String, Object>> list = noteDao.QuerySQLForMapList(sql, pageview);
+        List<Map<String, Object>> list = noteDao.querySQLForMapList(sql, pageview);
 
         return list;
 
@@ -118,7 +118,7 @@ public class NoteManagerImpl implements NoteManager {
             PageView<List<Map<String, Object>>> pageview, String sql) {
         // TODO Auto-generated method stub
 
-        return noteDao.QuerySQLCountForMapList(sql, pageview);
+        return noteDao.querySQLCountForMapList(sql, pageview);
     }
 }
 

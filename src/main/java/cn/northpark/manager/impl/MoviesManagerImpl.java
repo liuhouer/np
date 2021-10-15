@@ -104,7 +104,7 @@ public class MoviesManagerImpl implements MoviesManager {
 
     @Override
     public int exeSql(String up_sql) {
-        moviesDao.executess(up_sql);
+        moviesDao.execSQL(up_sql);
         return 0;
     }
 

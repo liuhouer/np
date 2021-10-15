@@ -11,5 +11,5 @@ import cn.northpark.query.condition.EqQueryCondition;
  */
 
 public interface EqQuery {
-    public String getSql(EqQueryCondition eqQueryCondition);
+    String getSql(EqQueryCondition eqQueryCondition);
 }

@@ -75,7 +75,7 @@ public class MoviesAction {
 
 		List<Map<String, Object>> rs = new ArrayList<>();
 
-		RedisUtil.smembers(BC_Constant.REDIS_FEEDBACK).forEach(i -> {
+		RedisUtil.getInstance().sMembers(BC_Constant.REDIS_FEEDBACK).forEach(i -> {
 			rs.add(JsonUtil.json2map(i));
 		});
 
@@ -97,7 +97,7 @@ public class MoviesAction {
 		String rs = "success";
 		try {
 			System.out.println(String.valueOf(map));
-			if (RedisUtil.sismember(BC_Constant.REDIS_FEEDBACK, String.valueOf(map))) {
+			if (RedisUtil.getInstance().sIsMember(BC_Constant.REDIS_FEEDBACK, String.valueOf(map))) {
 				return ResultGenerator.genSuccessResult(rs);
 			} else {
 
@@ -110,7 +110,7 @@ public class MoviesAction {
 				}
 
 				// 添加到集合中
-				RedisUtil.sadd(BC_Constant.REDIS_FEEDBACK, String.valueOf(map));
+				RedisUtil.getInstance().sAdd(BC_Constant.REDIS_FEEDBACK, String.valueOf(map));
 			}
 
 		} catch (Exception e) {
@@ -255,10 +255,10 @@ public class MoviesAction {
         		moviesManager.updateMovies(old);
 
                 //从redis set里面删除更新的失效资源
-                if(RedisUtil.smembers(BC_Constant.REDIS_FEEDBACK).toString().contains(model.getId().toString())){
-                    RedisUtil.smembers(BC_Constant.REDIS_FEEDBACK).forEach(item->{
+                if(RedisUtil.getInstance().sMembers(BC_Constant.REDIS_FEEDBACK).toString().contains(model.getId().toString())){
+                    RedisUtil.getInstance().sMembers(BC_Constant.REDIS_FEEDBACK).forEach(item->{
                         if(item.contains(model.getId().toString())) {
-                            RedisUtil.srem(BC_Constant.REDIS_FEEDBACK, item);
+                            RedisUtil.getInstance().sRem(BC_Constant.REDIS_FEEDBACK, item);
                         }
                     });
                 }
@@ -573,8 +573,8 @@ public class MoviesAction {
         List<Map<String, Object>> movies_hot_list = null;
 
         //从redis取
-        String tags_str = RedisUtil.get("movies_tags");
-        String movies_hot_list_str = RedisUtil.get("movies_hot_list");
+        String tags_str = RedisUtil.getInstance().get("movies_tags");
+        String movies_hot_list_str = RedisUtil.getInstance().get("movies_hot_list");
         if(StringUtils.isNotEmpty(tags_str) && StringUtils.isNotEmpty(movies_hot_list_str)) {
         	
         	movies_hot_list = JsonUtil.json2ListMap(movies_hot_list_str);
@@ -591,8 +591,8 @@ public class MoviesAction {
             String hotsql = "select id,moviename,color from bc_movies order by rand() desc limit 0,70";
             movies_hot_list = moviesManager.querySql(hotsql);
 
-            RedisUtil.set("movies_hot_list", JsonUtil.object2json(movies_hot_list), 24 * 60 * 60);
-            RedisUtil.set("movies_tags", JsonUtil.object2json(tags), 24 * 60 * 60);
+            RedisUtil.getInstance().set("movies_hot_list", JsonUtil.object2json(movies_hot_list), 24 * 60 * 60);
+            RedisUtil.getInstance().set("movies_tags", JsonUtil.object2json(tags), 24 * 60 * 60);
 
         }
 

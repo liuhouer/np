@@ -1,27 +1,6 @@
 
 package cn.northpark.action;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.CollectionUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
 import cn.northpark.annotation.CheckLogin;
 import cn.northpark.annotation.Desc;
 import cn.northpark.annotation.Redis;
@@ -37,15 +16,29 @@ import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.model.Lyrics;
 import cn.northpark.model.User;
 import cn.northpark.model.UserLyrics;
-import cn.northpark.utils.FileUtils;
-import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.JsonUtil;
-import cn.northpark.utils.PinyinUtil;
-import cn.northpark.utils.RedisUtil;
-import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.*;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -322,7 +315,7 @@ public class LyricsAction {
 	 */
 	private List<Map<String, Object>> getRandomLoveList() {
 		List<Map<String, Object>> loveList = null;
-		String str = RedisUtil.get("loveList");
+		String str = RedisUtil.getInstance().get("loveList");
 		if(StringUtils.isNotEmpty(str)) {
 			loveList = JsonUtil.json2ListMap(str);
 		}
@@ -332,7 +325,7 @@ public class LyricsAction {
 			String sql_2 = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,b.headspan,b.headspanclass,c.id as lyricsid,c.title,c.titlecode from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id order by rand() desc limit 0 , 50 ";
 			loveList = lyricszanManager.mixSqlQuery(sql_2);
 			if(!CollectionUtils.isEmpty(loveList)) { 
-				RedisUtil.set("loveList", JsonUtil.object2json(loveList), 24 * 60 * 60);
+				RedisUtil.getInstance().set("loveList", JsonUtil.object2json(loveList), 24 * 60 * 60);
 			}
 		}
 		return loveList;

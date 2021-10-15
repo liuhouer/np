@@ -18,6 +18,8 @@ import cn.northpark.utils.RedisUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,10 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -178,13 +177,13 @@ public class DashAction {
         //从redis取
 
         //获取数据条数
-        Long zcard = RedisUtil.zcard(result + page);
+        Long zcard = RedisUtil.getInstance().zCard(result + page);
 
         //从redis查询
         if (Objects.nonNull(zcard) && zcard.intValue() > 0) {
 
             //从redis获取数据
-            Set<String> zrevrangebyscore = RedisUtil.zRangebyScore(result + page, MyConstant.MAXRESULT + "", "0", 0, MyConstant.MAXRESULT);
+            Set<String> zrevrangebyscore = RedisUtil.getInstance().zRangeByScore(result + page, MyConstant.MAXRESULT + "", "0", 0, MyConstant.MAXRESULT);
             list = zrevrangebyscore.stream().map(i -> JsonUtil.json2map(i)).collect(Collectors.toList());
 
         } else {
@@ -196,7 +195,7 @@ public class DashAction {
 
             //写入redis
             for (int i = 0; i < list.size(); i++) {
-                RedisUtil.zadd(result + page, i, JsonUtil.object2json(list.get(i)));
+                RedisUtil.getInstance().zAdd(result + page, i, JsonUtil.object2json(list.get(i)));
             }
         }
 
@@ -219,7 +218,7 @@ public class DashAction {
     	List<Map<String, Object>> home_movieslist = null;
     	
     	//从redis取
-    	String str = RedisUtil.get("home_movieslist");
+    	String str = RedisUtil.getInstance().get("home_movieslist");
 		if(StringUtils.isNotEmpty(str)) {
 			home_movieslist = JsonUtil.json2ListMap(str);
 		}
@@ -231,7 +230,7 @@ public class DashAction {
     		String msql = "select id,moviename from bc_movies order by rand() limit 1,24";
     		home_movieslist = moviesManager.querySqlMap(msql);
     		
-    		RedisUtil.set("home_movieslist", JsonUtil.object2json(home_movieslist), 24 * 60 * 60);
+    		RedisUtil.getInstance().set("home_movieslist", JsonUtil.object2json(home_movieslist), 24 * 60 * 60);
     	    
     	}
 
@@ -248,7 +247,7 @@ public class DashAction {
     	List<Eq> home_eqlist = null;
     	
     	//从redis取
-    	String str = RedisUtil.get("home_eqlist");
+    	String str = RedisUtil.getInstance().get("home_eqlist");
 		if(StringUtils.isNotEmpty(str)) {
 			home_eqlist = JsonUtil.json2list(str, Eq.class);
 		}
@@ -257,7 +256,7 @@ public class DashAction {
 		if(CollectionUtils.isEmpty(home_eqlist)) {
 			String eqsql = "select * from bc_eq  where date ='2016-07-21' or date ='2016-07-19' or date ='2016-07-15' order by date desc";
 			home_eqlist  = this.eqManager.querySql(eqsql);
-			RedisUtil.set("home_eqlist", JsonUtil.object2json(home_eqlist));
+			RedisUtil.getInstance().set("home_eqlist", JsonUtil.object2json(home_eqlist));
 	    	
 			
 		}
@@ -271,23 +270,21 @@ public class DashAction {
      * @param map
      */
     public void pushNote2Map(ModelMap map) {
-        //取出一部分日记
-
-    	
+        //取出一部分日记-随机
     	List<Map<String, Object>> home_notelist = null;
     	
     	//从redis取
-    	String str = RedisUtil.get("home_notelist");
-		if(StringUtils.isNotEmpty(str)) {
-			home_notelist = JsonUtil.json2ListMap(str);
-		}	
-		
+        String str = RedisUtil.getInstance().get("home_notelist");
+        if(StringUtils.isNotEmpty(str)) {
+            home_notelist = JsonUtil.json2ListMap(str);
+        }
+
+
 		//从数据库取 :1天刷新
 		if(CollectionUtils.isEmpty(home_notelist)) {
 			NoteQueryCondition notecondition = new NoteQueryCondition();
 			notecondition.setOpened("yes");
-			String noteSql = noteQuery.getMixSql(notecondition);
-			noteSql = noteSql.replace("order by a.createtime desc", "order by a.id ");
+			String noteSql = noteQuery.getRandSql(notecondition);
 			PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(1, 16);
 			List<Map<String, Object>> notelist = this.noteManager.findmixByCondition(pageview, noteSql);
 
@@ -296,12 +293,10 @@ public class DashAction {
 				String createtime = (String) item.get("createtime");
 				if (StringUtils.isNotEmpty(createtime)) item.put("createtime", TimeUtils.getHalfDate(createtime));
 			});
-			
-			
-			RedisUtil.set("home_notelist", JsonUtil.object2json(notelist));
 
+            RedisUtil.getInstance().set("home_notelist", JsonUtil.object2json(home_notelist), 24 * 60 * 60);
 
-		}
+        }
       
 
         map.addAttribute("notelist", home_notelist);
@@ -317,7 +312,7 @@ public class DashAction {
     	List<Map<String, Object>> home_lovelist = null;
     	
     	//从redis取
-    	String str = RedisUtil.get("home_lovelist");
+    	String str = RedisUtil.getInstance().get("home_lovelist");
 		if(StringUtils.isNotEmpty(str)) {
 			home_lovelist = JsonUtil.json2ListMap(str);
 		}
@@ -326,7 +321,8 @@ public class DashAction {
     	if(CollectionUtils.isEmpty(home_lovelist)) {
     		//取出一部分love数据
             PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
-            home_lovelist = this.userlyricsManager.getMixMapData(pageview, "");
+            String randSql = userlyricsManager.getRandSql();
+            home_lovelist = this.userlyricsManager.findMixByCondition(pageview,randSql);
 
             if (!CollectionUtils.isEmpty(home_lovelist)) {
             	
@@ -341,7 +337,7 @@ public class DashAction {
             	});
             }
 
-            RedisUtil.set("home_lovelist", JsonUtil.object2json(home_lovelist),2 * 24 * 60 * 60 );
+            RedisUtil.getInstance().set("home_lovelist", JsonUtil.object2json(home_lovelist),2 * 24 * 60 * 60 );
             
             
     	}
@@ -351,6 +347,5 @@ public class DashAction {
        
 		return home_lovelist;
     }
-
 
 }

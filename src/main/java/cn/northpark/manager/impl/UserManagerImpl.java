@@ -76,7 +76,7 @@ public class UserManagerImpl implements UserManager {
     @Override
     public void pwddd(String sql) {
         // TODO Auto-generated method stub
-        userDao.executess(sql);
+        userDao.execSQL(sql);
     }
 
     @Override

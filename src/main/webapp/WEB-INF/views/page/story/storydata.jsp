@@ -80,8 +80,8 @@
 
                         <div class="hidden" id="stuffCommentList_${s.noteid}">
 
-                            <h4><span class="glyphicon glyphicon-comment" title="登录后评论"></span></h4>
-                            <hr title="评论列表">
+                            <h4><span class="glyphicon glyphicon-comment" title="展示评论详情;登录后参与评论"></span></h4>
+                            <hr>
                                 <%--展示评论详情--%>
                             <div class="clearfix" id="stuffCommentBox_${s.noteid}">
 
@@ -94,22 +94,36 @@
 
                         <c:if test="${user!=null }">
                             <div class="form-group clearfix note-comment" id="comment_${s.noteid}_${ss.index}" style="display: none">
-                                <textarea id="input_cm_${s.noteid}_${ss.index}" class="form-inline input-lg grid80 border-light-1 bg-lyellow radius-0" style="height: 49px;max-height: 400px;margin: 0px 10px 0px 0px;" rows="3">
+                                <textarea id="input_cm_${s.noteid}_${ss.index}"
+                                          class="form-control bg-lyellow"
+                                          rows="3">
 
                                 </textarea>
-                                <button topic-id="${s.noteid}"
+<%--                                <button topic-id="${s.noteid}"--%>
+<%--                                        topic-type="1"--%>
+<%--                                        from-uid="${user.id}"--%>
+<%--                                        from-uname="${user.username}"--%>
+<%--                                        data-dismiss="#comment_${s.noteid}_${ss.index}"--%>
+<%--                                        data-target="#text_${ss.index}"--%>
+<%--                                        data-input="#input_cm_${s.noteid}_${ss.index}"--%>
+<%--                                        class="fa fa-floppy-o click2save click2save form-inline "style="border: 0px;"></button>--%>
+
+                                <button title="提交评论"
+                                        class="btn btn-hero click2save click2save margin-t10"
+                                        topic-id="${s.noteid}"
                                         topic-type="1"
                                         from-uid="${user.id}"
                                         from-uname="${user.username}"
                                         data-dismiss="#comment_${s.noteid}_${ss.index}"
                                         data-target="#text_${ss.index}"
-                                        data-input="#input_cm_${s.noteid}_${ss.index}}"
-                                        class="glyphicon glyphicon-ok-sign click2save form-inline "></button>
+                                        data-input="#input_cm_${s.noteid}_${ss.index}"
+                                ><span class="fa fa-floppy-o"></span>保存</button>
+
                             </div>
                         </c:if>
 
 
-                        <c:if test="${s.brief!=s.note }">
+
                             <button class="clearfix btn btn-gray btn-xs click2show "
                                     topic-id="${s.noteid}"
                                     data-input="#comment_${s.noteid}_${ss.index}"
@@ -117,7 +131,7 @@
                                     data-target="#text_${ss.index}"> &nbsp;
                              <span class="glyphicon glyphicon-chevron-down"></span> &nbsp;
                             </button>
-                        </c:if>
+
 
                         <c:if test="${user!=null }">
                             <button class="clearfix btn btn-gray btn-xs click2comment "

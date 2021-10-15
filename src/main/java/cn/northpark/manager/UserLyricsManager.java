@@ -11,42 +11,41 @@ import cn.northpark.utils.page.QueryResult;
 
 public interface UserLyricsManager {
 
-    public UserLyrics findUserLyrics(Integer id);
+    UserLyrics findUserLyrics(Integer id);
 
-    public List<UserLyrics> findAll();
+    List<UserLyrics> findAll();
 
-    public void addUserLyrics(UserLyrics userlyrics);
+    void addUserLyrics(UserLyrics userlyrics);
 
-    public boolean delUserLyrics(Integer id);
+    boolean delUserLyrics(Integer id);
 
-    public boolean updateUserLyrics(UserLyrics userlyrics);
+    boolean updateUserLyrics(UserLyrics userlyrics);
 
-    public QueryResult<UserLyrics> findByCondition(PageView<UserLyrics> p,
-                                                   String wheresql, LinkedHashMap<String, String> order);
+    QueryResult<UserLyrics> findByCondition(PageView<UserLyrics> p,
+                                                   String whereSql, LinkedHashMap<String, String> order);
 
-    public QueryResult<UserLyrics> findByCondition(
-            String wheresql);
+    QueryResult<UserLyrics> findByCondition(
+            String whereSql);
 
 
-    public List<Map<String, Object>> getMixMapData(PageView<List<Map<String, Object>>> pageview, String userid);
+    List<Map<String, Object>> getMixMapData(PageView<List<Map<String, Object>>> pageView, String userid);
 
 
     /**
      * 获取分页结构不获取数据
      *
-     * @param pageview
+     * @param pageView
      * @param userid
      * @return
      */
-    public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String userid);
+    PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageView, String userid);
 
 
-    /**
-     * sql+
-     *
-     * @return
-     */
-    public List<Map<String, Object>> querySql(String sql, Object... obj);
+    List<Map<String, Object>> querySql(String sql, Object... obj);
+
+    String getRandSql();
+
+    List<Map<String, Object>> findMixByCondition(PageView<List<Map<String, Object>>> pageView, String randSql);
 }
 
 

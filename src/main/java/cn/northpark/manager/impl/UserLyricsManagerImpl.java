@@ -81,16 +81,38 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
         sql += " order by a.updatedate desc";
 
-        List<Map<String, Object>> list = userlyricsDao.QuerySQLForMapList(sql, pageview);
+        List<Map<String, Object>> list = userlyricsDao.querySQLForMapList(sql, pageview);
         return list;
 
 
     }
 
+
+    @Override
+    public String getRandSql() {
+        String sql = " select a.id,a.title,a.titlecode,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
+
+                + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '' )> 0 "
+                + " then 'yizan' "
+                + " else '' "
+                + " end "
+                + " as yizan "
+
+                + "from bc_lyrics a join bc_user_lyrics b on a.id = b.lyricsid join bc_user c on c.id = b.userid ";
+
+        sql += " order by rand() ";
+        return sql;
+    }
+
+    @Override
+    public List<Map<String, Object>> findMixByCondition(PageView<List<Map<String, Object>>> pageview, String randSql) {
+
+        return userlyricsDao.querySQLForMapList(randSql, pageview);
+    }
+
     @Override
     public PageView<List<Map<String, Object>>> getMixMapPage(
             PageView<List<Map<String, Object>>> pageview, String userid) {
-        // TODO Auto-generated method stub
         String sql = " select a.id,a.title,a.titlecode,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
 
                 + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '" + userid + "' )> 0 "
@@ -103,15 +125,15 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
         sql += " order by a.updatedate desc";
 
-        pageview = userlyricsDao.QuerySQLCountForMapList(sql, pageview);
+        pageview = userlyricsDao.querySQLCountForMapList(sql, pageview);
         return pageview;
     }
 
     @Override
     public List<Map<String, Object>> querySql(String sql, Object... obj) {
-        // TODO Auto-generated method stub
         return userlyricsDao.querySql(sql, obj);
     }
+
 
 
 }

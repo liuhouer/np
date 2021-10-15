@@ -5,14 +5,6 @@ package cn.northpark.action;
  *
  **/
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.LyricsCommentManager;
@@ -24,6 +16,13 @@ import cn.northpark.model.LyricsZan;
 import cn.northpark.model.User;
 import cn.northpark.utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/zanAction")

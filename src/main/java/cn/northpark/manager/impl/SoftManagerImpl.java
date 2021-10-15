@@ -87,7 +87,7 @@ public class SoftManagerImpl implements SoftManager {
     @Override
     public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView) {
         // TODO Auto-generated method stub
-        return softDao.QuerySQLForMapList(sql, pageView);
+        return softDao.querySQLForMapList(sql, pageView);
     }
 
     /* (non-Javadoc)
@@ -110,7 +110,7 @@ public class SoftManagerImpl implements SoftManager {
 
     @Override
     public void executeSql(String sql) {
-        softDao.executess(sql);
+        softDao.execSQL(sql);
     }
 
     @Override

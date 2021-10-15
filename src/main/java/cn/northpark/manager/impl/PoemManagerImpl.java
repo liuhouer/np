@@ -87,7 +87,7 @@ public class PoemManagerImpl implements PoemManager {
     @Override
     public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView) {
         // TODO Auto-generated method stub
-        return poemDao.QuerySQLForMapList(sql, pageView);
+        return poemDao.querySQLForMapList(sql, pageView);
     }
 
     /* (non-Javadoc)
