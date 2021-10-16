@@ -42,7 +42,7 @@ public class HikariUtils {
             // 因为dataSource是全局变量、默认初始化值为null
             if (dataSource == null){
                 // 通过字节输入流 读取 配置文件  hikaricp.properties
-                InputStream is = JdbcUtils.class.getClassLoader().getResourceAsStream("hikari.properties");
+                InputStream is = JdbcUtils.class.getClassLoader().getResourceAsStream("hikaricp.properties");
                 // 因为HikariConfig类不可以加载io，但是可以加载Properties。因此：将输入流is封装到props
                 Properties props = new Properties();
                 props.load(is);
