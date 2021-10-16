@@ -1,11 +1,7 @@
 package cn.northpark.test;
 
-import cn.northpark.manager.MoviesManager;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import cn.northpark.utils.NPQueryRunner;
+import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,21 +13,13 @@ import java.util.Map;
  * <p>
  * 定时爬取今日情圣文章
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:application-dao.xml", "classpath:application-service.xml",
-        "classpath:application-transaction.xml"})
 public class Gen_Movies_Sitemap {
 
-    @Autowired
-    public MoviesManager moviesManager;
-
-
-    public void runTask(Integer lastNum, Integer NewNum) {
+    public static void runTask(Integer lastNum, Integer NewNum) {
 
         //=========================================================新url的sitemap===========================================================================================
-
-        List<Map<String, Object>> mapList = moviesManager.querySqlMap("select id from bc_movies where id > " + lastNum + " and id <=" + NewNum + " order by id desc");
-//        List<Map<String, Object>> mapList = moviesManager.querySqlMap("select id from bc_movies  order by id desc");
+        String sql = "select id from bc_movies where id > " + lastNum + " and id <=" + NewNum + " order by id desc";
+        List<Map<String, Object>> mapList = NPQueryRunner.query(sql, new MapListHandler());
 
         //电影的网站地图
         StringBuilder sb = new StringBuilder();
@@ -56,9 +44,9 @@ public class Gen_Movies_Sitemap {
     //测试多页
 
 
-    @Test
-    public void save() {
-        runTask(732793,748960);//NEWLY 2020年12月26日
+    public static void main(String[] args) {
+        runTask(748960,749246);//NEWLY 2020年12月26日
     }
+
 
 }
