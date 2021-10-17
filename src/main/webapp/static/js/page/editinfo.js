@@ -1,11 +1,5 @@
 var tail_slug = $("#J_tail_slug").val();
 
-$(function () {
-    $('#user_nick').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true
-    });
-})
 
 function saves() {
     var username = $("#username").val();

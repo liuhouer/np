@@ -19,13 +19,13 @@
     <meta name="keywords" content="NorthPark,NorthPark中文网,编辑档案">
     <meta name="description"
           content="NorthPark-编辑我的档案">
+    <link href="/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
 </head>
 
 <body>
 
 <%@ include file="/WEB-INF/views/page/common/navigation.jsp" %>
-
 
 <div class="clearfix maincontent">
     <div class="container">
@@ -105,7 +105,7 @@
                                         <div class="clearfix">
                                             <button type="button" id="plupload_pickbtn_uploadavatar50777"
                                                     class="btn btn-large btn-gray btn-round "
-                                                    style="position: relative; z-index: 0;" onclick="headpath.click()">
+                                                    style="position: relative; z-index: 0;" onclick="user_avatar.click()">
 																	<span class="glyphicon">
 																	</span>
                                                 修改头像
@@ -115,7 +115,7 @@
                                                 .
                                             </button>
                                         </div>
-                                        <input id="headpath" name="file" style="visibility: hidden;"
+                                        <input id="user_avatar" name="file" style="visibility: hidden;"
                                                type="file" accept="jpg,png" onchange="previewImage(this)">
                                     </div>
                                     <p class="help-block">
@@ -154,8 +154,8 @@
                         </label>
                         <div class="col-md-9 text-left">
                             <div class="row">
-                                <input id="user_nick" placeholder="1991-12-31"
-                                       class="form_date form-control border-light-1 input-lg bg-lyellow padding10 grid70 radius-0"
+                                <input id="user_birth" placeholder="1991-12-31"
+                                       class="form_datetime form-control border-light-1 input-lg bg-lyellow padding10 grid70 radius-0"
                                        name="year_of_birth" type="text" value="${Dinfo.year_of_birth }">
                             </div>
                         </div>
@@ -222,8 +222,22 @@
 
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
-<script data-cfasync="false" src="https://northpark.cn/statics/js/page/editinfo.js"></script>
-<script data-cfasync="false" src="https://northpark.cn/statics/js/bootstrap-datepicker.js"></script>
+<script src="https://northpark.cn/statics/js/bootstrap-datetimepicker.js"></script>
+<script src="https://northpark.cn/statics/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="https://northpark.cn/statics/js/page/editinfo.js"></script>
+
+<script>
+    $(function () {
+        $('.form_datetime').datetimepicker({
+            language:'zh-CN',
+            format:'yyyy-mm-dd',
+            dateFormat: 'yyyy-mm-dd',
+            minView: "month",//选择日期后，不会再跳转去选择时分秒
+            autoclose:true
+        })
+    })
+
+</script>
 
 </body>
 </html>
