@@ -19,7 +19,7 @@
     <meta name="keywords" content="NorthPark,NorthPark中文网,编辑档案">
     <meta name="description"
           content="NorthPark-编辑我的档案">
-    <link href="/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <link href="https://northpark.cn/statics/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
 </head>
 
