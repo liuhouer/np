@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     $('#formSubmit').attr('disabled', true);
     $('#addItemForm').on('keyup', '#title', function (event) {
-        if ($('#title').val().length >= 1 && $('#file1').val().length >= 1) {
+        if ($('#title').val().length >= 1 && ('#loveDate').val().length >= 1 && $('#file1').val().length >= 1) {
             $('#formSubmit').removeAttr('disabled').val($('#formSubmit').data('activetext'));
 
         }

@@ -153,6 +153,7 @@ public class LyricsAction {
                 albumpath = filelist.get(0);
             }
             model.setTitle(lyricsForm.getTitle());
+            model.setLove_date(lyricsForm.getLoveDate());
             model.setUpdatedate(TimeUtils.nowTime());
             model.setAlbumImg(albumpath);
             //处理标题请求名
@@ -268,7 +269,7 @@ public class LyricsAction {
         //取得歌词/图片的信息 +取得上传者的信息+取得zan的人数+取得评论的条数
         String sqlmap = "SELECT u.tail_slug as by_tail_slug, u.id as by_id, u.username as by_username,"
                 + " lrc.id as lrc_id, lrc.albumImg as lrc_albumImg, lrc.title as lrc_title,lrc.titlecode, "
-                + " lrc.updatedate as lrc_updatedate, lrc.zan as zanNum, lrc.pl as plNum "
+                + " lrc.updatedate as lrc_updatedate,lrc.love_date as lrc_love_date, lrc.zan as zanNum, lrc.pl as plNum "
                 + "FROM bc_user_lyrics ul JOIN bc_user u ON ul.userid = u.id "
                 + "join bc_lyrics lrc on lrc.id = ul.lyricsid where lrc.titlecode = ?";
 

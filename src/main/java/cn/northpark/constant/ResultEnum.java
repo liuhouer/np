@@ -20,7 +20,7 @@ public enum  ResultEnum {
     //自定义的一些业务错误码追加==============================================================================
 	Movie_Tag_Not_Match(-7,"{电影标签中英文数量不匹配，对应不上}{The Movie Tags With Tagscode Not Match}"),
 	Param_Not_Valid(-8,"管理员相关方法竟然参数没有传递正常！需要记录IP，防止是恶意扫描。"),
-	Lyrics_Param_Not_Valid(-9,"添加主题的参数不正确"),
+	Lyrics_Param_Not_Valid(-9,"添加主题的参数不正确-"),
 	Login_Fail(1,"用户名密码错误"),
 	Login_Email_Validate_Fail(2,"邮箱未通过验证，请重试或者联系站长解决登陆问题"),
 	Login_Success(3,"登陆成功"), 

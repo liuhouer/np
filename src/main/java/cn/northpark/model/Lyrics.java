@@ -35,9 +35,11 @@ public class Lyrics implements Serializable {
     @Column(length = 255)
     private String titlecode;
 
-
-    @Column(length = 255)
+    @Column(length = 32)
     private String updatedate;
+
+    @Column(length = 10)
+    private String love_date;
 
     @Column(length = 255)
     private String albumImg;

@@ -15,6 +15,7 @@
     <meta name="author" content="bruce">
     <meta name="robots" content="index,follow,archive">
     <title>添加我的最爱 | NorthPark / </title>
+    <link href="https://northpark.cn/statics/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <%@ include file="../common/common.jsp" %>
     <style type="text/css">
         #preview {
@@ -55,6 +56,12 @@
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
                                name="title" type="text">
                     </div>
+                    <span style="color: #999; opacity: 1;">爱上时间</span>
+                    <div class="form-group  padding-b20">
+                                <input id="loveDate" placeholder="1995-06-06"
+                                       class="form_datetime form-control border-light-1 input-lg bg-lyellow  grid98 radius-0"
+                                       name="loveDate" type="text" >
+                    </div>
                     <span style="color: #999; opacity: 1;">主题图片</span>
                     <div class="form-group  padding-b20">
                         <input placeholder="专辑图片 选择一个你喜欢的图片" name="file" id="file1" type="file"
@@ -88,7 +95,21 @@
 
 
 <script data-cfasync="false" src="https://northpark.cn/statics/js/page/lrc/lyricadd.js"></script>
+<script src="https://northpark.cn/statics/js/bootstrap-datetimepicker.js"></script>
+<script src="https://northpark.cn/statics/js/bootstrap-datetimepicker.zh-CN.js"></script>
 
+<script>
+    $(function () {
+        $('.form_datetime').datetimepicker({
+            language:'zh-CN',
+            format:'yyyy-mm-dd',
+            dateFormat: 'yyyy-mm-dd',
+            minView: "month",//选择日期后，不会再跳转去选择时分秒
+            autoclose:true
+        })
+    })
+
+</script>
 
 </body>
 </html>

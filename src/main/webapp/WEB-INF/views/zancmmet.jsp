@@ -72,7 +72,7 @@
                         <div class="col-sm-5">
 
                             <div class="clearfix">
-                                <h7><label class="control-label iteminfo ">${datamap.lrc_updatedate }</label></h7>
+                                <h7><label class="control-label iteminfo ">${datamap.lrc_love_date }爱上</label></h7>
                                 <h4><span class="glyphicon glyphicon-heart"></span> ${datamap.zanNum }人最爱</h4>
                                 <p class="pline">
 
