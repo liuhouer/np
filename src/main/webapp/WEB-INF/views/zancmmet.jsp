@@ -279,7 +279,7 @@
 <script data-cfasync="false" src="https://northpark.cn/statics/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
 <script src="https://northpark.cn/statics/js/bootstrap-datetimepicker.js"></script>
 <script src="https://northpark.cn/statics/js/bootstrap-datetimepicker.zh-CN.js"></script>
-<script data-cfasync="false" src="/static/js/page/zancmt.js"></script>
+<script data-cfasync="false" src="https://northpark.cn/statics/js/page/zancmt.js"></script>
 
 <script>
     $(function () {
