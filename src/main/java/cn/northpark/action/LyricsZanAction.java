@@ -47,7 +47,7 @@ public class LyricsZanAction {
      */
     @RequestMapping("/zan")
     @ResponseBody
-    public Result<String> zan(String lyricsid, String userid, HttpServletRequest request) {
+    public Result<String> zan(String lyricsid, String userid,String loveDate,HttpServletRequest request) {
 
         if (StringUtils.isEmpty(userid)) {
             User u = (User) request.getSession().getAttribute("user");
@@ -64,6 +64,8 @@ public class LyricsZanAction {
                 LyricsZan model = new LyricsZan();
                 model.setLyricsid(Integer.parseInt(lyricsid));
                 model.setUserid(Integer.parseInt(userid));
+                model.setLove_date(loveDate);
+                model.setLove_year(loveDate.substring(0,4));
                 lyricszanManager.addLyricsZan(model);
 
 

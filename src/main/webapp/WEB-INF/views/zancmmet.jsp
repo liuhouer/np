@@ -19,6 +19,7 @@
     <meta name="keywords" content="NorthPark,最爱主题图册互动">
     <meta name="description"
           content="NorthPark最爱主题图册互动、评论、关注.">
+    <link href="https://northpark.cn/statics/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
     <link href="https://northpark.cn/statics/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet"/>
 
@@ -55,6 +56,7 @@
                                 title="${datamap.by_username }的最爱">${datamap.by_username }</a>创建
                         </small>
                     </h2>
+
                     <hr>
 
                     <div class="row">
@@ -69,10 +71,46 @@
 
 
                         </div>
+
+
+                        <!-- 模态框（Modal） -->
+                        <div class="modal fade" id="loveBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            &times;
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">
+                                            设置爱上时间
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-sm-6 padding-b20">
+                                            <p>
+                                                <input id="loveDate" placeholder="1995-06-06"
+                                                       class="form_datetime form-control border-light-1 input-lg bg-lyellow  grid98 radius-0"
+                                                       name="loveDate" type="text" >
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer " style="margin-top: 45px;">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" id="J_love_box_close">关闭
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="J_gz_btn">
+                                            提交
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+
                         <div class="col-sm-5">
 
+
+
                             <div class="clearfix">
-                                <h7><label class="control-label iteminfo ">${datamap.lrc_love_date }爱上</label></h7>
                                 <h4><span class="glyphicon glyphicon-heart"></span> ${datamap.zanNum }人最爱</h4>
                                 <p class="pline">
 
@@ -99,15 +137,22 @@
                                 </p>
                             </div>
 
-                            <h2><a class="btn btn-warning btn-xlg" id="J_gz_btn"><span
-                                    class="glyphicon glyphicon-heart"></span>
-                                <c:if test="${yizan eq 'yizan' }">已爱上~</c:if><c:if
-                                        test="${yizan ne 'yizan' }">加入我的最爱 </c:if>
-
-
-                            </a></h2>
                             <input type="hidden" id="by_id" value="${datamap.by_id }"/>
+                            <div class="row margin-b20" id="loadingAnimationZan">
+                                <img alt="load zan of ${ datamap.lrc_title}" src="https://northpark.cn/statics/img/loading.gif" width="30"
+                                     height="30">
+                            </div>
 
+                            <h2>
+                                <%--id="J_gz_btn"--%>
+                                <button class="btn btn-warning btn-xlg"
+                                        data-toggle="modal"
+                                        data-target="#loveBox">
+                                    <span class="glyphicon glyphicon-heart"></span>
+                                    <c:if test="${yizan eq 'yizan' }">已爱上~</c:if>
+                                    <c:if test="${yizan ne 'yizan' }">加入我的最爱 </c:if>
+                                </button>
+                            </h2>
 
                         </div>
                     </div>
@@ -232,8 +277,22 @@
 
 <script data-cfasync="false" src="https://northpark.cn/statics/wangEditor/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script data-cfasync="false" src="https://northpark.cn/statics/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
-<script data-cfasync="false" src="https://northpark.cn/statics/js/page/zancmt.js"></script>
+<script src="https://northpark.cn/statics/js/bootstrap-datetimepicker.js"></script>
+<script src="https://northpark.cn/statics/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script data-cfasync="false" src="/static/js/page/zancmt.js"></script>
 
+<script>
+    $(function () {
+        $('.form_datetime').datetimepicker({
+            language:'zh-CN',
+            format:'yyyy-mm-dd',
+            dateFormat: 'yyyy-mm-dd',
+            minView: "month",//选择日期后，不会再跳转去选择时分秒
+            autoclose:true
+        })
+    })
+
+</script>
 
 </body>
 </html>

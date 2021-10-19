@@ -35,5 +35,11 @@ public class LyricsZan implements Serializable {
     @Column(length = 32)
     private Integer userid;
 
+    @Column(length = 4)
+    private String love_year;
+
+    @Column(length = 10)
+    private String love_date;
+
 
 }

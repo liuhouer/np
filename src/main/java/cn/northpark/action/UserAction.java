@@ -319,13 +319,15 @@ public class UserAction {
         map.put("MyInfo", user);
 
         //查询个人歌词最爱历史
-        String sql = "select c.updatedate,c.id,c.title,c.titlecode,c.albumImg,b.id as userlyricsid from    bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id where b.userid = ? order by c.updatedate desc";
+        String sql = "select c.love_date,c.id,c.title,c.titlecode,c.albumImg,b.id as userlyricsid " +
+                " from  bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id " +
+                " where b.userid = ? order by c.love_date desc";
 
         List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId());
         if(!CollectionUtils.isEmpty(list)) { //--批量处理时间
         	list.forEach(item ->{
-        		String datastr = (String) item.get("updatedate");
-        		if(StringUtils.isNotEmpty(datastr)) item.put("updatedate", TimeUtils.formatToNear(datastr));
+        		String datastr = (String) item.get("love_date");
+        		if(StringUtils.isNotEmpty(datastr)) item.put("love_date", TimeUtils.formatToNear(datastr));
         	});
         }
         
@@ -507,14 +509,15 @@ public class UserAction {
 
 
             //查询个人歌词最爱历史
-            String sql = "SELECT c.updatedate, c.id, c.title, c.titlecode, c.albumImg, b.id AS userlyricsid FROM bc_lyrics_zan d left join bc_lyrics c on d.lyricsid = c.id left join bc_user_lyrics b ON b.lyricsid = c.id WHERE d.userid = ? and c.id is not null ORDER BY c.updatedate DESC";
+            String sql = "SELECT d.love_date , c.id, c.title, c.titlecode, c.albumImg FROM bc_lyrics_zan d left join bc_lyrics c " +
+                    " on d.lyricsid = c.id WHERE d.userid = ? and c.id is not null ORDER BY d.love_date DESC";
 
             if (user != null) {
                 List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId());
                 if(!CollectionUtils.isEmpty(list)) {
                 	list.forEach(item -> {
-                		String datastr = (String) item.get("updatedate");
-                		if(StringUtils.isNotEmpty(datastr)) item.put("updatedate", TimeUtils.formatToNear(datastr));
+                		String datastr = (String) item.get("love_date");
+                		if(StringUtils.isNotEmpty(datastr)) item.put("love_date", TimeUtils.formatToNear(datastr));
                 	});
                 	map.addAttribute("Lovelist", list);
                 }

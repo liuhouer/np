@@ -46,7 +46,7 @@
             <c:forEach items="${Lovelist }" var="s" varStatus="ss">
                 <div class="row">
                     <div class="col-md-2">
-                        <h3 class="label label-gray ">${s.updatedate }：</h3>
+                        <h3 class="label label-gray ">${s.love_date }：</h3>
                     </div>
                     <div class="col-md-10">
                         <div class="row">

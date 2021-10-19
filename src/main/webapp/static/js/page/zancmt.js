@@ -47,12 +47,20 @@ $(document).ready(function () {
         //把userid的判断转为后台判断
         var uri = window.location.href;
         if (yizan == 'yizan') {
-            return false;
+            return ;
         }
+
+        var loveDate = $("#loveDate").val();
+        if(!loveDate){
+            art.dialog.tips("完善爱上时间");
+            return ;
+        }
+        $("#J_love_box_close").click();
         $.ajax({
             url: "/cm/loginFlag",
             type: "get",
             dataType: "json",
+            beforeSend: beforeSendZAN, //发送请求
             success: function (msg) {
                 if (msg.data == "1") {//已登录
                     var userid = uid;
@@ -60,10 +68,12 @@ $(document).ready(function () {
                         url: "/zanAction/zan",
                         type: "post",
                         dataType: "json",
-                        data: {"lyricsid": lrcid, "userid": userid},
+                        data: {"lyricsid": lrcid, "userid": userid,"loveDate": loveDate},
+                        complete: completeZAN,
                         success: function (data) {
                             if (data.data == "success") {
-                                $("#J_gz_btn").text('已爱上~');
+                                art.dialog.tips("已爱上~");
+                                //$("#J_gz_btn").text('已爱上~');
                                 window.location.href = window.location.href;
                             }
                         }
@@ -145,5 +155,16 @@ function beforeSend(XMLHttpRequest) {
 function complete(XMLHttpRequest, textStatus) {
     $("#loadingAnimation").hide();
 }
+
+function beforeSendZAN(XMLHttpRequest) {
+    $("#loadingAnimationZan").show();
+}
+
+function completeZAN(XMLHttpRequest, textStatus) {
+    $("#loadingAnimationZan").hide();
+}
+
+
+
   
   
