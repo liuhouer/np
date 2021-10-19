@@ -44,10 +44,10 @@
         </div>
         <div class="navbar-collapse collapse mainhead-collapse">
             <ul class="nav mainhead-nav">
-                <li><a href="/movies" title="包含最新的影视剧资源"><i class="fa fa-film padding5"></i>影视窝</a></li>
-                <li><a href="/soft/mac" title="丰富的Mac软件资源"><i class="fa fa-apple padding5"></i>Mac软件</a></li>
-                <li><a href="/love" title="最爱主题图册"><i class="fa fa-picture-o padding5"></i>最爱</a></li>
-                <li><a href="/note/list" title="碎碎念的精神角落"><i class="fa fa-comment padding5"></i>留言</a></li>
+                <li><a href="/movies" title="包含最新的影视剧资源"><i class="fa fa-film fa-lg padding5"></i>影视窝</a></li>
+                <li><a href="/soft/mac" title="丰富的Mac软件资源"><i class="fa fa-apple fa-lg padding5"></i>Mac软件</a></li>
+                <li><a href="/love" title="最爱主题图册"><i class="fa fa-picture-o fa-lg padding5"></i>最爱</a></li>
+                <li><a href="/note/list" title="碎碎念的精神角落"><i class="fa fa-comment fa-lg padding5"></i>留言</a></li>
                 <li class="active"><a href="/login" title="已有账号，去登录NorthPark"><i class="glyphicon glyphicon-registration-mark padding5"></i>注册</a></li>
             </ul>
         </div>

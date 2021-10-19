@@ -492,57 +492,60 @@ public class UserAction {
      * @return
      */
     @RequestMapping("/people/{tail_slug}")
-    public String people(ModelMap map, @PathVariable String tail_slug, HttpServletRequest request) throws Exception{
+    public String people(ModelMap map, @PathVariable String tail_slug, HttpServletRequest request) throws Exception {
         String rs = "/space";
 
-            //取得当前用户
-            User c_user = (User) request.getSession().getAttribute("user");
+
+        //查询某人的最爱图册【自己创建的+点赞的】
+        tail_slug = WAQ.forSQL().escapeSql(tail_slug);
+        User user = null;
+        List<User> ul = userManager.querySql("select * from bc_user where tail_slug = ?", tail_slug);
+        if (!CollectionUtils.isEmpty(ul)) {
+            user = ul.get(0);
+        }
+        map.put("MyInfo", user);
 
 
-            tail_slug = WAQ.forSQL().escapeSql(tail_slug);
-            User user = null;
-            List<User> ul = userManager.querySql("select * from bc_user where tail_slug = ?", tail_slug);
-            if (!CollectionUtils.isEmpty(ul)) {
-                user = ul.get(0);
+        //查询个人歌词最爱历史
+        String sql = " SELECT t.* from ( " +
+                " (SELECT '点赞数据' as data_type, c.love_date, c.id, c.title, c.titlecode, c.albumImg FROM bc_lyrics_zan d " +
+                " left join bc_lyrics c on d.lyricsid = c.id WHERE d.userid = ? and c.id is not null ) " +
+                " union (SELECT '创建数据' as data_type, c.love_date, c.id, c.title, c.titlecode, c.albumImg FROM bc_user_lyrics b " +
+                " join bc_lyrics c on b.lyricsid = c.id WHERE b.userid = ? and c.id is not null ) " +
+                " ) as t order by t.data_type desc,t.love_date DESC";
+
+        if (user != null) {
+            List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId(),user.getId());
+            if (!CollectionUtils.isEmpty(list)) {
+                list.forEach(item -> {
+                    String datastr = (String) item.get("love_date");
+                    if (StringUtils.isNotEmpty(datastr)) item.put("love_date", TimeUtils.formatToNear(datastr));
+                });
+                map.addAttribute("Lovelist", list);
             }
-            map.put("MyInfo", user);
 
 
-            //查询个人歌词最爱历史
-            String sql = "SELECT d.love_date , c.id, c.title, c.titlecode, c.albumImg FROM bc_lyrics_zan d left join bc_lyrics c " +
-                    " on d.lyricsid = c.id WHERE d.userid = ? and c.id is not null ORDER BY d.love_date DESC";
+        }
 
-            if (user != null) {
-                List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId());
-                if(!CollectionUtils.isEmpty(list)) {
-                	list.forEach(item -> {
-                		String datastr = (String) item.get("love_date");
-                		if(StringUtils.isNotEmpty(datastr)) item.put("love_date", TimeUtils.formatToNear(datastr));
-                	});
-                	map.addAttribute("Lovelist", list);
+
+        //取得当前用户
+        User c_user = (User) request.getSession().getAttribute("user");
+
+        //取得当前用户对作者的关注状态
+        if (c_user != null) {
+            String follow_id = String.valueOf(c_user.getId());
+            String author_id = String.valueOf(user.getId());
+            if (StringUtils.isNotEmpty(follow_id) && StringUtils.isNotEmpty(author_id)) {
+
+                String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
+                List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id, follow_id);
+                String nums = ygznums_list.get(0).get("nums").toString();
+                if (Integer.parseInt(nums) > 0) {
+                    map.put("gz", "ygz");
                 }
-
-
             }
 
-
-            //是本人 --跳个人中心
-
-            //取得当前用户对作者的关注状态
-            if (c_user != null) {
-                String follow_id = String.valueOf(c_user.getId());
-                String author_id = String.valueOf(user.getId());
-                if (StringUtils.isNotEmpty(follow_id) && StringUtils.isNotEmpty(author_id)) {
-
-                    String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
-                    List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id, follow_id);
-                    String nums = ygznums_list.get(0).get("nums").toString();
-                    if (Integer.parseInt(nums) > 0) {
-                        map.put("gz", "ygz");
-                    }
-                }
-
-            }
+        }
 
 
         return rs;

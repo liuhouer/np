@@ -62,6 +62,12 @@
                                 <a href="/love/${s.titlecode}.html"
                                    title="${s.title }" class="thumbnail border-0"> <img
                                         src="/bruce/${s.albumImg }" alt="${s.title }">
+                                    <c:if test="${s.data_type=='创建数据'}">
+                                        <i class="fa fa-copyright padding5"></i>
+                                    </c:if>
+                                    <c:if test="${s.data_type=='点赞数据'}">
+                                        <i class="fa fa-heart padding5"></i>
+                                    </c:if>
                                     <p>${s.title }</p>
                                 </a>
                             </div>
