@@ -138,9 +138,8 @@
                             </div>
 
                             <input type="hidden" id="by_id" value="${datamap.by_id }"/>
-                            <div class="row margin-b20" id="loadingAnimationZan">
-                                <img alt="load zan of ${ datamap.lrc_title}" src="https://northpark.cn/statics/img/loading.gif" width="30"
-                                     height="30">
+
+                            <div id="showResult" class="control-group center margen-b10">
                             </div>
 
                             <h2>
@@ -201,9 +200,12 @@
                         </div>
 
                         <div class="row center">
-                            <div id="showResult" class="control-group center margen-b10">
-                            </div>
 
+
+                            <div class="row margin-b20" id="loadingAnimation">
+                                <img alt="load comment of ${ datamap.lrc_title}" src="https://northpark.cn/statics/img/loading.gif" width="30"
+                                     height="30" />
+                            </div>
                             <button class="btn btn-default btn-lg margin-b20" id="loadStuffCommentBtn"
                                     data-htmlboxid="stuffCommentBox" rel="938">加载更多 <span
                                     class="glyphicon glyphicon-chevron-down"></span></button>
