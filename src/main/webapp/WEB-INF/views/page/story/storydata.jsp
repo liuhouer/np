@@ -96,20 +96,11 @@
                             <div class="form-group clearfix note-comment" id="comment_${s.noteid}_${ss.index}" style="display: none">
                                 <textarea id="input_cm_${s.noteid}_${ss.index}"
                                           class="form-control bg-lyellow"
-                                          rows="3">
-
-                                </textarea>
-<%--                                <button topic-id="${s.noteid}"--%>
-<%--                                        topic-type="1"--%>
-<%--                                        from-uid="${user.id}"--%>
-<%--                                        from-uname="${user.username}"--%>
-<%--                                        data-dismiss="#comment_${s.noteid}_${ss.index}"--%>
-<%--                                        data-target="#text_${ss.index}"--%>
-<%--                                        data-input="#input_cm_${s.noteid}_${ss.index}"--%>
-<%--                                        class="fa fa-floppy-o click2save click2save form-inline "style="border: 0px;"></button>--%>
+                                          placeholder="撰写评论"
+                                          rows="3"></textarea>
 
                                 <button title="提交评论"
-                                        class="btn btn-hero click2save click2save margin-t10"
+                                        class="btn btn-hero click2save margin-t10"
                                         topic-id="${s.noteid}"
                                         topic-type="1"
                                         from-uid="${user.id}"

@@ -21,9 +21,9 @@
                 <small class="label label-gray">${y.add_time }</small>
                 <c:if test="${user!=null }">
                     <div class="form-group clearfix note-comment hidden" id="comment_${y.topic_id}_${ss.index}_${ss.index}">
-                                        <textarea id="input_cm_${y.topic_id}_${ss.index}_${ss.index}" class="form-inline input-lg grid80 border-light-1 bg-lyellow radius-0" style="height: 49px;max-height: 400px;margin: 0px 10px 0px 0px;" rows="3">
-
-                                        </textarea>
+                                        <textarea id="input_cm_${y.topic_id}_${ss.index}_${ss.index}"
+                                                  class="form-inline input-lg grid80 border-light-1 bg-lyellow radius-0"
+                                                  rows="3"></textarea>
                         <button topic-id="${y.topic_id}"
                                 topic-type="1"
                                 from-uid="${user.id}"

@@ -88,7 +88,7 @@
 									<c:if test="${user==null }">
 										<p class="center red">
 											本文隐藏内容 <a target="_blank" class="flatbtn green-text"
-												id="J_login_see"><i class="be be-timerauto"></i>登录</a>
+												id="J_login_see"><i class="fa fa-sign-in padding5" aria-hidden="true"></i>登录</a>
 											后才可以浏览
 										</p>
 									</c:if>
@@ -158,14 +158,43 @@
 
 
 							<!-- 反馈失效的资源 -->
-							<div class="col-md-10" id="J_container_feed"></div>
+							<div class="col-md-10 margin-b20" id="J_container_feed"></div>
 
 							<div class="clearfix visible-xs">
 								<hr>
 							</div>
 
 							<!-- 评论 -->
-							<div id="comment">
+							<div id="comment" class="col-md-10" >
+							<hr>
+
+
+								<%--展示评论详情--%>
+								<div class="clearfix" id="stuffCommentBox_${article.id}">
+
+								</div>
+
+								<div id="J_progress" class="center padding-t20"></div>
+
+								<div class="form-group clearfix note-comment margin-t10 " id="comment_${article.id}">
+                                <textarea id="input_cm_${article.id}" placeholder="说点什么吧..."
+										  class="form-control bg-lyellow"
+										  rows="3"></textarea>
+
+								<button title="发布评论"
+
+												class="btn btn-hero margin-t5 click2save"
+												topic-id="${article.id}"
+												topic-type="3"
+												from-uid="${user.id}"
+												from-uname="${user.username}"
+												data-input="#input_cm_${article.id}"
+								><span class="fa fa-floppy-o padding5"></span>发布评论</button>
+
+								</div>
+
+
+
 								<%-- <!-- 多说评论框 start -->
                             <div class="ds-thread" data-thread-key="${article.retcode }" data-title="${article.title} | NorthPark" data-url="/soft/${article.retcode }.html"></div>
                             <!-- 多说评论框 end --> --%>
@@ -253,6 +282,80 @@
 
 			//list feedback
 			feedbackList();
+
+
+			//展示全文和评论详情
+			loadComment('${article.id}', 3);
+
+
+			/*回复*/
+			$(".click2pub").click(function (){
+				var u = '${user.id}';
+				if (u) {
+					var input = $(this).data('input');
+
+					//must
+					var topic_id = $(this).attr('topic-id');
+					var topic_type = $(this).attr('topic-type');
+					var from_uid = $(this).attr('from-uid');
+					var from_uname = $(this).attr('from-uname');
+
+					var to_uid = $(this).attr('to-uid');
+					var to_uname = $(this).attr('to-uname');
+
+					if (to_uid == from_uid) {
+						to_uid = '';
+						to_uname = '';
+					}
+
+					var comment_content = $(input).val();
+
+					if (!comment_content.trim()) {
+						art.dialog.alert('填写回复信息');
+						return;
+					}
+
+					if (!(topic_id && topic_type && from_uid && from_uname)) {
+						art.dialog.alert('参数非法');
+						return;
+					}
+
+					$.ajax({
+						url: "/topicComment/addTopicComment",
+						type: "post",
+						data: {
+							"topic_id": topic_id,
+							"topic_type": topic_type,
+							"from_uid": from_uid,
+							"from_uname": from_uname,
+							"content": comment_content,
+							"to_uid": to_uid,
+							"to_uname": to_uname
+						},
+						dataType: "json",
+						// beforeSend: beforeSend, //发送请求
+						// complete: complete,
+						success: function (data) {
+							if (data.result) {
+
+								//展示全文和评论详情
+								loadComment(topic_id, 3);
+
+								art.dialog.tips('回复成功.');
+
+
+							} else {
+								console.log(data);
+							}
+						}
+					});
+
+
+				}else{
+					let to_href = window.location.href;
+					window.location.href = "/login?redirectURI=" + to_href;
+				}
+			})
 		})
 
 		/* get feed back */
@@ -266,6 +369,17 @@
 			});
 
 		}
+
+
+		function beforeSend(XMLHttpRequest) {
+			$("#J_progress").append("<div><img src='https://northpark.cn/statics/img/loading.gif' style='width:48px;height:48px;' /></div>");
+		}
+
+		function complete(XMLHttpRequest, textStatus) {
+			$("#J_progress").empty();
+		}
+
+
 	</script>
 
 
