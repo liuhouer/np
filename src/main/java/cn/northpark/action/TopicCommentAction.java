@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -51,7 +52,12 @@ public class TopicCommentAction {
     public Result<String> addItem(ModelMap map, TopicComment model) throws Exception {
         String rs = "success";
 
-        assert model != null && StringUtils.isNotEmpty(model.getContent());
+        assert  model != null
+                && StringUtils.isNotEmpty(model.getContent())
+                && Objects.nonNull(model.getFrom_uid())
+                && StringUtils.isNotEmpty(model.getFrom_uname())
+                && Objects.nonNull(model.getTopic_id())
+                && StringUtils.isNotEmpty(model.getTopic_type());
         model.setContent(WAQ.forSQL().escapeSql(model.getContent()));
         //更新
         if (model.getId() != null && model.getId() != 0) {
