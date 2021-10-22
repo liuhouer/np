@@ -12,6 +12,7 @@ public enum TopicTypeEnum {
     MOVIE("4"),
     POEM("5"),
     EQ("6"),
+    DONATE("7"),
 
     ;
 
@@ -21,6 +22,7 @@ public enum TopicTypeEnum {
     //    4-电影
     //    5-诗词秀
     //    6-情商提升
+    //    7-赞助我们
     private String code;
 
     TopicTypeEnum(String code) {

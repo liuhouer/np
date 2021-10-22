@@ -19,6 +19,11 @@ pageEncoding="UTF-8" %>
 			<meta name="keywords" content="赞助本站NorthPark">
 			<meta name="description" content="">
 			<%@ include file="/WEB-INF/views/page/common/common.jsp" %>
+			<style>
+				hr{
+					border: 1px solid #dedede
+				}
+			</style>
 		</head>
 		<body style="">
 			<%@ include file="/WEB-INF/views/page/common/navigation.jsp" %>
@@ -30,7 +35,7 @@ pageEncoding="UTF-8" %>
 								<h4 style="color:#333">
 									赞助本站
 								</h4>
-								<hr>
+								<br>
 								<p>
 									NorthPark中文网为出于兴趣所作，MAC应用和影视资源均免费，目前注册用户5万+
 								</p>
@@ -54,11 +59,11 @@ pageEncoding="UTF-8" %>
 										全站数千款应用和游戏，影视剧终生免费下载；
 									</li>
 								</ul>
-								<hr>
+								<br>
 								<h4 style="color:#333">
 									赞助金额
 								</h4>
-								<hr>
+								<br>
 								<p style="text-align: center;">
 									<strong>
 										<span style="color: #ff0000;">
@@ -66,7 +71,7 @@ pageEncoding="UTF-8" %>
 										</span>
 									</strong>
 								</p>
-								<hr>
+								<br>
 								<h4 style="color:#333">
 									赞助流程
 								</h4>
@@ -75,11 +80,11 @@ pageEncoding="UTF-8" %>
 										赞助 -&gt; 发送邮件 -&gt; &nbsp;NorthPark官方确认 -&gt;激活荣誉会员
 									</strong>
 								</p>
-								<hr>
+								<br>
 								<h4 style="color:#333">
 									赞助
 								</h4>
-								<hr>
+								<br>
 								<p>
 									1、在手机上使用【支付宝钱包】，使用【扫一扫】功能，扫描下面的二维码图片后向本站赞助相应金额；
 								</p>
@@ -118,64 +123,76 @@ pageEncoding="UTF-8" %>
 									</a>
 									。
 								</p>
-								<hr>
+								<br>
 								<h4 style="color:#333">
 									激活
 								</h4>
-								<hr>
+								<br>
 								<p>
 									赞助完成后，请把你的联系方式（QQ，微信号）以及支付截图，发送邮件到 Email：zhangyang.z@icloud.com
 								</p>
-								<hr>
+								<br>
 								<h4 style="color:#333">
 									NorthPark官方确认
 								</h4>
-								<hr>
+								<br>
 								<p>
 									在收到确认邮件后，正式成为本站会员。
 								</p>
-								<hr>
+								<br>
 								<h4 style="color:#333">
 									联系我们
 								</h4>
-								<hr>
+								<br>
 								<p>
 									赞助VIP后，请即时联系我 Email：zhangyang.z@icloud.com 并申请加入NorthPark中文网荣誉会员交流QQVIP群（注：加入QQ和群时请在备注写上你的VIP账户名）
 								</p>
 							</div>
-							<!-- 评论 -->
-							<div id="comment">
-								<!-- 来必力City版安装代码 -->
-								<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzgzNy80NDEz">
-									<script type="text/javascript">
-										(function(d, s) {
-											var j, e = d.getElementsByTagName(s)[0];
 
-											if (typeof LivereTower === 'function') {
-												return;
-											}
+							<!-- northpark评论模块 -->
+							<div id="comment" class="row" >
+								<hr>
+								<%--展示评论详情--%>
+								<div class="clearfix" id="stuffCommentBox_999999">
 
-											j = d.createElement(s);
-											j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-											j.async = true;
 
-											e.parentNode.insertBefore(j, e);
-										})(document, 'script');
-
-										//删除评论多余的代码
-										
-									</script>
 								</div>
-								<!-- City版安装代码已完成 -->
+
+
+								<div id="J_progress" class="center padding-t20"></div>
+
+
+								<div class="form-group clearfix note-comment margin-t10 " id="comment_999999">
+                         			<textarea id="input_cm_999999" placeholder="说点什么吧..."
+								    class="form-control bg-lyellow"
+								    rows="3"></textarea>
+
+
+									<button title="发布评论"
+
+
+											class="btn btn-hero margin-t5 click2save"
+											topic-id="999999"
+											topic-type="7"
+											from-uid="${user.id}"
+											from-uname="${user.username}"
+											data-input="#input_cm_999999">
+										<span class="fa fa-floppy-o padding5"></span>发布评论</button>
+
+
+								</div>
+
+
 							</div>
-							<!-- 评论 -->
+							<!-- northpark评论模块 -->
+
 						</div>
 						<div class="col-sm-offset-1 col-sm-4" style="color:#888">
 							<div class="row bg-lblue padding20 radius-5">
 								<h4 style="color:#333">
 									捐助榜
 								</h4>
-								<hr>
+								<br>
 								<ul id="donateTab" class="nav nav-tabs ">
 									<li class="active">
 										<a href="#1" onclick="loadDonates(1)" data-toggle="tab">
@@ -204,6 +221,17 @@ pageEncoding="UTF-8" %>
 					</script>
 					<script data-cfasync="false">
 						loadDonates(1);
+						//展示全文和评论详情-- northpark评论模块 --
+						loadComment(999999, 7);
+
+						function beforeSend(XMLHttpRequest) {
+							$("#J_progress").append("<div><img src='https://northpark.cn/statics/img/loading.gif' style='width:48px;height:48px;' /></div>");
+						}
+
+
+						function complete(XMLHttpRequest, textStatus) {
+							$("#J_progress").empty();
+						}
 					</script>
 		</body>
 	

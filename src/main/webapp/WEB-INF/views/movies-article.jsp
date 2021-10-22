@@ -178,7 +178,7 @@
 										<button title="发布评论"
 												class="btn btn-hero margin-t5 click2save"
 												topic-id="${model.id }"
-												topic-type="3"
+												topic-type="4"
 												from-uid="${user.id}"
 												from-uname="${user.username}"
 												data-input="#input_cm_${model.id }">
@@ -211,8 +211,6 @@
 	<%@ include file="/WEB-INF/views/page/common/container.jsp"%>
 	<script data-cfasync="false" type="text/javascript">
 		$(function() {
-
-			//删除评论多余的代码---来必力
 
 			//设置定向uri
 			$("#J_login_see").attr("href",
@@ -259,7 +257,7 @@
 			feedbackList();
 
 			//展示全文和评论详情-- northpark评论模块 --
-			loadComment('${model.id }', 3);
+			loadComment('${model.id }', 4);
 
 
 		})
