@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -99,6 +100,14 @@ public class TopicCommentAction {
 
 
         List<TopicComment> list = this.topicCommentManager.querySql(sql, topic_id, topic_type);
+
+        //处理时间戳
+        if (!CollectionUtils.isEmpty(list)) {
+            list.forEach(item -> {
+                String datastr =  item.getAdd_time();
+                if (StringUtils.isNotEmpty(datastr)) item.setAdd_time(TimeUtils.formatToNear(datastr));
+            });
+        }
 
         map.addAttribute("list", list);
 

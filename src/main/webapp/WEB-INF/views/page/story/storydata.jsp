@@ -96,7 +96,7 @@
                             <div class="form-group clearfix note-comment" id="comment_${s.noteid}_${ss.index}" style="display: none">
                                 <textarea id="input_cm_${s.noteid}_${ss.index}"
                                           class="form-control bg-lyellow"
-                                          placeholder="撰写评论"
+                                          placeholder="回复点什么..."
                                           rows="3"></textarea>
 
                                 <button title="提交评论"
@@ -108,7 +108,7 @@
                                         data-dismiss="#comment_${s.noteid}_${ss.index}"
                                         data-target="#text_${ss.index}"
                                         data-input="#input_cm_${s.noteid}_${ss.index}"
-                                ><span class="fa fa-floppy-o"></span>保存</button>
+                                ><i class="fa fa-floppy-o"></i> 回复</button>
 
                             </div>
                         </c:if>
@@ -126,9 +126,10 @@
 
                         <c:if test="${user!=null }">
                             <button class="clearfix btn btn-gray btn-xs click2comment "
+                                    title="点击回复/收起回复"
                                     data-dismiss="#comment_${s.noteid}_${ss.index}"
-                                    data-target="#comment_${s.noteid}_${ss.index}"> &nbsp; <span
-                                    class="glyphicon glyphicon-comment"></span> &nbsp;
+                                    data-target="#comment_${s.noteid}_${ss.index}"> &nbsp;
+                                <span class="glyphicon glyphicon-comment"></span> &nbsp;
                             </button>
                         </c:if>
                     </div>

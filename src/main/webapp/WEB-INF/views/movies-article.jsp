@@ -158,37 +158,38 @@
 										<hr>
 									</div>
 
-									<!-- 评论 -->
-									<div id="comment" class="grid85">
+								<!-- northpark评论模块 -->
+								<div id="comment" class="col-md-10" >
+									<hr>
+									<%--展示评论详情--%>
+									<div class="clearfix" id="stuffCommentBox_${model.id }">
 
-										<!-- 来必力City版安装代码 -->
-										<div id="lv-container" data-id="city"
-											data-uid="MTAyMC8yNzgzNy80NDEz">
-											<script type="text/javascript">
-												(function(d, s) {
-													var j, e = d
-															.getElementsByTagName(s)[0];
-
-													if (typeof LivereTower === 'function') {
-														return;
-													}
-
-													j = d.createElement(s);
-													j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-													j.async = true;
-
-													e.parentNode.insertBefore(
-															j, e);
-												})(document, 'script');
-
-												//删除评论多余的代码
-											</script>
-										</div>
-										<!-- City版安装代码已完成 -->
 
 									</div>
-									<!-- 评论 -->
 
+
+									<div id="J_progress" class="center padding-t20"></div>
+
+
+									<div class="form-group clearfix note-comment margin-t10 " id="comment_${model.id }">
+                         			<textarea id="input_cm_${model.id }" placeholder="说点什么吧..."
+											  class="form-control bg-lyellow" rows="3"></textarea>
+
+										<button title="发布评论"
+												class="btn btn-hero margin-t5 click2save"
+												topic-id="${model.id }"
+												topic-type="3"
+												from-uid="${user.id}"
+												from-uname="${user.username}"
+												data-input="#input_cm_${model.id }">
+											<span class="fa fa-floppy-o padding5"></span>发布评论</button>
+
+
+									</div>
+
+
+								</div>
+								<!-- northpark评论模块 -->
 
 								</div>
 
@@ -257,6 +258,10 @@
 			//list feedback
 			feedbackList();
 
+			//展示全文和评论详情-- northpark评论模块 --
+			loadComment('${model.id }', 3);
+
+
 		})
 
 		/* get feed back */
@@ -309,6 +314,15 @@
 			});
 
 		}
+
+		function beforeSend(XMLHttpRequest) {
+			$("#J_progress").append("<div><img src='https://northpark.cn/statics/img/loading.gif' style='width:48px;height:48px;' /></div>");
+		}
+
+		function complete(XMLHttpRequest, textStatus) {
+			$("#J_progress").empty();
+		}
+
 	</script>
 
 

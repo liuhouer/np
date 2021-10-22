@@ -164,11 +164,9 @@
 								<hr>
 							</div>
 
-							<!-- 评论 -->
+							<!-- northpark评论模块 -->
 							<div id="comment" class="col-md-10" >
-							<hr>
-
-
+							    <hr>
 								<%--展示评论详情--%>
 								<div class="clearfix" id="stuffCommentBox_${article.id}">
 
@@ -181,50 +179,20 @@
 										  class="form-control bg-lyellow"
 										  rows="3"></textarea>
 
-								<button title="发布评论"
+							    <button title="发布评论"
 
 												class="btn btn-hero margin-t5 click2save"
 												topic-id="${article.id}"
 												topic-type="3"
 												from-uid="${user.id}"
 												from-uname="${user.username}"
-												data-input="#input_cm_${article.id}"
-								><span class="fa fa-floppy-o padding5"></span>发布评论</button>
+												data-input="#input_cm_${article.id}">
+							    <span class="fa fa-floppy-o padding5"></span>发布评论</button>
 
-								</div>
-
-
-
-								<%-- <!-- 多说评论框 start -->
-                            <div class="ds-thread" data-thread-key="${article.retcode }" data-title="${article.title} | NorthPark" data-url="/soft/${article.retcode }.html"></div>
-                            <!-- 多说评论框 end --> --%>
-
-								<!-- 来必力City版安装代码 -->
-								<div id="lv-container" data-id="city"
-									data-uid="MTAyMC8yNzgzNy80NDEz">
-									<script type="text/javascript">
-										(function(d, s) {
-											var j, e = d
-													.getElementsByTagName(s)[0];
-
-											if (typeof LivereTower === 'function') {
-												return;
-											}
-
-											j = d.createElement(s);
-											j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-											j.async = true;
-
-											e.parentNode.insertBefore(j, e);
-										})(document, 'script');
-
-										//删除评论多余的代码
-									</script>
-								</div>
-								<!-- City版安装代码已完成 -->
+							    </div>
 
 							</div>
-							<!-- 评论 -->
+							<!-- northpark评论模块 -->
 
 						</div>
 					</div>
@@ -283,80 +251,10 @@
 			//list feedback
 			feedbackList();
 
-
-			//展示全文和评论详情
+			//展示全文和评论详情-- northpark评论模块 --
 			loadComment('${article.id}', 3);
 
-
-			/*回复*/
-			$(".click2pub").click(function (){
-				var u = '${user.id}';
-				if (u) {
-					var input = $(this).data('input');
-
-					//must
-					var topic_id = $(this).attr('topic-id');
-					var topic_type = $(this).attr('topic-type');
-					var from_uid = $(this).attr('from-uid');
-					var from_uname = $(this).attr('from-uname');
-
-					var to_uid = $(this).attr('to-uid');
-					var to_uname = $(this).attr('to-uname');
-
-					if (to_uid == from_uid) {
-						to_uid = '';
-						to_uname = '';
-					}
-
-					var comment_content = $(input).val();
-
-					if (!comment_content.trim()) {
-						art.dialog.alert('填写回复信息');
-						return;
-					}
-
-					if (!(topic_id && topic_type && from_uid && from_uname)) {
-						art.dialog.alert('参数非法');
-						return;
-					}
-
-					$.ajax({
-						url: "/topicComment/addTopicComment",
-						type: "post",
-						data: {
-							"topic_id": topic_id,
-							"topic_type": topic_type,
-							"from_uid": from_uid,
-							"from_uname": from_uname,
-							"content": comment_content,
-							"to_uid": to_uid,
-							"to_uname": to_uname
-						},
-						dataType: "json",
-						// beforeSend: beforeSend, //发送请求
-						// complete: complete,
-						success: function (data) {
-							if (data.result) {
-
-								//展示全文和评论详情
-								loadComment(topic_id, 3);
-
-								art.dialog.tips('回复成功.');
-
-
-							} else {
-								console.log(data);
-							}
-						}
-					});
-
-
-				}else{
-					let to_href = window.location.href;
-					window.location.href = "/login?redirectURI=" + to_href;
-				}
-			})
-		})
+		});
 
 		/* get feed back */
 		function feedbackList() {

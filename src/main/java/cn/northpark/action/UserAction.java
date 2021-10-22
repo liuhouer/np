@@ -446,16 +446,19 @@ public class UserAction {
             map.put("MyInfo", user);
 
             //查询个人歌词最爱历史
-            String sql = "select c.updatedate,c.id,c.title,c.titlecode,c.albumImg,b.id as userlyricsid from    bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id where b.userid = ? order by c.updatedate desc";
-
+            String sql = " SELECT t.* from ( " +
+                    " (SELECT '点赞数据' as data_type, d.love_date, c.id, c.title, c.titlecode, c.albumImg FROM bc_lyrics_zan d " +
+                    " left join bc_lyrics c on d.lyricsid = c.id WHERE d.userid = ? and c.id is not null ) " +
+                    " union (SELECT '创建数据' as data_type, c.love_date, c.id, c.title, c.titlecode, c.albumImg FROM bc_user_lyrics b " +
+                    " join bc_lyrics c on b.lyricsid = c.id WHERE b.userid = ? and c.id is not null ) " +
+                    " ) as t order by t.data_type desc,t.love_date DESC";
+            
             if (user != null) {
-                List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId());
+                List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId(), user.getId());
                 
                 for (int i = 0; i < list.size(); i++) {
                     //--批量处理时间
-                    list.get(i).put("updatedate", TimeUtils.formatToNear((String) list.get(i).get("updatedate")));
-                    ;
-
+                    list.get(i).put("love_date", TimeUtils.formatToNear((String) list.get(i).get("love_date")));
                 }
                 map.addAttribute("Lovelist", list);
                 //取得当前用户对作者的关注状态

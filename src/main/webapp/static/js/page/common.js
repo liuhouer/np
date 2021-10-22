@@ -65,72 +65,11 @@ function clacImgZoomParam(maxWidth, maxHeight, width, height) {
 }
 
 
-//QQ登陆code
-
-//调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中  
-/* QC.Login({  
-  //btnId：插入按钮的节点id，必选  
-  btnId:"qqLoginBtn",      
-}, function(reqData, opts){//登录成功  
-   //根据返回数据，更换按钮显示状态方法  
-  
-	   if(QC.Login.check()){
-       QC.Login.getMe(function(openId, accessToken){   
-          $.ajax({
-      		url:"/cm/qq/flag",
-      		type:"post",
-      		data:{"openId":openId},
-      		success:function(msg){
-      			if(msg=="0"){//首次绑定
-      				 	var paras = {};  
-      			        QC.api("get_user_info", paras)  
-      			            .success(function(s){//成功回调  
-      			            })  
-      			            .error(function(f){//失败回调  
-      			                art.dialog.tips('获取用户信息失败！');
-      			            })  
-      			            .complete(function(c){//完成请求回调  
-      			                var  qqinfo = c.dataText;
-      			                //异步传回用户数据进行绑定
-      			                $.ajax({
-      			            		url:"/cm/qq/add",
-      			            		type:"post",
-      			            		data:{"openId":openId,"qqinfo":qqinfo},
-      			            		success:function(msg){
-      			            			if(msg=="success"){
-      			            				//art.dialog.tips('登陆成功');
-      			            				$("#J_log_info_l").text("退出");
-      			            				$("#J_log_info_l").attr("href","/cm/logout");
-      			            				$("#J_log_info_r").text("我自己");
-      			            				$("#J_log_info_r").attr("href","/cm/pcentral");
-      			            			}			
-      			            		}
-      			            	}); 
-      			            });  
-      			}else if(msg == "1"){
-      				//art.dialog.tips('登陆成功');
-      				$("#J_log_info_l").text("退出");
-      				$("#J_log_info_l").attr("href","/cm/logout");
-      				$("#J_log_info_r").text("我自己");
-      				$("#J_log_info_r").attr("href","/cm/pcentral");
-      			}			
-      		}
-      	});
-       });   
-   }
-  
-   //这里可以调用自己的保存接口  
-   //...  
-}, function(opts){//注销成功  
-	art.dialog.tips('qq注销');
-    window.location.href = "/cm/logout?flag=qq";
-}  
-);  
- */
 
 
+
+/*留言模块js*/
 //下拉查看更多的事件
-
 $("body").on('click', '.click2show', function () {
     var brief_id = $(this).data('dismiss');
     var article_id = $(this).data('target');
@@ -172,7 +111,9 @@ $("body").on('click', '.click2hide', function () {
 
 
 });
+/*留言模块js*/
 
+<!-- northpark评论模块 start -->
 
 /***
  * 点击评论按钮
@@ -185,8 +126,10 @@ $("body").on('click', '.click2comment', function () {
     var display = $(comment_id).css("display");
     if (display == 'none') {
         $(comment_id).removeClass("hidden").css("display", "block");
+        $(this).find('span').addClass("glyphicon-chevron-up").removeClass("glyphicon-comment");
     } else if (display == 'block') {
         $(comment_id).addClass("hidden").css("display", "none");
+        $(this).find('span').addClass("glyphicon-comment").removeClass("glyphicon-chevron-up");
     }
 
 
@@ -199,66 +142,95 @@ $("body").on('click', '.click2comment', function () {
 
 $("body").on('click', '.click2save', function () {
 
-    var dismiss = $(this).data('dismiss');
-    var show = $(this).data('target');
-    var input = $(this).data('input');
+    let ck = $(this);
 
-    var topic_id = $(this).attr('topic-id');
-    var topic_type = $(this).attr('topic-type');
-    var from_uid = $(this).attr('from-uid');
-    var from_uname = $(this).attr('from-uname');
-
-    var to_uid = $(this).attr('to-uid');
-    var to_uname = $(this).attr('to-uname');
-
-    if (to_uid == from_uid) {
-        to_uid = '';
-        to_uname = '';
-    }
-
-    var comment_content = $(input).val();
-
-    if (!comment_content.trim()) {
-        art.dialog.alert('填写必要信息');
-        return;
-    }
-
-    console.log(topic_id, topic_type, from_uid, from_uname, to_uid, comment_content);
-
-    if (!(topic_id && topic_type && from_uid && from_uname)) {
-        art.dialog.alert('参数非法');
-        return;
-    }
-
+    //login flag
     $.ajax({
-        url: "/topicComment/addTopicComment",
-        type: "post",
-        data: {
-            "topic_id": topic_id,
-            "topic_type": topic_type,
-            "from_uid": from_uid,
-            "from_uname": from_uname,
-            "content": comment_content,
-            "to_uid": to_uid,
-            "to_uname": to_uname
-        },
+        url: "/cm/loginFlag",
+        type: "get",
         dataType: "json",
-        beforeSend: beforeSend, //发送请求
-        complete: complete,
-        success: function (data) {
-            if (data.result) {
-
-                //TODO 展开详情展示评论，隐藏评论框
-                //隐藏评论框
-                $(dismiss).toggle();
-
-                //展示全文和评论详情
-                loadComment(topic_id, 1);
+        success: function (msg) {
+            if (msg.data == "1") {//已登录
 
 
-            } else {
-                console.log(data);
+                var dismiss = ck.data('dismiss')|| '';
+                var show = ck.data('target')|| '';
+                var input = ck.data('input')|| '';
+
+                var topic_id = ck.attr('topic-id');
+                var topic_type = ck.attr('topic-type');
+                var from_uid = ck.attr('from-uid');
+                var from_uname = ck.attr('from-uname');
+
+                var to_uid = ck.attr('to-uid');
+                var to_uname = ck.attr('to-uname');
+
+                if (to_uid == from_uid) {
+                    to_uid = '';
+                    to_uname = '';
+                }
+
+                if(input){
+                    var comment_content = $(input).val();
+
+                    if (!comment_content.trim()) {
+                        art.dialog.alert('填写必要信息');
+                        return;
+                    }
+                }
+
+
+                console.log(topic_id, topic_type, from_uid, from_uname, to_uid, comment_content);
+
+                if (!(topic_id && topic_type && from_uid && from_uname)) {
+                    art.dialog.alert('参数非法');
+                    return;
+                }
+
+                $.ajax({
+                    url: "/topicComment/addTopicComment",
+                    type: "post",
+                    data: {
+                        "topic_id": topic_id,
+                        "topic_type": topic_type,
+                        "from_uid": from_uid,
+                        "from_uname": from_uname,
+                        "content": comment_content,
+                        "to_uid": to_uid,
+                        "to_uname": to_uname
+                    },
+                    dataType: "json",
+                    beforeSend: beforeSend, //发送请求
+                    complete: complete,
+                    success: function (data) {
+                        if (data.result) {
+
+                            //TODO 展开详情展示评论，隐藏评论框
+                            //隐藏评论框
+                            if(dismiss){
+                                $(dismiss).toggle();
+                            }
+
+                            if(input){
+                                $(input).val('');
+                            }
+
+                            //展示全文和评论详情
+                            loadComment(topic_id, topic_type);
+
+
+                        } else {
+                            console.log(data);
+                        }
+                    }
+                });
+
+
+            } else {//没有登录
+                let to_href = window.location.href;
+                window.location.href = "/login?redirectURI=" + to_href;
             }
+
         }
     });
 
@@ -280,6 +252,7 @@ function loadComment(topic_id, topic_type) {
 
 }
 
+<!-- northpark评论模块 end -->
 
 //加载打赏数据
 function loadDonates(type_id) {
@@ -358,3 +331,67 @@ function loadDonates(type_id, page) {
 
     }).resize();
 });*/
+
+
+//QQ登陆code
+
+//调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中
+/* QC.Login({
+  //btnId：插入按钮的节点id，必选
+  btnId:"qqLoginBtn",
+}, function(reqData, opts){//登录成功
+   //根据返回数据，更换按钮显示状态方法
+
+	   if(QC.Login.check()){
+       QC.Login.getMe(function(openId, accessToken){
+          $.ajax({
+      		url:"/cm/qq/flag",
+      		type:"post",
+      		data:{"openId":openId},
+      		success:function(msg){
+      			if(msg=="0"){//首次绑定
+      				 	var paras = {};
+      			        QC.api("get_user_info", paras)
+      			            .success(function(s){//成功回调
+      			            })
+      			            .error(function(f){//失败回调
+      			                art.dialog.tips('获取用户信息失败！');
+      			            })
+      			            .complete(function(c){//完成请求回调
+      			                var  qqinfo = c.dataText;
+      			                //异步传回用户数据进行绑定
+      			                $.ajax({
+      			            		url:"/cm/qq/add",
+      			            		type:"post",
+      			            		data:{"openId":openId,"qqinfo":qqinfo},
+      			            		success:function(msg){
+      			            			if(msg=="success"){
+      			            				//art.dialog.tips('登陆成功');
+      			            				$("#J_log_info_l").text("退出");
+      			            				$("#J_log_info_l").attr("href","/cm/logout");
+      			            				$("#J_log_info_r").text("我自己");
+      			            				$("#J_log_info_r").attr("href","/cm/pcentral");
+      			            			}
+      			            		}
+      			            	});
+      			            });
+      			}else if(msg == "1"){
+      				//art.dialog.tips('登陆成功');
+      				$("#J_log_info_l").text("退出");
+      				$("#J_log_info_l").attr("href","/cm/logout");
+      				$("#J_log_info_r").text("我自己");
+      				$("#J_log_info_r").attr("href","/cm/pcentral");
+      			}
+      		}
+      	});
+       });
+   }
+
+   //这里可以调用自己的保存接口
+   //...
+}, function(opts){//注销成功
+	art.dialog.tips('qq注销');
+    window.location.href = "/cm/logout?flag=qq";
+}
+);
+ */
