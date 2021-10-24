@@ -43,24 +43,23 @@ $(document).ready(function () {
     });
 
 
+    //添加到最爱
     $("#J_gz_btn").click(function () {
         //把userid的判断转为后台判断
-        var uri = window.location.href;
+        let uri = window.location.href;
         if (yizan == 'yizan') {
             return ;
         }
 
-        var loveDate = $("#loveDate").val();
+        let loveDate = $("#loveDate").val();
         if(!loveDate){
             art.dialog.tips("完善爱上时间");
             return ;
         }
-        $("#J_love_box_close").click();
         $.ajax({
             url: "/cm/loginFlag",
             type: "get",
             dataType: "json",
-            beforeSend: beforeSendZAN, //发送请求
             success: function (msg) {
                 if (msg.data == "1") {//已登录
                     var userid = uid;
@@ -69,6 +68,7 @@ $(document).ready(function () {
                         type: "post",
                         dataType: "json",
                         data: {"lyricsid": lrcid, "userid": userid,"loveDate": loveDate},
+                        beforeSend: beforeSendZAN, //发送请求
                         complete: completeZAN,
                         success: function (data) {
                             if (data.data == "success") {

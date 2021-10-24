@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationContextAware;
  */
 public class SpringContextUtils implements ApplicationContextAware {//extends ApplicationObjectSupport{
 
-    private static ApplicationContext applicationContext = null;
+    private static volatile ApplicationContext applicationContext = null;
 
 
     @Override

@@ -73,38 +73,7 @@
                         </div>
 
 
-                        <!-- 模态框（Modal） -->
-                        <div class="modal fade" id="loveBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                            &times;
-                                        </button>
-                                        <h4 class="modal-title" id="myModalLabel">
-                                            设置爱上时间
-                                        </h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="col-sm-6 padding-b20">
-                                            <p>
-                                                <input id="loveDate" placeholder="1995-06-06"
-                                                       class="form_datetime form-control border-light-1 input-lg bg-lyellow  grid98 radius-0"
-                                                       name="loveDate" type="text" >
-                                            </p>
 
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer " style="margin-top: 45px;">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal" id="J_love_box_close">关闭
-                                        </button>
-                                        <button type="button" class="btn btn-primary" id="J_gz_btn">
-                                            提交
-                                        </button>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal -->
-                        </div>
 
                         <div class="col-sm-5">
 
@@ -142,10 +111,30 @@
                             <div id="showResult" class="control-group center margen-b10">
                             </div>
 
+                            <!-- 隐藏组件 -->
+                            <div class="form-group clearfix  hidden" id="loveBox" >
+
+                                <p>
+                                    <span class="bold-text">设置爱上时间</span>
+                                </p>
+                                <p>
+                                    <input id="loveDate" placeholder="1995-06-06"
+                                           class="form_datetime form-inline border-light-1  bg-lyellow  grid50 radius-0"
+                                           name="loveDate" type="text" >
+                                    <button data-dismiss="#loveBox"
+                                            id="J_gz_btn"
+                                            title="加入我的最爱"
+                                            class="btn btn-hero form-inline" style="vertical-align: bottom;padding: 2px 10px;">
+                                        <i class="fa fa-floppy-o"></i> 爱上</button>
+                                </p>
+
+                            </div>
+                            <!-- 隐藏组件 -->
+
                             <h2>
                                 <%--id="J_gz_btn"--%>
-                                <button class="btn btn-warning btn-xlg"
-                                        data-toggle="modal"
+                                <button class="btn btn-warning btn-xlg click2love"
+                                        title="加入我的最爱 展开/收起"
                                         data-target="#loveBox">
                                     <span class="glyphicon glyphicon-heart"></span>
                                     <c:if test="${yizan eq 'yizan' }">已爱上~</c:if>
@@ -159,6 +148,7 @@
 
                         <h4><span class="glyphicon glyphicon-comment"></span> ${datamap.plNum }条回忆</h4>
                         <hr>
+                        <%--发表评论--%>
                         <c:if test="${user!=null }">
                             <div class="row">
                                 <div class="col-xs-3 col-sm-2">
@@ -193,8 +183,10 @@
                                 </div>
                             </div>
                         </c:if>
+                        <%--发表评论--%>
 
 
+                        <%--评论列表--%>
                         <div class="clearfix" id="stuffCommentBox">
 
                         </div>
@@ -213,12 +205,14 @@
                             <input type="hidden" id="J_lrc_id" value="${datamap.lrc_id }">
                             <input type="hidden" id="J_tail" value="${tail }">
                         </div>
+                        <%--评论列表--%>
 
 
                     </div>
 
                 </div>
 
+                <%--右侧广场--%>
                 <div class="col-md-4">
                     <div class="clearfix sidebar radius-5">
                         <div class="clearfix border-bottom">
@@ -263,7 +257,7 @@
                     </div>
 
                 </div>
-
+                <%--右侧广场--%>
             </div>
 
 
@@ -280,7 +274,7 @@
 <script data-cfasync="false" src="https://northpark.cn/statics/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
 <script src="https://northpark.cn/statics/js/bootstrap-datetimepicker.js"></script>
 <script src="https://northpark.cn/statics/js/bootstrap-datetimepicker.zh-CN.js"></script>
-<script data-cfasync="false" src="https://northpark.cn/statics/js/page/zancmt.js"></script>
+<script data-cfasync="false" src="/static/js/page/zancmt.js"></script>
 
 <script>
     $(function () {
@@ -290,6 +284,47 @@
             dateFormat: 'yyyy-mm-dd',
             minView: "month",//选择日期后，不会再跳转去选择时分秒
             autoclose:true
+        })
+
+        $(".click2love").click(function (){
+            //1
+            if (yizan == 'yizan') {
+                return ;
+            }
+            //2
+            let cl = $(this);
+            let uri = window.location.href;
+            //日期控件
+            let love_date_id = $(this).data('target');
+
+            $.ajax({
+                url: "/cm/loginFlag",
+                type: "get",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg.data == "1") {//已登录
+
+                        //3
+                        // 点击添加最爱按钮,展开
+                        let display = $(love_date_id).css("display");
+                        if (display == 'none') {
+                            $(love_date_id).removeClass("hidden").css("display", "block");
+                            $(cl).find('span').addClass("glyphicon-chevron-up").removeClass("glyphicon-heart");
+                        } else if (display == 'block') {
+                            $(love_date_id).addClass("hidden").css("display", "none");
+                            $(cl).find('span').addClass("glyphicon-heart").removeClass("glyphicon-chevron-up");
+                        }
+
+
+
+                    } else if (msg.data == "0") {//没有登录
+
+                        window.location.href = "/login?redirectURI=" + uri;
+                    }
+
+                }
+            });
+
         })
     })
 
