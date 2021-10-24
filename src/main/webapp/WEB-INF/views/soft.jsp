@@ -227,6 +227,13 @@
             }
             setTimeout("$('#J_ser_btn').removeAttr('disabled')", 5000); //设置5秒后提交按钮 显示
         })
+
+        //ENTER事件
+        $("body").keydown(function () {
+            if (event.keyCode.toString() === "13"){
+                $("#J_ser_btn").click();
+            }
+        });
     })
 </script>
 
