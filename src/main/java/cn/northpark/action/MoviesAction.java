@@ -38,6 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.*;
 
@@ -60,7 +61,7 @@ public class MoviesAction {
     /**
      * 每页展示多少条电影数
      */
-    private static int MoviesCount = 6;
+    private static int MoviesCount = 12;
     
     /**
      * @param request
@@ -410,14 +411,75 @@ public class MoviesAction {
     }
 
     /**
-     * 查询列表
+     * 查询列表--首页
      *
      * @return
      */
     @RequestMapping(value = "/movies")
-    public String list() {
+    public String list(ModelMap map,  HttpServletRequest request, HttpSession session) throws Exception {
 
-        return "redirect:/movies/page/1";
+        session.removeAttribute("tabs");
+        session.setAttribute("tabs", "movies");
+
+        String result = "/movies2";
+        String whereSql = " where displayed is  null ";
+
+
+        //搜索
+        String keyword = request.getParameter("keyword");
+        if (StringUtils.isNotEmpty(keyword)) {
+            keyword = URLDecoder.decode(keyword, "UTF-8");
+        }
+        map.put("keyword", keyword);
+        if (StringUtils.isNotEmpty(keyword)) {
+            keyword = WAQ.forSQL().escapeSql(keyword);
+            if (keyword.contains(" ")) {
+                String keyword2 = keyword.replaceAll(" ", "");
+                whereSql += " and moviename like '%" + keyword + "%' or moviename like '%" + keyword2 + "%' ";
+            } else {
+                whereSql += " and moviename like '%" + keyword + "%' ";
+            }
+
+
+        }
+
+        log.info("sql ---" + whereSql);
+        //排序条件
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
+        String orderby = request.getParameter("orderby");
+        if (StringUtils.isNotEmpty(orderby)) {
+            if ("hot".equals(orderby)) {
+                order.put("hotindex", "desc");
+            } else if ("latest".equals(orderby)) {
+                order.put("id", "desc");
+            }
+            map.put("orderby", orderby);
+        } else {
+            order.put("addtime", "desc");
+            order.put("id", "desc");
+        }
+
+
+        //获取pageview
+        PageView<Movies> pageview = new PageView<Movies>(1, MoviesCount);
+        QueryResult<Movies> qr = this.moviesManager.findByCondition(pageview, whereSql, order);
+        List<Movies> resultlist = qr.getResultlist();
+
+        //生成分页信息
+        pageview.setQueryResult(qr);
+        //处理标签列表
+        handleTag(resultlist);
+
+        map.put("page", 1);
+
+        map.addAttribute("pageView", pageview);
+        map.addAttribute("list", resultlist);
+        map.addAttribute("actionUrl", "/movies");
+
+        //获取标签模块
+        getTags(map, request);
+
+        return result;
     }
 
     /**
@@ -551,6 +613,7 @@ public class MoviesAction {
             id = WAQ.forSQL().escapeSql(id);
             Movies  model = moviesManager.findMovies(Integer.valueOf(id));
             if(model!=null) {
+                //页面描述
             	if(StringUtils.isNotEmpty(model.getDescription())) map.put("description", Jsoup.parse(model.getDescription()).select("p").text());
             	map.addAttribute("model", model);
             }
