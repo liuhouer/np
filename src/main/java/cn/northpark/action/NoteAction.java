@@ -282,7 +282,7 @@ public class NoteAction {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "")
     public String noteplazz(ModelMap map, NoteQueryCondition condition, HttpServletRequest request,
                             HttpServletResponse response, HttpSession session) throws IOException {
 
@@ -303,7 +303,7 @@ public class NoteAction {
 
         map.addAttribute("pageView", pageview);
         map.put("condition", condition);
-        map.addAttribute("actionUrl", "/note/list");
+        map.addAttribute("actionUrl", "/note");
 
 
         return result;
@@ -321,7 +321,7 @@ public class NoteAction {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/list/page/{page}")
+    @RequestMapping(value = "/page/{page}")
     public String noteplazzpage(ModelMap map, NoteQueryCondition condition, @PathVariable String page, HttpServletRequest request,
                                 HttpServletResponse response, HttpSession session) throws IOException {
 
@@ -343,7 +343,7 @@ public class NoteAction {
 
         map.addAttribute("pageView", pageview);
         map.put("condition", condition);
-        map.addAttribute("actionUrl", "/note/list");
+        map.addAttribute("actionUrl", "/note");
         map.addAttribute("page", page);
 
 

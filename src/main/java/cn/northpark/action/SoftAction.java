@@ -145,19 +145,61 @@ public class SoftAction {
     }
 
     /**
-     * 查询列表
+     * 查询列表-首页数据
      *
      * @param request
      * @return
      */
     @RequestMapping(value = "/mac")
-    public String list(HttpServletRequest request) {
+    public String list(ModelMap map, HttpServletRequest request, HttpSession session) throws IOException {
+
+        session.removeAttribute("tabs");
+        session.setAttribute("tabs", "soft");
+        String result = "/soft";
+        String whereSql = "";
 
         //搜索
+        String keyword = request.getParameter("keyword");
+        if (StringUtils.isNotEmpty(keyword)) {
+            keyword = URLDecoder.decode(keyword, "UTF-8");
+        }
+        map.put("keyword", keyword);
+        if (StringUtils.isNotEmpty(keyword)) {
+            keyword = WAQ.forSQL().escapeSql(keyword);
+            if (keyword.contains(" ")) {
+                String keyword2 = keyword.replaceAll(" ", "");
+                whereSql += " where title like '%" + keyword + "%' or title like '%" + keyword2 + "%' ";
+            } else {
+                whereSql += " where title like '%" + keyword + "%' ";
+            }
 
-        String rs = "redirect:/soft/mac/page/1";
 
-        return rs;
+        }
+
+        log.info("sql ---" + whereSql);
+
+        //排序条件
+        LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
+        order.put("UNIX_TIMESTAMP(postdate)", "desc");
+
+        //获取pageview
+        PageView<Soft> p = new PageView<Soft>(1, SoftCount);
+        QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
+        List<Soft> resultlist = qr.getResultlist();
+
+        //触发分页
+        p.setQueryResult(qr);
+
+        map.addAttribute("pageView", p);
+        map.addAttribute("list", resultlist);
+        map.addAttribute("actionUrl", "/soft/mac");
+        map.addAttribute("page", 1);
+
+        //获取标签模块
+        getTags(map, request);
+
+
+        return result;
     }
 
     @RequestMapping(value = "/mac/page/{page}")

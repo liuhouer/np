@@ -79,7 +79,7 @@
 											扯淡、吐槽、心情、树洞……想说啥就说啥！... <br>
 											<br>NorthPark就是你的树洞。
 										</p>
-										<a href="/note/list">More Details</a>
+										<a href="/note">More Details</a>
 															
 									    </span>
                         </div>
