@@ -1,8 +1,12 @@
 
 package cn.northpark.action;
 
+import cn.northpark.annotation.BruceOperation;
+import cn.northpark.constant.BC_Constant;
 import cn.northpark.constant.ResultEnum;
 import cn.northpark.exception.NorthParkException;
+import cn.northpark.exception.Result;
+import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.KnowledgeManager;
 import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Knowledge;
@@ -11,6 +15,8 @@ import cn.northpark.query.KnowledgeQuery;
 import cn.northpark.query.condition.KnowledgeQueryCondition;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.RedisUtil;
+import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.encrypt.MD5Utils;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.utils.safe.WAQ;
@@ -25,6 +31,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +41,7 @@ import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 /**
@@ -58,9 +66,9 @@ public class KnowledgeAction {
 	private TagsManager tagsManager;
 
 	/**
-	 * 每页展示多少条电影数
+	 * 每页展示多少条学习数
 	 */
-	private static int LearningCount = 6;
+	private static int LearningCount = 10;
 
 	
 	/**
@@ -73,10 +81,13 @@ public class KnowledgeAction {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/list")
+	@RequestMapping(value="")
 	public String list1(ModelMap map,KnowledgeQueryCondition condition,HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
-		
+
+		session.removeAttribute("tabs");
+		session.setAttribute("tabs", "learning");
+
 		String result="/learning";
 		String sql = knowledgeQuery.getMixSql(condition);
 		
@@ -99,13 +110,28 @@ public class KnowledgeAction {
 
 
 		}
+
+		//排序条件
+		LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
+		String orderby = request.getParameter("orderby");
+		if (StringUtils.isNotEmpty(orderby)) {
+			if ("hot".equals(orderby)) {
+				order.put("hotindex", "desc");
+			} else if ("latest".equals(orderby)) {
+				order.put("id", "desc");
+			}
+			map.put("orderby", orderby);
+		} else {
+			order.put("post_date", "desc");
+			order.put("id", "desc");
+		}
 		
 		//定义pageview
 		PageView<Knowledge> pageview = new PageView<Knowledge>(1, LearningCount);
 		
 		//获取分页结构不获取数据
 
-		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageview, sql,null);
+		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageview, sql,order);
 		List<Knowledge> resultlist = qr.getResultlist();
 
 		//处理标签列表
@@ -137,10 +163,13 @@ public class KnowledgeAction {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/list/page/{page}")
+	@RequestMapping(value="/page/{page}")
 	public String list2(ModelMap map, KnowledgeQueryCondition condition, @PathVariable String page, HttpServletRequest request,
 						HttpServletResponse response, HttpSession session) throws IOException {
-		
+
+		session.removeAttribute("tabs");
+		session.setAttribute("tabs", "learning");
+
 		String result="/learning";
 		String sql = knowledgeQuery.getMixSql(condition);
 		
@@ -166,12 +195,32 @@ public class KnowledgeAction {
 
 		}
 
+		//排序条件
+		LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
+		String orderby = request.getParameter("orderby");
+		if (StringUtils.isNotEmpty(orderby)) {
+			if ("hot".equals(orderby)) {
+
+				order.put("hotindex", "desc");
+
+			} else if ("latest".equals(orderby)) {
+
+				order.put("post_date", "desc");
+				order.put("id", "desc");
+			}
+			map.put("orderby", orderby);
+		} else {
+			order.put("post_date", "desc");
+			order.put("id", "desc");
+		}
+
+
 		//定义pageview
 		PageView<Knowledge> pageview = new PageView<Knowledge>(currentpage, LearningCount);
 
 		//获取分页结构不获取数据
 
-		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageview, sql,null);
+		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageview, sql,order);
 
 		List<Knowledge> resultlist = qr.getResultlist();
 		//处理标签列表
@@ -259,7 +308,8 @@ public class KnowledgeAction {
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
-		order.put("hotindex,id", "desc");
+		order.put("hotindex", "desc");
+		order.put("id", "desc");
 
 		//获取pageview
 		PageView<Knowledge> pageview = new PageView<Knowledge>(Integer.parseInt(currentpage), LearningCount);
@@ -289,7 +339,7 @@ public class KnowledgeAction {
 
 		return result;
 	}
-	//=====================================标签=====================================
+
 
 	/**
 	 * 处理标签列表
@@ -348,8 +398,8 @@ public class KnowledgeAction {
 
 			tags = tagsManager.findByCondition(" where tagtype = '4' ").getResultlist();
 
-			//获取热门电影
-			String hotsql = "select id,title from bc_knowledge order by rand() desc limit 0,70";
+			//获取热门学习
+			String hotsql = "select id,title,color from bc_knowledge where tags_code like '%classhare%' order by rand() desc limit 0,50";
 			learn_hot_list = knowledgeManager.querySqlMap(hotsql);
 
 			RedisUtil.getInstance().set("learn_hot_list", JsonUtil.object2json(learn_hot_list), 24 * 60 * 60);
@@ -362,5 +412,171 @@ public class KnowledgeAction {
 		map.put("learn_tags", tags);
 
 	}
+	//=====================================标签=====================================
+
+
+
+	//=====================================资源编辑========================================
+	/**
+	 * @param request
+     * @return
+	 * @author Bruce
+     * 置顶的方法
+     */
+	@RequestMapping("/handup")
+	@ResponseBody
+	@BruceOperation
+	public Result<String> handup(HttpServletRequest request) {
+		String rs = "success";
+		try {
+			String id = request.getParameter("id");
+			String max_hot_sql_id = "select max(hotindex) as hotindex from bc_knowledge ";
+			List<Map<String, Object>> list = knowledgeManager.querySqlMap(max_hot_sql_id);
+			Integer hotindex = 0;
+			if (!CollectionUtils.isEmpty(list) && Objects.nonNull(list.get(0).get("hotindex"))) {
+					hotindex = (Integer) list.get(0).get("hotindex");
+					hotindex++;
+			}
+			
+			hotindex = hotindex>0?hotindex:888;
+
+			if (hotindex > 0) {
+				Knowledge m = knowledgeManager.findKnowledge(Integer.parseInt(id));
+				if (m != null) {
+					m.setHotindex(hotindex);
+					knowledgeManager.updateKnowledge(m);
+				}
+			}
+
+
+
+		} catch (Exception e) {
+			log.error("moviesacton------>", e);
+			rs = "ex";
+		}
+		return ResultGenerator.genSuccessResult(rs);
+	}
+
+
+	/**
+	 * 隐藏学习的方法
+	 *
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/hideup")
+	@ResponseBody
+	@BruceOperation
+	public Result<String> hideup(HttpServletRequest request) {
+		String rs = "success";
+		try {
+			String id = request.getParameter("id");
+
+			Knowledge m = knowledgeManager.findKnowledge(Integer.parseInt(id));
+			if (m != null) {
+				m.setDisplayed("N");
+				knowledgeManager.updateKnowledge(m);
+			}
+
+		} catch (Exception e) {
+			log.error("moviesacton------>", e);
+			rs = "ex";
+		}
+		return ResultGenerator.genSuccessResult(rs);
+	}
+
+
+	/**
+	 * 跳转后台添加
+	 *
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping("/add")
+	@BruceOperation
+	public String toAdd(ModelMap map, HttpServletRequest request) {
+
+		String rs = "/page/admin/learn/learnAdd";
+		return rs;
+	}
+
+
+	/**
+	 * 跳转到学习编辑页面
+	 *
+	 * @param map
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/edit/{id}")
+	@BruceOperation
+	public String edit(ModelMap map, @PathVariable String id, HttpServletRequest request ) {
+
+		if (StringUtils.isNotEmpty(id)) {
+			//sql注入处理
+			id = WAQ.forSQL().escapeSql(id);
+			Knowledge  model = knowledgeManager.findKnowledge(Integer.valueOf(id));
+			if(model!=null) {
+				map.addAttribute("model", model);
+			}
+		}
+
+
+		return "/page/admin/learn/learnAdd";
+	}
+
+
+	/**
+	 * 保存学习的方法
+	 *
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping("/addItem")
+	@ResponseBody
+	@BruceOperation
+	public Result<String> addItem(ModelMap map, Knowledge model) {
+
+		assert Objects.nonNull(model)
+				&& StringUtils.isNotBlank(model.getContent())
+				&& StringUtils.isNotBlank(model.getTitle())
+				&& StringUtils.isNotBlank(model.getPath())
+				&& StringUtils.isNotBlank(model.getColor());
+		String rs = "success";
+		try {
+			//更新
+			if(model.getId()!=null && model.getId()!=0) {
+				Knowledge old = knowledgeManager.findKnowledge(model.getId());
+				old.setTitle(model.getTitle());
+				old.setPath(model.getPath());
+				old.setColor(model.getColor());
+				old.setContent(model.getContent());
+				knowledgeManager.updateKnowledge(old);
+
+				//从redis set里面删除更新的失效资源
+				if(RedisUtil.getInstance().sMembers(BC_Constant.REDIS_FEEDBACK).toString().contains(model.getId().toString())){
+					RedisUtil.getInstance().sMembers(BC_Constant.REDIS_FEEDBACK).forEach(item->{
+						if(item.contains(model.getId().toString())) {
+							RedisUtil.getInstance().sRem(BC_Constant.REDIS_FEEDBACK, item);
+						}
+					});
+				}
+
+			}else {//新增
+
+				model.setRet_code(MD5Utils.encrypt(model.getTitle(),MD5Utils.MD5_KEY));
+				model.setPost_date(TimeUtils.nowdate());
+				knowledgeManager.addKnowledge(model);
+			}
+
+		} catch (Exception e) {
+			log.error("保存学习的方法------>", e);
+			rs = "ex";
+		}
+		return ResultGenerator.genSuccessResult(rs);
+	}
+   //=====================================资源编辑========================================
+
 
 }

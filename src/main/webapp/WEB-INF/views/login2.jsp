@@ -47,6 +47,7 @@
             <ul class="nav mainhead-nav">
                 <li><a href="/movies" title="包含最新的影视剧资源"><i class="fa fa-film padding5"></i>影视</a></li>
                 <li><a href="/soft/mac" title="丰富的Mac软件资源"><i class="fa fa-apple padding5"></i>软件</a></li>
+                <li><a href="/learning" title="学习/课程/书籍/知识"><i class="fa fa-graduation-cap padding5"></i>学习</a></li>
                 <li><a href="/love" title="最爱主题图册"><i class="fa fa-picture-o padding5"></i>最爱</a></li>
                 <li><a href="/note/list" title="碎碎念的精神角落"><i class="fa fa-comment padding5"></i>树洞</a> </li>
 

@@ -48,7 +48,7 @@
 
 
                         <form class="form-search " id="J_ser_from" method="post" accept-charset="UTF-8" action="/learning/page/1" onkeydown="if(event.keyCode==13){return false;}">
-                            <input id="keyword" placeholder="电影名" value="${keyword }"
+                            <input id="keyword" placeholder="课程/书籍" value="${keyword }"
                                    class="width100 input-medium search-query input-lg  border-light-1 bg-lyellow  radius-0"
                                    name="keyword" type="text">
                             <input data-activetext="搜索 ››" class="btn btn-hero " value="搜索" type="button"
@@ -108,8 +108,17 @@
 
                                     </p>
                                     <p id="brief_${ss.index}">
+                                        <c:if test="${s.brief_img!='' && s.brief_img!=null}">
+                                            <img src="${s.brief_img }"></img>
+                                        </c:if>
 
+
+                                        <c:if test="${s.brief ne '' && s.brief ne null}">
+                                            ${s.brief }
+                                        </c:if>
+                                        <c:if test="${s.brief eq ''||s.brief eq null}">
                                             ${s.content }
+                                        </c:if>
                                     </p>
                                     
                                     <p>
@@ -147,18 +156,18 @@
                         <div class="clearfix border-bottom">
                             <h4><span class=" glyphicon glyphicon-leaf margin5"></span> 随便看看</h4>
                         </div>
-                        <c:forEach var="z" items="${movies_hot_list }">
+                        <c:forEach var="z" items="${learn_hot_list }">
 
                             <div class="col-md-12 margin-t10">
                                 <div class="col-xs-2 avatar">
 
-                                    <span class="text-${ z.color }">${ fn:toUpperCase(fn:substring(z.moviename ,0,1))   }</span>
+                                    <span class="text-${ z.color }">${ fn:toUpperCase(fn:substring(z.title ,0,1))   }</span>
 
                                 </div>
                                 <div class="col-xs-10">
 
                                     <a style="font-size: 14px;line-height: 32px;color: #888"
-                                       href="/learning/post-${z.id }.html" title="${z.moviename }">${z.moviename } </a>
+                                       href="/learning/post-${z.id }.html" title="${z.title }">${z.title } </a>
 
                                 </div>
 
@@ -175,7 +184,7 @@
                         <div class="clearfix border-bottom">
                             <h4><span class=" glyphicon glyphicon-tags margin5"></span> 标签</h4>
                         </div>
-                        <c:forEach var="z" items="${movies_tags }">
+                        <c:forEach var="z" items="${learn_tags }">
 
                             <div class="col-md-10 margin5">
                                 <c:if test="${z.tagcode == seltag }">
@@ -284,8 +293,43 @@
     }
 
 
+    function handup(id) {
+        $.ajax({
+            url: "/learning/handup",
+            type: "post",
+            data: {"id": id},
+            dataType: "json",
+            success: function (msg) {
+                if (msg.data == "success") {
+                    art.dialog.tips('置顶成功');
+                } else {
+                    art.dialog.tips('error happened.');
+                }
+            }
+        });
+
+    }
+
+    function hideup(id) {
+        $.ajax({
+            url: "/learning/hideup",
+            type: "post",
+            data: {"id": id},
+            dataType: "json",
+            success: function (msg) {
+                if (msg.data == "success") {
+                    art.dialog.tips('隐藏成功');
+                    window.location.href = window.location.href;
+                } else {
+                    art.dialog.tips('error happened.');
+                }
+            }
+        });
+
+    }
+
+
 </script>
-<script data-cfasync="false" src="https://northpark.cn/statics/js/page/movies.js"></script>
 
 <script>
 

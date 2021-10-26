@@ -13,6 +13,7 @@ public enum TopicTypeEnum {
     POEM("5"),
     EQ("6"),
     DONATE("7"),
+    LEARN("8"),
 
     ;
 
@@ -23,6 +24,7 @@ public enum TopicTypeEnum {
     //    5-诗词秀
     //    6-情商提升
     //    7-赞助我们
+    //    8-学习
     private String code;
 
     TopicTypeEnum(String code) {

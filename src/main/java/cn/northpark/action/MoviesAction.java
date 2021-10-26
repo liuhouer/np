@@ -422,7 +422,7 @@ public class MoviesAction {
         session.setAttribute("tabs", "movies");
 
         String result = "/movies2";
-        String whereSql = " where displayed is  null ";
+        String whereSql = " where displayed is null ";
 
 
         //搜索

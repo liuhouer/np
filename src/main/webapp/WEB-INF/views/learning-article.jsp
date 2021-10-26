@@ -17,7 +17,7 @@
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon"
 	href="https://northpark.cn/statics/img/favicon.ico">
-<title>${model.title}:影视窝|NorthPark</title>
+<title>${model.title}:学习/课程/书籍/知识|NorthPark</title>
 <meta name="keywords"
 	content="NorthPark,${model.title},${model.tags}">
 <meta name="description" content="${description}">
@@ -58,7 +58,7 @@
 												onclick="hideup('${model.id}')">大尺度隐藏</a>
 											<span class="glyphicon glyphicon-pencil margin10"></span>
 											<a class="common-a-right" title="编辑"
-												href="/movies/edit/${model.id}">快速编辑</a>
+												href="/learning/edit/${model.id}">快速编辑</a>
 										</c:if>
 									</c:if>
 
@@ -81,7 +81,7 @@
 											<c:if test="${user==null }">
 												<p class="center red">
 													本文隐藏内容 <a target="_blank" class="flatbtn green-text"
-														id="J_login_see"><i class="be be-timerauto"></i>登录</a>
+														id="J_login_see"><i class="fa fa-sign-in padding5"></i>登录</a>
 													后才可以浏览
 												</p>
 											</c:if>
@@ -178,7 +178,7 @@
 										<button title="发布评论"
 												class="btn btn-hero margin-t5 click2save"
 												topic-id="${model.id }"
-												topic-type="4"
+												topic-type="8"
 												from-uid="${user.id}"
 												from-uname="${user.username}"
 												data-input="#input_cm_${model.id }">
@@ -257,7 +257,7 @@
 			feedbackList();
 
 			//展示全文和评论详情-- northpark评论模块 --
-			loadComment('${model.id }', 4);
+			loadComment('${model.id }', 8);
 
 
 		})
@@ -276,7 +276,7 @@
 
 		function handup(id) {
 			$.ajax({
-				url : "/movies/handup",
+				url : "/learning/handup",
 				type : "post",
 				data : {
 					"id" : id
@@ -295,7 +295,7 @@
 
 		function hideup(id) {
 			$.ajax({
-				url : "/movies/hideup",
+				url : "/learning/hideup",
 				type : "post",
 				data : {
 					"id" : id

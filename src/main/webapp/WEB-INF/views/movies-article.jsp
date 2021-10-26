@@ -81,7 +81,7 @@
 											<c:if test="${user==null }">
 												<p class="center red">
 													本文隐藏内容 <a target="_blank" class="flatbtn green-text"
-														id="J_login_see"><i class="be be-timerauto"></i>登录</a>
+														id="J_login_see"><i class="fa fa-sign-in padding5"></i>登录</a>
 													后才可以浏览
 												</p>
 											</c:if>
