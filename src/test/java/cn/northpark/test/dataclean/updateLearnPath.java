@@ -1,4 +1,4 @@
-package cn.northpark.test;
+package cn.northpark.test.dataclean;
 
 import cn.northpark.utils.NPQueryRunner;
 import cn.northpark.utils.PinyinUtil;

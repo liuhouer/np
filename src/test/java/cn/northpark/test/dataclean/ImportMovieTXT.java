@@ -1,4 +1,4 @@
-package cn.northpark.test;
+package cn.northpark.test.dataclean;
 
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.model.Movies;

@@ -1,6 +1,5 @@
-package cn.northpark.test;
+package cn.northpark.test.ret;
 
-import cn.northpark.constant.BC_Constant;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.HttpGetUtils;
 import cn.northpark.utils.JsonUtil;
@@ -16,7 +15,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-public class retRR_Movies_DUO {
+public class retRestSQ_BT_hema_DUO {
+
+
 
 
     //线程池执行
@@ -25,22 +26,22 @@ public class retRR_Movies_DUO {
 
         ThreadPoolExecutor executor = new ThreadPoolExecutor(8, 16, 200, TimeUnit.MILLISECONDS,
                 new ArrayBlockingQueue<Runnable>(1500));
-        //21-144
-        //1680
 
-        for (int i = 1501; i <= 1680; i++) {
+        for(int i=1235;i<= 1366;i++){
             RetOnePageTask myTask = new RetOnePageTask(i);
             executor.execute(myTask);
-            System.out.println("线程池中线程数目：" + executor.getPoolSize() + "，队列中等待执行的任务数目：" +
-                    executor.getQueue().size() + "，已执行完成别的任务数目：" + executor.getCompletedTaskCount());
+            System.out.println("线程池中线程数目："+executor.getPoolSize()+"，队列中等待执行的任务数目："+
+                    executor.getQueue().size()+"，已执行完成别的任务数目："+executor.getCompletedTaskCount());
         }
         executor.shutdown();
+
+        //1366
 
     }
 
 
     /**
-     * 执行一页的爬取
+     *  执行一页的爬取
      */
     static class RetOnePageTask implements Runnable {
         private int taskNum;
@@ -51,14 +52,15 @@ public class retRR_Movies_DUO {
 
         @Override
         public void run() {
-            System.out.println("正在执行task " + taskNum);
+            System.out.println("正在执行task "+taskNum);
 
             //====================执行逻辑=====================
             List<Map<String, String>> collect = new ArrayList<>();
 
             try {
 
-                List<Map<String, String>> list = HTMLParserUtil.retRRMovies(taskNum, BC_Constant.RET_RR_MOVIES);
+                List<Map<String, String>> list = HTMLParserUtil.ret_SQ_hema(taskNum);
+
                 collect.addAll(list);
             } catch (Exception e) {
                 // TODO: handle exception
@@ -91,7 +93,7 @@ public class retRR_Movies_DUO {
             }
             //====================执行逻辑====================================
 
-            System.out.println("task " + taskNum + "执行完毕");
+            System.out.println("task "+taskNum+"执行完毕");
         }
     }
 

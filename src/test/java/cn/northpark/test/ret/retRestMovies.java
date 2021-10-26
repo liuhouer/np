@@ -1,4 +1,4 @@
-package cn.northpark.test;
+package cn.northpark.test.ret;
 
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.utils.HTMLParserUtil;

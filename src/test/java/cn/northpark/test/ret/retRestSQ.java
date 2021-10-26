@@ -1,4 +1,4 @@
-package cn.northpark.test;
+package cn.northpark.test.ret;
 
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.utils.HTMLParserUtil;
@@ -13,16 +13,16 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class retRestDIANSHIJU {
+public class retRestSQ {
 
 
     public static void main(String[] args) {
         List<Map<String, String>> collect = new ArrayList<>();
-        for (int k = 1; k <= 1; k++) {
+        for (int k = 1; k <= 2; k++) {
 
             try {
 
-                List<Map<String, String>> list = HTMLParserUtil.retMovies(k, BC_Constant.RET_guochanju);
+                List<Map<String, String>> list = HTMLParserUtil.retMovies(k, BC_Constant.RET_SQ_MOVIE);
                 collect.addAll(list);
             } catch (Exception e) {
                 // TODO: handle exception

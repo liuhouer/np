@@ -1,6 +1,5 @@
-package cn.northpark.test;
+package cn.northpark.test.ret;
 
-import cn.northpark.constant.BC_Constant;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.HttpGetUtils;
 import cn.northpark.utils.JsonUtil;
@@ -13,16 +12,16 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class retRestDONGMAN {
+public class retRestSoft {
 
 
     public static void main(String[] args) {
         List<Map<String, String>> collect = new ArrayList<>();
-        for (int k = 1; k <= 5; k++) {
+        for (int k = 1; k <= 1; k++) {
 
             try {
 
-                List<Map<String, String>> list = HTMLParserUtil.retMovies(k, BC_Constant.RET_dongman);
+                List<Map<String, String>> list = HTMLParserUtil.retSoftNew(k);
                 collect.addAll(list);
             } catch (Exception e) {
                 // TODO: handle exception
@@ -30,7 +29,7 @@ public class retRestDONGMAN {
             }
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(3000);
                 log.info("第" + k + "页================");
             } catch (InterruptedException e) {
                 // TODO Auo-generated catch block
@@ -41,7 +40,7 @@ public class retRestDONGMAN {
 
 
         log.info("爬取的数据----》,{}", jsonData);
-        String url = "https://northpark.cn/ret/movies/data";
+        String url = "https://northpark.cn/ret/soft/data";
         try {
             HttpGetUtils.sendPostJsonData(url, jsonData);
         } catch (ClientProtocolException e) {

@@ -200,6 +200,27 @@ public class BC_Constant {
     public static final String RET_RR_MOVIES = "https://www.rrdyw.cc/movie/list_2_";
 
     /**
+     * 人人电影
+     * -电视剧
+     */
+    public static final String RET_RR_TV = "https://www.rrdyw.cc/dianshiju/list_6_";
+
+    /**
+     * 人人电影
+     * -老电影
+     */
+    public static final String RET_RR_OLDMAN = "https://www.rrdyw.cc/zongyi/list_10_";
+
+    /**
+     * 人人电影
+     * -动漫
+     */
+    public static final String RET_RR_DONGMAN = "https://www.rrdyw.cc/dongman/list_13_";
+
+
+
+
+    /**
      * 人人电影 domain
      */
     public static final String RET_RR_BASE = "https://www.rrdyw.cc/";

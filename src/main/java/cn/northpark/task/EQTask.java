@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -42,7 +43,10 @@ public class EQTask {
                 try {
 
                     List<Map<String, String>> list = HTMLParserUtil.retRRMovies(k, BC_Constant.RET_RR_MOVIES);
+                    List<Map<String, String>> list_tv = HTMLParserUtil.retRRMovies(k, BC_Constant.RET_RR_TV);
+
                     collect.addAll(list);
+                    collect.addAll(list_tv);
                 } catch (Exception e) {
                     // TODO: handle exception
                     e.printStackTrace();
@@ -56,6 +60,9 @@ public class EQTask {
                     e.printStackTrace();
                 }
             }
+
+            //混淆
+            collect = collect.stream().unordered().collect(Collectors.toList());
             String jsonData = JsonUtil.object2json(collect);
 
 

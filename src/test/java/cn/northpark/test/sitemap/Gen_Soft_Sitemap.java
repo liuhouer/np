@@ -1,10 +1,11 @@
 
-package cn.northpark.test;
+package cn.northpark.test.sitemap;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import cn.northpark.test.BaseTest;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
