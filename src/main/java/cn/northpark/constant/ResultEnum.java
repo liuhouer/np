@@ -25,8 +25,9 @@ public enum  ResultEnum {
 	Login_Email_Validate_Fail(2,"邮箱未通过验证，请重试或者联系站长解决登陆问题"),
 	Login_Success(3,"登陆成功"), 
 	REG_Fail_Repeat(4,"该账户已经注册"), 
-	REG_SUCCESS(5,"success"), 
-	
+	REG_SUCCESS(5,"success"),
+	AUTO_LOGIN_FAIL(6,"自动登陆失败"),
+
 	;
 
     private Integer code;

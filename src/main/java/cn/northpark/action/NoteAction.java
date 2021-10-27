@@ -14,10 +14,12 @@ import cn.northpark.model.Note;
 import cn.northpark.model.User;
 import cn.northpark.query.NoteQuery;
 import cn.northpark.query.condition.NoteQueryCondition;
+import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
+import cn.northpark.vo.UserVO;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -181,7 +183,7 @@ public class NoteAction {
         map.addAttribute("actionUrl", "/note/viewNotes/" + userid);
 
         //取得当前用户对作者的关注状态
-        User lo_user = (User) request.getSession().getAttribute("user");
+        UserVO lo_user = RequestHolder.getUserInfo(request);
         if (lo_user != null) {
             String follow_id = String.valueOf(lo_user.getId());
             String author_id = userid;
@@ -215,7 +217,7 @@ public class NoteAction {
         //condition.setOpened("yes");
 
         //取得当前用户
-        User user = (User) request.getSession().getAttribute("user");
+        UserVO user = RequestHolder.getUserInfo(request);
         if (user != null) {
             userid = String.valueOf(user.getId());
         }
@@ -396,7 +398,7 @@ public class NoteAction {
                 Note note = noteManager.findNote(Integer.valueOf(id));
                 if (note != null) {
                     //取得当前用户
-                    User user = (User) request.getSession().getAttribute("user");
+                    UserVO user = RequestHolder.getUserInfo(request);
                     if (user != null) {
                         if (user.getId().equals(note.getUserid())) {
                             //登陆者和作者一样 | 执行删除

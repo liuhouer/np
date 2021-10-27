@@ -1,15 +1,15 @@
 package cn.northpark.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import cn.northpark.annotation.BruceOperation;
+import cn.northpark.threadLocal.RequestHolder;
+import cn.northpark.vo.UserVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import cn.northpark.annotation.BruceOperation;
-import cn.northpark.model.User;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 管理员拦截器.
@@ -31,7 +31,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
                 return true;
             } else {
                 //在这里实现自己的权限验证逻辑
-                User user = (User) request.getSession().getAttribute("user");
+                UserVO user = RequestHolder.getUserInfo(request);
                 if (user != null) {//如果验证成功返回true（这里直接写false来模拟验证失败的处理）
                 	if (user.getEmail().equals("654714226@qq.com")||user.getEmail().equals("qhdsoft@126.com")) {
                 		return true;

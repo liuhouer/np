@@ -24,6 +24,7 @@ public class UserVO implements Serializable {
      */ 
     private String last_login;
 
+    private String date_joined;
 
     private String headspanclass;
 

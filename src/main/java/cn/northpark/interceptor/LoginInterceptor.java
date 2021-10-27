@@ -1,16 +1,15 @@
 package cn.northpark.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import cn.northpark.annotation.CheckLogin;
+import cn.northpark.annotation.NotRecommand;
+import cn.northpark.threadLocal.RequestHolder;
+import cn.northpark.vo.UserVO;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import cn.northpark.annotation.CheckLogin;
-import cn.northpark.annotation.NotRecommand;
-import cn.northpark.model.User;
-import cn.northpark.threadLocal.RequestHolder;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 登陆拦截器.
@@ -33,7 +32,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 return true;
             } else {
                 //在这里实现自己的权限验证逻辑
-                User user = (User) request.getSession().getAttribute("user");
+                UserVO user = RequestHolder.getUserInfo(request);
                 if (user != null) {//如果验证成功返回true（这里直接写false来模拟验证失败的处理）
                 	//TODO 写入threadLocal
                 	//用法本应该是用filter来拦截某些url，有user写入threadLocal，

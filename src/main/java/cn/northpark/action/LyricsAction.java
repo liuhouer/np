@@ -16,9 +16,11 @@ import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.model.Lyrics;
 import cn.northpark.model.User;
 import cn.northpark.model.UserLyrics;
+import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.*;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
+import cn.northpark.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,7 @@ import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -71,12 +74,18 @@ public class LyricsAction {
 
     @RequestMapping("/lyrics/remove/{lyricsid}/{userlyricsid}")
     public String remove(@PathVariable("lyricsid") Integer lyricsid, String userid, @PathVariable("userlyricsid") Integer userlyricsid, HttpServletRequest request) {
-    	User u = (User) request.getSession().getAttribute("user");
-        userid = String.valueOf(u.getId());
-        if (StringUtils.isNotEmpty(userid)) {
+        UserVO u = RequestHolder.getUserInfo(request);
+        UserLyrics userLyrics = userlyricsManager.findUserLyrics(userlyricsid);
+
+        if(StringUtils.equals(userLyrics.getLyricsid().toString(),lyricsid.toString())//LRC==
+           && StringUtils.equals(u.getId().toString(),userid) //UID==
+           && StringUtils.isNotEmpty(userid)
+           && Objects.nonNull(lyricsid)
+        ){
             lyricsManager.delLyrics(lyricsid);
             userlyricsManager.delUserLyrics(userlyricsid);
         }
+
         return LIST_ACTION2;
     }
 
@@ -143,7 +152,7 @@ public class LyricsAction {
             throw new NorthParkException(ResultEnum.Lyrics_Param_Not_Valid, bindingResult.getFieldError().getDefaultMessage());
         }
 
-        User u = (User) request.getSession().getAttribute("user");
+        UserVO u = RequestHolder.getUserInfo(request);
         if (u != null) {
             Lyrics model = new Lyrics();
             //上传
@@ -294,7 +303,7 @@ public class LyricsAction {
 
 
         //取得当前用户对这个主题的赞的状态
-        User user = (User) request.getSession().getAttribute("user");
+        UserVO user = RequestHolder.getUserInfo(request);
         if (user != null) {
             Integer uid = user.getId();
 
@@ -351,7 +360,7 @@ public class LyricsAction {
         session.removeAttribute("tabs");
         session.setAttribute("tabs", "pic");
 
-        User u = (User) session.getAttribute("user");
+        UserVO u =  RequestHolder.getUserInfo(request);
 
         String userid = (u == null ? "" : String.valueOf(u.getId()));
 
@@ -384,7 +393,7 @@ public class LyricsAction {
         session.removeAttribute("tabs");
         session.setAttribute("tabs", "pic");
 
-        User u = (User) session.getAttribute("user");
+        UserVO u = RequestHolder.getUserInfo(request);
 
         userid = (u == null ? "" : String.valueOf(u.getId()));
 
@@ -418,7 +427,7 @@ public class LyricsAction {
     public String lovequery(ModelMap map, HttpServletRequest request, HttpSession session, String userid) {
         String currentpage = request.getParameter("currentpage");
 
-        User u = (User) session.getAttribute("user");
+        UserVO u =  RequestHolder.getUserInfo(request);
 
         userid = (u == null ? "" : String.valueOf(u.getId()));
 

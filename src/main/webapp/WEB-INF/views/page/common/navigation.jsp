@@ -39,13 +39,22 @@
                         </c:if>
                     </c:if>
                 </a>
-                &nbsp; &nbsp; <a href="/lyrics/add" title="添加图册" class="btn btn-hero"><span
-                    class="glyphicon glyphicon-plus"></span> 添加</a>
+
+                &nbsp; &nbsp; <a href="/lyrics/add" title="添加最爱" class="btn btn-hero">
+                    <span class="fa fa-plus"></span> 添加</a>
                 &nbsp; &nbsp;
-                <c:if test="${user!=null }"><a href="/cm/logout" title="退出" id="J_log_info_l">
-                    <i class="fa fa-sign-out padding5"></i>退出</a></c:if>
-                <c:if test="${user==null }"><a href="/login" title="登录" id="J_log_info_l">
-                    <i class="fa fa-sign-in padding5"></i>登陆</a></c:if>
+                    <a href="/" title="首页" class="btn-xs">
+                    <span class="fa fa-home fa-lg padding5"></span></a>
+
+                    <c:if test="${user!=null }">
+                    <a href="/cm/logout" title="退出登录" id="J_log_info_l" class="btn-xs">
+                    <i class="fa fa-sign-out fa-lg padding5"></i></a>
+                    </c:if>
+
+                    <c:if test="${user==null }">
+                    <a href="/login" title="登录" id="J_log_info_l" class="btn-xs">
+                    <i class="fa fa-sign-in fa-lg padding5"></i></a>
+                    </c:if>
             </div>
         </div>
         <div class="navbar-collapse collapse mainhead-collapse">

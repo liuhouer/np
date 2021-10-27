@@ -399,12 +399,28 @@ a:focus, a:hover {
     padding: 20px
 }
 
+.padding-t10 {
+    padding-top: 10px
+}
+
+.padding-t15 {
+    padding-top: 15px
+}
+
 .padding-t20 {
     padding-top: 20px
 }
 
+.padding-l5 {
+    padding-left: 5px
+}
+
 .padding-l10 {
     padding-left: 10px
+}
+
+.padding-l15 {
+    padding-left: 15px
 }
 
 .padding-l20 {

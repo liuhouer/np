@@ -13,8 +13,9 @@ import cn.northpark.manager.LyricsZanManager;
 import cn.northpark.model.Lyrics;
 import cn.northpark.model.LyricsComment;
 import cn.northpark.model.LyricsZan;
-import cn.northpark.model.User;
+import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/zanAction")
@@ -47,12 +49,13 @@ public class LyricsZanAction {
      */
     @RequestMapping("/zan")
     @ResponseBody
-    public Result<String> zan(String lyricsid, String userid,String loveDate,HttpServletRequest request) {
+    public Result<String> zan(String lyricsid, String userid, String loveDate, HttpServletRequest request) {
 
-        if (StringUtils.isEmpty(userid)) {
-            User u = (User) request.getSession().getAttribute("user");
+        UserVO u = RequestHolder.getUserInfo(request);
+        if (Objects.nonNull(u)) {
             userid = String.valueOf(u.getId());
         }
+
         String msg = "success";
         int num = lyricszanManager.countHql(" where lyricsid='" + lyricsid + "' and userid = '" + userid + "' ");
 
@@ -65,7 +68,7 @@ public class LyricsZanAction {
                 model.setLyricsid(Integer.parseInt(lyricsid));
                 model.setUserid(Integer.parseInt(userid));
                 model.setLove_date(loveDate);
-                model.setLove_year(loveDate.substring(0,4));
+                model.setLove_year(loveDate.substring(0, 4));
                 lyricszanManager.addLyricsZan(model);
 
 
@@ -78,7 +81,6 @@ public class LyricsZanAction {
                 }
                 msg = "success";
             } catch (Exception e) {
-                // TODO: handle exception
                 msg = "exception";
                 log.error("zanacton------>", e);
             }
@@ -99,7 +101,7 @@ public class LyricsZanAction {
     @ResponseBody
     public Result<String> addComment(String comment, String userid, String lyricsid, HttpServletRequest request) {
         if (StringUtils.isEmpty(userid)) {
-            User u = (User) request.getSession().getAttribute("user");
+            UserVO u = RequestHolder.getUserInfo(request);
             userid = String.valueOf(u.getId());
         }
 

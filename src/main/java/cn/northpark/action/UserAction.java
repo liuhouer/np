@@ -16,9 +16,11 @@ import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.*;
 import cn.northpark.utils.encrypt.EnDecryptUtils;
 import cn.northpark.utils.safe.WAQ;
+import cn.northpark.vo.UserVO;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,7 +32,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -71,7 +72,7 @@ public class UserAction {
     	
     	String msg = "0";
     	//判断是否已登录
-    	User user = (User) request.getSession().getAttribute("user");
+        UserVO user = RequestHolder.getUserInfo(request);
     	if(user!=null) {
 
     		msg = "1";
@@ -312,8 +313,7 @@ public class UserAction {
     public String pcentral(ModelMap map, HttpServletRequest request) {
 
         String rs = "/myself";
-//        User user = (User) request.getSession().getAttribute("user");
-        User user = RequestHolder.get();
+        UserVO user = RequestHolder.getUserInfo(request);
         request.getSession().removeAttribute("tabs");
         request.getSession().setAttribute("tabs", "pcenter");
         map.put("MyInfo", user);
@@ -347,7 +347,7 @@ public class UserAction {
     public String myfans(ModelMap map, HttpServletRequest request) {
 
         //取得当前用户
-        User user = (User) request.getSession().getAttribute("user");
+        UserVO user = RequestHolder.getUserInfo(request);
 
         map.put("MyInfo", user);
 
@@ -408,7 +408,7 @@ public class UserAction {
             map.put("fanlist", fanlist);
 
             //取得当前用户对作者的关注状态
-            User lo_user = (User) request.getSession().getAttribute("user");
+            UserVO lo_user = RequestHolder.getUserInfo(request);
             if (lo_user != null) {
                 String follow_id = String.valueOf(lo_user.getId());
                 String author_id = userid;
@@ -462,7 +462,7 @@ public class UserAction {
                 }
                 map.addAttribute("Lovelist", list);
                 //取得当前用户对作者的关注状态
-                User lo_user = (User) request.getSession().getAttribute("user");
+                UserVO lo_user = RequestHolder.getUserInfo(request);
                 if (lo_user != null) {
                     String follow_id = String.valueOf(lo_user.getId());
                     String author_id = userid;
@@ -532,7 +532,7 @@ public class UserAction {
 
 
         //取得当前用户
-        User c_user = (User) request.getSession().getAttribute("user");
+        UserVO c_user = RequestHolder.getUserInfo(request);
 
         //取得当前用户对作者的关注状态
         if (c_user != null) {
@@ -565,8 +565,7 @@ public class UserAction {
     @CheckLogin
     public String toEditInfo(ModelMap map, HttpServletRequest request) {
 
-//        User u = (User) request.getSession().getAttribute("user");
-    	User u = RequestHolder.get();
+        UserVO u = RequestHolder.getUserInfo(request);
         map.put("MyInfo", u);
         Userprofile Duser = userprofileManager.getModelByUserid(String.valueOf(u.getId()));
         map.put("Dinfo", Duser);
@@ -576,7 +575,6 @@ public class UserAction {
     /**
      * 保存个人资料
      *
-     * @param session
      * @param map
      * @param file
      * @param new_password
@@ -586,52 +584,63 @@ public class UserAction {
      * @return
      */
     @RequestMapping("/cm/saveEditInfo")
-    public String saveEditInfo(HttpSession session, ModelMap map, String username, String tail_slug, String year_of_birth, String courseware, String new_password, String new_password_confirmation, @RequestParam(value = "file", required = false) MultipartFile[] file) {
+    public String saveEditInfo(HttpServletRequest request, ModelMap map, String username, String tail_slug, String year_of_birth, String courseware, String new_password, String new_password_confirmation, @RequestParam(value = "file", required = false) MultipartFile[] file) {
 
 
         //获取当前user
-        User user = (User) session.getAttribute("user");
+        UserVO userVO =  RequestHolder.getUserInfo(request);
+        if(Objects.nonNull(userVO)){
+            User user = userManager.findUser(userVO.getId());
 
-        String oldpath = user.getHeadpath();
+            String oldpath = user.getHeadpath();
 
-        user.setUsername(username);
+            user.setUsername(username);
 
-        user.setTail_slug(tail_slug);
+            user.setTail_slug(tail_slug);
 
-        user.setBlogsite(courseware);
+            user.setBlogsite(courseware);
 
 
-        // 执行删除图片缓存
-        FileUtils.removeOldFile(oldpath, file);
+            // 执行删除图片缓存
+            FileUtils.removeOldFile(oldpath, file);
 
-        //执行上传
-        List<String> filelist = FileUtils.commonUpload(file, FileUtils.suffix_head);
-        //执行上传end
+            //执行上传
+            List<String> filelist = FileUtils.commonUpload(file, FileUtils.suffix_head);
+            //执行上传end
 
-        if (filelist.size() > 0) {
-            user.setHeadpath(filelist.get(0));
-        } else {
-            user.setHeadpath(oldpath);
+            if (filelist.size() > 0) {
+                user.setHeadpath(filelist.get(0));
+            } else {
+                user.setHeadpath(oldpath);
+            }
+
+            //处理密码信息
+            if (!StringUtils.isEmpty(new_password) && !StringUtils.isEmpty(new_password_confirmation) && new_password.equals(new_password_confirmation)) {
+                user.setPassword(EnDecryptUtils.diyEncrypt(new_password));
+            }
+            //处理密码信息
+            userManager.updateUser(user);
+
+
+            //保存User表信息-------结束
+
+            //保存User明细表信息-------start
+            Userprofile up = userprofileManager.getModelByUserid(String.valueOf(user.getId()));
+            if (!StringUtils.isEmpty(courseware)) {
+                up.setCourseware(courseware);
+            }
+            if (!StringUtils.isEmpty(year_of_birth)) {
+                up.setYear_of_birth(year_of_birth);
+            }
+            userprofileManager.updateUserprofile(up);
+
+
+            //更新复制属性
+            BeanUtils.copyProperties(user,userVO);
+            request.getSession().setAttribute("user", userVO);
         }
 
-        //处理密码信息
-        if (!StringUtils.isEmpty(new_password) && !StringUtils.isEmpty(new_password_confirmation) && new_password.equals(new_password_confirmation)) {
-            user.setPassword(EnDecryptUtils.diyEncrypt(new_password));
-        }
-        //处理密码信息
-        userManager.updateUser(user);
-        session.setAttribute("user", user);
-        //保存User表信息-------结束
 
-        //保存User明细表信息-------start
-        Userprofile up = userprofileManager.getModelByUserid(String.valueOf(user.getId()));
-        if (!StringUtils.isEmpty(courseware)) {
-            up.setCourseware(courseware);
-        }
-        if (!StringUtils.isEmpty(year_of_birth)) {
-            up.setYear_of_birth(year_of_birth);
-        }
-        userprofileManager.updateUserprofile(up);
         //保存User明细表信息-------end
         return "redirect:pcentral";
     }
@@ -790,6 +799,28 @@ public class UserAction {
 
 
     /**
+     * 自动登录
+     * @param request
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/cm/autoLogin")
+    @ResponseBody
+    public Result<?> autoLogin(HttpServletRequest request) throws Exception {
+
+        //1.cookie登录
+        UserVO userInfo = RequestHolder.getUserInfo(request);
+        if(Objects.nonNull(userInfo)){
+            //2.本次session存放
+            request.getSession().setAttribute("user", userInfo);
+            return ResultGenerator.genSuccessResult("自动登录成功");
+        }
+
+        return ResultGenerator.genErrorResult(ResultEnum.AUTO_LOGIN_FAIL);
+    }
+
+
+    /**
      * 重写登录逻辑
      * 1.登陆成功
      * 2.redis写token 和登录对象
@@ -806,50 +837,41 @@ public class UserAction {
     @ResponseBody
     public Result<?> login(HttpServletRequest request,HttpServletResponse response,String email,String password) throws Exception {
     	
-    	 //1.cookie登录
-    	 Cookie cookie = CookieUtil.get(request, CookieConstant.TOKEN);
-         if (cookie != null) {
-        	 String userstr = RedisUtil.getInstance().get(String.format(RedisConstant.TOKEN_TEMPLATE, cookie.getValue()));
-        	 
-        	 if(StringUtils.isNotEmpty(userstr)) {
-        		 User user = JsonUtil.json2object(userstr, User.class);
-        		 //6.本次session存放
-            	 request.getSession().setAttribute("user", user);
-            	 return ResultGenerator.genSuccessResult();
-        	 }
-         	
-         }
-    	
+        //正常登录流程
         //获取IP+地址
-         String ipAndDetail = "";
-         try {
-             ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
-         }catch (Exception ignore){
-             log.error(ignore.getMessage());
-         }
+        String ipAndDetail = "";
+        try {
+            ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+        }catch (Exception ignore){
+            log.error(ignore.getMessage());
+        }
 
         if (!StringUtils.isEmpty(email) && !StringUtils.isEmpty(password)) {
+
             //防止sql注入--email
             email = WAQ.forSQL().escapeSql(email);
             password = EnDecryptUtils.diyEncrypt(password);
             User user = userManager.login(email, password,ipAndDetail);
             if (user != null && !user.getEmail_flag().equals("0")) {
-            	 //2.登录成功
+                 //1.登录成功
+
+                 //2.清除敏感信息
+                 UserVO userVO = new UserVO();
+                 BeanUtils.copyProperties(user, userVO);
+
             		
             	 //3. 往redis设置key=UUID,value=xyz
                  String token = UUID.randomUUID().toString();
-                 RedisUtil.getInstance().set(String.format(RedisConstant.TOKEN_TEMPLATE, token), JsonUtil.object2json(user),  CookieConstant.expire);
+                 RedisUtil.getInstance().set(String.format(RedisConstant.TOKEN_TEMPLATE, token), JsonUtil.object2json(userVO),  CookieConstant.expire);
 
                  //4. 设置cookie openid = abc
                  CookieUtil.set(response, CookieConstant.TOKEN, token, CookieConstant.expire);
-                 
-                 //5.返回结果
-//            	 UserVO uservo = new UserVO();
-//            	 BeanUtils.copyProperties(user, uservo);
-            	 
-            	 //6.本次session存放
-            	 request.getSession().setAttribute("user", user);
-            	 return ResultGenerator.genSuccessResult();
+
+            	 //5.本次session存放
+            	 request.getSession().setAttribute("user", userVO);
+
+            	 return ResultGenerator.genSuccessResult("登录成功");
+
             }else if(user != null && user.getEmail_flag().equals("0")){
             	//"邮箱未通过验证，请重试或者联系站长解决登陆问题
             	return ResultGenerator.genErrorResult(ResultEnum.Login_Email_Validate_Fail);

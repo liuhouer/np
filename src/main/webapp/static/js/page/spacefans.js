@@ -6,13 +6,6 @@ function rmSpan(obj) {
     document.getElementById(obj).className = "";
 }
 
-function removes(lyricsid, userlyricsid) {
-    art.dialog.confirm('你确定要删除这首最爱歌词吗？', function () {
-        $("#f2").attr("action", "lyrics/remove.action?lyricsid=" + lyricsid + "&userlyricsid=" + userlyricsid).submit();
-    }, function () {
-        return;
-    });
-}
 
 
 var uid = $("#J_uid").val();
