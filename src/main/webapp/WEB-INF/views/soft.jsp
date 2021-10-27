@@ -234,6 +234,8 @@
                 $("#J_ser_btn").click();
             }
         });
+
+        mac_tips();
     })
 </script>
 
@@ -244,6 +246,27 @@
         $("#pageForm a").each(function () {
             var href = $(this).attr("href");
             $(this).attr("href", href + "?keyword=" + keyword);
+        })
+    }
+
+    function mac_tips(){
+            //右下角消息窗口
+            art.dialog({
+            time: 30,
+            id: 'notice',
+            title: '全站通知！',
+            content:
+                '<p>-macOS 12 系统正式版发布了，有些小伙伴升级后发现部分软件安装后不能使用。</p>' +
+                '<p>-主要发生在 Intel CPU 的电脑上，这个目前没有解决方法，只能等待相关破解团队的跟进。</p>' +
+                '<p>-正版基本上没有这个情况，条件允许可以去入正，反之暂不要升级到 12。</p>',
+            width: 300, //设置窗口大小
+            height: 200,
+            left: '100%',
+            top: '100%',
+            fixed: true, //浮动窗口 不跟随滚动条移动
+            lock: false,
+            drag: true, //允许拖动
+            resize: false //不能改变大小
         })
     }
 
