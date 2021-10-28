@@ -59,7 +59,7 @@
                                name="color" type="text" value="${model.color }">
                     </div>
                     <div class="form-group ">
-                        <span class="glyphicon glyphicon-star"></span>电影标签333
+                        <span class="glyphicon glyphicon-star"></span>电影标签
                         <input id="J_tag" placeholder="电影标签" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
                                name="tag" type="text" value="${model.tag }">

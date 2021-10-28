@@ -293,13 +293,14 @@ function autoLogin(){
 
                 if(msg.result){
                     //自动登陆成功
-                    console.log(msg);
-                    art.dialog.tips(msg.data);
+                    console.log(msg.data);
+                    // art.dialog.tips(msg.data);
 
-                    var red = window.location.href;
-                    if(!red.contains('/signup')&& !red.contains('/login')){
-                        window.location.href = red;
-                    }
+                    // var red = window.location.href;
+                    //
+                    // if(!red.indexOf("/signup") >= 0 && !red.indexOf("/login") >= 0){
+                    //     window.location.href = red;
+                    // }
 
                 }else{
                     console.log('自动登录失败--->'+msg.message);

@@ -10,11 +10,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Language" content="zh-CN">
-    <meta name="description" content="NorthPark影视">
+    <meta name="description" content="NorthPark软件">
     <meta name="keywords" content="NorthPark">
     <meta name="author" content="bruce">
     <meta name="robots" content="index,follow,archive">
-    <title>NorthPark / 添加电影</title>
+    <title>NorthPark / 添加软件</title>
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
     <link href="https://northpark.cn/statics/wangEditor/css/wangEditor-1.3.12.css" rel="stylesheet"/>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="form-group ">
 						<span class="glyphicon glyphicon-star padding-b20"></span>采集地址【链接请求地址】
-                        <input id="J_color" placeholder="采集地址【链接请求地址】" required
+                        <input placeholder="采集地址【链接请求地址】" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
                                name="retcode" type="text" value="${model.retcode }">
                     </div>
@@ -56,7 +56,13 @@
                          <textarea id="J_path" style="height: 200px; max-height: 400px;"
                                       name="path" rows="5">
 								${model.path }
-								<a href="https://waitsun.ctfile.com/fs/160721-293646240" class="btn btn-donate mr-3 downtip btn-warning" role="button" title="Disk Drill 3商业破解版 专业Mac数据恢复软件" target="_black"><i class="dobby v3-download"></i> 云盘下载</a>
+								<a href=""
+                                   class="btn btn-donate mr-3 btn-warning"
+                                   role="button"
+                                   title="${model.title}"
+                                   target="_black">
+                                    <i class="fa fa-download padding5"></i> 云盘下载
+                                </a>
 						 </textarea>      
                     </div>
                     
@@ -65,25 +71,6 @@
 							<textarea id="J_brief" style="height: 200px; max-height: 400px;"
                                       name="brief" rows="5">
 								${model.brief }
-								
-								001
-								系统、应用软件
-								002
-								开发、设计软件
-								003
-								媒体软件
-								004
-								网络、安全软件
-								005
-								其他软件
-								006
-								游戏一箩筐
-								007
-								限免软件
-								008
-								疑难杂症
-								005
-								其他软件
 						    </textarea>
                     </div>
                     <div class="form-group">
@@ -93,35 +80,54 @@
 								${model.content }
 						    </textarea>
                     </div>
-                    
-                    
+
+
+                    <div class="form-group ">
+                        <span class="glyphicon glyphicon-star padding-b20 "></span>操作系统
+                        <input  placeholder="操作系统" required
+                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
+                                name="os" type="text" value="mac">
+                    </div>
+
+                    <div class="form-group ">
+                        <span class="glyphicon glyphicon-star"></span>软件颜色
+                        <input id="J_color" placeholder="软件颜色" required
+                               class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
+                               name="color" type="text" value="${model.color }">
+                    </div>
+
+                    <div class="form-group ">
+                        <span class="glyphicon glyphicon-star"></span>置顶编号
+                        <input id="J_hotindex" placeholder="置顶编号" required
+                               class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
+                               name="hotindex" type="number" value="${model.hotindex }">
+                    </div>
+
+                    <div class="form-group ">
+                        <span class="glyphicon glyphicon-star padding-b20 "></span>标签tips
+                        <textarea ID="J_tag_tips" style="height: 200px; max-height: 400px;"  rows="5">
+                                001 系统、应用软件<div>002 开发、设计软件</div><div>003 媒体软件</div><div>004 网络、安全软件</div><div>005 其他软件</div><div>006 游戏一箩筐</div><div>007 限免软件</div><div>008 疑难杂症</div><div>005 其他软件</div>
+                        </textarea>
+                    </div>
+
                     <div class="form-group ">
 						<span class="glyphicon glyphicon-star padding-b20 "></span>标签
-                        <input id="J_color" placeholder="标签" required
+                        <input  placeholder="标签" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
                                name="tags" type="text" value="${model.tags }">
                     </div>
+
+
                     
                     <div class="form-group ">
 						<span class="glyphicon glyphicon-star  padding-b20"></span>英文标签
-                        <input id="J_color" placeholder="英文标签" required
+                        <input  placeholder="英文标签" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
                                name="tagscode" type="text" value="${model.tagscode }">
                     </div>
                     
 
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-					
+
                     <div class="form-group">
                         <input id="formSubmit" data-activetext="添加 ››"
                                class="btn btn-hero btn-xlg margin-t10 grid50" value="添加"
@@ -177,8 +183,20 @@
             ]
         });
 
+        var editor4 = $('#J_tag_tips').wangEditor({
+            'menuConfig': [
+                ['viewSourceCode'],
+                ['fontFamily', 'fontSize', 'bold', 'setHead'],
+                ['list', 'justify', 'blockquote'],
+                ['createLink', 'insertHr', 'undo'],
+                ['insertImage', 'insertVideo', 'insertLocation', 'insertCode']
+            ]
+        });
+
+
+
         //追加字符串
-        //editor.append('##电影简介');
+        //editor.append('##软件简介');
 
         //提交表单
         $("#formSubmit").click(function () {

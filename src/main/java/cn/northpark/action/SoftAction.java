@@ -33,6 +33,7 @@ import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 /**
@@ -55,7 +56,76 @@ public class SoftAction {
      */
     private static int SoftCount = 10;
     
-    
+
+
+    //===========================编辑资源================================
+
+    /**
+     * @param request
+     * @return
+     * @author Bruce
+     * 置顶的方法
+     */
+    @RequestMapping("/handup")
+    @ResponseBody
+    @BruceOperation
+    public Result<String> handup(HttpServletRequest request) {
+        String rs = "success";
+        try {
+            String id = request.getParameter("id");
+            String max_hot_sql_id = "select max(hotindex) as hotindex from bc_soft ";
+            List<Map<String, Object>> list = softManager.querySqlMap(max_hot_sql_id);
+            Integer hotindex = 0;
+            if (!CollectionUtils.isEmpty(list) && Objects.nonNull(list.get(0).get("hotindex"))) {
+                hotindex = (Integer) list.get(0).get("hotindex");
+                hotindex++;
+            }
+
+            hotindex = hotindex>0?hotindex:888;
+
+            if (hotindex > 0) {
+                Soft m = softManager.findSoft(Integer.parseInt(id));
+                if (m != null) {
+                    m.setHotindex(hotindex);
+                    softManager.updateSoft(m);
+                }
+            }
+
+        } catch (Exception e) {
+            log.error("soft action------>", e);
+            rs = "ex";
+        }
+        return ResultGenerator.genSuccessResult(rs);
+    }
+
+
+    /**
+     * 隐藏电影的方法
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/hideup")
+    @ResponseBody
+    @BruceOperation
+    public Result<String> hideup(HttpServletRequest request) {
+        String rs = "success";
+        try {
+            String id = request.getParameter("id");
+
+            Soft m = softManager.findSoft(Integer.parseInt(id));
+            if (m != null) {
+                m.setDisplayed("N");
+                softManager.updateSoft(m);
+            }
+
+        } catch (Exception e) {
+            log.error("soft action------>", e);
+            rs = "ex";
+        }
+        return ResultGenerator.genSuccessResult(rs);
+    }
+
     /**
      * 跳转后台添加
      *
@@ -116,6 +186,11 @@ public class SoftAction {
         		old.setContent(model.getContent());
         		old.setBrief(model.getBrief());
         		old.setRetcode(model.getRetcode());
+        		//added--2021年10月28日
+                old.setOs(model.getOs());
+        		old.setColor(model.getColor());
+        		old.setDisplayed(model.getDisplayed());
+        		old.setHotindex(model.getHotindex());
         		softManager.updateSoft(old);
 
 
@@ -143,6 +218,8 @@ public class SoftAction {
         }
         return ResultGenerator.genSuccessResult(rs);
     }
+
+    //===========================编辑资源================================
 
     /**
      * 查询列表-首页数据
@@ -180,7 +257,9 @@ public class SoftAction {
 
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
+        order.put("hotindex", "desc");
         order.put("UNIX_TIMESTAMP(postdate)", "desc");
+        order.put("id", "desc");
 
         //获取pageview
         PageView<Soft> p = new PageView<Soft>(1, SoftCount);
@@ -233,7 +312,9 @@ public class SoftAction {
         String currentpage = page;
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
+        order.put("hotindex", "desc");
         order.put("UNIX_TIMESTAMP(postdate)", "desc");
+        order.put("id", "desc");
 
         //获取pageview
         PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentpage), SoftCount);
@@ -464,7 +545,7 @@ public class SoftAction {
 
 
             //获取热门文章
-            String hotsql = "select retcode,title from bc_soft order by postdate desc limit 0,10";
+            String hotsql = "select retcode,title from bc_soft order by hotindex desc limit 0,10";
             hotlist = softManager.querySqlMap(hotsql);
 
 

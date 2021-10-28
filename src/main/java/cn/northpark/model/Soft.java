@@ -88,4 +88,13 @@ public class Soft implements Serializable {
     @Column()
     private String path;
 
+    @Column(length = 5)
+    private String color;
+
+    @Column(length = 11)
+    private Integer hotindex;
+
+    @Column(length = 10)
+    private String displayed;
+
 }

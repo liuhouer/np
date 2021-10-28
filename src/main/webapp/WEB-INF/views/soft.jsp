@@ -62,7 +62,11 @@
                                         <p>
                                             <a href="/soft/${s.retcode }.html">
                                                 <small class="green-text">
-                                                    <font size="5"><strong>${s.title}</strong></font>
+                                                    <font size="5"><strong>
+                                                            <c:if test="${s.hotindex>0}">
+                                                                <i class="fa fa-thumb-tack" title="已置顶"></i>
+                                                            </c:if>
+                                                            ${s.title}</strong></font>
                                                 </small>
                                             </a>
                                         </p>

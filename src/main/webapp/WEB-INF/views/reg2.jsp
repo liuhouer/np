@@ -39,11 +39,11 @@
             </button>
             <div class="navbar-brand">
                 <a href="/" title="首页" class="btn-xs">
-                    <span class="fa fa-home fa-2x padding-t10 padding-l5"></span>
+                    <span class="fa fa-home fa-lg padding-t10 padding-l5"></span>
                 </a>
 
                 <a href="http://blog.NorthPark.cn/atom.xml" target="_blank" id="icon" title="订阅NorthParkRSS" class="btn-xs">
-                    <i class="fa fa-rss-square  fa-2x padding-t10  padding-l5"></i>
+                    <i class="fa fa-rss-square  fa-lg padding-t10  padding-l5"></i>
                 </a>
 
             </div>
