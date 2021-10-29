@@ -1,7 +1,10 @@
 package cn.northpark.aspect;
 
-import java.lang.reflect.Method;
-
+import cn.northpark.annotation.Redis;
+import cn.northpark.constant.BC_Constant.RedisReturnType;
+import cn.northpark.utils.JsonUtil;
+import cn.northpark.utils.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -13,14 +16,12 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
 
-import cn.northpark.annotation.Redis;
-import cn.northpark.constant.BC_Constant.RedisReturnType;
-import cn.northpark.utils.JsonUtil;
-import cn.northpark.utils.RedisUtil;
-import lombok.extern.slf4j.Slf4j;
+import java.lang.reflect.Method;
 
 /**
  * 优先取redis缓存
+ * BRUCE TIPS!
+ * aspect适用于异步方法
  *
  */
 @Aspect

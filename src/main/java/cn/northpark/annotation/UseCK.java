@@ -4,15 +4,13 @@ package cn.northpark.annotation;
 import java.lang.annotation.*;
 
 /**
- * login check|use for need check login 's method
- *
- * @author bruce
+ * 使用ClickHouse数据源
+ * @author Bruce
  */
-@Documented
-@Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CheckLogin {
-
+@Documented
+@Inherited
+public @interface UseCK {
     boolean validate() default true;
 }

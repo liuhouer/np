@@ -80,6 +80,12 @@
 	        <mvc:mapping path="/soft/**" />  
         	<bean class="cn.northpark.interceptor.AdminInterceptor"></bean>
         </mvc:interceptor>
+        <!--需要动态切换数据源的路径配置在这里-->
+        <mvc:interceptor>
+            <mvc:mapping path="/movies/**" />
+            <mvc:mapping path="/soft/**" />
+            <bean class="cn.northpark.interceptor.UseCKInterceptor"></bean>
+        </mvc:interceptor>
     </mvc:interceptors>
 
 

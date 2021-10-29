@@ -4,7 +4,6 @@ package cn.northpark.action;
 import cn.northpark.annotation.BruceOperation;
 import cn.northpark.annotation.Desc;
 import cn.northpark.constant.BC_Constant;
-import cn.northpark.constant.DataSourceEnum;
 import cn.northpark.constant.ResultEnum;
 import cn.northpark.exception.NorthParkException;
 import cn.northpark.exception.Result;
@@ -13,7 +12,6 @@ import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Movies;
 import cn.northpark.model.Tags;
-import cn.northpark.threadLocal.CustomerContextHolder;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.RedisUtil;
@@ -417,9 +415,8 @@ public class MoviesAction {
      * @return
      */
     @RequestMapping(value = "/movies")
+    //@UseCK
     public String list(ModelMap map,  HttpServletRequest request, HttpSession session) throws Exception {
-
-        CustomerContextHolder.setCustomerType(DataSourceEnum.ck);//设置从ck取数
 
         session.removeAttribute("tabs");
         session.setAttribute("tabs", "movies");

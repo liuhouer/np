@@ -10,7 +10,8 @@ package cn.northpark.aspect;
 //
 ///**
 // * @author YangZhang
-// *	可以定义一些切面来对某些方法 进行xx操作
+// *  可以定义一些切面来对某些方法 进行xx操作
+// *  BRUCE TIPS!
 // */
 //@Aspect
 //@Component

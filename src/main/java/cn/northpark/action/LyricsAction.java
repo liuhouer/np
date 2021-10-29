@@ -14,7 +14,6 @@ import cn.northpark.manager.LyricsManager;
 import cn.northpark.manager.LyricsZanManager;
 import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.model.Lyrics;
-import cn.northpark.model.User;
 import cn.northpark.model.UserLyrics;
 import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.*;

@@ -2392,8 +2392,12 @@ public class HTMLParserUtil {
 
             map.put("key", name);
             map.put("localpath", path + name);
-            map.put("trimpath", (path + name).replace("E:\\bruce\\", ""));
-            map.put("trimPan", (path + name).replace("E:\\", "")).replace("D:\\","/bruce/");
+            try {
+                map.put("trimpath", (path + name).replace("E:\\bruce\\", ""));
+                map.put("trimPan", (path + name).replace("E:\\", "")).replace("D:\\","/bruce/");
+            }catch (Exception ig){
+                
+            }
 
 
         } catch (Exception e) {
