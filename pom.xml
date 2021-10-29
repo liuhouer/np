@@ -125,15 +125,18 @@
 			<version>3.9</version>
 		</dependency>
 
-
-
-
-
 		<!-- mysql连接 -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.47</version>
+		</dependency>
+
+		<!-- clickhouse-jdbc -->
+		<dependency>
+			<groupId>ru.yandex.clickhouse</groupId>
+			<artifactId>clickhouse-jdbc</artifactId>
+			<version>0.3.1</version>
 		</dependency>
 
 
