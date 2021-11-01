@@ -25,28 +25,28 @@ public class updateMovieColor {
             List<Map<String, Object>> maps = NPQueryRunner.query(sql, new MapListHandler(),c);
 
             //尝试从标题截图赋值
-//            maps.parallelStream().forEach(item->{
-//                String id = item.get("id").toString();
-//                String moviename = item.get("moviename").toString();
-//                for (Object cc : cList) {
-//                    moviename = moviename.replace(String.valueOf(cc),String.valueOf(BC_Constant.specColorMap.get(String.valueOf(cc))));
-//                }
-//                System.err.println("mod moviename---->"+moviename);
-//                if(StringUtils.isNotEmpty(moviename)){
-//
-//                    String color = PinyinUtil.getFirstChar(moviename);
-//                    System.err.println("mod color---->"+color);
-//                    String up_sql = "update bc_movies set color = '"+color+"' where id = "+id;
-//                    NPQueryRunner.update(up_sql);
-//                }
-//            });
+            maps.parallelStream().forEach(item->{
+                String id = item.get("id").toString();
+                String moviename = item.get("moviename").toString();
+                for (Object cc : cList) {
+                    moviename = moviename.replace(String.valueOf(cc),String.valueOf(BC_Constant.specColorMap.get(String.valueOf(cc))));
+                }
+                System.err.println("mod moviename---->"+moviename);
+                if(StringUtils.isNotEmpty(moviename)){
+
+                    String color = PinyinUtil.getFirstChar(moviename);
+                    System.err.println("mod color---->"+color);
+                    String up_sql = "update bc_movies set color = '"+color+"' where id = "+id;
+                    NPQueryRunner.update(up_sql);
+                }
+            });
 
             //全是特殊字符的直接替换color,不从标题截取
-            maps.parallelStream().forEach(item-> {
-                String id = item.get("id").toString();
-                String up_sql = "update bc_movies set color = '" + String.valueOf(BC_Constant.specColorMap.get(String.valueOf(c))) + "' where id = " + id;
-                NPQueryRunner.update(up_sql);
-            });
+//            maps.parallelStream().forEach(item-> {
+//                String id = item.get("id").toString();
+//                String up_sql = "update bc_movies set color = '" + String.valueOf(BC_Constant.specColorMap.get(String.valueOf(c))) + "' where id = " + id;
+//                NPQueryRunner.update(up_sql);
+//            });
         });
     }
 

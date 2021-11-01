@@ -1,92 +1,208 @@
 package cn.northpark.constant;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class BC_Constant {
 
+    public static ImmutableMap specColorMap =
+            ImmutableMap.builder()
+                    .put("《", "")
+                    .put("》", "")
+                    .put("<", "")
+                    .put("#", "")
+                    .put("【", "")
+                    .put("】", "")
+                    .put("[", "")
+                    .put("]", "")
+                    .put("“", "")
+                    .put("”", "")
+                    .put("?", "")
+                    .put(".", "")
+                    .put("(", "")
+                    .put(")", "")
+                    .put("�", "")
+                    .put("|", "")
+                    .put("^", "")
+                    .put("{", "")
+                    .put("}", "")
+                    .put("⑹", "")
+                    .put("@", "")
+                    .put("`", "")
+                    .put("_", "")
+                    .put("~", "")
+                    .put("ε", "")
+                    .put("*","")
+                    .put("-", "")
+                    .put("/", "")
+                    .put("ｂ", "b")
+                    .put("ｄ", "d")
+                    .put("ｍ", "m")
+                    .put("ｏ", "o")
+                    .put("ρ","s")
+                    .put("σ","s")
+                    .put("χ","s")
+                    .put("д","s")
+                    .put("т","s")
+                    .put("∀","s")
+                    .put("─","s")
+                    .put("「","s")
+                    .put("あ","s")
+                    .put("い","s")
+                    .put("う","s")
+                    .put("お","s")
+                    .put("か","s")
+                    .put("き","s")
+                    .put("ぎ","s")
+                    .put("く","s")
+                    .put("け","s")
+                    .put("こ","s")
+                    .put("さ","s")
+                    .put("す","s")
+                    .put("せ","s")
+                    .put("た","s")
+                    .put("ち","s")
+                    .put("ど","s")
+                    .put("な","s")
+                    .put("に","s")
+                    .put("の","s")
+                    .put("は","s")
+                    .put("ば","s")
+                    .put("ひ","s")
+                    .put("ふ","s")
+                    .put("ぶ","s")
+                    .put("ほ","s")
+                    .put("ま","s")
+                    .put("も","s")
+                    .put("り","s")
+                    .put("れ","s")
+                    .put("ア","s")
+                    .put("イ","s")
+                    .put("エ","s")
+                    .put("オ","s")
+                    .put("カ","s")
+                    .put("ガ","s")
+                    .put("キ","s")
+                    .put("ク","s")
+                    .put("コ","s")
+                    .put("サ","s")
+                    .put("ザ","s")
+                    .put("シ","s")
+                    .put("セ","s")
+                    .put("タ","s")
+                    .put("ダ","s")
+                    .put("チ","s")
+                    .put("ッ","s")
+                    .put("ツ","s")
+                    .put("テ","s")
+                    .put("デ","s")
+                    .put("ト","s")
+                    .put("ド","s")
+                    .put("ヌ","s")
+                    .put("ネ","s")
+                    .put("ノ","s")
+                    .put("ハ","s")
+                    .put("バ","s")
+                    .put("フ","s")
+                    .put("ヘ","s")
+                    .put("ボ","s")
+                    .put("ポ","s")
+                    .put("マ","s")
+                    .put("メ","s")
+                    .put("モ","s")
+                    .put("ヤ","s")
+                    .put("ラ","s")
+                    .put("リ","s")
+                    .put("ル","s")
+                    .put("レ","s")
+                    .put("凪","s")
+                    .put("가","s")
+                    .put("굿","s")
+                    .put("올","s")
+                    .put("왕","s")
+                    .put("장","s")
+                    .put("し","s")
+                    .build();
+
     public static final String Domain = "northpark.cn";
-    
-    
+
     /**
      * 用户注册邮件
      */
     public static final String MQ_MAIL_JOIN = "mail.join";
-    
+
     /**
      * 用户重置邮件
      */
     public static final String MQ_MAIL_RESET = "mail.reset";
-    
+
     /**
      * 用户重置邮件
      */
     public static final String REDIS_FEEDBACK = "R_FEEDBACK";
 
 
-
     /**
      * redis返回类型自定义
      */
     public enum RedisReturnType {
-    	 map("map"),
+        map("map"),
         listmap("listmap"),
         string("string"),
-    	 listclass("listclass"),
-         ;
-    	 // 成员变量
+        listclass("listclass"),
+        ;
+        // 成员变量
         private String type;
-        
-        
-    	private RedisReturnType(String type) {
-    		this.type = type;
-    	}
 
 
-		public String getType() {
-			return type;
-		}
+        private RedisReturnType(String type) {
+            this.type = type;
+        }
+
+
+        public String getType() {
+            return type;
+        }
 
 
     }
-    
-    
+
+
     /**
      * 格式化分隔符
      */
     public enum FormatSpilt {
-    	 hengxian("-"),
-    	 bolangxian("~"), 
-    	 xinghao("*"),
-    	 jinghao("#"),
-         ;
-    	 // 成员变量
+        hengxian("-"),
+        bolangxian("~"),
+        xinghao("*"),
+        jinghao("#"),
+        ;
+        // 成员变量
         private String namestr;
-        
-        
-    	private FormatSpilt(String namestr) {
-    		this.namestr = namestr;
-    	}
 
 
-		public String getNamestr() {
-			return namestr;
-		}
+        private FormatSpilt(String namestr) {
+            this.namestr = namestr;
+        }
+
+
+        public String getNamestr() {
+            return namestr;
+        }
 
 
     }
-    
+
     /**
      * 星座
      */
     public enum XINGZUO {
         BAIYANG("白羊座", 1), JINNIU("金牛座", 2), SHUANGZI("双子座", 3), JUXIE("巨蟹座", 4),
-        SHIZI("狮子座", 5), CHUNV("处女座",6), TIANCHENG("天秤座", 7), TIANXIE("天蝎座", 8),
-        SHESHOU("射手座", 9), MOJIE("摩羯座", 10), SHUIPING("水瓶座", 11), SHUANGYU("双鱼座", 12)
-        
-        ;
+        SHIZI("狮子座", 5), CHUNV("处女座", 6), TIANCHENG("天秤座", 7), TIANXIE("天蝎座", 8),
+        SHESHOU("射手座", 9), MOJIE("摩羯座", 10), SHUIPING("水瓶座", 11), SHUANGYU("双鱼座", 12);
         // 成员变量
         private String name;
         private int index;
@@ -132,9 +248,9 @@ public class BC_Constant {
     public enum HEMA_BT {
 
         //sq
-        SQ("/bttype/93-","qingse","情色"),
+        SQ("/bttype/93-", "qingse", "情色"),
         //鬼父
-        GUIFU("/search.asp?searchword=%B9%ED%B8%B8&searchtype=-1&ordertype=&TypeId=&page=","qingse,dongman","情色,动漫"),
+        GUIFU("/search.asp?searchword=%B9%ED%B8%B8&searchtype=-1&ordertype=&TypeId=&page=", "qingse,dongman", "情色,动漫"),
 
         ;
         // 成员变量
@@ -147,7 +263,7 @@ public class BC_Constant {
             this.name = name;
         }
 
-        private HEMA_BT(String name,String tagCode,String tag) {
+        private HEMA_BT(String name, String tagCode, String tag) {
             this.name = name;
             this.tagCode = tagCode;
             this.tag = tag;
@@ -218,8 +334,6 @@ public class BC_Constant {
     public static final String RET_RR_DONGMAN = "https://www.rrdyw.cc/dongman/list_13_";
 
 
-
-
     /**
      * 人人电影 domain
      */
@@ -233,13 +347,13 @@ public class BC_Constant {
             "https://bbs.djicdn.com/data/attachment/album/202011/18/095815gkkv3xxks13max3c.jpg",
             "https://bbs.djicdn.com/data/attachment/album/202011/18/100025slp1xil1xptpxhml.jpg"
 
-            );
+    );
 
     //northPark 云盘下载-静态图片
-    public static final String np_cloud_down ="https://northpark.cn/statics/img/down/cloud.jpg";
+    public static final String np_cloud_down = "https://northpark.cn/statics/img/down/cloud.jpg";
 
     //northPark 迅雷下载-静态图片
-    public static final String np_thunder_down ="https://northpark.cn/statics/img/down/thunder.jpg";
+    public static final String np_thunder_down = "https://northpark.cn/statics/img/down/thunder.jpg";
 
     /**
      * 根据不同系统获取：图片配置的开始目录
@@ -294,7 +408,7 @@ public class BC_Constant {
     }
 
     //==========================================================微信==============================================================================================
-    
+
 //    public static String WX_url_menu_create = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 //
 //    public static String WX_url_get_access_token = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
@@ -320,7 +434,7 @@ public class BC_Constant {
 //
 //    public static Map<Integer, Long> scend_id_map = new HashMap<Integer, Long>();
 
-  //==========================================================微信==============================================================================================
+    //==========================================================微信==============================================================================================
 
     public static void main(String[] args) {
         boolean contains = BC_Constant.ignore_pic_list.contains("https://bbs.djicdn.com/data/attachment/album/202011/18/100025slp1xil1xptpxhml.jpg");
