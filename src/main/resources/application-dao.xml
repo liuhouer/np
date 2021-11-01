@@ -40,28 +40,32 @@
 
 
 	<!-- HikariCP configuration ck-->
+	<!--
 	<bean id="ckConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="${ck.driverClassName}" />
 		<property name="jdbcUrl" value="${ck.jdbcUrl}" />
 		<property name="username" value="${ck.username}" />
 		<property name="password" value="${ck.password}" />
 	</bean>
-	
+	-->
+
 	<!--mysql-->
 	<bean id="mysqlDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 	    <constructor-arg ref="mysqlConfig" />
 	</bean>
 
 	<!--clickhouse-->
+	<!--
 	<bean id="ckDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="ckConfig" />
 	</bean>
+	-->
 
 	<!--动态dataSource映射-->
 	<bean id="dataSource" class="cn.northpark.utils.datasource.DynamicDataSource">
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">
-				<entry key="ck" value-ref="ckDataSource"/>
+				<!--<entry key="ck" value-ref="ckDataSource"/>-->
 				<entry key="mysql" value-ref="mysqlDataSource"/>
 			</map>
 		</property>
