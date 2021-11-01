@@ -294,7 +294,7 @@ function autoLogin(){
                 if(msg.result){
                     //自动登陆成功
                     console.log(msg.data);
-                    // art.dialog.tips(msg.data);
+                    art.dialog.tips(msg.data+' | 必要时刷新页面');
 
                     // var red = window.location.href;
                     //
