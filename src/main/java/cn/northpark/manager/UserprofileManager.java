@@ -1,12 +1,12 @@
 
 package cn.northpark.manager;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import cn.northpark.model.Userprofile;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
+
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public interface UserprofileManager {
 

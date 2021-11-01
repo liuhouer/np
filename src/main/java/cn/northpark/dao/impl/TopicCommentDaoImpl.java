@@ -1,12 +1,11 @@
 
 package cn.northpark.dao.impl;
 
-import java.io.Serializable;
-
+import cn.northpark.dao.TopicCommentDao;
+import cn.northpark.model.TopicComment;
 import org.springframework.stereotype.Service;
 
-import cn.northpark.model.TopicComment;
-import cn.northpark.dao.TopicCommentDao;
+import java.io.Serializable;
 /**
  * @author bruce
  * @date 2020-11-29

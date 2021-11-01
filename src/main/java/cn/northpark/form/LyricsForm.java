@@ -1,8 +1,7 @@
 package cn.northpark.form;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author w_zhangyang

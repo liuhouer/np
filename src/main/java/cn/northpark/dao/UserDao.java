@@ -1,8 +1,8 @@
 package cn.northpark.dao;
 
-import java.io.Serializable;
-
 import cn.northpark.model.User;
+
+import java.io.Serializable;
 
 public interface UserDao extends HibernateDao<User, Serializable> {
 

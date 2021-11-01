@@ -1,8 +1,8 @@
 package cn.northpark.dao;
 
-import java.io.Serializable;
-
 import cn.northpark.model.Soft;
+
+import java.io.Serializable;
 
 /**
  * @author bruce

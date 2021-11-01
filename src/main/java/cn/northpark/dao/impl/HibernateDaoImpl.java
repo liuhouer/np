@@ -1,12 +1,9 @@
 package cn.northpark.dao.impl;
 
-import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import cn.northpark.dao.HibernateDao;
+import cn.northpark.utils.ReflectManager;
+import cn.northpark.utils.page.PageView;
+import cn.northpark.utils.page.QueryResult;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -15,10 +12,11 @@ import org.hibernate.transform.Transformers;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.northpark.dao.HibernateDao;
-import cn.northpark.utils.ReflectManager;
-import cn.northpark.utils.page.PageView;
-import cn.northpark.utils.page.QueryResult;
+import javax.annotation.Resource;
+import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
         HibernateDao<T, PK> {

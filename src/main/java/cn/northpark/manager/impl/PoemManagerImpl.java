@@ -1,18 +1,17 @@
 
 package cn.northpark.manager.impl;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import cn.northpark.dao.PoemDao;
 import cn.northpark.manager.PoemManager;
 import cn.northpark.model.Poem;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author bruce

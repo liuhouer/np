@@ -1,19 +1,10 @@
 package cn.northpark.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Random;
-import java.util.Set;
-
-import com.google.common.collect.Lists;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.*;
 
 /**
  * 时间工具类
