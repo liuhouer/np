@@ -1,13 +1,6 @@
 
 package cn.northpark.manager.impl;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import cn.northpark.dao.LyricsCommentDao;
 import cn.northpark.dao.LyricsZanDao;
 import cn.northpark.manager.LyricsZanManager;
@@ -15,6 +8,12 @@ import cn.northpark.model.LyricsZan;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service("LyricsZanManager")
 public class LyricsZanManagerImpl implements LyricsZanManager {

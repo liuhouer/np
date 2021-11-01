@@ -1,10 +1,9 @@
 package cn.northpark.zookeeper;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 

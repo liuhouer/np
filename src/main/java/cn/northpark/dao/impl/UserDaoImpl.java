@@ -1,17 +1,16 @@
 
 package cn.northpark.dao.impl;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
 import cn.northpark.dao.UserDao;
 import cn.northpark.model.User;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Service("UserDao")
 @Slf4j

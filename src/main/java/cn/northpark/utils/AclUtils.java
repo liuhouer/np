@@ -1,9 +1,9 @@
 package cn.northpark.utils;
 
-import java.io.IOException;
-
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.server.auth.DigestAuthenticationProvider;
+
+import java.io.IOException;
 
 public class AclUtils {
 	

@@ -1,7 +1,7 @@
 package cn.northpark.zookeeper.curator.checkConfig;
 
-import java.util.concurrent.CountDownLatch;
-
+import cn.northpark.utils.JsonUtil;
+import cn.northpark.zookeeper.RedisConfig;
 import org.apache.commons.lang.StringUtils;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
@@ -12,8 +12,7 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.curator.retry.RetryNTimes;
 
-import cn.northpark.utils.JsonUtil;
-import cn.northpark.zookeeper.RedisConfig;
+import java.util.concurrent.CountDownLatch;
 
 public class Client3 {
 

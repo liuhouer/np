@@ -1,8 +1,8 @@
 package cn.northpark.dao;
 
-import java.io.Serializable;
-
 import cn.northpark.model.Poem;
+
+import java.io.Serializable;
 
 /**
  * @author bruce

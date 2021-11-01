@@ -1,7 +1,6 @@
 package cn.northpark.model;
 
 import lombok.Data;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

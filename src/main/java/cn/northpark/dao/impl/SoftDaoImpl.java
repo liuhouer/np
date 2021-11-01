@@ -1,12 +1,11 @@
 
 package cn.northpark.dao.impl;
 
-import java.io.Serializable;
-
-import org.springframework.stereotype.Service;
-
 import cn.northpark.dao.SoftDao;
 import cn.northpark.model.Soft;
+import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
 
 /**
  * @author bruce

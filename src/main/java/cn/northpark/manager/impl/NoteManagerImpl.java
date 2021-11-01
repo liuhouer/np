@@ -1,18 +1,17 @@
 
 package cn.northpark.manager.impl;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import cn.northpark.dao.NoteDao;
 import cn.northpark.manager.NoteManager;
 import cn.northpark.model.Note;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service("NoteManager")
 public class NoteManagerImpl implements NoteManager {

@@ -1,12 +1,11 @@
 
 package cn.northpark.dao.impl;
 
-import java.io.Serializable;
-
+import cn.northpark.dao.KnowledgeDao;
+import cn.northpark.model.Knowledge;
 import org.springframework.stereotype.Service;
 
-import cn.northpark.model.Knowledge;
-import cn.northpark.dao.KnowledgeDao;
+import java.io.Serializable;
 /**
  * @author bruce
  * @date 2021-10-25

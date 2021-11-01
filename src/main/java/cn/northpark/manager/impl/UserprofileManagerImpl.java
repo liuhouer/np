@@ -1,18 +1,17 @@
 
 package cn.northpark.manager.impl;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import cn.northpark.dao.UserprofileDao;
 import cn.northpark.manager.UserprofileManager;
 import cn.northpark.model.Userprofile;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @Service("UserprofileManager")
 public class UserprofileManagerImpl implements UserprofileManager {

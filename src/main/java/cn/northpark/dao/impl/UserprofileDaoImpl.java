@@ -1,13 +1,12 @@
 
 package cn.northpark.dao.impl;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import cn.northpark.dao.UserprofileDao;
 import cn.northpark.model.Userprofile;
+import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Service("UserprofileDao")
 public class UserprofileDaoImpl extends HibernateDaoImpl<Userprofile, Serializable> implements UserprofileDao {

@@ -1,6 +1,7 @@
 package cn.northpark.LeetCode.最大堆;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /**
  * @author liuhouer

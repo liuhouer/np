@@ -1,9 +1,7 @@
 package cn.northpark.LeetCode;
 
 
-import com.google.common.base.Supplier;
-
-import java.util.*;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**

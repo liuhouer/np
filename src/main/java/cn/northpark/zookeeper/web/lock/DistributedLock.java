@@ -1,7 +1,6 @@
 package cn.northpark.zookeeper.web.lock;
 
-import java.util.concurrent.CountDownLatch;
-
+import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
@@ -9,7 +8,7 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.concurrent.CountDownLatch;
 
 
 /**

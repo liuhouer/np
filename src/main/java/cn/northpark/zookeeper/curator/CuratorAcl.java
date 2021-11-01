@@ -1,8 +1,6 @@
 package cn.northpark.zookeeper.curator;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cn.northpark.utils.AclUtils;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -11,7 +9,8 @@ import org.apache.zookeeper.ZooDefs.Perms;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
 
-import cn.northpark.utils.AclUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CuratorAcl {
 

@@ -1,14 +1,12 @@
 package cn.northpark.utils;
 
-import java.util.List;
-
+import cn.northpark.utils.encrypt.EnDecryptUtils;
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.HtmlEmail;
 
-import com.google.common.collect.Lists;
-
-import cn.northpark.utils.encrypt.EnDecryptUtils;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
 
 /**
  * @author jeyy

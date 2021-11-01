@@ -1,9 +1,8 @@
 package cn.northpark.manager.impl;
 
-import org.springframework.stereotype.Service;
-
 import cn.northpark.manager.MQProducerManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 /**
  * @author bruce

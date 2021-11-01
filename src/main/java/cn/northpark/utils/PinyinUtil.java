@@ -1,8 +1,5 @@
 package cn.northpark.utils;
 
-import java.util.Date;
-import java.util.Random;
-
 import cn.northpark.constant.BC_Constant;
 import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -11,6 +8,9 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+
+import java.util.Date;
+import java.util.Random;
 
 
 /**

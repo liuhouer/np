@@ -1,16 +1,10 @@
 package cn.northpark.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import lombok.Data;
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author bruce

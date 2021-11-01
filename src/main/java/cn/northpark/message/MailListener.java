@@ -1,22 +1,20 @@
 package cn.northpark.message;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
-
-import com.rabbitmq.client.Channel;
-
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.manager.UserManager;
 import cn.northpark.model.User;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.ObjectUtil;
+import com.rabbitmq.client.Channel;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 接收mq消息来处理邮件通知

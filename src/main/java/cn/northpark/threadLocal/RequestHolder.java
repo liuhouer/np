@@ -2,8 +2,6 @@ package cn.northpark.threadLocal;
 
 import cn.northpark.constant.CookieConstant;
 import cn.northpark.constant.RedisConstant;
-import cn.northpark.exception.ResultGenerator;
-import cn.northpark.model.User;
 import cn.northpark.utils.CookieUtil;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.RedisUtil;
