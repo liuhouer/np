@@ -5,13 +5,12 @@ import cn.northpark.annotation.CheckLogin;
 import cn.northpark.constant.CookieConstant;
 import cn.northpark.constant.RedisConstant;
 import cn.northpark.constant.ResultEnum;
+import cn.northpark.constant.TopicTypeEnum;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.*;
-import cn.northpark.model.Reset;
-import cn.northpark.model.User;
-import cn.northpark.model.UserFollow;
-import cn.northpark.model.Userprofile;
+import cn.northpark.model.*;
+import cn.northpark.notify.NotifyEnum;
 import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.*;
 import cn.northpark.utils.encrypt.EnDecryptUtils;
@@ -20,6 +19,7 @@ import cn.northpark.vo.UserVO;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.protocol.HTTP;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,12 +52,43 @@ public class UserAction {
     private UserFollowManager userfollowManager;
     @Autowired
     private ResetManager resetManager;
-    
+
+    @Autowired
+    private NotifyRemindManager notifyRemindManager;
+
 	/**
 	 * mq发消息
 	 */
 	@Resource  
-    private MQProducerManager messageProducer; 
+    private MQProducerManager messageProducer;
+
+
+    /**
+     * 拉取未读消息数量
+     */
+    @RequestMapping("/notify/count")
+    @ResponseBody
+    public Result<Integer> notifyNum(HttpServletRequest request) {
+
+
+        try {
+            UserVO userInfo = RequestHolder.getUserInfo(request);
+
+            String notifyNumSql = " select * from bc_notify_remind   where recipientID = ? and status = '0' ";
+
+            int i = notifyRemindManager.querySql(notifyNumSql,userInfo.getId()).size();
+
+            return ResultGenerator.genSuccessResult(i);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            log.error("notify/count--->" + e);
+        }
+
+
+        return ResultGenerator.genSuccessResult(0);
+    }
 
 
 
@@ -242,7 +273,37 @@ public class UserAction {
                 uf.setCreate_time(TimeUtils.nowTime());
                 if (StringUtils.isNotEmpty(follow_id) && StringUtils.isNotEmpty(author_id)) {
                     userfollowManager.addUserFollow(uf);
+
+                    //=================================消息提醒====================================================
+
+                    User follower = userManager.findUser(Integer.parseInt(follow_id));
+
+
+                    //判断主题类型
+
+                    NotifyEnum match = NotifyEnum.FOLLOW;
+
+                    //提醒系统赋值
+                    NotifyRemind nr = new NotifyRemind();
+
+                    //common
+                    nr.setSenderID(follow_id);
+                    nr.setSenderName(follower.getUsername());
+                    nr.setObjectID(null);
+                    nr.setObject(null);
+                    nr.setObjectLinks("/cm/detail/"+follow_id);
+                    nr.setMessage("关注了你");
+                    nr.setStatus("0");
+                    nr.setRecipientID(author_id);
+
+
+                    match.notifyInstance.build(nr);
+                    notifyRemindManager.addNotifyRemind(nr);
+
+                    //=================================消息提醒====================================================
                 }
+
+
             }
         } catch (Exception e) {
 

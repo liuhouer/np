@@ -5,25 +5,28 @@ package cn.northpark.action;
  *
  **/
 
+import cn.northpark.constant.TopicTypeEnum;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
-import cn.northpark.manager.LyricsCommentManager;
-import cn.northpark.manager.LyricsManager;
-import cn.northpark.manager.LyricsZanManager;
-import cn.northpark.model.Lyrics;
-import cn.northpark.model.LyricsComment;
-import cn.northpark.model.LyricsZan;
+import cn.northpark.manager.*;
+import cn.northpark.model.*;
+import cn.northpark.notify.NotifyEnum;
 import cn.northpark.threadLocal.RequestHolder;
+import cn.northpark.utils.NotifyUtil;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.page.QueryResult;
 import cn.northpark.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Controller
@@ -37,6 +40,14 @@ public class LyricsZanAction {
     private LyricsCommentManager plManager;
     @Autowired
     private LyricsManager lyricsManager;
+
+    @Autowired
+    private UserLyricsManager userlyricsManager;
+
+    @Autowired
+    private NotifyRemindManager notifyRemindManager;
+
+
 
 
     /**
@@ -79,6 +90,38 @@ public class LyricsZanAction {
                     lrc.setZan(zannum);
                     this.lyricsManager.updateLyrics(lrc);
                 }
+
+                //=================================消息提醒====================================================
+
+                List<UserLyrics> by = userlyricsManager.findByCondition(" where lyricsid = '" + lyricsid + "' ").getResultlist();
+                //判断主题类型
+
+                NotifyEnum match = NotifyEnum.LOVE_ZAN;
+
+                //提醒系统赋值
+                NotifyRemind nr = new NotifyRemind();
+
+                //common
+                nr.setSenderID(u.getId().toString());
+                nr.setSenderName(u.getUsername());
+                nr.setObjectID(lyricsid);
+                Map<String, String> objectContent = NotifyUtil.getObjectContent(TopicTypeEnum.LOVE.getCode(), Integer.parseInt(lyricsid));
+                nr.setObject(objectContent.get("title"));
+                nr.setObjectLinks(objectContent.get("href"));
+                nr.setMessage("爱上了你创建的主题图册");
+                nr.setStatus("0");
+                if(!CollectionUtils.isEmpty(by)){
+                    nr.setRecipientID(by.get(0).getUserid().toString());
+                }
+
+
+                match.notifyInstance.build(nr);
+                notifyRemindManager.addNotifyRemind(nr);
+
+                //=================================消息提醒====================================================
+
+
+
                 msg = "success";
             } catch (Exception e) {
                 msg = "exception";
