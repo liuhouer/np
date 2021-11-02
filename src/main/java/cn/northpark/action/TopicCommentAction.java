@@ -1,14 +1,21 @@
 
 package cn.northpark.action;
 
+import cn.northpark.constant.TopicTypeEnum;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
+import cn.northpark.manager.NotifyRemindManager;
 import cn.northpark.manager.TopicCommentManager;
+import cn.northpark.model.NotifyRemind;
 import cn.northpark.model.TopicComment;
+import cn.northpark.notify.NotifyEnum;
 import cn.northpark.query.TopicCommentQuery;
+import cn.northpark.utils.NPQueryRunner;
+import cn.northpark.utils.NotifyUtil;
 import cn.northpark.utils.PinyinUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.safe.WAQ;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +28,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentMap;
 
 
 /**
@@ -40,6 +49,8 @@ public class TopicCommentAction {
     @Autowired
     private TopicCommentQuery topiccommentQuery;
 
+    @Autowired
+    private NotifyRemindManager notifyRemindManager;
 
     /**
      * 保存主题评论的方法
@@ -82,10 +93,45 @@ public class TopicCommentAction {
 
             model.setAdd_time(TimeUtils.nowTime());
             topicCommentManager.addTopicComment(model);
+
+            //=================================消息提醒====================================================
+            //判断主题类型
+            String matchNotifyName = TopicTypeEnum.getMatchNotifyName(model.getTopic_type());
+            if(StringUtils.isNotEmpty(matchNotifyName)){
+
+                NotifyEnum match = NotifyEnum.match(matchNotifyName);
+
+                //提醒系统赋值
+                NotifyRemind nr = new NotifyRemind();
+
+                //common
+                nr.setSenderID(model.getFrom_uid().toString());
+                nr.setSenderName(model.getFrom_uname());
+                nr.setObjectID(model.getTopic_id().toString());
+                Map<String, String> objectContent = NotifyUtil.getObjectContent(model.getTopic_type(), model.getTopic_id());
+                nr.setObject(objectContent.get("title"));
+                nr.setObjectLinks(objectContent.get("href"));
+                nr.setMessage(model.getContent());
+                nr.setStatus("0");
+                //文章被留言/回复
+                // 在某文章界面评论被回复【通知-被回复人】
+                if(StringUtils.isNotEmpty(model.getTo_uname())){
+                    nr.setRecipientID(model.getTo_uid().toString());
+                }else{
+                    // 在某文章界面留言 【通知-站长 507723】
+                    nr.setRecipientID("507723");
+                }
+
+                match.notifyInstance.build(nr);
+                notifyRemindManager.addNotifyRemind(nr);
+
+            }
+            //=================================消息提醒====================================================
         }
 
         return ResultGenerator.genSuccessResult(rs);
     }
+
 
     /**
      * 异步加载评论列表
