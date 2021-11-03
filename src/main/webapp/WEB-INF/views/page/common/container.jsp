@@ -50,9 +50,9 @@
 
 <script data-cfasync="false" src="https://northpark.cn/statics/js/page/seltab.js"></script>
 
-<%--<script data-cfasync="false" src="https://northpark.cn/statics/js/page/common.js"></script>--%>
+<script data-cfasync="false" src="https://northpark.cn/statics/js/page/common.js"></script>
 
-<script data-cfasync="false" src="/static/js/page/common.js"></script>
+<%--<script data-cfasync="false" src="/static/js/page/common.js"></script>--%>
 
 <script>
 
