@@ -28,6 +28,7 @@ public class NotifyUtil {
                 Map<String, Object> bc_note = NPQueryRunner.findById("bc_note", topic_id);
                 map.put("title",bc_note.get("brief").toString());
                 map.put("href","/note");
+                map.put("by",bc_note.get("userid").toString());
             }else if(topic_type.equals("2")){
                 Map<String, Object> bc_lyrics = NPQueryRunner.findById("bc_lyrics", topic_id);
                 map.put("title",bc_lyrics.get("title").toString());

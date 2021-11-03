@@ -13,6 +13,7 @@ import cn.northpark.model.*;
 import cn.northpark.notify.NotifyEnum;
 import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.NotifyUtil;
+import cn.northpark.utils.StringCommon;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.vo.UserVO;
@@ -106,7 +107,7 @@ public class LyricsZanAction {
                 nr.setSenderName(u.getUsername());
                 nr.setObjectID(lyricsid);
                 Map<String, String> objectContent = NotifyUtil.getObjectContent(TopicTypeEnum.LOVE.getCode(), Integer.parseInt(lyricsid));
-                nr.setObject(objectContent.get("title"));
+                nr.setObject(StringCommon.getLenStr(objectContent.get("title"),200));
                 nr.setObjectLinks(objectContent.get("href"));
                 nr.setMessage("爱上了你创建的主题图册");
                 nr.setStatus("0");

@@ -296,6 +296,9 @@ function autoLogin(){
                     console.log(msg.data);
                     art.dialog.tips(msg.data+' | 必要时刷新页面');
 
+                    //拉取未读消息数量
+                    fetchNotifyCount();
+
                     // var red = window.location.href;
                     //
                     // if(!red.indexOf("/signup") >= 0 && !red.indexOf("/login") >= 0){
@@ -337,8 +340,28 @@ $(function (){
     }
 })
 
+/**
+ * 拉取未读消息数量
+ */
+function fetchNotifyCount(){
+    $.ajax({
+        url: "/notify/count",
+        type: "get",
+        dataType: "json",
+        success: function (msg) {
 
+            if(msg.result){
+                //拉取未读消息数量成功
+                console.log(msg.data);
+                $("#J_notify_box").text(msg.data);
+            }else{
+                console.log('拉取未读消息数量失败--->'+msg.message);
+            }
+        }
+    });
+}
 
+// setInterval(fetchNotifyCount,5*1000);
 
 
 //复制内容自动添加版权信息

@@ -239,7 +239,7 @@
             }
         });
 
-        mac_tips();
+        // mac_tips();
     })
 </script>
 

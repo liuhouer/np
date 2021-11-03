@@ -28,6 +28,12 @@ public interface HibernateDao<T, PK extends Serializable> {
      */
     void execSQL(String sql);
 
+    /**
+     * 执行预编译sql返回void
+     * @param sql
+     */
+    void execSQL(String sql, Object... obj);
+
     void delete(PK... primaryKeyId);
 
     void delete(String where, Object[] parameter);

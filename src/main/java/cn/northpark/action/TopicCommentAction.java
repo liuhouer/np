@@ -10,13 +10,11 @@ import cn.northpark.model.NotifyRemind;
 import cn.northpark.model.TopicComment;
 import cn.northpark.notify.NotifyEnum;
 import cn.northpark.query.TopicCommentQuery;
-import cn.northpark.utils.NPQueryRunner;
-import cn.northpark.utils.NotifyUtil;
-import cn.northpark.utils.PinyinUtil;
-import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.*;
 import cn.northpark.utils.safe.WAQ;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
+import org.jsoup.Jsoup;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -109,18 +107,26 @@ public class TopicCommentAction {
                 nr.setSenderName(model.getFrom_uname());
                 nr.setObjectID(model.getTopic_id().toString());
                 Map<String, String> objectContent = NotifyUtil.getObjectContent(model.getTopic_type(), model.getTopic_id());
-                nr.setObject(objectContent.get("title"));
                 nr.setObjectLinks(objectContent.get("href"));
                 nr.setMessage(model.getContent());
                 nr.setStatus("0");
                 //文章被留言/回复
                 // 在某文章界面评论被回复【通知-被回复人】
-                if(StringUtils.isNotEmpty(model.getTo_uname())){
-                    nr.setRecipientID(model.getTo_uid().toString());
+                if(match.getName().equals("NOTE_REPLY")){
+                    String title = objectContent.get("title");
+                    String noteText = Jsoup.parse(title).text();
+                    nr.setObject(StringCommon.getLenStr(noteText,200));
+                    nr.setRecipientID(objectContent.get("by"));//通知树洞留言的创建者
                 }else{
-                    // 在某文章界面留言 【通知-站长 507723】
-                    nr.setRecipientID("507723");
+                    nr.setObject(StringCommon.getLenStr(objectContent.get("title"),200));
+                    if(StringUtils.isNotEmpty(model.getTo_uname())){
+                        nr.setRecipientID(model.getTo_uid().toString());
+                    }else{
+                        // 在某文章界面留言 【通知-站长 507723】
+                        nr.setRecipientID("507723");
+                    }
                 }
+
 
                 match.notifyInstance.build(nr);
                 notifyRemindManager.addNotifyRemind(nr);

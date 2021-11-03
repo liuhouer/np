@@ -63,35 +63,6 @@ public class UserAction {
     private MQProducerManager messageProducer;
 
 
-    /**
-     * 拉取未读消息数量
-     */
-    @RequestMapping("/notify/count")
-    @ResponseBody
-    public Result<Integer> notifyNum(HttpServletRequest request) {
-
-
-        try {
-            UserVO userInfo = RequestHolder.getUserInfo(request);
-
-            String notifyNumSql = " select * from bc_notify_remind   where recipientID = ? and status = '0' ";
-
-            int i = notifyRemindManager.querySql(notifyNumSql,userInfo.getId()).size();
-
-            return ResultGenerator.genSuccessResult(i);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            log.error("notify/count--->" + e);
-        }
-
-
-        return ResultGenerator.genSuccessResult(0);
-    }
-
-
-
 
     /**
      * @param request
