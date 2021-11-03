@@ -147,7 +147,7 @@
                     <div class="row bg-lblue padding20 radius-5">
                         <c:if test="${user.headpath!=null and user.headpath!=''}">
                             <div class="col-xs-2 avatar padding10">
-                             <img src="${user.headpath}"></img>
+                             <img src="/bruce/${user.headpath}"></img>
                             </div>
                         </c:if>
                         <c:if test="${user.headpath==null or user.headpath==''}">
