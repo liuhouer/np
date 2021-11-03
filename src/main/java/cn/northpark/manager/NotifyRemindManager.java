@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import cn.northpark.model.NotifyRemind;
 import java.util.LinkedHashMap;
+import java.util.Objects;
+
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 
@@ -93,6 +95,15 @@ public interface NotifyRemindManager {
 	 * 
 	 */
 	 void executeSql(String sql);
+
+	/**
+	 * 直接执行sql语句  更新、删除..
+	 *
+	 * @param sql
+	 *            SQL语句
+	 *
+	 */
+	void executeSql(String sql, Object... obj);
 	
 	
 	/**

@@ -210,10 +210,66 @@ public class StringCommon {
 			IOUtils.closeQuietly(outputStream);
 		}
 	}
-	
-	
-	
-	public static void main(String[] args) {
+
+
+	/**
+	 * 截取字符串固定长度
+	 * @param str
+	 * @param len
+	 * @return
+	 */
+	public static String getLenStr(String str, int len) {
+		String returnStr = "";
+		int str_length = 0;
+		int str_len = 0;
+		String str_cut = new String();
+		str_len = str.length();
+		for (int i = 0; i < str_len; i++) {
+			char a = str.charAt(i);
+			str_length++;
+			if (escape(a + "").length() > 4) {
+				//中文字符的长度经编码之后大于4
+				str_length++;
+			}
+			str_cut = str_cut.concat(a + "");
+			if (str_length >= len) {
+				str_cut = str_cut.concat("...");
+				returnStr = str_cut;
+				break;
+			}
+		}
+		//如果给定字符串小于指定长度，则返回源字符串；
+		if (str_length < len) {
+			returnStr = str;
+		}
+		return returnStr;
+	}
+
+	private static String escape(String src) {
+		int i;
+		char j;
+		StringBuffer tmp = new StringBuffer();
+		tmp.ensureCapacity(src.length() * 6);
+		for (i = 0; i < src.length(); i++) {
+			j = src.charAt(i);
+			if (Character.isDigit(j) || Character.isLowerCase(j) || Character.isUpperCase(j))
+				tmp.append(j);
+			else if (j < 256) {
+				tmp.append("%");
+				if (j < 16)
+					tmp.append("0");
+				tmp.append(Integer.toString(j, 16));
+			} else {
+				tmp.append("%u");
+				tmp.append(Integer.toString(j, 16));
+			}
+		}
+		return tmp.toString();
+
+	}
+
+
+		public static void main(String[] args) {
 		LinkedHashMap<String, Object> param_map = new LinkedHashMap<String, Object>();
 		param_map.put("DURATION_SRC", "1");
 		param_map.put("DURATION_WEIGHT", "2");

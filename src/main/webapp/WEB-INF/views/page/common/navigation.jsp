@@ -65,9 +65,19 @@
 
                             <div class="dropdown">
                                 <a class="dropdown-toggle " id="dropdownMenu1" data-toggle="dropdown" style="padding-right:1.2em;padding-left:1.2em;font-size:1.2em;line-height:38px;font-weight:400;color:#999;text-decoration:none;text-shadow:none;border-bottom:3px solid transparent;position:relative;display:block;padding:10px 15px;">
-                                    <i class="fa fa-user padding5"></i><span class="fa fa-caret-down padding5"></span>
+                                    <i class="fa fa-user "></i>
+                                    <span>${user.username}</span>
+                                    <i class="fa fa-caret-down padding5"></i>
                                 </a>
-                                <ul class="dropdown-menu grayback" role="menu" aria-labelledby="dropdownMenu1">
+                                <ul class="dropdown-menu grayback" role="menu" aria-labelledby="dropdownMenu1" >
+
+                                    <li role="presentation" >
+                                        <a title="未读消息" href="/notifications">
+                                            <i  class="fa fa-envelope padding10"></i>消息
+                                            <span class="badge margin5" id="J_notify_box">0</span>
+                                        </a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
                                     <li role="presentation" >
                                         <a role="menuitem" tabindex="-1" href="/cm/pcentral" title="${user.username}的个人空间">
                                              <i class="fa fa-bullseye fa-lg padding10"></i>空间

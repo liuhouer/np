@@ -116,6 +116,22 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
         sessionFactory.getCurrentSession().flush();
     }
 
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void execSQL(String sql,Object... obj) {
+
+        SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+
+        //SET PARA
+        for (int i = 0; i < obj.length; i++)
+        query.setParameter(i, obj[i]);
+
+        //EXEC
+        query.executeUpdate();
+
+        sessionFactory.getCurrentSession().flush();
+    }
+
     @Transactional(propagation = Propagation.REQUIRED)
     public void delete(PK... primaryKeyId) {
         for (PK pkId : primaryKeyId) {

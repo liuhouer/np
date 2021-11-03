@@ -116,7 +116,12 @@ public class NotifyRemindManagerImpl implements NotifyRemindManager {
 		// TODO Auto-generated method stub
 		 notifyremindDao.execSQL(sql);
 	}
-	
+
+	@Override
+	public void executeSql(String sql, Object... obj) {
+		notifyremindDao.execSQL(sql,obj);
+	}
+
 	@Override
 	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String,Object>>> pageview,String sql) {
 		
