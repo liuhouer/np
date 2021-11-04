@@ -1,13 +1,11 @@
 package cn.northpark.model;
 
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-
-import lombok.Data;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.hibernate.annotations.GenericGenerator;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author bruce
