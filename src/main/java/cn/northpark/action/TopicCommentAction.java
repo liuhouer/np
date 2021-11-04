@@ -4,15 +4,15 @@ package cn.northpark.action;
 import cn.northpark.constant.TopicTypeEnum;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
-import cn.northpark.manager.NotifyRemindManager;
 import cn.northpark.manager.TopicCommentManager;
 import cn.northpark.model.NotifyRemind;
 import cn.northpark.model.TopicComment;
 import cn.northpark.notify.NotifyEnum;
-import cn.northpark.query.TopicCommentQuery;
-import cn.northpark.utils.*;
+import cn.northpark.utils.NotifyUtil;
+import cn.northpark.utils.PinyinUtil;
+import cn.northpark.utils.StringCommon;
+import cn.northpark.utils.TimeUtils;
 import cn.northpark.utils.safe.WAQ;
-import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.springframework.beans.BeanUtils;
@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentMap;
 
 
 /**
@@ -44,11 +43,7 @@ public class TopicCommentAction {
 
     @Autowired
     private TopicCommentManager topicCommentManager;
-    @Autowired
-    private TopicCommentQuery topiccommentQuery;
 
-    @Autowired
-    private NotifyRemindManager notifyRemindManager;
 
     /**
      * 保存主题评论的方法
@@ -128,8 +123,7 @@ public class TopicCommentAction {
                 }
 
 
-                match.notifyInstance.build(nr);
-                notifyRemindManager.addNotifyRemind(nr);
+                match.notifyInstance.execute(nr);
 
             }
             //=================================消息提醒====================================================
