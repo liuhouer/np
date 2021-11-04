@@ -17,20 +17,20 @@ import java.util.Map;
  */
 public interface PoemEnjoyManager {
 
-    public PoemEnjoy findPoemEnjoy(Integer id);
+     PoemEnjoy findPoemEnjoy(Integer id);
 
-    public List<PoemEnjoy> findAll();
+     List<PoemEnjoy> findAll();
 
-    public void addPoemEnjoy(PoemEnjoy poemenjoy);
+     void addPoemEnjoy(PoemEnjoy poemenjoy);
 
-    public boolean delPoemEnjoy(Integer id);
+     boolean delPoemEnjoy(Integer id);
 
-    public boolean updatePoemEnjoy(PoemEnjoy poemenjoy);
+     boolean updatePoemEnjoy(PoemEnjoy poemenjoy);
 
-    public QueryResult<PoemEnjoy> findByCondition(PageView<PoemEnjoy> p,
+     QueryResult<PoemEnjoy> findByCondition(PageView<PoemEnjoy> p,
                                                   String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<PoemEnjoy> findByCondition(
+     QueryResult<PoemEnjoy> findByCondition(
             String wheresql);
 
     /**
@@ -38,14 +38,14 @@ public interface PoemEnjoyManager {
      *
      * @return
      */
-    public List<PoemEnjoy> querySql(String sql, Object... obj);
+     List<PoemEnjoy> querySql(String sql, Object... obj);
 
     /**
      * sql
      *
      * @return
      */
-    public List<PoemEnjoy> querySql(String sql);
+     List<PoemEnjoy> querySql(String sql);
 
 
     /**
@@ -53,7 +53,7 @@ public interface PoemEnjoyManager {
      *
      * @return
      */
-    public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
+     List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
 
 
     /**
@@ -62,7 +62,7 @@ public interface PoemEnjoyManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+     int countSql(String sql);
 
 
     /**
@@ -71,7 +71,7 @@ public interface PoemEnjoyManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(String wheresql);
+     int countHql(String wheresql);
 
 
 }

@@ -11,20 +11,20 @@ import java.util.Map;
 
 public interface MoviesManager {
 
-    public Movies findMovies(Integer id);
+     Movies findMovies(Integer id);
 
-    public List<Movies> findAll();
+     List<Movies> findAll();
 
-    public void addMovies(Movies movies);
+     void addMovies(Movies movies);
 
-    public boolean delMovies(Integer id);
+     boolean delMovies(Integer id);
 
-    public boolean updateMovies(Movies movies);
+     boolean updateMovies(Movies movies);
 
-    public QueryResult<Movies> findByCondition(PageView<Movies> p,
+     QueryResult<Movies> findByCondition(PageView<Movies> p,
                                                String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<Movies> findByCondition(
+     QueryResult<Movies> findByCondition(
             String wheresql);
 
     /**
@@ -32,7 +32,7 @@ public interface MoviesManager {
      *
      * @return
      */
-    public List<Movies> querySql(String sql, Object... obj);
+     List<Movies> querySql(String sql, Object... obj);
 
 
     /**
@@ -40,14 +40,14 @@ public interface MoviesManager {
      *
      * @return
      */
-    public List<Map<String, Object>> querySql(String sql);
+     List<Map<String, Object>> querySql(String sql);
     
     /**
      * sql
      *
      * @return
      */
-    public List<Movies> querySqlEntity(String sql);
+     List<Movies> querySqlEntity(String sql);
 
 
     /**
@@ -56,7 +56,7 @@ public interface MoviesManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+     int countSql(String sql);
 
 
     /**
@@ -65,7 +65,7 @@ public interface MoviesManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(String wheresql);
+     int countHql(String wheresql);
 
 
     /**
@@ -73,7 +73,7 @@ public interface MoviesManager {
      *
      * @return
      */
-    public List<Map<String, Object>> querySqlMap(String sql);
+     List<Map<String, Object>> querySqlMap(String sql);
 
 
     int exeSql(String up_sql);

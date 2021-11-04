@@ -17,20 +17,20 @@ import java.util.Map;
  */
 public interface TagsManager {
 
-    public Tags findTags(Integer id);
+     Tags findTags(Integer id);
 
-    public List<Tags> findAll();
+     List<Tags> findAll();
 
-    public void addTags(Tags tags);
+     void addTags(Tags tags);
 
-    public boolean delTags(Integer id);
+     boolean delTags(Integer id);
 
-    public boolean updateTags(Tags tags);
+     boolean updateTags(Tags tags);
 
-    public QueryResult<Tags> findByCondition(PageView<Tags> p,
+     QueryResult<Tags> findByCondition(PageView<Tags> p,
                                              String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<Tags> findByCondition(
+     QueryResult<Tags> findByCondition(
             String wheresql);
 
     /**
@@ -38,14 +38,14 @@ public interface TagsManager {
      *
      * @return
      */
-    public List<Tags> querySql(String sql, Object... obj);
+     List<Tags> querySql(String sql, Object... obj);
 
     /**
      * sql
      *
      * @return
      */
-    public List<Tags> querySql(String sql);
+     List<Tags> querySql(String sql);
 
 
     /**
@@ -53,7 +53,7 @@ public interface TagsManager {
      *
      * @return
      */
-    public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
+     List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
 
 
     /**
@@ -62,7 +62,7 @@ public interface TagsManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+     int countSql(String sql);
 
 
     /**
@@ -71,7 +71,7 @@ public interface TagsManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(String wheresql);
+     int countHql(String wheresql);
 
 
 }

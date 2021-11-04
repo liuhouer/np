@@ -17,20 +17,20 @@ import java.util.Map;
  */
 public interface PoemManager {
 
-    public Poem findPoem(Integer id);
+     Poem findPoem(Integer id);
 
-    public List<Poem> findAll();
+     List<Poem> findAll();
 
-    public void addPoem(Poem poem);
+     void addPoem(Poem poem);
 
-    public boolean delPoem(Integer id);
+     boolean delPoem(Integer id);
 
-    public boolean updatePoem(Poem poem);
+     boolean updatePoem(Poem poem);
 
-    public QueryResult<Poem> findByCondition(PageView<Poem> p,
+     QueryResult<Poem> findByCondition(PageView<Poem> p,
                                              String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<Poem> findByCondition(
+     QueryResult<Poem> findByCondition(
             String wheresql);
 
     /**
@@ -38,14 +38,14 @@ public interface PoemManager {
      *
      * @return
      */
-    public List<Poem> querySql(String sql, Object... obj);
+     List<Poem> querySql(String sql, Object... obj);
 
     /**
      * sql
      *
      * @return
      */
-    public List<Poem> querySql(String sql);
+     List<Poem> querySql(String sql);
 
 
     /**
@@ -53,7 +53,7 @@ public interface PoemManager {
      *
      * @return
      */
-    public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
+     List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
 
 
     /**
@@ -62,7 +62,7 @@ public interface PoemManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+     int countSql(String sql);
 
 
     /**
@@ -71,7 +71,7 @@ public interface PoemManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(String wheresql);
+     int countHql(String wheresql);
 
 
 }

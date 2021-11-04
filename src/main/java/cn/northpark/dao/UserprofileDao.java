@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 public interface UserprofileDao extends HibernateDao<Userprofile, Serializable> {
 
-    public Userprofile getModelByUserid(String userid);
+    Userprofile getModelByUserid(String userid);
 
 }

@@ -11,28 +11,28 @@ import java.util.Map;
 
 public interface LyricsZanManager {
 
-    public LyricsZan findLyricsZan(Integer id);
+     LyricsZan findLyricsZan(Integer id);
 
-    public List<LyricsZan> findAll();
+     List<LyricsZan> findAll();
 
-    public void addLyricsZan(LyricsZan lyricszan);
+     void addLyricsZan(LyricsZan lyricszan);
 
-    public boolean delLyricsZan(Integer id);
+     boolean delLyricsZan(Integer id);
 
-    public boolean updateLyricsZan(LyricsZan lyricszan);
+     boolean updateLyricsZan(LyricsZan lyricszan);
 
-    public QueryResult<LyricsZan> findByCondition(PageView<LyricsZan> p,
+     QueryResult<LyricsZan> findByCondition(PageView<LyricsZan> p,
                                                   String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<LyricsZan> findByCondition(
+     QueryResult<LyricsZan> findByCondition(
             String wheresql);
 
 
-    public int getCommentNumByLRC(String lyricsid);
+     int getCommentNumByLRC(String lyricsid);
 
-    public int getZanNumByLRC(String lyricsid);
+     int getZanNumByLRC(String lyricsid);
 
-    public List<Map<String, Object>> mixSqlQuery(String sql,Object... objects );
+     List<Map<String, Object>> mixSqlQuery(String sql,Object... objects );
 
 
     /**
@@ -41,7 +41,7 @@ public interface LyricsZanManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(String wheresql);
+     int countHql(String wheresql);
 }
 
 

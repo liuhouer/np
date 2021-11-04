@@ -10,20 +10,20 @@ import java.util.List;
 
 public interface ResetManager {
 
-    public Reset findReset(Integer id);
+     Reset findReset(Integer id);
 
-    public List<Reset> findAll();
+     List<Reset> findAll();
 
-    public void addReset(Reset reset);
+     void addReset(Reset reset);
 
-    public boolean delReset(Integer id);
+     boolean delReset(Integer id);
 
-    public boolean updateReset(Reset reset);
+     boolean updateReset(Reset reset);
 
-    public QueryResult<Reset> findByCondition(PageView<Reset> p,
+     QueryResult<Reset> findByCondition(PageView<Reset> p,
                                               String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<Reset> findByCondition(
+     QueryResult<Reset> findByCondition(
             String wheresql);
 
 }

@@ -9,5 +9,5 @@ package cn.northpark.pattern.观察者_通知回调模式;
  */
 //观察者
 public interface Observer {
-    public void update();
+    void update();
 }

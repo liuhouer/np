@@ -17,20 +17,20 @@ import java.util.Map;
  */
 public interface EqManager {
 
-    public Eq findEq(Integer id);
+     Eq findEq(Integer id);
 
-    public List<Eq> findAll();
+     List<Eq> findAll();
 
-    public void addEq(Eq eq);
+     void addEq(Eq eq);
 
-    public boolean delEq(Integer id);
+     boolean delEq(Integer id);
 
-    public boolean updateEq(Eq eq);
+     boolean updateEq(Eq eq);
 
-    public QueryResult<Eq> findByCondition(PageView<Eq> p,
+     QueryResult<Eq> findByCondition(PageView<Eq> p,
                                            String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<Eq> findByCondition(
+     QueryResult<Eq> findByCondition(
             String wheresql);
 
     /**
@@ -38,14 +38,14 @@ public interface EqManager {
      *
      * @return
      */
-    public List<Eq> querySql(String sql, Object... obj);
+     List<Eq> querySql(String sql, Object... obj);
 
     /**
      * sql
      *
      * @return
      */
-    public List<Eq> querySql(String sql);
+     List<Eq> querySql(String sql);
 
 
     /**
@@ -53,7 +53,7 @@ public interface EqManager {
      *
      * @return
      */
-    public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
+     List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
 
 
     /**
@@ -62,7 +62,7 @@ public interface EqManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+     int countSql(String sql);
 
 
     /**
@@ -71,7 +71,7 @@ public interface EqManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(String wheresql);
+     int countHql(String wheresql);
 
 
     /**
@@ -79,7 +79,7 @@ public interface EqManager {
      *
      * @param sql SQL语句
      */
-    public void executeSql(String sql);
+     void executeSql(String sql);
 
 
 }

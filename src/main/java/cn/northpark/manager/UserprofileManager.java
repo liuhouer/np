@@ -10,23 +10,23 @@ import java.util.List;
 
 public interface UserprofileManager {
 
-    public Userprofile findUserprofile(Integer id);
+     Userprofile findUserprofile(Integer id);
 
-    public List<Userprofile> findAll();
+     List<Userprofile> findAll();
 
-    public void addUserprofile(Userprofile userprofile);
+     void addUserprofile(Userprofile userprofile);
 
-    public boolean delUserprofile(Integer id);
+     boolean delUserprofile(Integer id);
 
-    public boolean updateUserprofile(Userprofile userprofile);
+     boolean updateUserprofile(Userprofile userprofile);
 
-    public QueryResult<Userprofile> findByCondition(PageView<Userprofile> p,
+     QueryResult<Userprofile> findByCondition(PageView<Userprofile> p,
                                                     String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<Userprofile> findByCondition(
+     QueryResult<Userprofile> findByCondition(
             String wheresql);
 
-    public Userprofile getModelByUserid(String userid);
+     Userprofile getModelByUserid(String userid);
 }
 
 

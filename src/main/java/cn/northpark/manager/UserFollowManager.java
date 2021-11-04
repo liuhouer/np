@@ -11,30 +11,30 @@ import java.util.Map;
 
 public interface UserFollowManager {
 
-    public UserFollow findUserFollow(Integer id);
+     UserFollow findUserFollow(Integer id);
 
-    public List<UserFollow> findAll();
+     List<UserFollow> findAll();
 
-    public void addUserFollow(UserFollow userfollow);
+     void addUserFollow(UserFollow userfollow);
 
-    public boolean delUserFollow(Integer id);
+     boolean delUserFollow(Integer id);
 
-    public boolean updateUserFollow(UserFollow userfollow);
+     boolean updateUserFollow(UserFollow userfollow);
 
-    public QueryResult<UserFollow> findByCondition(PageView<UserFollow> p,
+     QueryResult<UserFollow> findByCondition(PageView<UserFollow> p,
                                                    String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<UserFollow> findByCondition(
+     QueryResult<UserFollow> findByCondition(
             String wheresql);
 
-    public List<Map<String, Object>> getFansList(String sql);
+     List<Map<String, Object>> getFansList(String sql);
 
     /**
      * sql+
      *
      * @return
      */
-    public List<Map<String, Object>> querySql(String sql, Object... obj);
+     List<Map<String, Object>> querySql(String sql, Object... obj);
 
     /**
      * 根据wheresql计算条数
@@ -42,7 +42,7 @@ public interface UserFollowManager {
      * @param string
      * @return
      */
-    public int getCountByCondition(String wheresql);
+     int getCountByCondition(String wheresql);
 }
 
 

@@ -11,20 +11,20 @@ import java.util.Map;
 
 public interface LyricsCommentManager {
 
-    public LyricsComment findLyricsComment(Integer id);
+     LyricsComment findLyricsComment(Integer id);
 
-    public List<LyricsComment> findAll();
+     List<LyricsComment> findAll();
 
-    public void addLyricsComment(LyricsComment lyricscomment);
+     void addLyricsComment(LyricsComment lyricscomment);
 
-    public boolean delLyricsComment(Integer id);
+     boolean delLyricsComment(Integer id);
 
-    public boolean updateLyricsComment(LyricsComment lyricscomment);
+     boolean updateLyricsComment(LyricsComment lyricscomment);
 
-    public QueryResult<LyricsComment> findByCondition(PageView<LyricsComment> p,
+     QueryResult<LyricsComment> findByCondition(PageView<LyricsComment> p,
                                                       String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<LyricsComment> findByCondition(
+     QueryResult<LyricsComment> findByCondition(
             String wheresql);
 
     /**
@@ -32,14 +32,14 @@ public interface LyricsCommentManager {
      *
      * @return
      */
-    public List<LyricsComment> querySql(String sql, Object... obj);
+     List<LyricsComment> querySql(String sql, Object... obj);
 
     /**
      * 根据自己写的sql查询
      *
      * @return
      */
-    public List<LyricsComment> querySql(String sql);
+     List<LyricsComment> querySql(String sql);
 
 
     /**
@@ -47,7 +47,7 @@ public interface LyricsCommentManager {
      *
      * @return
      */
-    public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
+     List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
 
 
     /**
@@ -56,7 +56,7 @@ public interface LyricsCommentManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+     int countSql(String sql);
 
     /**
      * 根据实体查询条数
@@ -64,10 +64,10 @@ public interface LyricsCommentManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(String wheresql);
+     int countHql(String wheresql);
 
 
-    public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview, String sql);
+     List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview, String sql);
 
     /**
      * 获取分页结构不获取数据
@@ -76,7 +76,7 @@ public interface LyricsCommentManager {
      * @param userid
      * @return
      */
-    public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql);
+     PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql);
 
 }
 

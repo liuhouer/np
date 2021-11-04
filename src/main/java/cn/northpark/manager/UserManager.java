@@ -12,31 +12,31 @@ import java.util.Map;
 public interface UserManager {
 
 
-    public User findUser(Integer id);
+     User findUser(Integer id);
 
-    public List<User> findAll();
+     List<User> findAll();
 
-    public void addUser(User user);
+     void addUser(User user);
 
-    public boolean delUser(Integer id);
+     boolean delUser(Integer id);
 
-    public boolean updateUser(User user);
+     boolean updateUser(User user);
 
-    public QueryResult<User> findByCondition(PageView<User> p,
+     QueryResult<User> findByCondition(PageView<User> p,
                                              String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<User> findByCondition(
+     QueryResult<User> findByCondition(
             String wheresql);
 
-    public User login(String email, String password, String ipAndDetail);
+     User login(String email, String password, String ipAndDetail);
 
-    public void pwddd(String sql);
+     void pwddd(String sql);
 
     /**
      *
      * @return
      */
-    public List<User> querySql(String sql, Object... param);
+     List<User> querySql(String sql, Object... param);
 
 
     /**
@@ -45,7 +45,7 @@ public interface UserManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+     int countSql(String sql);
 
 
     /**
@@ -54,7 +54,7 @@ public interface UserManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(String wheresql);
+     int countHql(String wheresql);
 
 
     /**
@@ -64,7 +64,7 @@ public interface UserManager {
      * @param objects
      * @return
      */
-    public List<Map<String, Object>> querySqlMap(String sql, Object... objects);
+     List<Map<String, Object>> querySqlMap(String sql, Object... objects);
 
 }
 

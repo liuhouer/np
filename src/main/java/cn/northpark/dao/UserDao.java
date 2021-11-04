@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 public interface UserDao extends HibernateDao<User, Serializable> {
 
-    public User login(String email, String password, String ip);
+    User login(String email, String password, String ip);
 
 }

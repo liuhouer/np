@@ -11,20 +11,20 @@ import java.util.Map;
 
 public interface LyricsManager {
 
-    public Lyrics findLyrics(Integer id);
+     Lyrics findLyrics(Integer id);
 
-    public List<Lyrics> findAll();
+     List<Lyrics> findAll();
 
-    public void addLyrics(Lyrics lyrics);
+     void addLyrics(Lyrics lyrics);
 
-    public boolean delLyrics(Integer id);
+     boolean delLyrics(Integer id);
 
-    public boolean updateLyrics(Lyrics lyrics);
+     boolean updateLyrics(Lyrics lyrics);
 
-    public QueryResult<Lyrics> findByCondition(PageView<Lyrics> p,
+     QueryResult<Lyrics> findByCondition(PageView<Lyrics> p,
                                                String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<Lyrics> findByCondition(
+     QueryResult<Lyrics> findByCondition(
             String wheresql);
 
     /**
@@ -33,7 +33,7 @@ public interface LyricsManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+     int countSql(String sql);
 
 
     /**
@@ -42,7 +42,7 @@ public interface LyricsManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(String wheresql);
+     int countHql(String wheresql);
 
 
     /**
@@ -50,21 +50,21 @@ public interface LyricsManager {
      *
      * @return
      */
-    public List<Lyrics> querySql(String sql, Object... obj);
+     List<Lyrics> querySql(String sql, Object... obj);
 
     /**
      * 根据sql语句查询
      *
      * @return
      */
-    public List<Lyrics> querySql(String sql);
+     List<Lyrics> querySql(String sql);
 
     /**
      * 根据sql语句返回map结果集
      *
      * @return
      */
-    public List<Map<String, Object>> querySqlMap(String sql);
+     List<Map<String, Object>> querySqlMap(String sql);
 
 
 }

@@ -17,20 +17,20 @@ import java.util.Map;
  */
 public interface SoftManager {
 
-    public Soft findSoft(Integer id);
+     Soft findSoft(Integer id);
 
-    public List<Soft> findAll();
+     List<Soft> findAll();
 
-    public void addSoft(Soft soft);
+     void addSoft(Soft soft);
 
-    public boolean delSoft(Integer id);
+     boolean delSoft(Integer id);
 
-    public boolean updateSoft(Soft soft);
+     boolean updateSoft(Soft soft);
 
-    public QueryResult<Soft> findByCondition(PageView<Soft> p,
+     QueryResult<Soft> findByCondition(PageView<Soft> p,
                                              String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<Soft> findByCondition(
+     QueryResult<Soft> findByCondition(
             String wheresql);
 
     /**
@@ -38,21 +38,21 @@ public interface SoftManager {
      *
      * @return
      */
-    public List<Soft> querySql(String sql, Object... obj);
+     List<Soft> querySql(String sql, Object... obj);
 
     /**
      * sql
      *
      * @return
      */
-    public List<Soft> querySql(String sql);
+     List<Soft> querySql(String sql);
 
     /**
      * sql
      *
      * @return
      */
-    public List<Map<String, Object>> querySqlMap(String sql);
+     List<Map<String, Object>> querySqlMap(String sql);
 
 
     /**
@@ -60,7 +60,7 @@ public interface SoftManager {
      *
      * @return
      */
-    public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
+     List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView);
 
 
     /**
@@ -69,7 +69,7 @@ public interface SoftManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+     int countSql(String sql);
 
 
     /**
@@ -78,14 +78,14 @@ public interface SoftManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(String wheresql);
+     int countHql(String wheresql);
 
     /**
      * 直接执行sql语句  更新、删除..
      *
      * @param sql SQL语句
      */
-    public void executeSql(String sql);
+     void executeSql(String sql);
 
 
 }

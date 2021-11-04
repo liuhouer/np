@@ -18,15 +18,15 @@ import java.util.Map;
  */
 public interface TopicCommentManager {
 	
-	public TopicComment findTopicComment(Integer id);
+	 TopicComment findTopicComment(Integer id);
 
-	public List<TopicComment> findAll();
+	 List<TopicComment> findAll();
 
-	public void addTopicComment(TopicComment topiccomment);
+	 void addTopicComment(TopicComment topiccomment);
 
-	public boolean delTopicComment(Integer id);
+	 boolean delTopicComment(Integer id);
 
-	public boolean updateTopicComment(TopicComment topiccomment);
+	 boolean updateTopicComment(TopicComment topiccomment);
 	
 	
 	/**
@@ -38,30 +38,30 @@ public interface TopicCommentManager {
 	 * @param order
 	 * @return
 	 */
-	public QueryResult<TopicComment> findByCondition(PageView<TopicComment> p,
+	 QueryResult<TopicComment> findByCondition(PageView<TopicComment> p,
 													 String wheresql, LinkedHashMap<String, String> order);
 
-	public QueryResult<TopicComment> findByCondition(
+	 QueryResult<TopicComment> findByCondition(
 			String wheresql);
 			
 	/**
 	 * 根据sql语句预查询？？？返回实体结果集
 	 * @return
 	 */
-	public List<TopicComment> querySql(String sql,Object... obj);
+	 List<TopicComment> querySql(String sql,Object... obj);
 	
 	/**
 	 * 根据sql语句返回实体结果集
 	 * @return
 	 */
-	public List<TopicComment> querySql(String sql);
+	 List<TopicComment> querySql(String sql);
 	
 	
 	/**
 	 * 根据sql语句返回map结果
 	 * @return
 	 */
-	public List<Map<String, Object>> querySqlMap(String sql);
+	 List<Map<String, Object>> querySqlMap(String sql);
 	
 	
 
@@ -74,7 +74,7 @@ public interface TopicCommentManager {
 	 * 
 	 * @return int
 	 */
-	public int countSql(String sql) ;
+	 int countSql(String sql) ;
 	
 	
 	/**
@@ -85,7 +85,7 @@ public interface TopicCommentManager {
 	 * 
 	 * @return int
 	 */
-	public  int countHql(String wheresql);
+	  int countHql(String wheresql);
 	
 	
     /**
@@ -95,7 +95,7 @@ public interface TopicCommentManager {
 	 *            SQL语句
 	 * 
 	 */
-	public  void executeSql(String sql);
+	  void executeSql(String sql);
 	
 	
 	/**
@@ -107,7 +107,7 @@ public interface TopicCommentManager {
 	 * @param sql
 	 * @return
 	 */
-	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview,String sql) ;
+	 List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview,String sql) ;
 	
 	/**
 	 * 多表关联mix
@@ -117,7 +117,7 @@ public interface TopicCommentManager {
 	 * @param sql
 	 * @return
 	 */
-	public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql);
+	 PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql);
 	
 
 	

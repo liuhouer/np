@@ -10,7 +10,7 @@ package cn.northpark.manager;
  */
 public interface MQProducerManager {
 
-	 public void sendDataToQueue(String queueKey, Object object) ;
+	  void sendDataToQueue(String queueKey, Object object) ;
 }
 
 

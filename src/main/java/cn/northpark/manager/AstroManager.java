@@ -16,20 +16,20 @@ import java.util.List;
  */
 public interface AstroManager {
 
-    public Astro findAstro(Integer id);
+     Astro findAstro(Integer id);
 
-    public List<Astro> findAll();
+     List<Astro> findAll();
 
-    public void addAstro(Astro astro);
+     void addAstro(Astro astro);
 
-    public boolean delAstro(Integer id);
+     boolean delAstro(Integer id);
 
-    public boolean updateAstro(Astro astro);
+     boolean updateAstro(Astro astro);
 
-    public QueryResult<Astro> findByCondition(PageView<Astro> p,
+     QueryResult<Astro> findByCondition(PageView<Astro> p,
                                               String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<Astro> findByCondition(
+     QueryResult<Astro> findByCondition(
             String wheresql);
 
     /**
@@ -37,14 +37,14 @@ public interface AstroManager {
      *
      * @return
      */
-    public List<Astro> querySql(String sql, Object... obj);
+     List<Astro> querySql(String sql, Object... obj);
 
     /**
      * sql
      *
      * @return
      */
-    public List<Astro> querySql(String sql);
+     List<Astro> querySql(String sql);
 
 
 
@@ -55,7 +55,7 @@ public interface AstroManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+     int countSql(String sql);
 
 
     /**
@@ -64,7 +64,7 @@ public interface AstroManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(Astro m, String wheresql);
+     int countHql(Astro m, String wheresql);
 
 
 }

@@ -11,15 +11,15 @@ import java.util.Map;
 
 public interface NoteManager {
 
-    public Note findNote(Integer id);
+     Note findNote(Integer id);
 
-    public List<Note> findAll();
+     List<Note> findAll();
 
-    public void addNote(Note note);
+     void addNote(Note note);
 
-    public boolean delNote(Integer id);
+     boolean delNote(Integer id);
 
-    public boolean updateNote(Note note);
+     boolean updateNote(Note note);
 
     /**
      * 单表返回clazz
@@ -30,10 +30,10 @@ public interface NoteManager {
      * @param order
      * @return
      */
-    public QueryResult<Note> findByCondition(PageView<Note> p,
+     QueryResult<Note> findByCondition(PageView<Note> p,
                                              String wheresql, LinkedHashMap<String, String> order);
 
-    public QueryResult<Note> findByCondition(
+     QueryResult<Note> findByCondition(
             String wheresql);
 
 
@@ -46,7 +46,7 @@ public interface NoteManager {
      * @param sql
      * @return
      */
-    public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview, String sql);
+     List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview, String sql);
 
     /**
      * 多表关联mix
@@ -57,10 +57,10 @@ public interface NoteManager {
      * @param sql
      * @return
      */
-    public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql);
+     PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql);
 
 
-    public int findmixCount(String whereSql);
+     int findmixCount(String whereSql);
 
     /**
      * 根据sql语句查询条数
@@ -68,7 +68,7 @@ public interface NoteManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countSql(String sql);
+     int countSql(String sql);
 
 
     /**
@@ -77,14 +77,14 @@ public interface NoteManager {
      * @param sql SQL语句
      * @return int
      */
-    public int countHql(String wheresql);
+     int countHql(String wheresql);
 
     /**
      * sql
      *
      * @return
      */
-    public List<Note> querySql(String sql);
+     List<Note> querySql(String sql);
 
 
 }
