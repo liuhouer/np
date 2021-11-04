@@ -8,16 +8,14 @@ package cn.northpark.action;
 import cn.northpark.constant.TopicTypeEnum;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
-import cn.northpark.manager.LyricsCommentManager;
-import cn.northpark.manager.LyricsManager;
-import cn.northpark.manager.LyricsZanManager;
-import cn.northpark.manager.UserLyricsManager;
+import cn.northpark.manager.*;
 import cn.northpark.model.*;
 import cn.northpark.notify.NotifyEnum;
 import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.NotifyUtil;
 import cn.northpark.utils.StringCommon;
 import cn.northpark.utils.TimeUtils;
+import cn.northpark.utils.page.QueryResult;
 import cn.northpark.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -47,6 +45,8 @@ public class LyricsZanAction {
     @Autowired
     private UserLyricsManager userlyricsManager;
 
+    @Autowired
+    private NotifyRemindManager notifyRemindManager;
 
 
 
@@ -116,7 +116,8 @@ public class LyricsZanAction {
                 }
 
 
-                match.notifyInstance.execute(nr);
+                match.notifyInstance.build(nr);
+                notifyRemindManager.addNotifyRemind(nr);
 
                 //=================================消息提醒====================================================
 

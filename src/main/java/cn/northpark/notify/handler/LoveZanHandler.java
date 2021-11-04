@@ -12,6 +12,7 @@ import java.util.Date;
  */
 public class LoveZanHandler extends GeneralNotify {
 
+
     @Override
     public void build(NotifyRemind param) {
         param.setRemindID(2);

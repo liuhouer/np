@@ -1,11 +1,12 @@
 
 package cn.northpark.dao.impl;
 
-import cn.northpark.dao.NotifyRemindDao;
-import cn.northpark.model.NotifyRemind;
+import java.io.Serializable;
+
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
+import cn.northpark.model.NotifyRemind;
+import cn.northpark.dao.NotifyRemindDao;
 /**
  * @author bruce
  * @date 2021-11-02

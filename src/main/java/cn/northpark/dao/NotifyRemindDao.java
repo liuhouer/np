@@ -1,8 +1,9 @@
 package cn.northpark.dao;
 
-import cn.northpark.model.NotifyRemind;
-
 import java.io.Serializable;
+
+
+import cn.northpark.model.NotifyRemind;
 
 /**
  * @author bruce

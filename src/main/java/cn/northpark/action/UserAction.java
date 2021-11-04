@@ -5,6 +5,7 @@ import cn.northpark.annotation.CheckLogin;
 import cn.northpark.constant.CookieConstant;
 import cn.northpark.constant.RedisConstant;
 import cn.northpark.constant.ResultEnum;
+import cn.northpark.constant.TopicTypeEnum;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.*;
@@ -18,6 +19,7 @@ import cn.northpark.vo.UserVO;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.protocol.HTTP;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +52,9 @@ public class UserAction {
     private UserFollowManager userfollowManager;
     @Autowired
     private ResetManager resetManager;
+
+    @Autowired
+    private NotifyRemindManager notifyRemindManager;
 
 	/**
 	 * mq发消息
@@ -263,7 +268,8 @@ public class UserAction {
                     nr.setRecipientID(author_id);
 
 
-                    match.notifyInstance.execute(nr);
+                    match.notifyInstance.build(nr);
+                    notifyRemindManager.addNotifyRemind(nr);
 
                     //=================================消息提醒====================================================
                 }
