@@ -87,19 +87,29 @@
                                         <a href="/romeo/${s.id }.html" class="no-decoration"
                                            title="${s.title}">${s.title}</a> ：
                                     </p>
-                                    <div id="brief_${ss.index}">
+                                    <div id="brief_${ss.index}" class="note-brief" style="min-height: 100px;">
 
-                                            ${s.brief }
-                                        <c:if test="${s.brief!=s.article }">
-                                            <button class="clearfix btn btn-gray btn-xs click2show"
-                                                    data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}">
-                                                &nbsp; <span class="glyphicon glyphicon-chevron-down"></span> &nbsp;
-                                            </button>
+                                        <c:if test="${!fn:startsWith(s.brief, '<')}">
+                                        <p></p>
+                                        <p>
                                         </c:if>
+
+                                                ${s.brief }
+                                        <c:if test="${!fn:endsWith(s.brief, '>')}">
+                                        </p>
+                                        </c:if>
+
+
                                     </div>
                                     <div class="clearfix hidden" id="text_${ss.index}">
                                             ${s.article }
                                     </div>
+
+
+                                    <button class="clearfix btn btn-gray btn-xs click2show"
+                                            data-dismiss="#brief_${ss.index}" data-target="#text_${ss.index}">
+                                        &nbsp; <span class="glyphicon glyphicon-chevron-down"></span> &nbsp;
+                                    </button>
 
                                 </div>
                             </div>

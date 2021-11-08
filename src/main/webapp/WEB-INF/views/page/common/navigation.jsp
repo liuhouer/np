@@ -69,7 +69,7 @@
                                     <span>${user.username}</span>
                                     <i class="fa fa-caret-down padding5"></i>
                                 </a>
-                                <ul class="dropdown-menu grayback" role="menu" aria-labelledby="dropdownMenu1" >
+                                <ul class="dropdown-menu grayback" role="menu" aria-labelledby="dropdownMenu1" style="position: relative">
 
                                     <li role="presentation" >
                                         <a title="未读消息" href="/notifications">
