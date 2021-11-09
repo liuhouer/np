@@ -29,7 +29,8 @@ public abstract class GeneralNotify implements NotifyInterface{
         }
     }
 
-    //定义初始化方法
+
+    //定义构建参数方法
     public abstract void build(NotifyRemind param);
 
     /**
