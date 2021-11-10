@@ -153,8 +153,15 @@
                         </div>
                         <hr>
                     </c:forEach>
-                    <c:if test="${pagein!='no' }">
+                    <c:if test="${pagein!='no' and list.size()>0 }">
                         <%@ include file="/WEB-INF/views/page/common/fenye.jsp" %>
+                    </c:if>
+                    <c:if test="${ list.size()==0 }">
+                        <p class="center">
+                            <small class="label label-gray">空空如也</small>
+                        </p>
+
+                        <hr class="border-light-1">
                     </c:if>
                 </div>
                 <div class="col-sm-offset-1 col-sm-4 ">
