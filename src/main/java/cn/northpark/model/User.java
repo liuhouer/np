@@ -71,4 +71,14 @@ public class User implements Serializable {
     @Column(length = 2000)
     private String blogsite;//自己的个人页面
 
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", tail_slug='" + tail_slug + '\'' +
+                '}';
+    }
 }

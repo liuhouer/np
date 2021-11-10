@@ -130,6 +130,21 @@
                                         </c:if>
                                     </p>
                                 </c:if>
+
+                                <%--5类-站内消息--%>
+                                <c:if test="${y.remindID==5}">
+                                    <p>
+                                        <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
+                                                ${y.senderName.substring(0,1) }
+                                        </span>
+                                            ${y.senderName }
+                                            <label class="padding5">${y.message }</label>
+                                            <c:if test="${y.status==0}">
+                                                <i class="fa fa-bell-o padding5" title="未读"></i>
+                                                <input type="hidden" name="unReadId" value="${y.id}">
+                                            </c:if>
+                                    </p>
+                                </c:if>
                                 <p>
                                     <small class="label label-gray">${y.createTime }</small>
                                 </p>
@@ -234,7 +249,7 @@
     }
 
 
-    setTimeout(readNotify(), 10000 );
+    setTimeout(readNotify(), 30*1000 );
 
 </script>
 

@@ -38,4 +38,13 @@ public class UserVO implements Serializable {
 
     private String blogsite;//自己的个人页面
 
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", tail_slug='" + tail_slug + '\'' +
+                '}';
+    }
 }

@@ -11,6 +11,7 @@ import cn.northpark.manager.*;
 import cn.northpark.model.*;
 import cn.northpark.notify.NotifyEnum;
 import cn.northpark.threadLocal.RequestHolder;
+import cn.northpark.threadpool.AsyncThreadPool;
 import cn.northpark.utils.*;
 import cn.northpark.utils.encrypt.EnDecryptUtils;
 import cn.northpark.utils.safe.WAQ;
@@ -36,6 +37,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Controller
 @Slf4j
@@ -240,32 +242,45 @@ public class UserAction {
                 if (StringUtils.isNotEmpty(follow_id) && StringUtils.isNotEmpty(author_id)) {
                     userfollowManager.addUserFollow(uf);
 
-                    //=================================消息提醒====================================================
+                    try {
+                        //=================================异步消息提醒====================================================
 
-                    User follower = userManager.findUser(Integer.parseInt(follow_id));
-
-
-                    //判断主题类型
-
-                    NotifyEnum match = NotifyEnum.FOLLOW;
-
-                    //提醒系统赋值
-                    NotifyRemind nr = new NotifyRemind();
-
-                    //common
-                    nr.setSenderID(follow_id);
-                    nr.setSenderName(follower.getUsername());
-                    nr.setObjectID(null);
-                    nr.setObject(null);
-                    nr.setObjectLinks("/cm/detail/"+follow_id);
-                    nr.setMessage("关注了你");
-                    nr.setStatus("0");
-                    nr.setRecipientID(author_id);
+                        ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
+                        threadPoolExecutor.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                User follower = userManager.findUser(Integer.parseInt(follow_id));
 
 
-                    match.notifyInstance.execute(nr);
+                                //判断主题类型
 
-                    //=================================消息提醒====================================================
+                                NotifyEnum match = NotifyEnum.FOLLOW;
+
+                                //提醒系统赋值
+                                NotifyRemind nr = new NotifyRemind();
+
+                                //common
+                                nr.setSenderID(follow_id);
+                                nr.setSenderName(follower.getUsername());
+                                nr.setObjectID(null);
+                                nr.setObject(null);
+                                nr.setObjectLinks("/cm/detail/"+follow_id);
+                                nr.setMessage("关注了你");
+                                nr.setStatus("0");
+                                nr.setRecipientID(author_id);
+
+
+                                match.notifyInstance.execute(nr);
+                            }
+
+                        });
+
+
+                        //=================================消息提醒====================================================
+                    }catch (Exception ig){
+                        log.error("follow-notice-has-ignored-------:",ig);
+                    }
+
                 }
 
 
@@ -808,16 +823,47 @@ public class UserAction {
             
             this.userManager.addUser(user);
 
-            //发送消息通知发邮件
-            try {
-    			EmailUtils.getInstance().ThanksReg(email);
-            } catch (Exception e) {
-            	log.error("发送注册邮件错误========>{}",e);
-            }
-//            Map<String,Object> mqData=new HashMap<String,Object>();
-//            mqData.put("email", email);
-//            messageProducer.sendDataToQueue(BC_Constant.MQ_MAIL_JOIN, mqData);
-            
+            //===================================异步操作=================================================
+            ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
+            String finalEmail = email;
+            threadPoolExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    //发送消息通知发邮件
+                    try {
+                        EmailUtils.getInstance().ThanksReg(finalEmail);
+                    } catch (Exception e) {
+                        log.error("发送注册邮件错误========>{}",e);
+                    }
+
+                    //发送异步站长通知消息
+                    try {
+                        //=================================消息提醒====================================================
+
+                        //判断主题类型
+                        NotifyEnum match = NotifyEnum.WEBMASTER;
+
+                        //提醒系统赋值
+                        NotifyRemind nr = new NotifyRemind();
+
+                        //common
+                        nr.setMessage(user.toString()+"---"+TimeUtils.nowTime()+"---注册了---");
+                        nr.setStatus("0");
+
+
+                        match.notifyInstance.execute(nr);
+
+                        //=================================消息提醒====================================================
+                    }catch (Exception ig){
+                        log.error("signup-notice-has-ignored-------:",ig);
+                    }
+                }
+
+
+
+            });
+            //===================================异步操作=================================================
+
 		    return ResultGenerator.genSuccessResult("ok");
            
         }
@@ -839,6 +885,42 @@ public class UserAction {
         if(Objects.nonNull(userInfo)){
             //2.本次session存放
             request.getSession().setAttribute("user", userInfo);
+
+            //===================================异步操作=================================================
+            ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
+            threadPoolExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+
+                    //发送异步站长通知消息
+                    try {
+                        //=================================消息提醒====================================================
+
+                        //判断主题类型
+                        NotifyEnum match = NotifyEnum.WEBMASTER;
+
+                        //提醒系统赋值
+                        NotifyRemind nr = new NotifyRemind();
+
+                        //common
+                        nr.setMessage(userInfo.toString()+"---"+TimeUtils.nowTime()+"---自动登录了---");
+                        nr.setStatus("0");
+
+
+                        match.notifyInstance.execute(nr);
+
+                        //=================================消息提醒====================================================
+                    }catch (Exception ig){
+                        log.error("auto-login-notice-has-ignored-------:",ig);
+                        ig.printStackTrace();
+                    }
+                }
+
+
+
+            });
+            //===================================异步操作=================================================
+
             return ResultGenerator.genSuccessResult("自动登录成功");
         }
 
@@ -864,20 +946,12 @@ public class UserAction {
     public Result<?> login(HttpServletRequest request,HttpServletResponse response,String email,String password) throws Exception {
     	
         //正常登录流程
-        //获取IP+地址
-        String ipAndDetail = "";
-        try {
-            ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
-        }catch (Exception ignore){
-            log.error(ignore.getMessage());
-        }
-
         if (!StringUtils.isEmpty(email) && !StringUtils.isEmpty(password)) {
 
             //防止sql注入--email
             email = WAQ.forSQL().escapeSql(email);
             password = EnDecryptUtils.diyEncrypt(password);
-            User user = userManager.login(email, password,ipAndDetail);
+            User user = userManager.login(email, password);
             if (user != null && !user.getEmail_flag().equals("0")) {
                  //1.登录成功
 
@@ -896,7 +970,57 @@ public class UserAction {
             	 //5.本次session存放
             	 request.getSession().setAttribute("user", userVO);
 
-            	 return ResultGenerator.genSuccessResult("登录成功");
+
+                //===================================异步操作=================================================
+                ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
+                threadPoolExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        //获取IP+地址
+                        String ipAndDetail = "";
+                        try {
+                            ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+
+                            //更新登录时间 +地址信息
+                            user.setLast_login(JsonUtil.object2json(TimeUtils.nowTime()+ipAndDetail));
+                            userManager.updateUser(user);
+                        }catch (Exception ignore){
+                            log.error(ignore.getMessage());
+                        }
+
+
+                        //发送异步站长通知消息
+                        try {
+                            //=================================消息提醒====================================================
+
+                            //判断主题类型
+                            NotifyEnum match = NotifyEnum.WEBMASTER;
+
+                            //提醒系统赋值
+                            NotifyRemind nr = new NotifyRemind();
+
+                            //common
+                            nr.setMessage(user.toString()+"---"+TimeUtils.nowTime()+"---登录了---");
+                            nr.setStatus("0");
+
+
+                            match.notifyInstance.execute(nr);
+
+                            //=================================消息提醒====================================================
+                        }catch (Exception ig){
+                            log.error("login-notice-has-ignored-------:",ig);
+                        }
+                    }
+
+
+
+                });
+                //===================================异步操作=================================================
+
+
+
+                return ResultGenerator.genSuccessResult("登录成功");
 
             }else if(user != null && user.getEmail_flag().equals("0")){
             	//"邮箱未通过验证，请重试或者联系站长解决登陆问题

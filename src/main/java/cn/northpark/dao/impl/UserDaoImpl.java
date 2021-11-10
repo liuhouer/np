@@ -16,19 +16,15 @@ import java.util.List;
 @Slf4j
 public class UserDaoImpl extends HibernateDaoImpl<User, Serializable> implements UserDao {
 
-    public User login(String email, String password ,String ip) {
+    public User login(String email, String password ) {
         // TODO Auto-generated method stub
         String sql = "select * from bc_user where email=?  and password = ? ";
         List<User> list = querySql(sql, User.class, new Object[]{email, password});
         User user = null;
         if(!CollectionUtils.isEmpty(list)) {
             user = list.get(0);
-            
-            //更新登录时间 +地址信息
-            user.setLast_login(JsonUtil.object2json(TimeUtils.nowTime()+ip));
-            update(user);
         }else {
-        	log.error("错误的登录尝试----->："+JsonUtil.object2json(TimeUtils.nowTime()+ip));
+        	log.error("错误的登录尝试----->："+JsonUtil.object2json(TimeUtils.nowTime())+"---"+email);
         } 
         
         return user;

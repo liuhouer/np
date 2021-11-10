@@ -15,6 +15,7 @@ import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.model.*;
 import cn.northpark.notify.NotifyEnum;
 import cn.northpark.threadLocal.RequestHolder;
+import cn.northpark.threadpool.AsyncThreadPool;
 import cn.northpark.utils.NotifyUtil;
 import cn.northpark.utils.StringCommon;
 import cn.northpark.utils.TimeUtils;
@@ -31,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Controller
 @RequestMapping("/zanAction")
@@ -92,33 +94,42 @@ public class LyricsZanAction {
                     this.lyricsManager.updateLyrics(lrc);
                 }
 
-                //=================================消息提醒====================================================
+                //=================================异步消息提醒====================================================
 
-                List<UserLyrics> by = userlyricsManager.findByCondition(" where lyricsid = '" + lyricsid + "' ").getResultlist();
-                //判断主题类型
+                ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
+                threadPoolExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<UserLyrics> by = userlyricsManager.findByCondition(" where lyricsid = '" + lyricsid + "' ").getResultlist();
+                        //判断主题类型
 
-                NotifyEnum match = NotifyEnum.LOVE_ZAN;
+                        NotifyEnum match = NotifyEnum.LOVE_ZAN;
 
-                //提醒系统赋值
-                NotifyRemind nr = new NotifyRemind();
+                        //提醒系统赋值
+                        NotifyRemind nr = new NotifyRemind();
 
-                //common
-                nr.setSenderID(u.getId().toString());
-                nr.setSenderName(u.getUsername());
-                nr.setObjectID(lyricsid);
-                Map<String, String> objectContent = NotifyUtil.getObjectContent(TopicTypeEnum.LOVE.getCode(), Integer.parseInt(lyricsid));
-                nr.setObject(StringCommon.getLenStr(objectContent.get("title"),200));
-                nr.setObjectLinks(objectContent.get("href"));
-                nr.setMessage("爱上了你创建的主题图册");
-                nr.setStatus("0");
-                if(!CollectionUtils.isEmpty(by)){
-                    nr.setRecipientID(by.get(0).getUserid().toString());
-                }
+                        //common
+                        nr.setSenderID(u.getId().toString());
+                        nr.setSenderName(u.getUsername());
+                        nr.setObjectID(lyricsid);
+                        Map<String, String> objectContent = NotifyUtil.getObjectContent(TopicTypeEnum.LOVE.getCode(), Integer.parseInt(lyricsid));
+                        nr.setObject(StringCommon.getLenStr(objectContent.get("title"),200));
+                        nr.setObjectLinks(objectContent.get("href"));
+                        nr.setMessage("爱上了你创建的主题图册");
+                        nr.setStatus("0");
+                        if(!CollectionUtils.isEmpty(by)){
+                            nr.setRecipientID(by.get(0).getUserid().toString());
+                        }
 
 
-                match.notifyInstance.execute(nr);
+                        match.notifyInstance.execute(nr);
+                    }
 
-                //=================================消息提醒====================================================
+
+                });
+
+
+                //=================================异步消息提醒====================================================
 
 
 

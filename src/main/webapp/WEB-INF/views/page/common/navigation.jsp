@@ -64,7 +64,7 @@
                     <c:if test="${user!=null }">
 
                             <div class="dropdown">
-                                <a class="dropdown-toggle " id="dropdownMenu1" data-toggle="dropdown" style="padding-right:1.2em;padding-left:1.2em;font-size:1.2em;line-height:38px;font-weight:400;color:#999;text-decoration:none;text-shadow:none;border-bottom:3px solid transparent;position:relative;display:block;padding:10px 15px;">
+                                <a class="dropdown-toggle " id="dropdownMenu1" data-toggle="dropdown" style="min-width: 160px;padding-right:1.2em;padding-left:1.2em;font-size:1.2em;line-height:38px;font-weight:400;color:#999;text-decoration:none;text-shadow:none;border-bottom:3px solid transparent;position:relative;display:block;padding:10px 15px;">
                                     <i class="fa fa-user "></i>
                                     <span>${user.username}</span>
                                     <i class="fa fa-caret-down padding5"></i>

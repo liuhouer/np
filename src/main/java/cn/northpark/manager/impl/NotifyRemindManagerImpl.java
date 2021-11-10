@@ -8,6 +8,7 @@ import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -37,6 +38,7 @@ public class NotifyRemindManagerImpl implements NotifyRemindManager {
 	}
 
 	@Override
+	@Transactional
 	public void addNotifyRemind(NotifyRemind notifyremind) {
 		notifyremindDao.save(notifyremind);
 	}

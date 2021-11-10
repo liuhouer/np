@@ -11,7 +11,10 @@ import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.TagsManager;
 import cn.northpark.model.Movies;
+import cn.northpark.model.NotifyRemind;
 import cn.northpark.model.Tags;
+import cn.northpark.notify.NotifyEnum;
+import cn.northpark.threadpool.AsyncThreadPool;
 import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.RedisUtil;
@@ -40,6 +43,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.*;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /*
  *@author bruce
@@ -101,13 +105,48 @@ public class MoviesAction {
 				return ResultGenerator.genSuccessResult(rs);
 			} else {
 
-				// 给站长发邮件
-				try {
-					EmailUtils.getInstance().resFeedBack(String.valueOf(map));
-					
-				} catch (Exception ignore) {
-					log.error(ignore.getMessage());
-				}
+
+                //===================================异步操作=================================================
+                ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
+                threadPoolExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        //发送异步站长通知消息
+                        try {
+                            //=================================消息提醒====================================================
+
+                            //判断主题类型
+                            NotifyEnum match = NotifyEnum.WEBMASTER;
+
+                            //提醒系统赋值
+                            NotifyRemind nr = new NotifyRemind();
+
+                            //common
+                            nr.setMessage(map.toString()+"---"+TimeUtils.nowTime()+"---提醒资源失效---");
+                            nr.setStatus("0");
+
+
+                            match.notifyInstance.execute(nr);
+
+                            // 给站长发邮件
+                            try {
+                                EmailUtils.getInstance().resFeedBack(String.valueOf(map));
+
+                            } catch (Exception ignore) {
+                                log.error(ignore.getMessage());
+                            }
+
+                            //=================================消息提醒====================================================
+                        }catch (Exception ig){
+                            log.error("feedBack-notice-has-ignored-------:",ig);
+                        }
+                    }
+
+
+
+                });
+                //===================================异步操作=================================================
 
 				// 添加到集合中
 				RedisUtil.getInstance().sAdd(BC_Constant.REDIS_FEEDBACK, String.valueOf(map));

@@ -1,9 +1,12 @@
 package cn.northpark.notify;
 
-import cn.northpark.dao.NotifyRemindDao;
+import cn.northpark.manager.NotifyRemindManager;
 import cn.northpark.model.NotifyRemind;
+import cn.northpark.threadpool.AsyncThreadPool;
 import cn.northpark.utils.SpringContextUtils;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author bruce
@@ -14,16 +17,16 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class GeneralNotify implements NotifyInterface{
 
 
-    private transient NotifyRemindDao notifyRemindDao;
+    private transient NotifyRemindManager notifyRemindManager;
 
     public GeneralNotify() {
         //
         log.error("执行了通知场景抽象处理类 --构造函数");
-        log.error("从上下文获取到NotifyRemindDao");
+        log.error("从上下文获取到notifyRemindManager");
         synchronized (GeneralNotify.class){
-            if(notifyRemindDao==null){
+            if(notifyRemindManager ==null){
                 synchronized (this){
-                    notifyRemindDao = (NotifyRemindDao) SpringContextUtils.getBean("NotifyRemindDao");
+                    notifyRemindManager = (NotifyRemindManager) SpringContextUtils.getBean("NotifyRemindManager");
                 }
             }
         }
@@ -38,8 +41,9 @@ public abstract class GeneralNotify implements NotifyInterface{
      * @param param
      */
     @Override
+    @Deprecated
     public void addNotify(NotifyRemind param) {
-        notifyRemindDao.save(param);
+        notifyRemindManager.addNotifyRemind(param);
     }
 
     //定义模板--模板模式【规定方法的执行顺序】
@@ -49,7 +53,25 @@ public abstract class GeneralNotify implements NotifyInterface{
     }
 
 
+    /**
+     * 异步通知
+     * @param param
+     */
+    @Override
+    public void startSync(final NotifyRemind param) {
+        ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
+        threadPoolExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
 
+                try {
+                    notifyRemindManager.addNotifyRemind(param);
+                }catch (Exception ig){
+                    log.error("northpark异步通知异常---->",ig);
+                }
 
+            }
 
+        });
+    }
 }
