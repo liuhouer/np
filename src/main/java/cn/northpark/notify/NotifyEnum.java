@@ -1,10 +1,7 @@
 package cn.northpark.notify;
 
 
-import cn.northpark.notify.handler.ArtReplyHandler;
-import cn.northpark.notify.handler.FollowHandler;
-import cn.northpark.notify.handler.LoveZanHandler;
-import cn.northpark.notify.handler.NoteReplyHandler;
+import cn.northpark.notify.handler.*;
 import lombok.Getter;
 
 /**
@@ -39,9 +36,14 @@ public enum NotifyEnum {
      */
     FOLLOW("FOLLOW",new FollowHandler()),
 
-
+    /**
+     * 5类：站长通知
+     * 5类1：xx用户注册了
+     * 5类2：xx用户yy时间登录|自动登录了
+     * 5类3：xx用户反馈： yy资源已失效
+     */
+    WEBMASTER("WEBMASTER",new WebmasterNotice()),
     ;
-
 
     @Getter
     public String name;

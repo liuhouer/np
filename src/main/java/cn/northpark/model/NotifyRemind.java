@@ -54,7 +54,7 @@ public class NotifyRemind implements Serializable{
 
 	/**
 	 * 操作者的动作，如：捐款、更新、评论、收藏
-	 * 【1：评论,2：收藏（爱上），3：关注】
+	 * 【1：评论,2：收藏（爱上），3：关注，5：站内通知】
 	 */
 	@Column(length = 32)
 	private String senderAction;
@@ -72,7 +72,7 @@ public class NotifyRemind implements Serializable{
 	private String object;
 
 	/**
-	 * 被操作对象类型，如：人、文章、活动、视频等[1：人，2：文章]
+	 * 被操作对象类型，如：人、文章、活动、视频等[1：人，2：文章，3：推送]
 	 */
 	@Column(length = 32)
 	private String objectType;

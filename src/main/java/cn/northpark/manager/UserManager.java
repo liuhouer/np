@@ -28,7 +28,7 @@ public interface UserManager {
      QueryResult<User> findByCondition(
             String wheresql);
 
-     User login(String email, String password, String ipAndDetail);
+     User login(String email, String password);
 
      void pwddd(String sql);
 
@@ -51,7 +51,7 @@ public interface UserManager {
     /**
      * 根据实体查询条数
      *
-     * @param sql SQL语句
+     * @param wheresql SQL语句
      * @return int
      */
      int countHql(String wheresql);
