@@ -74,7 +74,7 @@ public class CookieUtil {
      * @param request
      * @return
      */
-    private static Map<String, Cookie> readCookieMap(HttpServletRequest request) {
+    public static Map<String, Cookie> readCookieMap(HttpServletRequest request) {
         Map<String, Cookie> cookieMap = new HashMap<>();
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -82,6 +82,25 @@ public class CookieUtil {
                 cookieMap.put(cookie.getName(), cookie);
             }
         }
+        return cookieMap;
+    }
+
+
+    /**
+     * 将cookie+请求UA封装成Map
+     * @param request
+     * @return
+     */
+    public static Map<String, String> readCookieUA(HttpServletRequest request) {
+        Map<String, String> cookieMap = new HashMap<>();
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie: cookies) {
+                cookieMap.put(cookie.getName(), cookie.getValue());
+            }
+        }
+        String userAgent = request.getHeader("user-agent");
+        cookieMap.put("UA",userAgent);
         return cookieMap;
     }
 

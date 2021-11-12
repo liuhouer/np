@@ -10,14 +10,18 @@ import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.NoteManager;
 import cn.northpark.manager.UserLyricsManager;
 import cn.northpark.model.Eq;
+import cn.northpark.model.NotifyRemind;
+import cn.northpark.notify.NotifyEnum;
 import cn.northpark.query.NoteQuery;
 import cn.northpark.query.condition.NoteQueryCondition;
-import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.JsonUtil;
-import cn.northpark.utils.RedisUtil;
-import cn.northpark.utils.TimeUtils;
+import cn.northpark.threadLocal.RequestHolder;
+import cn.northpark.threadpool.AsyncThreadPool;
+import cn.northpark.utils.*;
 import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
+import cn.northpark.vo.UserVO;
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
 
 
@@ -41,6 +46,7 @@ import java.util.stream.Collectors;
  * 从redis缓存获取
  */
 @Controller
+@Slf4j
 public class DashAction {
 
     @Autowired
@@ -57,7 +63,60 @@ public class DashAction {
 
     @RequestMapping("/donate")
     @Desc(value = "跳转微信1 test..")
-    public String weixin1(ModelMap map) {
+    public String weixin1(ModelMap map,HttpServletRequest request) {
+
+        //数据埋点-站长统计
+        //===================================异步操作=================================================
+        ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
+        threadPoolExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+
+                //获取IP+地址
+                String ipAndDetail = "";
+                try {
+                    ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+
+                }catch (Exception ignore){
+                    log.error(ignore.getMessage());
+                }
+
+
+                //发送异步站长通知消息
+                try {
+                    //=================================消息提醒====================================================
+
+                    UserVO userInfo = RequestHolder.getUserInfo(request);
+
+                    //判断主题类型
+                    NotifyEnum match = NotifyEnum.WEBMASTER;
+
+                    //提醒系统赋值
+                    NotifyRemind nr = new NotifyRemind();
+
+                    //common
+                    if(Objects.nonNull(userInfo)){
+                        nr.setMessage(userInfo.toString()+"---"+ipAndDetail+"---"+TimeUtils.nowTime()+"---请求了donate界面---");
+                    }else {
+                        nr.setMessage(JSON.toJSONString(CookieUtil.readCookieUA(request))+"---"+ipAndDetail+"---"+TimeUtils.nowTime()+"---请求了donate界面---");
+                    }
+                    nr.setStatus("0");
+
+
+                    log.error(JsonUtil.object2json(CookieUtil.readCookieUA(request)));
+                    match.notifyInstance.execute(nr);
+
+                    //=================================消息提醒====================================================
+                }catch (Exception ig){
+                    log.error("donate-notice-has-ignored-------:",ig);
+                }
+            }
+
+
+
+        });
+        //===================================异步操作=================================================
+
 
         return "/donateMe";
     }
