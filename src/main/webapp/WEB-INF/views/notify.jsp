@@ -138,9 +138,7 @@
                                                 ${y.senderName.substring(0,1) }
                                         </span>
                                             ${y.senderName }
-                                            <p>
-                                            <label class="padding5  text-primary">${y.message }</label>
-                                            </p>
+                                            <label class="padding5">${y.message }</label>
                                             <c:if test="${y.status==0}">
                                                 <i class="fa fa-bell-o padding5" title="未读"></i>
                                                 <input type="hidden" name="unReadId" value="${y.id}">
