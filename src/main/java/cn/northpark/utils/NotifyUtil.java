@@ -1,8 +1,10 @@
 package cn.northpark.utils;
 
 import com.google.common.collect.Maps;
+import org.apache.commons.dbutils.handlers.MapHandler;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentMap;
 
 /**
@@ -62,4 +64,13 @@ public class NotifyUtil {
 
         return map;
     }
+
+    public static String getUserNameByID(String uid ) {
+        Map<String, Object> query = NPQueryRunner.query("select username from bc_user where id = ?", new MapHandler(), uid);
+        if (Objects.nonNull(query)) {
+            return query.get("username").toString();
+        }
+        return "";
+    }
+
 }
