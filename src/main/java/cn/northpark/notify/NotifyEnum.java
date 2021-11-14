@@ -40,9 +40,15 @@ public enum NotifyEnum {
      * 5类：站长通知
      * 5类1：xx用户注册了
      * 5类2：xx用户yy时间登录|自动登录了
-     * 5类3：xx用户反馈： yy资源已失效
      */
     WEBMASTER("WEBMASTER",new WebmasterNotice()),
+
+    /**
+     *站内通知
+     * 6类：站内通知：xx用户反馈，yy资源，已失效
+     * 6类：站内通知： yy资源已更新，请知悉
+     */
+    FEED("FEED",new FeedNotice()),
     ;
 
     @Getter

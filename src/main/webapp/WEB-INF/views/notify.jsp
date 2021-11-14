@@ -147,6 +147,23 @@
                                             </c:if>
                                     </p>
                                 </c:if>
+                                <%--6类-资源提醒消息--%>
+                                <c:if test="${y.remindID==6}">
+                                        <p>
+                                        <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
+                                                ${y.senderName.substring(0,1) }
+                                        </span>
+                                                ${y.senderName }
+                                        <p>
+                                            <label class="padding5  text-primary">${y.message }</label>
+                                        </p>
+                                        <a href="${y.objectLinks}">${y.object}</a>
+                                        <c:if test="${y.status==0}">
+                                            <i class="fa fa-bell-o padding5" title="未读"></i>
+                                            <input type="hidden" name="unReadId" value="${y.id}">
+                                        </c:if>
+                                        </p>
+                                </c:if>
                                 <p>
                                     <small class="label label-gray">${y.createTime }</small>
                                 </p>
