@@ -150,8 +150,8 @@
                                                 aria-hidden="true" style="float: left; display: block; width: 750px;">
 
                                                 <div class="testimonails-content avatar ">
-                                                    <p class="text-color-${ fn:toLowerCase(fn:substring( s.retcode ,0,1))}">${s.title }</p>
-                                                    <p class="text-color-${ fn:toLowerCase(fn:substring( s.retcode ,0,1))}">${s.content1 }</p>
+                                                    <p class="text-color-${ fn:toLowerCase(fn:substring( s.ret_code ,0,1))}">${s.title }</p>
+                                                    <p class="text-color-${ fn:toLowerCase(fn:substring( s.ret_code ,0,1))}">${s.content1 }</p>
                                                     <p>
                                                         <a
 
@@ -160,8 +160,8 @@
                                                                 title="${s.title}">
 
 
-                                                            <span class=" imgbreath text-${ fn:toLowerCase(fn:substring( s.retcode ,0,1))}"
-                                                                  alt="${s.title}">${ fn:toUpperCase(fn:substring( s.retcode ,0,1))}</span>
+                                                            <span class=" imgbreath text-${ fn:toLowerCase(fn:substring( s.ret_code ,0,1))}"
+                                                                  alt="${s.title}">${ fn:toUpperCase(fn:substring( s.ret_code ,0,1))}</span>
                                                         </a>
                                                     </p>
                                                     <h6 class="gray-text">
@@ -193,14 +193,14 @@
                         <c:forEach var="z" items="${years_tag }">
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tagcode == seltag }">
+                                <c:if test="${z.tag_code == seltag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
-                                    <a style="color: #45d0c6;" href="/poem/dynasty/${z.tagcode}"
+                                    <a style="color: #45d0c6;" href="/poem/dynasty/${z.tag_code}"
                                        title="${z.tag }">${z.tag } </a>
                                 </c:if>
-                                <c:if test="${z.tagcode != seltag }">
+                                <c:if test="${z.tag_code != seltag }">
                                     <span class="glyphicon glyphicon-tree-conifer margin5"></span>
-                                    <a href="/poem/dynasty/${z.tagcode}" title="${z.tag }">${z.tag } </a>
+                                    <a href="/poem/dynasty/${z.tag_code}" title="${z.tag }">${z.tag } </a>
                                 </c:if>
 
 
@@ -218,14 +218,14 @@
                         <c:forEach var="z" items="${types_tag }">
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tagcode == seltag }">
+                                <c:if test="${z.tag_code == seltag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
-                                    <a style="color: #45d0c6;" href="/poem/types/${z.tagcode}"
+                                    <a style="color: #45d0c6;" href="/poem/types/${z.tag_code}"
                                        title="${z.tag }">${z.tag } </a>
                                 </c:if>
-                                <c:if test="${z.tagcode != seltag }">
+                                <c:if test="${z.tag_code != seltag }">
                                     <span class="glyphicon glyphicon-tag  margin5"></span>
-                                    <a href="/poem/types/${z.tagcode}" title="${z.tag }">${z.tag } </a>
+                                    <a href="/poem/types/${z.tag_code}" title="${z.tag }">${z.tag } </a>
                                 </c:if>
 
 

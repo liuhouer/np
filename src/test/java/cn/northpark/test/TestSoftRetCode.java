@@ -21,7 +21,7 @@
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = { "classpath:application-dao.xml", "classpath:application-service.xml",
 //		"classpath:application-transaction.xml"})
-//public class TestSoftRetCode {
+//public class TestSoftret_code {
 //
 //	@Autowired
 //	public SoftManager softManager;
@@ -29,11 +29,11 @@
 //	public void runTask() {
 //
 //
-//		 List<Soft> list = softManager.querySql("select * from bc_soft where retcode in(select  retcode from bc_soft group by retcode having count(retcode)>1 )");
+//		 List<Soft> list = softManager.querySql("select * from bc_soft where ret_code in(select  ret_code from bc_soft group by ret_code having count(ret_code)>1 )");
 //		 
 //		 if(!CollectionUtils.isEmpty(list)) {
 //			 for (Soft soft : list) {
-//				soft.setRetcode(soft.getRetcode()+"-"+IDUtils.getInstance().generateNumberString(3));
+//				soft.setret_code(soft.getret_code()+"-"+IDUtils.getInstance().generateNumberString(3));
 //				softManager.updateSoft(soft);
 //			}
 //		 }

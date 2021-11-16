@@ -51,7 +51,7 @@ public class Eq implements Serializable {
     private String article;
 
     @Column(length = 255)
-    private String retcode;
+    private String ret_code;
     //爬虫pua的唯一编码
 
 

@@ -60,17 +60,17 @@ public class TestRetSql {
                             String os = map.get("os");
                             String month = map.get("month");
                             String year = map.get("year");
-                            String tagcode = map.get("tagcode");
+                            String tag_code = map.get("tag_code");
                             String path = map.get("path");
 
                             // 是不存在的文章
-                            int flag = softManager.countHql(" where o.title= '" + title + "' or o.retcode = '" + code + "' ");
+                            int flag = softManager.countHql(" where o.title= '" + title + "' or o.ret_code = '" + code + "' ");
 
                             if (flag <= 0) {
 
-                                Soft model = Soft.builder().brief(brief).content(article).os(os).postdate(date)
-                                        .retcode(code).returl(aurl).tags(tag).title(title).month(month).year(year)
-                                        .tagscode(tagcode).path(path).build();
+                                Soft model = Soft.builder().brief(brief).content(article).os(os).post_date(date)
+                                        .ret_code(code).ret_url(aurl).tags(tag).title(title).month(month).year(year)
+                                        .tags_code(tag_code).path(path).build();
                                 softManager.addSoft(model);
                             }
                         }

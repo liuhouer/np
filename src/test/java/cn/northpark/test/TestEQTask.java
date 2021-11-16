@@ -70,13 +70,13 @@ public class TestEQTask {
 
         // 添加新url的sitemap
         // StringBuilder sb = new StringBuilder();
-        // List<Map<String, Object>> list = softManager.querySqlMap(" select retcode
+        // List<Map<String, Object>> list = softManager.querySqlMap(" select ret_code
         // from bc_soft where id > 517139 order by id desc ");
         // for(Map<String, Object> map :list){
-        // String retcode = (String) map.get("retcode");
+        // String ret_code = (String) map.get("ret_code");
         // sb.append("<url>");
         // sb.append("<loc>https://northpark.cn/soft/");
-        // sb.append(retcode+".html</loc>");
+        // sb.append(ret_code+".html</loc>");
         // sb.append("</url>");
         // }
         //
@@ -90,7 +90,7 @@ public class TestEQTask {
 
         // 电影的描述H1处理
         // List<Movies> list = moviesManager.querySqlEntity(" SELECT * FROM `bc_movies`
-        // WHERE `description` LIKE '%<h1>%' order by id desc ");
+        // WHERE `movie_desc` LIKE '%<h1>%' order by id desc ");
         // for (Movies m:list) {
         // String content = m.getDescription();
         // content = content.replace("<h1>", "<p>").replace("</h1>", "</p>");
@@ -104,10 +104,10 @@ public class TestEQTask {
         // List<Map<String, Object>> list = softManager.querySqlMap(" select id from
         // bc_movies where 1=1 order by id desc ");
         // for(Map<String, Object> map :list){
-        // Object retcode = (Object) map.get("id");
+        // Object ret_code = (Object) map.get("id");
         // sb.append("<url>");
         // sb.append("<loc>https://northpark.cn/movies/post-");
-        // sb.append(retcode+".html</loc>");
+        // sb.append(ret_code+".html</loc>");
         // sb.append("</url>");
         // }
         //
@@ -124,10 +124,10 @@ public class TestEQTask {
         // List<Map<String, Object>> list = softManager
         // .querySqlMap(" select id from bc_eq where id>1337 order by id desc ");
         // for (Map<String, Object> map : list) {
-        // Object retcode = map.get("id");
+        // Object ret_code = map.get("id");
         // sb.append("<url>");
         // sb.append("<loc>https://northpark.cn/romeo/");
-        // sb.append(retcode + ".html</loc>");
+        // sb.append(ret_code + ".html</loc>");
         // sb.append("</url>");
         // }
         //
@@ -259,7 +259,7 @@ public class TestEQTask {
         // =========================================================处理软件的下载样式===========================================================================================
 
         // =========================================================处理软件的下载样式===========================================================================================
-        // List<Soft> resultlist = softManager.findByCondition(" where retcode like
+        // List<Soft> resultlist = softManager.findByCondition(" where ret_code like
         // '%wskso%' ").getResultlist();
         // for(Soft s:resultlist) {
         // String content = s.getContent();
@@ -291,9 +291,9 @@ public class TestEQTask {
         // String brief = lift.get(i).get("brief");
         // String date = lift.get(i).get("date");
         // String article = lift.get(i).get("article");
-        // String retcode = lift.get(i).get("retcode");
+        // String ret_code = lift.get(i).get("ret_code");
         // //是不存在的文章
-        // int flag = EqManager.countHql(" where o.retcode= '"+retcode+"' and o.date =
+        // int flag = EqManager.countHql(" where o.ret_code= '"+ret_code+"' and o.date =
         // '"+date+"' ");
         //
         // if(flag<=0){
@@ -309,7 +309,7 @@ public class TestEQTask {
         // eq.setDate(date);
         // eq.setTitle(title);
         // eq.setImg(img);
-        // eq.setRetcode(retcode);
+        // eq.setret_code(ret_code);
         // EqManager.addEq(eq);
         // }
         //
@@ -319,7 +319,7 @@ public class TestEQTask {
         //
         // //去重
         // String delsql = "DELETE FROM bc_eq WHERE id IN (SELECT * FROM (SELECT id FROM
-        // bc_eq GROUP BY date HAVING ( COUNT(retcode) > 1 )) AS p)" ;
+        // bc_eq GROUP BY date HAVING ( COUNT(ret_code) > 1 )) AS p)" ;
         //
         // EqManager.executeSql(delsql);
         //
@@ -365,17 +365,17 @@ public class TestEQTask {
                             String os = map.get("os");
                             String month = map.get("month");
                             String year = map.get("year");
-                            String tagcode = map.get("tagcode");
+                            String tag_code = map.get("tag_code");
                             String path = map.get("path");
 
                             // 是不存在的文章
-                            int flag = softManager.countHql(" where o.title= '" + title + "' or o.retcode = '" + code + "' ");
+                            int flag = softManager.countHql(" where o.title= '" + title + "' or o.ret_code = '" + code + "' ");
 
                             if (flag <= 0) {
 
-                                Soft model = Soft.builder().brief(brief).content(article).os(os).postdate(date)
-                                        .retcode(code).returl(aurl).tags(tag).title(title).month(month).year(year)
-                                        .tagscode(tagcode).path(path).build();
+                                Soft model = Soft.builder().brief(brief).content(article).os(os).post_date(date)
+                                        .ret_code(code).ret_url(aurl).tags(tag).title(title).month(month).year(year)
+                                        .tags_code(tag_code).path(path).build();
                                 softManager.addSoft(model);
                             }
                         }
@@ -431,26 +431,26 @@ public class TestEQTask {
 //								// String aurl = map.get("aurl");
 //								String date = map.get("date");
 //								String article = map.get("article");
-//								String retcode = map.get("retcode");
+//								String ret_code = map.get("ret_code");
 //								String tag = map.get("tag");
-//								String tagcode = map.get("tagcode");
+//								String tag_code = map.get("tag_code");
 //								String path = map.get("path");
 //
 //								//是不存在的电影
-//								int flag = moviesManager.countHql( " where o.retcode= '"+retcode+"' ");
+//								int flag = moviesManager.countHql( " where o.ret_code= '"+ret_code+"' ");
 //
 //								if(flag<=0){
 //
 //
 //									Movies model = new Movies();
-//									model.setMoviename(title);
-//									model.setAddtime(date);
+//									model.setmovie_name(title);
+//									model.setadd_time(date);
 //									model.setDescription(article);
 //									model.setPrice(1);
-//									model.setRetcode(retcode);
+//									model.setret_code(ret_code);
 //									model.setTag(tag);
-//									model.setTagcode(tagcode);
-//									model.setViewnum(HTMLParserUtil.geneViewNum());
+//									model.settag_code(tag_code);
+//									model.setview_num(HTMLParserUtil.geneview_num());
 //									model.setColor(PinyinUtil.getFirstChar(title));
 //									model.setPath(path);
 //									moviesManager.addMovies(model);
@@ -482,8 +482,8 @@ public class TestEQTask {
 //			//重复记录每个只保留一条
 //
 //			String delmovie_sql = "DELETE FROM bc_movies "
-//					+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(moviename) AS count "
-//					+ "FROM bc_movies GROUP BY moviename HAVING count > 1 ORDER BY count DESC ) AS tab )";
+//					+ "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(movie_name) AS count "
+//					+ "FROM bc_movies GROUP BY movie_name HAVING count > 1 ORDER BY count DESC ) AS tab )";
 //
 //			EqManager.executeSql(delmovie_sql);
 //
@@ -525,11 +525,11 @@ public class TestEQTask {
         // String types = map.get("types" );
         // String enjoys = map.get("enjoys" );
         // String pic_poem = map.get("pic_poem" );
-        // String retcode = map.get("retcode" );
+        // String ret_code = map.get("ret_code" );
         // String detail_url = map.get("detail_url" );
         //
         // //是不存在的诗词
-        // int flag = poemManager.countHql(new Poem(), " where o.retcode= '"+retcode+"'
+        // int flag = poemManager.countHql(new Poem(), " where o.ret_code= '"+ret_code+"'
         // ");
         //
         // if(flag<=0){
@@ -539,7 +539,7 @@ public class TestEQTask {
         // p.setCreatetime(TimeUtils.nowTime());
         // p.setEnjoys(enjoys);
         // p.setPic_poem(pic_poem);
-        // p.setRetcode(retcode);
+        // p.setret_code(ret_code);
         // p.setTitle(title);
         // p.setYears("南北朝");
         // p.setTypes(types);

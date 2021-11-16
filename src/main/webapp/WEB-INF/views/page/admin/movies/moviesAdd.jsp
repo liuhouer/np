@@ -42,7 +42,7 @@
                         <span class="glyphicon glyphicon-star"></span> 电影名
                         <input id="J_name" placeholder="电影名" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-                               name="moviename" type="text" value="${model.moviename }">
+                               name="movie_name" type="text" value="${model.movie_name }">
                     </div>
                     <div class="form-group ">
                                
@@ -66,15 +66,15 @@
                     </div>
                     <div class="form-group ">
                         <span class="glyphicon glyphicon-star"></span>电影标签-英文
-                        <input id="J_tagcode" placeholder="电影标签-英文" required
+                        <input id="J_tag_code" placeholder="电影标签-英文" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-                               name="tagcode" type="text" value="${model.tagcode }">
+                               name="tag_code" type="text" value="${model.tag_code }">
                     </div>
                     <div class="form-group">
                         <span class="glyphicon glyphicon-star"></span>电影内容
 							<textarea id="J_md_text" style="height: 200px; max-height: 400px;"
                                       name="description" rows="5">
-								${model.description }
+								${model.movie_desc }
 						    </textarea>
                     </div>
 					
@@ -128,7 +128,7 @@
 
         //提交表单
         $("#formSubmit").click(function () {
-            if ($("#J_name").val() && $("#J_md_text").val() && $("#J_color").val() && $("#J_path").val() && $("#J_tag").val() && $("#J_tagcode").val() ) {
+            if ($("#J_name").val() && $("#J_md_text").val() && $("#J_color").val() && $("#J_path").val() && $("#J_tag").val() && $("#J_tag_code").val() ) {
 
                 $.ajax({
                     url: "/movies/addItem",

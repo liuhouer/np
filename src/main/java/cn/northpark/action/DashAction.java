@@ -283,7 +283,7 @@ public class DashAction {
         //从数据库取 :1天刷新
         if (CollectionUtils.isEmpty(home_movieslist)) {
 
-            String msql = "select id,moviename from bc_movies order by rand() limit 1,24";
+            String msql = "select id,movie_name from bc_movies order by rand() limit 1,24";
             home_movieslist = moviesManager.querySqlMap(msql);
 
             RedisUtil.getInstance().set("home_movieslist", JsonUtil.object2json(home_movieslist), 24 * 60 * 60);

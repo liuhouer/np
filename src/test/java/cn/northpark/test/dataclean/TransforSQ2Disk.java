@@ -44,7 +44,7 @@ public class TransforSQ2Disk {
         Set<String> rm_img_set = new HashSet<>();
         // 1 筛选
 
-        String sql = "select * from bc_movies where (tagcode like '%qingse%' or tag like '%大尺度%'  or tag like '%色情%' or tag like '%三级%' or tag like '%伦理%') and description like '%qiniupic.python-project.com%'";
+        String sql = "select * from bc_movies where (tag_code like '%qingse%' or tag like '%大尺度%'  or tag like '%色情%' or tag like '%三级%' or tag like '%伦理%') and movie_desc like '%qiniupic.python-project.com%'";
         List<Movies> movies = moviesManager.querySqlEntity(sql);
 
         //2 jsoup处理图片

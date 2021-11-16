@@ -83,10 +83,10 @@ public class ImportMovieExcel {
             path = list.get(1);
 
 
-            String retcode = MD5Utils.encrypt(cn_title, MD5Utils.MD5_KEY);
+            String ret_code = MD5Utils.encrypt(cn_title, MD5Utils.MD5_KEY);
 
             String tag = "磁力";
-            String tagcode = "cili";
+            String tag_code = "cili";
 
             if(StringUtils.isNotEmpty(path)){
 
@@ -104,14 +104,14 @@ public class ImportMovieExcel {
             System.err.println(path);
 
             Movies model = new Movies();
-            model.setMoviename(cn_title);
-            model.setAddtime("2020-12-26");
+            model.setMovie_name(cn_title);
+            model.setadd_time("2020-12-26");
             model.setDescription("<p>" + cn_title + "</p>" );
             model.setPrice(1);
-            model.setRetcode(retcode);
+            model.setret_code(ret_code);
             model.setTag(tag);
-            model.setTagcode(tagcode);
-            model.setViewnum(HTMLParserUtil.geneViewNum());
+            model.settag_code(tag_code);
+            model.setview_num(HTMLParserUtil.geneview_num());
             model.setColor(PinyinUtil.getFirstChar(PinyinUtil.paraseStringToPinyin(cn_title)));
             model.setPath(path);
             moviesManager.addMovies(model);

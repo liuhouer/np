@@ -38,10 +38,10 @@ public class NotifyUtil {
             }else if(topic_type.equals("3")){
                 Map<String, Object> bc_soft = NPQueryRunner.findById("bc_soft", topic_id);
                 map.put("title",bc_soft.get("title").toString());
-                map.put("href","/soft/"+bc_soft.get("retcode")+".html");
+                map.put("href","/soft/"+bc_soft.get("ret_code")+".html");
             }else if(topic_type.equals("4")){
                 Map<String, Object> bc_soft = NPQueryRunner.findById("bc_movies", topic_id);
-                map.put("title",bc_soft.get("moviename").toString());
+                map.put("title",bc_soft.get("movie_name").toString());
                 map.put("href","/movies/post-"+topic_id+".html");
             }else if(topic_type.equals("6")){
                 Map<String, Object> bc_eq = NPQueryRunner.findById("bc_eq", topic_id);

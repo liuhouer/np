@@ -42,7 +42,7 @@ public class Astro implements Serializable {
     private String xzname;
 
     @Column(length = 255)
-    private String addtime;
+    private String add_time;
 
     @Column(length = 255)
     private String type;

@@ -25,13 +25,13 @@ public class Movies implements Serializable {
     private Integer id;
 
     @Column(length = 2000)
-    private String moviename;
+    private String movie_name;
 
     @Column(length = 255)
-    private String retcode;
+    private String ret_code;
 
     @Column()
-    private String description;
+    private String movie_desc;
 
     @Column(length = 11)
     private Integer price;
@@ -40,7 +40,7 @@ public class Movies implements Serializable {
     private String path;
 
     @Column(length = 255)
-    private String addtime;
+    private String add_time;
 
 
     @Column(length = 255)
@@ -48,17 +48,17 @@ public class Movies implements Serializable {
 
 
     @Column(length = 255)
-    private String tagcode;
+    private String tag_code;
 
     @Column(length = 11)
-    private Integer viewnum;
+    private Integer view_num;
 
 
     @Column(length = 255)
     private String color;
 
     @Column(length = 11)
-    private Integer hotindex;
+    private Integer hot_index;
 
 
     @Column(length = 255)
@@ -66,7 +66,7 @@ public class Movies implements Serializable {
 
 
     @Transient
-    private List<Map<String, String>> taglist;
+    private List<Map<String, String>> tag_list;
 
 
 }

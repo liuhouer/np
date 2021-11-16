@@ -90,11 +90,11 @@ public class EQTask {
             // 			(                                                          /
             // 				SELECT                                                 /
             // 					max(id) AS id,                                     /
-            // 					count(moviename) AS count                          /
+            // 					count(movie_name) AS count                          /
             // 				FROM                                                   /
             // 					bc_movies                                          /
             // 				GROUP BY                                               /
-            // 					moviename                                          /
+            // 					movie_name                                          /
             // 				HAVING                                                 /
             // 					count > 1                                          /
             // 				ORDER BY                                               /
@@ -105,8 +105,8 @@ public class EQTask {
 
             //重复记录每个只保留一条
             String delmovie_sql = "DELETE FROM bc_movies "
-                    + "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(moviename) AS count "
-                    + "FROM bc_movies GROUP BY moviename HAVING count > 1 ORDER BY count DESC ) AS tab )";
+                    + "WHERE id IN ( SELECT id FROM ( SELECT max(id) AS id, count(movie_name) AS count "
+                    + "FROM bc_movies GROUP BY movie_name HAVING count > 1 ORDER BY count DESC ) AS tab )";
 
             softManager.executeSql(delmovie_sql);
 

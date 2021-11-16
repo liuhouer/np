@@ -116,7 +116,7 @@ public class KnowledgeAction {
 		String orderby = request.getParameter("orderby");
 		if (StringUtils.isNotEmpty(orderby)) {
 			if ("hot".equals(orderby)) {
-				order.put("hotindex", "desc");
+				order.put("hot_index", "desc");
 			} else if ("latest".equals(orderby)) {
 				order.put("id", "desc");
 			}
@@ -201,7 +201,7 @@ public class KnowledgeAction {
 		if (StringUtils.isNotEmpty(orderby)) {
 			if ("hot".equals(orderby)) {
 
-				order.put("hotindex", "desc");
+				order.put("hot_index", "desc");
 
 			} else if ("latest".equals(orderby)) {
 
@@ -273,13 +273,13 @@ public class KnowledgeAction {
 	 * 按照标签计算
 	 *
 	 * @param map
-	 * @param tagscode
+	 * @param tags_code
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/tag/{tagscode}")
-	public String tagsearch(ModelMap map, @PathVariable String tagscode, HttpServletRequest request) {
-		String rs = "redirect:/learning/tag/" + tagscode + "/page/1";
+	@RequestMapping("/tag/{tags_code}")
+	public String tagsearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
+		String rs = "redirect:/learning/tag/" + tags_code + "/page/1";
 		return rs;
 	}
 
@@ -292,23 +292,23 @@ public class KnowledgeAction {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/tag/{tagscode}/page/{page}")
-	public String taglistpage(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tagscode,
+	@RequestMapping(value = "/tag/{tags_code}/page/{page}")
+	public String tag_listpage(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tags_code,
 							  HttpServletResponse response, HttpSession session) throws IOException {
 
 		String result = "/learning";
 		//防止sql注入
-		tagscode = WAQ.forSQL().escapeSql(tagscode);
-		String whereSql = " where tags_code like '%" + tagscode + "%' ";
+		tags_code = WAQ.forSQL().escapeSql(tags_code);
+		String whereSql = " where tags_code like '%" + tags_code + "%' ";
 
-		map.put("seltag", tagscode);
+		map.put("seltag", tags_code);
 
 
 		log.info("sql ---" + whereSql);
 		String currentpage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
-		order.put("hotindex", "desc");
+		order.put("hot_index", "desc");
 		order.put("id", "desc");
 
 		//获取pageview
@@ -333,7 +333,7 @@ public class KnowledgeAction {
 
 		map.addAttribute("pageView", pageview);
 		map.addAttribute("list", resultlist);
-		map.addAttribute("actionUrl", "/learning/tag/" + tagscode);
+		map.addAttribute("actionUrl", "/learning/tag/" + tags_code);
 		//获取标签模块
 		getTags(map, request);
 
@@ -351,22 +351,22 @@ public class KnowledgeAction {
 
 			for (Knowledge m : resultlist) {
 				String tag = m.getTags();
-				String tagcode = m.getTags_code();
-				if (StringUtils.isNotEmpty(tag) && StringUtils.isNotEmpty(tagcode)) {
+				String tag_code = m.getTags_code();
+				if (StringUtils.isNotEmpty(tag) && StringUtils.isNotEmpty(tag_code)) {
 					String[] tags = tag.split(",");
-					String[] tagcodes = tagcode.split(",");
-					if (tags.length != tagcodes.length) {
+					String[] tag_codes = tag_code.split(",");
+					if (tags.length != tag_codes.length) {
 						throw new NorthParkException(ResultEnum.Movie_Tag_Not_Match);
 					}
-					List<Map<String, String>> taglist = Lists.newArrayList();
+					List<Map<String, String>> tag_list = Lists.newArrayList();
 					for (int i = 0; i < tags.length; i++) {
 						Map<String, String> map = Maps.newHashMap();
 						map.put("tag", tags[i]);
-						map.put("tagcode", tagcodes[i]);
-						taglist.add(map);
+						map.put("tag_code", tag_codes[i]);
+						tag_list.add(map);
 						map = null;
 					}
-					m.setTaglist(taglist);
+					m.setTag_list(tag_list);
 				}
 
 			}
@@ -430,20 +430,20 @@ public class KnowledgeAction {
 		String rs = "success";
 		try {
 			String id = request.getParameter("id");
-			String max_hot_sql_id = "select max(hotindex) as hotindex from bc_knowledge ";
+			String max_hot_sql_id = "select max(hot_index) as hot_index from bc_knowledge ";
 			List<Map<String, Object>> list = knowledgeManager.querySqlMap(max_hot_sql_id);
-			Integer hotindex = 0;
-			if (!CollectionUtils.isEmpty(list) && Objects.nonNull(list.get(0).get("hotindex"))) {
-					hotindex = (Integer) list.get(0).get("hotindex");
-					hotindex++;
+			Integer hot_index = 0;
+			if (!CollectionUtils.isEmpty(list) && Objects.nonNull(list.get(0).get("hot_index"))) {
+					hot_index = (Integer) list.get(0).get("hot_index");
+					hot_index++;
 			}
 			
-			hotindex = hotindex>0?hotindex:888;
+			hot_index = hot_index>0?hot_index:888;
 
-			if (hotindex > 0) {
+			if (hot_index > 0) {
 				Knowledge m = knowledgeManager.findKnowledge(Integer.parseInt(id));
 				if (m != null) {
-					m.setHotindex(hotindex);
+					m.setHot_index(hot_index);
 					knowledgeManager.updateKnowledge(m);
 				}
 			}
@@ -451,7 +451,7 @@ public class KnowledgeAction {
 
 
 		} catch (Exception e) {
-			log.error("moviesacton------>", e);
+			log.error("movie action------>", e);
 			rs = "ex";
 		}
 		return ResultGenerator.genSuccessResult(rs);

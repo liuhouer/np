@@ -180,17 +180,17 @@ public class MoviesAction {
         String rs = "success";
         try {
             String id = request.getParameter("id");
-            String max_hot_sql_id = "select max(hotindex) as hotindex from bc_movies ";
+            String max_hot_sql_id = "select max(hot_index) as hot_index from bc_movies ";
             List<Map<String, Object>> list = moviesManager.querySqlMap(max_hot_sql_id);
-            Integer hotindex = 0;
+            Integer hot_index = 0;
             if (!CollectionUtils.isEmpty(list)) {
-                hotindex = (Integer) list.get(0).get("hotindex");
-                hotindex++;
+                hot_index = (Integer) list.get(0).get("hot_index");
+                hot_index++;
             }
-            if (hotindex > 0) {
+            if (hot_index > 0) {
                 Movies m = moviesManager.findMovies(Integer.parseInt(id));
                 if (m != null) {
-                    m.setHotindex(hotindex);
+                    m.setHot_index(hot_index);
                     moviesManager.updateMovies(m);
                 }
             }
@@ -284,8 +284,8 @@ public class MoviesAction {
     public Result<String> addItem(ModelMap map, Movies model) {
 
         assert Objects.nonNull(model)
-                && StringUtils.isNotBlank(model.getDescription())
-                && StringUtils.isNotBlank(model.getMoviename())
+                && StringUtils.isNotBlank(model.getMovie_desc())
+                && StringUtils.isNotBlank(model.getMovie_name())
                 && StringUtils.isNotBlank(model.getPath())
                 && StringUtils.isNotBlank(model.getColor());
         String rs = "success";
@@ -293,10 +293,10 @@ public class MoviesAction {
         	//更新
         	if(model.getId()!=null && model.getId()!=0) {
         		Movies old = moviesManager.findMovies(model.getId());
-        		old.setMoviename(model.getMoviename());
+        		old.setMovie_name(model.getMovie_name());
         		old.setPath(model.getPath());
         		old.setColor(model.getColor());
-        		old.setDescription(model.getDescription());
+        		old.setMovie_desc(model.getMovie_desc());
         		moviesManager.updateMovies(old);
 
                 //从redis set里面删除更新的失效资源
@@ -353,8 +353,8 @@ public class MoviesAction {
         			
         	}else {//新增
 
-                 model.setRetcode(MD5Utils.encrypt(model.getMoviename(),MD5Utils.MD5_KEY));
-        		 model.setAddtime(TimeUtils.nowdate());
+                 model.setRet_code(MD5Utils.encrypt(model.getMovie_name(),MD5Utils.MD5_KEY));
+        		 model.setAdd_time(TimeUtils.nowdate());
                  moviesManager.addMovies(model);
         	}
            
@@ -370,13 +370,13 @@ public class MoviesAction {
      * 按照日期计算
      *
      * @param map
-     * @param tagscode
+     * @param tags_code
      * @param request
      * @return
      */
-    @RequestMapping("/movies/date/{tagscode}")
-    public String datesearch(ModelMap map, @PathVariable String tagscode, HttpServletRequest request) {
-        String rs = "redirect:/movies/date/" + tagscode + "/page/1";
+    @RequestMapping("/movies/date/{tags_code}")
+    public String datesearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
+        String rs = "redirect:/movies/date/" + tags_code + "/page/1";
         return rs;
     }
 
@@ -388,23 +388,23 @@ public class MoviesAction {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/movies/date/{tagscode}/page/{page}")
-    public String datelistpage(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tagscode,
+    @RequestMapping(value = "/movies/date/{tags_code}/page/{page}")
+    public String datelistpage(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tags_code,
                                HttpServletResponse response, HttpSession session) throws IOException {
 
         String result = "/movies2";
         //防止sql注入
-        tagscode = WAQ.forSQL().escapeSql(tagscode);
-        String whereSql = " where addtime = '" + tagscode + "' ";
+        tags_code = WAQ.forSQL().escapeSql(tags_code);
+        String whereSql = " where add_time = '" + tags_code + "' ";
 
-        map.put("seldate", tagscode);
+        map.put("seldate", tags_code);
 
 
         log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
-        order.put("hotindex,id", "desc");
+        order.put("hot_index,id", "desc");
 
         //获取pageview
         PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MoviesCount);
@@ -420,7 +420,7 @@ public class MoviesAction {
 
         map.addAttribute("pageView", pageview);
         map.addAttribute("list", resultlist);
-        map.addAttribute("actionUrl", "/movies/date/" + tagscode);
+        map.addAttribute("actionUrl", "/movies/date/" + tags_code);
 
         //获取标签模块
         getTags(map, request);
@@ -432,13 +432,13 @@ public class MoviesAction {
      * 按照标签计算
      *
      * @param map
-     * @param tagscode
+     * @param tags_code
      * @param request
      * @return
      */
-    @RequestMapping("/movies/tag/{tagscode}")
-    public String tagsearch(ModelMap map, @PathVariable String tagscode, HttpServletRequest request) {
-        String rs = "redirect:/movies/tag/" + tagscode + "/page/1";
+    @RequestMapping("/movies/tag/{tags_code}")
+    public String tagsearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
+        String rs = "redirect:/movies/tag/" + tags_code + "/page/1";
         return rs;
     }
 
@@ -450,23 +450,23 @@ public class MoviesAction {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/movies/tag/{tagscode}/page/{page}")
-    public String taglistpage(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tagscode,
+    @RequestMapping(value = "/movies/tag/{tags_code}/page/{page}")
+    public String tag_listpage(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tags_code,
                               HttpServletResponse response, HttpSession session) throws IOException {
 
         String result = "/movies2";
         //防止sql注入
-        tagscode = WAQ.forSQL().escapeSql(tagscode);
-        String whereSql = " where tagcode like '%" + tagscode + "%' ";
+        tags_code = WAQ.forSQL().escapeSql(tags_code);
+        String whereSql = " where tag_code like '%" + tags_code + "%' ";
 
-        map.put("seltag", tagscode);
+        map.put("seltag", tags_code);
 
 
         log.info("sql ---" + whereSql);
         String currentpage = page;
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
-        order.put("hotindex,id", "desc");
+        order.put("hot_index,id", "desc");
 
         //获取pageview
         PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MoviesCount);
@@ -490,7 +490,7 @@ public class MoviesAction {
 
         map.addAttribute("pageView", pageview);
         map.addAttribute("list", resultlist);
-        map.addAttribute("actionUrl", "/movies/tag/" + tagscode);
+        map.addAttribute("actionUrl", "/movies/tag/" + tags_code);
         //获取标签模块
         getTags(map, request);
 
@@ -523,9 +523,9 @@ public class MoviesAction {
             keyword = WAQ.forSQL().escapeSql(keyword);
             if (keyword.contains(" ")) {
                 String keyword2 = keyword.replaceAll(" ", "");
-                whereSql += " and moviename like '%" + keyword + "%' or moviename like '%" + keyword2 + "%' ";
+                whereSql += " and movie_name like '%" + keyword + "%' or movie_name like '%" + keyword2 + "%' ";
             } else {
-                whereSql += " and moviename like '%" + keyword + "%' ";
+                whereSql += " and movie_name like '%" + keyword + "%' ";
             }
 
 
@@ -537,13 +537,13 @@ public class MoviesAction {
         String orderby = request.getParameter("orderby");
         if (StringUtils.isNotEmpty(orderby)) {
             if ("hot".equals(orderby)) {
-                order.put("hotindex", "desc");
+                order.put("hot_index", "desc");
             } else if ("latest".equals(orderby)) {
                 order.put("id", "desc");
             }
             map.put("orderby", orderby);
         } else {
-            order.put("addtime", "desc");
+            order.put("add_time", "desc");
             order.put("id", "desc");
         }
 
@@ -601,9 +601,9 @@ public class MoviesAction {
             keyword = WAQ.forSQL().escapeSql(keyword);
             if (keyword.contains(" ")) {
                 String keyword2 = keyword.replaceAll(" ", "");
-                whereSql += " and moviename like '%" + keyword + "%' or moviename like '%" + keyword2 + "%' ";
+                whereSql += " and movie_name like '%" + keyword + "%' or movie_name like '%" + keyword2 + "%' ";
             } else {
-                whereSql += " and moviename like '%" + keyword + "%' ";
+                whereSql += " and movie_name like '%" + keyword + "%' ";
             }
 
 
@@ -616,13 +616,13 @@ public class MoviesAction {
         String orderby = request.getParameter("orderby");
         if (StringUtils.isNotEmpty(orderby)) {
             if ("hot".equals(orderby)) {
-                order.put("hotindex", "desc");
+                order.put("hot_index", "desc");
             } else if ("latest".equals(orderby)) {
                 order.put("id", "desc");
             }
             map.put("orderby", orderby);
         } else {
-            order.put("addtime", "desc");
+            order.put("add_time", "desc");
             order.put("id", "desc");
         }
 
@@ -660,22 +660,22 @@ public class MoviesAction {
 
             for (Movies m : resultlist) {
                 String tag = m.getTag();
-                String tagcode = m.getTagcode();
-                if (StringUtils.isNotEmpty(tag) && StringUtils.isNotEmpty(tagcode)) {
+                String tag_code = m.getTag_code();
+                if (StringUtils.isNotEmpty(tag) && StringUtils.isNotEmpty(tag_code)) {
                     String[] tags = tag.split(",");
-                    String[] tagcodes = tagcode.split(",");
-                    if (tags.length != tagcodes.length) {
+                    String[] tag_codes = tag_code.split(",");
+                    if (tags.length != tag_codes.length) {
                     	throw new NorthParkException(ResultEnum.Movie_Tag_Not_Match);
                     }
-                    List<Map<String, String>> taglist = Lists.newArrayList();
+                    List<Map<String, String>> tag_list = Lists.newArrayList();
                     for (int i = 0; i < tags.length; i++) {
                         Map<String, String> map = Maps.newHashMap();
                         map.put("tag", tags[i]);
-                        map.put("tagcode", tagcodes[i]);
-                        taglist.add(map);
+                        map.put("tag_code", tag_codes[i]);
+                        tag_list.add(map);
                         map = null;
                     }
-                    m.setTaglist(taglist);
+                    m.setTag_list(tag_list);
                 }
 
             }
@@ -702,7 +702,7 @@ public class MoviesAction {
             Movies  model = moviesManager.findMovies(Integer.valueOf(id));
             if(model!=null) {
                 //页面描述
-            	if(StringUtils.isNotEmpty(model.getDescription())) map.put("description", Jsoup.parse(model.getDescription()).select("p").text());
+            	if(StringUtils.isNotEmpty(model.getMovie_desc())) map.put("movie_desc", Jsoup.parse(model.getMovie_desc()).select("p").text());
             	map.addAttribute("model", model);
             }
         }
@@ -739,7 +739,7 @@ public class MoviesAction {
             tags = tagsManager.findByCondition(" where tagtype = '1' ").getResultlist();
 
             //获取热门电影
-            String hotsql = "select id,moviename,color from bc_movies order by rand() desc limit 0,70";
+            String hotsql = "select id,movie_name,color from bc_movies order by rand() desc limit 0,70";
             movies_hot_list = moviesManager.querySql(hotsql);
 
             RedisUtil.getInstance().set("movies_hot_list", JsonUtil.object2json(movies_hot_list), 24 * 60 * 60);

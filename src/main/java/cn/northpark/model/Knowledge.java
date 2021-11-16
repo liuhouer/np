@@ -62,7 +62,7 @@ private static final long serialVersionUID = 1L;
 	private String tags_code;
 
 	@Column(length = 255)
-	private String returl;
+	private String ret_url;
 
 	@Column(length = 255)
 	private String path;
@@ -77,13 +77,13 @@ private static final long serialVersionUID = 1L;
 	private String color;
 
 	@Column(length = 11)
-	private Integer hotindex;
+	private Integer hot_index;
 
 	@Column(length = 10)
 	private String displayed;
 
 	@Transient
-	private List<Map<String, String>> taglist;
+	private List<Map<String, String>> tag_list;
 
 	@Override
 	public String toString() {
@@ -98,14 +98,14 @@ private static final long serialVersionUID = 1L;
 				", price=" + price +
 				", tags='" + tags + '\'' +
 				", tags_code='" + tags_code + '\'' +
-				", returl='" + returl + '\'' +
+				", ret_url='" + ret_url + '\'' +
 				", path='" + path + '\'' +
 				", link_url='" + link_url + '\'' +
 				", view_times=" + view_times +
 				", color='" + color + '\'' +
-				", hotindex=" + hotindex +
+				", hot_index=" + hot_index +
 				", displayed='" + displayed + '\'' +
-				", taglist=" + taglist +
+				", tag_list=" + tag_list +
 				'}';
 	}
 }

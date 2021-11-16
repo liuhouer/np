@@ -44,7 +44,7 @@ public class Soft implements Serializable {
     private Integer id;
 
     @Column(length = 20)
-    private String retcode;
+    private String ret_code;
 
     @Column(length = 255)
     private String title;
@@ -65,7 +65,7 @@ public class Soft implements Serializable {
 
 
     @Column(length = 255)
-    private String postdate;
+    private String post_date;
 
     @Column(length = 255)
     private String os;
@@ -74,10 +74,10 @@ public class Soft implements Serializable {
     private String tags;
 
     @Column(length = 255)
-    private String tagscode;
+    private String tags_code;
 
     @Column(length = 255)
-    private String returl;
+    private String ret_url;
 
     @Column()
     private String path;
@@ -86,7 +86,7 @@ public class Soft implements Serializable {
     private String color;
 
     @Column(length = 11)
-    private Integer hotindex;
+    private Integer hot_index;
 
     @Column(length = 10)
     private String displayed;

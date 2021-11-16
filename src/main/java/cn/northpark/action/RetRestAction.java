@@ -81,7 +81,7 @@ public class RetRestAction {
     public Result<String> retMoviesBean(@RequestBody Movies bean) {
         try {
             int flag = this.moviesManager.countHql(
-                    new StringBuilder().append(" where o.retcode= '").append(bean.getRetcode()).append("' ").toString());
+                    new StringBuilder().append(" where o.ret_code= '").append(bean.getRet_code()).append("' ").toString());
 
             if (flag <= 0) {
                 this.moviesManager.addMovies(bean);
@@ -104,24 +104,24 @@ public class RetRestAction {
 
                     String date = (String) map.get("date");
                     String article = (String) map.get("article");
-                    String retcode = (String) map.get("retcode");
+                    String ret_code = (String) map.get("ret_code");
                     String tag = (String) map.get("tag");
-                    String tagcode = (String) map.get("tagcode");
+                    String tag_code = (String) map.get("tag_code");
                     String path = (String) map.get("path");
 
                     int flag = this.moviesManager.countHql(
-                            new StringBuilder().append(" where o.retcode= '").append(retcode).append("' ").toString());
+                            new StringBuilder().append(" where o.ret_code= '").append(ret_code).append("' ").toString());
 
                     if (flag <= 0) {
                         Movies model = new Movies();
-                        model.setMoviename(title);
-                        model.setAddtime(date);
-                        model.setDescription(article);
+                        model.setMovie_name(title);
+                        model.setAdd_time(date);
+                        model.setMovie_desc(article);
                         model.setPrice(Integer.valueOf(1));
-                        model.setRetcode(retcode);
+                        model.setRet_code(ret_code);
                         model.setTag(tag);
-                        model.setTagcode(tagcode);
-                        model.setViewnum(Integer.valueOf(HTMLParserUtil.geneViewNum()));
+                        model.setTag_code(tag_code);
+                        model.setView_num(Integer.valueOf(HTMLParserUtil.geneview_num()));
                         model.setColor(PinyinUtil.getFirstChar(title));
                         model.setPath(path);
                         this.moviesManager.addMovies(model);
@@ -148,15 +148,15 @@ public class RetRestAction {
                     String os = (String) map.get("os");
                     String month = (String) map.get("month");
                     String year = (String) map.get("year");
-                    String tagcode = (String) map.get("tagcode");
+                    String tag_code = (String) map.get("tag_code");
                     String path = (String) map.get("path");
 
                     int flag = this.softManager.countHql(new StringBuilder().append(" where o.title= '").append(title)
-                            .append("' or o.retcode = '").append(code).append("' ").toString());
+                            .append("' or o.ret_code = '").append(code).append("' ").toString());
 
                     if (flag <= 0) {
-                        Soft model = Soft.builder().brief(brief).content(article).os(os).postdate(date).retcode(code)
-                                .returl(aurl).tags(tag).title(title).month(month).year(year).tagscode(tagcode)
+                        Soft model = Soft.builder().brief(brief).content(article).os(os).post_date(date).ret_code(code)
+                                .ret_url(aurl).tags(tag).title(title).month(month).year(year).tags_code(tag_code)
                                 .path(path).build();
                         this.softManager.addSoft(model);
                     }

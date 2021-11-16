@@ -21,20 +21,20 @@ public class updateMovieColor {
         cList.parallelStream().forEach(c->{
             System.err.println("spec color---->"+c);
 
-            String sql = "select id,moviename from bc_movies  where color = ?";
+            String sql = "select id,movie_name from bc_movies  where color = ?";
             List<Map<String, Object>> maps = NPQueryRunner.query(sql, new MapListHandler(),c);
 
             //尝试从标题截图赋值
             maps.parallelStream().forEach(item->{
                 String id = item.get("id").toString();
-                String moviename = item.get("moviename").toString();
+                String movie_name = item.get("movie_name").toString();
                 for (Object cc : cList) {
-                    moviename = moviename.replace(String.valueOf(cc),String.valueOf(BC_Constant.specColorMap.get(String.valueOf(cc))));
+                    movie_name = movie_name.replace(String.valueOf(cc),String.valueOf(BC_Constant.specColorMap.get(String.valueOf(cc))));
                 }
-                System.err.println("mod moviename---->"+moviename);
-                if(StringUtils.isNotEmpty(moviename)){
+                System.err.println("mod movie_name---->"+movie_name);
+                if(StringUtils.isNotEmpty(movie_name)){
 
-                    String color = PinyinUtil.getFirstChar(moviename);
+                    String color = PinyinUtil.getFirstChar(movie_name);
                     System.err.println("mod color---->"+color);
                     String up_sql = "update bc_movies set color = '"+color+"' where id = "+id;
                     NPQueryRunner.update(up_sql);

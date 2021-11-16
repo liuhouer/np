@@ -86,24 +86,24 @@ public class TestMovieTask {
 
 
 
-        String retcode = MD5Utils.encrypt(cn_title,MD5Utils.MD5_KEY);
+        String ret_code = MD5Utils.encrypt(cn_title,MD5Utils.MD5_KEY);
 
         String tag = "美国";
-        String tagcode = "meiguo";
+        String tag_code = "meiguo";
 
         path = sb.toString().replace("$LINK$",path).replace("$title$",cn_title);
 
         System.err.println(path);
 
         Movies model = new Movies();
-        model.setMoviename(cn_title);
-        model.setAddtime("1999-01-01");
+        model.setMovie_name(cn_title);
+        model.setadd_time("1999-01-01");
         model.setDescription("<p>"+en_title+"</p>"+"<p>"+cn_title+"</p>");
         model.setPrice(1);
-        model.setRetcode(retcode);
+        model.setret_code(ret_code);
         model.setTag(tag);
-        model.setTagcode(tagcode);
-        model.setViewnum(HTMLParserUtil.geneViewNum());
+        model.settag_code(tag_code);
+        model.setview_num(HTMLParserUtil.geneview_num());
         model.setColor(PinyinUtil.getFirstChar(en_title));
         model.setPath(path);
         moviesManager.addMovies(model);

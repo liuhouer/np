@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-group ">
                         <span class="glyphicon glyphicon-star"></span>学习标签-英文
-                        <input id="J_tagcode" placeholder="学习标签-英文" required
+                        <input id="J_tag_code" placeholder="学习标签-英文" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
                                name="tags_code" type="text" value="${model.tags_code },classhare">
                     </div>
@@ -158,7 +158,7 @@
 
         //提交表单
         $("#formSubmit").click(function () {
-            if ($("#J_name").val() && $("#J_md_text").val() && $("#J_color").val() && $("#J_path").val() && $("#J_tag").val() && $("#J_tagcode").val() ) {
+            if ($("#J_name").val() && $("#J_md_text").val() && $("#J_color").val() && $("#J_path").val() && $("#J_tag").val() && $("#J_tag_code").val() ) {
 
                 $.ajax({
                     url: "/learning/addItem",

@@ -61,7 +61,7 @@ public class Poem implements Serializable {
     private String pic_poem;
 
     @Column(length = 255)
-    private String retcode;
+    private String ret_code;
 
 
     @Column(length = 255)
@@ -77,6 +77,6 @@ public class Poem implements Serializable {
 
     //爬取单页面的url
     @Column(length = 255)
-    private String returl;
+    private String ret_url;
 
 }

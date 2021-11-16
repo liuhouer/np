@@ -73,10 +73,10 @@
                                             <a href="/movies/post-${s.id }.html" oid="${s.id }">
                                                 <small class="green-text">
                                                     <font size="5"><strong>
-                                                        <c:if test="${s.hotindex>0}">
+                                                        <c:if test="${s.hot_index>0}">
                                                             <i class="fa fa-thumb-tack" title="已置顶"></i>
                                                         </c:if>
-                                                            ${s.moviename}</strong></font>
+                                                            ${s.movie_name}</strong></font>
                                                 </small>
                                             </a>
                                         </p>
@@ -90,14 +90,14 @@
                                     <p>
 
                                         	发表于：<span class=" glyphicon glyphicon-time margin10"></span><span
-                                            class="common-a-right" title="${s.addtime}"
-                                            href="/movies/date/${s.addtime}">${s.addtime}</span>
+                                            class="common-a-right" title="${s.add_time}"
+                                            href="/movies/date/${s.add_time}">${s.add_time}</span>
 
                                         <span class=" glyphicon glyphicon-tags margin10"></span>
 
-                                        <c:forEach items="${s.taglist }" var="y" varStatus="yy">
+                                        <c:forEach items="${s.tag_list }" var="y" varStatus="yy">
                                             <strong><a class="common-a-right" title="${y.tag}"
-                                                       href="/movies/tag/${y.tagcode }">${y.tag}</a></strong>
+                                                       href="/movies/tag/${y.tag_code }">${y.tag}</a></strong>
                                         </c:forEach>
                                         <c:if test="${user!=null }">
                                             <c:if test="${user.email == '654714226@qq.com' || user.email == 'qhdsoft@126.com' || user.email == 'woaideni@qq.com'}">
@@ -113,7 +113,7 @@
                                     </p>
                                     <p id="brief_${ss.index}">
 
-                                            ${s.description }
+                                            ${s.movie_desc }
                                     </p>
                                     
                                     <p>
@@ -156,13 +156,13 @@
                             <div class="col-md-12 margin-t10">
                                 <div class="col-xs-2 avatar">
 
-                                    <span class="text-${ z.color }">${ fn:toUpperCase(fn:substring(z.moviename ,0,1))   }</span>
+                                    <span class="text-${ z.color }">${ fn:toUpperCase(fn:substring(z.movie_name ,0,1))   }</span>
 
                                 </div>
                                 <div class="col-xs-10">
 
                                     <a style="font-size: 14px;line-height: 32px;color: #888"
-                                       href="/movies/post-${z.id }.html" title="${z.moviename }">${z.moviename } </a>
+                                       href="/movies/post-${z.id }.html" title="${z.movie_name }">${z.movie_name } </a>
 
                                 </div>
 
@@ -182,14 +182,14 @@
                         <c:forEach var="z" items="${movies_tags }">
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tagcode == seltag }">
+                                <c:if test="${z.tag_code == seltag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
-                                    <a style="color: #45d0c6;" href="/movies/tag/${z.tagcode }"
+                                    <a style="color: #45d0c6;" href="/movies/tag/${z.tag_code }"
                                        title="${z.tag }">${z.tag } </a>
                                 </c:if>
-                                <c:if test="${z.tagcode != seltag }">
+                                <c:if test="${z.tag_code != seltag }">
                                     <span class="glyphicon glyphicon-tag margin5"></span>
-                                    <a href="/movies/tag/${z.tagcode }" title="${z.tag }">${z.tag } </a>
+                                    <a href="/movies/tag/${z.tag_code }" title="${z.tag }">${z.tag } </a>
                                 </c:if>
 
 
