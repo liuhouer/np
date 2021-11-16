@@ -737,7 +737,7 @@ public class TestEQTask {
         // String courseware = retCaiMaiZT.get("courseware");
         // String date =retCaiMaiZT.get("date");
         // String meta =retCaiMaiZT.get("meta");
-        // String headpath =retCaiMaiZT.get("headpath");
+        // String head_path =retCaiMaiZT.get("head_path");
         //
         // if(StringUtils.isNotEmpty(username)){
         //
@@ -758,10 +758,10 @@ public class TestEQTask {
         //
         // user.setEmail(tailslug+TimeUtils.getRandomDay()+"@qq.com");
         // user.setPassword("MTIzNDU2MDAwMDAw");
-        // user.setHeadpath(headpath);
+        // user.sethead_path(head_path);
         // if(StringUtils.isNotEmpty(username)){
-        // user.setHeadspan(username.substring(0,1).toUpperCase());
-        // user.setHeadspanclass("text-"+username.substring(0,1).toLowerCase());
+        // user.sethead_span(username.substring(0,1).toUpperCase());
+        // user.sethead_span_class("text-"+username.substring(0,1).toLowerCase());
         // }
         // userManager.addUser(user);
         //

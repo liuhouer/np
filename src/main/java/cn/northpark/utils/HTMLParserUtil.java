@@ -331,7 +331,7 @@ public class HTMLParserUtil {
 //                meta = desc_element.get(0).text();
 //            }
 //
-//            String headpath = "";
+//            String head_path = "";
 //            //下载图片
 //            try {
 //                String weburl = avatar.attr("src");
@@ -339,7 +339,7 @@ public class HTMLParserUtil {
 //
 //                HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS("heads"), date);
 //
-//                headpath = map22.get("trimpath");
+//                head_path = map22.get("trimpath");
 //
 //
 //            } catch (Exception e) {
@@ -353,7 +353,7 @@ public class HTMLParserUtil {
 //            map.put("courseware", courseware);
 //            map.put("date", date);
 //            map.put("meta", meta);
-//            map.put("headpath", headpath);
+//            map.put("head_path", head_path);
 //
 //
 //        } catch (Exception e) {

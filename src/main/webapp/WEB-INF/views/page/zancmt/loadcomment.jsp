@@ -15,14 +15,14 @@
                     </c:if>
 
                     title="${y.username }的最爱">
-                <c:if test="${y.headpath == null}">
-                    <span class="${y.headspanclass }">${y.headspan }</span>
+                <c:if test="${y.head_path == null}">
+                    <span class="${y.head_span_class }">${y.head_span }</span>
                 </c:if>
-                <c:if test="${y.headpath != null}">
+                <c:if test="${y.head_path != null}">
                     <img
                     <c:choose>
-                            <c:when test="${fn:contains(y.headpath,'http://') }">src="${y.headpath }"</c:when>
-                            <c:otherwise>src="/bruce/${y.headpath}"</c:otherwise>
+                            <c:when test="${fn:contains(y.head_path,'http://') }">src="${y.head_path }"</c:when>
+                            <c:otherwise>src="/bruce/${y.head_path}"</c:otherwise>
                     </c:choose>
                             alt="${y.username }的最爱">
                 </c:if>

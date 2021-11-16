@@ -26,17 +26,17 @@ public class UserVO implements Serializable {
 
     private String date_joined;
 
-    private String headspanclass;
+    private String head_span_class;
 
-    private String headspan;
+    private String head_span;
 
-    private String headpath;
+    private String head_path;
 
     private String tail_slug;//自己的域名空间【字母代号】
 
     private String meta;// 个性签名
 
-    private String blogsite;//自己的个人页面
+    private String blog_site;//自己的个人页面
 
     @Override
     public String toString() {

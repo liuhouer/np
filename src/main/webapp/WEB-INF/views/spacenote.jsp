@@ -63,16 +63,16 @@
                             </c:if>
 
                             title="${MyInfo.username}的最爱">
-                        <c:if test="${MyInfo.headpath==null }">
-                            <span class=" ${MyInfo.headspanclass }"
-                                  alt="${s.get('username')}">${MyInfo.headspan }</span>
+                        <c:if test="${MyInfo.head_path==null }">
+                            <span class=" ${MyInfo.head_span_class }"
+                                  alt="${s.get('username')}">${MyInfo.head_span }</span>
 
                         </c:if>
-                        <c:if test="${MyInfo.headpath!=null }">
+                        <c:if test="${MyInfo.head_path!=null }">
                             <img alt="${MyInfo.username }的最爱"
                             <c:choose>
-                                 <c:when test="${fn:contains(MyInfo.headpath ,'http://') }">src="${MyInfo.headpath}"</c:when>
-                                 <c:otherwise>src="/bruce/${MyInfo.headpath }"</c:otherwise>
+                                 <c:when test="${fn:contains(MyInfo.head_path ,'http://') }">src="${MyInfo.head_path}"</c:when>
+                                 <c:otherwise>src="/bruce/${MyInfo.head_path }"</c:otherwise>
                             </c:choose>
 
                             >

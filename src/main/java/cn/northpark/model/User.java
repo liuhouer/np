@@ -48,18 +48,18 @@ public class User implements Serializable {
     private String date_joined;
 
     @Column(length = 20)
-    private String headspanclass;
+    private String head_span_class;
 
     @Column(length = 20)
-    private String headspan;
+    private String head_span;
 
     @Column(length = 255)
-    private String headpath;
+    private String head_path;
 
     @Column(length = 255)
     private String qq_openid;
 
-    @Column(length = 2000)
+    @Column(length = 700)
     private String qq_info;
 
     @Column(length = 2000)
@@ -68,8 +68,8 @@ public class User implements Serializable {
     @Column(length = 255)
     private String meta;// 个性签名
 
-    @Column(length = 2000)
-    private String blogsite;//自己的个人页面
+    @Column(length = 255)
+    private String blog_site;//自己的个人页面
 
 
     @Override
