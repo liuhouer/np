@@ -633,13 +633,13 @@ public class UserAction {
         if(Objects.nonNull(userVO)){
             User user = userManager.findUser(userVO.getId());
 
-            String oldpath = user.getHeadpath();
+            String oldpath = user.getHead_path();
 
             user.setUsername(username);
 
             user.setTail_slug(tail_slug);
 
-            user.setBlogsite(courseware);
+            user.setBlog_site(courseware);
 
 
             // 执行删除图片缓存
@@ -650,9 +650,9 @@ public class UserAction {
             //执行上传end
 
             if (filelist.size() > 0) {
-                user.setHeadpath(filelist.get(0));
+                user.setHead_path(filelist.get(0));
             } else {
-                user.setHeadpath(oldpath);
+                user.setHead_path(oldpath);
             }
 
             //处理密码信息
@@ -807,10 +807,10 @@ public class UserAction {
             //默认字符头像===================================================
             String abc = PinyinUtil.paraseStringToPinyin(username);
             if (StringUtils.isNotEmpty(abc)) {
-                String headspan = abc.substring(0, 1).toUpperCase();
-                String headspanclass = "text-" + headspan.toLowerCase();
-                user.setHeadspan(headspan);
-                user.setHeadspanclass(headspanclass);
+                String head_span = abc.substring(0, 1).toUpperCase();
+                String head_span_class = "text-" + head_span.toLowerCase();
+                user.setHead_span(head_span);
+                user.setHead_span_class(head_span_class);
             }
             //默认字符头像===================================================
             //设置注册者的详细信息

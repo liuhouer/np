@@ -228,7 +228,7 @@ public class LyricsAction {
 
 
         //取得 评论 的列表
-        String sql_ = "select b.username,b.tail_slug,b.email,b.headpath,b.headspan,b.headspanclass,a.* from bc_lyrics_comment a join bc_user b on a.userid = b.id where a.lyricsid = '" + lyricsid + "' order by a.create_time desc";
+        String sql_ = "select b.username,b.tail_slug,b.email,b.head_path,b.head_span,b.head_span_class,a.* from bc_lyrics_comment a join bc_user b on a.userid = b.id where a.lyricsid = '" + lyricsid + "' order by a.create_time desc";
 
         //每页展示6条  获取分页信息
         PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), 6);
@@ -331,7 +331,7 @@ public class LyricsAction {
 		
 		if(CollectionUtils.isEmpty(loveList)) {
 			//取得谁爱上谁的一个列表
-			String sql_2 = "select b.id as userid,b.tail_slug,b.username,b.email,b.headpath,b.headspan,b.headspanclass,c.id as lyricsid,c.title,c.titlecode from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id order by rand() desc limit 0 , 50 ";
+			String sql_2 = "select b.id as userid,b.tail_slug,b.username,b.email,b.head_path,b.head_span,b.head_span_class,c.id as lyricsid,c.title,c.titlecode from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id order by rand() desc limit 0 , 50 ";
 			loveList = lyricszanManager.mixSqlQuery(sql_2);
 			if(!CollectionUtils.isEmpty(loveList)) { 
 				RedisUtil.getInstance().set("loveList", JsonUtil.object2json(loveList), 24 * 60 * 60);

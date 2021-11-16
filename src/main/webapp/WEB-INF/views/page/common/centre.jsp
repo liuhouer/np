@@ -12,17 +12,17 @@
                     <div class="col-xs-4 center">
                         <div class="thumbnail bg-no margin-t5 border-0">
                             <div class="avatar centre">
-                                <c:if test="${MyInfo.headpath==null }">
-                                    <span class=" ${MyInfo.headspanclass }"
-                                          alt="${s.get('username')}">${MyInfo.headspan }</span>
+                                <c:if test="${MyInfo.head_path==null }">
+                                    <span class=" ${MyInfo.head_span_class }"
+                                          alt="${s.get('username')}">${MyInfo.head_span }</span>
 
                                 </c:if>
-                                <c:if test="${MyInfo.headpath!=null }">
+                                <c:if test="${MyInfo.head_path!=null }">
                                     <img alt="${MyInfo.username }" class="img-circle img-responsive "
 
                                     <c:choose>
-                                         <c:when test="${fn:contains(MyInfo.headpath ,'http://') }">src="${MyInfo.headpath}"</c:when>
-                                         <c:otherwise>src="/bruce/${MyInfo.headpath }"</c:otherwise>
+                                         <c:when test="${fn:contains(MyInfo.head_path ,'http://') }">src="${MyInfo.head_path}"</c:when>
+                                         <c:otherwise>src="/bruce/${MyInfo.head_path }"</c:otherwise>
                                     </c:choose>
                                     >
                                 </c:if>
@@ -44,9 +44,9 @@
                                 <small>${MyInfo.meta }</small>
                             </h3>
                         </c:if>
-                        <c:if test="${MyInfo.blogsite!=null }">
+                        <c:if test="${MyInfo.blog_site!=null }">
                             <h3 class="margin0">
-                                <small>${MyInfo.blogsite }</small>
+                                <small>${MyInfo.blog_site }</small>
                             </h3>
                         </c:if>
                         <h3 class="margin0">

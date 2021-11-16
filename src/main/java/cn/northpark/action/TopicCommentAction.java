@@ -80,8 +80,8 @@ public class TopicCommentAction {
             if (StringUtils.isNotEmpty(model.getFrom_uname())) {
                 String abc = PinyinUtil.paraseStringToPinyin(model.getFrom_uname());
                 if (StringUtils.isNotEmpty(abc)) {
-                    String headspan = abc.substring(0, 1).toUpperCase();
-                    model.setFrom_span(headspan);
+                    String head_span = abc.substring(0, 1).toUpperCase();
+                    model.setFrom_span(head_span);
                 }
             }
             //默认字符头像===================================================

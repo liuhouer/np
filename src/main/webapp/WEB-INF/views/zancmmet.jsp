@@ -161,11 +161,11 @@
                                             </c:if>
 
                                             title="${user.username }的最爱"><img
-                                            <c:if test="${user.headpath == null}">src="https://northpark.cn/statics/img/davatar.jpg"</c:if>
-                                        <c:if test="${user.headpath != null}">
+                                            <c:if test="${user.head_path == null}">src="https://northpark.cn/statics/img/davatar.jpg"</c:if>
+                                        <c:if test="${user.head_path != null}">
                                     <c:choose>
-                                            <c:when test="${fn:contains(user.headpath  ,'http://') }">src="${user.headpath  }"</c:when>
-                                            <c:otherwise>src="/bruce/${user.headpath  }"</c:otherwise>
+                                            <c:when test="${fn:contains(user.head_path  ,'http://') }">src="${user.head_path  }"</c:when>
+                                            <c:otherwise>src="/bruce/${user.head_path  }"</c:otherwise>
                                     </c:choose>
 
                                     </c:if> class="img-responsive  img-circle max-width-60" alt="${user.username }的最爱"></a>
@@ -221,14 +221,14 @@
                         <c:forEach var="z" items="${loveList }">
                             <div class="row padding10">
                                 <div class="col-xs-2 avatar">
-                                    <c:if test="${z.headpath == null}">
-                                        <span class="${z.headspanclass }">${z.headspan }</span>
+                                    <c:if test="${z.head_path == null}">
+                                        <span class="${z.head_span_class }">${z.head_span }</span>
                                     </c:if>
-                                    <c:if test="${z.headpath != null}">
+                                    <c:if test="${z.head_path != null}">
                                         <img alt=""
                                         <c:choose>
-                                             <c:when test="${fn:contains(z.headpath ,'http://') }">src="${z.headpath }"</c:when>
-                                             <c:otherwise>src="/bruce/${z.headpath }"</c:otherwise>
+                                             <c:when test="${fn:contains(z.head_path ,'http://') }">src="${z.head_path }"</c:when>
+                                             <c:otherwise>src="/bruce/${z.head_path }"</c:otherwise>
                                         </c:choose>
                                         >
                                     </c:if>

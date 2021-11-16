@@ -82,16 +82,16 @@
                             <div class="row">
                                 <div class="col-xs-3" id="preview">
                                     <img id="imghead" alt="avatar"
-                                    <c:if test="${MyInfo.headpath==null }">
+                                    <c:if test="${MyInfo.head_path==null }">
                                          src="https://northpark.cn/statics/img/davatar.jpg"
                                     </c:if>
-                                    <c:if test="${MyInfo.headpath!=null }">
+                                    <c:if test="${MyInfo.head_path!=null }">
                                     <c:choose>
-                                    <c:when test="${fn:contains(MyInfo.headpath ,'http://') }">
-                                         src="${MyInfo.headpath }"
+                                    <c:when test="${fn:contains(MyInfo.head_path ,'http://') }">
+                                         src="${MyInfo.head_path }"
                                     </c:when>
                                     <c:otherwise>
-                                         src="/bruce/${MyInfo.headpath }"
+                                         src="/bruce/${MyInfo.head_path }"
                                     </c:otherwise>
                                     </c:choose>
                                     </c:if>

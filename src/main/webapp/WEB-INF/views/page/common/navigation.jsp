@@ -25,12 +25,12 @@
                 <c:if test="${user!=null }">
 
                     <a href="/cm/pcentral" title="个人中心" class="mainhead-avatar avatar centre" height="40" width="40">
-                        <c:if test="${user.headpath==null }">
-                            <span class="max-width-50  ${user.headspanclass }" alt="${user.username}" height="40"
-                                  width="40">${user.headspan }</span>
+                        <c:if test="${user.head_path==null }">
+                            <span class="max-width-50  ${user.head_span_class }" alt="${user.username}" height="40"
+                                  width="40">${user.head_span }</span>
                         </c:if>
-                        <c:if test="${user.headpath!=null }">
-                            <img src="/bruce${user.headpath}" alt="davatar" class="img-circle max-width-50" height="40"
+                        <c:if test="${user.head_path!=null }">
+                            <img src="/bruce${user.head_path}" alt="davatar" class="img-circle max-width-50" height="40"
                                  width="40" />
                         </c:if>
                     </a>
