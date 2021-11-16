@@ -184,12 +184,12 @@
                 <div class="col-sm-offset-1 col-sm-4 ">
 
                     <div class="row bg-lblue padding20 radius-5">
-                        <c:if test="${user.headpath!=null and user.headpath!=''}">
+                        <c:if test="${user.head_path!=null and user.head_path!=''}">
                             <div class="col-xs-2 avatar padding10">
-                             <img src="/bruce/${user.headpath}"></img>
+                             <img src="/bruce/${user.head_path}"></img>
                             </div>
                         </c:if>
-                        <c:if test="${user.headpath==null or user.headpath==''}">
+                        <c:if test="${user.head_path==null or user.head_path==''}">
                             <div class="col-xs-2 avatar padding10">
                                 <span class="text-1" >
                                         ${user.username.substring(0,1) }
@@ -202,11 +202,11 @@
                             <hr>
                             <p class="gray-text"><i class="fa fa-envelope padding5"></i>${user.email}</p>
                             <p class="gray-text"><i class="fa fa-link padding5"></i>
-                                <c:if test="${user.blogsite==null or user.blogsite==''}">
+                                <c:if test="${user.blog_site==null or user.blog_site==''}">
                                     -
                                 </c:if>
-                                <c:if test="${user.blogsite!=null and user.blogsite!=''}">
-                                    ${user.blogsite}
+                                <c:if test="${user.blog_site!=null and user.blog_site!=''}">
+                                    ${user.blog_site}
                                 </c:if>
                             </p>
                             <p class="gray-text"><i class="fa fa-globe padding5"></i>
