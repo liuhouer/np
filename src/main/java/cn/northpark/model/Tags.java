@@ -35,7 +35,7 @@ public class Tags implements Serializable {
     private String tag;
 
     @Column(length = 255)
-    private String tagcode;
+    private String tag_code;
 
     @Column(length = 255)
     private String tagtype;

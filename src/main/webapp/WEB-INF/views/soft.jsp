@@ -60,10 +60,10 @@
                                 <div class="row margin5">
                                     <div class="border-0 center">
                                         <p>
-                                            <a href="/soft/${s.retcode }.html">
+                                            <a href="/soft/${s.ret_code }.html">
                                                 <small class="green-text">
                                                     <font size="5"><strong>
-                                                            <c:if test="${s.hotindex>0}">
+                                                            <c:if test="${s.hot_index>0}">
                                                                 <i class="fa fa-thumb-tack" title="已置顶"></i>
                                                             </c:if>
                                                             ${s.title}</strong></font>
@@ -79,16 +79,16 @@
 
                                     <p>
 
-                                        发表于：<strong><a class="common-a-right" title="${s.postdate}"
-                                                       href="/soft/date/${s.postdate }">${s.postdate}</a></strong>
+                                        发表于：<strong><a class="common-a-right" title="${s.post_date}"
+                                                       href="/soft/date/${s.post_date }">${s.post_date}</a></strong>
 
                                         <strong><a class="common-a-right" title="${s.tags}"
-                                                   href="/soft/tag/${s.tagscode }">${s.tags}</a></strong>
+                                                   href="/soft/tag/${s.tags_code }">${s.tags}</a></strong>
 
                                         <strong><a class="common-a-right" title="${s.os}"
                                                    href="/soft/${s.os }">${s.os}</a></strong>
 
-                                            <%--  <a href="/soft/${s.retcode }.html#comment" class=" reply-count count-text common-a" data-thread-key="${s.retcode }" data-count-type="comments"></a> --%>
+                                            <%--  <a href="/soft/${s.ret_code }.html#comment" class=" reply-count count-text common-a" data-thread-key="${s.ret_code }" data-count-type="comments"></a> --%>
                                     </p>
                                     <p id="brief_${ss.index}">
 
@@ -96,7 +96,7 @@
                                     </p>
 
                                     <p>
-                                        <a class="btn btn-warning margin-t10" href="/soft/${s.retcode }.html">
+                                        <a class="btn btn-warning margin-t10" href="/soft/${s.ret_code }.html">
                                             Read More
                                             <span class="glyphicon  glyphicon-circle-arrow-right padding5"></span>
                                         </a>
@@ -141,7 +141,7 @@
                                 <div class="col-xs-10">
 
                                     <a style="font-size: 14px;line-height: 32px;color: #888"
-                                       href="/soft/${z.retcode }.html" title="${z.title }">${z.title } </a>
+                                       href="/soft/${z.ret_code }.html" title="${z.title }">${z.title } </a>
 
                                 </div>
 
@@ -161,18 +161,18 @@
                         <c:forEach var="z" items="${soft_tags }">
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tagscode == seltag }">
+                                <c:if test="${z.tags_code == seltag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
-                                    <a style="color: #45d0c6;" href="/soft/tag/${z.tagscode }"
+                                    <a style="color: #45d0c6;" href="/soft/tag/${z.tags_code }"
                                        title="${z.tags }">${z.tags } </a>
                                 </c:if>
-                                <c:if test="${z.tagscode != seltag }">
+                                <c:if test="${z.tags_code != seltag }">
                                     <span class="glyphicon glyphicon-tag margin5"></span>
-                                    <a href="/soft/tag/${z.tagscode }" title="${z.tags }">${z.tags } </a>
+                                    <a href="/soft/tag/${z.tags_code }" title="${z.tags }">${z.tags } </a>
                                 </c:if>
 
 
-                                <a style="color: #45d0c6;" href="/soft/tag/${z.tagscode }" title="">(${z.num }) </a>
+                                <a style="color: #45d0c6;" href="/soft/tag/${z.tags_code }" title="">(${z.num }) </a>
 
                             </div>
                         </c:forEach>

@@ -20,7 +20,7 @@
 <title>${article.title}|NorthPark</title>
 <meta name="keywords"
 	content="${article.title},${article.tags},NorthPark">
-<meta name="description" content="${description}">
+<meta name="description" content="${article.content}">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 </head>
@@ -55,11 +55,11 @@
 								</div>
 								<p>
 									发表于： <strong><a class="common-a-right"
-										title="${article.postdate}"
-										href="/soft/date/${article.postdate }">
-											${article.postdate} </a></strong> <strong><a
+										title="${article.post_date}"
+										href="/soft/date/${article.post_date }">
+											${article.post_date} </a></strong> <strong><a
 										class="common-a-right" title="${article.tags}"
-										href="/soft/tag/${article.tagscode }"> ${article.tags} </a></strong> <strong><a
+										href="/soft/tag/${article.tags_code }"> ${article.tags} </a></strong> <strong><a
 										class="common-a-right" title="${article.os}"
 										href="/soft/${article.os }"> ${article.os} </a></strong>
 

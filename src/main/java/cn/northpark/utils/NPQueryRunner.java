@@ -112,7 +112,7 @@ public class NPQueryRunner {
 
 //		List<Map<String, Object>> query = runner.query(JdbcUtils.getConnection(), "select * from bc_soft limit 0,50",  new MapListHandler());
 		
-		String insSql = "INSERT INTO `northpark`.`bc_knowledge_test`(`id`, `addtime1`, `addtime2`, `addtime3`) VALUES (00000521735, '2019-07-23 02:37:19', '2019-07-23', '2019-07-23 02:37:19');\r\n" + 
+		String insSql = "INSERT INTO `northpark`.`bc_knowledge_test`(`id`, `add_time1`, `add_time2`, `add_time3`) VALUES (00000521735, '2019-07-23 02:37:19', '2019-07-23', '2019-07-23 02:37:19');\r\n" +
 				"";
 		
 		

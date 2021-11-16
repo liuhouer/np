@@ -255,7 +255,7 @@ public class BC_Constant {
         ;
         // 成员变量
         private String name;
-        private String tagCode;
+        private String tag_code;
         private String tag;
 
         // 构造方法
@@ -263,9 +263,9 @@ public class BC_Constant {
             this.name = name;
         }
 
-        private HEMA_BT(String name, String tagCode, String tag) {
+        private HEMA_BT(String name, String tag_code, String tag) {
             this.name = name;
-            this.tagCode = tagCode;
+            this.tag_code = tag_code;
             this.tag = tag;
         }
 
@@ -273,8 +273,8 @@ public class BC_Constant {
             return name;
         }
 
-        public String getTagCode() {
-            return tagCode;
+        public String gettag_code() {
+            return tag_code;
         }
 
         public String getTag() {

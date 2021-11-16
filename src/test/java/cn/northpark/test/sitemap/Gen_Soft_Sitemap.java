@@ -30,12 +30,12 @@ public class Gen_Soft_Sitemap extends BaseTest {
 
         //添加新url的sitemap
         StringBuilder sb = new StringBuilder();
-        List<Map<String, Object>> list = softManager.querySqlMap(" select retcode from bc_soft where id > " + lastNum + " order by id desc ");
+        List<Map<String, Object>> list = softManager.querySqlMap(" select ret_code from bc_soft where id > " + lastNum + " order by id desc ");
         for (Map<String, Object> map : list) {
-            String retcode = (String) map.get("retcode");
+            String ret_code = (String) map.get("ret_code");
             sb.append("<url>");
             sb.append("<loc>https://northpark.cn/soft/");
-            sb.append(retcode + ".html</loc>");
+            sb.append(ret_code + ".html</loc>");
             sb.append("</url>");
         }
 

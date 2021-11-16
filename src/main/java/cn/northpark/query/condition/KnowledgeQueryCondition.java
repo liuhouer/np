@@ -43,7 +43,7 @@ public class KnowledgeQueryCondition implements Serializable {
 	private String tags_code;
   
 
-	private String returl;
+	private String ret_url;
   
 
 	private String path;
@@ -128,11 +128,11 @@ public class KnowledgeQueryCondition implements Serializable {
 		this.tags_code = tags_code;
 	}
 	public String getReturl() {
-		return returl;	
+		return ret_url;
 	}
 	
-	public void setReturl(String returl) {
-		this.returl = returl;
+	public void setReturl(String ret_url) {
+		this.ret_url = ret_url;
 	}
 	public String getPath() {
 		return path;	

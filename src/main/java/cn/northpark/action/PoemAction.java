@@ -199,13 +199,13 @@ public class PoemAction {
      * 按照朝代计算
      *
      * @param map
-     * @param tagscode
+     * @param tags_code
      * @param request
      * @return
      */
-    @RequestMapping("/dynasty/{tagscode}")
-    public String tagsearch(ModelMap map, @PathVariable String tagscode, HttpServletRequest request) {
-        String rs = "redirect:/poem/dynasty/" + tagscode + "/page/1";
+    @RequestMapping("/dynasty/{tags_code}")
+    public String tagsearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
+        String rs = "redirect:/poem/dynasty/" + tags_code + "/page/1";
         return rs;
     }
 
@@ -213,20 +213,20 @@ public class PoemAction {
      * 按照朝代分页计算
      *
      * @param map
-     * @param tagscode
+     * @param tags_code
      * @param request
      * @return
      */
-    @RequestMapping(value = "/dynasty/{tagscode}/page/{page}")
-    public String tagsearchpage(ModelMap map, @PathVariable String page, @PathVariable String tagscode, HttpServletRequest request,
+    @RequestMapping(value = "/dynasty/{tags_code}/page/{page}")
+    public String tagsearchpage(ModelMap map, @PathVariable String page, @PathVariable String tags_code, HttpServletRequest request,
                                 HttpServletResponse response, HttpSession session) throws IOException {
 
         String result = "/poem";
         //防止sql注入
-        tagscode = WAQ.forSQL().escapeSql(tagscode);
-        String whereSql = " where years_code = '" + tagscode + "' ";
+        tags_code = WAQ.forSQL().escapeSql(tags_code);
+        String whereSql = " where years_code = '" + tags_code + "' ";
 
-        map.put("seltag", tagscode);
+        map.put("seltag", tags_code);
 
 
         log.info("sql ---" + whereSql);
@@ -244,7 +244,7 @@ public class PoemAction {
         p.setQueryResult(qr);
         map.addAttribute("pageView", p);
         map.addAttribute("list", resultlist);
-        map.addAttribute("actionUrl", "/poem/dynasty/" + tagscode);
+        map.addAttribute("actionUrl", "/poem/dynasty/" + tags_code);
 
 
         return result;
@@ -255,13 +255,13 @@ public class PoemAction {
      * 按照诗词类型计算
      *
      * @param map
-     * @param tagscode
+     * @param tags_code
      * @param request
      * @return
      */
-    @RequestMapping("/types/{tagscode}")
-    public String typessearch(ModelMap map, @PathVariable String tagscode, HttpServletRequest request) {
-        String rs = "redirect:/poem/types/" + tagscode + "/page/1";
+    @RequestMapping("/types/{tags_code}")
+    public String typessearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
+        String rs = "redirect:/poem/types/" + tags_code + "/page/1";
         return rs;
     }
 
@@ -273,16 +273,16 @@ public class PoemAction {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/types/{tagscode}/page/{page}")
-    public String typessearchpage(ModelMap map, @PathVariable String page, @PathVariable String tagscode, HttpServletRequest request,
+    @RequestMapping(value = "/types/{tags_code}/page/{page}")
+    public String typessearchpage(ModelMap map, @PathVariable String page, @PathVariable String tags_code, HttpServletRequest request,
                                   HttpServletResponse response, HttpSession session) throws IOException {
 
         String result = "/poem";
         //防止sql注入
-        tagscode = WAQ.forSQL().escapeSql(tagscode);
-        String whereSql = " where types_code = '" + tagscode + "' ";
+        tags_code = WAQ.forSQL().escapeSql(tags_code);
+        String whereSql = " where types_code = '" + tags_code + "' ";
 
-        map.put("seltag", tagscode);
+        map.put("seltag", tags_code);
 
 
         log.info("sql ---" + whereSql);
@@ -300,7 +300,7 @@ public class PoemAction {
         p.setQueryResult(qr);
         map.addAttribute("pageView", p);
         map.addAttribute("list", resultlist);
-        map.addAttribute("actionUrl", "/poem/types/" + tagscode);
+        map.addAttribute("actionUrl", "/poem/types/" + tags_code);
 
 
         return result;

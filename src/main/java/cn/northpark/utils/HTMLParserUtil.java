@@ -446,14 +446,14 @@ public class HTMLParserUtil {
 //
 //
 //                // 生成码
-//                String retcode = EnDecryptUtils.md5Encrypt(title);
+//                String ret_code = EnDecryptUtils.md5Encrypt(title);
 //
 //                map.put("title", title);
 //                map.put("aurl", aurl);
 //                map.put("brief", brief);
 //                map.put("date", date);
 //                map.put("article", article);
-//                map.put("retcode", retcode);
+//                map.put("ret_code", ret_code);
 //
 //
 //                log.info(title + "\t\r" + aurl + "\t\r" + "\t\r" + brief + "\t\r" + article + "\t\r" + date + "-----------------");
@@ -559,14 +559,14 @@ public class HTMLParserUtil {
 
 
                 // 生成码
-                String retcode = EnDecryptUtils.md5Encrypt(title);
+                String ret_code = EnDecryptUtils.md5Encrypt(title);
 
                 map.put("title", title);
                 map.put("aurl", aurl);
                 map.put("brief", brief);
                 map.put("date", date);
                 map.put("article", article);
-                map.put("retcode", retcode);
+                map.put("ret_code", ret_code);
 
 
                 log.info(title + "\t\r" + aurl + "\t\r" + "\t\r" + brief + "\t\r" + article + "\t\r" + date + "-----------------");
@@ -624,7 +624,7 @@ public class HTMLParserUtil {
 //                    //判断code在系统不存在再去处理后面的事
 //
 //                    SoftManager softManager = (SoftManager) SpringContextUtils.getBean("SoftManager");
-//                    int flag = softManager.countHql(" where o.retcode= '" + code + "' ");
+//                    int flag = softManager.countHql(" where o.ret_code= '" + code + "' ");
 //
 //                    if (flag <= 0) {
 //
@@ -646,36 +646,36 @@ public class HTMLParserUtil {
 //
 //                        log.info("tag====================" + tag);
 //                        //计算标签编码、
-//                        String tagcode = "005";
+//                        String tag_code = "005";
 //                        if (tag.contains("应用")) {
-//                            tagcode = "001";
+//                            tag_code = "001";
 //                            tag = "系统、应用软件";
 //                        } else if (tag.contains("开发")) {
-//                            tagcode = "002";
+//                            tag_code = "002";
 //                            tag = "开发、设计软件";
 //                        } else if (tag.contains("媒体")) {
-//                            tagcode = "003";
+//                            tag_code = "003";
 //                            tag = "媒体软件";
 //                        } else if (tag.contains("安全")) {
-//                            tagcode = "004";
+//                            tag_code = "004";
 //                            tag = "网络、安全软件";
 //                        } else if (tag.contains("其他")) {
-//                            tagcode = "005";
+//                            tag_code = "005";
 //                            tag = "其他软件";
 //                        } else if (tag.contains("游戏")) {
-//                            tagcode = "006";
+//                            tag_code = "006";
 //                            tag = "游戏一箩筐";
 //                        } else if (tag.contains("限时免费")) {
-//                            tagcode = "007";
+//                            tag_code = "007";
 //                            tag = "限免软件";
 //                        } else if (tag.contains("疑难")) {
-//                            tagcode = "008";
+//                            tag_code = "008";
 //                            tag = "疑难杂症";
 //                        } else {
-//                            tagcode = "005";
+//                            tag_code = "005";
 //                            tag = "其他软件";
 //                        }
-//                        log.info("tagcode====================" + tagcode);
+//                        log.info("tag_code====================" + tag_code);
 //
 //                        //日期
 //                        Elements dates = article.select("time[class=entry-date]");
@@ -796,7 +796,7 @@ public class HTMLParserUtil {
 //                        map.put("os", "mac");
 //                        map.put("month", month);
 //                        map.put("year", year);
-//                        map.put("tagcode", tagcode);
+//                        map.put("tag_code", tag_code);
 //                        list.add(map);
 //
 //                    }
@@ -861,7 +861,7 @@ public class HTMLParserUtil {
                     //日期
                     String date = "";
                     try {
-                        date = parse.select("em.meta-postdate").get(0).text();
+                        date = parse.select("em.meta-post_date").get(0).text();
 
                     } catch (Exception e2) {
                         // TODO: handle exception
@@ -926,36 +926,36 @@ public class HTMLParserUtil {
 
 
                     //计算标签编码、
-                    String tagcode = "005";
+                    String tag_code = "005";
                     if (tag.contains("应用") || tag.contains("系统")) {
-                        tagcode = "001";
+                        tag_code = "001";
                         tag = "系统、应用软件";
                     } else if (tag.contains("开发") || tag.contains("设计")) {
-                        tagcode = "002";
+                        tag_code = "002";
                         tag = "开发、设计软件";
                     } else if (tag.contains("媒体")) {
-                        tagcode = "003";
+                        tag_code = "003";
                         tag = "媒体软件";
                     } else if (tag.contains("安全") || tag.contains("网络")) {
-                        tagcode = "004";
+                        tag_code = "004";
                         tag = "网络、安全软件";
                     } else if (tag.contains("其他")) {
-                        tagcode = "005";
+                        tag_code = "005";
                         tag = "其他软件";
                     } else if (tag.contains("游戏")) {
-                        tagcode = "006";
+                        tag_code = "006";
                         tag = "游戏一箩筐";
                     } else if (tag.contains("限时免费")) {
-                        tagcode = "007";
+                        tag_code = "007";
                         tag = "限免软件";
                     } else if (tag.contains("疑难")) {
-                        tagcode = "008";
+                        tag_code = "008";
                         tag = "疑难杂症";
                     } else {
-                        tagcode = "005";
+                        tag_code = "005";
                         tag = "其他软件";
                     }
-                    log.info("tagcode====================" + tagcode);
+                    log.info("tag_code====================" + tag_code);
 
                     //正文
                     String article = "";
@@ -1094,7 +1094,7 @@ public class HTMLParserUtil {
                     map.put("os", "mac");
                     map.put("month", month);
                     map.put("year", year);
-                    map.put("tagcode", tagcode);
+                    map.put("tag_code", tag_code);
                     map.put("path", path);
                     list.add(map);
 
@@ -1201,36 +1201,36 @@ public class HTMLParserUtil {
                         log.error("div.hot-tags不包含tag标签，请检查文本内容");
                     }
                     //计算标签编码、
-                    String tagcode = "005";
+                    String tag_code = "005";
                     if (tag.contains("应用") || tag.contains("系统")) {
-                        tagcode = "001";
+                        tag_code = "001";
                         tag = "系统、应用软件";
                     } else if (tag.contains("开发") || tag.contains("设计")) {
-                        tagcode = "002";
+                        tag_code = "002";
                         tag = "开发、设计软件";
                     } else if (tag.contains("媒体")) {
-                        tagcode = "003";
+                        tag_code = "003";
                         tag = "媒体软件";
                     } else if (tag.contains("安全") || tag.contains("网络")) {
-                        tagcode = "004";
+                        tag_code = "004";
                         tag = "网络、安全软件";
                     } else if (tag.contains("其他")) {
-                        tagcode = "005";
+                        tag_code = "005";
                         tag = "其他软件";
                     } else if (tag.contains("游戏")) {
-                        tagcode = "006";
+                        tag_code = "006";
                         tag = "游戏一箩筐";
                     } else if (tag.contains("限时免费")) {
-                        tagcode = "007";
+                        tag_code = "007";
                         tag = "限免软件";
                     } else if (tag.contains("疑难")) {
-                        tagcode = "008";
+                        tag_code = "008";
                         tag = "疑难杂症";
                     } else {
-                        tagcode = "005";
+                        tag_code = "005";
                         tag = "其他软件";
                     }
-                    log.info("tagcode====================" + tagcode);
+                    log.info("tag_code====================" + tag_code);
                     //标签===================================================================================================
 
 
@@ -1362,7 +1362,7 @@ public class HTMLParserUtil {
                     map.put("os", "mac");
                     map.put("month", month);
                     map.put("year", year);
-                    map.put("tagcode", tagcode);
+                    map.put("tag_code", tag_code);
                     map.put("path", path);
                     list.add(map);
 
@@ -1458,11 +1458,11 @@ public class HTMLParserUtil {
                         for (Element info_li : info_lis) {
                             String html = info_li.html();
                             if(html.contains("<h3")){
-                                String retcode = EnDecryptUtils.md5Encrypt(title);
+                                String ret_code = EnDecryptUtils.md5Encrypt(title);
 
-                                map.put("retcode", retcode);
+                                map.put("ret_code", ret_code);
 
-                                logo_p = "<p><img class=\"aligncenter size-full wp-image-" + retcode + "\" title=\"" + title + "\" alt=\"" + title + "\" " +
+                                logo_p = "<p><img class=\"aligncenter size-full wp-image-" + ret_code + "\" title=\"" + title + "\" alt=\"" + title + "\" " +
                                         "src=\"/" +
                                         pic2Disk.get("trimPan") + "\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\">"
                                 +"</p><p></p>";
@@ -1470,12 +1470,12 @@ public class HTMLParserUtil {
 
                             }else if(html.contains("地区")){
                                 String tag = info_li.text().replace("地区：", "");
-                                String tagcode = PinyinUtil.paraseStringToPinyin(tag).toLowerCase();
+                                String tag_code = PinyinUtil.paraseStringToPinyin(tag).toLowerCase();
                                 tag = tag  + bt_type.getTag();
-                                tagcode = tagcode  + bt_type.getTagCode();
+                                tag_code = tag_code  + bt_type.gettag_code();
 
                                 map.put("tag", tag);
-                                map.put("tagcode", tagcode);
+                                map.put("tag_code", tag_code);
                             }
                         }
                     }
@@ -1555,7 +1555,7 @@ public class HTMLParserUtil {
 
                     String title = li.select("h3.dytit").get(0).text();
 
-                    String retcode = EnDecryptUtils.md5Encrypt(title);
+                    String ret_code = EnDecryptUtils.md5Encrypt(title);
 
                     String path = "";
 
@@ -1565,7 +1565,7 @@ public class HTMLParserUtil {
                     //判断code在系统不存在再去处理后面的事
 
 //                    MoviesManager moviesManager = (MoviesManager) SpringContextUtils.getBean("MoviesManager");
-//                    int flag = moviesManager.countHql(" where o.retcode= '" + retcode + "' ");
+//                    int flag = moviesManager.countHql(" where o.ret_code= '" + ret_code + "' ");
 
 //                    if (flag <= 0) {
 
@@ -1684,13 +1684,13 @@ public class HTMLParserUtil {
                         tag = sb_tag_str.substring(0, sb_tag_str.length() - 1);
                         System.out.println(tag);
                     }
-                    String tagcode = "";
+                    String tag_code = "";
                     try {
 
-                        tagcode = PinyinUtil.paraseStringToPinyin(tag).toLowerCase();
+                        tag_code = PinyinUtil.paraseStringToPinyin(tag).toLowerCase();
                     } catch (Exception e) {
                         // TODO: handle exception
-                        tagcode = "";
+                        tag_code = "";
                     }
 
 
@@ -1722,16 +1722,16 @@ public class HTMLParserUtil {
                     log.info("aurl==============>" + aurl);
                     log.info("date==============>" + date);
                     log.info("tag==============>" + tag);
-                    log.info("tagcode==============>" + tagcode);
+                    log.info("tag_code==============>" + tag_code);
                     log.info("desc==============>" + desc);
 
                     map.put("title", title);
                     map.put("aurl", aurl);
                     map.put("date", date);
                     map.put("article", desc);
-                    map.put("retcode", retcode);
+                    map.put("ret_code", ret_code);
                     map.put("tag", tag);
-                    map.put("tagcode", tagcode);
+                    map.put("tag_code", tag_code);
                     map.put("path", path);
                     list.add(map);
                 }
@@ -1779,7 +1779,7 @@ public class HTMLParserUtil {
                     //标题
                     String title = li.select("div.pure-u-19-24 > div > h2 >a").get(0).attr("title");
 
-                    String retcode = EnDecryptUtils.md5Encrypt(title);
+                    String ret_code = EnDecryptUtils.md5Encrypt(title);
 
                     String path = "";
 
@@ -1893,13 +1893,13 @@ public class HTMLParserUtil {
                         tag = sb_tag_str.substring(0, sb_tag_str.length() - 1);
                         System.out.println(tag);
                     }
-                    String tagcode = "";
+                    String tag_code = "";
                     try {
 
-                        tagcode = PinyinUtil.paraseStringToPinyin(tag).toLowerCase();
+                        tag_code = PinyinUtil.paraseStringToPinyin(tag).toLowerCase();
                     } catch (Exception e) {
                         // TODO: handle exception
-                        tagcode = "";
+                        tag_code = "";
                     }
 
 
@@ -1920,16 +1920,16 @@ public class HTMLParserUtil {
                     log.info("aurl==============>" + aurl);
                     log.info("date==============>" + date);
                     log.info("tag==============>" + tag);
-                    log.info("tagcode==============>" + tagcode);
+                    log.info("tag_code==============>" + tag_code);
                     log.info("desc==============>" + desc);
 
                     map.put("title", title);
                     map.put("aurl", aurl);
                     map.put("date", date);
                     map.put("article", desc);
-                    map.put("retcode", retcode);
+                    map.put("ret_code", ret_code);
                     map.put("tag", tag);
-                    map.put("tagcode", tagcode);
+                    map.put("tag_code", tag_code);
                     map.put("path", path);
                     System.err.println("path--->"+path);
                     list.add(map);
@@ -2184,7 +2184,7 @@ public class HTMLParserUtil {
 
 
                     //生成代码
-                    String retcode = EnDecryptUtils.md5Encrypt(title + types + author + detail_url);
+                    String ret_code = EnDecryptUtils.md5Encrypt(title + types + author + detail_url);
 
 
                     log.info("title==============>" + title);
@@ -2274,7 +2274,7 @@ public class HTMLParserUtil {
                     map.put("types", types);
                     map.put("enjoys", enjoys);
                     map.put("pic_poem", pic_poem);
-                    map.put("retcode", retcode);
+                    map.put("ret_code", ret_code);
                     map.put("content1", content1);
 
                     list.add(map);
@@ -2536,7 +2536,7 @@ public class HTMLParserUtil {
     }
 
 
-    public static int geneViewNum() {
+    public static int geneview_num() {
         int max = 59000;
         int min = 1000;
         Random random = new Random();
