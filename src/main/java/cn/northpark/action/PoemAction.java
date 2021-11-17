@@ -69,9 +69,9 @@ public class PoemAction {
         }
 
         //查询标签
-        List<Tags> years_tag = tagManager.findByCondition(" where tagtype = 2 ").getResultlist();
+        List<Tags> years_tag = tagManager.findByCondition(" where tag_type = 2 ").getResultlist();
 
-        List<Tags> types_tag = tagManager.findByCondition(" where tagtype = 3 ").getResultlist();
+        List<Tags> types_tag = tagManager.findByCondition(" where tag_type = 3 ").getResultlist();
 
         request.getSession().setAttribute("years_tag", years_tag);
         request.getSession().setAttribute("types_tag", types_tag);
