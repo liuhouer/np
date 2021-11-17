@@ -52,7 +52,7 @@ public class Poem implements Serializable {
     private String content;
 
     @Column(length = 255)
-    private String createtime;
+    private String create_time;
 
     @Column(length = 0)
     private String enjoys;

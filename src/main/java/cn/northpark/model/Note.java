@@ -32,7 +32,7 @@ public class Note implements Serializable {
     private String opened;
 
     @Column(length = 255)
-    private String createtime;
+    private String create_time;
 
     @Column()
     private Integer userid;

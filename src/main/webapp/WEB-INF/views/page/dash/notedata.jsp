@@ -62,7 +62,7 @@
                                         ${s.username }
                                 </h6>
                                 <h6 class="gray-text">
-                                        ${s.createtime }
+                                        ${s.create_time }
                                 </h6>
                             </div>
                         </li>

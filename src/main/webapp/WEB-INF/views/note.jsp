@@ -83,7 +83,7 @@
 
                 <div class='row bg-white margin-t10 margin-b10' id='notebox_${s.id }'>
                     <div class='col-sm-1'>
-                        <small class='label label-gray'>${s.createtime }</small>
+                        <small class='label label-gray'>${s.create_time }</small>
                     </div>
                     <div class='col-sm-11'>
                         <label class='btn btn-gray btn-xs pull-right delNoteBtn1' rel='${s.id }'

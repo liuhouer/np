@@ -346,8 +346,8 @@ public class DashAction {
 
             //时间处理
             notelist.forEach(item -> {
-                String createtime = (String) item.get("createtime");
-                if (StringUtils.isNotEmpty(createtime)) item.put("createtime", TimeUtils.getHalfDate(createtime));
+                String create_time = (String) item.get("create_time");
+                if (StringUtils.isNotEmpty(create_time)) item.put("create_time", TimeUtils.getHalfDate(create_time));
             });
 
             RedisUtil.getInstance().set("home_notelist", JsonUtil.object2json(notelist), 24 * 60 * 60);

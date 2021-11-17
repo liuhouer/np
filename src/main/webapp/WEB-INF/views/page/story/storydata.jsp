@@ -47,7 +47,7 @@
 
                     <div class="col-sm-9">
                         <p>
-                            <small class="label label-gray">${s.createtime }</small> &nbsp; <a
+                            <small class="label label-gray">${s.create_time }</small> &nbsp; <a
 
                                 <c:if test="${s.tail_slug==null ||s.tail_slug==''}">
                                     href="/cm/detail/${s.userid}"
