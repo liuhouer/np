@@ -630,16 +630,16 @@ public class TestEQTask {
         // for (int i = 0; i < astrolist.size(); i++) {
         // Astro astro = astrolist.get(i);
         // String wx_cop_userid = astro.getWx_cop_userid();
-        // String xzname = astro.getXzname();
+        // String xz_name = astro.getxz_name();
         //
-        // JSONObject json = WXTokenUtil.getXZYS(xzname, "today");
+        // JSONObject json = WXTokenUtil.getXZYS(xz_name, "today");
         //
         // // 调取凭证
         // String access_token = WeixinQyhUtil.getAccessToken(ParamesAPI.corpId,
         // ParamesAPI.secret).getToken();
         //
         // StringBuffer buffer = new StringBuffer();
-        // buffer.append("\ue423").append(xzname).append("\ue31f").append("\n\n");
+        // buffer.append("\ue423").append(xz_name).append("\ue31f").append("\n\n");
         // buffer.append("\ue21c").append(TimeUtils.nowdate()).append("\n");
         // buffer.append("\ue21d 综合运势:").append(json.get("summary")).append("\n");
         // buffer.append("\ue21e 贵人星座:").append(json.get("QFriend")).append("\n");

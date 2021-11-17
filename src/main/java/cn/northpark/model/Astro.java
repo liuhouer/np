@@ -39,7 +39,7 @@ public class Astro implements Serializable {
     private String wx_cop_userid;
 
     @Column(length = 255)
-    private String xzname;
+    private String xz_name;
 
     @Column(length = 255)
     private String add_time;
