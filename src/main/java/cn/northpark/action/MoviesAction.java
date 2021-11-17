@@ -736,7 +736,7 @@ public class MoviesAction {
         if (CollectionUtils.isEmpty(tags) && CollectionUtils.isEmpty(movies_hot_list)) {
             //获取标签
 
-            tags = tagsManager.findByCondition(" where tagtype = '1' ").getResultlist();
+            tags = tagsManager.findByCondition(" where tag_type = '1' ").getResultlist();
 
             //获取热门电影
             String hotsql = "select id,movie_name,color from bc_movies order by rand() desc limit 0,70";

@@ -396,7 +396,7 @@ public class KnowledgeAction {
 		if (CollectionUtils.isEmpty(tags) && CollectionUtils.isEmpty(learn_hot_list)) {
 			//获取标签
 
-			tags = tagsManager.findByCondition(" where tagtype = '4' ").getResultlist();
+			tags = tagsManager.findByCondition(" where tag_type = '4' ").getResultlist();
 
 			//获取热门学习
 			String hotsql = "select id,title,color from bc_knowledge where tags_code like '%classhare%' order by rand() desc limit 0,50";
