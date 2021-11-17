@@ -50,7 +50,7 @@ public class TransforSQ2Disk {
         //2 jsoup处理图片
         if(!CollectionUtils.isEmpty(movies)){
             for (Movies movie : movies) {
-                String desc = movie.getDescription();
+                String desc = movie.getMovie_desc();
                 Document parse = Jsoup.parse(desc);
                 Elements imgs = parse.select("img");
 
@@ -64,7 +64,7 @@ public class TransforSQ2Disk {
 
 
                 }
-                movie.setDescription(parse.html());
+                movie.setMovie_desc(parse.html());
 
                 moviesManager.updateMovies(movie);
 

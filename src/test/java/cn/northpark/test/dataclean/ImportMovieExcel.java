@@ -105,13 +105,13 @@ public class ImportMovieExcel {
 
             Movies model = new Movies();
             model.setMovie_name(cn_title);
-            model.setadd_time("2020-12-26");
-            model.setDescription("<p>" + cn_title + "</p>" );
+            model.setAdd_time("2020-12-26");
+            model.setMovie_desc("<p>" + cn_title + "</p>" );
             model.setPrice(1);
-            model.setret_code(ret_code);
+            model.setRet_code(ret_code);
             model.setTag(tag);
-            model.settag_code(tag_code);
-            model.setview_num(HTMLParserUtil.geneview_num());
+            model.setTag_code(tag_code);
+            model.setView_num(HTMLParserUtil.geneview_num());
             model.setColor(PinyinUtil.getFirstChar(PinyinUtil.paraseStringToPinyin(cn_title)));
             model.setPath(path);
             moviesManager.addMovies(model);
