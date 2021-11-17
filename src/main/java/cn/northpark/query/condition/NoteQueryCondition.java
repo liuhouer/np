@@ -24,7 +24,7 @@ public class NoteQueryCondition implements Serializable {
     private String opened;
 
 
-    private String createtime;
+    private String create_time;
 
 
     private String userid;

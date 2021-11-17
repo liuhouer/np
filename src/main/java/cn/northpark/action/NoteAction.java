@@ -70,7 +70,7 @@ public class NoteAction {
             if (StringUtils.isEmpty(note.getOpened())) {
                 note.setOpened("yes");
             }
-            note.setCreatetime(TimeUtils.nowTime());
+            note.setCreate_time(TimeUtils.nowTime());
 
             //处理笔记和介绍
             String note_ = note.getNote();
@@ -161,7 +161,7 @@ public class NoteAction {
 
 
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
-        order.put("createtime", "desc");
+        order.put("create_time", "desc");
 
         QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,
                 whereSql, order);
@@ -169,9 +169,9 @@ public class NoteAction {
         List<Note> list = qrs.getResultlist();
 
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getCreatetime().contains("-")) {
-                String t = list.get(i).getCreatetime().substring(0, 10);
-                list.get(i).setCreatetime(t);
+            if (list.get(i).getCreate_time().contains("-")) {
+                String t = list.get(i).getCreate_time().substring(0, 10);
+                list.get(i).setCreate_time(t);
             }
         }
         //触发分页计算
@@ -237,7 +237,7 @@ public class NoteAction {
         PageView<Note> pageview = new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT);
 
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
-        order.put("createtime", "desc");
+        order.put("create_time", "desc");
 
         QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,
                 whereSql, order);
@@ -247,9 +247,9 @@ public class NoteAction {
 
         List<Note> list = qrs.getResultlist();
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getCreatetime().contains("-")) {
-                String t = list.get(i).getCreatetime().substring(0, 10);
-                list.get(i).setCreatetime(t);
+            if (list.get(i).getCreate_time().contains("-")) {
+                String t = list.get(i).getCreate_time().substring(0, 10);
+                list.get(i).setCreate_time(t);
             }
         }
 
@@ -372,11 +372,11 @@ public class NoteAction {
 
         for (int i = 0; i < list.size(); i++) {
             //时间处理
-            String createtime = (String) list.get(i).get("createtime"); //e:/yunlu/upload/1399976848969.jpg
-            if (StringUtils.isNotEmpty(createtime)) {
-                createtime = TimeUtils.getHalfDate(createtime);
+            String create_time = (String) list.get(i).get("create_time"); //e:/yunlu/upload/1399976848969.jpg
+            if (StringUtils.isNotEmpty(create_time)) {
+                create_time = TimeUtils.getHalfDate(create_time);
             }
-            list.get(i).put("createtime", createtime);
+            list.get(i).put("create_time", create_time);
 
         }
 
