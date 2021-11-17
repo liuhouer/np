@@ -688,17 +688,17 @@ public class TestEQTask {
         // for (int i = 0; i < lift.size(); i++) {
         ////
         // String title = lift.get(i).get("title");
-        // String titlecode = lift.get(i).get("titlecode");
-        // String albumImg = lift.get(i).get("albumImg");
+        // String title_code = lift.get(i).get("title_code");
+        // String album_img = lift.get(i).get("album_img");
         // String zan = lift.get(i).get("zan");
         // String pl = lift.get(i).get("pl");
         //
         // Lyrics model = new Lyrics();
         // model.setTitle(title);
-        // model.setAlbumImg(albumImg);
+        // model.setAlbumImg(album_img);
         // model.setPl(Integer.parseInt(pl.replaceAll(" ", "")));
         // model.setZan(Integer.parseInt(zan.replaceAll(" ", "")));
-        // model.setTitlecode(titlecode);
+        // model.setTitlecode(title_code);
         // lyricsManager.addLyrics(model);
         //
         // }
@@ -721,16 +721,16 @@ public class TestEQTask {
 
         // 插入最爱主题的用户
 
-        // String sql = "select id,titlecode from bc_lyrics where updatedate is null
+        // String sql = "select id,title_code from bc_lyrics where update_date is null
         // order by id desc limit 4593,5000 ";
         //
         // List<Map<String, Object>> list = lyricsManager.querySqlMap(sql);
         //
         // for (Map<String, Object> m:list) {
         // Integer lyricsid = (Integer) m.get("id");
-        // String titlecode = (String) m.get("titlecode");
+        // String title_code = (String) m.get("title_code");
         // try {
-        // Map<String, String> retCaiMaiZT = HTMLParserUtil.retCaiMaiZT(titlecode);
+        // Map<String, String> retCaiMaiZT = HTMLParserUtil.retCaiMaiZT(title_code);
         //
         // String username = retCaiMaiZT.get("username" );
         // String tailslug = retCaiMaiZT.get("tailslug" );
@@ -819,16 +819,16 @@ public class TestEQTask {
 
         // 插入最爱主题的点赞用户
 
-        // String sql = "select id,titlecode from bc_lyrics where updatedate is null
+        // String sql = "select id,title_code from bc_lyrics where update_date is null
         // order by id desc ";
         //
         // List<Map<String, Object>> list = lyricsManager.querySqlMap(sql);
         //
         // for (Map<String, Object> m:list) {
         // Integer lyricsid = (Integer) m.get("id");
-        // String titlecode = (String) m.get("titlecode");
+        // String title_code = (String) m.get("title_code");
         // try {
-        // String retCaiMaiZAN = HTMLParserUtil.retCaiMaiZT_ZAN(titlecode);
+        // String retCaiMaiZAN = HTMLParserUtil.retCaiMaiZT_ZAN(title_code);
         //
         // //拼接sql 查询userid列表；
         // String sql2 = "select id from bc_user where tail_slug in ("+retCaiMaiZAN+")";
@@ -896,7 +896,7 @@ public class TestEQTask {
         // 插入醉爱主题评论信息
         // try {
         //
-        // String sql = "select id,titlecode from bc_lyrics where updatedate is null
+        // String sql = "select id,title_code from bc_lyrics where update_date is null
         // order by id desc limit 4000,6000";
         //
         // List<Map<String, Object>> list = lyricsManager.querySqlMap(sql);
@@ -908,15 +908,15 @@ public class TestEQTask {
         // //把所有需要执行的放进线程池中
         // for (Map<String, Object> m:list) {
         // Integer lyricsid = (Integer) m.get("id");
-        // String titlecode = (String) m.get("titlecode");
+        // String title_code = (String) m.get("title_code");
         //
         // try {
         //
         //
-        // System.out.println("titlecode------------->"+titlecode);
+        // System.out.println("title_code------------->"+title_code);
         //
         // List<Map<String, String>> retCaiMaiZT_PL =
-        // HTMLParserUtil.retCaiMaiZT_PL(titlecode);
+        // HTMLParserUtil.retCaiMaiZT_PL(title_code);
         //
         // for (int i = 0; i < retCaiMaiZT_PL.size(); i++) {
         // String username = retCaiMaiZT_PL.get(i).get("username");
@@ -1020,7 +1020,7 @@ public class TestEQTask {
         // 更新网络图片 替换主题为空的图片
         // try {
         //
-        // String sql = "select * from bc_lyrics where albumImg ='' order by updatedate
+        // String sql = "select * from bc_lyrics where album_img ='' order by update_date
         // desc";
         //
         // List<Lyrics> list = lyricsManager.querySql(sql);
@@ -1033,9 +1033,9 @@ public class TestEQTask {
         // for (Lyrics m:list) {
         // try {
         // String title = m.getTitle();
-        // String titlecode = m.getTitlecode();
+        // String title_code = m.getTitlecode();
         // System.out.println(title);
-        // String retPicByName = HTMLParserUtil.retPicByName(title, titlecode);
+        // String retPicByName = HTMLParserUtil.retPicByName(title, title_code);
         //
         // m.setAlbumImg(retPicByName);
         //

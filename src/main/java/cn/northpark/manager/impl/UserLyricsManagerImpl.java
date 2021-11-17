@@ -68,7 +68,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
     @Override
     public List<Map<String, Object>> getMixMapData(PageView<List<Map<String, Object>>> pageview, String userid) {
-        String sql = " select a.id,a.title,a.titlecode,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
+        String sql = " select a.id,a.title,a.title_code,a.update_date,a.album_img,a.zan,a.pl,c.id as userid,c.username,c.email,  "
 
                 + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '" + userid + "' )> 0 "
                 + " then 'yizan' "
@@ -78,7 +78,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
                 + "from bc_lyrics a join bc_user_lyrics b on a.id = b.lyricsid join bc_user c on c.id = b.userid ";
 
-        sql += " order by a.updatedate desc";
+        sql += " order by a.update_date desc";
 
         List<Map<String, Object>> list = userlyricsDao.querySQLForMapList(sql, pageview);
         return list;
@@ -89,7 +89,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
     @Override
     public String getRandSql() {
-        String sql = " select a.id,a.title,a.titlecode,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
+        String sql = " select a.id,a.title,a.title_code,a.update_date,a.album_img,a.zan,a.pl,c.id as userid,c.username,c.email,  "
 
                 + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '' )> 0 "
                 + " then 'yizan' "
@@ -112,7 +112,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
     @Override
     public PageView<List<Map<String, Object>>> getMixMapPage(
             PageView<List<Map<String, Object>>> pageview, String userid) {
-        String sql = " select a.id,a.title,a.titlecode,a.updatedate,a.albumImg,a.zan,a.pl,c.id as userid,c.username,c.email,  "
+        String sql = " select a.id,a.title,a.title_code,a.update_date,a.album_img,a.zan,a.pl,c.id as userid,c.username,c.email,  "
 
                 + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '" + userid + "' )> 0 "
                 + " then 'yizan' "
@@ -122,7 +122,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
                 + "from bc_lyrics a join bc_user_lyrics b on a.id = b.lyricsid join bc_user c on c.id = b.userid ";
 
-        sql += " order by a.updatedate desc";
+        sql += " order by a.update_date desc";
 
         pageview = userlyricsDao.querySQLCountForMapList(sql, pageview);
         return pageview;

@@ -119,11 +119,11 @@ public class LyricsAction {
         //执行上传end
 
         if (filelist.size() > 0) {
-            model.setAlbumImg(filelist.get(0));
+            model.setAlbum_img(filelist.get(0));
         } else {
-            model.setAlbumImg(oldpath);
+            model.setAlbum_img(oldpath);
         }
-        model.setUpdatedate(TimeUtils.nowTime());
+        model.setUpdate_date(TimeUtils.nowTime());
         this.lyricsManager.updateLyrics(model);
 
         return LIST_ACTION2;
@@ -162,11 +162,11 @@ public class LyricsAction {
             }
             model.setTitle(lyricsForm.getTitle());
             model.setLove_date(lyricsForm.getLoveDate());
-            model.setUpdatedate(TimeUtils.nowTime());
-            model.setAlbumImg(albumpath);
+            model.setUpdate_date(TimeUtils.nowTime());
+            model.setAlbum_img(albumpath);
             //处理标题请求名
-            String titlecode = PinyinUtil.paraseStringToFormatPinyin(lyricsForm.getTitle(),BC_Constant.FormatSpilt.hengxian.getNamestr());
-            model.setTitlecode(titlecode);
+            String title_code = PinyinUtil.paraseStringToFormatPinyin(lyricsForm.getTitle(),BC_Constant.FormatSpilt.hengxian.getNamestr());
+            model.setTitle_code(title_code);
             this.lyricsManager.addLyrics(model);
 
             UserLyrics userlyrics = new UserLyrics();
@@ -265,23 +265,23 @@ public class LyricsAction {
      * 最爱主题页面-评论、爱上列表、点赞列表
      *
      * @param request
-     * @param titlecode
+     * @param title_code
      * @param map
      * @param userid
      * @return
      */
-    @RequestMapping("/love/{titlecode}.html")
-    public String comment(HttpServletRequest request, @PathVariable String titlecode, ModelMap map, String userid) {
+    @RequestMapping("/love/{title_code}.html")
+    public String comment(HttpServletRequest request, @PathVariable String title_code, ModelMap map, String userid) {
         String result = "/zancmmet";
 
         //取得歌词/图片的信息 +取得上传者的信息+取得zan的人数+取得评论的条数
         String sqlmap = "SELECT u.tail_slug as by_tail_slug, u.id as by_id, u.username as by_username,"
-                + " lrc.id as lrc_id, lrc.albumImg as lrc_albumImg, lrc.title as lrc_title,lrc.titlecode, "
-                + " lrc.updatedate as lrc_updatedate,lrc.love_date as lrc_love_date, lrc.zan as zanNum, lrc.pl as plNum "
+                + " lrc.id as lrc_id, lrc.album_img as lrc_album_img, lrc.title as lrc_title,lrc.title_code, "
+                + " lrc.update_date as lrc_update_date,lrc.love_date as lrc_love_date, lrc.zan as zanNum, lrc.pl as plNum "
                 + "FROM bc_user_lyrics ul JOIN bc_user u ON ul.userid = u.id "
-                + "join bc_lyrics lrc on lrc.id = ul.lyricsid where lrc.titlecode = ?";
+                + "join bc_lyrics lrc on lrc.id = ul.lyricsid where lrc.title_code = ?";
 
-        List<Map<String, Object>> querySql = userlyricsManager.querySql(sqlmap, titlecode);
+        List<Map<String, Object>> querySql = userlyricsManager.querySql(sqlmap, title_code);
 
         Integer lyricsid = 0;
         if (!CollectionUtils.isEmpty(querySql)) {
@@ -331,7 +331,7 @@ public class LyricsAction {
 		
 		if(CollectionUtils.isEmpty(loveList)) {
 			//取得谁爱上谁的一个列表
-			String sql_2 = "select b.id as userid,b.tail_slug,b.username,b.email,b.head_path,b.head_span,b.head_span_class,c.id as lyricsid,c.title,c.titlecode from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id order by rand() desc limit 0 , 50 ";
+			String sql_2 = "select b.id as userid,b.tail_slug,b.username,b.email,b.head_path,b.head_span,b.head_span_class,c.id as lyricsid,c.title,c.title_code from bc_lyrics_zan a join bc_user b on a.userid = b.id join bc_lyrics c on a.lyricsid = c.id order by rand() desc limit 0 , 50 ";
 			loveList = lyricszanManager.mixSqlQuery(sql_2);
 			if(!CollectionUtils.isEmpty(loveList)) { 
 				RedisUtil.getInstance().set("loveList", JsonUtil.object2json(loveList), 24 * 60 * 60);
@@ -447,8 +447,8 @@ public class LyricsAction {
         		if(StringUtils.isNotEmpty(title)) item.put("cuttitle", HTMLParserUtil.CutString(title, 12));
 
         		//处理日期显示格式
-        		String updatedate = (String) item.get("updatedate");
-        		if (StringUtils.isNotEmpty(updatedate)) item.put("engDate", TimeUtils.parse2EnglishDate(updatedate));
+        		String update_date = (String) item.get("update_date");
+        		if (StringUtils.isNotEmpty(update_date)) item.put("engDate", TimeUtils.parse2EnglishDate(update_date));
         	});
         }
 

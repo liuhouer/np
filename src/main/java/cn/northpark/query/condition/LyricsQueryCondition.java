@@ -19,7 +19,7 @@ public class LyricsQueryCondition implements Serializable {
     private String id;
 
 
-    private String updatedate;
+    private String update_date;
 
 
 }

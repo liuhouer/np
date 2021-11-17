@@ -64,7 +64,7 @@
 
                             <div class="clearfix" style="position:relative">
                                 <div class="clearfix" id="mainThumb"><img class="img-responsive img-full"
-                                                                          src="/bruce/${datamap.lrc_albumImg }"
+                                                                          src="/bruce/${datamap.lrc_album_img }"
                                                                           alt="${ datamap.lrc_title}"></div>
 
                             </div>
@@ -248,7 +248,7 @@
 
                                             title="${z.username }的最爱">${z.username }</a> 爱上了 <a style="color: #45d0c6"
                                                                                                 title="${z.title }"
-                                                                                                href="/love/${z.titlecode }.html">${z.title }</a>
+                                                                                                href="/love/${z.title_code }.html">${z.title }</a>
                                 </div>
                             </div>
                         </c:forEach>

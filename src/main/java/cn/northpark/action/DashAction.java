@@ -386,9 +386,9 @@ public class DashAction {
                     if (StringUtils.isNotEmpty(title)) item.put("cuttitle", HTMLParserUtil.CutString(title, 12));
 
                     //处理日期显示格式
-                    String updatedate = (String) item.get("updatedate");
-                    if (StringUtils.isNotEmpty(updatedate))
-                        item.put("engDate", TimeUtils.parse2EnglishDate(updatedate));
+                    String update_date = (String) item.get("update_date");
+                    if (StringUtils.isNotEmpty(update_date))
+                        item.put("engDate", TimeUtils.parse2EnglishDate(update_date));
                 });
             }
 

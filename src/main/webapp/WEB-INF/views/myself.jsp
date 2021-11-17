@@ -59,7 +59,7 @@
                                 </c:if>
                                 <a
                                         title="${s.title }" class="thumbnail border-0"> <img
-                                        src="/bruce/${s.albumImg }" alt="${s.title }">
+                                        src="/bruce/${s.album_img }" alt="${s.title }">
                                     <p>${s.title }</p>
                                 </a>
                             </div>

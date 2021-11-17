@@ -360,7 +360,7 @@ public class UserAction {
         map.put("MyInfo", user);
 
         //查询个人歌词最爱历史
-        String sql = "select c.love_date,c.id,c.title,c.titlecode,c.albumImg,b.id as userlyricsid " +
+        String sql = "select c.love_date,c.id,c.title,c.title_code,c.album_img,b.id as userlyricsid " +
                 " from  bc_user_lyrics b  join bc_lyrics c on b.lyricsid = c.id " +
                 " where b.userid = ? order by c.love_date desc";
 
@@ -488,9 +488,9 @@ public class UserAction {
 
             //查询个人歌词最爱历史
             String sql = " SELECT t.* from ( " +
-                    " (SELECT '点赞数据' as data_type, d.love_date, c.id, c.title, c.titlecode, c.albumImg FROM bc_lyrics_zan d " +
+                    " (SELECT '点赞数据' as data_type, d.love_date, c.id, c.title, c.title_code, c.album_img FROM bc_lyrics_zan d " +
                     " left join bc_lyrics c on d.lyricsid = c.id WHERE d.userid = ? and c.id is not null ) " +
-                    " union (SELECT '创建数据' as data_type, c.love_date, c.id, c.title, c.titlecode, c.albumImg FROM bc_user_lyrics b " +
+                    " union (SELECT '创建数据' as data_type, c.love_date, c.id, c.title, c.title_code, c.album_img FROM bc_user_lyrics b " +
                     " join bc_lyrics c on b.lyricsid = c.id WHERE b.userid = ? and c.id is not null ) " +
                     " ) as t order by t.data_type desc,t.love_date DESC";
             
@@ -552,9 +552,9 @@ public class UserAction {
 
         //查询个人歌词最爱历史
         String sql = " SELECT t.* from ( " +
-                " (SELECT '点赞数据' as data_type, d.love_date, c.id, c.title, c.titlecode, c.albumImg FROM bc_lyrics_zan d " +
+                " (SELECT '点赞数据' as data_type, d.love_date, c.id, c.title, c.title_code, c.album_img FROM bc_lyrics_zan d " +
                 " left join bc_lyrics c on d.lyricsid = c.id WHERE d.userid = ? and c.id is not null ) " +
-                " union (SELECT '创建数据' as data_type, c.love_date, c.id, c.title, c.titlecode, c.albumImg FROM bc_user_lyrics b " +
+                " union (SELECT '创建数据' as data_type, c.love_date, c.id, c.title, c.title_code, c.album_img FROM bc_user_lyrics b " +
                 " join bc_lyrics c on b.lyricsid = c.id WHERE b.userid = ? and c.id is not null ) " +
                 " ) as t order by t.data_type desc,t.love_date DESC";
 
