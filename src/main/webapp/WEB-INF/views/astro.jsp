@@ -154,7 +154,7 @@
                             <!-- today,tomorrow,week,nextweek,month,year -->
 
                         </div>
-                        <input id="J_xzname" type="hidden" value="${xzname }">
+                        <input id="J_xz_name" type="hidden" value="${xz_name }">
                         <input id="J_type" type="hidden" value="${type }">
                         <input id="J_wx_cop_userid" type="hidden" value="${wx_cop_userid }">
                         <div class="clearfix ">
@@ -208,10 +208,10 @@
         //星座的选择点击事件
         $("#J_ul_astro>li").click(function () {
             $(this).css("background", "#45d0c6").siblings().css("background", "");
-            var xzname = $(this).attr("cname");
-            if (xzname) {
+            var xz_name = $(this).attr("cname");
+            if (xz_name) {
                 //设值
-                $("#J_xzname").val(xzname);
+                $("#J_xz_name").val(xz_name);
             }
 
             //加载数据----
@@ -233,14 +233,14 @@
 
 
         //初始化
-        var xzname = $("#J_xzname").val();
+        var xz_name = $("#J_xz_name").val();
         var type = $("#J_type").val();
 
         //选中星座
-        if (xzname) {
+        if (xz_name) {
             $("#J_ul_astro").find("li").each(function () {
                 var oname = $(this).attr("oid");
-                if (oname == xzname) {
+                if (oname == xz_name) {
                     $(this).css("background", "#45d0c6").siblings().css("background", "");
                 }
             })
@@ -263,12 +263,12 @@
         //定制操作
          $("#J_order_btn").click(function(){
             var wx_cop_userid = $("#J_wx_cop_userid").val();
-			var xzname = $("#J_xzname").val();
+			var xz_name = $("#J_xz_name").val();
 			 $.ajax({
 	             url:"/weixin/bindAstro",
 	             type:"post",
 	             dataType: "json",
-	             data:{"xzname":xzname,"wx_cop_userid":wx_cop_userid},
+	             data:{"xz_name":xz_name,"wx_cop_userid":wx_cop_userid},
 	             success:function(msg){
 	            	 console.log(msg);
 	            	 art.dialog.tips("定制成功");
@@ -283,14 +283,14 @@
 
     //加载数据----
     function getData() {
-        var xzname = $("#J_xzname").val();
+        var xz_name = $("#J_xz_name").val();
         var type = $("#J_type").val();
         //执行查询
         $.ajax({
             url: "/weixin/getAstro",
             type: "post",
             dataType: "json",
-            data: {"xzname": xzname, "type": type},
+            data: {"xz_name": xz_name, "type": type},
             beforeSend: beforeSend, //发送请求
             complete: complete,
             success: function (msg) {
