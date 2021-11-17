@@ -46,7 +46,7 @@
                 <form id="f1" action="/lyrics/update.action" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="userid" value="${userid }"/>
                     <input type="hidden" id="albumpath" value="${albumpath }">
-                    <input type="hidden" name="oldpath" value="${model.albumImg }">
+                    <input type="hidden" name="oldpath" value="${model.album_img }">
                     <input type="hidden" name="type" value="${model.type }">
                     <input type="hidden" name="id" value="${model.id }">
                     <input type="hidden" name="path" value="${model.path }">

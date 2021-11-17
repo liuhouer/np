@@ -36,7 +36,7 @@ public class HTMLParserUtil {
 //     * http://photopin.com/free-photos/%E6%96%87%E7%AB%A0
 //     * @throws IOException
 //     */
-//    public static String retPicByName(String title,String titlecode) throws IOException {
+//    public static String retPicByName(String title,String title_code) throws IOException {
 //     StringBuilder sb =  new StringBuilder();
 //            try{
 //            	Result parse = ToAnalysis.parse(title);
@@ -58,7 +58,7 @@ public class HTMLParserUtil {
 //            Element img = doc.select("div[class=items-grid search-results]").select("img").get(0);
 //            
 //            //上传
-//            HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(img.attr("src"), getLocalFolderByOS("album") ,titlecode);
+//            HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(img.attr("src"), getLocalFolderByOS("album") ,title_code);
 //            
 //            String albumimg = map22.get("trimpath");
 //            sb.append(albumimg);
@@ -79,10 +79,10 @@ public class HTMLParserUtil {
      *
      * @throws IOException
      */
-//    public static synchronized List<Map<String, String>> retCaiMaiZT_PL(String titlecode) throws IOException {
+//    public static synchronized List<Map<String, String>> retCaiMaiZT_PL(String title_code) throws IOException {
 //        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 //        try {
-//            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + titlecode)
+//            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + title_code)
 //                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
 //                    .referrer("http://www.google.com")
 //                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
@@ -156,10 +156,10 @@ public class HTMLParserUtil {
      *
      * @throws IOException
      */
-//    public static String retCaiMaiZT_ZAN(String titlecode) throws IOException {
+//    public static String retCaiMaiZT_ZAN(String title_code) throws IOException {
 //        StringBuilder sb = new StringBuilder();
 //        try {
-//            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + titlecode)
+//            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + title_code)
 //                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
 //                    .referrer("http://www.google.com")
 //                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
@@ -209,7 +209,7 @@ public class HTMLParserUtil {
 //                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.
 //                    .get();
 //
-//            //   `id`,  `title`, `titlecode`,  `updatedate`, `albumImg`, `zan`, `pl`
+//            //   `id`,  `title`, `title_code`,  `update_date`, `album_img`, `zan`, `pl`
 //            Elements info = doc.select("div[class=col-xs-6 col-sm-3 margin-b20 ]");
 //            for (Element p : info) {
 //
@@ -223,9 +223,9 @@ public class HTMLParserUtil {
 //
 //                String aurl = a.attr("href");
 //
-//                String titlecode = aurl.replace("/love/", "");
+//                String title_code = aurl.replace("/love/", "");
 //
-//                System.out.println(titlecode);
+//                System.out.println(title_code);
 //
 //                Element img = a.select("img").get(0);
 //
@@ -252,8 +252,8 @@ public class HTMLParserUtil {
 //
 //
 //                map.put("title", title);
-//                map.put("titlecode", titlecode);
-//                map.put("albumImg", albumimg);
+//                map.put("title_code", title_code);
+//                map.put("album_img", albumimg);
 //                map.put("zan", zan);
 //                map.put("pl", pl);
 //                list.add(map);
@@ -276,10 +276,10 @@ public class HTMLParserUtil {
      *
      * @throws IOException
      */
-//    public static Map<String, String> retCaiMaiZT(String titlecode) throws IOException {
+//    public static Map<String, String> retCaiMaiZT(String title_code) throws IOException {
 //        Map<String, String> map = new HashMap<>();
 //        try {
-//            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + titlecode)
+//            Document doc = Jsoup.connect("http://www.caimai.cc/love/" + title_code)
 //                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
 //                    .referrer("http://www.google.com")
 //                    .timeout(1000 * 5) //it's in milliseconds, so this means 5 seconds.

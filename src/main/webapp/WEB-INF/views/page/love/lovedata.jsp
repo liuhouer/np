@@ -9,14 +9,14 @@
             <div class="col-xs-6 col-sm-3 margin-b20 ">
                 <div class="blog-post">
                     <div class="blog-thumb">
-                        <a href="/love/${s.titlecode }.html">
+                        <a href="/love/${s.title_code }.html">
                             <img class="imgbreath" width="257" height="193"
                             <c:choose>
-                            <c:when test="${fn:contains(s.albumImg ,'http://') }">
-                                 src="${s.albumImg }"
+                            <c:when test="${fn:contains(s.album_img ,'http://') }">
+                                 src="${s.album_img }"
                             </c:when>
                             <c:otherwise>
-                                 src="/bruce/${s.albumImg }"
+                                 src="/bruce/${s.album_img }"
                             </c:otherwise>
                             </c:choose>
 
@@ -27,7 +27,7 @@
                     <div class="blog-content">
                         <div class="content-show">
                             <h4>
-                                <a href="/love/${s.titlecode }.html">
+                                <a href="/love/${s.title_code }.html">
                                         ${s.cuttitle }
                                 </a></h4>
                             <span>${s.engDate }</span>

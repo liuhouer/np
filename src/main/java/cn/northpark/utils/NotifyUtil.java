@@ -34,7 +34,7 @@ public class NotifyUtil {
             }else if(topic_type.equals("2")){
                 Map<String, Object> bc_lyrics = NPQueryRunner.findById("bc_lyrics", topic_id);
                 map.put("title",bc_lyrics.get("title").toString());
-                map.put("href","/love/"+bc_lyrics.get("titlecode")+".html");
+                map.put("href","/love/"+bc_lyrics.get("title_code")+".html");
             }else if(topic_type.equals("3")){
                 Map<String, Object> bc_soft = NPQueryRunner.findById("bc_soft", topic_id);
                 map.put("title",bc_soft.get("title").toString());

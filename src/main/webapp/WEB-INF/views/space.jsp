@@ -59,9 +59,9 @@
                     <div class="col-md-10">
                         <div class="row">
                             <div class="col-xs-4 col-sm-2 center">
-                                <a href="/love/${s.titlecode}.html"
+                                <a href="/love/${s.title_code}.html"
                                    title="${s.title }" class="thumbnail border-0"> <img
-                                        src="/bruce/${s.albumImg }" alt="${s.title }">
+                                        src="/bruce/${s.album_img }" alt="${s.title }">
                                     <c:if test="${s.data_type=='创建数据'}">
                                         <i class="fa fa-copyright padding5"></i>
                                     </c:if>
