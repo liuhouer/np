@@ -226,7 +226,7 @@ public class DashAction {
         List<Map<String, Object>> list = null;
 
         //组装+计算分页信息=================
-        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), MyConstant.MAXRESULT, 3);
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), MyConstant.MAX_RESULT, 3);
         pageView = noteManager.getMixMapPage(pageView, DonatesEnum.match(type_id).getSql_fetch());
         //组装+计算分页信息=================
 
@@ -239,7 +239,7 @@ public class DashAction {
         if (Objects.nonNull(zCard) && zCard.intValue() > 0) {
 
             //从redis获取数据
-            Set<String> zRangeByScore = RedisUtil.getInstance().zRangeByScore(result + page, "0",MyConstant.MAXRESULT + "", 0, MyConstant.MAXRESULT);
+            Set<String> zRangeByScore = RedisUtil.getInstance().zRangeByScore(result + page, "0",MyConstant.MAX_RESULT + "", 0, MyConstant.MAX_RESULT);
             list = zRangeByScore.stream().map(i -> JsonUtil.json2map(i)).collect(Collectors.toList());
 
         } else {
@@ -374,7 +374,7 @@ public class DashAction {
         //从数据库取
         if (CollectionUtils.isEmpty(home_lovelist)) {
             //取出一部分love数据
-            PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
+            PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(1, MyConstant.MAX_RESULT);
             String randSql = userlyricsManager.getRandSql();
             home_lovelist = this.userlyricsManager.findMixByCondition(pageView, randSql);
 

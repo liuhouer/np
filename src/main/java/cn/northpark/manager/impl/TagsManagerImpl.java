@@ -58,7 +58,7 @@ public class TagsManagerImpl implements TagsManager {
     public QueryResult<Tags> findByCondition(PageView<Tags> p,
                                              String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = tagsDao.findByCondition(p.getFirstResult(),
-                p.getMaxresult(), wheresql, order);
+                p.getMaxResult(), wheresql, order);
         return qrs;
     }
 

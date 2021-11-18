@@ -52,7 +52,7 @@ public class ResetManagerImpl implements ResetManager {
     public QueryResult<Reset> findByCondition(PageView<Reset> p,
                                               String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = resetDao.findByCondition(p.getFirstResult(),
-                MyConstant.MAXRESULT, wheresql, order);
+                MyConstant.MAX_RESULT, wheresql, order);
         return qrs;
     }
 

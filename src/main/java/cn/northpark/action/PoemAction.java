@@ -69,9 +69,9 @@ public class PoemAction {
         }
 
         //查询标签
-        List<Tags> years_tag = tagManager.findByCondition(" where tag_type = 2 ").getResultlist();
+        List<Tags> years_tag = tagManager.findByCondition(" where tag_type = 2 ").getResultList();
 
-        List<Tags> types_tag = tagManager.findByCondition(" where tag_type = 3 ").getResultlist();
+        List<Tags> types_tag = tagManager.findByCondition(" where tag_type = 3 ").getResultList();
 
         request.getSession().setAttribute("years_tag", years_tag);
         request.getSession().setAttribute("types_tag", types_tag);
@@ -86,13 +86,13 @@ public class PoemAction {
         order.put("rand()", "asc");
 
         //获取pageView
-        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentPage), MyConstant.MAXRESULT);
+        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentPage), MyConstant.MAX_RESULT);
         QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
 
         //触发分页
         p.setQueryResult(qr);
 
-        List<Poem> result_list = qr.getResultlist();
+        List<Poem> result_list = qr.getResultList();
 
         map.addAttribute("pageView", p);
         map.addAttribute("list", result_list);
@@ -175,12 +175,12 @@ public class PoemAction {
 
 
         //获取pageView
-        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(page), MyConstant.MAXRESULT);
+        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(page), MyConstant.MAX_RESULT);
         QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
         //触发分页
         p.setQueryResult(qr);
 
-        List<Poem> result_list = qr.getResultlist();
+        List<Poem> result_list = qr.getResultList();
 
         map.addAttribute("pageView", p);
         map.addAttribute("list", result_list);
@@ -236,9 +236,9 @@ public class PoemAction {
         order.put("id", "asc");
 
         //获取pageView
-        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentPage), MyConstant.MAXRESULT);
+        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentPage), MyConstant.MAX_RESULT);
         QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
-        List<Poem> result_list = qr.getResultlist();
+        List<Poem> result_list = qr.getResultList();
 
         //触发分页
         p.setQueryResult(qr);
@@ -292,9 +292,9 @@ public class PoemAction {
         order.put("id", "asc");
 
         //获取pageView
-        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentPage), MyConstant.MAXRESULT);
+        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentPage), MyConstant.MAX_RESULT);
         QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
-        List<Poem> result_list = qr.getResultlist();
+        List<Poem> result_list = qr.getResultList();
 
         //触发分页
         p.setQueryResult(qr);

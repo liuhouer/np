@@ -57,7 +57,7 @@ public class AstroManagerImpl implements AstroManager {
     public QueryResult<Astro> findByCondition(PageView<Astro> p,
                                               String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = astroDao.findByCondition(p.getFirstResult(),
-                p.getMaxresult(), wheresql, order);
+                p.getMaxResult(), wheresql, order);
         return qrs;
     }
 

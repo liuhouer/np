@@ -6,44 +6,44 @@ package cn.northpark.utils.page;
  * @author yang zhang
  */
 public class PageIndex {
-    private int startindex;
-    private int endindex;
+    private int startIndex;
+    private int endIndex;
 
     public PageIndex() {
         // TODO Auto-generated constructor stub
     }
 
-    public PageIndex(int startindex, int endindex) {
-        this.startindex = startindex;
-        this.endindex = endindex;
+    public PageIndex(int startIndex, int endIndex) {
+        this.startIndex = startIndex;
+        this.endIndex = endIndex;
     }
 
-    public int getStartindex() {
-        return startindex;
+    public int getStartIndex() {
+        return startIndex;
     }
 
-    public void setStartindex(int startindex) {
-        this.startindex = startindex;
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
     }
 
-    public int getEndindex() {
-        return endindex;
+    public int getEndIndex() {
+        return endIndex;
     }
 
-    public void setEndindex(int endindex) {
-        this.endindex = endindex;
+    public void setEndIndex(int endIndex) {
+        this.endIndex = endIndex;
     }
 
 
     /**
      * 根据每次展示的页码数量、 当前页、 总页数   计算开始页码和结束页码，使当前页码处于居中位置
      *
-     * @param viewpagecount
+     * @param viewPageCount
      * @param currentPage
-     * @param totalpage
+     * @param totalPage
      * @return
      */
-    public static PageIndex getPageIndex(int viewpagecount, int currentPage, int totalpage) {
+    public static PageIndex getPageIndex(int viewPageCount, int currentPage, int totalPage) {
 		/*
 		当前页10
 		每页展示页码数10
@@ -51,19 +51,19 @@ public class PageIndex {
 		
 		10 -（4） = 6 */
 
-        int startpage = currentPage - (viewpagecount % 2 == 0 ? viewpagecount / 2 - 1 : viewpagecount / 2);
-        int endpage = currentPage + viewpagecount / 2;
-        if (startpage < 1) {
-            startpage = 1;
-            if (totalpage >= viewpagecount) endpage = viewpagecount;
-            else endpage = totalpage;
+        int startPage = currentPage - (viewPageCount % 2 == 0 ? viewPageCount / 2 - 1 : viewPageCount / 2);
+        int endPage = currentPage + viewPageCount / 2;
+        if (startPage < 1) {
+            startPage = 1;
+            if (totalPage >= viewPageCount) endPage = viewPageCount;
+            else endPage = totalPage;
         }
-        if (endpage > totalpage) {
-            endpage = totalpage;
-            if ((endpage - viewpagecount) > 0) startpage = endpage - viewpagecount + 1;
-            else startpage = 1;
+        if (endPage > totalPage) {
+            endPage = totalPage;
+            if ((endPage - viewPageCount) > 0) startPage = endPage - viewPageCount + 1;
+            else startPage = 1;
         }
-        return new PageIndex(startpage, endpage);
+        return new PageIndex(startPage, endPage);
     }
 
 

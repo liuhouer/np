@@ -160,9 +160,9 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public T find(PK primarKeyId) {
+    public T find(PK pkID) {
         T findObj = null;
-        findObj = (T) sessionFactory.getCurrentSession().get(t, primarKeyId);
+        findObj = (T) sessionFactory.getCurrentSession().get(t, pkID);
         sessionFactory.getCurrentSession().flush();
         return findObj;
     }
@@ -209,7 +209,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
         }
 
         QueryResult<T> queryResult = new QueryResult<T>();
-        queryResult.setResultlist(query.list());
+        queryResult.setResultList(query.list());
 
         sessionFactory.getCurrentSession().flush();
 
@@ -230,7 +230,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
      * @desc 多表联合查询 包含分页 只返回结果集List<map>集合 by bruce
      */
     public List<Map<String, Object>> querySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
-        String resultQueryString = (new StringBuilder(" select t.* from (")).append(sql).append(") as t LIMIT " + pageView.getFirstResult() + "," + pageView.getMaxresult()).toString();
+        String resultQueryString = (new StringBuilder(" select t.* from (")).append(sql).append(") as t LIMIT " + pageView.getFirstResult() + "," + pageView.getMaxResult()).toString();
         List<Map<String, Object>> result_list = querySql(resultQueryString);
         sessionFactory.getCurrentSession().flush();
         return result_list;
@@ -246,7 +246,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
     public PageView<List<Map<String, Object>>> querySQLCountForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
 
         int countSql = countSql(sql);
-        pageView.setTotalrecord(countSql);
+        pageView.setTotalRecord(countSql);
         return pageView;
     }
 
@@ -262,8 +262,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         for (int i = 0; i < obj.length; i++)
             query.setParameter(i, obj[i]);
-
-
         sessionFactory.getCurrentSession().flush();
         return query.list();
     }
@@ -279,8 +277,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
         SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(sql);
         for (int i = 0; i < obj.length; i++)
             query.setParameter(i, obj[i]);
-
-
         sessionFactory.getCurrentSession().flush();
         return query.addEntity(clazz).list();
     }
@@ -308,7 +304,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 
         QueryResult<T> queryResult = new QueryResult<T>();
 
-        queryResult.setResultlist(query.list());
+        queryResult.setResultList(query.list());
 
         sessionFactory.getCurrentSession().flush();
 
@@ -339,7 +335,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 
         sessionFactory.getCurrentSession().flush();
 
-        queryResult.setTotalrecord(count);
+        queryResult.setTotalRecord(count);
     }
 
 
@@ -353,11 +349,11 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
     public int countSql(String sql) {
 
         String countQueryString = (new StringBuilder(" select count(*) as total from (")).append(sql).append(") as t").toString();
-        List<?> countlist = (List<?>) querySql(countQueryString);
+        List<?> countList = (List<?>) querySql(countQueryString);
 
         int n = 0;
-        if (countlist != null && countlist.size() > 0) {
-            n = Integer.valueOf(((Map<String, Object>) countlist.get(0)).get("total").toString());
+        if (countList != null && countList.size() > 0) {
+            n = Integer.valueOf(((Map<String, Object>) countList.get(0)).get("total").toString());
         }
 
         return n;

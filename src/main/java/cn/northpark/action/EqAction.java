@@ -76,7 +76,7 @@ public class EqAction {
 
 
             //定义pageView
-            PageView<Eq> pageView = new PageView<Eq>(1, MyConstant.MAXRESULT);
+            PageView<Eq> pageView = new PageView<Eq>(1, MyConstant.MAX_RESULT);
 
             log.info("sql ---" + whereSql);
 
@@ -86,7 +86,7 @@ public class EqAction {
 
 
             QueryResult<Eq> qr = this.eqManager.findByCondition(pageView, whereSql, order);
-            List<Eq> result_list = qr.getResultlist();
+            List<Eq> result_list = qr.getResultList();
 
 
             //触发生成页码等等
@@ -112,7 +112,7 @@ public class EqAction {
 
 
         //定义pageView
-        PageView<Eq> pageView = new PageView<Eq>(Integer.parseInt(page), MyConstant.MAXRESULT);
+        PageView<Eq> pageView = new PageView<Eq>(Integer.parseInt(page), MyConstant.MAX_RESULT);
 
         String keyword = request.getParameter("keyword");
         if (StringUtils.isNotEmpty(keyword)) {
@@ -130,7 +130,7 @@ public class EqAction {
 
 
         QueryResult<Eq> qr = this.eqManager.findByCondition(pageView, whereSql, order);
-        List<Eq> result_list = qr.getResultlist();
+        List<Eq> result_list = qr.getResultList();
         //触发生成页码等等
         pageView.setQueryResult(qr);
         map.addAttribute("pageView", pageView);

@@ -53,7 +53,7 @@ public class LyricsCommentManagerImpl implements LyricsCommentManager {
     public QueryResult<LyricsComment> findByCondition(PageView<LyricsComment> p,
                                                       String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = lyricscommentDao.findByCondition(p.getFirstResult(),
-                MyConstant.MAXRESULT, wheresql, order);
+                MyConstant.MAX_RESULT, wheresql, order);
         return qrs;
     }
 

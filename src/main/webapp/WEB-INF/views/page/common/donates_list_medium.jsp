@@ -52,11 +52,11 @@
 	<div class=" clearfix center pageinfo ">
     <ul class="qinco-pagination pagination-sm ">
         <li><a onclick="loadDonates(<%=type_id%>,1)">‹‹</a></li>
-        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getCurrentpage() - 1%>)">‹</a></li>
+        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getCurrentPage() - 1%>)">‹</a></li>
         <%
             //<显示分页码
-            for (int i = pageView.getPageindex().getStartindex(); i <= pageView.getPageindex().getEndindex(); i++) {
-                if (i != pageView.getCurrentpage()) {//如果i不等于当前页
+            for (int i = pageView.getPageIndex().getStartIndex(); i <= pageView.getPageIndex().getEndIndex(); i++) {
+                if (i != pageView.getCurrentPage()) {//如果i不等于当前页
         %>
         <li><a onclick="loadDonates(<%=type_id%>,<%=i%>)"><%=i%>
         </a></li>
@@ -69,8 +69,8 @@
                 }
             }//显示分页码>
         %>
-        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getCurrentpage() + 1%>)">›</a></li>
-        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getTotalpage()%>)">››</a></li>
+        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getCurrentPage() + 1%>)">›</a></li>
+        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getTotalPage()%>)">››</a></li>
     </ul>
 	
 	</div> 

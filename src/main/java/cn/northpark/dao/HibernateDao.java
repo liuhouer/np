@@ -24,12 +24,14 @@ public interface HibernateDao<T, PK extends Serializable> {
 
     /**
      * 执行sql返回void
+     *
      * @param sql
      */
     void execSQL(String sql);
 
     /**
      * 执行预编译sql返回void
+     *
      * @param sql
      */
     void execSQL(String sql, Object... obj);
@@ -38,7 +40,7 @@ public interface HibernateDao<T, PK extends Serializable> {
 
     void delete(String where, Object[] parameter);
 
-    T find(PK primarKeyId);
+    T find(PK pkID);
 
     List<T> findAll();
 

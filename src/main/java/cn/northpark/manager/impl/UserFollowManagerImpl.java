@@ -53,7 +53,7 @@ public class UserFollowManagerImpl implements UserFollowManager {
     public QueryResult<UserFollow> findByCondition(PageView<UserFollow> p,
                                                    String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = userfollowDao.findByCondition(p.getFirstResult(),
-                MyConstant.MAXRESULT, wheresql, order);
+                MyConstant.MAX_RESULT, wheresql, order);
         return qrs;
     }
 

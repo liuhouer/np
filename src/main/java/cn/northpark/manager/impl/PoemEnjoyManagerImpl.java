@@ -58,7 +58,7 @@ public class PoemEnjoyManagerImpl implements PoemEnjoyManager {
     public QueryResult<PoemEnjoy> findByCondition(PageView<PoemEnjoy> p,
                                                   String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = poemenjoyDao.findByCondition(p.getFirstResult(),
-                p.getMaxresult(), wheresql, order);
+                p.getMaxResult(), wheresql, order);
         return qrs;
     }
 

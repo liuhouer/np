@@ -59,7 +59,7 @@ public class KnowledgeManagerImpl implements KnowledgeManager {
 	public QueryResult<Knowledge> findByCondition(PageView<Knowledge> p,
 												  String wheresql, LinkedHashMap<String, String> order) {
 		QueryResult qrs = knowledgeDao.findByCondition(p.getFirstResult(),
-				p.getMaxresult(), wheresql, order);
+				p.getMaxResult(), wheresql, order);
 		return qrs;
 	}
 
