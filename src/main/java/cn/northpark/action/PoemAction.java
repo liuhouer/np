@@ -80,22 +80,22 @@ public class PoemAction {
         String whereSql = "";
 
 
-        String currentpage = "1";
+        String currentPage = "1";
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("rand()", "asc");
 
-        //获取pageview
-        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+        //获取pageView
+        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentPage), MyConstant.MAXRESULT);
         QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
 
         //触发分页
         p.setQueryResult(qr);
 
-        List<Poem> resultlist = qr.getResultlist();
+        List<Poem> result_list = qr.getResultlist();
 
         map.addAttribute("pageView", p);
-        map.addAttribute("list", resultlist);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/poem");
 
 
@@ -141,7 +141,7 @@ public class PoemAction {
      * @throws IOException
      */
     @RequestMapping(value = "/page/{page}")
-    public String listpage(ModelMap map, @PathVariable String page, HttpServletRequest request,
+    public String listPage(ModelMap map, @PathVariable String page, HttpServletRequest request,
                            HttpServletResponse response, HttpSession session) throws IOException {
 
 
@@ -174,16 +174,16 @@ public class PoemAction {
         order.put("rand()", "asc");
 
 
-        //获取pageview
+        //获取pageView
         PageView<Poem> p = new PageView<Poem>(Integer.parseInt(page), MyConstant.MAXRESULT);
         QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
         //触发分页
         p.setQueryResult(qr);
 
-        List<Poem> resultlist = qr.getResultlist();
+        List<Poem> result_list = qr.getResultlist();
 
         map.addAttribute("pageView", p);
-        map.addAttribute("list", resultlist);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/poem");
         map.addAttribute("page", page);
 
@@ -204,7 +204,7 @@ public class PoemAction {
      * @return
      */
     @RequestMapping("/dynasty/{tags_code}")
-    public String tagsearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
+    public String tagSearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
         String rs = "redirect:/poem/dynasty/" + tags_code + "/page/1";
         return rs;
     }
@@ -218,7 +218,7 @@ public class PoemAction {
      * @return
      */
     @RequestMapping(value = "/dynasty/{tags_code}/page/{page}")
-    public String tagsearchpage(ModelMap map, @PathVariable String page, @PathVariable String tags_code, HttpServletRequest request,
+    public String tagSearchPage(ModelMap map, @PathVariable String page, @PathVariable String tags_code, HttpServletRequest request,
                                 HttpServletResponse response, HttpSession session) throws IOException {
 
         String result = "/poem";
@@ -226,24 +226,24 @@ public class PoemAction {
         tags_code = WAQ.forSQL().escapeSql(tags_code);
         String whereSql = " where years_code = '" + tags_code + "' ";
 
-        map.put("seltag", tags_code);
+        map.put("sel_tag", tags_code);
 
 
         log.info("sql ---" + whereSql);
-        String currentpage = page;
+        String currentPage = page;
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("id", "asc");
 
-        //获取pageview
-        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+        //获取pageView
+        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentPage), MyConstant.MAXRESULT);
         QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
-        List<Poem> resultlist = qr.getResultlist();
+        List<Poem> result_list = qr.getResultlist();
 
         //触发分页
         p.setQueryResult(qr);
         map.addAttribute("pageView", p);
-        map.addAttribute("list", resultlist);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/poem/dynasty/" + tags_code);
 
 
@@ -260,7 +260,7 @@ public class PoemAction {
      * @return
      */
     @RequestMapping("/types/{tags_code}")
-    public String typessearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
+    public String typeSearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
         String rs = "redirect:/poem/types/" + tags_code + "/page/1";
         return rs;
     }
@@ -274,7 +274,7 @@ public class PoemAction {
      * @return
      */
     @RequestMapping(value = "/types/{tags_code}/page/{page}")
-    public String typessearchpage(ModelMap map, @PathVariable String page, @PathVariable String tags_code, HttpServletRequest request,
+    public String typeSearchPage(ModelMap map, @PathVariable String page, @PathVariable String tags_code, HttpServletRequest request,
                                   HttpServletResponse response, HttpSession session) throws IOException {
 
         String result = "/poem";
@@ -282,24 +282,24 @@ public class PoemAction {
         tags_code = WAQ.forSQL().escapeSql(tags_code);
         String whereSql = " where types_code = '" + tags_code + "' ";
 
-        map.put("seltag", tags_code);
+        map.put("sel_tag", tags_code);
 
 
         log.info("sql ---" + whereSql);
-        String currentpage = page;
+        String currentPage = page;
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("id", "asc");
 
-        //获取pageview
-        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+        //获取pageView
+        PageView<Poem> p = new PageView<Poem>(Integer.parseInt(currentPage), MyConstant.MAXRESULT);
         QueryResult<Poem> qr = this.poemManager.findByCondition(p, whereSql, order);
-        List<Poem> resultlist = qr.getResultlist();
+        List<Poem> result_list = qr.getResultlist();
 
         //触发分页
         p.setQueryResult(qr);
         map.addAttribute("pageView", p);
-        map.addAttribute("list", resultlist);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/poem/types/" + tags_code);
 
 

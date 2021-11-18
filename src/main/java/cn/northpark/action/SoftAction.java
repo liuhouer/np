@@ -73,7 +73,7 @@ public class SoftAction {
     @RequestMapping("/handup")
     @ResponseBody
     @BruceOperation
-    public Result<String> handup(HttpServletRequest request) {
+    public Result<String> handUp(HttpServletRequest request) {
         String rs = "success";
         try {
             String id = request.getParameter("id");
@@ -112,7 +112,7 @@ public class SoftAction {
     @RequestMapping("/hideup")
     @ResponseBody
     @BruceOperation
-    public Result<String> hideup(HttpServletRequest request) {
+    public Result<String> hideUp(HttpServletRequest request) {
         String rs = "success";
         try {
             String id = request.getParameter("id");
@@ -258,7 +258,7 @@ public class SoftAction {
            
         } catch (Exception e) {
             // TODO: handle exception
-            log.error("Softacton------>", e);
+            log.error("Soft action------>", e);
             rs = "ex";
         }
         return ResultGenerator.genSuccessResult(rs);
@@ -306,16 +306,16 @@ public class SoftAction {
         order.put("UNIX_TIMESTAMP(post_date)", "desc");
         order.put("id", "desc");
 
-        //获取pageview
+        //获取pageView
         PageView<Soft> p = new PageView<Soft>(1, SoftCount);
         QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
-        List<Soft> resultlist = qr.getResultlist();
+        List<Soft> result_list = qr.getResultlist();
 
         //触发分页
         p.setQueryResult(qr);
 
         map.addAttribute("pageView", p);
-        map.addAttribute("list", resultlist);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/soft/mac");
         map.addAttribute("page", 1);
 
@@ -327,7 +327,7 @@ public class SoftAction {
     }
 
     @RequestMapping(value = "/mac/page/{page}")
-    public String listpage(ModelMap map, @PathVariable String page, HttpServletRequest request,
+    public String listPage(ModelMap map, @PathVariable String page, HttpServletRequest request,
                            HttpServletResponse response, HttpSession session) throws IOException {
 
         session.removeAttribute("tabs");
@@ -354,23 +354,23 @@ public class SoftAction {
         }
 
         log.info("sql ---" + whereSql);
-        String currentpage = page;
+        String currentPage = page;
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("hot_index", "desc");
         order.put("UNIX_TIMESTAMP(post_date)", "desc");
         order.put("id", "desc");
 
-        //获取pageview
-        PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentpage), SoftCount);
+        //获取pageView
+        PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentPage), SoftCount);
         QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
-        List<Soft> resultlist = qr.getResultlist();
+        List<Soft> result_list = qr.getResultlist();
 
         //触发分页
         p.setQueryResult(qr);
 
         map.addAttribute("pageView", p);
-        map.addAttribute("list", resultlist);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/soft/mac");
         map.addAttribute("page", page);
 
@@ -391,7 +391,7 @@ public class SoftAction {
      * @return
      */
     @RequestMapping("/{ret_code}.html")
-    public String softdetail(ModelMap map, @PathVariable String ret_code, HttpServletRequest request) {
+    public String softDetail(ModelMap map, @PathVariable String ret_code, HttpServletRequest request) {
         try {
             //根据ret_code获取文章内容
             List<Soft> list = softManager.querySql("select * from bc_soft where ret_code=?", ret_code);
@@ -405,7 +405,7 @@ public class SoftAction {
             log.error("softAction------>", e);
 
         }
-        return "/softdetail";
+        return "/soft-detail";
     }
 
 
@@ -418,7 +418,7 @@ public class SoftAction {
      * @return
      */
     @RequestMapping("/date/{post_date}")
-    public String datesearch(ModelMap map, @PathVariable String post_date, HttpServletRequest request) {
+    public String dateSearch(ModelMap map, @PathVariable String post_date, HttpServletRequest request) {
         try {
             //根据ret_code获取文章内容
             List<Soft> list = softManager.querySql("select * from bc_soft where post_date=?", post_date);
@@ -448,7 +448,7 @@ public class SoftAction {
      * @return
      */
     @RequestMapping("/month/{month}")
-    public String monthsearch(ModelMap map, @PathVariable String month, HttpServletRequest request) {
+    public String monthSearch(ModelMap map, @PathVariable String month, HttpServletRequest request) {
         return "redirect:/soft/month/" + month + "/page/1";
     }
 
@@ -461,30 +461,30 @@ public class SoftAction {
      * @return
      */
     @RequestMapping("/month/{month}/page/{page}")
-    public String monthsearch(ModelMap map, @PathVariable String month, @PathVariable String page, HttpServletRequest request) {
+    public String monthSearch(ModelMap map, @PathVariable String month, @PathVariable String page, HttpServletRequest request) {
         String result = "/soft";
         try {
             month = WAQ.forSQL().escapeSql(month);
             String whereSql = " where month='" + month + "' ";
 
-            map.put("selmonth", month);
+            map.put("sel_month", month);
 
             log.info("sql ---" + whereSql);
-            String currentpage = page;
+            String currentPage = page;
             //排序条件
             LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
             order.put("UNIX_TIMESTAMP(post_date)", "desc");
 
-            //获取pageview
-            PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentpage), SoftCount);
+            //获取pageView
+            PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentPage), SoftCount);
             QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
-            List<Soft> resultlist = qr.getResultlist();
+            List<Soft> result_list = qr.getResultlist();
 
             //触发分页
             p.setQueryResult(qr);
 
             map.addAttribute("pageView", p);
-            map.addAttribute("list", resultlist);
+            map.addAttribute("list", result_list);
             map.addAttribute("actionUrl", "/soft/month/" + month);
             map.addAttribute("page", page);
             
@@ -508,7 +508,7 @@ public class SoftAction {
      * @return
      */
     @RequestMapping("/tag/{tags_code}")
-    public String tagsearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
+    public String tagSearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
         String rs = "redirect:/soft/tag/" + tags_code + "/page/1";
         return rs;
     }
@@ -522,7 +522,7 @@ public class SoftAction {
      * @return
      */
     @RequestMapping(value = "/tag/{tags_code}/page/{page}")
-    public String tagsearchpage(ModelMap map, @PathVariable String page, @PathVariable String tags_code, HttpServletRequest request,
+    public String tagSearchPage(ModelMap map, @PathVariable String page, @PathVariable String tags_code, HttpServletRequest request,
                                 HttpServletResponse response, HttpSession session) throws IOException {
 
         String result = "/soft";
@@ -530,25 +530,25 @@ public class SoftAction {
         tags_code = WAQ.forSQL().escapeSql(tags_code);
         String whereSql = " where tags_code = '" + tags_code + "' ";
 
-        map.put("seltag", tags_code);
+        map.put("sel_tag", tags_code);
 
 
         log.info("sql ---" + whereSql);
-        String currentpage = page;
+        String currentPage = page;
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("UNIX_TIMESTAMP(post_date)", "desc");
 
-        //获取pageview
-        PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentpage), SoftCount);
+        //获取pageView
+        PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentPage), SoftCount);
         QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
-        List<Soft> resultlist = qr.getResultlist();
+        List<Soft> result_list = qr.getResultlist();
 
         //触发分页
         p.setQueryResult(qr);
 
         map.addAttribute("pageView", p);
-        map.addAttribute("list", resultlist);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/soft/tag/" + tags_code);
         map.addAttribute("page", page);
         
@@ -568,8 +568,8 @@ public class SoftAction {
      */
     private void getTags(ModelMap map, HttpServletRequest request) {
         List<Map<String, Object>> tags = null;
-        List<Map<String, Object>> hotlist = null;
-        List<Map<String, Object>> datelist = null;
+        List<Map<String, Object>> hot_list = null;
+        List<Map<String, Object>> date_list = null;
 
         
         //从redis取
@@ -580,34 +580,34 @@ public class SoftAction {
         if(StringUtils.isNotEmpty(soft_tags_str) && StringUtils.isNotEmpty(soft_hot_list_str) && StringUtils.isNotEmpty(soft_date_list_str)) {
         	
         	tags = JsonUtil.json2ListMap(soft_tags_str);
-        	hotlist = JsonUtil.json2ListMap(soft_hot_list_str);
-        	datelist = JsonUtil.json2ListMap(soft_date_list_str);
+        	hot_list = JsonUtil.json2ListMap(soft_hot_list_str);
+        	date_list = JsonUtil.json2ListMap(soft_date_list_str);
         }
 
         //从数据库取
-        if (CollectionUtils.isEmpty(tags) && CollectionUtils.isEmpty(hotlist) && CollectionUtils.isEmpty(datelist)) {
+        if (CollectionUtils.isEmpty(tags) && CollectionUtils.isEmpty(hot_list) && CollectionUtils.isEmpty(date_list)) {
             //获取标签
             tags = softManager.querySqlMap("select count(tags) as num,tags,tags_code from bc_soft group by tags,tags_code order by num desc");
 
 
             //获取热门文章
-            String hotsql = "select ret_code,title from bc_soft order by hot_index desc limit 0,10";
-            hotlist = softManager.querySqlMap(hotsql);
+            String hot_sql = "select ret_code,title from bc_soft order by hot_index desc limit 0,10";
+            hot_list = softManager.querySqlMap(hot_sql);
 
 
             //获取月份排序
-            String datesql = "select distinct(month) as month  from bc_soft  order by month  desc";
-            datelist = softManager.querySqlMap(datesql);
+            String date_sql = "select distinct(month) as month  from bc_soft  order by month  desc";
+            date_list = softManager.querySqlMap(date_sql);
 
             
             RedisUtil.getInstance().getInstance().set("soft_tags", JsonUtil.object2json(tags), 24 * 60 * 60);
-            RedisUtil.getInstance().getInstance().set("soft_hot_list", JsonUtil.object2json(hotlist), 24 * 60 * 60);
-            RedisUtil.getInstance().getInstance().set("soft_date_list", JsonUtil.object2json(datelist), 24 * 60 * 60);
+            RedisUtil.getInstance().getInstance().set("soft_hot_list", JsonUtil.object2json(hot_list), 24 * 60 * 60);
+            RedisUtil.getInstance().getInstance().set("soft_date_list", JsonUtil.object2json(date_list), 24 * 60 * 60);
         }
         
         map.put("soft_tags", tags);
-        map.put("hot_list", hotlist);
-        map.put("date_list", datelist);
+        map.put("hot_list", hot_list);
+        map.put("date_list", date_list);
 
 
 

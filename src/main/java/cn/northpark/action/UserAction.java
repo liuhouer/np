@@ -57,8 +57,8 @@ public class UserAction {
 	/**
 	 * mq发消息
 	 */
-	@Resource  
-    private MQProducerManager messageProducer;
+//	@Resource
+//    private MQProducerManager messageProducer;
 
 
     public static ImmutableList<String> PASS_ID =
@@ -99,7 +99,7 @@ public class UserAction {
         
         String msg = "exist";//存在；
         if (num <= 0) {
-            msg = "notexist";//不存在
+            msg = "not_exist";//不存在
         }
         return ResultGenerator.genSuccessResult(msg);
 
@@ -118,7 +118,7 @@ public class UserAction {
         int num = userManager.countHql(" where tail_slug = '" + tail + "' ");
         String msg = "exist";//存在；
         if (num <= 0) {
-            msg = "notexist";//不存在
+            msg = "not_exist";//不存在
         }
         return ResultGenerator.genSuccessResult(msg);
 
@@ -176,11 +176,11 @@ public class UserAction {
         List<cn.northpark.model.Reset> gtList = resetManager.findByCondition(" where user_id='" + userid + "' and auth_code='" + auth_code + "' order by created_time desc").getResultlist();
         try {
             if (!CollectionUtils.isEmpty(gtList)) {
-                Reset gtmodel = gtList.get(0);
-                if (gtmodel.getAuth_code().equals(auth_code)) {// Email认证通过
-                    if (StringUtils.isNotEmpty(gtmodel.getInvalid_time())) {// 设置了失效时间
+                Reset gt_model = gtList.get(0);
+                if (gt_model.getAuth_code().equals(auth_code)) {// Email认证通过
+                    if (StringUtils.isNotEmpty(gt_model.getInvalid_time())) {// 设置了失效时间
                         if (TimeUtils.isInvalid(TimeUtils.nowTime(),
-                                gtmodel.getInvalid_time()) && (0 == gtmodel.getIs_email_authed())) {// 时间未过期
+                                gt_model.getInvalid_time()) && (0 == gt_model.getIs_email_authed())) {// 时间未过期
                             User user = userManager.findUser(Integer.parseInt(userid));
                             if (user != null) {
                                 user.setPassword(EnDecryptUtils.diyEncrypt(auth_code));
@@ -188,27 +188,27 @@ public class UserAction {
 
                                 request.getSession().setAttribute("user", user);
                                 //更新数据
-                                gtmodel.setIs_email_authed(1);
-                                resetManager.updateReset(gtmodel);
+                                gt_model.setIs_email_authed(1);
+                                resetManager.updateReset(gt_model);
                                 result = "success";
                             }
                         } else {
-                            result = "isolded";
+                            result = "is_old";
                         }
                     } else {// 没有设置失效时间
-                        if (0 == gtmodel.getIs_email_authed()) {
+                        if (0 == gt_model.getIs_email_authed()) {
                             User user = userManager.findUser(Integer.parseInt(userid));
                             if (user != null) {
                                 user.setPassword(EnDecryptUtils.diyEncrypt(auth_code));
                                 userManager.updateUser(user);
                                 request.getSession().setAttribute("user", user);
                                 //更新数据
-                                gtmodel.setIs_email_authed(1);
-                                resetManager.updateReset(gtmodel);
+                                gt_model.setIs_email_authed(1);
+                                resetManager.updateReset(gt_model);
                                 result = "success";
                             }
                         } else {
-                            result = "isolded";
+                            result = "is_old";
                         }
                     }
                 }
@@ -235,9 +235,9 @@ public class UserAction {
 
         try {
 
-            String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
-            List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id, follow_id);
-            Object nums = ygznums_list.get(0).get("nums");
+            String ygz_nums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
+            List<Map<String, Object>> ygz_nums_list = userfollowManager.querySql(ygz_nums_sql, author_id, follow_id);
+            Object nums = ygz_nums_list.get(0).get("nums");
 
             if (Integer.valueOf(String.valueOf(nums)) == 0) {
                 UserFollow uf = new UserFollow();
@@ -305,14 +305,14 @@ public class UserAction {
     //移除某个粉丝
     @RequestMapping("/cm/rmfollow")
     @ResponseBody
-    public Result<String> rmfollow(ModelMap map, String id) {
+    public Result<String> rmFollow(ModelMap map, String id) {
         String msg = "success";
 
         try {
             if (StringUtils.isNotEmpty(id)) {
                 userfollowManager.delUserFollow(Integer.parseInt(id));
             } else {
-                msg = "nullid";
+                msg = "null id";
             }
         } catch (Exception e) {
             // TODO: handle exception
@@ -325,7 +325,7 @@ public class UserAction {
 
 
     @RequestMapping("/cm/xbjt")
-    public String xbjt(ModelMap map) {
+    public String x_b_j_t(ModelMap map) {
         return "/bruce-quiet-listen";
     }
 
@@ -357,7 +357,7 @@ public class UserAction {
      */
     @RequestMapping("/cm/pcentral")
     @CheckLogin
-    public String pcentral(ModelMap map, HttpServletRequest request) {
+    public String pCentral(ModelMap map, HttpServletRequest request) {
 
         String rs = "/myself";
         UserVO user = RequestHolder.getUserInfo(request);
@@ -373,8 +373,8 @@ public class UserAction {
         List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId());
         if(!CollectionUtils.isEmpty(list)) { //--批量处理时间
         	list.forEach(item ->{
-        		String datastr = (String) item.get("love_date");
-        		if(StringUtils.isNotEmpty(datastr)) item.put("love_date", TimeUtils.formatToNear(datastr));
+        		String love_date = (String) item.get("love_date");
+        		if(StringUtils.isNotEmpty(love_date)) item.put("love_date", TimeUtils.formatToNear(love_date));
         	});
         }
         
@@ -461,9 +461,9 @@ public class UserAction {
                 String author_id = userid;
                 if (StringUtils.isNotEmpty(follow_id) && StringUtils.isNotEmpty(author_id)) {
 
-                    String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
-                    List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id, follow_id);
-                    String nums = ygznums_list.get(0).get("nums").toString();
+                    String ygz_nums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
+                    List<Map<String, Object>> ygz_nums_list = userfollowManager.querySql(ygz_nums_sql, author_id, follow_id);
+                    String nums = ygz_nums_list.get(0).get("nums").toString();
                     if (Integer.parseInt(nums) > 0) {
                         map.put("gz", "ygz");
                     }
@@ -515,9 +515,9 @@ public class UserAction {
                     String author_id = userid;
                     if (StringUtils.isNotEmpty(follow_id) && StringUtils.isNotEmpty(author_id)) {
 
-                        String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
-                        List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id, follow_id);
-                        String nums = ygznums_list.get(0).get("nums").toString();
+                        String ygz_nums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
+                        List<Map<String, Object>> ygz_nums_list = userfollowManager.querySql(ygz_nums_sql, author_id, follow_id);
+                        String nums = ygz_nums_list.get(0).get("nums").toString();
                         if (Integer.parseInt(nums) > 0) {
                             map.put("gz", "ygz");
                         }
@@ -568,8 +568,8 @@ public class UserAction {
             List<Map<String, Object>> list = userManager.querySqlMap(sql, user.getId(),user.getId());
             if (!CollectionUtils.isEmpty(list)) {
                 list.forEach(item -> {
-                    String datastr = (String) item.get("love_date");
-                    if (StringUtils.isNotEmpty(datastr)) item.put("love_date", TimeUtils.formatToNear(datastr));
+                    String love_date = (String) item.get("love_date");
+                    if (StringUtils.isNotEmpty(love_date)) item.put("love_date", TimeUtils.formatToNear(love_date));
                 });
                 map.addAttribute("Lovelist", list);
             }
@@ -587,9 +587,9 @@ public class UserAction {
             String author_id = String.valueOf(user.getId());
             if (StringUtils.isNotEmpty(follow_id) && StringUtils.isNotEmpty(author_id)) {
 
-                String ygznums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
-                List<Map<String, Object>> ygznums_list = userfollowManager.querySql(ygznums_sql, author_id, follow_id);
-                String nums = ygznums_list.get(0).get("nums").toString();
+                String ygz_nums_sql = "select count(*) nums from bc_user_follow where author_id = ? and follow_id = ?";
+                List<Map<String, Object>> ygz_nums_list = userfollowManager.querySql(ygz_nums_sql, author_id, follow_id);
+                String nums = ygz_nums_list.get(0).get("nums").toString();
                 if (Integer.parseInt(nums) > 0) {
                     map.put("gz", "ygz");
                 }
@@ -614,8 +614,8 @@ public class UserAction {
 
         UserVO u = RequestHolder.getUserInfo(request);
         map.put("MyInfo", u);
-        Userprofile Duser = userprofileManager.getModelByUserid(String.valueOf(u.getId()));
-        map.put("Dinfo", Duser);
+        Userprofile DT = userprofileManager.getModelByUserid(String.valueOf(u.getId()));
+        map.put("DT", DT);
         return "/EditInfo";
     }
 
@@ -639,7 +639,7 @@ public class UserAction {
         if(Objects.nonNull(userVO)){
             User user = userManager.findUser(userVO.getId());
 
-            String oldpath = user.getHead_path();
+            String old_path = user.getHead_path();
 
             user.setUsername(username);
 
@@ -649,16 +649,16 @@ public class UserAction {
 
 
             // 执行删除图片缓存
-            FileUtils.removeOldFile(oldpath, file);
+            FileUtils.removeOldFile(old_path, file);
 
             //执行上传
-            List<String> filelist = FileUtils.commonUpload(file, FileUtils.suffix_head);
+            List<String> file_list = FileUtils.commonUpload(file, FileUtils.suffix_head);
             //执行上传end
 
-            if (filelist.size() > 0) {
-                user.setHead_path(filelist.get(0));
+            if (file_list.size() > 0) {
+                user.setHead_path(file_list.get(0));
             } else {
-                user.setHead_path(oldpath);
+                user.setHead_path(old_path);
             }
 
             //处理密码信息

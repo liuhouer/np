@@ -231,9 +231,9 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
      */
     public List<Map<String, Object>> querySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
         String resultQueryString = (new StringBuilder(" select t.* from (")).append(sql).append(") as t LIMIT " + pageView.getFirstResult() + "," + pageView.getMaxresult()).toString();
-        List<Map<String, Object>> resultlist = querySql(resultQueryString);
+        List<Map<String, Object>> result_list = querySql(resultQueryString);
         sessionFactory.getCurrentSession().flush();
-        return resultlist;
+        return result_list;
     }
 
 
@@ -241,7 +241,7 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
      * @param sql
      * @param pageView
      * @return PageView<List < Map < String, Object>>>
-     * @desc 多表联合查询 只返回封装的pageview  by bruce
+     * @desc 多表联合查询 只返回封装的pageView  by bruce
      */
     public PageView<List<Map<String, Object>>> querySQLCountForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
 

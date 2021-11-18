@@ -28,7 +28,7 @@
                         <div class="content-show">
                             <h4>
                                 <a href="/love/${s.title_code }.html">
-                                        ${s.cuttitle }
+                                        ${s.cut_title }
                                 </a></h4>
                             <span>${s.engDate }</span>
                         </div>

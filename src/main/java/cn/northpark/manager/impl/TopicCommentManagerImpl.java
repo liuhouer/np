@@ -118,10 +118,10 @@ public class TopicCommentManagerImpl implements TopicCommentManager {
     }
 
     @Override
-    public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview, String sql) {
+    public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageView, String sql) {
 
 
-        List<Map<String, Object>> list = topiccommentDao.querySQLForMapList(sql, pageview);
+        List<Map<String, Object>> list = topiccommentDao.querySQLForMapList(sql, pageView);
 
         return list;
 
@@ -129,9 +129,9 @@ public class TopicCommentManagerImpl implements TopicCommentManager {
 
 
     @Override
-    public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql) {
+    public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageView, String sql) {
 
-        return topiccommentDao.querySQLCountForMapList(sql, pageview);
+        return topiccommentDao.querySQLCountForMapList(sql, pageView);
     }
 
 }

@@ -67,16 +67,16 @@ public interface LyricsCommentManager {
      int countHql(String wheresql);
 
 
-     List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview, String sql);
+     List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageView, String sql);
 
     /**
      * 获取分页结构不获取数据
      *
-     * @param pageview
+     * @param pageView
      * @param userid
      * @return
      */
-     PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql);
+     PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageView, String sql);
 
 }
 

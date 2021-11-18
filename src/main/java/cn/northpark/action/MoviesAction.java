@@ -176,7 +176,7 @@ public class MoviesAction {
     @RequestMapping("/movies/handup")
     @ResponseBody
     @BruceOperation
-    public Result<String> handup(HttpServletRequest request) {
+    public Result<String> handUp(HttpServletRequest request) {
         String rs = "success";
         try {
             String id = request.getParameter("id");
@@ -196,7 +196,7 @@ public class MoviesAction {
             }
 
         } catch (Exception e) {
-            log.error("moviesacton------>", e);
+            log.error("movies action------>", e);
             rs = "ex";
         }
         return ResultGenerator.genSuccessResult(rs);
@@ -212,7 +212,7 @@ public class MoviesAction {
     @RequestMapping("/movies/hideup")
     @ResponseBody
     @BruceOperation
-    public Result<String> hideup(HttpServletRequest request) {
+    public Result<String> hideUp(HttpServletRequest request) {
         String rs = "success";
         try {
             String id = request.getParameter("id");
@@ -224,7 +224,7 @@ public class MoviesAction {
             }
 
         } catch (Exception e) {
-            log.error("moviesacton------>", e);
+            log.error("movies action------>", e);
             rs = "ex";
         }
         return ResultGenerator.genSuccessResult(rs);
@@ -359,7 +359,7 @@ public class MoviesAction {
         	}
            
         } catch (Exception e) {
-            log.error("moviesacton------>", e);
+            log.error("movies action------>", e);
             rs = "ex";
         }
         return ResultGenerator.genSuccessResult(rs);
@@ -375,7 +375,7 @@ public class MoviesAction {
      * @return
      */
     @RequestMapping("/movies/date/{tags_code}")
-    public String datesearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
+    public String dateSearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
         String rs = "redirect:/movies/date/" + tags_code + "/page/1";
         return rs;
     }
@@ -389,7 +389,7 @@ public class MoviesAction {
      * @return
      */
     @RequestMapping(value = "/movies/date/{tags_code}/page/{page}")
-    public String datelistpage(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tags_code,
+    public String dateListPage(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tags_code,
                                HttpServletResponse response, HttpSession session) throws IOException {
 
         String result = "/movies2";
@@ -397,29 +397,29 @@ public class MoviesAction {
         tags_code = WAQ.forSQL().escapeSql(tags_code);
         String whereSql = " where add_time = '" + tags_code + "' ";
 
-        map.put("seldate", tags_code);
+        map.put("sel_date", tags_code);
 
 
         log.info("sql ---" + whereSql);
-        String currentpage = page;
+        String currentPage = page;
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("hot_index,id", "desc");
 
-        //获取pageview
-        PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MoviesCount);
-        QueryResult<Movies> qr = this.moviesManager.findByCondition(pageview, whereSql, order);
-        List<Movies> resultlist = qr.getResultlist();
+        //获取pageView
+        PageView<Movies> pageView = new PageView<Movies>(Integer.parseInt(currentPage), MoviesCount);
+        QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
+        List<Movies> result_list = qr.getResultlist();
 
         //生成分页信息
-        pageview.setQueryResult(qr);
+        pageView.setQueryResult(qr);
 
         //处理标签列表
-        handleTag(resultlist);
+        handleTag(result_list);
 
 
-        map.addAttribute("pageView", pageview);
-        map.addAttribute("list", resultlist);
+        map.addAttribute("pageView", pageView);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/movies/date/" + tags_code);
 
         //获取标签模块
@@ -437,7 +437,7 @@ public class MoviesAction {
      * @return
      */
     @RequestMapping("/movies/tag/{tags_code}")
-    public String tagsearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
+    public String tagSearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
         String rs = "redirect:/movies/tag/" + tags_code + "/page/1";
         return rs;
     }
@@ -451,7 +451,7 @@ public class MoviesAction {
      * @return
      */
     @RequestMapping(value = "/movies/tag/{tags_code}/page/{page}")
-    public String tag_listpage(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tags_code,
+    public String tag_list_page(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tags_code,
                               HttpServletResponse response, HttpSession session) throws IOException {
 
         String result = "/movies2";
@@ -459,25 +459,25 @@ public class MoviesAction {
         tags_code = WAQ.forSQL().escapeSql(tags_code);
         String whereSql = " where tag_code like '%" + tags_code + "%' ";
 
-        map.put("seltag", tags_code);
+        map.put("sel_tag", tags_code);
 
 
         log.info("sql ---" + whereSql);
-        String currentpage = page;
+        String currentPage = page;
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("hot_index,id", "desc");
 
-        //获取pageview
-        PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MoviesCount);
-        QueryResult<Movies> qr = this.moviesManager.findByCondition(pageview, whereSql, order);
-        List<Movies> resultlist = qr.getResultlist();
+        //获取pageView
+        PageView<Movies> pageView = new PageView<Movies>(Integer.parseInt(currentPage), MoviesCount);
+        QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
+        List<Movies> result_list = qr.getResultlist();
 
         //生成分页信息
-        pageview.setQueryResult(qr);
+        pageView.setQueryResult(qr);
 
         //处理标签列表
-        handleTag(resultlist);
+        handleTag(result_list);
 
         int pages = 0;
         try {
@@ -488,8 +488,8 @@ public class MoviesAction {
         }
         map.put("page", pages);
 
-        map.addAttribute("pageView", pageview);
-        map.addAttribute("list", resultlist);
+        map.addAttribute("pageView", pageView);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/movies/tag/" + tags_code);
         //获取标签模块
         getTags(map, request);
@@ -534,34 +534,34 @@ public class MoviesAction {
         log.info("sql ---" + whereSql);
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
-        String orderby = request.getParameter("orderby");
-        if (StringUtils.isNotEmpty(orderby)) {
-            if ("hot".equals(orderby)) {
+        String orderBy = request.getParameter("orderBy");
+        if (StringUtils.isNotEmpty(orderBy)) {
+            if ("hot".equals(orderBy)) {
                 order.put("hot_index", "desc");
-            } else if ("latest".equals(orderby)) {
+            } else if ("latest".equals(orderBy)) {
                 order.put("id", "desc");
             }
-            map.put("orderby", orderby);
+            map.put("orderBy", orderBy);
         } else {
             order.put("add_time", "desc");
             order.put("id", "desc");
         }
 
 
-        //获取pageview
-        PageView<Movies> pageview = new PageView<Movies>(1, MoviesCount);
-        QueryResult<Movies> qr = this.moviesManager.findByCondition(pageview, whereSql, order);
-        List<Movies> resultlist = qr.getResultlist();
+        //获取pageView
+        PageView<Movies> pageView = new PageView<Movies>(1, MoviesCount);
+        QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
+        List<Movies> result_list = qr.getResultlist();
 
         //生成分页信息
-        pageview.setQueryResult(qr);
+        pageView.setQueryResult(qr);
         //处理标签列表
-        handleTag(resultlist);
+        handleTag(result_list);
 
         map.put("page", 1);
 
-        map.addAttribute("pageView", pageview);
-        map.addAttribute("list", resultlist);
+        map.addAttribute("pageView", pageView);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/movies");
 
         //获取标签模块
@@ -581,7 +581,7 @@ public class MoviesAction {
      * @throws IOException
      */
     @RequestMapping(value = "/movies/page/{page}")
-    public String listpage(ModelMap map, @PathVariable String page, HttpServletRequest request,
+    public String listPage(ModelMap map, @PathVariable String page, HttpServletRequest request,
                            HttpSession session) throws IOException {
 
         session.removeAttribute("tabs");
@@ -610,37 +610,37 @@ public class MoviesAction {
         }
 
         log.info("sql ---" + whereSql);
-        String currentpage = page;
+        String currentPage = page;
         //排序条件
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
-        String orderby = request.getParameter("orderby");
-        if (StringUtils.isNotEmpty(orderby)) {
-            if ("hot".equals(orderby)) {
+        String orderBy = request.getParameter("orderBy");
+        if (StringUtils.isNotEmpty(orderBy)) {
+            if ("hot".equals(orderBy)) {
                 order.put("hot_index", "desc");
-            } else if ("latest".equals(orderby)) {
+            } else if ("latest".equals(orderBy)) {
                 order.put("id", "desc");
             }
-            map.put("orderby", orderby);
+            map.put("orderBy", orderBy);
         } else {
             order.put("add_time", "desc");
             order.put("id", "desc");
         }
 
 
-        //获取pageview
-        PageView<Movies> pageview = new PageView<Movies>(Integer.parseInt(currentpage), MoviesCount);
-        QueryResult<Movies> qr = this.moviesManager.findByCondition(pageview, whereSql, order);
-        List<Movies> resultlist = qr.getResultlist();
+        //获取pageView
+        PageView<Movies> pageView = new PageView<Movies>(Integer.parseInt(currentPage), MoviesCount);
+        QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
+        List<Movies> result_list = qr.getResultlist();
 
         //生成分页信息
-        pageview.setQueryResult(qr);
+        pageView.setQueryResult(qr);
         //处理标签列表
-        handleTag(resultlist);
+        handleTag(result_list);
 
         map.put("page", page);
 
-        map.addAttribute("pageView", pageview);
-        map.addAttribute("list", resultlist);
+        map.addAttribute("pageView", pageView);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/movies");
 
         //获取标签模块
@@ -653,12 +653,12 @@ public class MoviesAction {
     /**
      * 处理标签列表
      *
-     * @param resultlist
+     * @param result_list
      */
-    private void handleTag(List<Movies> resultlist) {
-        if (!CollectionUtils.isEmpty(resultlist)) {
+    private void handleTag(List<Movies> result_list) {
+        if (!CollectionUtils.isEmpty(result_list)) {
 
-            for (Movies m : resultlist) {
+            for (Movies m : result_list) {
                 String tag = m.getTag();
                 String tag_code = m.getTag_code();
                 if (StringUtils.isNotEmpty(tag) && StringUtils.isNotEmpty(tag_code)) {
@@ -694,7 +694,7 @@ public class MoviesAction {
      * @return
      */
     @RequestMapping(value = "/movies/post-{id}.html")
-    public String postdetail(ModelMap map, @PathVariable String id, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+    public String postDetail(ModelMap map, @PathVariable String id, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
         if (StringUtils.isNotEmpty(id)) {
             //sql注入处理
@@ -702,7 +702,7 @@ public class MoviesAction {
             Movies  model = moviesManager.findMovies(Integer.valueOf(id));
             if(model!=null) {
                 //页面描述
-            	if(StringUtils.isNotEmpty(model.getMovie_desc())) map.put("movie_desc", Jsoup.parse(model.getMovie_desc()).select("p").text());
+            	if(StringUtils.isNotEmpty(model.getMovie_desc())) map.put("movie_desc", Jsoup.parse(model.getMovie_desc()).text());
             	map.addAttribute("model", model);
             }
         }
@@ -739,8 +739,8 @@ public class MoviesAction {
             tags = tagsManager.findByCondition(" where tag_type = '1' ").getResultlist();
 
             //获取热门电影
-            String hotsql = "select id,movie_name,color from bc_movies order by rand() desc limit 0,70";
-            movies_hot_list = moviesManager.querySql(hotsql);
+            String hot_sql = "select id,movie_name,color from bc_movies order by rand() desc limit 0,70";
+            movies_hot_list = moviesManager.querySql(hot_sql);
 
             RedisUtil.getInstance().set("movies_hot_list", JsonUtil.object2json(movies_hot_list), 24 * 60 * 60);
             RedisUtil.getInstance().set("movies_tags", JsonUtil.object2json(tags), 24 * 60 * 60);

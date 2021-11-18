@@ -193,12 +193,12 @@
                         <c:forEach var="z" items="${years_tag }">
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tag_code == seltag }">
+                                <c:if test="${z.tag_code == sel_tag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
                                     <a style="color: #45d0c6;" href="/poem/dynasty/${z.tag_code}"
                                        title="${z.tag }">${z.tag } </a>
                                 </c:if>
-                                <c:if test="${z.tag_code != seltag }">
+                                <c:if test="${z.tag_code != sel_tag }">
                                     <span class="glyphicon glyphicon-tree-conifer margin5"></span>
                                     <a href="/poem/dynasty/${z.tag_code}" title="${z.tag }">${z.tag } </a>
                                 </c:if>
@@ -218,12 +218,12 @@
                         <c:forEach var="z" items="${types_tag }">
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tag_code == seltag }">
+                                <c:if test="${z.tag_code == sel_tag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
                                     <a style="color: #45d0c6;" href="/poem/types/${z.tag_code}"
                                        title="${z.tag }">${z.tag } </a>
                                 </c:if>
-                                <c:if test="${z.tag_code != seltag }">
+                                <c:if test="${z.tag_code != sel_tag }">
                                     <span class="glyphicon glyphicon-tag  margin5"></span>
                                     <a href="/poem/types/${z.tag_code}" title="${z.tag }">${z.tag } </a>
                                 </c:if>

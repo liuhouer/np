@@ -51,29 +51,6 @@ public class RetRestAction {
         return ResultGenerator.genSuccessResult(rs.toString());
     }
 
-//    @RequestMapping({"/ret/taskMovies"})
-//    @ResponseBody
-//    public Result<String> taskMovies(@RequestBody List<Map<String, String>> list) {
-//        for (int i = 2; i <= 896; i++) {
-//            GeccoEngine.create()
-//                    //Gecco搜索的包路径
-//                    .classpath("cn.northpark.task.movie_spider")
-//                    //开始抓取的页面地址
-//                    .start("http://www.btbuluo.com/moive/?p="+i)
-//                    //开启几个爬虫线程
-//                    .thread(1)
-//                    //单个爬虫每次抓取完一个请求后的间隔时间
-//                    .interval(2000)
-//                    .run();
-//
-//            try {
-//                Thread.sleep(5000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return ResultGenerator.genSuccessResult("ok");
-//    }
 
 
     @RequestMapping({"/ret/movies/json"})
@@ -138,7 +115,7 @@ public class RetRestAction {
                     Map map = (Map) list.get(i);
 
                     String title = (String) map.get("title");
-                    String aurl = (String) map.get("aurl");
+                    String a_url = (String) map.get("a_url");
                     String brief = (String) map.get("brief");
                     String date = (String) map.get("date");
                     String article = (String) map.get("article");
@@ -156,7 +133,7 @@ public class RetRestAction {
 
                     if (flag <= 0) {
                         Soft model = Soft.builder().brief(brief).content(article).os(os).post_date(date).ret_code(code)
-                                .ret_url(aurl).tags(tag).title(title).month(month).year(year).tags_code(tag_code)
+                                .ret_url(a_url).tags(tag).title(title).month(month).year(year).tags_code(tag_code)
                                 .path(path).build();
                         this.softManager.addSoft(model);
                     }

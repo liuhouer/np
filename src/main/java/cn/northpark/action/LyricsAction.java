@@ -92,13 +92,13 @@ public class LyricsAction {
     public String removes(@RequestParam("ids") String ids, String userid) {
         String result = LIST_ACTION2;
         if (StringUtils.isNotEmpty(userid)) {
-            String[] glbstr = ids.split(",");
-            for (String s : glbstr) {
+            String[] split = ids.split(",");
+            for (String s : split) {
                 UserLyrics userlyrics = this.userlyricsManager.findUserLyrics(Integer.parseInt(s));
                 if (userlyrics != null) {//批量删除删除歌词表
-                    Integer lyid = userlyrics.getLyricsid();
-                    if (null != lyid && lyid > 0) {
-                        this.lyricsManager.delLyrics(lyid);
+                    Integer lyID = userlyrics.getLyricsid();
+                    if (null != lyID && lyID > 0) {
+                        this.lyricsManager.delLyrics(lyID);
                     }
                 }
                 this.userlyricsManager.delUserLyrics(Integer.parseInt(s));//批量删除关联表
@@ -109,19 +109,19 @@ public class LyricsAction {
     }
 
     @RequestMapping("/lyrics/update")
-    public String update(Lyrics model, HttpServletRequest request, String oldpath, @RequestParam(value = "file", required = false) MultipartFile[] file, ModelMap map, String userid) {
+    public String update(Lyrics model, HttpServletRequest request, String old_path, @RequestParam(value = "file", required = false) MultipartFile[] file, ModelMap map, String userid) {
         // 执行删除
-        FileUtils.removeOldFile(oldpath, file);
+        FileUtils.removeOldFile(old_path, file);
 
 
         //执行上传
-        List<String> filelist = FileUtils.commonUpload(file, FileUtils.suffix_album);
+        List<String> file_list = FileUtils.commonUpload(file, FileUtils.suffix_album);
         //执行上传end
 
-        if (filelist.size() > 0) {
-            model.setAlbum_img(filelist.get(0));
+        if (file_list.size() > 0) {
+            model.setAlbum_img(file_list.get(0));
         } else {
-            model.setAlbum_img(oldpath);
+            model.setAlbum_img(old_path);
         }
         model.setUpdate_date(TimeUtils.nowTime());
         this.lyricsManager.updateLyrics(model);
@@ -155,15 +155,15 @@ public class LyricsAction {
         if (u != null) {
             Lyrics model = new Lyrics();
             //上传
-            String albumpath = "";
-            List<String> filelist = FileUtils.commonUpload(file, FileUtils.suffix_album);
-            if (filelist != null && filelist.size() > 0) {
-                albumpath = filelist.get(0);
+            String album_path = "";
+            List<String> file_list = FileUtils.commonUpload(file, FileUtils.suffix_album);
+            if (file_list != null && file_list.size() > 0) {
+                album_path = file_list.get(0);
             }
             model.setTitle(lyricsForm.getTitle());
             model.setLove_date(lyricsForm.getLoveDate());
             model.setUpdate_date(TimeUtils.nowTime());
-            model.setAlbum_img(albumpath);
+            model.setAlbum_img(album_path);
             //处理标题请求名
             String title_code = PinyinUtil.paraseStringToFormatPinyin(lyricsForm.getTitle(),BC_Constant.FormatSpilt.hengxian.getNamestr());
             model.setTitle_code(title_code);
@@ -220,7 +220,7 @@ public class LyricsAction {
     //异步分页查询#comment'数据
     @RequestMapping(value = "/lyrics/commentQuery")
     public String commentQuery(ModelMap map, HttpServletRequest request, HttpSession session, String userid) {
-        String page = request.getParameter("currentpage");
+        String page = request.getParameter("currentPage");
         
         if(StringUtils.isEmpty(page)) page = "1";
         
@@ -231,13 +231,13 @@ public class LyricsAction {
         String sql_ = "select b.username,b.tail_slug,b.email,b.head_path,b.head_span,b.head_span_class,a.* from bc_lyrics_comment a join bc_user b on a.userid = b.id where a.lyricsid = '" + lyricsid + "' order by a.create_time desc";
 
         //每页展示6条  获取分页信息
-        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), 6);
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), 6);
 
-        pageview = this.plManager.getMixMapPage(pageview, sql_);
+        pageView = this.plManager.getMixMapPage(pageView, sql_);
 
 
         //  获取分页数据
-        List<Map<String, Object>> plList = this.plManager.findmixByCondition(pageview, sql_);
+        List<Map<String, Object>> plList = this.plManager.findmixByCondition(pageView, sql_);
 
         
         //批量处理时间
@@ -248,11 +248,11 @@ public class LyricsAction {
         }
         map.put("plList", plList);
 
-        map.put("pageview", pageview);
+        map.put("pageView", pageView);
 
 
         //分页到尽头结束了
-        if (pageview.getTotalpage() <= Integer.parseInt(page)) {
+        if (pageView.getTotalpage() <= Integer.parseInt(page)) {
             map.put("tail", "tail");
         }
 
@@ -285,7 +285,7 @@ public class LyricsAction {
 
         Integer lyricsid = 0;
         if (!CollectionUtils.isEmpty(querySql)) {
-            map.put("datamap", querySql.get(0));
+            map.put("dataMap", querySql.get(0));
             lyricsid = (Integer) querySql.get(0).get("lrc_id");
         }
 
@@ -352,7 +352,7 @@ public class LyricsAction {
      * @return
      */
     @RequestMapping(value = "/love/page/{page}")
-    public String listpage(ModelMap map, @PathVariable String page, HttpServletRequest request,
+    public String listPage(ModelMap map, @PathVariable String page, HttpServletRequest request,
                            HttpServletResponse response, HttpSession session) {
 
         //获取域名+tab{selection}
@@ -363,14 +363,14 @@ public class LyricsAction {
 
         String userid = (u == null ? "" : String.valueOf(u.getId()));
 
-        //定义pageview
-        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), MyConstant.MAXRESULT);
+        //定义pageView
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), MyConstant.MAXRESULT);
 
         //获取分页结构不获取数据
 
-        pageview = this.userlyricsManager.getMixMapPage(pageview, userid);
+        pageView = this.userlyricsManager.getMixMapPage(pageView, userid);
 
-        map.addAttribute("pageView", pageview);
+        map.addAttribute("pageView", pageView);
         map.addAttribute("actionUrl", "/love");
         map.addAttribute("page", page);
 
@@ -397,15 +397,15 @@ public class LyricsAction {
         userid = (u == null ? "" : String.valueOf(u.getId()));
 
 
-        //定义pageview
-        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
+        //定义pageView
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
 
         //获取分页结构不获取数据
 
-        pageview = this.userlyricsManager.getMixMapPage(pageview, userid);
+        pageView = this.userlyricsManager.getMixMapPage(pageView, userid);
 
 
-        map.addAttribute("pageView", pageview);
+        map.addAttribute("pageView", pageView);
         map.addAttribute("actionUrl", "/love");
 
 
@@ -414,7 +414,7 @@ public class LyricsAction {
 
 
     /**
-     * 异步分页查询love'数据
+     * 异步分页查询love数据
      *
      * @param map
      * @param request
@@ -423,20 +423,20 @@ public class LyricsAction {
      * @return
      */
     @RequestMapping(value = "/lovequery")
-    public String lovequery(ModelMap map, HttpServletRequest request, HttpSession session, String userid) {
-        String currentpage = request.getParameter("currentpage");
+    public String loveQuery(ModelMap map, HttpServletRequest request, HttpSession session, String userid) {
+        String currentPage = request.getParameter("currentPage");
 
         UserVO u =  RequestHolder.getUserInfo(request);
 
         userid = (u == null ? "" : String.valueOf(u.getId()));
 
 
-        //定义pageview
-        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+        //定义pageView
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(currentPage), MyConstant.MAXRESULT);
 
 
         //获取分页数据
-        List<Map<String, Object>> lovelist = this.userlyricsManager.getMixMapData(pageview, userid);
+        List<Map<String, Object>> lovelist = this.userlyricsManager.getMixMapData(pageView, userid);
 
 
         if (!CollectionUtils.isEmpty(lovelist)) {
@@ -444,7 +444,7 @@ public class LyricsAction {
         	lovelist.forEach(item ->{
         		//处理标题截断
         		String title = (String) item.get("title");
-        		if(StringUtils.isNotEmpty(title)) item.put("cuttitle", HTMLParserUtil.CutString(title, 12));
+        		if(StringUtils.isNotEmpty(title)) item.put("cut_title", HTMLParserUtil.CutString(title, 12));
 
         		//处理日期显示格式
         		String update_date = (String) item.get("update_date");

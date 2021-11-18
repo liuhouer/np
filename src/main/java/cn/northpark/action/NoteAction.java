@@ -156,14 +156,14 @@ public class NoteAction {
         }
         String whereSql = noteQuery.getSql(condition);
 
-        //定义pageview
-        PageView<Note> pageview = new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT);
+        //定义pageView
+        PageView<Note> pageView = new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT);
 
 
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("create_time", "desc");
 
-        QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,
+        QueryResult<Note> qrs = this.noteManager.findByCondition(pageView,
                 whereSql, order);
 
         List<Note> list = qrs.getResultlist();
@@ -175,9 +175,9 @@ public class NoteAction {
             }
         }
         //触发分页计算
-        pageview.setQueryResult(qrs);
+        pageView.setQueryResult(qrs);
 
-        map.addAttribute("pageView", pageview);
+        map.addAttribute("pageView", pageView);
         map.put("condition", condition);
         map.addAttribute("list", list);
         map.addAttribute("actionUrl", "/note/viewNotes/" + userid);
@@ -212,7 +212,7 @@ public class NoteAction {
      * @return
      */
     @RequestMapping(value = "/findAll/page/{page}")
-    public String findAllpages(ModelMap map, NoteQueryCondition condition, @PathVariable String page, HttpServletRequest request,
+    public String findAllPages(ModelMap map, NoteQueryCondition condition, @PathVariable String page, HttpServletRequest request,
                                HttpServletResponse response, HttpSession session, String userid) {
         //condition.setOpened("yes");
 
@@ -233,17 +233,17 @@ public class NoteAction {
         String whereSql = noteQuery.getSql(condition);
 
 
-        //定义pageview
-        PageView<Note> pageview = new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT);
+        //定义pageView
+        PageView<Note> pageView = new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT);
 
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("create_time", "desc");
 
-        QueryResult<Note> qrs = this.noteManager.findByCondition(pageview,
+        QueryResult<Note> qrs = this.noteManager.findByCondition(pageView,
                 whereSql, order);
 
         //触发分页计算
-        pageview.setQueryResult(qrs);
+        pageView.setQueryResult(qrs);
 
         List<Note> list = qrs.getResultlist();
         for (int i = 0; i < list.size(); i++) {
@@ -253,7 +253,7 @@ public class NoteAction {
             }
         }
 
-        map.addAttribute("pageView", pageview);
+        map.addAttribute("pageView", pageView);
         map.put("condition", condition);
         map.addAttribute("list", list);
         map.addAttribute("actionUrl", "/note/findAll");
@@ -285,7 +285,7 @@ public class NoteAction {
      * @throws IOException
      */
     @RequestMapping(value = "")
-    public String noteplazz(ModelMap map, NoteQueryCondition condition, HttpServletRequest request,
+    public String notePlazz(ModelMap map, NoteQueryCondition condition, HttpServletRequest request,
                             HttpServletResponse response, HttpSession session) throws IOException {
 
         session.removeAttribute("tabs");
@@ -296,14 +296,14 @@ public class NoteAction {
 
         log.info("sql ---" + sql);
 
-        //定义pageview
-        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
+        //定义pageView
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
 
         //获取分页结构不获取数据
 
-        pageview = this.noteManager.getMixMapPage(pageview, sql);
+        pageView = this.noteManager.getMixMapPage(pageView, sql);
 
-        map.addAttribute("pageView", pageview);
+        map.addAttribute("pageView", pageView);
         map.put("condition", condition);
         map.addAttribute("actionUrl", "/note");
 
@@ -324,7 +324,7 @@ public class NoteAction {
      * @throws IOException
      */
     @RequestMapping(value = "/page/{page}")
-    public String noteplazzpage(ModelMap map, NoteQueryCondition condition, @PathVariable String page, HttpServletRequest request,
+    public String notePlazzPage(ModelMap map, NoteQueryCondition condition, @PathVariable String page, HttpServletRequest request,
                                 HttpServletResponse response, HttpSession session) throws IOException {
 
         session.removeAttribute("tabs");
@@ -334,16 +334,16 @@ public class NoteAction {
         String sql = noteQuery.getMixSql(condition);
 
         log.info("sql ---" + sql);
-        int currentpage = Integer.parseInt(page);
+        int currentPage = Integer.parseInt(page);
 
-        //定义pageview
-        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(currentpage, MyConstant.MAXRESULT);
+        //定义pageView
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(currentPage, MyConstant.MAXRESULT);
 
         //获取分页结构不获取数据
 
-        pageview = this.noteManager.getMixMapPage(pageview, sql);
+        pageView = this.noteManager.getMixMapPage(pageView, sql);
 
-        map.addAttribute("pageView", pageview);
+        map.addAttribute("pageView", pageView);
         map.put("condition", condition);
         map.addAttribute("actionUrl", "/note");
         map.addAttribute("page", page);
@@ -355,19 +355,19 @@ public class NoteAction {
 
     //异步分页查询story数据
     @RequestMapping(value = "/storyquery")
-    public String noteplazzquery(ModelMap map, HttpServletRequest request, NoteQueryCondition condition, HttpSession session, String userid) {
-        String currentpage = request.getParameter("currentpage");
+    public String notePlazzQuery(ModelMap map, HttpServletRequest request, NoteQueryCondition condition, HttpSession session, String userid) {
+        String currentPage = request.getParameter("currentPage");
 
         condition.setOpened("yes");
 
         String sql = noteQuery.getMixSql(condition);
 
-        //定义pageview
-        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(Integer.parseInt(currentpage), MyConstant.MAXRESULT);
+        //定义pageView
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(currentPage), MyConstant.MAXRESULT);
 
 
         //根据分页仅仅获取数据
-        List<Map<String, Object>> list = this.noteManager.findmixByCondition(pageview, sql);
+        List<Map<String, Object>> list = this.noteManager.findmixByCondition(pageView, sql);
 
 
         for (int i = 0; i < list.size(); i++) {
@@ -410,7 +410,7 @@ public class NoteAction {
             }
         } catch (Exception e) {
             result = "opps,发生了异常.";
-            log.error("noteacton------>", e);
+            log.error("note action------>", e);
         }
 
         return ResultGenerator.genSuccessResult(result);

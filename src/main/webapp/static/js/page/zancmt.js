@@ -131,7 +131,7 @@ function loadcmt() {
     $.ajax({
         url: "/lyrics/commentQuery",
         type: "post",
-        data: {"currentpage": pagenow, "lrcid": lrcid},
+        data: {"currentPage": pagenow, "lrcid": lrcid},
         beforeSend: beforeSend, //发送请求
         complete: complete,
         success: function (data) {

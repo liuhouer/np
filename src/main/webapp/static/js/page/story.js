@@ -4,7 +4,7 @@ $(function () {
     $.ajax({
         url: "/note/storyquery",
         type: "post",
-        data: {"currentpage": pagenow},
+        data: {"currentPage": pagenow},
         beforeSend: beforeSend, //发送请求
         complete: complete,
         success: function (data) {

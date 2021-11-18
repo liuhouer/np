@@ -1,9 +1,9 @@
 $(function () {
-    var albumpath = $("#albumpath").val();
-    if (albumpath != "" && albumpath != null && albumpath != '' && albumpath != 'Failure...') {
+    var album_path = $("#album_path").val();
+    if (album_path != "" && album_path != null && album_path != '' && album_path != 'Failure...') {
         window.parent.showtip2("成功！");
     }
-    if (albumpath == 'Failure...') {
+    if (album_path == 'Failure...') {
         window.parent.showtip2("添加失败！");
     }
 });

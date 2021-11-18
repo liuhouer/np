@@ -161,12 +161,12 @@
                         <c:forEach var="z" items="${soft_tags }">
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tags_code == seltag }">
+                                <c:if test="${z.tags_code == sel_tag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
                                     <a style="color: #45d0c6;" href="/soft/tag/${z.tags_code }"
                                        title="${z.tags }">${z.tags } </a>
                                 </c:if>
-                                <c:if test="${z.tags_code != seltag }">
+                                <c:if test="${z.tags_code != sel_tag }">
                                     <span class="glyphicon glyphicon-tag margin5"></span>
                                     <a href="/soft/tag/${z.tags_code }" title="${z.tags }">${z.tags } </a>
                                 </c:if>
@@ -188,12 +188,12 @@
                         <c:forEach var="z" items="${date_list }">
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.month == selmonth }">
+                                <c:if test="${z.month == sel_month }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
                                     <a style="color: #45d0c6;" href="/soft/month/${z.month}"
                                        title="${z.month }">${z.month } </a>
                                 </c:if>
-                                <c:if test="${z.month != selmonth }">
+                                <c:if test="${z.month != sel_month }">
                                     <span class="glyphicon glyphicon-tree-conifer margin5"></span>
                                     <a href="/soft/month/${z.month}" title="${z.month }">${z.month } </a>
                                 </c:if>

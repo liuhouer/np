@@ -118,10 +118,10 @@ public class KnowledgeManagerImpl implements KnowledgeManager {
 	}
 	
 	@Override
-	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String,Object>>> pageview,String sql) {
+	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String,Object>>> pageView,String sql) {
 		
 		
-		List<Map<String, Object>> list = knowledgeDao.querySQLForMapList(sql, pageview);
+		List<Map<String, Object>> list = knowledgeDao.querySQLForMapList(sql, pageView);
 		
 		return list;
 		
@@ -130,9 +130,9 @@ public class KnowledgeManagerImpl implements KnowledgeManager {
 	
 	
 	@Override
-	public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql) {
+	public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageView, String sql) {
 		
-		return knowledgeDao.querySQLCountForMapList(sql, pageview);
+		return knowledgeDao.querySQLCountForMapList(sql, pageView);
 	}
 	
 }

@@ -79,12 +79,12 @@ public class AddressUtils {
         if (StringUtils.isNotEmpty(returnStr)) {
             // 处理返回的省市区信息
             log.info(returnStr);
-            Map<String, Object> datamap = JsonUtil.json2map(returnStr);
-            if (Objects.nonNull(datamap) && !datamap.isEmpty()) {
-                String country = (String) datamap.get("country");
-                String province = (String) datamap.get("province");
-                String city = (String) datamap.get("city");
-                String isp = (String) datamap.get("isp");
+            Map<String, Object> dataMap = JsonUtil.json2map(returnStr);
+            if (Objects.nonNull(dataMap) && !dataMap.isEmpty()) {
+                String country = (String) dataMap.get("country");
+                String province = (String) dataMap.get("province");
+                String city = (String) dataMap.get("city");
+                String isp = (String) dataMap.get("isp");
                 String rs = "【国家：" + country + "】【省份：" + province + "】【城市：" + city + "】【供应商：" + isp + "】";
                 log.info(rs);
                 return rs;

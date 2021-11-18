@@ -8,16 +8,16 @@ public class QueryResult<T> {
 
     }
 
-    private List<T> resultlist;
+    private List<T> result_list;
 
     private Long totalrecord;
 
     public List<T> getResultlist() {
-        return resultlist;
+        return result_list;
     }
 
-    public void setResultlist(List<T> resultlist) {
-        this.resultlist = resultlist;
+    public void setResultlist(List<T> result_list) {
+        this.result_list = result_list;
     }
 
     public Long getTotalrecord() {

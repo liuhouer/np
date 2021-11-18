@@ -191,12 +191,12 @@
                         <c:forEach var="z" items="${learn_tags }">
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tag_code == seltag }">
+                                <c:if test="${z.tag_code == sel_tag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
                                     <a style="color: #45d0c6;" href="/learning/tag/${z.tag_code }"
                                        title="${z.tag }">${z.tag } </a>
                                 </c:if>
-                                <c:if test="${z.tag_code != seltag }">
+                                <c:if test="${z.tag_code != sel_tag }">
                                     <span class="glyphicon glyphicon-tag margin5"></span>
                                     <a href="/learning/tag/${z.tag_code }" title="${z.tag }">${z.tag } </a>
                                 </c:if>
@@ -232,7 +232,7 @@
 
             $(this).click(function () {
                 var oid = $(this).attr("oid");
-                window.location.href = "/learning/page/1?orderby=" + oid;
+                window.location.href = "/learning/page/1?orderBy=" + oid;
             })
         });
 
@@ -270,16 +270,16 @@
         })
     }
 
-    var orderby = "${orderby}";
-    if (orderby) {
+    var orderBy = "${orderBy}";
+    if (orderBy) {
         $("#pageForm a").each(function () {
             var href = $(this).attr("href");
-            $(this).attr("href", href + "?orderby=" + orderby);
+            $(this).attr("href", href + "?orderBy=" + orderBy);
         });
 
         //设置选中的标签格式
         $(".tag-node").each(function () {
-            if ($(this).attr("oid") == orderby) {
+            if ($(this).attr("oid") == orderBy) {
                 $(this).css("border-radius", '0px');
             }
 
