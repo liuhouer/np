@@ -18,8 +18,7 @@
     <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
     <title>${model.title} | NorthPark </title>
     <meta name="keywords" content="NorthPark,情商提升,情圣日记，撩妹技巧">
-    <meta name="description"
-          content="NorthPark情商提升的技巧和讲解">
+    <meta name="description" content="${eq_desc}">
 
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
 
