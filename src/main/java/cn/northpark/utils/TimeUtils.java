@@ -42,7 +42,7 @@ public class TimeUtils {
             date = format.parse(str);
             str = TimeUtils.format(date);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
+
             log.error("TimeUtils------->", e);
             ;
         }

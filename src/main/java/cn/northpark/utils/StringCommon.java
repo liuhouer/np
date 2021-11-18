@@ -203,7 +203,7 @@ public class StringCommon {
 			
 			IOUtils.write(data, outputStream);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 			e.printStackTrace();
 		}finally {
 			

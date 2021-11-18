@@ -84,7 +84,7 @@ public class TestEQTask {
         // org.apache.commons.io.FileUtils.writeStringToFile(new
         // File("d:\\newsoft.xml"), sb.toString());
         // } catch (Exception e) {
-        // // TODO Auto-generated catch block
+        //
         // e.printStackTrace();
         // }
 
@@ -115,7 +115,7 @@ public class TestEQTask {
         // org.apache.commons.io.FileUtils.writeStringToFile(new
         // File("d:\\movies-sitemap.xml"), sb.toString());
         // } catch (IOException e) {
-        // // TODO Auto-generated catch block
+        //
         // e.printStackTrace();
         // }
 
@@ -135,7 +135,7 @@ public class TestEQTask {
         // org.apache.commons.io.FileUtils.writeStringToFile(new
         // File("d:\\eq-sitemap.xml"), sb.toString());
         // } catch (IOException e) {
-        // // TODO Auto-generated catch block
+        //
         // e.printStackTrace();
         // }
 
@@ -251,7 +251,7 @@ public class TestEQTask {
         // }
         //
         // } catch (Exception e) {
-        // // TODO: handle exception
+        //
         // e.printStackTrace();
         // }
         // 把下载链接放到path字段去=====================================end===========================================================
@@ -329,7 +329,7 @@ public class TestEQTask {
         //
         //
         // } catch (Exception e) {
-        // // TODO: handle exception
+        //
         // log.error("TestEQTask=======>"+e);
         // }
         //
@@ -381,7 +381,7 @@ public class TestEQTask {
                         }
                     }
                 } catch (Exception e) {
-                    // TODO: handle exception
+
                     continue;
                 }
 
@@ -396,7 +396,7 @@ public class TestEQTask {
             }
 
         } catch (Exception e) {
-            // TODO: handle exception
+
         }
 
         log.info("soft task==============end=" + TimeUtils.getNowTime());
@@ -456,14 +456,14 @@ public class TestEQTask {
 //									moviesManager.addMovies(model);
 //								}
 //							} catch (Exception e) {
-//								// TODO: handle exception
+//
 //								continue;
 //							}
 //
 //						}
 //					}
 //				} catch (Exception e) {
-//					// TODO: handle exception
+//
 //					continue;
 //				}
 //
@@ -556,14 +556,14 @@ public class TestEQTask {
         //
         // }
         // } catch (Exception e) {
-        // // TODO: handle exception
+        //
         // continue;
         // }
         //
         // }
         // }
         // } catch (Exception e) {
-        // // TODO: handle exception
+        //
         // continue;
         // }
         //
@@ -582,7 +582,7 @@ public class TestEQTask {
         //
         // log.info("poem task==============end="+TimeUtils.getNowTime());
         // } catch (Exception e) {
-        // // TODO: handle exception
+        //
         // }
         //
 
@@ -611,7 +611,7 @@ public class TestEQTask {
         // }
         // }
         // } catch (Exception e) {
-        // // TODO: handle exception
+        //
         // e.printStackTrace();
         // }
         //
@@ -670,7 +670,7 @@ public class TestEQTask {
         // }
         // }
         // } catch (Exception e) {
-        // // TODO: handle exception
+        //
         // }
 
         // =========================================================微信星座===========================================================================================
@@ -705,7 +705,7 @@ public class TestEQTask {
         //
         //
         // } catch (IOException e) {
-        // // TODO Auto-generated catch block
+        //
         // e.printStackTrace();
         // }
         //
@@ -809,7 +809,7 @@ public class TestEQTask {
         //
         //
         // } catch (IOException e) {
-        // // TODO Auto-generated catch block
+        //
         // continue;
         // }
         //
@@ -959,7 +959,7 @@ public class TestEQTask {
         // }
         //
         // } catch (Exception e) {
-        // // TODO Auto-generated catch block
+        //
         // log.error(e);
         // continue;
         // }
@@ -973,7 +973,7 @@ public class TestEQTask {
         // System.out.println(TimeUtils.getPastTime(end, start));
         //
         // } catch (Exception e) {
-        // // TODO Auto-generated catch block
+        //
         // e.printStackTrace();
         // }
         //
@@ -999,7 +999,7 @@ public class TestEQTask {
         // lcManager.updateLyricsComment(m);
         //
         // } catch (Exception e) {
-        // // TODO Auto-generated catch block
+        //
         // log.error(e);
         // continue;
         // }
@@ -1013,7 +1013,7 @@ public class TestEQTask {
         // System.out.println(TimeUtils.getPastTime(end, start));
         //
         // } catch (Exception e) {
-        // // TODO Auto-generated catch block
+        //
         // e.printStackTrace();
         // }
 
@@ -1042,7 +1042,7 @@ public class TestEQTask {
         // lyricsManager.updateLyrics(m);
         //
         // } catch (Exception e) {
-        // // TODO Auto-generated catch block
+        //
         // log.error(e);
         // continue;
         // }
@@ -1057,7 +1057,7 @@ public class TestEQTask {
         // System.out.println(TimeUtils.getPastTime(end, start));
         //
         // } catch (Exception e) {
-        // // TODO Auto-generated catch block
+        //
         // e.printStackTrace();
         // }
         //

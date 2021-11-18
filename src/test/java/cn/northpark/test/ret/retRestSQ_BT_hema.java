@@ -32,7 +32,7 @@ public class retRestSQ_BT_hema {
                 if(e instanceof java.net.SocketException){
                     break;
                 }
-                // TODO: handle exception
+
                 e.printStackTrace();
             }
 
@@ -46,10 +46,10 @@ public class retRestSQ_BT_hema {
             try {
                 HttpGetUtils.sendPostJsonData(url, jsonData);
             } catch (ClientProtocolException e) {
-                // TODO Auto-generated catch block
+
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
+
                 e.printStackTrace();
             }
 

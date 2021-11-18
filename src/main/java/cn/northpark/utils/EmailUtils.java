@@ -92,7 +92,7 @@ public class EmailUtils {
             email.send();
             log.info("邮件发送成功");
         } catch (Exception e) {
-            // TODO: handle exception
+
             log.error("邮件发送失败");
             log.error("EmailUtils------->", e);
             ;
@@ -151,7 +151,7 @@ public class EmailUtils {
             email.send();
             log.info("邮件发送成功");
         } catch (Exception e) {
-            // TODO: handle exception
+
             log.error("邮件发送失败");
             log.error("EmailUtils------->", e);
             ;
@@ -222,7 +222,7 @@ public class EmailUtils {
             email.send();
             log.info("邮件发送成功");
         } catch (Exception e) {
-            // TODO: handle exception
+
             log.error("邮件发送失败");
             log.error("EmailUtils------->", e);
             ;

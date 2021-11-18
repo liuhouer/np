@@ -8,6 +8,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -17,8 +18,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -148,18 +147,15 @@ public class FileUtils {
      * @return
      */
     public static String getContentFromWeb(String url) {
-        String filecontent = "";
+        String fileContent = "";
         InputStream is = null;
-        BASE64Encoder base = new BASE64Encoder();
         if (url.startsWith("http")) {
             try {
-                HttpURLConnection urlconn = (HttpURLConnection) new URL(url).openConnection();
-                is = urlconn.getInputStream();
+                HttpURLConnection urlConn = (HttpURLConnection) new URL(url).openConnection();
+                is = urlConn.getInputStream();
             } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
                 log.error("------->", e);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 log.error("------->", e);
             }
         }
@@ -169,25 +165,24 @@ public class FileUtils {
             while ((n = is.available()) > 0) {
                 n = is.read(b);
                 if (n == -1) break;
-                filecontent = filecontent + base.encode(b);
+                fileContent = fileContent + Base64.encodeBase64(b);
 
             }
             is.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             log.error("------->", e);
         }
-        return filecontent;
+        return fileContent;
     }
 
     /**
      * 将图片内容用post方式发送到url中
      *
      * @param url
-     * @param postcontent
+     * @param postContent
      */
 
-    public static void sendImgbyPost(String url, String postcontent) {
+    public static void sendImgbyPost(String url, String postContent) {
         try {
             HttpURLConnection huc = (HttpURLConnection) new URL(url).openConnection();
             huc.setDoInput(true);
@@ -195,7 +190,7 @@ public class FileUtils {
             huc.setRequestMethod("POST");
 
             PrintWriter pw = new PrintWriter(new OutputStreamWriter(huc.getOutputStream()));
-            pw.print(postcontent);
+            pw.print(postContent);
             pw.close();
 
             BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream()));
@@ -208,10 +203,10 @@ public class FileUtils {
             }
 
         } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
+
             log.error("------->", e);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+
             log.error("------->", e);
         }
 
@@ -250,16 +245,13 @@ public class FileUtils {
         try {
             FileOutputStream fos = new FileOutputStream(file);
             String content = receiveContent(request);
-            BASE64Decoder base = new BASE64Decoder();
-            byte[] b = base.decodeBuffer(content);
+            byte[] b = Base64.decodeBase64(content);
             fos.write(b);
             fos.close();
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             log.error("------->", e);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             log.error("------->", e);
         }
 
@@ -340,29 +332,29 @@ public class FileUtils {
     public static void replaceFiles() throws Exception {
 
         File root = new File("/mnt/apk/album");
-        List<String> flist = showAllFiles(root);
-        for (int i = 0; i < flist.size(); i++) {
-            if (EnDecryptUtils.md5Encrypt(flist.get(i)).equals(pic1)) {//替换图片
-                log.info(i + "---" + flist.get(i));
-                String new_pic = getRandomPic(flist);
+        List<String> fList = showAllFiles(root);
+        for (int i = 0; i < fList.size(); i++) {
+            if (EnDecryptUtils.md5Encrypt(fList.get(i)).equals(pic1)) {//替换图片
+                log.info(i + "---" + fList.get(i));
+                String new_pic = getRandomPic(fList);
 
-                writeFile(flist, i, new_pic);
+                writeFile(fList, i, new_pic);
             }
         }
     }
 
     /**
-     * @param flist
+     * @param fList
      * @param i
      * @param new_pic
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static void writeFile(List<String> flist, int i, String new_pic)
+    public static void writeFile(List<String> fList, int i, String new_pic)
             throws FileNotFoundException, IOException {
         //写入文件
         FileInputStream in = new FileInputStream(new_pic);
-        FileOutputStream bos = new FileOutputStream(flist.get(i));
+        FileOutputStream bos = new FileOutputStream(fList.get(i));
         byte[] buffer = new byte[1024];
         int len = 0;
         while (-1 != (len = in.read(buffer, 0, 1024))) {
@@ -372,7 +364,7 @@ public class FileUtils {
             in.close();
             bos.close();
         } catch (Exception e) {
-            // TODO: handle exception
+
             log.error("------->", e);
         }
     }
@@ -385,12 +377,12 @@ public class FileUtils {
     public static Integer getRandomOne(List<?> list) {
 
 
-        Random ramdom = new Random();
+        Random random = new Random();
         int number = -1;
         int max = list.size();
 
         //size 为  10 ，取得类似0-9的区间数
-        number = Math.abs(ramdom.nextInt() % max);
+        number = Math.abs(random.nextInt() % max);
 
         return number;
 
@@ -435,7 +427,7 @@ public class FileUtils {
             }
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
+
 
         } finally {
             if (scanner != null) {
@@ -501,7 +493,7 @@ public class FileUtils {
     /**
      * 重命名解析B站下载的视频
      */
-    private static void reNameBlibiliFile() {
+    private static void reNameBliBiliFile() {
         String path = "E:\\学习视频\\flink从入门到精通-星火哥";
 
         File dir = new File(path);
@@ -516,11 +508,11 @@ public class FileUtils {
             List<File> filesNNames = Arrays.asList(fileN.listFiles());
 
             for (File filesNName : filesNNames) {
-                File[] realfiles = filesNName.listFiles();
-                for (File realfile : realfiles) {
+                File[] realFiles = filesNName.listFiles();
+                for (File realFile : realFiles) {
                     String pathname = "E:\\学习视频\\flink从入门到精通-星火哥\\" + rename + ".mp4";
                     log.info(pathname);
-                    realfile.renameTo(new File(pathname));
+                    realFile.renameTo(new File(pathname));
                 }
             }
             log.info(JsonUtil.object2jsonWriteNullValue(filesNNames));
@@ -558,8 +550,8 @@ public class FileUtils {
                     //重命名视频和音频文件
                     String videoPath = ep_path + "\\" + "80";
                     File dir_video = new File(videoPath);
-                    File[] vdlist = dir_video.listFiles();
-                    for (File vd : vdlist) {
+                    File[] vd_list = dir_video.listFiles();
+                    for (File vd : vd_list) {
                         if (vd.getName().equals("audio.m4s")) {
                             String audioName = ep_path + "\\" + title + ".mp3";
                             log.info(audioName);

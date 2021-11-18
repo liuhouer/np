@@ -181,7 +181,7 @@ public class LyricsZanAction {
             }
             msg = "success";
         } catch (Exception e) {
-            // TODO: handle exception
+
             msg = "exception";
             log.error("zan action------>", e);
         }

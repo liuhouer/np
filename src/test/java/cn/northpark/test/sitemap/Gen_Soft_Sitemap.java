@@ -42,7 +42,7 @@ public class Gen_Soft_Sitemap extends BaseTest {
         try {
             FileUtils.writeStringToFile(new File("/Users/bruce/Downloads/soft.xml"), sb.toString());
         } catch (Exception e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
 

@@ -135,7 +135,7 @@ class Base64Utils {
 			decodes = decodes.substring(0, decodes.length() - 6);
 			return decodes;
 		} catch (Exception e) {
-			// TODO: handle exception
+
 			log.error("decrypt DIY err-->{}",e);
 			return "";
 		}
