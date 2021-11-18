@@ -20,7 +20,7 @@
 <title>${article.title}|NorthPark</title>
 <meta name="keywords"
 	content="${article.title},${article.tags},NorthPark">
-<meta name="description" content="${article.content}">
+<meta name="description" content="${soft_desc}">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 
 </head>

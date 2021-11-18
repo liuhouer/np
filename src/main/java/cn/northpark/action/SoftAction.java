@@ -397,7 +397,8 @@ public class SoftAction {
             List<Soft> list = softManager.querySql("select * from bc_soft where ret_code=?", ret_code);
             if (!CollectionUtils.isEmpty(list)) {
                 map.addAttribute("article", list.get(0));
-                if(StringUtils.isNotEmpty(list.get(0).getBrief())) map.put("movie_desc", Jsoup.parse(list.get(0).getBrief()).text());
+                //SEO 优化
+                if(StringUtils.isNotEmpty(list.get(0).getBrief())) map.put("soft_desc", Jsoup.parse(list.get(0).getBrief()).text());
             }
 
         } catch (Exception e) {
