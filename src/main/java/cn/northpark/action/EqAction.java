@@ -12,6 +12,7 @@ import cn.northpark.utils.safe.WAQ;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -49,15 +50,17 @@ public class EqAction {
      * @param map
      * @return
      */
-    @RequestMapping("/romeo/{eqid}.html")
-    public String article(ModelMap map, @PathVariable Integer eqid) {
+    @RequestMapping("/romeo/{eqID}.html")
+    public String article(ModelMap map, @PathVariable Integer eqID) {
         try {
 
-            Eq eq = eqManager.findEq(eqid);
+            Eq eq = eqManager.findEq(eqID);
+            //SEO 优化
+            if(StringUtils.isNotEmpty(eq.getArticle())) map.put("eq_desc", Jsoup.parse(eq.getArticle()).text());
+
             map.addAttribute("model", eq);
         } catch (Exception e) {
-            // TODO: handle exception
-            log.error("eqacton------>", e);
+            log.error("eq action------>", e);
         }
         return "/page/eq/article";
     }
@@ -72,8 +75,8 @@ public class EqAction {
             String whereSql = eqQuery.getSql(condition);
 
 
-            //定义pageview
-            PageView<Eq> pageview = new PageView<Eq>(1, MyConstant.MAXRESULT);
+            //定义pageView
+            PageView<Eq> pageView = new PageView<Eq>(1, MyConstant.MAXRESULT);
 
             log.info("sql ---" + whereSql);
 
@@ -82,18 +85,17 @@ public class EqAction {
             order.put("date", "desc");
 
 
-            QueryResult<Eq> qr = this.eqManager.findByCondition(pageview, whereSql, order);
-            List<Eq> resultlist = qr.getResultlist();
+            QueryResult<Eq> qr = this.eqManager.findByCondition(pageView, whereSql, order);
+            List<Eq> result_list = qr.getResultlist();
 
 
             //触发生成页码等等
-            pageview.setQueryResult(qr);
-            map.addAttribute("pageView", pageview);
-            map.addAttribute("list", resultlist);
+            pageView.setQueryResult(qr);
+            map.addAttribute("pageView", pageView);
+            map.addAttribute("list", result_list);
             map.addAttribute("actionUrl", "/romeo");
         } catch (Exception e) {
-            // TODO: handle exception
-            log.error("eqacton------>", e);
+            log.error("eq action------>", e);
         }
 
 
@@ -101,7 +103,7 @@ public class EqAction {
     }
 
     @RequestMapping(value = "/romeo/page/{page}")
-    public String listpage(ModelMap map, EqQueryCondition condition, @PathVariable String page, HttpServletRequest request,
+    public String listPage(ModelMap map, EqQueryCondition condition, @PathVariable String page, HttpServletRequest request,
                            HttpServletResponse response, HttpSession session) throws IOException {
 
         String result = "/equp";
@@ -109,8 +111,8 @@ public class EqAction {
         String whereSql = eqQuery.getSql(condition);
 
 
-        //定义pageview
-        PageView<Eq> pageview = new PageView<Eq>(Integer.parseInt(page), MyConstant.MAXRESULT);
+        //定义pageView
+        PageView<Eq> pageView = new PageView<Eq>(Integer.parseInt(page), MyConstant.MAXRESULT);
 
         String keyword = request.getParameter("keyword");
         if (StringUtils.isNotEmpty(keyword)) {
@@ -127,12 +129,12 @@ public class EqAction {
         order.put("date", "desc");
 
 
-        QueryResult<Eq> qr = this.eqManager.findByCondition(pageview, whereSql, order);
-        List<Eq> resultlist = qr.getResultlist();
+        QueryResult<Eq> qr = this.eqManager.findByCondition(pageView, whereSql, order);
+        List<Eq> result_list = qr.getResultlist();
         //触发生成页码等等
-        pageview.setQueryResult(qr);
-        map.addAttribute("pageView", pageview);
-        map.addAttribute("list", resultlist);
+        pageView.setQueryResult(qr);
+        map.addAttribute("pageView", pageView);
+        map.addAttribute("list", result_list);
         map.addAttribute("actionUrl", "/romeo");
         map.addAttribute("page", page);
 
@@ -148,12 +150,12 @@ public class EqAction {
     public static Integer getRandomOne(List<?> list) {
 
 
-        Random ramdom = new Random();
+        Random random = new Random();
         int number = -1;
         int max = list.size();
 
         //size 为  10 ，取得类似0-9的区间数
-        number = Math.abs(ramdom.nextInt() % max);
+        number = Math.abs(random.nextInt() % max);
 
         return number;
 
