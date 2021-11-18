@@ -11,14 +11,14 @@ public interface MyConstant {
     /**
      * 每页显示记录数
      */
-    public int MAXRESULT = 12;
+    int MAX_RESULT = 12;
     /**
      * 每页的页码数默认
      */
-    public int PAGECODE = 5;
+    int PAGE_SHOW_COUNT = 5;
     /**
      * 首页页码
      */
-    public final int PAGE = 1;
+    int START_PAGE = 1;
 
 }

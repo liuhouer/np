@@ -59,7 +59,7 @@ public class SoftManagerImpl implements SoftManager {
     public QueryResult<Soft> findByCondition(PageView<Soft> p,
                                              String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = softDao.findByCondition(p.getFirstResult(),
-                p.getMaxresult(), wheresql, order);
+                p.getMaxResult(), wheresql, order);
         return qrs;
     }
 

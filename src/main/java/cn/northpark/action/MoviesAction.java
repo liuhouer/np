@@ -409,7 +409,7 @@ public class MoviesAction {
         //获取pageView
         PageView<Movies> pageView = new PageView<Movies>(Integer.parseInt(currentPage), MoviesCount);
         QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
-        List<Movies> result_list = qr.getResultlist();
+        List<Movies> result_list = qr.getResultList();
 
         //生成分页信息
         pageView.setQueryResult(qr);
@@ -471,7 +471,7 @@ public class MoviesAction {
         //获取pageView
         PageView<Movies> pageView = new PageView<Movies>(Integer.parseInt(currentPage), MoviesCount);
         QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
-        List<Movies> result_list = qr.getResultlist();
+        List<Movies> result_list = qr.getResultList();
 
         //生成分页信息
         pageView.setQueryResult(qr);
@@ -551,7 +551,7 @@ public class MoviesAction {
         //获取pageView
         PageView<Movies> pageView = new PageView<Movies>(1, MoviesCount);
         QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
-        List<Movies> result_list = qr.getResultlist();
+        List<Movies> result_list = qr.getResultList();
 
         //生成分页信息
         pageView.setQueryResult(qr);
@@ -630,7 +630,7 @@ public class MoviesAction {
         //获取pageView
         PageView<Movies> pageView = new PageView<Movies>(Integer.parseInt(currentPage), MoviesCount);
         QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
-        List<Movies> result_list = qr.getResultlist();
+        List<Movies> result_list = qr.getResultList();
 
         //生成分页信息
         pageView.setQueryResult(qr);
@@ -736,7 +736,7 @@ public class MoviesAction {
         if (CollectionUtils.isEmpty(tags) && CollectionUtils.isEmpty(movies_hot_list)) {
             //获取标签
 
-            tags = tagsManager.findByCondition(" where tag_type = '1' ").getResultlist();
+            tags = tagsManager.findByCondition(" where tag_type = '1' ").getResultList();
 
             //获取热门电影
             String hot_sql = "select id,movie_name,color from bc_movies order by rand() desc limit 0,70";

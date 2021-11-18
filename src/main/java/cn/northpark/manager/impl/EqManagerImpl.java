@@ -58,7 +58,7 @@ public class EqManagerImpl implements EqManager {
     public QueryResult<Eq> findByCondition(PageView<Eq> p,
                                            String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = eqDao.findByCondition(p.getFirstResult(),
-                p.getMaxresult(), wheresql, order);
+                p.getMaxResult(), wheresql, order);
         return qrs;
     }
 

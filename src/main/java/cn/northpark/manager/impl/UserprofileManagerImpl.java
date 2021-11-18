@@ -52,7 +52,7 @@ public class UserprofileManagerImpl implements UserprofileManager {
     public QueryResult<Userprofile> findByCondition(PageView<Userprofile> p,
                                                     String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = userprofileDao.findByCondition(p.getFirstResult(),
-                MyConstant.MAXRESULT, wheresql, order);
+                MyConstant.MAX_RESULT, wheresql, order);
         return qrs;
     }
 

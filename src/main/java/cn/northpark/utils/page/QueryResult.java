@@ -8,24 +8,24 @@ public class QueryResult<T> {
 
     }
 
-    private List<T> result_list;
+    private List<T> resultList;
 
-    private Long totalrecord;
+    private Long totalRecord;
 
-    public List<T> getResultlist() {
-        return result_list;
+    public List<T> getResultList() {
+        return resultList;
     }
 
-    public void setResultlist(List<T> result_list) {
-        this.result_list = result_list;
+    public void setResultList(List<T> resultList) {
+        this.resultList = resultList;
     }
 
-    public Long getTotalrecord() {
-        return totalrecord;
+    public Long getTotalRecord() {
+        return totalRecord;
     }
 
-    public void setTotalrecord(Long totalrecord) {
-        this.totalrecord = totalrecord;
+    public void setTotalRecord(Long totalRecord) {
+        this.totalRecord = totalRecord;
     }
 
 }

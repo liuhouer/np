@@ -61,7 +61,7 @@ public class NotifyRemindManagerImpl implements NotifyRemindManager {
 	public QueryResult<NotifyRemind> findByCondition(PageView<NotifyRemind> p,
 			String wheresql, LinkedHashMap<String, String> order) {
 		QueryResult qrs = notifyremindDao.findByCondition(p.getFirstResult(),
-				p.getMaxresult(), wheresql, order);
+				p.getMaxResult(), wheresql, order);
 		return qrs;
 	}
 

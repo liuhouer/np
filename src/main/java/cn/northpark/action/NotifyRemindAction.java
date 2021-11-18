@@ -130,11 +130,11 @@ public class NotifyRemindAction {
 		order.put("createdAt", "desc");
 
 		//获取pageView
-		PageView<NotifyRemind> page_view = new PageView<NotifyRemind>(1, MyConstant.MAXRESULT);
+		PageView<NotifyRemind> page_view = new PageView<NotifyRemind>(1, MyConstant.MAX_RESULT);
 
 		QueryResult<NotifyRemind> qr = notifyRemindManager.findByCondition(page_view, where_sql, order);
 
-		List<NotifyRemind> result_list = qr.getResultlist();
+		List<NotifyRemind> result_list = qr.getResultList();
 
 		//格式化时间
 		result_list.parallelStream().forEach(item->{
@@ -176,11 +176,11 @@ public class NotifyRemindAction {
 		order.put("createdAt", "desc");
 
 		//获取pageView
-		PageView<NotifyRemind> page_view = new PageView<NotifyRemind>(Integer.parseInt(page), MyConstant.MAXRESULT);
+		PageView<NotifyRemind> page_view = new PageView<NotifyRemind>(Integer.parseInt(page), MyConstant.MAX_RESULT);
 
 		QueryResult<NotifyRemind> qr = notifyRemindManager.findByCondition(page_view, where_sql, order);
 
-		List<NotifyRemind> result_list = qr.getResultlist();
+		List<NotifyRemind> result_list = qr.getResultList();
 
 		//生成分页信息
 		page_view.setQueryResult(qr);

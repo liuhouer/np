@@ -157,7 +157,7 @@ public class NoteAction {
         String whereSql = noteQuery.getSql(condition);
 
         //定义pageView
-        PageView<Note> pageView = new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT);
+        PageView<Note> pageView = new PageView<Note>(Integer.parseInt(page), MyConstant.MAX_RESULT);
 
 
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
@@ -166,7 +166,7 @@ public class NoteAction {
         QueryResult<Note> qrs = this.noteManager.findByCondition(pageView,
                 whereSql, order);
 
-        List<Note> list = qrs.getResultlist();
+        List<Note> list = qrs.getResultList();
 
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getCreate_time().contains("-")) {
@@ -234,7 +234,7 @@ public class NoteAction {
 
 
         //定义pageView
-        PageView<Note> pageView = new PageView<Note>(Integer.parseInt(page), MyConstant.MAXRESULT);
+        PageView<Note> pageView = new PageView<Note>(Integer.parseInt(page), MyConstant.MAX_RESULT);
 
         LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
         order.put("create_time", "desc");
@@ -245,7 +245,7 @@ public class NoteAction {
         //触发分页计算
         pageView.setQueryResult(qrs);
 
-        List<Note> list = qrs.getResultlist();
+        List<Note> list = qrs.getResultList();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getCreate_time().contains("-")) {
                 String t = list.get(i).getCreate_time().substring(0, 10);
@@ -297,7 +297,7 @@ public class NoteAction {
         log.info("sql ---" + sql);
 
         //定义pageView
-        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(1, MyConstant.MAX_RESULT);
 
         //获取分页结构不获取数据
 
@@ -337,7 +337,7 @@ public class NoteAction {
         int currentPage = Integer.parseInt(page);
 
         //定义pageView
-        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(currentPage, MyConstant.MAXRESULT);
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(currentPage, MyConstant.MAX_RESULT);
 
         //获取分页结构不获取数据
 
@@ -363,7 +363,7 @@ public class NoteAction {
         String sql = noteQuery.getMixSql(condition);
 
         //定义pageView
-        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(currentPage), MyConstant.MAXRESULT);
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(currentPage), MyConstant.MAX_RESULT);
 
 
         //根据分页仅仅获取数据

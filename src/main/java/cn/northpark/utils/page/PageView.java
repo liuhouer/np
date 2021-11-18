@@ -6,12 +6,11 @@ import java.util.Map;
 public class PageView<T> {
 //  用一个PageView封装了分页数据（从QueryResult里List拿出来的），
 //	页码开始索引和结束索引（是一个封装了开始索引和结束索引的类PageIndex，这两个字段就像是百度搜索下端的页码开始和结束索引），
-//	总页数totalpage（通过总记录数totalrecord和每页最大记录数maxresult计得），
-//	每页记录数maxresult（使用默认值），
-//	当前页码（和maxresult触发记录开始索引生成，Hibernate分页setFirstResult(...)参数），
-//	总记录数totalrecord（从QueryResult的记录拿出来），
-//	页码数量pagecode（比如第一页、上一页、下一页、末页的数量）：
-
+//	总页数totalPage（通过总记录数totalRecord和每页最大记录数maxResult计得），
+//	每页记录数maxResult（使用默认值），
+//	当前页码（和maxResult触发记录开始索引生成，Hibernate分页setFirstResult(...)参数），
+//	总记录数totalRecord（从QueryResult的记录拿出来），
+//	页码数量pageShowCount（比如第一页、上一页、下一页、末页的数量）：
 
     /**
      * 分页数据
@@ -21,22 +20,22 @@ public class PageView<T> {
     /**
      * Map结构分页数据
      **/
-    private List<Map<String, Object>> maprecords;
+    private List<Map<String, Object>> mapRecords;
 
 
     /**
      * 页码开始索引和结束索引
      **/
-    private PageIndex pageindex;
+    private PageIndex pageIndex;
 
     /**
      * 总页数
      **/
-    private int totalpage = 1;
+    private int totalPage = 1;
     /**
      * 每页显示记录数
      **/
-    private int maxresult = MyConstant.MAXRESULT;
+    private int maxResult = MyConstant.MAX_RESULT;
     /**
      * 当前页
      **/
@@ -44,11 +43,11 @@ public class PageView<T> {
     /**
      * 总记录数
      **/
-    private int totalrecord;
+    private int totalRecord;
     /**
      * 每次展示的页码数量比如12345  34567
      **/
-    private int pagecode = MyConstant.PAGECODE;
+    private int pageShowCount = MyConstant.PAGE_SHOW_COUNT;
 
 
     //構造函數==========================================
@@ -59,10 +58,10 @@ public class PageView<T> {
      * 構造函數===========當前頁碼，每頁顯示記錄數============================
      *
      * @param currentPage
-     * @param maxresult
+     * @param maxResult
      */
-    public PageView(int currentPage, int maxresult) {
-        this.maxresult = maxresult;
+    public PageView(int currentPage, int maxResult) {
+        this.maxResult = maxResult;
         //兼容错误
         if (currentPage <= 0) {
             currentPage = 1;
@@ -74,37 +73,37 @@ public class PageView<T> {
      * 構造函數===========當前頁碼，每頁顯示記錄數============================
      *
      * @param currentPage
-     * @param maxresult
-     * @param pagecode 限制前台展示的页码数量比如12345 : 5  345678:6
+     * @param maxResult
+     * @param pageShowCount 限制前台展示的页码数量比如12345 : 5  345678:6
      */
-    public PageView(int currentPage, int maxresult, int pagecode) {
-        this.maxresult = maxresult;
+    public PageView(int currentPage, int maxResult, int pageShowCount) {
+        this.maxResult = maxResult;
         //兼容错误
         if (currentPage <= 0) {
             currentPage = 1;
         }
         this.currentPage = currentPage;
-        this.pagecode = pagecode;
+        this.pageShowCount = pageShowCount;
     }
 
 
     /**
-     * 計算startindex
+     * 計算startIndex
      *
      * @return
      */
     public int getFirstResult() {
-        return (this.currentPage - 1) * this.maxresult;
+        return (this.currentPage - 1) * this.maxResult;
     }
 
 
     //总页数设置-----------------------------
-    public int getPagecode() {
-        return pagecode;
+    public int getPageShowCount() {
+        return pageShowCount;
     }
 
-    public void setPagecode(int pagecode) {
-        this.pagecode = pagecode;
+    public void setPageShowCount(int pageShowCount) {
+        this.pageShowCount = pageShowCount;
     }
 
 
@@ -115,22 +114,22 @@ public class PageView<T> {
      * @param qr
      */
     public void setQueryResult(QueryResult<T> qr) {
-        setTotalrecord(qr.getTotalrecord().intValue());
-        setRecords(qr.getResultlist());
+        setTotalRecord(qr.getTotalRecord().intValue());
+        setRecords(qr.getResultList());
     }
 
-    public int getTotalrecord() {
-        return totalrecord;
+    public int getTotalRecord() {
+        return totalRecord;
     }
 
     /**
      * 设置总条数+总页数
      *
-     * @param totalrecord
+     * @param totalRecord
      */
-    public void setTotalrecord(int totalrecord) {
-        this.totalrecord = totalrecord;
-        setTotalpage(this.totalrecord % this.maxresult == 0 ? this.totalrecord / this.maxresult : this.totalrecord / this.maxresult + 1);
+    public void setTotalRecord(int totalRecord) {
+        this.totalRecord = totalRecord;
+        setTotalPage(this.totalRecord % this.maxResult == 0 ? this.totalRecord / this.maxResult : this.totalRecord / this.maxResult + 1);
     }
 
 
@@ -147,17 +146,17 @@ public class PageView<T> {
 
 
     /**
-     * 设置总页数和pageindex
+     * 设置总页数和pageIndex
      *
-     * @param totalpage
+     * @param totalPage
      */
-    public void setTotalpage(int totalpage) {
-        this.totalpage = totalpage;
-        this.pageindex = PageIndex.getPageIndex(this.pagecode, currentPage, totalpage);
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+        this.pageIndex = PageIndex.getPageIndex(this.pageShowCount, currentPage, totalPage);
     }
 
-    public PageIndex getPageindex() {
-        return pageindex;
+    public PageIndex getPageIndex() {
+        return pageIndex;
     }
 
 
@@ -166,28 +165,28 @@ public class PageView<T> {
      *
      * @return
      */
-    public int getTotalpage() {
-        return totalpage;
+    public int getTotalPage() {
+        return totalPage;
     }
 
-    public int getMaxresult() {
-        return maxresult;
+    public int getMaxResult() {
+        return maxResult;
     }
 
-    public int getCurrentpage() {
+    public int getCurrentPage() {
         return currentPage;
     }
 
-    public void setCurrentpage(int currentPage) {
+    public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
 
-    public List<Map<String, Object>> getMaprecords() {
-        return maprecords;
+    public List<Map<String, Object>> getMapRecords() {
+        return mapRecords;
     }
 
-    public void setMaprecords(List<Map<String, Object>> maprecords) {
-        this.maprecords = maprecords;
+    public void setMapRecords(List<Map<String, Object>> mapRecords) {
+        this.mapRecords = mapRecords;
     }
     
     

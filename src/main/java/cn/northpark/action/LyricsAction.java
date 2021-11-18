@@ -252,7 +252,7 @@ public class LyricsAction {
 
 
         //分页到尽头结束了
-        if (pageView.getTotalpage() <= Integer.parseInt(page)) {
+        if (pageView.getTotalPage() <= Integer.parseInt(page)) {
             map.put("tail", "tail");
         }
 
@@ -364,7 +364,7 @@ public class LyricsAction {
         String userid = (u == null ? "" : String.valueOf(u.getId()));
 
         //定义pageView
-        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), MyConstant.MAXRESULT);
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), MyConstant.MAX_RESULT);
 
         //获取分页结构不获取数据
 
@@ -398,7 +398,7 @@ public class LyricsAction {
 
 
         //定义pageView
-        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(1, MyConstant.MAX_RESULT);
 
         //获取分页结构不获取数据
 
@@ -432,7 +432,7 @@ public class LyricsAction {
 
 
         //定义pageView
-        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(currentPage), MyConstant.MAXRESULT);
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(currentPage), MyConstant.MAX_RESULT);
 
 
         //获取分页数据

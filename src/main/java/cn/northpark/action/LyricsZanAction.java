@@ -100,7 +100,7 @@ public class LyricsZanAction {
                 threadPoolExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        List<UserLyrics> by = userlyricsManager.findByCondition(" where lyricsid = '" + lyricsid + "' ").getResultlist();
+                        List<UserLyrics> by = userlyricsManager.findByCondition(" where lyricsid = '" + lyricsid + "' ").getResultList();
                         //判断主题类型
 
                         NotifyEnum match = NotifyEnum.LOVE_ZAN;

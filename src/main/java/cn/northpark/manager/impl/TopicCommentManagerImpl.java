@@ -59,7 +59,7 @@ public class TopicCommentManagerImpl implements TopicCommentManager {
     public QueryResult<TopicComment> findByCondition(PageView<TopicComment> p,
                                                      String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = topiccommentDao.findByCondition(p.getFirstResult(),
-                p.getMaxresult(), wheresql, order);
+                p.getMaxResult(), wheresql, order);
         return qrs;
     }
 

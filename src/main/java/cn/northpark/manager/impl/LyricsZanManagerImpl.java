@@ -56,7 +56,7 @@ public class LyricsZanManagerImpl implements LyricsZanManager {
     public QueryResult<LyricsZan> findByCondition(PageView<LyricsZan> p,
                                                   String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = lyricszanDao.findByCondition(p.getFirstResult(),
-                MyConstant.MAXRESULT, wheresql, order);
+                MyConstant.MAX_RESULT, wheresql, order);
         return qrs;
     }
 
@@ -72,13 +72,13 @@ public class LyricsZanManagerImpl implements LyricsZanManager {
     @Override
     public int getCommentNumByLRC(String lyricsid) {
         // TODO Auto-generated method stub
-        return lyricsCommentDao.findByCondition(" where lyricsid = '" + lyricsid + "' ").getResultlist().size();
+        return lyricsCommentDao.findByCondition(" where lyricsid = '" + lyricsid + "' ").getResultList().size();
     }
 
     @Override
     public int getZanNumByLRC(String lyricsid) {
         // TODO Auto-generated method stub
-        return lyricszanDao.findByCondition(" where lyricsid = '" + lyricsid + "' ").getResultlist().size();
+        return lyricszanDao.findByCondition(" where lyricsid = '" + lyricsid + "' ").getResultList().size();
     }
 
     @Override

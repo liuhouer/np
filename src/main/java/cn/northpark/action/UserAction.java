@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -131,7 +130,7 @@ public class UserAction {
     @ResponseBody
     public Result<String> resetEmail(String email) throws ParseException {
         String userid = "";
-        List<User> list = userManager.findByCondition(" where email = '" + email + "' ").getResultlist();
+        List<User> list = userManager.findByCondition(" where email = '" + email + "' ").getResultList();
         if (!CollectionUtils.isEmpty(list)) {
             userid = String.valueOf(list.get(0).getId());
         }
@@ -173,7 +172,7 @@ public class UserAction {
                         String auth_code) throws ParseException {
 
         String result = "false";
-        List<cn.northpark.model.Reset> gtList = resetManager.findByCondition(" where user_id='" + userid + "' and auth_code='" + auth_code + "' order by created_time desc").getResultlist();
+        List<cn.northpark.model.Reset> gtList = resetManager.findByCondition(" where user_id='" + userid + "' and auth_code='" + auth_code + "' order by created_time desc").getResultList();
         try {
             if (!CollectionUtils.isEmpty(gtList)) {
                 Reset gt_model = gtList.get(0);
@@ -400,7 +399,7 @@ public class UserAction {
 
         //查询该用户的粉丝列表
         List<Map<String, Object>> fanlist = Lists.newArrayList();
-        List<UserFollow> fan_list = userfollowManager.findByCondition(" where author_id = '" + user.getId() + "' ").getResultlist();
+        List<UserFollow> fan_list = userfollowManager.findByCondition(" where author_id = '" + user.getId() + "' ").getResultList();
         if (!CollectionUtils.isEmpty(fan_list)) {
             for (int i = 0; i < fan_list.size(); i++) {
                 Map<String, Object> map_ = new HashMap<String, Object>();
@@ -437,7 +436,7 @@ public class UserAction {
 
             //查询该用户的粉丝列表
             List<Map<String, Object>> fanlist = Lists.newArrayList();
-            List<UserFollow> fan_list = userfollowManager.findByCondition(" where author_id = '" + userid + "' ").getResultlist();
+            List<UserFollow> fan_list = userfollowManager.findByCondition(" where author_id = '" + userid + "' ").getResultList();
             if (!CollectionUtils.isEmpty(fan_list)) {
                 for (int i = 0; i < fan_list.size(); i++) {
                     Map<String, Object> map_ = new HashMap<String, Object>();

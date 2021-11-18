@@ -309,7 +309,7 @@ public class SoftAction {
         //获取pageView
         PageView<Soft> p = new PageView<Soft>(1, SoftCount);
         QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
-        List<Soft> result_list = qr.getResultlist();
+        List<Soft> result_list = qr.getResultList();
 
         //触发分页
         p.setQueryResult(qr);
@@ -364,7 +364,7 @@ public class SoftAction {
         //获取pageView
         PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentPage), SoftCount);
         QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
-        List<Soft> result_list = qr.getResultlist();
+        List<Soft> result_list = qr.getResultList();
 
         //触发分页
         p.setQueryResult(qr);
@@ -478,7 +478,7 @@ public class SoftAction {
             //获取pageView
             PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentPage), SoftCount);
             QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
-            List<Soft> result_list = qr.getResultlist();
+            List<Soft> result_list = qr.getResultList();
 
             //触发分页
             p.setQueryResult(qr);
@@ -542,7 +542,7 @@ public class SoftAction {
         //获取pageView
         PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentPage), SoftCount);
         QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
-        List<Soft> result_list = qr.getResultlist();
+        List<Soft> result_list = qr.getResultList();
 
         //触发分页
         p.setQueryResult(qr);

@@ -132,7 +132,7 @@ public class KnowledgeAction {
 		//获取分页结构不获取数据
 
 		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageView, sql,order);
-		List<Knowledge> result_list = qr.getResultlist();
+		List<Knowledge> result_list = qr.getResultList();
 
 		//处理标签列表
 		handleTag(result_list);
@@ -222,7 +222,7 @@ public class KnowledgeAction {
 
 		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageView, sql,order);
 
-		List<Knowledge> result_list = qr.getResultlist();
+		List<Knowledge> result_list = qr.getResultList();
 		//处理标签列表
 		handleTag(result_list);
 		//生成分页信息
@@ -315,7 +315,7 @@ public class KnowledgeAction {
 		//获取pageView
 		PageView<Knowledge> pageView = new PageView<Knowledge>(Integer.parseInt(currentPage), LearningCount);
 		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageView, whereSql, order);
-		List<Knowledge> result_list = qr.getResultlist();
+		List<Knowledge> result_list = qr.getResultList();
 
 		//生成分页信息
 		pageView.setQueryResult(qr);
@@ -397,7 +397,7 @@ public class KnowledgeAction {
 		if (CollectionUtils.isEmpty(tags) && CollectionUtils.isEmpty(learn_hot_list)) {
 			//获取标签
 
-			tags = tagsManager.findByCondition(" where tag_type = '4' ").getResultlist();
+			tags = tagsManager.findByCondition(" where tag_type = '4' ").getResultList();
 
 			//获取热门学习
 			String hot_sql = "select id,title,color from bc_knowledge where tags_code like '%classhare%' order by rand() desc limit 0,50";

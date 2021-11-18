@@ -53,7 +53,7 @@ public class UserManagerImpl implements UserManager {
     public QueryResult<User> findByCondition(PageView<User> p,
                                              String wheresql, LinkedHashMap<String, String> order) {
         QueryResult qrs = userDao.findByCondition(p.getFirstResult(),
-                MyConstant.MAXRESULT, wheresql, order);
+                MyConstant.MAX_RESULT, wheresql, order);
         return qrs;
     }
 
