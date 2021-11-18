@@ -48,7 +48,7 @@ public class EQTask {
                     collect.addAll(list);
                     collect.addAll(list_tv);
                 } catch (Exception e) {
-                    // TODO: handle exception
+
                     e.printStackTrace();
                 }
 
@@ -71,10 +71,10 @@ public class EQTask {
             try {
                 HttpGetUtils.sendPostJsonData(url, jsonData);
             } catch (ClientProtocolException e) {
-                // TODO Auto-generated catch block
+
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
+
                 e.printStackTrace();
             }
 
@@ -112,7 +112,7 @@ public class EQTask {
 
             log.info("movies task==============end=" + TimeUtils.getNowTime());
         } catch (Exception e) {
-            // TODO: handle exception
+
             log.error("movies task  Exception==============" + e);
         }
 

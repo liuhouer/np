@@ -120,7 +120,7 @@ public class PoemAction {
             map.put("poem_enjoy", poem);
 
         } catch (Exception e) {
-            // TODO: handle exception
+
             log.error("poemAction------>", e);
         }
 

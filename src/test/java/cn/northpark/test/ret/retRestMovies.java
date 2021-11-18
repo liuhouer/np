@@ -25,7 +25,7 @@ public class retRestMovies {
                 List<Map<String, String>> list = HTMLParserUtil.retMovies(k, BC_Constant.RET_dianying);
                 collect.addAll(list);
             } catch (Exception e) {
-                // TODO: handle exception
+
                 e.printStackTrace();
             }
 
@@ -45,10 +45,10 @@ public class retRestMovies {
         try {
             HttpGetUtils.sendPostJsonData(url, jsonData);
         } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
     }

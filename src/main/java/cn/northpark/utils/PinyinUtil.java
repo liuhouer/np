@@ -122,7 +122,7 @@ public class PinyinUtil {
             b[1] = (new Integer(lowPos)).byteValue();
             str = new String(b, "GB2312");
         } catch (Exception e) {
-            // TODO: handle exception
+
             log.error("pinyinUtils------->", e);
             ;
         }

@@ -255,7 +255,7 @@ public class AddressUtils {
             sb.append("address:").append(addresses);
             sb.append("】");
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         return sb.toString();
@@ -270,7 +270,7 @@ public class AddressUtils {
         try {
             address = addressUtils.getAddresses("ip=" + ip + "&key=" + ACCESS_KEY + "&type=4", "utf-8");
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
+
             log.error("AddressUtils------->", e);
             ;
         }

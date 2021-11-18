@@ -162,7 +162,7 @@ public class ImportMovieExcel {
 
                     semaphore.release();
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
+
                     e.printStackTrace();
                 }
                 countDownLatch.countDown();

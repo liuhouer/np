@@ -257,7 +257,7 @@ public class SoftAction {
         	}
            
         } catch (Exception e) {
-            // TODO: handle exception
+
             log.error("Soft action------>", e);
             rs = "ex";
         }

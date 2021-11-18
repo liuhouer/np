@@ -41,7 +41,7 @@ public class ParseAnnotation {
 				
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}

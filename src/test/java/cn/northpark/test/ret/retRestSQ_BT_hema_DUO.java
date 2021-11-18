@@ -63,7 +63,7 @@ public class retRestSQ_BT_hema_DUO {
 
                 collect.addAll(list);
             } catch (Exception e) {
-                // TODO: handle exception
+
                 e.printStackTrace();
             }
 
@@ -77,10 +77,10 @@ public class retRestSQ_BT_hema_DUO {
             try {
                 HttpGetUtils.sendPostJsonData(url, jsonData);
             } catch (ClientProtocolException e) {
-                // TODO Auto-generated catch block
+
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
+
                 e.printStackTrace();
             }
 

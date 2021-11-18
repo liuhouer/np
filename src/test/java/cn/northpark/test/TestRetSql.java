@@ -76,7 +76,7 @@ public class TestRetSql {
                         }
                     }
                 } catch (Exception e) {
-                    // TODO: handle exception
+
                     continue;
                 }
 
@@ -91,7 +91,7 @@ public class TestRetSql {
             }
 
         } catch (Exception e) {
-            // TODO: handle exception
+
         }
 
         log.info("soft task==============end=" + TimeUtils.getNowTime());

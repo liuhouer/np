@@ -368,7 +368,7 @@ public class HttpGetUtils {
             pageXml = page.asXml();
             wc.close();
         } catch (Exception e) {
-            // TODO: handle exception
+
 //			e.printStackTrace();
         }
 

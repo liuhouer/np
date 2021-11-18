@@ -106,7 +106,7 @@ public class JsonUtil {
 		try {
 			t = JSON.parseObject(jsonString, cls);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 			e.printStackTrace();
 		}
 		return t;
@@ -129,7 +129,7 @@ public class JsonUtil {
 			list = JSON.parseObject(jsonString, new TypeReference<List<Map<String, Object>>>() {
 			});
 		} catch (Exception e) {
-			// TODO: handle exception
+
 			e.printStackTrace();
 		}
 		return list;

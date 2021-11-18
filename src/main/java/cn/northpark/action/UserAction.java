@@ -293,7 +293,7 @@ public class UserAction {
         } catch (Exception e) {
 
             log.error("cm--follow--ex::" + e);
-            // TODO: handle exception
+
             msg = "exp";
         }
 
@@ -314,7 +314,7 @@ public class UserAction {
                 msg = "null id";
             }
         } catch (Exception e) {
-            // TODO: handle exception
+
             log.error("cm--unfollow--ex::" + e);
             msg = "exp";
         }

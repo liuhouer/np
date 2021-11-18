@@ -33,7 +33,7 @@ public class Gen_Learn_Sitemap {
         try {
             org.apache.commons.io.FileUtils.writeStringToFile(new File("C:\\Users\\Bruce\\Documents\\learn.xml"), sb.toString());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
 

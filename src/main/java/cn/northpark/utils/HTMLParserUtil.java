@@ -343,7 +343,7 @@ public class HTMLParserUtil {
 //
 //
 //            } catch (Exception e) {
-//                // TODO: handle exception
+//
 //                log.error("ret pic exception===>" + e.toString());
 //            }
 //
@@ -727,7 +727,7 @@ public class HTMLParserUtil {
 //                                        imgs.get(j).attr("src", rs);
 //                                        imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
 //                                    } catch (Exception e) {
-//                                        // TODO: handle exception
+//
 //                                        log.error("ret pic exception===>" + e.toString());
 //                                        continue;
 //                                    }
@@ -770,7 +770,7 @@ public class HTMLParserUtil {
 //                                        imgs.get(j).attr("src", rs);
 //                                        imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
 //                                    } catch (Exception e) {
-//                                        // TODO: handle exception
+//
 //                                        log.error("ret pic exception===>" + e.toString());
 //                                        continue;
 //                                    }
@@ -864,7 +864,7 @@ public class HTMLParserUtil {
                         date = parse.select("em.meta-post_date").get(0).text();
 
                     } catch (Exception e2) {
-                        // TODO: handle exception
+
                         date = TimeUtils.nowdate();
                     }
 
@@ -893,13 +893,13 @@ public class HTMLParserUtil {
                     try {
                         title = parse.select("h1.title-detail").get(0).text();
                     } catch (Exception e2) {
-                        // TODO: handle exception
+
                         log.info("---->", parse.select("h1.title-detail"));
                         log.error("h1.title-detail不包含h1标题，请检查文本内容");
                         try {
                             title = parse.select("div.bread-crumbs").select("strong").get(0).text();
                         } catch (Exception ignore) {
-                            // TODO: handle exception
+
                             log.info("---->", parse.select("div.bread-crumbs").select("strong"));
                             log.error("面包屑不包含标题，请检查文本内容");
                         }
@@ -911,7 +911,7 @@ public class HTMLParserUtil {
                     try {
                         tag = parse.select("div.hot-tags").select("a").text();
                     } catch (Exception e2) {
-                        // TODO: handle exception
+
                         log.info("---->", parse.select("div.hot-tags"));
                         log.error("div.hot-tags不包含tag标签，请检查文本内容");
                     }
@@ -988,7 +988,7 @@ public class HTMLParserUtil {
 //                            }
                             imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                         } catch (Exception e1) {
-                            // TODO: handle exception
+
                             log.error("ret pic exception===>" + e1.toString());
                             continue;
                         }
@@ -1163,7 +1163,7 @@ public class HTMLParserUtil {
                         date = parse.select("div.single-content").select("div.videos-content").select("span.date").get(0).ownText();
 
                     } catch (Exception e2) {
-                        // TODO: handle exception
+
                         date = TimeUtils.nowdate();
                     }
 
@@ -1185,7 +1185,7 @@ public class HTMLParserUtil {
                     try {
                         title = parse.select("header.entry-header").select("h1").get(0).text();
                     } catch (Exception e2) {
-                        // TODO: handle exception
+
                         log.info("---->", parse.select("h1.title-detail"));
                         log.error("h1.title-detail不包含h1标题，请检查文本内容");
                     }
@@ -1196,7 +1196,7 @@ public class HTMLParserUtil {
                     try {
                         tag = parse.select("span.category").select("a").text();
                     } catch (Exception e2) {
-                        // TODO: handle exception
+
                         log.info("---->", parse.select("div.hot-tags"));
                         log.error("div.hot-tags不包含tag标签，请检查文本内容");
                     }
@@ -1279,7 +1279,7 @@ public class HTMLParserUtil {
                             imgs.get(j).removeAttr("sizes");
                             imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
                         } catch (Exception e1) {
-                            // TODO: handle exception
+
                             log.error("ret pic exception===>" + e1.toString());
                             continue;
                         }
@@ -1689,7 +1689,7 @@ public class HTMLParserUtil {
 
                         tag_code = PinyinUtil.paraseStringToPinyin(tag).toLowerCase();
                     } catch (Exception e) {
-                        // TODO: handle exception
+
                         tag_code = "";
                     }
 
@@ -1710,7 +1710,7 @@ public class HTMLParserUtil {
                         detail.select("div.uc-favorite-2").remove();
                         detail.getElementById("sociables").remove();
                     } catch (Exception e) {
-                        // TODO: handle exception
+
                         log.error("del ex--->{}", e);
                     }
                     desc += info.html();
@@ -1898,7 +1898,7 @@ public class HTMLParserUtil {
 
                         tag_code = PinyinUtil.paraseStringToPinyin(tag).toLowerCase();
                     } catch (Exception e) {
-                        // TODO: handle exception
+
                         tag_code = "";
                     }
 
@@ -2019,7 +2019,7 @@ public class HTMLParserUtil {
                 }
 
             } catch (Exception e) {
-                // TODO: handle exception
+
                 log.error("ret movies pic exception===>" + e.toString());
                 continue;
             }
@@ -2248,7 +2248,7 @@ public class HTMLParserUtil {
 
 
                             } catch (Exception e) {
-                                // TODO: handle exception
+
                                 log.error("ret movies pic exception===>" + e.toString());
                                 continue;
                             }
@@ -2343,7 +2343,7 @@ public class HTMLParserUtil {
                 }
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+
             log.error("HTMLPARSERutils------->", e);
             ;
         }
@@ -2435,7 +2435,7 @@ public class HTMLParserUtil {
             }
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+
             log.error("HTMLPARSERutils------->", e);
             ;
         }
@@ -2587,7 +2587,7 @@ public class HTMLParserUtil {
                 rs = rs + "...";
             }
         } catch (Exception e) {
-            // TODO: handle exception
+
             rs = s;
 
         }
@@ -2674,7 +2674,7 @@ public class HTMLParserUtil {
             System.err.println(getLocalFolderByOS("mv"));
             System.err.println(getLocalFolderByOSMovies());
         } catch (Exception e) {
-            // TODO Auto-generated catch block
+
             log.error("HTMLPARSERutils------->", e);
             ;
         }
