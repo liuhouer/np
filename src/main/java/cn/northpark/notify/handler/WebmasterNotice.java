@@ -2,6 +2,7 @@ package cn.northpark.notify.handler;
 
 import cn.northpark.model.NotifyRemind;
 import cn.northpark.notify.GeneralNotify;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 
@@ -19,7 +20,9 @@ public class WebmasterNotice  extends GeneralNotify {
     public void build(NotifyRemind param) {
         param.setRemindID(5);
         param.setSenderID("000");//系统发送
-        param.setSenderName("站内通知");
+        if(StringUtils.isEmpty(param.getSenderName())){
+            param.setSenderName("站内通知");
+        }
         param.setSenderAction("5");//站内通知
         param.setObjectType("3");//推送
         param.setCreatedAt(new Date());

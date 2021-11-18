@@ -16,6 +16,7 @@ import cn.northpark.utils.*;
 import cn.northpark.utils.encrypt.EnDecryptUtils;
 import cn.northpark.utils.safe.WAQ;
 import cn.northpark.vo.UserVO;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -58,6 +59,11 @@ public class UserAction {
 	 */
 	@Resource  
     private MQProducerManager messageProducer;
+
+
+    public static ImmutableList<String> PASS_ID =
+            ImmutableList.of("507723","508200","518821","519802","518518","507630");
+
 
 
 
@@ -886,40 +892,41 @@ public class UserAction {
             //2.本次session存放
             request.getSession().setAttribute("user", userInfo);
 
-            //===================================异步操作=================================================
-            ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
-            threadPoolExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
+            if(!PASS_ID.contains(userInfo.getId().toString())) {
+                //===================================异步操作=================================================
+                ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
+                threadPoolExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
 
-                    //发送异步站长通知消息
-                    try {
-                        //=================================消息提醒====================================================
+                        //发送异步站长通知消息
+                        try {
+                            //=================================消息提醒====================================================
 
-                        //判断主题类型
-                        NotifyEnum match = NotifyEnum.WEBMASTER;
+                            //判断主题类型
+                            NotifyEnum match = NotifyEnum.WEBMASTER;
 
-                        //提醒系统赋值
-                        NotifyRemind nr = new NotifyRemind();
+                            //提醒系统赋值
+                            NotifyRemind nr = new NotifyRemind();
 
-                        //common
-                        nr.setMessage(userInfo.toString()+"---"+TimeUtils.nowTime()+"---自动登录了---");
-                        nr.setStatus("0");
+                            //common
+                            nr.setMessage(userInfo.toString() + "---" + TimeUtils.nowTime() + "---自动登录了---");
+                            nr.setStatus("0");
 
 
-                        match.notifyInstance.execute(nr);
+                            match.notifyInstance.execute(nr);
 
-                        //=================================消息提醒====================================================
-                    }catch (Exception ig){
-                        log.error("auto-login-notice-has-ignored-------:",ig);
-                        ig.printStackTrace();
+                            //=================================消息提醒====================================================
+                        } catch (Exception ig) {
+                            log.error("auto-login-notice-has-ignored-------:", ig);
+                            ig.printStackTrace();
+                        }
                     }
-                }
 
 
-
-            });
-            //===================================异步操作=================================================
+                });
+                //===================================异步操作=================================================
+            }
 
             return ResultGenerator.genSuccessResult("自动登录成功");
         }
@@ -971,52 +978,55 @@ public class UserAction {
             	 request.getSession().setAttribute("user", userVO);
 
 
-                //===================================异步操作=================================================
-                ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
-                threadPoolExecutor.execute(new Runnable() {
-                    @Override
-                    public void run() {
+            	 if(!PASS_ID.contains(userVO.getId().toString())){
+                     //===================================异步操作=================================================
+                     ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
+                     threadPoolExecutor.execute(new Runnable() {
+                         @Override
+                         public void run() {
 
-                        //获取IP+地址
-                        String ipAndDetail = "";
-                        try {
-                            ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+                             //获取IP+地址
+                             String ipAndDetail = "";
+                             try {
+                                 ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
 
-                            //更新登录时间 +地址信息
-                            user.setLast_login(JsonUtil.object2json(TimeUtils.nowTime()+ipAndDetail));
-                            userManager.updateUser(user);
-                        }catch (Exception ignore){
-                            log.error(ignore.getMessage());
-                        }
-
-
-                        //发送异步站长通知消息
-                        try {
-                            //=================================消息提醒====================================================
-
-                            //判断主题类型
-                            NotifyEnum match = NotifyEnum.WEBMASTER;
-
-                            //提醒系统赋值
-                            NotifyRemind nr = new NotifyRemind();
-
-                            //common
-                            nr.setMessage(user.toString()+"---"+TimeUtils.nowTime()+"---登录了---");
-                            nr.setStatus("0");
+                                 //更新登录时间 +地址信息
+                                 user.setLast_login(JsonUtil.object2json(TimeUtils.nowTime()+ipAndDetail));
+                                 userManager.updateUser(user);
+                             }catch (Exception ignore){
+                                 log.error(ignore.getMessage());
+                             }
 
 
-                            match.notifyInstance.execute(nr);
+                             //发送异步站长通知消息
+                             try {
+                                 //=================================消息提醒====================================================
 
-                            //=================================消息提醒====================================================
-                        }catch (Exception ig){
-                            log.error("login-notice-has-ignored-------:",ig);
-                        }
-                    }
+                                 //判断主题类型
+                                 NotifyEnum match = NotifyEnum.WEBMASTER;
+
+                                 //提醒系统赋值
+                                 NotifyRemind nr = new NotifyRemind();
+
+                                 //common
+                                 nr.setMessage(user.toString()+"---"+TimeUtils.nowTime()+"---登录了---");
+                                 nr.setStatus("0");
+
+
+                                 match.notifyInstance.execute(nr);
+
+                                 //=================================消息提醒====================================================
+                             }catch (Exception ig){
+                                 log.error("login-notice-has-ignored-------:",ig);
+                             }
+                         }
 
 
 
-                });
-                //===================================异步操作=================================================
+                     });
+                     //===================================异步操作=================================================
+                 }
+
 
 
 
