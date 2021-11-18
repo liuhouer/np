@@ -32,7 +32,7 @@
 <%@ include file="/WEB-INF/views/page/common/navigation.jsp" %>
 
 <!-- 页面标题 -->
-<h1 class="font-elegant center">Mac软件</h1>
+<h1 class="font-elegant center">提醒系统</h1>
 <div class="clearfix maincontent grayback">
     <div class="container">
         <div class="mainbody" style="margin-top:100px; ">
