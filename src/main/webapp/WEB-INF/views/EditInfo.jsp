@@ -156,7 +156,7 @@
                             <div class="row">
                                 <input id="user_birth" placeholder="1991-12-31"
                                        class="form_datetime form-control border-light-1 input-lg bg-lyellow padding10 grid70 radius-0"
-                                       name="year_of_birth" type="text" value="${Dinfo.year_of_birth }">
+                                       name="year_of_birth" type="text" value="${DT.year_of_birth }">
                             </div>
                         </div>
                     </div>
@@ -169,7 +169,7 @@
                             <div class="row">
                                 <input id="courseware" placeholder="http://meditic.com"
                                        class="form-control border-light-1 input-lg bg-lyellow padding10 grid70 radius-0"
-                                       name="courseware" type="text" value="${Dinfo.courseware }">
+                                       name="courseware" type="text" value="${DT.courseware }">
                             </div>
                         </div>
                     </div>

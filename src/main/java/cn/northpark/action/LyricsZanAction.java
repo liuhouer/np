@@ -88,9 +88,9 @@ public class LyricsZanAction {
 
                 Lyrics lrc = this.lyricsManager.findLyrics(Integer.parseInt(lyricsid));
                 if (lrc != null) {
-                    int zannum = lrc.getZan() == null ? 0 : lrc.getZan();
-                    zannum += 1;
-                    lrc.setZan(zannum);
+                    int zan_num = lrc.getZan() == null ? 0 : lrc.getZan();
+                    zan_num += 1;
+                    lrc.setZan(zan_num);
                     this.lyricsManager.updateLyrics(lrc);
                 }
 
@@ -136,7 +136,7 @@ public class LyricsZanAction {
                 msg = "success";
             } catch (Exception e) {
                 msg = "exception";
-                log.error("zanacton------>", e);
+                log.error("zan action------>", e);
             }
         }
         return ResultGenerator.genSuccessResult(msg);
@@ -163,7 +163,7 @@ public class LyricsZanAction {
         try {
 
             LyricsComment model = new LyricsComment();
-            comment = comment.replaceAll("script", "urshit").replaceAll("alert", "caonima").replaceAll("location", "tiaonima");
+            comment = comment.replaceAll("script", "urShit").replaceAll("alert", "caoNima").replaceAll("location", "jumpNima");
             model.setComment(comment);
             model.setUserid(Integer.parseInt(userid));
             model.setLyricsid(Integer.parseInt(lyricsid));
@@ -174,16 +174,16 @@ public class LyricsZanAction {
 
             Lyrics lrc = this.lyricsManager.findLyrics(Integer.parseInt(lyricsid));
             if (lrc != null) {
-                int plnum = lrc.getPl() == null ? 0 : lrc.getPl();
-                plnum += 1;
-                lrc.setPl(plnum);
+                int pl_num = lrc.getPl() == null ? 0 : lrc.getPl();
+                pl_num += 1;
+                lrc.setPl(pl_num);
                 this.lyricsManager.updateLyrics(lrc);
             }
             msg = "success";
         } catch (Exception e) {
             // TODO: handle exception
             msg = "exception";
-            log.error("zanacton------>", e);
+            log.error("zan action------>", e);
         }
         return ResultGenerator.genSuccessResult(msg);
     }

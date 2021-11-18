@@ -59,17 +59,17 @@ public class FileUtils {
     /**
      * 以下为northpark文件删除方法
      *
-     * @param oldpath
+     * @param old_path
      * @param file
      */
-    public static void removeOldFile(String oldpath, MultipartFile[] file) {
+    public static void removeOldFile(String old_path, MultipartFile[] file) {
         if (file.length >= 1) {
             log.info(file[0].getOriginalFilename() + "------------------------------------------------》》");
 
             String path = BC_Constant.getFileStartByOs();
 
-            if (StringUtils.isNotEmpty(file[0].getOriginalFilename()) && StringUtils.isNotEmpty(oldpath)) {// 新上传了图片才把以前的删除
-                File f = new File(path + oldpath);
+            if (StringUtils.isNotEmpty(file[0].getOriginalFilename()) && StringUtils.isNotEmpty(old_path)) {// 新上传了图片才把以前的删除
+                File f = new File(path + old_path);
                 log.info("要删除文件的绝对路径是：" + f.getAbsolutePath());
                 if (f.exists()) {
                     f.delete();
@@ -314,7 +314,7 @@ public class FileUtils {
     }
 
     public static List<String> showAllFiles(File dir) throws Exception {
-        List<String> filelist = Lists.newArrayList();
+        List<String> file_list = Lists.newArrayList();
         File[] fs = dir.listFiles();
         for (int i = 0; i < fs.length; i++) {
             //log.info(fs[i].getAbsolutePath());
@@ -325,9 +325,9 @@ public class FileUtils {
                     log.error(e.getMessage());
                 }
             }
-            filelist.add(fs[i].getAbsolutePath());
+            file_list.add(fs[i].getAbsolutePath());
         }
-        return filelist;
+        return file_list;
     }
 
     public static final String pic1 = "A7D82362B79C043782DC04FC8120036A";

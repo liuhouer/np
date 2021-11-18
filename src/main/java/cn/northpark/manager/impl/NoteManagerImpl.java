@@ -66,11 +66,11 @@ public class NoteManagerImpl implements NoteManager {
     }
 
     @Override
-    public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview, String sql) {
+    public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageView, String sql) {
         // TODO Auto-generated method stub
 
 
-        List<Map<String, Object>> list = noteDao.querySQLForMapList(sql, pageview);
+        List<Map<String, Object>> list = noteDao.querySQLForMapList(sql, pageView);
 
         return list;
 
@@ -114,10 +114,10 @@ public class NoteManagerImpl implements NoteManager {
 
     @Override
     public PageView<List<Map<String, Object>>> getMixMapPage(
-            PageView<List<Map<String, Object>>> pageview, String sql) {
+            PageView<List<Map<String, Object>>> pageView, String sql) {
         // TODO Auto-generated method stub
 
-        return noteDao.querySQLCountForMapList(sql, pageview);
+        return noteDao.querySQLCountForMapList(sql, pageView);
     }
 }
 

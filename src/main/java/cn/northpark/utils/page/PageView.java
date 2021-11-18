@@ -40,7 +40,7 @@ public class PageView<T> {
     /**
      * 当前页
      **/
-    private int currentpage = 1;
+    private int currentPage = 1;
     /**
      * 总记录数
      **/
@@ -58,32 +58,32 @@ public class PageView<T> {
     /**
      * 構造函數===========當前頁碼，每頁顯示記錄數============================
      *
-     * @param currentpage
+     * @param currentPage
      * @param maxresult
      */
-    public PageView(int currentpage, int maxresult) {
+    public PageView(int currentPage, int maxresult) {
         this.maxresult = maxresult;
         //兼容错误
-        if (currentpage <= 0) {
-            currentpage = 1;
+        if (currentPage <= 0) {
+            currentPage = 1;
         }
-        this.currentpage = currentpage;
+        this.currentPage = currentPage;
     }
 
     /**
      * 構造函數===========當前頁碼，每頁顯示記錄數============================
      *
-     * @param currentpage
+     * @param currentPage
      * @param maxresult
      * @param pagecode 限制前台展示的页码数量比如12345 : 5  345678:6
      */
-    public PageView(int currentpage, int maxresult, int pagecode) {
+    public PageView(int currentPage, int maxresult, int pagecode) {
         this.maxresult = maxresult;
         //兼容错误
-        if (currentpage <= 0) {
-            currentpage = 1;
+        if (currentPage <= 0) {
+            currentPage = 1;
         }
-        this.currentpage = currentpage;
+        this.currentPage = currentPage;
         this.pagecode = pagecode;
     }
 
@@ -94,7 +94,7 @@ public class PageView<T> {
      * @return
      */
     public int getFirstResult() {
-        return (this.currentpage - 1) * this.maxresult;
+        return (this.currentPage - 1) * this.maxresult;
     }
 
 
@@ -153,7 +153,7 @@ public class PageView<T> {
      */
     public void setTotalpage(int totalpage) {
         this.totalpage = totalpage;
-        this.pageindex = PageIndex.getPageIndex(this.pagecode, currentpage, totalpage);
+        this.pageindex = PageIndex.getPageIndex(this.pagecode, currentPage, totalpage);
     }
 
     public PageIndex getPageindex() {
@@ -175,11 +175,11 @@ public class PageView<T> {
     }
 
     public int getCurrentpage() {
-        return currentpage;
+        return currentPage;
     }
 
-    public void setCurrentpage(int currentpage) {
-        this.currentpage = currentpage;
+    public void setCurrentpage(int currentPage) {
+        this.currentPage = currentPage;
     }
 
     public List<Map<String, Object>> getMaprecords() {

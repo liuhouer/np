@@ -67,7 +67,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
     }
 
     @Override
-    public List<Map<String, Object>> getMixMapData(PageView<List<Map<String, Object>>> pageview, String userid) {
+    public List<Map<String, Object>> getMixMapData(PageView<List<Map<String, Object>>> pageView, String userid) {
         String sql = " select a.id,a.title,a.title_code,a.update_date,a.album_img,a.zan,a.pl,c.id as userid,c.username,c.email,  "
 
                 + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '" + userid + "' )> 0 "
@@ -80,7 +80,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
         sql += " order by a.update_date desc";
 
-        List<Map<String, Object>> list = userlyricsDao.querySQLForMapList(sql, pageview);
+        List<Map<String, Object>> list = userlyricsDao.querySQLForMapList(sql, pageView);
         return list;
 
 
@@ -104,14 +104,14 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
     }
 
     @Override
-    public List<Map<String, Object>> findMixByCondition(PageView<List<Map<String, Object>>> pageview, String randSql) {
+    public List<Map<String, Object>> findMixByCondition(PageView<List<Map<String, Object>>> pageView, String randSql) {
 
-        return userlyricsDao.querySQLForMapList(randSql, pageview);
+        return userlyricsDao.querySQLForMapList(randSql, pageView);
     }
 
     @Override
     public PageView<List<Map<String, Object>>> getMixMapPage(
-            PageView<List<Map<String, Object>>> pageview, String userid) {
+            PageView<List<Map<String, Object>>> pageView, String userid) {
         String sql = " select a.id,a.title,a.title_code,a.update_date,a.album_img,a.zan,a.pl,c.id as userid,c.username,c.email,  "
 
                 + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '" + userid + "' )> 0 "
@@ -124,8 +124,8 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
         sql += " order by a.update_date desc";
 
-        pageview = userlyricsDao.querySQLCountForMapList(sql, pageview);
-        return pageview;
+        pageView = userlyricsDao.querySQLCountForMapList(sql, pageView);
+        return pageView;
     }
 
     @Override

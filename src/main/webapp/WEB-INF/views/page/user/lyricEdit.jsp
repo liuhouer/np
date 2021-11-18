@@ -45,8 +45,8 @@
             <div class="align-center bg-white radius-5 padding10 max-width-400 min-width-300">
                 <form id="f1" action="/lyrics/update.action" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="userid" value="${userid }"/>
-                    <input type="hidden" id="albumpath" value="${albumpath }">
-                    <input type="hidden" name="oldpath" value="${model.album_img }">
+                    <input type="hidden" id="album_path" value="${album_path }">
+                    <input type="hidden" name="old_path" value="${model.album_img }">
                     <input type="hidden" name="type" value="${model.type }">
                     <input type="hidden" name="id" value="${model.id }">
                     <input type="hidden" name="path" value="${model.path }">

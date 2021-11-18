@@ -51,7 +51,7 @@ public class TestRetSql {
                             map = list.get(i);
 
                             String title = map.get("title");
-                            String aurl = map.get("aurl");
+                            String a_url = map.get("a_url");
                             String brief = map.get("brief");
                             String date = map.get("date");
                             String article = map.get("article");
@@ -69,7 +69,7 @@ public class TestRetSql {
                             if (flag <= 0) {
 
                                 Soft model = Soft.builder().brief(brief).content(article).os(os).post_date(date)
-                                        .ret_code(code).ret_url(aurl).tags(tag).title(title).month(month).year(year)
+                                        .ret_code(code).ret_url(a_url).tags(tag).title(title).month(month).year(year)
                                         .tags_code(tag_code).path(path).build();
                                 softManager.addSoft(model);
                             }

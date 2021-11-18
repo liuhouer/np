@@ -259,9 +259,9 @@ public class TestEQTask {
         // =========================================================处理软件的下载样式===========================================================================================
 
         // =========================================================处理软件的下载样式===========================================================================================
-        // List<Soft> resultlist = softManager.findByCondition(" where ret_code like
+        // List<Soft> result_list = softManager.findByCondition(" where ret_code like
         // '%wskso%' ").getResultlist();
-        // for(Soft s:resultlist) {
+        // for(Soft s:result_list) {
         // String content = s.getContent();
         // Document parse = Jsoup.parse(content);
         // Elements select = parse.select("a");
@@ -356,7 +356,7 @@ public class TestEQTask {
                             map = list.get(i);
 
                             String title = map.get("title");
-                            String aurl = map.get("aurl");
+                            String a_url = map.get("a_url");
                             String brief = map.get("brief");
                             String date = map.get("date");
                             String article = map.get("article");
@@ -374,7 +374,7 @@ public class TestEQTask {
                             if (flag <= 0) {
 
                                 Soft model = Soft.builder().brief(brief).content(article).os(os).post_date(date)
-                                        .ret_code(code).ret_url(aurl).tags(tag).title(title).month(month).year(year)
+                                        .ret_code(code).ret_url(a_url).tags(tag).title(title).month(month).year(year)
                                         .tags_code(tag_code).path(path).build();
                                 softManager.addSoft(model);
                             }
@@ -428,7 +428,7 @@ public class TestEQTask {
 //								map = list.get(i);
 //
 //								String title = map.get("title");
-//								// String aurl = map.get("aurl");
+//								// String a_url = map.get("a_url");
 //								String date = map.get("date");
 //								String article = map.get("article");
 //								String ret_code = map.get("ret_code");

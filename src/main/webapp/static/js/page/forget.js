@@ -55,7 +55,7 @@ $(function () {
     if (msg == 'success') {
         art.dialog.tips('修改成功，正在跳转。。', 5);
         window.location.href = "/cm/pcentral";
-    } else if (msg == 'isolded') {
+    } else if (msg == 'is_old') {
         $("#J_tip").text("验证码已过期或失效，请重新获取");
         art.dialog.tips('验证码已过期或失效，请重新获取', 3);
         //art.dialog.tips('成功！已经保存在服务器');

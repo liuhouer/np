@@ -15,7 +15,7 @@
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
     <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
-    <title>${ datamap.lrc_title}:最爱主题图册互动 | NorthPark</title>
+    <title>${ dataMap.lrc_title}:最爱主题图册互动 | NorthPark</title>
     <meta name="keywords" content="NorthPark,最爱主题图册互动">
     <meta name="description"
           content="NorthPark最爱主题图册互动、评论、关注.">
@@ -32,28 +32,28 @@
 <%@ include file="/WEB-INF/views/page/common/navigation.jsp" %>
 
 <!-- 页面标题 -->
-<h1 class="font-elegant">${ datamap.lrc_title}</h1>
+<h1 class="font-elegant">${ dataMap.lrc_title}</h1>
 <div class="clearfix maincontent">
     <div class="container">
 
         <div class="mainbody padding10" style="margin-top:5em;">
-            <input type="hidden" id="J_lrcid" value="${ datamap.lrc_id}"/>
+            <input type="hidden" id="J_lrcid" value="${ dataMap.lrc_id}"/>
             <input type="hidden" id="J_uid" value="${ user.id}"/>
             <input type="hidden" id="J_yizan" value="${yizan }"/>
             <div class="row">
                 <div class="col-md-8">
 
-                    <h2 class="margin0">${ datamap.lrc_title} &nbsp;
+                    <h2 class="margin0">${ dataMap.lrc_title} &nbsp;
                         <small><span class="glyphicon glyphicon-user"></span> 由<a
 
-                                <c:if test="${datamap.by_tail_slug==null || datamap.by_tail_slug==''}">
-                                    href="/cm/detail/${datamap.by_id}"
+                                <c:if test="${dataMap.by_tail_slug==null || dataMap.by_tail_slug==''}">
+                                    href="/cm/detail/${dataMap.by_id}"
                                 </c:if>
-                                <c:if test="${datamap.by_tail_slug!=null }">
-                                    href="/people/${datamap.by_tail_slug }"
+                                <c:if test="${dataMap.by_tail_slug!=null }">
+                                    href="/people/${dataMap.by_tail_slug }"
                                 </c:if>
 
-                                title="${datamap.by_username }的最爱">${datamap.by_username }</a>创建
+                                title="${dataMap.by_username }的最爱">${dataMap.by_username }</a>创建
                         </small>
                     </h2>
 
@@ -64,8 +64,8 @@
 
                             <div class="clearfix" style="position:relative">
                                 <div class="clearfix" id="mainThumb"><img class="img-responsive img-full"
-                                                                          src="/bruce/${datamap.lrc_album_img }"
-                                                                          alt="${ datamap.lrc_title}"></div>
+                                                                          src="/bruce/${dataMap.lrc_album_img }"
+                                                                          alt="${ dataMap.lrc_title}"></div>
 
                             </div>
 
@@ -80,7 +80,7 @@
 
 
                             <div class="clearfix">
-                                <h4><span class="glyphicon glyphicon-heart"></span> ${datamap.zanNum }人最爱</h4>
+                                <h4><span class="glyphicon glyphicon-heart"></span> ${dataMap.zanNum }人最爱</h4>
                                 <p class="pline">
 
                                 <div id="J_zan_div" class="pline">
@@ -98,7 +98,7 @@
                                     </c:forEach>
                                 </div>
                                 <!-- >10个喜欢才有查看更多按钮 -->
-                                <c:if test="${datamap.zanNum > 10}">
+                                <c:if test="${dataMap.zanNum > 10}">
                                     <button id="J_lovers_box" class="btn btn-gray btn-xs click2show"
                                             data-target=".lovers_box">查看更多 ››
                                     </button>
@@ -106,7 +106,7 @@
                                 </p>
                             </div>
 
-                            <input type="hidden" id="by_id" value="${datamap.by_id }"/>
+                            <input type="hidden" id="by_id" value="${dataMap.by_id }"/>
 
                             <div id="showResult" class="control-group center margen-b10">
                             </div>
@@ -146,7 +146,7 @@
                     </div>
                     <div class="clearfix margin-t20">
 
-                        <h4><span class="glyphicon glyphicon-comment"></span> ${datamap.plNum }条回忆</h4>
+                        <h4><span class="glyphicon glyphicon-comment"></span> ${dataMap.plNum }条回忆</h4>
                         <hr>
                         <%--发表评论--%>
                         <c:if test="${user!=null }">
@@ -195,14 +195,14 @@
 
 
                             <div class="row margin-b20" id="loadingAnimation">
-                                <img alt="load comment of ${ datamap.lrc_title}" src="https://northpark.cn/statics/img/loading.gif" width="30"
+                                <img alt="load comment of ${ dataMap.lrc_title}" src="https://northpark.cn/statics/img/loading.gif" width="30"
                                      height="30" />
                             </div>
                             <button class="btn btn-default btn-lg margin-b20" id="loadStuffCommentBtn"
                                     data-htmlboxid="stuffCommentBox" rel="938">加载更多 <span
                                     class="glyphicon glyphicon-chevron-down"></span></button>
                             <input type="hidden" id="comment_id_from" value="1">
-                            <input type="hidden" id="J_lrc_id" value="${datamap.lrc_id }">
+                            <input type="hidden" id="J_lrc_id" value="${dataMap.lrc_id }">
                             <input type="hidden" id="J_tail" value="${tail }">
                         </div>
                         <%--评论列表--%>

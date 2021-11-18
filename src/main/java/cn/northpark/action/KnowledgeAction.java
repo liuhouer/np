@@ -113,35 +113,35 @@ public class KnowledgeAction {
 
 		//排序条件
 		LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
-		String orderby = request.getParameter("orderby");
-		if (StringUtils.isNotEmpty(orderby)) {
-			if ("hot".equals(orderby)) {
+		String orderBy = request.getParameter("orderBy");
+		if (StringUtils.isNotEmpty(orderBy)) {
+			if ("hot".equals(orderBy)) {
 				order.put("hot_index", "desc");
-			} else if ("latest".equals(orderby)) {
+			} else if ("latest".equals(orderBy)) {
 				order.put("id", "desc");
 			}
-			map.put("orderby", orderby);
+			map.put("orderBy", orderBy);
 		} else {
 			order.put("post_date", "desc");
 			order.put("id", "desc");
 		}
 		
-		//定义pageview
-		PageView<Knowledge> pageview = new PageView<Knowledge>(1, LearningCount);
+		//定义pageView
+		PageView<Knowledge> pageView = new PageView<Knowledge>(1, LearningCount);
 		
 		//获取分页结构不获取数据
 
-		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageview, sql,order);
-		List<Knowledge> resultlist = qr.getResultlist();
+		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageView, sql,order);
+		List<Knowledge> result_list = qr.getResultlist();
 
 		//处理标签列表
-		handleTag(resultlist);
+		handleTag(result_list);
 		//生成分页信息
-		pageview.setQueryResult(qr);
+		pageView.setQueryResult(qr);
 
 		map.put("page", 1);
-		map.addAttribute("pageView", pageview);
-		map.addAttribute("list", resultlist);
+		map.addAttribute("pageView", pageView);
+		map.addAttribute("list", result_list);
 		map.put("condition", condition);
 		map.addAttribute("actionUrl","/learning/list");
 
@@ -174,7 +174,7 @@ public class KnowledgeAction {
 		String sql = knowledgeQuery.getMixSql(condition);
 		
 		log.info("sql ---"+sql);
-		int currentpage = Integer.parseInt(page);
+		int currentPage = Integer.parseInt(page);
 
 
 		//搜索
@@ -197,40 +197,40 @@ public class KnowledgeAction {
 
 		//排序条件
 		LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
-		String orderby = request.getParameter("orderby");
-		if (StringUtils.isNotEmpty(orderby)) {
-			if ("hot".equals(orderby)) {
+		String orderBy = request.getParameter("orderBy");
+		if (StringUtils.isNotEmpty(orderBy)) {
+			if ("hot".equals(orderBy)) {
 
 				order.put("hot_index", "desc");
 
-			} else if ("latest".equals(orderby)) {
+			} else if ("latest".equals(orderBy)) {
 
 				order.put("post_date", "desc");
 				order.put("id", "desc");
 			}
-			map.put("orderby", orderby);
+			map.put("orderBy", orderBy);
 		} else {
 			order.put("post_date", "desc");
 			order.put("id", "desc");
 		}
 
 
-		//定义pageview
-		PageView<Knowledge> pageview = new PageView<Knowledge>(currentpage, LearningCount);
+		//定义pageView
+		PageView<Knowledge> pageView = new PageView<Knowledge>(currentPage, LearningCount);
 
 		//获取分页结构不获取数据
 
-		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageview, sql,order);
+		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageView, sql,order);
 
-		List<Knowledge> resultlist = qr.getResultlist();
+		List<Knowledge> result_list = qr.getResultlist();
 		//处理标签列表
-		handleTag(resultlist);
+		handleTag(result_list);
 		//生成分页信息
-		pageview.setQueryResult(qr);
+		pageView.setQueryResult(qr);
 
 		map.put("page", page);
-		map.addAttribute("pageView", pageview);
-		map.addAttribute("list", resultlist);
+		map.addAttribute("pageView", pageView);
+		map.addAttribute("list", result_list);
 		map.put("condition", condition);
 		map.addAttribute("actionUrl","/learning/list");
 
@@ -250,7 +250,7 @@ public class KnowledgeAction {
 	 * @return
 	 */
 	@RequestMapping(value = "/post-{id}.html")
-	public String postdetail(ModelMap map, @PathVariable String id, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public String postDetail(ModelMap map, @PathVariable String id, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
 		if (StringUtils.isNotEmpty(id)) {
 			//sql注入处理
@@ -279,7 +279,7 @@ public class KnowledgeAction {
 	 * @return
 	 */
 	@RequestMapping("/tag/{tags_code}")
-	public String tagsearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
+	public String tagSearch(ModelMap map, @PathVariable String tags_code, HttpServletRequest request) {
 		String rs = "redirect:/learning/tag/" + tags_code + "/page/1";
 		return rs;
 	}
@@ -294,7 +294,7 @@ public class KnowledgeAction {
 	 * @return
 	 */
 	@RequestMapping(value = "/tag/{tags_code}/page/{page}")
-	public String tag_listpage(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tags_code,
+	public String tag_list_page(ModelMap map, @PathVariable String page, HttpServletRequest request, @PathVariable String tags_code,
 							  HttpServletResponse response, HttpSession session) throws IOException {
 
 		String result = "/learning";
@@ -302,26 +302,26 @@ public class KnowledgeAction {
 		tags_code = WAQ.forSQL().escapeSql(tags_code);
 		String whereSql = " where tags_code like '%" + tags_code + "%' ";
 
-		map.put("seltag", tags_code);
+		map.put("sel_tag", tags_code);
 
 
 		log.info("sql ---" + whereSql);
-		String currentpage = page;
+		String currentPage = page;
 		//排序条件
 		LinkedHashMap<String, String> order = Maps.newLinkedHashMap();
 		order.put("hot_index", "desc");
 		order.put("id", "desc");
 
-		//获取pageview
-		PageView<Knowledge> pageview = new PageView<Knowledge>(Integer.parseInt(currentpage), LearningCount);
-		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageview, whereSql, order);
-		List<Knowledge> resultlist = qr.getResultlist();
+		//获取pageView
+		PageView<Knowledge> pageView = new PageView<Knowledge>(Integer.parseInt(currentPage), LearningCount);
+		QueryResult<Knowledge> qr = this.knowledgeManager.findByCondition(pageView, whereSql, order);
+		List<Knowledge> result_list = qr.getResultlist();
 
 		//生成分页信息
-		pageview.setQueryResult(qr);
+		pageView.setQueryResult(qr);
 
 		//处理标签列表
-		handleTag(resultlist);
+		handleTag(result_list);
 
 		int pages = 0;
 		try {
@@ -332,8 +332,8 @@ public class KnowledgeAction {
 		}
 		map.put("page", pages);
 
-		map.addAttribute("pageView", pageview);
-		map.addAttribute("list", resultlist);
+		map.addAttribute("pageView", pageView);
+		map.addAttribute("list", result_list);
 		map.addAttribute("actionUrl", "/learning/tag/" + tags_code);
 		//获取标签模块
 		getTags(map, request);
@@ -345,12 +345,12 @@ public class KnowledgeAction {
 	/**
 	 * 处理标签列表
 	 *
-	 * @param resultlist
+	 * @param result_list
 	 */
-	private void handleTag(List<Knowledge> resultlist) {
-		if (!CollectionUtils.isEmpty(resultlist)) {
+	private void handleTag(List<Knowledge> result_list) {
+		if (!CollectionUtils.isEmpty(result_list)) {
 
-			for (Knowledge m : resultlist) {
+			for (Knowledge m : result_list) {
 				String tag = m.getTags();
 				String tag_code = m.getTags_code();
 				if (StringUtils.isNotEmpty(tag) && StringUtils.isNotEmpty(tag_code)) {
@@ -400,8 +400,8 @@ public class KnowledgeAction {
 			tags = tagsManager.findByCondition(" where tag_type = '4' ").getResultlist();
 
 			//获取热门学习
-			String hotsql = "select id,title,color from bc_knowledge where tags_code like '%classhare%' order by rand() desc limit 0,50";
-			learn_hot_list = knowledgeManager.querySqlMap(hotsql);
+			String hot_sql = "select id,title,color from bc_knowledge where tags_code like '%classhare%' order by rand() desc limit 0,50";
+			learn_hot_list = knowledgeManager.querySqlMap(hot_sql);
 
 			RedisUtil.getInstance().set("learn_hot_list", JsonUtil.object2json(learn_hot_list), 24 * 60 * 60);
 			RedisUtil.getInstance().set("learn_tags", JsonUtil.object2json(tags), 24 * 60 * 60);
@@ -480,7 +480,7 @@ public class KnowledgeAction {
 			}
 
 		} catch (Exception e) {
-			log.error("moviesacton------>", e);
+			log.error("movies action------>", e);
 			rs = "ex";
 		}
 		return ResultGenerator.genSuccessResult(rs);

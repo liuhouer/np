@@ -11,7 +11,7 @@
                 <ul class="slides"
                     style="width: 1000%; transition-duration: 0.6s; transform: translate3d(-1500px, 0px, 0px);">
 
-                    <c:forEach items="${notelist }" var="s" varStatus="ss">
+                    <c:forEach items="${note_list }" var="s" varStatus="ss">
 
 
                         <li class="center"

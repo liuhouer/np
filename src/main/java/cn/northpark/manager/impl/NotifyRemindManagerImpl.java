@@ -125,10 +125,10 @@ public class NotifyRemindManagerImpl implements NotifyRemindManager {
 	}
 
 	@Override
-	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String,Object>>> pageview,String sql) {
+	public List<Map<String, Object>> findmixByCondition(PageView<List<Map<String,Object>>> pageView,String sql) {
 		
 		
-		List<Map<String, Object>> list = notifyremindDao.querySQLForMapList(sql, pageview);
+		List<Map<String, Object>> list = notifyremindDao.querySQLForMapList(sql, pageView);
 		
 		return list;
 		
@@ -137,9 +137,9 @@ public class NotifyRemindManagerImpl implements NotifyRemindManager {
 	
 	
 	@Override
-	public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql) {
+	public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageView, String sql) {
 		
-		return notifyremindDao.querySQLCountForMapList(sql, pageview);
+		return notifyremindDao.querySQLCountForMapList(sql, pageView);
 	}
 	
 }

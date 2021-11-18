@@ -129,7 +129,7 @@ public class NotifyRemindAction {
 		order.put("status", "asc");
 		order.put("createdAt", "desc");
 
-		//获取pageview
+		//获取pageView
 		PageView<NotifyRemind> page_view = new PageView<NotifyRemind>(1, MyConstant.MAXRESULT);
 
 		QueryResult<NotifyRemind> qr = notifyRemindManager.findByCondition(page_view, where_sql, order);
@@ -163,7 +163,7 @@ public class NotifyRemindAction {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/notifications/page/{page}")
-	public String listpage(ModelMap map, @PathVariable String page, HttpServletRequest request) throws IOException {
+	public String listPage(ModelMap map, @PathVariable String page, HttpServletRequest request) throws IOException {
 
 		UserVO userInfo = RequestHolder.getUserInfo(request);
 		String where_sql = " where recipientID = '" + userInfo.getId() + "' ";
@@ -175,7 +175,7 @@ public class NotifyRemindAction {
 		order.put("status", "asc");
 		order.put("createdAt", "desc");
 
-		//获取pageview
+		//获取pageView
 		PageView<NotifyRemind> page_view = new PageView<NotifyRemind>(Integer.parseInt(page), MyConstant.MAXRESULT);
 
 		QueryResult<NotifyRemind> qr = notifyRemindManager.findByCondition(page_view, where_sql, order);

@@ -104,16 +104,16 @@ public class LyricsCommentManagerImpl implements LyricsCommentManager {
 
     @Override
     public List<Map<String, Object>> findmixByCondition(
-            PageView<List<Map<String, Object>>> pageview, String sql) {
+            PageView<List<Map<String, Object>>> pageView, String sql) {
         // TODO Auto-generated method stub
-        return lyricscommentDao.querySQLForMapList(sql, pageview);
+        return lyricscommentDao.querySQLForMapList(sql, pageView);
     }
 
     @Override
     public PageView<List<Map<String, Object>>> getMixMapPage(
-            PageView<List<Map<String, Object>>> pageview, String sql) {
+            PageView<List<Map<String, Object>>> pageView, String sql) {
         // TODO Auto-generated method stub
-        return lyricscommentDao.querySQLCountForMapList(sql, pageview);
+        return lyricscommentDao.querySQLCountForMapList(sql, pageView);
     }
 }
 

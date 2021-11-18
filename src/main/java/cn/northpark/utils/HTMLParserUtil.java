@@ -221,9 +221,9 @@ public class HTMLParserUtil {
 //
 //                Element a = elements.get(0).select("a").get(0);
 //
-//                String aurl = a.attr("href");
+//                String a_url = a.attr("href");
 //
-//                String title_code = aurl.replace("/love/", "");
+//                String title_code = a_url.replace("/love/", "");
 //
 //                System.out.println(title_code);
 //
@@ -389,7 +389,7 @@ public class HTMLParserUtil {
 //
 //                String title = titles.get(0).text();
 //                title = title.replace("大卫", "");
-//                String aurl = "http://www.weiduba.net" + titles.get(0).attr("href");
+//                String a_url = "http://www.weiduba.net" + titles.get(0).attr("href");
 //
 //                Elements dates = p.select("samp[class=title]");
 //
@@ -406,7 +406,7 @@ public class HTMLParserUtil {
 //                    e.printStackTrace();
 //                }
 //
-//                Document doc_ = Jsoup.parse(HttpGetUtils.getDataResult(aurl));
+//                Document doc_ = Jsoup.parse(HttpGetUtils.getDataResult(a_url));
 //                Elements articles = doc_.select("div[class=cont]");
 //                Element article_ele = articles.get(0);
 //                //去掉图片、去掉strong
@@ -449,14 +449,14 @@ public class HTMLParserUtil {
 //                String ret_code = EnDecryptUtils.md5Encrypt(title);
 //
 //                map.put("title", title);
-//                map.put("aurl", aurl);
+//                map.put("a_url", a_url);
 //                map.put("brief", brief);
 //                map.put("date", date);
 //                map.put("article", article);
 //                map.put("ret_code", ret_code);
 //
 //
-//                log.info(title + "\t\r" + aurl + "\t\r" + "\t\r" + brief + "\t\r" + article + "\t\r" + date + "-----------------");
+//                log.info(title + "\t\r" + a_url + "\t\r" + "\t\r" + brief + "\t\r" + article + "\t\r" + date + "-----------------");
 //
 //                list.add(map);
 //
@@ -495,7 +495,7 @@ public class HTMLParserUtil {
 
                 String title = titles.get(0).text();
                 title = title.replace("大卫", "");
-                String aurl = "http://chuansong.me" + titles.get(0).select("a").get(0).attr("href");
+                String a_url = "http://chuansong.me" + titles.get(0).select("a").get(0).attr("href");
 
                 Elements dates = p.select("span[class=timestamp]");
 
@@ -512,7 +512,7 @@ public class HTMLParserUtil {
                     e.printStackTrace();
                 }
 
-                Document doc_ = Jsoup.connect(aurl)
+                Document doc_ = Jsoup.connect(a_url)
                         .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
                         .referrer("http://www.google.com")
                         .timeout(20000) //it's in milliseconds, so this means 5 seconds.
@@ -562,14 +562,14 @@ public class HTMLParserUtil {
                 String ret_code = EnDecryptUtils.md5Encrypt(title);
 
                 map.put("title", title);
-                map.put("aurl", aurl);
+                map.put("a_url", a_url);
                 map.put("brief", brief);
                 map.put("date", date);
                 map.put("article", article);
                 map.put("ret_code", ret_code);
 
 
-                log.info(title + "\t\r" + aurl + "\t\r" + "\t\r" + brief + "\t\r" + article + "\t\r" + date + "-----------------");
+                log.info(title + "\t\r" + a_url + "\t\r" + "\t\r" + brief + "\t\r" + article + "\t\r" + date + "-----------------");
 
                 list.add(map);
 
@@ -635,7 +635,7 @@ public class HTMLParserUtil {
 //
 //                        String title = titles.get(0).text();
 //                        log.info("title====================" + title);
-//                        String aurl = titles.get(0).select("a").get(0).attr("href");
+//                        String a_url = titles.get(0).select("a").get(0).attr("href");
 //
 //                        //标签tags
 //
@@ -701,7 +701,7 @@ public class HTMLParserUtil {
 //                            e.printStackTrace();
 //                        }
 //
-//                        Document doc_ = Jsoup.connect(aurl)
+//                        Document doc_ = Jsoup.connect(a_url)
 //                                .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
 //                                .referrer("http://www.google.com")
 //                                .timeout(1000 * 30) //it's in milliseconds, so this means 5 seconds.
@@ -787,7 +787,7 @@ public class HTMLParserUtil {
 //
 //                        log.info("brief====================" + brief);
 //                        map.put("title", title);
-//                        map.put("aurl", aurl);
+//                        map.put("a_url", a_url);
 //                        map.put("brief", brief);
 //                        map.put("date", date);
 //                        map.put("article", text);
@@ -803,7 +803,7 @@ public class HTMLParserUtil {
 //                }
 //            }
 //
-////                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+////                log.info(title+"\t\r"+a_url+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 //
 //        } catch (Exception e) {
 //            log.error("HTMLPARSERutils------->", e);
@@ -1085,7 +1085,7 @@ public class HTMLParserUtil {
 
                     map = new HashMap<>();
                     map.put("title", title);
-                    map.put("aurl", url);
+                    map.put("a_url", url);
                     map.put("brief", brief.toString());
                     map.put("date", date);
                     map.put("article", article);
@@ -1353,7 +1353,7 @@ public class HTMLParserUtil {
 
                     map = new HashMap<>();
                     map.put("title", title);
-                    map.put("aurl", url);
+                    map.put("a_url", url);
                     map.put("brief", brief.toString());
                     map.put("date", date);
                     map.put("article", article);
@@ -1432,18 +1432,18 @@ public class HTMLParserUtil {
 
                     String logo_p = "";
 
-                    String aurl = BT_HM + li.select("a").get(0).attr("href");
+                    String a_url = BT_HM + li.select("a").get(0).attr("href");
                     String title = li.select("a").get(0).attr("title");
                     map.put("title", title);
                     System.err.println(logo_url);
-                    System.err.println(aurl);
+                    System.err.println(a_url);
                     System.err.println(JsonUtil.object2json(pic2Disk));
 
 
                     //获取详情
-                    String dataResult_ = HttpGetUtils.getDataResult(aurl,"gb2312");
+                    String dataResult_ = HttpGetUtils.getDataResult(a_url,"gb2312");
 
-                    Document doc_ = Jsoup.parse(dataResult_, aurl);
+                    Document doc_ = Jsoup.parse(dataResult_, a_url);
 
                     //获取详情1
                     //w960tv -> nrwjm
@@ -1453,7 +1453,7 @@ public class HTMLParserUtil {
 
                     Elements info_lis = info.select("li");
 
-                    map.put("aurl", aurl);
+                    map.put("a_url", a_url);
                     if(!CollectionUtils.isEmpty(info_lis)){
                         for (Element info_li : info_lis) {
                             String html = info_li.html();
@@ -1591,7 +1591,7 @@ public class HTMLParserUtil {
 
                     //获取正文内容
 
-                    String aurl = li.select("a").get(0).attr("href");
+                    String a_url = li.select("a").get(0).attr("href");
 
 
                     String desc = "";
@@ -1605,9 +1605,9 @@ public class HTMLParserUtil {
                         e.printStackTrace();
                     }
 
-                    String dataResult_ = HttpGetUtils.getDataResult(aurl);
+                    String dataResult_ = HttpGetUtils.getDataResult(a_url);
 
-                    Document doc_ = Jsoup.parse(dataResult_, aurl);
+                    Document doc_ = Jsoup.parse(dataResult_, a_url);
                     //yp_context
                     //dyxingq
                     Element info = doc_.select("div.dyxingq").get(0);
@@ -1719,14 +1719,14 @@ public class HTMLParserUtil {
 
 
                     log.info("title==============>" + title);
-                    log.info("aurl==============>" + aurl);
+                    log.info("a_url==============>" + a_url);
                     log.info("date==============>" + date);
                     log.info("tag==============>" + tag);
                     log.info("tag_code==============>" + tag_code);
                     log.info("desc==============>" + desc);
 
                     map.put("title", title);
-                    map.put("aurl", aurl);
+                    map.put("a_url", a_url);
                     map.put("date", date);
                     map.put("article", desc);
                     map.put("ret_code", ret_code);
@@ -1739,7 +1739,7 @@ public class HTMLParserUtil {
             }
 //            }
 
-//                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                log.info(title+"\t\r"+a_url+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
         } catch (Exception e) {
             log.error("HTMLPARSERutils------->", e);
@@ -1800,7 +1800,7 @@ public class HTMLParserUtil {
 
                     //获取正文内容
 
-                    String aurl = BC_Constant.RET_RR_BASE + li.select("a").get(0).attr("href");
+                    String a_url = BC_Constant.RET_RR_BASE + li.select("a").get(0).attr("href");
 
 
                     String desc = "";
@@ -1814,9 +1814,9 @@ public class HTMLParserUtil {
                         e.printStackTrace();
                     }
 
-                    String dataResult_ = HttpGetUtils.getDataResult(aurl);
+                    String dataResult_ = HttpGetUtils.getDataResult(a_url);
 
-                    Document doc_ = Jsoup.parse(dataResult_, aurl);
+                    Document doc_ = Jsoup.parse(dataResult_, a_url);
 
 
                     Element detail = doc_.select("div.movie-des.shadow > div.movie-txt").get(0);
@@ -1917,14 +1917,14 @@ public class HTMLParserUtil {
 
 
                     log.info("title==============>" + title);
-                    log.info("aurl==============>" + aurl);
+                    log.info("a_url==============>" + a_url);
                     log.info("date==============>" + date);
                     log.info("tag==============>" + tag);
                     log.info("tag_code==============>" + tag_code);
                     log.info("desc==============>" + desc);
 
                     map.put("title", title);
-                    map.put("aurl", aurl);
+                    map.put("a_url", a_url);
                     map.put("date", date);
                     map.put("article", desc);
                     map.put("ret_code", ret_code);
@@ -1938,7 +1938,7 @@ public class HTMLParserUtil {
             }
 //            }
 
-//                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                log.info(title+"\t\r"+a_url+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
         } catch (Exception e) {
             log.error("HTMLPARSERutils------->", e);
@@ -2281,7 +2281,7 @@ public class HTMLParserUtil {
                 }
             }
 
-//                log.info(title+"\t\r"+aurl+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
+//                log.info(title+"\t\r"+a_url+"\t\r"+"\t\r"+brief+"\t\r"+article+"\t\r"+date+"-----------------");
 
         } catch (Exception e) {
             log.error("HTMLPARSERutils------->", e);

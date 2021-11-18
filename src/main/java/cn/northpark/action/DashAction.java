@@ -63,7 +63,7 @@ public class DashAction {
 
     @RequestMapping("/donate")
     @Desc(value = "跳转微信1 test..")
-    public String weixin1(ModelMap map,HttpServletRequest request) {
+    public String donateDetail(ModelMap map,HttpServletRequest request) {
 
         //数据埋点-站长统计
         //===================================异步操作=================================================
@@ -124,14 +124,14 @@ public class DashAction {
 
     @RequestMapping("/")
     @Desc(value = "首页")
-    public String dashborard(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {
+    public String dashBorard(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {
 
         //slider
         request.getSession().removeAttribute("tabs");
 
         //if www return no www
-        String getDoamin = request.getServerName();
-        if (getDoamin.startsWith("www")) {
+        String getDomain = request.getServerName();
+        if (getDomain.startsWith("www")) {
             response.sendRedirect("http://" + BC_Constant.Domain);
         }
 
@@ -226,28 +226,28 @@ public class DashAction {
         List<Map<String, Object>> list = null;
 
         //组装+计算分页信息=================
-        PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), MyConstant.MAXRESULT, 3);
-        pageview = noteManager.getMixMapPage(pageview, DonatesEnum.match(type_id).getSql_fetch());
+        PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), MyConstant.MAXRESULT, 3);
+        pageView = noteManager.getMixMapPage(pageView, DonatesEnum.match(type_id).getSql_fetch());
         //组装+计算分页信息=================
 
         //从redis取
 
         //获取数据条数
-        Long zcard = RedisUtil.getInstance().zCard(result + page);
+        Long zCard = RedisUtil.getInstance().zCard(result + page);
 
         //从redis查询
-        if (Objects.nonNull(zcard) && zcard.intValue() > 0) {
+        if (Objects.nonNull(zCard) && zCard.intValue() > 0) {
 
             //从redis获取数据
-            Set<String> zrevrangebyscore = RedisUtil.getInstance().zRangeByScore(result + page, "0",MyConstant.MAXRESULT + "", 0, MyConstant.MAXRESULT);
-            list = zrevrangebyscore.stream().map(i -> JsonUtil.json2map(i)).collect(Collectors.toList());
+            Set<String> zRangeByScore = RedisUtil.getInstance().zRangeByScore(result + page, "0",MyConstant.MAXRESULT + "", 0, MyConstant.MAXRESULT);
+            list = zRangeByScore.stream().map(i -> JsonUtil.json2map(i)).collect(Collectors.toList());
 
         } else {
 
             //没有结果-从数据库取
 
             //根据计算的分页仅仅获取数据
-            list = this.noteManager.findmixByCondition(pageview, DonatesEnum.match(type_id).getSql_fetch());
+            list = this.noteManager.findmixByCondition(pageView, DonatesEnum.match(type_id).getSql_fetch());
 
             //写入redis
             for (int i = 0; i < list.size(); i++) {
@@ -256,7 +256,7 @@ public class DashAction {
         }
 
         //组装默认分页信息=================
-        map.addAttribute("pageView", pageview);
+        map.addAttribute("pageView", pageView);
         map.addAttribute("type_id", type_id);
         map.addAttribute("page", page);
         map.addAttribute("list", list);
@@ -271,26 +271,26 @@ public class DashAction {
      */
     public void pushMovies2Map(ModelMap map) {
         //取出热门电影
-        List<Map<String, Object>> home_movieslist = null;
+        List<Map<String, Object>> home_movies_list = null;
 
         //从redis取
-        String str = RedisUtil.getInstance().get("home_movieslist");
+        String str = RedisUtil.getInstance().get("home_movies_list");
         if (StringUtils.isNotEmpty(str)) {
-            home_movieslist = JsonUtil.json2ListMap(str);
+            home_movies_list = JsonUtil.json2ListMap(str);
         }
 
 
         //从数据库取 :1天刷新
-        if (CollectionUtils.isEmpty(home_movieslist)) {
+        if (CollectionUtils.isEmpty(home_movies_list)) {
 
             String msql = "select id,movie_name from bc_movies order by rand() limit 1,24";
-            home_movieslist = moviesManager.querySqlMap(msql);
+            home_movies_list = moviesManager.querySqlMap(msql);
 
-            RedisUtil.getInstance().set("home_movieslist", JsonUtil.object2json(home_movieslist), 24 * 60 * 60);
+            RedisUtil.getInstance().set("home_movies_list", JsonUtil.object2json(home_movies_list), 24 * 60 * 60);
 
         }
 
-        map.addAttribute("movieslist", home_movieslist);
+        map.addAttribute("movies_list", home_movies_list);
     }
 
 
@@ -300,23 +300,23 @@ public class DashAction {
     public void pushEQ2Map(ModelMap map) {
         //取出一部分情圣日记
 
-        List<Eq> home_eqlist = null;
+        List<Eq> home_eq_list = null;
 
         //从redis取
-        String str = RedisUtil.getInstance().get("home_eqlist");
+        String str = RedisUtil.getInstance().get("home_eq_list");
         if (StringUtils.isNotEmpty(str)) {
-            home_eqlist = JsonUtil.json2list(str, Eq.class);
+            home_eq_list = JsonUtil.json2list(str, Eq.class);
         }
 
         //从数据库取 :1天刷新
-        if (CollectionUtils.isEmpty(home_eqlist)) {
-            String eqsql = "select * from bc_eq  where date ='2016-07-21' or date ='2016-07-19' or date ='2016-07-15' order by date desc";
-            home_eqlist = this.eqManager.querySql(eqsql);
-            RedisUtil.getInstance().set("home_eqlist", JsonUtil.object2json(home_eqlist));
+        if (CollectionUtils.isEmpty(home_eq_list)) {
+            String eq_sql = "select * from bc_eq  where date ='2016-07-21' or date ='2016-07-19' or date ='2016-07-15' order by date desc";
+            home_eq_list = this.eqManager.querySql(eq_sql);
+            RedisUtil.getInstance().set("home_eq_list", JsonUtil.object2json(home_eq_list));
 
 
         }
-        map.addAttribute("eqlist", home_eqlist);
+        map.addAttribute("eq_list", home_eq_list);
     }
 
 
@@ -327,34 +327,34 @@ public class DashAction {
      */
     public void pushNote2Map(ModelMap map) {
         //取出一部分日记-随机
-        List<Map<String, Object>> home_notelist = null;
+        List<Map<String, Object>> home_note_list = null;
 
         //从redis取
-        String str = RedisUtil.getInstance().get("home_notelist");
+        String str = RedisUtil.getInstance().get("home_note_list");
         if (StringUtils.isNotEmpty(str)) {
-            home_notelist = JsonUtil.json2ListMap(str);
+            home_note_list = JsonUtil.json2ListMap(str);
         }
 
 
         //从数据库取 :1天刷新
-        if (CollectionUtils.isEmpty(home_notelist)) {
-            NoteQueryCondition notecondition = new NoteQueryCondition();
-            notecondition.setOpened("yes");
-            String noteSql = noteQuery.getRandSql(notecondition);
-            PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(1, 16);
-            List<Map<String, Object>> notelist = this.noteManager.findmixByCondition(pageview, noteSql);
+        if (CollectionUtils.isEmpty(home_note_list)) {
+            NoteQueryCondition noteCondition = new NoteQueryCondition();
+            noteCondition.setOpened("yes");
+            String noteSql = noteQuery.getRandSql(noteCondition);
+            PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(1, 16);
+            List<Map<String, Object>> note_list = this.noteManager.findmixByCondition(pageView, noteSql);
 
             //时间处理
-            notelist.forEach(item -> {
+            note_list.forEach(item -> {
                 String create_time = (String) item.get("create_time");
                 if (StringUtils.isNotEmpty(create_time)) item.put("create_time", TimeUtils.getHalfDate(create_time));
             });
 
-            RedisUtil.getInstance().set("home_notelist", JsonUtil.object2json(notelist), 24 * 60 * 60);
+            RedisUtil.getInstance().set("home_note_list", JsonUtil.object2json(note_list), 24 * 60 * 60);
 
         }
 
-        map.addAttribute("notelist", home_notelist);
+        map.addAttribute("note_list", home_note_list);
     }
 
 
@@ -374,16 +374,16 @@ public class DashAction {
         //从数据库取
         if (CollectionUtils.isEmpty(home_lovelist)) {
             //取出一部分love数据
-            PageView<List<Map<String, Object>>> pageview = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
+            PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(1, MyConstant.MAXRESULT);
             String randSql = userlyricsManager.getRandSql();
-            home_lovelist = this.userlyricsManager.findMixByCondition(pageview, randSql);
+            home_lovelist = this.userlyricsManager.findMixByCondition(pageView, randSql);
 
             if (!CollectionUtils.isEmpty(home_lovelist)) {
 
                 home_lovelist.forEach(item -> {
                     //处理标题截断
                     String title = (String) item.get("title");
-                    if (StringUtils.isNotEmpty(title)) item.put("cuttitle", HTMLParserUtil.CutString(title, 12));
+                    if (StringUtils.isNotEmpty(title)) item.put("cut_title", HTMLParserUtil.CutString(title, 12));
 
                     //处理日期显示格式
                     String update_date = (String) item.get("update_date");

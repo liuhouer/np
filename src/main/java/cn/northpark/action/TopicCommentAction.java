@@ -170,8 +170,8 @@ public class TopicCommentAction {
         //处理时间戳
         if (!CollectionUtils.isEmpty(list)) {
             list.forEach(item -> {
-                String datastr =  item.getAdd_time();
-                if (StringUtils.isNotEmpty(datastr)) item.setAdd_time(TimeUtils.formatToNear(datastr));
+                String add_time =  item.getAdd_time();
+                if (StringUtils.isNotEmpty(add_time)) item.setAdd_time(TimeUtils.formatToNear(add_time));
             });
         }
 

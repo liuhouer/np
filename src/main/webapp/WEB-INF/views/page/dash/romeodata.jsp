@@ -4,7 +4,7 @@
 
 <div class="row">
 
-    <c:forEach items="${eqlist }" var="s" varStatus="ss">
+    <c:forEach items="${eq_list }" var="s" varStatus="ss">
         <div class="col-sm-4  col-xs-6">
             <div class="clearfix bg-white margin-t10 margin-b10 padding20">
                 <div class="row">

@@ -42,22 +42,22 @@ public interface NoteManager {
      * <p>
      * 异步：根据页码获取当前页数据
      *
-     * @param pageview
+     * @param pageView
      * @param sql
      * @return
      */
-     List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageview, String sql);
+     List<Map<String, Object>> findmixByCondition(PageView<List<Map<String, Object>>> pageView, String sql);
 
     /**
      * 多表关联mix
      * <p>
      * 同步：获取分页结构不获取数据
      *
-     * @param pageview
+     * @param pageView
      * @param sql
      * @return
      */
-     PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageview, String sql);
+     PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageView, String sql);
 
 
      int findmixCount(String whereSql);
