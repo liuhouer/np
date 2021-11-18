@@ -343,7 +343,7 @@ public class BC_Constant {
     /**
      * 忽略的图片地址
      */
-    public static final ImmutableList<String> ignore_pic_list = ImmutableList.of(
+    public static ImmutableList<String> ignore_pic_list = ImmutableList.of(
             "https://bbs.djicdn.com/data/attachment/album/202011/18/095815gkkv3xxks13max3c.jpg",
             "https://bbs.djicdn.com/data/attachment/album/202011/18/100025slp1xil1xptpxhml.jpg"
 

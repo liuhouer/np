@@ -33,8 +33,11 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class HttpAspect {
 
 
-    public final static ImmutableList<String> PASS_URI =
+    public static ImmutableList<String> PASS_URI =
             ImmutableList.of("/error","/building");
+
+    public static ImmutableList<String> PASS_ID =
+            ImmutableList.of("507723","508200","518821","519802","518518","507630");
 
     //cn.northpark.action.UserAction.*(..) public * cn.northpark.action.UserAction.*(..)) &&
     @Before("execution(public * cn.northpark.action.*.*(..))")
@@ -71,38 +74,42 @@ public class HttpAspect {
                 statisticsVO.setUserVO(userInfo);
 
                 //数据埋点-统计登录用户请求的uri
-                //===================================异步操作=================================================
-                ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
-                threadPoolExecutor.execute(new Runnable() {
-                    @Override
-                    public void run() {
+                if(!PASS_ID.contains(userInfo.getId().toString())){
+                    //===================================异步操作=================================================
+                    ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
+                    threadPoolExecutor.execute(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        //发送异步站长通知消息
-                        try {
-                            //=================================消息提醒====================================================
+                            //发送异步站长通知消息
+                            try {
+                                //=================================消息提醒====================================================
 
-                            //判断主题类型
-                            NotifyEnum match = NotifyEnum.WEBMASTER;
+                                //判断主题类型
+                                NotifyEnum match = NotifyEnum.WEBMASTER;
 
-                            //提醒系统赋值
-                            NotifyRemind nr = new NotifyRemind();
+                                //提醒系统赋值
+                                NotifyRemind nr = new NotifyRemind();
 
-                            //common
-                            nr.setMessage(userInfo.toString()+"---"+ TimeUtils.nowTime()+"---请求了"+url+"界面---");
-                            nr.setStatus("0");
+                                //common
+                                nr.setObjectLinks(url);
+                                nr.setMessage(userInfo.toString()+"---"+ TimeUtils.nowTime()+"---请求了"+url+"界面---");
+                                nr.setStatus("0");
 
-                            match.notifyInstance.execute(nr);
+                                match.notifyInstance.execute(nr);
 
-                            //=================================消息提醒====================================================
-                        }catch (Exception ig){
-                            log.error("统计登录用户请求的uri-notice-has-ignored-------:",ig);
+                                //=================================消息提醒====================================================
+                            }catch (Exception ig){
+                                log.error("统计登录用户请求的uri-notice-has-ignored-------:",ig);
+                            }
                         }
-                    }
 
 
 
-                });
-                //===================================异步操作=================================================
+                    });
+                    //===================================异步操作=================================================
+                }
+
 
 
             }else{
