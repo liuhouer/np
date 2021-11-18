@@ -257,6 +257,7 @@ public class KnowledgeAction {
 			id = WAQ.forSQL().escapeSql(id);
 			Knowledge model = knowledgeManager.findKnowledge(Integer.valueOf(id));
 			if(model!=null) {
+				//SEO优化
 				if(StringUtils.isNotEmpty(model.getContent())) map.put("content", Jsoup.parse(model.getContent()).select("p").text());
 				map.addAttribute("model", model);
 			}

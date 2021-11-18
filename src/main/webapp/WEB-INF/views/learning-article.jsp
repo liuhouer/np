@@ -20,7 +20,7 @@
 <title>${model.title}:学习/课程/书籍/知识|NorthPark</title>
 <meta name="keywords"
 	content="NorthPark,${model.title},${model.tags}">
-<meta name="description" content="${model.content}">
+<meta name="description" content="${content}">
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 </head>
