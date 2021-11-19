@@ -1,7 +1,7 @@
 package cn.northpark.vo;
 
 import lombok.Builder;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Map;
 
@@ -10,6 +10,7 @@ import java.util.Map;
  * @date 2021年11月17日 16:24:01
  */
 @Builder
+@Data
 public class StatisticsVO {
     String url ;
     String method ;
@@ -17,10 +18,8 @@ public class StatisticsVO {
     String class_method ;
     String args ;
 
-    @Setter
     UserVO userVO;
 
-    @Setter
     Map<String, String> cookieMap;
 
     @Override

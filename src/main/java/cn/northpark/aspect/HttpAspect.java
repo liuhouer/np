@@ -5,6 +5,7 @@ import cn.northpark.notify.NotifyEnum;
 import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.threadpool.AsyncThreadPool;
 import cn.northpark.utils.CookieUtil;
+import cn.northpark.utils.JsonUtil;
 import cn.northpark.utils.TimeUtils;
 import cn.northpark.vo.StatisticsVO;
 import cn.northpark.vo.UserVO;
@@ -118,7 +119,7 @@ public class HttpAspect {
                 statisticsVO.setCookieMap(cookieMap);
             }
 
-            log.info("[Statistics Info]^"+statisticsVO.toString());
+            log.info("[Statistics Info]^"+ JsonUtil.object2json(statisticsVO));
         }
 
     }
