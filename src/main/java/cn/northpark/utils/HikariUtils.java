@@ -29,6 +29,35 @@ public class HikariUtils {
     /** 唯一dateSource，保证全局只有一个数据库连接池 */
     public static DataSource dataSource = null;
 
+    /**
+     * 获取数据源
+     * @return
+     * @throws SQLException
+     * @throws IOException
+     */
+    public static DataSource getDataSource(String prop)  {
+
+        try {
+            // 因为dataSource是全局变量、默认初始化值为null
+            if (dataSource == null){
+                // 通过字节输入流 读取 配置文件  hikaricp.properties
+                InputStream is = JdbcUtils.class.getClassLoader().getResourceAsStream(prop);
+                // 因为HikariConfig类不可以加载io，但是可以加载Properties。因此：将输入流is封装到props
+                Properties props = new Properties();
+                props.load(is);
+                // 再将封装好的props 传入到HikariConfig 类中，得到 config对象
+                HikariConfig config = new HikariConfig(props);
+                // 将config对象传入给HikariDataSource ，返回dataSource
+
+                dataSource = new HikariDataSource(config);
+            }
+            // 返回dataSource
+            return  dataSource;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
     /**
      * 获取数据源

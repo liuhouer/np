@@ -803,8 +803,29 @@ public class TimeUtils {
 
 
     public static void main(String[] args) throws Exception{
-        System.out.println(pointToSimle("2020.01.01"));
+        System.out.println(Timestamp2DateStr(1610401225l*1000));
 
     }
 
+    /**
+     * Unix时间互转（日期-毫秒）
+     * @param timestamp
+     * @return
+     */
+    public static String Timestamp2DateStr(Long timestamp) {
+        try {
+            if(timestamp.toString().length()<=10){
+                timestamp = timestamp *1000;
+            }
+            Date date = new Date(timestamp);
+
+            String format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+
+            return format;
+        }catch (Exception ig){
+            return TimeUtils.nowdate();
+        }
+
+
+    }
 }
