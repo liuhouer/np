@@ -20,7 +20,7 @@ import java.util.Map;
  *
  */
 @Slf4j
-public class NPQueryRunner {
+public class LocalQueryRunner {
 
 	/** 唯一dateSource，保证全局只有一个数据库连接池 */
 	public static DataSource dataSource = null;
@@ -30,13 +30,13 @@ public class NPQueryRunner {
 
 
 	static{
-
 		try {
-			dataSource = HikariUtils.getDataSource();
+			dataSource = HikariUtils.getDataSource("hikaricp1.properties");
 			queryRunner = new QueryRunner(dataSource);
 		}catch (Exception e) {
 			log.error("获取连接异常 ", e);
 		}
+
 	}
 
 
@@ -115,7 +115,7 @@ public class NPQueryRunner {
 		String insSql2 = "INSERT INTO `flink`.`t_word_counts`(`id`, `word`, `times`) VALUES (?, ?, ?);";
 
 
-		NPQueryRunner.update(insSql2,IDUtils.getInstance().getUniqueSceneid(),IDUtils.getInstance().generateString(6),TimeUtils.nowTime());
+		LocalQueryRunner.update(insSql2,IDUtils.getInstance().getUniqueSceneid(),IDUtils.getInstance().generateString(6),TimeUtils.nowTime());
 	}
 }
 
