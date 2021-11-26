@@ -45,7 +45,7 @@ public class Gen_Movies_Sitemap {
 
 
     public static void main(String[] args) {
-        runTask(749246);//NEWLY 2020年12月26日
+        runTask(753687);//NEWLY 2020年12月26日
     }
 
 
