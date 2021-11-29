@@ -7,10 +7,7 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.nio.charset.Charset;
-import java.security.InvalidKeyException;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
+import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
@@ -88,9 +85,11 @@ public class RSAUtils {
 	}
     
     public static void main(String[] args) throws Exception {
-    	PublicKey pubKey  = loadPublicKeyByStr(PUBLIC_KEY);
-    	String encryptByPublicKey = new String(encrypt(pubKey,"fengkongceshi".getBytes()));
-    	System.out.println(encryptByPublicKey);
+//    	PublicKey pubKey  = loadPublicKeyByStr(PUBLIC_KEY);
+//    	String encryptByPublicKey = new String(encrypt(pubKey,"fengkongceshi".getBytes()));
+//    	System.out.println(encryptByPublicKey);
+		String nda0ODMyMDAwMDAw = EnDecryptUtils.diyDecrypt("NDA0ODMyMDAwMDAw");
+		System.err.println(nda0ODMyMDAwMDAw);
 	}
 
 
