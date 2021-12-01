@@ -73,7 +73,7 @@
                     <div class="form-group">
                         <span class="glyphicon glyphicon-star"></span>电影内容
 							<textarea id="J_md_text" style="height: 200px; max-height: 400px;"
-                                      name="description" rows="5">
+                                      name="movie_desc" rows="5">
 								${model.movie_desc }
 						    </textarea>
                     </div>
