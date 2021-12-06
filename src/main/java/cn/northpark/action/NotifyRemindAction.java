@@ -126,7 +126,12 @@ public class NotifyRemindAction {
 		//标签分类
 		String remindID = request.getParameter("remindID");
 		if(StringUtils.isNotEmpty(remindID)){
-			Preconditions.checkArgument(Integer.parseInt(remindID)>0,"u r shit");
+			try {
+				Preconditions.checkArgument(Integer.parseInt(remindID)>0,"编号错误");
+			}catch (Exception e){
+				throw new IllegalArgumentException("u r shit");
+			}
+
 			where_sql+=" and remindID= '"+remindID+"' ";
 		}
 
