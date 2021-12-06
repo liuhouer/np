@@ -12,6 +12,7 @@ import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.page.PageView;
 import cn.northpark.utils.page.QueryResult;
 import cn.northpark.vo.UserVO;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -122,6 +123,13 @@ public class NotifyRemindAction {
 		UserVO userInfo = RequestHolder.getUserInfo(request);
 		String where_sql = " where recipientID = '" + userInfo.getId() + "' ";
 
+		//标签分类
+		String remindID = request.getParameter("remindID");
+		if(StringUtils.isNotEmpty(remindID)){
+			Preconditions.checkArgument(Integer.parseInt(remindID)>0,"u r shit");
+			where_sql+=" and remindID= '"+remindID+"' ";
+		}
+
 		log.info("where_sql ---" + where_sql);
 
 		//排序条件
@@ -167,6 +175,18 @@ public class NotifyRemindAction {
 
 		UserVO userInfo = RequestHolder.getUserInfo(request);
 		String where_sql = " where recipientID = '" + userInfo.getId() + "' ";
+
+		//标签分类
+		String remindID = request.getParameter("remindID");
+		if(StringUtils.isNotEmpty(remindID)){
+			try {
+				Preconditions.checkArgument(Integer.parseInt(remindID)>0,"编号错误");
+			}catch (Exception e){
+				throw new IllegalArgumentException("u r shit");
+			}
+
+			where_sql+=" and remindID= '"+remindID+"' ";
+		}
 
 		log.info("where_sql ---" + where_sql);
 
