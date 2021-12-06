@@ -38,6 +38,16 @@
         <div class="mainbody" style="margin-top:100px; ">
 
 
+            <div class="row padding20">
+                <input class="btn tag-node" style="width:50px;" oid="1" type="button" value="文章">
+                <input class="btn tag-node" style="width:50px;" oid="2" type="button" value="点赞">
+                <input class="btn tag-node" style="width:50px;" oid="3" type="button" value="树洞">
+                <input class="btn tag-node" style="width:50px;" oid="4" type="button" value="关注">
+                <input class="btn tag-node" style="width:50px;" oid="5" type="button" value="站内">
+                <input class="btn tag-node" style="width:50px;" oid="6" type="button" value="资源">
+            </div>
+
+
             <div class="row">
                 <div class="col-sm-7">
                     <c:forEach var="y" items="${list }" varStatus="ss">
@@ -282,6 +292,32 @@
 
     //loadDonates(1);
 
+    //禁止图片拉伸
+    $(function () {
+
+        //设置标签颜色,绑定动作按钮
+        $(".tag-node").each(function () {
+            $(this).css("backgroundColor", getRandomColor());
+            $(this).css("color", "#fff");
+
+            $(this).click(function () {
+                var oid = $(this).attr("oid");
+                window.location.href = "/notifications?remindID=" + oid;
+            })
+        });
+
+
+    })
+
+
+    //1、随机色的函数-rgb
+    function getRandomColor() {
+        var rgb = 'rgb(' + Math.floor(Math.random() * 255) + ','
+            + Math.floor(Math.random() * 255) + ','
+            + Math.floor(Math.random() * 255) + ')';
+        console.log(rgb);
+        return rgb;
+    }
 </script>
 </body>
 </html>
