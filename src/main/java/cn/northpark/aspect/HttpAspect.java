@@ -35,7 +35,7 @@ public class HttpAspect {
 
 
     public static ImmutableList<String> PASS_URI =
-            ImmutableList.of("/error","/building");
+            ImmutableList.of("/error","/building","/topicComment/list","/cm/autoLogin");
 
     public static ImmutableList<String> PASS_ID =
             ImmutableList.of("507723","508200","518821","519802","518518","507630");
