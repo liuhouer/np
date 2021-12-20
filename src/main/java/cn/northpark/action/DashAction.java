@@ -61,16 +61,7 @@ public class DashAction {
     private MoviesManager moviesManager;
 
 
-
-    @RequestMapping("/ads.txt")
-    @Desc(value = "首页")
-    public String ads(HttpServletRequest request) throws Exception {
-
-
-        return "/ads";
-
-    }
-
+    //利用nginx配置静态谷歌ads映射
 
     @RequestMapping("/donate")
     @Desc(value = "跳转微信1 test..")
