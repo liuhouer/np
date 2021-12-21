@@ -3,6 +3,7 @@ package cn.northpark.test.sitemap;
 import cn.northpark.utils.NPQueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -35,6 +36,12 @@ public class Gen_Movies_Sitemap {
         } catch (IOException e) {
 
             e.printStackTrace();
+        }finally {
+            try {
+                Desktop.getDesktop().open(new File("C:\\Users\\Bruce\\Documents"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
 
@@ -45,7 +52,7 @@ public class Gen_Movies_Sitemap {
 
 
     public static void main(String[] args) {
-        runTask(753687);//NEWLY 2020年12月26日
+        runTask(771863);//NEWLY 2020年12月26日
     }
 
 
