@@ -56,7 +56,7 @@ public class Gen_Soft_Sitemap extends BaseTest {
     //测试多页
 
     public static void main(String[] args) {
-        runTask(520818);//NEWLY 2020年12月26日
+        runTask(520868);//NEWLY 2020年12月26日
     }
 
 }
