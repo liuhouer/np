@@ -103,12 +103,11 @@
 										<p id="J_show_path">${article.path }</p>
 									</c:if>
 
-									<small class="text-color-G">资源失效、缺失、错误 </small> <span
-										class="text-color-J padding-l10">不要慌 </span>
-									<button class="text-color-B margin-l10" id="J_feedback_btn">
-										<span class="glyphicon glyphicon-hand-right"></span>戳我，一键反馈，有事找站长
-									</button>
-								</div>
+									<small class="text-color-K padding-l10">资源失效、缺失、错误 不要慌 </small>
+									<span class="fa fa-hand-o-right padding-l10"></span>
+									<input id="J_feedback_btn" class="btn tag-node" style="width:150px;" type="button" value="戳我,失效反馈">
+
+							</div>
 								</p>
 								<div class="clearfix visible-xs">
 									<hr>
@@ -214,6 +213,13 @@
 
 	<script type="text/javascript" data-cfasync="false" >
 		$(function() {
+
+			//设置标签颜色
+			$(".tag-node").each(function () {
+				$(this).css("backgroundColor", getRandomColor());
+				$(this).css("color", "#fff");
+			});
+
 			//设置定向uri
 			$("#J_login_see").attr("href",
 					"/login?redirectURI=" + window.location.href);
@@ -273,6 +279,15 @@
 				}
 			});
 
+		}
+
+		//1、随机色的函数-rgb
+		function getRandomColor() {
+			var rgb = 'rgb(' + Math.floor(Math.random() * 255) + ','
+					+ Math.floor(Math.random() * 255) + ','
+					+ Math.floor(Math.random() * 255) + ')';
+			console.log(rgb);
+			return rgb;
 		}
 
 		function handup(id) {
