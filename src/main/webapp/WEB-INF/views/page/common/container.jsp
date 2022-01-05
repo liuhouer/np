@@ -117,6 +117,27 @@
 
 </script>
 
+<script>
+
+    /**
+     * 刷新未读
+     */
+    $(function (){
+        var u = '${user.id}';
+        if (u) {
+            var notifyCount = getNotifyCount();
+            $("#J_notify_box").text(notifyCount);
+
+            if(notifyCount>0){
+                var title = $('title').text();
+                $('title').text('（'+notifyCount+' msgs）'+title);
+            }
+
+
+        }
+    })
+</script>
+
 <!-- Cloudflare Web Analytics -->
 
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' 
