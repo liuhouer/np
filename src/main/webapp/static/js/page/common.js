@@ -340,6 +340,36 @@ $(function (){
     }
 })
 
+
+/**
+ * 获取未读消息数量
+ */
+function getNotifyCount(){
+
+
+    let num = 0;
+    $.ajax({
+        url: "/notify/count",
+        type: "get",
+        dataType: "json",
+        async: false,
+        success: function (msg) {
+            num = msg.data;
+            if(msg.result){
+                //拉取未读消息数量成功
+                console.log(msg.data);
+
+            }else{
+                console.log('拉取未读消息数量失败--->'+msg.message);
+            }
+        }
+    });
+    return num;
+
+}
+
+
+
 /**
  * 拉取未读消息数量
  */
