@@ -129,8 +129,7 @@
             $("#J_notify_box").text(notifyCount);
 
             if(notifyCount>0){
-                var title = $('title').text();
-                $('title').text('（'+notifyCount+' msgs）'+title);
+                $('title').text('NORTHPARK（'+notifyCount+'）');
             }
 
 
