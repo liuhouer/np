@@ -306,6 +306,16 @@
             })
         });
 
+        /*  ##set query param */
+        var remindID = "${remindID}";
+        if (remindID) {
+            $("#pageForm a").each(function () {
+                var href = $(this).attr("href");
+                $(this).attr("href", href + "?remindID=" + remindID);
+            })
+        }
+
+
 
     })
 
