@@ -166,7 +166,6 @@ data-cf-beacon='{"token": "77408708315e467b876ee630114c6196"}'>
 
     $(function (){
         var autoed = getCookie("autoed");
-        alert(autoed)
         var user = "${user.id}";
         if (!autoed && !user) {
 
