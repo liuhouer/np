@@ -133,6 +133,8 @@ public class NotifyRemindAction {
 			}
 
 			where_sql+=" and remindID= '"+remindID+"' ";
+
+			map.put("remindID",remindID);
 		}
 
 		log.info("where_sql ---" + where_sql);
@@ -191,6 +193,8 @@ public class NotifyRemindAction {
 			}
 
 			where_sql+=" and remindID= '"+remindID+"' ";
+
+			map.put("remindID",remindID);
 		}
 
 		log.info("where_sql ---" + where_sql);

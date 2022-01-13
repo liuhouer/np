@@ -282,64 +282,6 @@ function loadDonates(type_id, page) {
     });
 }
 
-//自动登录
-
-function autoLogin(){
-        $.ajax({
-            url: "/cm/autoLogin",
-            type: "get",
-            dataType: "json",
-            success: function (msg) {
-
-                if(msg.result){
-                    //自动登陆成功
-                    console.log(msg.data);
-                    art.dialog.tips(msg.data+' | 必要时刷新页面');
-
-                    //拉取未读消息数量
-                    fetchNotifyCount();
-
-                    // var red = window.location.href;
-                    //
-                    // if(!red.indexOf("/signup") >= 0 && !red.indexOf("/login") >= 0){
-                    //     window.location.href = red;
-                    // }
-
-                }else{
-                    console.log('自动登录失败--->'+msg.message);
-                }
-            }
-        });
-
-}
-
-function setCookie(cname, cvalue, exsec){
-    var d = new Date();
-    d.setTime(d.getTime()+(exsec*1000));
-    var expires = "expires="+d.toGMTString();
-    document.cookie = cname+"="+cvalue+"; "+expires+";path=/;";
-}
-
-function getCookie(cname){
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i].trim();
-        if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
-    }
-    return "";
-}
-
-$(function (){
-    var autoed = getCookie("autoed");
-    if (!autoed) {
-
-        autoLogin();
-
-        setCookie("autoed", true, 60);
-    }
-})
-
 
 /**
  * 获取未读消息数量

@@ -87,35 +87,6 @@
 
 </script>
 
-<!-- baidu auto push -->
-
-<script>
-
-    (function () {
-
-        var bp = document.createElement('script');
-
-        var curProtocol = window.location.protocol.split(':')[0];
-
-        if (curProtocol === 'https') {
-
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-
-        }
-
-        else {
-
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-
-        }
-
-        var s = document.getElementsByTagName("script")[0];
-
-        s.parentNode.insertBefore(bp, s);
-
-    })();
-
-</script>
 
 <script>
 
@@ -147,5 +118,65 @@ data-cf-beacon='{"token": "77408708315e467b876ee630114c6196"}'>
 
 <!-- End Cloudflare Web Analytics -->
 
+<%--自动登录逻辑start--%>
+<script>
 
+    //自动登录
+
+    function autoLogin(){
+        $.ajax({
+            url: "/cm/autoLogin",
+            type: "get",
+            dataType: "json",
+            success: function (msg) {
+
+                if(msg.result){
+                    //自动登陆成功
+                    console.log(msg.data);
+                    art.dialog.tips(msg.data+' | 必要时刷新页面');
+
+                    //拉取未读消息数量
+                    fetchNotifyCount();
+
+
+                }else{
+                    console.log('自动登录失败--->'+msg.message);
+                }
+            }
+        });
+
+    }
+
+    function setCookie(cname, cvalue, exsec){
+        var d = new Date();
+        d.setTime(d.getTime()+(exsec*1000));
+        var expires = "expires="+d.toGMTString();
+        document.cookie = cname+"="+cvalue+"; "+expires+";path=/;";
+    }
+
+    function getCookie(cname){
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+        }
+        return "";
+    }
+
+    $(function (){
+        var autoed = getCookie("autoed");
+        alert(autoed)
+        var user = "${user.id}";
+        if (!autoed && !user) {
+
+            autoLogin();
+
+            //已登录标识
+            setCookie("autoed", true, 60*5 );
+        }
+    })
+</script>
+
+<%--自动登录逻辑end--%>
 
