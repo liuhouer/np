@@ -27,3 +27,6 @@ hikaricp.properties
 /np-web.iml
 /src/main/resources/config.properties
 
+/np-blackhole/target/
+/np-base/target/
+/np-web/target/
