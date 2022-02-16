@@ -30,7 +30,7 @@ public class retRR_Movies_DUO {
         //29
         //200-
 
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 25; i++) {
             RetOnePageTask myTask = new RetOnePageTask(i);
             executor.execute(myTask);
             System.out.println("线程池中线程数目：" + executor.getPoolSize() + "，队列中等待执行的任务数目：" +
@@ -60,7 +60,7 @@ public class retRR_Movies_DUO {
 
             try {
 
-                List<Map<String, String>> list = HTMLParserUtil.retRRMovies(taskNum, BC_Constant.RET_RR_DONGMAN);
+                List<Map<String, String>> list = HTMLParserUtil.retRRMovies(taskNum, BC_Constant.RET_RR_TV);
                 collect.addAll(list);
             } catch (Exception e) {
 

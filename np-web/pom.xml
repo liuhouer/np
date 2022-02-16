@@ -18,6 +18,7 @@
             <groupId>cn.northpark</groupId>
             <artifactId>np-base</artifactId>
             <version>2022-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
