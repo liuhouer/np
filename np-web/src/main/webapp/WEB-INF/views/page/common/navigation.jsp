@@ -14,36 +14,38 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div class="navbar-brand">
 
-                <c:if test="${user==null }">
-                    <a href="/login" title="登陆" class="mainhead-avatar avatar centre" height="40" width="40">
-                        <img src="https://northpark.cn/statics/img/davatar.jpg" alt="davatar"
-                             class="img-circle max-width-50" height="40" width="40">
-                    </a>
-                </c:if>
-                <c:if test="${user!=null }">
+            <a class="navbar-brand" href="/">NorthPark</a>
+<%--            <div class="navbar-brand">--%>
 
-                    <a href="/cm/pcentral" title="个人中心" class="mainhead-avatar avatar centre" height="40" width="40">
-                        <c:if test="${user.head_path==null }">
-                            <span class="max-width-50  ${user.head_span_class }" alt="${user.username}" height="40"
-                                  width="40">${user.head_span }</span>
-                        </c:if>
-                        <c:if test="${user.head_path!=null }">
-                            <img src="/bruce${user.head_path}" alt="davatar" class="img-circle max-width-50" height="40"
-                                 width="40" />
-                        </c:if>
-                    </a>
+<%--                <c:if test="${user==null }">--%>
+<%--                    <a href="/login" title="登陆" class="mainhead-avatar avatar centre" height="40" width="40">--%>
+<%--                        <img src="https://northpark.cn/statics/img/davatar.jpg" alt="davatar"--%>
+<%--                             class="img-circle max-width-50" height="40" width="40">--%>
+<%--                    </a>--%>
+<%--                </c:if>--%>
+<%--                <c:if test="${user!=null }">--%>
 
-                </c:if>
+<%--                    <a href="/cm/pcentral" title="个人中心" class="mainhead-avatar avatar centre" height="40" width="40">--%>
+<%--                        <c:if test="${user.head_path==null }">--%>
+<%--                            <span class="max-width-50  ${user.head_span_class }" alt="${user.username}" height="40"--%>
+<%--                                  width="40">${user.head_span }</span>--%>
+<%--                        </c:if>--%>
+<%--                        <c:if test="${user.head_path!=null }">--%>
+<%--                            <img src="/bruce${user.head_path}" alt="davatar" class="img-circle max-width-50" height="40"--%>
+<%--                                 width="40" />--%>
+<%--                        </c:if>--%>
+<%--                    </a>--%>
 
-                    <a href="/lyrics/add" title="添加最爱" class="btn btn-hero margin-l20">
-                    <span class="fa fa-plus"></span> 添加</a>
+<%--                </c:if>--%>
 
-                    <a href="/" title="首页" class="btn-xs margin-l10">
-                    <span class="fa fa-home fa-lg padding5"></span></a>
+<%--                    <a href="/lyrics/add" title="添加最爱" class="btn btn-hero margin-l20">--%>
+<%--                    <span class="fa fa-plus"></span> 添加</a>--%>
 
-            </div>
+<%--                    <a href="/" title="首页" class="btn-xs margin-l10">--%>
+<%--                    <span class="fa fa-home fa-lg padding5"></span></a>--%>
+
+<%--            </div>--%>
         </div>
         <div class="navbar-collapse collapse mainhead-collapse">
             <ul class="nav mainhead-nav" id="J_tabs">
@@ -65,9 +67,18 @@
 
                             <div class="dropdown">
                                 <a class="dropdown-toggle " id="dropdownMenu1" data-toggle="dropdown" style="min-width: 160px;padding-right:1.2em;padding-left:1.2em;font-size:1.2em;line-height:38px;font-weight:400;color:#999;text-decoration:none;text-shadow:none;border-bottom:3px solid transparent;position:relative;display:block;padding:10px 15px;">
-                                    <i class="fa fa-user "></i>
-                                    <span>${user.username}</span>
-                                    <i class="fa fa-caret-down padding5"></i>
+<%--                                    <i class="fa fa-user "></i>--%>
+<%--                                    <span>${user.username}</span>--%>
+<%--                                    <i class="fa fa-caret-down padding5"></i>--%>
+
+                                        <c:if test="${user.head_path==null }">
+                                                                <span class="max-width-50  ${user.head_span_class }" alt="${user.username}" height="40"
+                                                                      width="40">${user.head_span }</span>
+                                        </c:if>
+                                        <c:if test="${user.head_path!=null }">
+                                            <img src="/bruce${user.head_path}" alt="davatar" class="img-circle max-width-50" height="40"
+                                                 width="40" />
+                                        </c:if>
                                 </a>
                                 <ul class="dropdown-menu grayback" role="menu" aria-labelledby="dropdownMenu1" style="position: relative">
 
@@ -78,6 +89,12 @@
                                         </a>
                                     </li>
                                     <li role="presentation" class="divider"></li>
+                                    <li role="presentation" >
+                                        <a role="menuitem" tabindex="-1" href="/lyrics/add" title="添加最爱">
+                                            <i class="fa fa-file-image-o fa-lg padding10"></i>添加
+                                        </a>
+                                    </li>
+
                                     <li role="presentation" >
                                         <a role="menuitem" tabindex="-1" href="/cm/pcentral" title="${user.username}的个人空间">
                                              <i class="fa fa-bullseye fa-lg padding10"></i>空间
