@@ -15,7 +15,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="/">NorthPark</a>
+            <a class="navbar-brand" href="/"><img src="https://northpark.cn/statics/img/logo.png" width="96" height="16"></img></a>
 <%--            <div class="navbar-brand">--%>
 
 <%--                <c:if test="${user==null }">--%>
@@ -56,7 +56,7 @@
 <%--                <li cname="soft"><a href="/soft/mac" title="丰富的Mac软件资源"><i class="fa fa-music padding5"></i>音乐</a></li>--%>
                 <li cname="pic"><a href="/love" title="最爱主题图册"><i class="fa fa-picture-o padding5"></i>最爱</a></li>
                 <li cname="note"><a href="/note" title="碎碎念的精神角落"><i class="fa fa-comment padding5"></i>树洞</a> </li>
-                <li cname="pcenter">
+                <li>
                     <c:if test="${user==null }">
                         <a id="J_log_info_r" title="登录-个人中心" href="/login">
                             <i class="fa fa-sign-in padding5"></i>登陆
@@ -65,8 +65,8 @@
                     </c:if>
                     <c:if test="${user!=null }">
 
-                            <div class="dropdown">
-                                <a class="dropdown-toggle " id="dropdownMenu1" data-toggle="dropdown" style="min-width: 160px;padding-right:1.2em;padding-left:1.2em;font-size:1.2em;line-height:38px;font-weight:400;color:#999;text-decoration:none;text-shadow:none;border-bottom:3px solid transparent;position:relative;display:block;padding:10px 15px;">
+                            <div class="dropdown" style="background-color: transparent;">
+                                <a class="dropdown-toggle " id="dropdownMenu1" data-toggle="dropdown" style="padding:8px 15px;background-color: transparent;cursor:pointer;min-width: 160px;padding-right:1.2em;padding-left:1.2em;font-size:1.2em;line-height:38px;font-weight:400;text-decoration:none;text-shadow:none;border-bottom: transparent;position:relative;display:block;">
 <%--                                    <i class="fa fa-user "></i>--%>
 <%--                                    <span>${user.username}</span>--%>
 <%--                                    <i class="fa fa-caret-down padding5"></i>--%>

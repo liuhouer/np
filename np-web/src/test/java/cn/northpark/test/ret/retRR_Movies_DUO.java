@@ -60,7 +60,7 @@ public class retRR_Movies_DUO {
 
             try {
 
-                List<Map<String, String>> list = HTMLParserUtil.retRRMovies(taskNum, BC_Constant.RET_RR_OLDMAN);
+                List<Map<String, String>> list = HTMLParserUtil.retRRMovies(taskNum, BC_Constant.RET_RR_MOVIES);
                 collect.addAll(list);
             } catch (Exception e) {
 
