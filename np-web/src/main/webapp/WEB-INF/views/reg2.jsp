@@ -37,16 +37,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div class="navbar-brand">
-                <a href="/" title="首页" class="btn-xs">
-                    <span class="fa fa-home fa-lg padding-t10 padding-l5"></span>
-                </a>
-
-                <a href="http://blog.NorthPark.cn/atom.xml" target="_blank" id="icon" title="订阅NorthParkRSS" class="btn-xs">
-                    <i class="fa fa-rss-square  fa-lg padding-t10  padding-l5"></i>
-                </a>
-
-            </div>
+            <a class="navbar-brand" href="/"><img src="https://northpark.cn/statics/img/logo.png" width="96" height="16"></img></a>
         </div>
         <div class="navbar-collapse collapse mainhead-collapse">
             <ul class="nav mainhead-nav">
