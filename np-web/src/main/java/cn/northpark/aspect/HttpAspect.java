@@ -35,7 +35,25 @@ public class HttpAspect {
 
 
     public static ImmutableList<String> PASS_URI =
-            ImmutableList.of("/error","/building","/topicComment/list","/cm/autoLogin");
+            ImmutableList.of("/error",
+                    "/building",
+                    "/topicComment/list",
+                    "/cm/autoLogin",
+                    "/dash/getNote",
+                    "/dash/getRomeo",
+                    "/dash/getLove",
+                    "/dash/getMovies",
+                    "/notify/count",
+                    "/dash/getDonates",
+                    "/",
+                    "/login",
+                    "/movies/getFeedBack",
+                    "/lyrics/commentQuery",
+                    "/cm/login",
+                    "/signup",
+                    "/cm/signup",
+                    "/ret/movies/data"
+            );
 
     public static ImmutableList<String> PASS_ID =
             ImmutableList.of("507723","508200","518821","519802","518518","507630");
