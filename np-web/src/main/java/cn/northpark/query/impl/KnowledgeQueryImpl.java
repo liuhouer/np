@@ -27,7 +27,7 @@ public class KnowledgeQueryImpl implements KnowledgeQuery {
 	@Override
 	public String getMixSql(KnowledgeQueryCondition condition) {
 		// TODO Auto-generated method stub
-		StringBuilder sql = new StringBuilder(" where 1=1");
+		StringBuilder sql = new StringBuilder(" where displayed is null ");
 		
         
 		return sql.toString();
