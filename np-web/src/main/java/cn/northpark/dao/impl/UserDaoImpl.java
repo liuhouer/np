@@ -18,7 +18,7 @@ public class UserDaoImpl extends HibernateDaoImpl<User, Serializable> implements
 
     public User login(String email, String password ) {
         // TODO Auto-generated method stub
-        String sql = "select * from bc_user where email=?  and password = ? ";
+        String sql = "select * from bc_user where email=?  and password = ? and (is_del is null or is_del!=1)";
         List<User> list = querySql(sql, User.class, new Object[]{email, password});
         User user = null;
         if(!CollectionUtils.isEmpty(list)) {

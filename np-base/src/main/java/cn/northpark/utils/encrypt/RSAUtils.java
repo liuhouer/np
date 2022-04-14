@@ -88,7 +88,10 @@ public class RSAUtils {
 //    	PublicKey pubKey  = loadPublicKeyByStr(PUBLIC_KEY);
 //    	String encryptByPublicKey = new String(encrypt(pubKey,"fengkongceshi".getBytes()));
 //    	System.out.println(encryptByPublicKey);
-		String nda0ODMyMDAwMDAw = EnDecryptUtils.diyDecrypt("NDA0ODMyMDAwMDAw");
+//		String nda0ODMyMDAwMDAw = EnDecryptUtils.diyDecrypt("NDA0ODMyMDAwMDAw");
+//		String nda0ODMyMDAwMDAw = EnDecryptUtils.diyDecrypt("Mjg1NzU0MDY0MDAwMDAw");
+//		String diyEncrypt = EnDecryptUtils.diyEncrypt("285754064");
+//		System.err.println(nda0ODMyMDAwMDAw);
 	}
 
 
