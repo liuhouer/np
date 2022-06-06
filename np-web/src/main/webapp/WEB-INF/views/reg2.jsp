@@ -94,14 +94,14 @@
                             <div class="control-group">
                                 <div class="controls">
                                     <label for="newAccount" class="control-label fa fa-envelope"></label>
-                                    <input id="newAccount" type="email" name="email" placeholder="Email" tabindex="1"
+                                    <input id="newAccount" type="email" name="email" placeholder="邮箱" tabindex="1"
                                            autofocus="autofocus" class="form-control input-medium">
                                 </div>
                             </div>
                             <div class="control-group">
                                 <div class="controls">
                                     <label for="newPassword" class="control-label fa fa-asterisk"></label>
-                                    <input id="newPassword" type="password" name="password" placeholder="Password"
+                                    <input id="newPassword" type="password" name="password" placeholder="密码"
                                            tabindex="2" class="form-control input-medium">
                                 </div>
                             </div>
@@ -125,8 +125,8 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <a href="/login" tabindex="6" class="btn btn-link text-muted">Login</a>
-                            <button id="formSubmit" type="button" tabindex="4" class="btn btn-primary">Join</button>
+                            <a href="/login" tabindex="6" class="btn btn-link text-muted">登录</a>
+                            <button id="formSubmit" type="button" tabindex="4" class="btn btn-primary">加入</button>
                         </div>
                     </form>
                 </div>

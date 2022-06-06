@@ -97,14 +97,14 @@
                             <div class="control-group">
                                 <div class="controls">
                                     <label for="email" class="control-label fa fa-envelope"></label>
-                                    <input id="email" type="email" name="email" placeholder="Email" tabindex="1"
+                                    <input id="email" type="email" name="email" placeholder="邮箱" tabindex="1"
                                            autofocus="autofocus" class="form-control input-medium">
                                 </div>
                             </div>
                             <div class="control-group">
                                 <div class="controls">
                                     <label for="password" class="control-label fa fa-asterisk"></label>
-                                    <input id="password" type="password" name="password" placeholder="Password"
+                                    <input id="password" type="password" name="password" placeholder="密码"
                                            tabindex="2" class="form-control input-medium">
                                 </div>
                             </div>
@@ -128,10 +128,9 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <a href="/cm/forget" target="_blank" tabindex="5" class="btn pull-left btn-link text-muted">Forgot
-                                password</a>
-                            <a href="/signup?redirectURI=${redirectURI}" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
-                            <button id="formSubmit" type="button" tabindex="4" class="btn btn-primary">Login</button>
+                            <a href="/cm/forget" target="_blank" tabindex="5" class="btn pull-left btn-link text-muted">忘记密码</a>
+                            <a href="/signup?redirectURI=${redirectURI}" tabindex="6" class="btn btn-link text-muted">注册</a>
+                            <button id="formSubmit" type="button" tabindex="4" class="btn btn-primary">登录</button>
                         </div>
                     </form>
                 </div>
