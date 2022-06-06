@@ -22,6 +22,24 @@
     <link media="all" type="text/css" rel="stylesheet" href="https://northpark.cn/statics/css/login/owl-login.css">
     <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
 
+    <style>
+
+        .vcode {
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+    </style>
 </head>
 
 <body>
@@ -87,6 +105,20 @@
                                            tabindex="2" class="form-control input-medium">
                                 </div>
                             </div>
+
+                            <div class="control-group">
+                                <div class="controls">
+                                    <label for="code" class="control-label fa fa-check-square"></label>
+                                    <input id="code" type="text" name="code" placeholder="机器人？"
+                                           tabindex="3" class="vcode">
+                                    <canvas id="canvas" width="100" height="37" style="float: right;
+				                                                                                   display: inline-block;
+                                                                                                    border: 1px solid #ccc;
+                                                                                                    border-radius: 5px;
+				                                                                                cursor: pointer;"></canvas>
+                                </div>
+                            </div>
+
                             <input id="redirectURI" name="redirectURI" type="hidden"
                                    value="${redirectURI} ">
                             <div id="showResult" class="control-group center margen-b10">
@@ -108,7 +140,8 @@
 </div>
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
-<script  data-cfasync="false" src="https://northpark.cn/statics/js/page/reg2.js"></script>
-
+<%--<script  data-cfasync="false" src="https://northpark.cn/statics/js/page/reg2.js"></script>--%>
+<script  data-cfasync="false" src="/static/js/page/reg2.js"></script>
+<script src="/static/js/code.js"></script>
 </body>
 </html>
