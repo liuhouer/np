@@ -23,6 +23,11 @@ public class Hero extends Subject{
         hero.attachObserver(treasure);
         //移动事件
         hero.move();
+
+        //移除一个观察者
+        hero.detachObserver(treasure);
+        hero.move();
+
     }
 
 }
