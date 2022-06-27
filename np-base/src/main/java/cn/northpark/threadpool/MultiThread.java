@@ -1,24 +1,18 @@
 package cn.northpark.threadpool;
 
 
-
-import org.apache.regexp.RE;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 
 /**
  * @author bruce
  * @date 2022年06月21日 15:24:43
  * 参考 :https://www.cnblogs.com/xiaoxiong2015/p/12706153.html
+ * @param <E> :待处理集合的泛型
+ * @param <T> :处理集合后的返回类型
+ *
+ * 这个类等价于retRR_Movies_DUO的阻塞队列实现
  */
 public abstract class MultiThread<E, T> {
 
