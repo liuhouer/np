@@ -2,6 +2,7 @@
 package cn.northpark.action;
 
 import cn.northpark.annotation.CheckLogin;
+import cn.northpark.annotation.RateLimit;
 import cn.northpark.constant.CookieConstant;
 import cn.northpark.constant.RedisConstant;
 import cn.northpark.constant.ResultEnum;
@@ -93,6 +94,7 @@ public class UserAction {
      */
     @RequestMapping("/cm/emailFlag")
     @ResponseBody
+    @RateLimit
     public Result<String> emailFlag( String email) {
     	int num = userManager.countHql(" where email = '" + email + "' ");
         
@@ -113,6 +115,7 @@ public class UserAction {
      */
     @RequestMapping("/cm/tailFlag")
     @ResponseBody
+    @RateLimit
     public Result<String> tailFlag(HttpServletRequest request, HttpServletResponse response, ModelMap map, String tail) {
         int num = userManager.countHql(" where tail_slug = '" + tail + "' ");
         String msg = "exist";//存在；
@@ -128,6 +131,7 @@ public class UserAction {
      */
     @RequestMapping("/cm/resetEmail")
     @ResponseBody
+    @RateLimit
     public Result<String> resetEmail(String email) throws ParseException {
         String userid = "";
         List<User> list = userManager.findByCondition(" where email = '" + email + "' ").getResultList();
@@ -229,6 +233,7 @@ public class UserAction {
     //成为粉丝
     @RequestMapping("/cm/follow")
     @ResponseBody
+    @RateLimit
     public Result<String> follow(ModelMap map, String author_id, String follow_id) {
         String msg = "success";
 
@@ -324,11 +329,13 @@ public class UserAction {
 
 
     @RequestMapping("/cm/xbjt")
+    @RateLimit
     public String x_b_j_t(ModelMap map) {
         return "/bruce-quiet-listen";
     }
 
     @RequestMapping("/cm/vlog")
+    @RateLimit
     public String vlog(ModelMap map) {
         return "/vlog";
     }
@@ -630,6 +637,7 @@ public class UserAction {
      * @return
      */
     @RequestMapping("/cm/saveEditInfo")
+    @RateLimit
     public String saveEditInfo(HttpServletRequest request, ModelMap map, String username, String tail_slug, String year_of_birth, String courseware, String new_password, String new_password_confirmation, @RequestParam(value = "file", required = false) MultipartFile[] file) {
 
 
@@ -745,6 +753,7 @@ public class UserAction {
      * @function 忘记密码
      */
     @RequestMapping("/cm/forget")
+    @RateLimit
     public String forget(ModelMap map, HttpServletRequest request) {
 
         return "/forget";
@@ -775,6 +784,7 @@ public class UserAction {
      */
     @RequestMapping("/cm/signup")
     @ResponseBody
+    @RateLimit
     public Result<?> signup( ModelMap map, HttpSession session,HttpServletRequest request) throws Exception{
     	
     	
@@ -949,6 +959,7 @@ public class UserAction {
      */
     @RequestMapping(value = "/cm/login")
     @ResponseBody
+    @RateLimit
     public Result<?> login(HttpServletRequest request,HttpServletResponse response,String email,String password) throws Exception {
     	
         //正常登录流程

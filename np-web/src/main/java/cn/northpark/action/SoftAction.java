@@ -2,6 +2,7 @@
 package cn.northpark.action;
 
 import cn.northpark.annotation.BruceOperation;
+import cn.northpark.annotation.RateLimit;
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
@@ -273,6 +274,7 @@ public class SoftAction {
      * @return
      */
     @RequestMapping(value = "/mac")
+    @RateLimit
     public String list(ModelMap map, HttpServletRequest request, HttpSession session) throws IOException {
 
         session.removeAttribute("tabs");
@@ -327,6 +329,7 @@ public class SoftAction {
     }
 
     @RequestMapping(value = "/mac/page/{page}")
+    @RateLimit
     public String listPage(ModelMap map, @PathVariable String page, HttpServletRequest request,
                            HttpServletResponse response, HttpSession session) throws IOException {
 
@@ -391,6 +394,7 @@ public class SoftAction {
      * @return
      */
     @RequestMapping("/{ret_code}.html")
+    @RateLimit
     public String softDetail(ModelMap map, @PathVariable String ret_code, HttpServletRequest request) {
         try {
             //根据ret_code获取文章内容

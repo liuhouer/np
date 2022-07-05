@@ -5,6 +5,7 @@ package cn.northpark.action;
  *
  **/
 
+import cn.northpark.annotation.RateLimit;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.NoteManager;
@@ -355,6 +356,7 @@ public class NoteAction {
 
     //异步分页查询story数据
     @RequestMapping(value = "/storyquery")
+    @RateLimit
     public String notePlazzQuery(ModelMap map, HttpServletRequest request, NoteQueryCondition condition, HttpSession session, String userid) {
         String currentPage = request.getParameter("currentPage");
 

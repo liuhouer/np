@@ -3,6 +3,7 @@ package cn.northpark.action;
 
 import cn.northpark.annotation.BruceOperation;
 import cn.northpark.annotation.Desc;
+import cn.northpark.annotation.RateLimit;
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.constant.ResultEnum;
 import cn.northpark.exception.NorthParkException;
@@ -504,6 +505,7 @@ public class MoviesAction {
      */
     @RequestMapping(value = "/movies")
     //@UseCK
+    @RateLimit
     public String list(ModelMap map,  HttpServletRequest request, HttpSession session) throws Exception {
 
         session.removeAttribute("tabs");
@@ -581,6 +583,7 @@ public class MoviesAction {
      * @throws IOException
      */
     @RequestMapping(value = "/movies/page/{page}")
+    @RateLimit
     public String listPage(ModelMap map, @PathVariable String page, HttpServletRequest request,
                            HttpSession session) throws IOException {
 
@@ -694,6 +697,7 @@ public class MoviesAction {
      * @return
      */
     @RequestMapping(value = "/movies/post-{id}.html")
+    @RateLimit
     public String postDetail(ModelMap map, @PathVariable String id, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
         if (StringUtils.isNotEmpty(id)) {

@@ -2,6 +2,7 @@
 package cn.northpark.action;
 
 import cn.northpark.annotation.Desc;
+import cn.northpark.annotation.RateLimit;
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.constant.DonatesEnum;
 import cn.northpark.constant.DonatesRedisKeyEnum;
@@ -153,6 +154,7 @@ public class DashAction {
 
     @RequestMapping(value = "/dash/getLove")
     @Desc(value = "异步获取首页的love数据")
+    @RateLimit
     public String getLove(ModelMap map) {
 
         List<Map<String, Object>> data = pushLove2Map();
@@ -164,6 +166,7 @@ public class DashAction {
 
     @RequestMapping(value = "/dash/getNote")
     @Desc(value = "异步获取首页的《碎碎念》数据")
+    @RateLimit
     public String getNote(ModelMap map) {
 
 
@@ -175,6 +178,7 @@ public class DashAction {
 
     @RequestMapping(value = "/dash/getRomeo")
     @Desc(value = "异步获取首页的《情圣》数据")
+    @RateLimit
     public String getRomeo(ModelMap map) {
 
         pushEQ2Map(map);
@@ -185,6 +189,7 @@ public class DashAction {
 
     @RequestMapping(value = "/dash/getMovies")
     @Desc(value = "异步获取首页的《电影》数据")
+    @RateLimit
     public String getMovies(ModelMap map) {
 
 
@@ -197,6 +202,7 @@ public class DashAction {
 
     @RequestMapping(value = "/dash/getDonates")
     @Desc(value = "异步获取捐赠数据")
+    @RateLimit
     public String getDonates(HttpServletRequest request, ModelMap map) {
 
         String type_id = request.getParameter("type_id");

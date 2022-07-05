@@ -1,6 +1,7 @@
 
 package cn.northpark.action;
 
+import cn.northpark.annotation.RateLimit;
 import cn.northpark.constant.TopicTypeEnum;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
@@ -55,6 +56,7 @@ public class TopicCommentAction {
      */
     @RequestMapping("/addTopicComment")
     @ResponseBody
+    @RateLimit
     public Result<String> addItem(ModelMap map, TopicComment model) throws Exception {
         String rs = "success";
 
@@ -156,6 +158,7 @@ public class TopicCommentAction {
      * @throws IOException
      */
     @RequestMapping(value = "/list")
+    @RateLimit
     public String list1(ModelMap map, HttpServletRequest request) throws IOException {
 
         String topic_id = request.getParameter("topic_id");

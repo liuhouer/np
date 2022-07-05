@@ -2,6 +2,7 @@
 package cn.northpark.action;
 
 import cn.northpark.annotation.CheckLogin;
+import cn.northpark.annotation.RateLimit;
 import cn.northpark.exception.Result;
 import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.NotifyRemindManager;
@@ -49,6 +50,7 @@ public class NotifyRemindAction {
 	 */
 	@RequestMapping("/notify/count")
 	@ResponseBody
+	@RateLimit
 	public Result<Integer> notifyNum(HttpServletRequest request) {
 
 
@@ -77,6 +79,7 @@ public class NotifyRemindAction {
 	 */
 	@RequestMapping("/notify/readNotify")
 	@ResponseBody
+	@RateLimit
 	public Result<Boolean> readNotify(HttpServletRequest request) {
 
 
