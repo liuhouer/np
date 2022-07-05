@@ -115,11 +115,6 @@
 
 								<!-- 打赏 -->
 								<div class="col-md-10">
-									<%--面包多--%>
-									<div class="padding10">
-										<a href="https://dun.mianbaoduo.com/@liuhouer" target="_blank"><img src="https://img.niucodata.com/dundunfan-bt.png"></a>
-									</div>
-									<%--面包多--%>
 
 									<div
 										style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
