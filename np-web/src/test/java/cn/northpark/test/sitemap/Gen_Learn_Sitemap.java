@@ -45,7 +45,7 @@ public class Gen_Learn_Sitemap {
 
 
     public static void main(String[] args) {
-        runTask(521739);//NEWLY 2020年12月26日
+        runTask(521752);//NEWLY 2020年12月26日
     }
 
 

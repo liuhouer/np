@@ -78,6 +78,7 @@
         <mvc:interceptor>
 	        <mvc:mapping path="/movies/**" />  
 	        <mvc:mapping path="/soft/**" />  
+	        <mvc:mapping path="/learning/**" />
         	<bean class="cn.northpark.interceptor.AdminInterceptor"></bean>
         </mvc:interceptor>
         <!--需要动态切换数据源的路径配置在这里-->

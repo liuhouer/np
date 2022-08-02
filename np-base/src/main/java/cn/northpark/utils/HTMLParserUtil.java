@@ -824,8 +824,7 @@ public class HTMLParserUtil {
         HashMap<String, String> map = null;
         try {
 
-
-            String initUrl = "https://www.inpandora.com/newest/page/" + index;
+            String initUrl = "https://www.inpandora.com/resources/page/" + index;
             final String dataResult = HttpGetUtils.getDataByHtmlUnit(initUrl);
 
             System.out.println(dataResult);
