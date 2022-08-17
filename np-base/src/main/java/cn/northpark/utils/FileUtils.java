@@ -25,7 +25,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -638,34 +637,24 @@ public class FileUtils {
      * @throws Exception
      */
     public static void downloadUrlFile2Local(String urlString, String path, String localImgName) throws Exception {
-        // 构造URL
-        URL url = new URL(urlString);
-        // 打开连接
-        URLConnection con = url.openConnection();
-        // 输入流
-        InputStream is = con.getInputStream();
-        // 1K的数据缓冲
-        byte[] bs = new byte[1024];
+
+        byte[] bs = HttpGetUtils.getImg(urlString);
         // 读取到的数据长度
         int len;
         // 输出的文件流
-        String filename = localImgName;  //本地路径及图片名称
-        File file = new File(filename);
+        File file = new File(localImgName);//本地路径及图片名称
         File fold = new File(path);
         if (!file.exists() && !fold.isDirectory()) {
             fold.mkdirs();
             System.out.println("创建文件夹--->" + path);
         }
         //写入文件
-        FileOutputStream os = new FileOutputStream(file, true);
-        // 开始读取
-        while ((len = is.read(bs)) != -1) {
-            os.write(bs, 0, len);
-        }
-        System.out.println(filename);
+        FileOutputStream outputStream = new FileOutputStream(file, true);
+
+        IOUtils.write(bs,outputStream);
+        System.out.println(localImgName);
         // 完毕，关闭所有链接
-        os.close();
-        is.close();
+        outputStream.close();
 
     }
 
@@ -673,7 +662,17 @@ public class FileUtils {
     public static void main(String[] args) throws Exception {
 
 
-        renameBiliFile();
+//        renameBiliFile();
+        String ulr = "https://www.0daydown.com/wp-content/uploads/2022/03/h6mLmxkjXFkSajAdQ7v63KwfJKrTmmPk-180x180.png";
+
+        byte[] img = HttpGetUtils.getImg(ulr);
+
+        System.err.println(img);
+
+        //写入文件
+        FileOutputStream outputStream = new FileOutputStream(new File("C:\\APP\\222.PNG"), true);
+        IOUtils.write(img,outputStream);
+
     }
 
 

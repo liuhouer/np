@@ -2,6 +2,7 @@ package cn.northpark.utils;
 
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.constant.RetType;
+import cn.northpark.threadpool.MultiThread;
 import cn.northpark.utils.encrypt.EnDecryptUtils;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author bruce
@@ -812,6 +814,317 @@ public class HTMLParserUtil {
 //
 //        return list;
 //    }
+
+
+    /**
+     * 0DayDown
+     * 爬取1页的mac软件内容
+     */
+    public static List<Map<String, String>> retSoft0DayDown(Integer index) {
+        List<Map<String, String>> list = Lists.newArrayList();
+        HashMap<String, String> map = null;
+        try {
+
+            String initUrl = "https://www.0daydown.com/category/software/mac/page/" + index;
+            String dataResult = HttpGetUtils.getDataByHtmlUnit(initUrl);
+
+            while (StringUtils.isBlank(dataResult)) {
+                dataResult = HttpGetUtils.getDataByHtmlUnit(initUrl);
+            }
+
+            System.out.println(dataResult);
+            Document doc = Jsoup.parse(dataResult, initUrl);
+
+            Elements soft11 = null;
+            //取得一页内容梗概
+            soft11 = doc.select("div.content").select("article");
+
+            for (Element e : soft11) {
+
+                try {
+
+                    String url = e.select("a").get(0).attr("href");
+                    String img_url = e.select("img").get(0).attr("data-src");
+
+
+                    //获取全文的内容
+                    String dataResult1 = HttpGetUtils.getDataByHtmlUnit(url);
+                    while (StringUtils.isBlank(dataResult1)) {
+                        dataResult1 = HttpGetUtils.getDataByHtmlUnit(url);
+                    }
+
+
+                    /*System.out.println(dataResult1);*/
+                    Document parse = Jsoup.parse(dataResult1, url);
+
+
+                    //日期
+                    String date = "";
+                    try {
+                        date = parse.select("time").get(0).text();
+
+                        System.err.println(date);
+                        if (date.contains("天前")) {
+                            String N = date.replace("天前", "");
+                            date = TimeUtils.getDayAfterOrBeforeN(TimeUtils.nowTime(), -Integer.parseInt(N));
+                        }
+
+                    } catch (Exception e2) {
+
+                        date = TimeUtils.nowdate();
+                    }
+
+
+                    if (StringUtils.isNotEmpty(date) && date.contains("前")) date = TimeUtils.nowdate();
+                    date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
+                    log.info("date====================" + date);
+
+                    try {
+                        date = TimeUtils.pointToSimle(date);
+                    } catch (ParseException ex) {
+                        date = TimeUtils.nowdate();
+
+                    }
+                    //月
+                    String month = date.substring(0, date.lastIndexOf("-"));
+                    log.info("month====================" + month);
+                    //年
+                    String year = month.substring(0, month.lastIndexOf("-"));
+                    log.info("year====================" + year);
+
+
+                    //标题
+                    String title = "";
+                    try {
+                        title = parse.select("h1.article-title").get(0).text();
+                    } catch (Exception e2) {
+
+                        log.info("---->", parse.select("h1.article-title"));
+                        log.error("h1.article-title不包含h1标题，请检查文本内容");
+                        try {
+                            title = parse.select("div.breadcrumbs").select("span.muted").get(0).text();
+                        } catch (Exception ignore) {
+
+                            log.info("---->", parse.select("div.breadcrumbs").select("span.muted"));
+                            log.error("面包屑不包含标题，请检查文本内容");
+                        }
+                    }
+
+                    //唯一码
+                    String code = title.toLowerCase().replace("macos", "").trim().replace(" ", "-").replaceAll(".html", "");
+
+
+                    //标签
+                    String tag = "";
+
+                    try {
+                        tag = parse.select("div.hot-tags").select("a").text();
+                    } catch (Exception e2) {
+
+                        log.info("---->", parse.select("div.hot-tags"));
+                        log.error("div.hot-tags不包含tag标签，请检查文本内容");
+                    }
+
+
+                    //处理软件logo上传
+                    HashMap<String, String> map11 = HTMLParserUtil.webPic2Disk(img_url, getLocalFolderByOS(), date);
+
+                    String logo_url = QiniuUtils.getInstance().upload(map11.get("localpath"), "soft/" + date + "/" + map11.get("key"));
+
+                    String logo_p = "<p><img class=\"aligncenter size-full wp-image-" + code + "\" title=\"" + title + "\" alt=\"" + title + "\" src=\"" + logo_url + "\" width=\"300\" height=\"300\" style=\"max-width: 424.566px;\">";
+
+
+                    //计算标签编码、
+                    String tag_code = "005";
+                    if (tag.contains("应用") || tag.contains("系统")) {
+                        tag_code = "001";
+                        tag = "系统、应用软件";
+                    } else if (tag.contains("开发") || tag.contains("设计")) {
+                        tag_code = "002";
+                        tag = "开发、设计软件";
+                    } else if (tag.contains("媒体")) {
+                        tag_code = "003";
+                        tag = "媒体软件";
+                    } else if (tag.contains("安全") || tag.contains("网络")) {
+                        tag_code = "004";
+                        tag = "网络、安全软件";
+                    } else if (tag.contains("其他")) {
+                        tag_code = "005";
+                        tag = "其他软件";
+                    } else if (tag.contains("游戏")) {
+                        tag_code = "006";
+                        tag = "游戏一箩筐";
+                    } else if (tag.contains("限时免费")) {
+                        tag_code = "007";
+                        tag = "限免软件";
+                    } else if (tag.contains("疑难")) {
+                        tag_code = "008";
+                        tag = "疑难杂症";
+                    } else {
+                        tag_code = "005";
+                        tag = "其他软件";
+                    }
+                    log.info("tag_code====================" + tag_code);
+
+                    //正文
+                    String article = "";
+
+                    //简介
+                    StringBuilder brief = new StringBuilder();
+
+                    //下载地址
+                    String path = "";
+
+
+                    Element articles = parse.select("article.article-content").get(0);
+
+                    //处理征文图像
+                    Elements imgs = articles.select("img");
+                    for (int j = 0; j < imgs.size(); j++) {
+                        try {
+                            String weburl = imgs.get(j).attr("src");
+                            //   web图片上传到七牛
+
+                            //-------------开始--------------------------------
+
+                            HashMap<String, String> map22 = HTMLParserUtil.webPic2Disk(weburl, getLocalFolderByOS(), date);
+
+                            String rs = QiniuUtils.getInstance().upload(map22.get("localpath"), "soft/" + date + "/" + map22.get("key"));
+
+                            //-------------结束--------------------------------
+                            if (StringUtils.isNotEmpty(rs)) {
+                                imgs.get(j).attr("src", rs);
+                            }
+                            imgs.get(j).attr("alt", title);//给图像添加元素标记，便于搜索引擎的记录
+                        } catch (Exception e1) {
+
+                            log.error("ret pic exception===>" + e1.toString());
+                            continue;
+                        }
+
+                    }
+
+
+                    //处理正文的不合法url
+                    Elements a1 = articles.select("a");
+                    for (Element s : a1) {
+                        if (s.attr("href").contains("/tag")) {
+                            s.before(s.text());
+                            s.remove();
+                        } else if (s.attr("href").contains("/xpay-html")) {
+                            s.remove();
+                        } else if (s.attr("href").endsWith(".jpg") || s.attr("href").endsWith(".jpeg") || s.attr("href").endsWith(".png")) {
+                            s.attr("href", "");
+                        } else if (s.attr("href").contains("waitsun.com/?dl_id")) {//改成短连接  并且改样式
+                            s.addClass("btn-warning").addClass("btn");
+                        }
+                    }
+
+                    //删除vip
+                    Elements vip = articles.select("div.erphpdown");
+                    if (vip.html().contains("此资源仅限VIP下载")) {
+                        vip.remove();
+                    }
+
+                    //处理下载地址
+                    StringBuilder sb_path = new StringBuilder();
+
+
+                    //新的解析下载地址
+                    //有下载框，不处理a连接
+                    Elements downSelect = parse.select("article").select("div.blockSpoiler-content");
+                    if (downSelect.size() > 0) {
+                        System.out.println("处理后的下载样式---->" + downSelect.html());
+                        sb_path.append(downSelect.html());
+                        //删除正文内的downselect
+                        downSelect.remove();
+                    } else {
+                        //执行2次抓取下载地址
+                        Elements pp = articles.select("p");
+                        if (!CollectionUtils.isEmpty(pp)) {
+                            for (Element p : pp) {
+                                Elements aa = p.select("a");
+                                if (!CollectionUtils.isEmpty(aa)) {
+
+                                    for (Element element : aa) {
+                                        String outerHtml = element.outerHtml();
+                                        if (outerHtml.contains("下载") || outerHtml.contains(".com") || outerHtml.contains(".to") || outerHtml.contains("网盘")) {
+                                            System.out.println("========================");
+
+                                            System.out.println("===========是=============");
+                                            String download = p.outerHtml();
+                                            System.out.println(download);
+                                            sb_path.append(download);
+                                            //删除最后的路径元素
+                                            p.remove();
+                                        } else {
+                                            System.out.println("========================");
+
+                                            System.out.println("===========否=============");
+                                        }
+                                    }
+
+
+                                }
+                            }
+
+                        }
+
+
+                    }
+
+                    System.out.println("sb_path===================>" + sb_path.toString().replace("svg", "span"));
+                    path = sb_path.toString()
+                    ;
+
+                    //设置正文
+                    article = articles.html();
+                    brief.append(logo_p);
+                    brief.append("<p>");
+                    int id = 0;
+                    while (articles.select("p").get(id).html().contains("<img")) {
+                        id++;
+                    }
+                    brief.append(articles.select("p").get(id).html());
+                    brief.append("</p>");
+                    System.out.println("===================================================================================================");
+                    System.out.println("正文内容===================>" + articles.html());
+                    System.out.println("===================================================================================================");
+
+                    map = new HashMap<>();
+                    map.put("title", title);
+                    map.put("a_url", url);
+                    map.put("brief", brief.toString());
+                    map.put("date", date);
+                    map.put("article", article);
+                    map.put("tag", tag);
+                    map.put("code", code);
+                    map.put("os", "mac");
+                    map.put("month", month);
+                    map.put("year", year);
+                    map.put("tag_code", tag_code);
+                    map.put("path", path);
+                    map.put("color", PinyinUtil.getFirstChar(title));
+                    list.add(map);
+
+//                    }
+
+
+                } catch (Exception e2) {
+                    log.error("HTMLPARSERutils------->", e2);
+                }
+            }
+
+
+            System.out.println(index + "页爬取完毕！ the end===============================================================================================");
+
+        } catch (Exception e) {
+            log.error("HTMLPARSERutils------->", e);
+        }
+
+        return list;
+    }
+
 
 
     /**

@@ -380,9 +380,9 @@ public class HttpGetUtils {
 
     public static void main(String[] args) throws Exception{
         String url = "http://www.hemabt.com/pic/uploadimg/2021-5/202152615576_60ade4bd8cec0.jpg";
-        String url1 = "http://www.hemabt.com/bttype/93-274.html";
+        String url1 = "https://www.0daydown.com/category/software/mac/page/2";
 
-        System.err.println(HttpGetUtils.getDataResult(url1,"gb2312"));
+        System.err.println(HttpGetUtils.getDataByHtmlUnit(url1));
 
 //        downloadUrlFile2Local(url,"E:\\bruce\\mv\\MV_2021-6-12.jpg");
 

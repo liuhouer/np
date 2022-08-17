@@ -6,29 +6,30 @@ import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Movies;
 import cn.northpark.model.Soft;
+import cn.northpark.threadpool.MultiThread;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.IDUtils;
 import cn.northpark.utils.PinyinUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 @Slf4j
 public class RetRestAction {
 
     @Autowired
-    public SoftManager softManager;
+    SoftManager softManager;
 
     @Autowired
-    private MoviesManager moviesManager;
+    MoviesManager moviesManager;
 
 
     @RequestMapping({"/ret/soft/data"})
@@ -72,10 +73,20 @@ public class RetRestAction {
 
     private void retMoviesPage(List list) {
 
-        if (!CollectionUtils.isEmpty(list))
-            for (int i = 0; i < list.size(); i++)
+
+        MultiThread<Map<String, String>,Integer > multiThread = new MultiThread<Map<String, String>,Integer>(list) {
+
+            @Autowired
+            private MoviesManager moviesManager;
+
+            @Override
+            public Integer outExecute(int currentThread, Map<String, String> map) {
+
+                System.err.println("currentThread===>"+currentThread);
+                System.err.println("代理处map数据 ===>"+map);
+
+                //逻辑处理start=====================================================
                 try {
-                    Map map = (Map) list.get(i);
 
                     String title = (String) map.get("title");
 
@@ -105,41 +116,74 @@ public class RetRestAction {
                     }
                 } catch (Exception e) {
                 }
+                //逻辑处理end==========================================================
+
+
+
+                return currentThread;
+            }
+        };
+        //调度查看执行结果
+        try {
+            System.err.println("线程"+multiThread.getResult()+"正在执行");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void retSoftData(List list) {
-        try {
 
-            if (!CollectionUtils.isEmpty(list))
-                for (int i = 0; i < list.size(); i++) {
-                    Map map = (Map) list.get(i);
+        MultiThread<Map<String, String>,Integer > multiThread = new MultiThread<Map<String, String>,Integer>(list) {
 
-                    String title = (String) map.get("title");
-                    String a_url = (String) map.get("a_url");
-                    String brief = (String) map.get("brief");
-                    String date = (String) map.get("date");
-                    String article = (String) map.get("article");
-                    String tag = (String) map.get("tag");
-                    String code = new StringBuilder().append((String) map.get("code")).append("-")
-                            .append(IDUtils.getInstance().generateNumberString(3)).toString();
-                    String os = (String) map.get("os");
-                    String month = (String) map.get("month");
-                    String year = (String) map.get("year");
-                    String tag_code = (String) map.get("tag_code");
-                    String path = (String) map.get("path");
+            @Autowired
+            SoftManager softManager;
 
-                    int flag = this.softManager.countHql(new StringBuilder().append(" where o.title= '").append(title)
-                            .append("' or o.ret_code = '").append(code).append("' ").toString());
+            @Override
+            public Integer outExecute(int currentThread, Map<String, String> map) {
 
-                    if (flag <= 0) {
-                        Soft model = Soft.builder().brief(brief).content(article).os(os).post_date(date).ret_code(code)
-                                .ret_url(a_url).tags(tag).title(title).month(month).year(year).tags_code(tag_code)
-                                .path(path).build();
-                        this.softManager.addSoft(model);
-                    }
+                System.err.println("currentThread===>"+currentThread);
+                System.err.println("代理处map数据 ===>"+map);
+
+                //逻辑处理start=====================================================
+                String title = (String) map.get("title");
+                String a_url = (String) map.get("a_url");
+                String brief = (String) map.get("brief");
+                String date = (String) map.get("date");
+                String article = (String) map.get("article");
+                String tag = (String) map.get("tag");
+                String code = new StringBuilder().append((String) map.get("code")).append("-")
+                        .append(IDUtils.getInstance().generateNumberString(3)).toString();
+                String os = (String) map.get("os");
+                String month = (String) map.get("month");
+                String year = (String) map.get("year");
+                String tag_code = (String) map.get("tag_code");
+                String path = (String) map.get("path");
+                String color = (String) map.get("color");
+
+                int flag = softManager.countHql(new StringBuilder().append(" where o.title= '").append(title)
+                        .append("' or o.ret_code = '").append(code).append("' ").toString());
+
+                if (flag <= 0) {
+                    Soft model = Soft.builder().brief(brief).content(article).os(os).post_date(date).ret_code(code)
+                            .ret_url(a_url).tags(tag).title(title).month(month).year(year).tags_code(tag_code).color(color)
+                            .path(path).build();
+                    softManager.addSoft(model);
                 }
-        } catch (Exception e) {
-            return;
-        }
+                //逻辑处理end==========================================================
+                return currentThread;
+            };
+
+        };
+            //调度查看执行结果
+            try {
+                System.err.println("线程"+multiThread.getResult()+"正在执行");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
     }
 }
