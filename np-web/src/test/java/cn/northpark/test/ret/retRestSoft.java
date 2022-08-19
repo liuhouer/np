@@ -4,8 +4,11 @@ import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.HttpGetUtils;
 import cn.northpark.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.client.ClientProtocolException;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +20,17 @@ public class retRestSoft {
 
     public static void main(String[] args) {
         List<Map<String, String>> collect = new ArrayList<>();
-        for (int k = 4; k <= 8; k++) {
+        for (int k = 21; k <= 30; k++) {
 
             try {
 
                 List<Map<String, String>> list = HTMLParserUtil.retSoft0DayDown(k);
+
+                FileOutputStream outputStream = new FileOutputStream(new File("C:\\Users\\Bruce\\Documents\\page"+k+".txt"));
+                IOUtils.write(JsonUtil.object2json(list),outputStream);
                 collect.addAll(list);
+
+                outputStream.close();
             } catch (Exception e) {
 
                 e.printStackTrace();
