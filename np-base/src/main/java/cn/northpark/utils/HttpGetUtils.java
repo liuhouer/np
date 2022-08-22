@@ -331,7 +331,7 @@ public class HttpGetUtils {
             // TODO Auto-generated method stub
             WebClient wc = new WebClient(BrowserVersion.CHROME);
 
-            wc.getOptions().setJavaScriptEnabled(true); // 启用JS解释器，默认为true
+            wc.getOptions().setJavaScriptEnabled(false); // 启用JS解释器，默认为true
 
             wc.getOptions().setCssEnabled(false);// 禁用css支持
 

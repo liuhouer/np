@@ -983,6 +983,9 @@ public class HTMLParserUtil {
                     for (int j = 0; j < imgs.size(); j++) {
                         try {
                             String weburl = imgs.get(j).attr("src");
+                            if(weburl.contains("data:image")){
+                                weburl = imgs.get(j).attr("data-src");
+                            }
                             //   web图片上传到七牛
 
                             //-------------开始--------------------------------

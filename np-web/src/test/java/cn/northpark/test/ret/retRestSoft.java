@@ -20,7 +20,7 @@ public class retRestSoft {
 
     public static void main(String[] args) {
         List<Map<String, String>> collect = new ArrayList<>();
-        for (int k = 21; k <= 30; k++) {
+        for (int k = 1; k <= 2; k++) {
 
             try {
 
@@ -44,20 +44,20 @@ public class retRestSoft {
                 e.printStackTrace();
             }
         }
-        String jsonData = JsonUtil.object2json(collect);
-
-
-        log.info("爬取的数据----》,{}", jsonData);
-        String url = "https://northpark.cn/ret/soft/data";
-        try {
-            HttpGetUtils.sendPostJsonData(url, jsonData);
-        } catch (ClientProtocolException e) {
-
-            e.printStackTrace();
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        }
+//        String jsonData = JsonUtil.object2json(collect);
+//
+//
+//        log.info("爬取的数据----》,{}", jsonData);
+//        String url = "https://northpark.cn/ret/soft/data";
+//        try {
+//            HttpGetUtils.sendPostJsonData(url, jsonData);
+//        } catch (ClientProtocolException e) {
+//
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//
+//            e.printStackTrace();
+//        }
     }
 
 
