@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<urlset
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <url>
+        <loc>https://northpark.cn/soft/rightfont-6.1-801.html</loc>
+    </url>
+    <url>
+        <loc>https://northpark.cn/soft/aicopy-docs-article-creator-2.9.html</loc>
+    </url>
     <url>
         <loc>https://northpark.cn/soft/rhino-7-v7.22.22224.07002-450.html</loc>
     </url>
@@ -37,7 +40,7 @@
         <loc>https://northpark.cn/soft/thenatan-vybz-v1.1.0-win-mac-356.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/karanyi-sounds-minipol-v1.0.0-win-mac-361.html</loc>
+        <loc>https://northpark.cn/soft/karanyi-sounds-minipol-361.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/chronicle-pro-14.0.3-492.html</loc>
@@ -46,7 +49,7 @@
         <loc>https://northpark.cn/soft/pacifist-4.0.5-561.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/studiolinked-vst-midnight-mirage-vst-by-mike-keys-win-mac-516.html</loc>
+        <loc>https://northpark.cn/soft/studiolinked-vst-midnight-mirage.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/imaginando-plug-ins-bundle-v8.2022-729.html</loc>
@@ -67,7 +70,7 @@
         <loc>https://northpark.cn/soft/currency-assistant-3.5-846.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/movavi-video-converter-21-premium-21.5.0-938.html</loc>
+        <loc>https://northpark.cn/soft/movavi-video-converter-938.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/newsflow-1.5-x-320.html</loc>
@@ -118,14 +121,13 @@
         <loc>https://northpark.cn/soft/movavi-screen-recorder-21.5.0-517.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/heatup3-expansion-urban-essentials-for-mac-332.html</loc>
+        <loc>https://northpark.cn/soft/heatup3-expansion-urban-332.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/anygo-5.0.0-844.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/steinberg-the-grand-3-v3.2.10-standalone-vsti-vsti3-aui-win-osx-x64-515.html
-        </loc>
+        <loc>https://northpark.cn/soft/steinberg-the-grand-3-v3.2.10.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/steinberg-halion-6.4.30-win-754.html</loc>
@@ -134,7 +136,7 @@
         <loc>https://northpark.cn/soft/navicat-premium-15.0.30-895.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/native-instruments-maschine-2-v2.14.3-560.html</loc>
+        <loc>https://northpark.cn/soft/native-instruments-maschine-560.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/ableton-live-10-suite-10.1.41-x-112.html</loc>
@@ -179,7 +181,7 @@
         <loc>https://northpark.cn/soft/list-my-apps-1.9.0-mac-199.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/mathworks-matlab-r2021a-v9.10.0.1739362-(x64)-354.html</loc>
+        <loc>https://northpark.cn/soft/mathworks-matlab-r2021a-354.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/whisk-2.6.0-541.html</loc>
@@ -203,7 +205,7 @@
         <loc>https://northpark.cn/soft/ik-multimedia-amplitube-5-max-v5.1.0-842.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/initial-audio-vendetta-expansion-for-heatup3-mac-686.html</loc>
+        <loc>https://northpark.cn/soft/initial-audio-vendetta-expansion.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/file-cabinet-pro-8.4-975.html</loc>
@@ -215,7 +217,7 @@
         <loc>https://northpark.cn/soft/iexplorer-4.5.0-x-919.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/microsoft-office-2019-for-mac-16.53-vl-multilingual-998.html</loc>
+        <loc>https://northpark.cn/soft/microsoft-office-2019-for-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/speakeramp-3d-equalizer-2.6-mac-505.html</loc>
@@ -272,7 +274,7 @@
         <loc>https://northpark.cn/soft/simunlocker-1.5.0-mac-079.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/adobe-zii-2022-7.0.0-universal-patcher-399.html</loc>
+        <loc>https://northpark.cn/soft/adobe-zii-2022-399.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/pulltube-1.7.0-x-348.html</loc>
@@ -284,7 +286,7 @@
         <loc>https://northpark.cn/soft/screen-snapshot-5.4.0-039.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/mathworks-matlab-r2021b-v9.11.0.1769968-x-x64-733.html</loc>
+        <loc>https://northpark.cn/soft/mathworks-matlab-r2021b-733.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/widsmob-photovault-3.9-972.html</loc>
@@ -293,7 +295,7 @@
         <loc>https://northpark.cn/soft/everweb-standalone-3.5.1-275.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/akai-mpc-software-expansion-msx-soulful-instruments-mac-427.html</loc>
+        <loc>https://northpark.cn/soft/akai-mpc-software.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/wifi-explorer-pro-3.4-438.html</loc>
@@ -311,7 +313,7 @@
         <loc>https://northpark.cn/soft/adobe-acrobat-dc-v21.007.20091-781.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/adobe-zii-2021-6.1.7-universal-patcher-999.html</loc>
+        <loc>https://northpark.cn/soft/adobe-zii-2021-999.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/dmitry-sches-tantra-2-v2.0-x-435.html</loc>
@@ -326,7 +328,7 @@
         <loc>https://northpark.cn/soft/transmit-5.8.0-x-049.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/united-plugins-total-bundle-10.2021-x-442.html</loc>
+        <loc>https://northpark.cn/soft/united-plugins-total-442.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/mamp-pro-6.6-662.html</loc>
@@ -347,7 +349,7 @@
         <loc>https://northpark.cn/soft/ik-multimedia-t-racks-5-max-v5.6.0-943.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/ik-multimedia-amplitube-5-max-v5.2.0b-sptndc-900.html</loc>
+        <loc>https://northpark.cn/soft/ik-multimedia-amplitube-5-900.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/izotope-nectar-3-plus-v3.6.0-x-220.html</loc>
@@ -368,7 +370,7 @@
         <loc>https://northpark.cn/soft/canvas-x-draw-7.0.2-593.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/meldaproduction-mcompletebundle-v15.00-854.html</loc>
+        <loc>https://northpark.cn/soft/meldaproduction-mcompletebundle-854.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/radio-silence-3.1-528.html</loc>
@@ -446,7 +448,7 @@
         <loc>https://northpark.cn/soft/deliverexpress-2.7-x-705.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/fonepaw-video-converter-ultimate-6.0.0-822.html</loc>
+        <loc>https://northpark.cn/soft/fonepaw-video-converter-822.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/aspect-ratio-x-2.1.1-mac-158.html</loc>
@@ -458,7 +460,7 @@
         <loc>https://northpark.cn/soft/pdf-to-word-document-converter-6.2.0-059.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/acon-digital-acoustica-premium-edition-7.3.18-x-958.html</loc>
+        <loc>https://northpark.cn/soft/acon-digital-acoustica-7.3.18.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/networker-pro-7.5.0-691.html</loc>
@@ -488,10 +490,10 @@
         <loc>https://northpark.cn/soft/magic-battery-6.0.0-159.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/xln-audio-addictive-drums-2-complete-v2.1.15-339.html</loc>
+        <loc>https://northpark.cn/soft/xln-audio-addictive-drums-339.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/disk-drill-media-recovery-4.5-multilingual-117.html</loc>
+        <loc>https://northpark.cn/soft/disk-drill-media-117.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/macpilot-13.0.3-900.html</loc>
@@ -521,16 +523,16 @@
         <loc>https://northpark.cn/soft/checkbook-pro-2.7-390.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/dbpoweramp-image-converter-r2.1-reference-532.html</loc>
+        <loc>https://northpark.cn/soft/dbpoweramp-image-converter-532.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/cymatics-keys-instrument-v1.0-winosx-877.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/acon-digital-acoustica-premium-edition-v7.3.22-083.html</loc>
+        <loc>https://northpark.cn/soft/acon-digital-acoustica-083.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/mathworks-matlab-r2021b-v9.11.0.1809720-update-1-only-winlinuxmac-987.html</loc>
+        <loc>https://northpark.cn/soft/mathworks-matlab-r2021b-v9.11.0.1809720.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/eazydraw-10.7.1-465.html</loc>
@@ -539,10 +541,10 @@
         <loc>https://northpark.cn/soft/movavi-picverse-7.0-535.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/sonic-extensions-undercurrent-for-omnisphere-2-[winx]-flare-628.html</loc>
+        <loc>https://northpark.cn/soft/sonic-extensions-undercurrent.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/sonic-extensions-nylon-sky-for-omnisphere-2-[winx]-flare-456.html</loc>
+        <loc>https://northpark.cn/soft/sonic-extensions-nylon-sky-winx-flare.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/fontxchange-5.6-743.html</loc>
@@ -563,7 +565,7 @@
         <loc>https://northpark.cn/soft/pspaudioware-plugins-mac-779.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/cleverfiles-duplicates-finder-2.0-mac-642.html</loc>
+        <loc>https://northpark.cn/soft/cleverfiles-duplicates-finder-642.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/video-cut-crop-join-3.3-mac-175.html</loc>
@@ -590,7 +592,7 @@
         <loc>https://northpark.cn/soft/wifi-scanner-3.0-x-609.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/mastering-the-mix-bundle-v1.4m-winmac-671.html</loc>
+        <loc>https://northpark.cn/soft/mastering-the-mix-671.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/dayrate-2.6-mac-781.html</loc>
@@ -605,7 +607,7 @@
         <loc>https://northpark.cn/soft/wonderpen-2.0.1-x-947.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/the-foundry-nuke-studio-13.1v1-winmaclinux-917.html</loc>
+        <loc>https://northpark.cn/soft/the-foundry-nuke-917.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/nch-photopad-7.70-480.html</loc>
@@ -674,7 +676,7 @@
         <loc>https://northpark.cn/soft/arturia-v-collection-8-v23.11.21-mac-685.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/photo-image-editor-pixelstyle-3.7.0-mac-348.html</loc>
+        <loc>https://northpark.cn/soft/photo-image-editor-348.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/direqual-4.0-398.html</loc>
@@ -731,7 +733,7 @@
         <loc>https://northpark.cn/soft/serviio-pro-2.2-439.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/dxo-photolab-4-elite-edition-4.3.6.72-338.html</loc>
+        <loc>https://northpark.cn/soft/dxo-photolab-4-338.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/ultracompare-22.00.0.5-074.html</loc>
@@ -746,22 +748,22 @@
         <loc>https://northpark.cn/soft/aiseesoft-mac-blu-ray-player-6.6.6-350.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/aiseesoft-mac-video-converter-ultimate-10.2.18-890.html</loc>
+        <loc>https://northpark.cn/soft/aiseesoft-mac-video-890.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/anymp4-dvd-creator-for-mac-6.2.22-078.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/ample-sound-ample-guitar-sc-v3.5.0-winosx-066.html</loc>
+        <loc>https://northpark.cn/soft/ample-sound-ample-guitar-066.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/color-wheel-6.9-405.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/native-instruments-maschine-2-v2.14.6-596.html</loc>
+        <loc>https://northpark.cn/soft/native-instruments-maschine-596.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/vue-and-plantfactory-2021.2-build-7008031-326.html</loc>
+        <loc>https://northpark.cn/soft/vue-and-plantfactory-326.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/propaint-image-photo-editor-3.7.0-135.html</loc>
@@ -842,7 +844,7 @@
         <loc>https://northpark.cn/soft/task-office-6.9-642.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/arturia-v-collection-8.2-v2021.12.14-[u2b]-trazor-319.html</loc>
+        <loc>https://northpark.cn/soft/arturia-v-collection-8.2.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/wifispoof-3.8-multilangual-x-854.html</loc>
@@ -860,10 +862,10 @@
         <loc>https://northpark.cn/soft/screaming-frog-seo-spider-16.5-143.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/blackmagic-design-davinci-fusion-studio-17.4.3-mac-087.html</loc>
+        <loc>https://northpark.cn/soft/blackmagic-design-davinci.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/gif’ted-2.0-909.html</loc>
+        <loc>https://northpark.cn/soft/gifted-2.0-909.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/izotope-ozone-advanced-9.11.1-410.html</loc>
@@ -899,7 +901,7 @@
         <loc>https://northpark.cn/soft/screenfloat-1.5.20-849.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/luminar-neo-early-access-0.9.1-(10565)-434.html</loc>
+        <loc>https://northpark.cn/soft/luminar-neo-early-434.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/conceptdraw-office-8.0.0.1-678.html</loc>
@@ -920,7 +922,7 @@
         <loc>https://northpark.cn/soft/udock-2.5-mac-051.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/ibm-spss-statistics-26.0-fp001-if011(if014)if015(if016)-188.html</loc>
+        <loc>https://northpark.cn/soft/ibm-spss-statistics-26.0.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/paletter-4.3.0-mac-854.html</loc>
@@ -983,7 +985,7 @@
         <loc>https://northpark.cn/soft/nanobrowser-1.5.0-mac-955.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/drmare-music-converter-for-spotify-2.5.0-386.html</loc>
+        <loc>https://northpark.cn/soft/drmare-music-converter-386.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/audkit-tidizer-music-converter-2.7.0-798.html</loc>
@@ -1028,12 +1030,10 @@
         <loc>https://northpark.cn/soft/clipboard-action-1.5.0-x-805.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/sauceware-audio-scorch-factory-library-content-[win-x-v1.0.1]-flare-754.html
-        </loc>
+        <loc>https://northpark.cn/soft/sauceware-audio-scorch-factory.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/sauceware-audio-octave-deluxe-vst-vst3-au-the-entire-suite-macwin-936.html
-        </loc>
+        <loc>https://northpark.cn/soft/sauceware-audio-octave-deluxe.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/image-exif-editor-5.2.0-457.html</loc>
@@ -1045,7 +1045,7 @@
         <loc>https://northpark.cn/soft/adobe-substance-3d-designer-v11.3.2-852.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/native-instruments-effects-series-v1.2.1-trazor-967.html</loc>
+        <loc>https://northpark.cn/soft/native-instruments-effects-v1.2.1.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/menuwhere-2.2-678.html</loc>
@@ -1075,7 +1075,7 @@
         <loc>https://northpark.cn/soft/live-home-3d-pro-edition-4.3-186.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/vmware-installbuilder-enterprise-21.12.0-201.html</loc>
+        <loc>https://northpark.cn/soft/vmware-installbuilder-201.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/airmail-5.5.0-773.html</loc>
@@ -1189,7 +1189,7 @@
         <loc>https://northpark.cn/soft/sketchup-pro-2022.0-v22.0.353-181.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/a-zippr-pro:-better-unarchiver-1.3-mac-212.html</loc>
+        <loc>https://northpark.cn/soft/a-zippr-pro:-better-212.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/battery-indicator-2.12.3-444.html</loc>
@@ -1231,7 +1231,7 @@
         <loc>https://northpark.cn/soft/memory-plus-2.3-mac-361.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/ample-sound-ample-bass-metal-ray-v3.5.0-winmac-553.html</loc>
+        <loc>https://northpark.cn/soft/ample-sound-ample-bass-553.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/corelcad-2021.5-build-21.2.1.3523-272.html</loc>
@@ -1255,7 +1255,7 @@
         <loc>https://northpark.cn/soft/epsviewer-pro-1.5-mac-847.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/mathworks-matlab-r2022a-v9.12.0.1884302-mac-x64-681.html</loc>
+        <loc>https://northpark.cn/soft/mathworks-matlab-r2022a.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/quarkxpress-2022-18.0.1-577.html</loc>
@@ -1273,10 +1273,10 @@
         <loc>https://northpark.cn/soft/fonepaw-ios-transfer-3.9.0-226.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/fonepaw-android-data-backup-and-restore-5.3.0-147.html</loc>
+        <loc>https://northpark.cn/soft/fonepaw-android-data-backup-147.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/fonepaw-video-converter-ultimate-8.0.0-684.html</loc>
+        <loc>https://northpark.cn/soft/fonepaw-video-converter-684.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/sqlpro-for-mysql-2022.14-928.html</loc>
@@ -1288,19 +1288,19 @@
         <loc>https://northpark.cn/soft/tunefusion-prime-r1.7-v1.7.0.1-win-077.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/blackmagic-design-fusion-studio-17.4.5-675.html</loc>
+        <loc>https://northpark.cn/soft/blackmagic-design-fusion-675.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/superduper!-3.6-x-012.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/mathworks-matlab-r2022a-additional-packages-641.html</loc>
+        <loc>https://northpark.cn/soft/mathworks-matlab-r2022a-641.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/filmconvert-nitrate-fcpx-3.22-952.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/do-your-data-recovery-professional-8.4-878.html</loc>
+        <loc>https://northpark.cn/soft/do-your-data-878.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/checksum-thing-2.0.0-mac-359.html</loc>
@@ -1336,7 +1336,7 @@
         <loc>https://northpark.cn/soft/jaksta-screen-recorder-3.0.2-u2b-831.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/screegle-clean-screen-sharing-2.0-mas-440.html</loc>
+        <loc>https://northpark.cn/soft/screegle-clean-screen-440.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/memoires-5.0.0-225.html</loc>
@@ -1357,10 +1357,10 @@
         <loc>https://northpark.cn/soft/crossover-21.2.0-900.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/initial-audio-heat-up-3-v3.3.0-library-r2r-002.html</loc>
+        <loc>https://northpark.cn/soft/initial-audio-heat-up-002.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/parallels-desktop-business-edition-v17.1.2.51548-862.html</loc>
+        <loc>https://northpark.cn/soft/parallels-desktop-v17.1.2.51548.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/perfectly-clear-workbench-4.1.0.2261-081.html</loc>
@@ -1393,7 +1393,7 @@
         <loc>https://northpark.cn/soft/sound-studio-4.10.1-multilingual-x-044.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/apisonic-labs-speedrum-v1.3.0-winlinux-709.html</loc>
+        <loc>https://northpark.cn/soft/apisonic-labs-speedrum-709.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/adguard-2.7.0-313.html</loc>
@@ -1411,7 +1411,7 @@
         <loc>https://northpark.cn/soft/staruml-5.0.1-387.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/drmare-imazonkit-music-converter-2.7.0-726.html</loc>
+        <loc>https://northpark.cn/soft/drmare-imazonkit-music-726.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/viwizard-audible-converter-2.3.0-548.html</loc>
@@ -1477,7 +1477,7 @@
         <loc>https://northpark.cn/soft/graphic-inspector-2.6-603.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/izotope-rx-9-audio-editor-advanced-v9.3.0-013.html</loc>
+        <loc>https://northpark.cn/soft/izotope-rx-9-audio-013.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/inet-network-scanner-2.9.0-x-754.html</loc>
@@ -1486,7 +1486,7 @@
         <loc>https://northpark.cn/soft/path-finder-2130-529.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/togu-audio-line-tal-drum-v1.0.0-winlinux-745.html</loc>
+        <loc>https://northpark.cn/soft/togu-audio-line-tal-745.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/tinderbox-9.2.1-151.html</loc>
@@ -1555,7 +1555,7 @@
         <loc>https://northpark.cn/soft/blocs-4.5.0-856.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/quicklinks:-keyboard-shortcuts-2.7-mac-945.html</loc>
+        <loc>https://northpark.cn/soft/quicklinks:-keyboard-shortcuts-945.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/inpixel-2.0-mac-432.html</loc>
@@ -1579,10 +1579,10 @@
         <loc>https://northpark.cn/soft/valentina-studio-pro-12.3.0-161.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/zellige-polygon-mosaic-design-2.8-mac-119.html</loc>
+        <loc>https://northpark.cn/soft/zellige-polygon-mosaic-119.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/fonepaw-video-converter-ultimate-9.0.0-732.html</loc>
+        <loc>https://northpark.cn/soft/fonepaw-video-converter-732.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/bbedit-14.1.2-068.html</loc>
@@ -1606,7 +1606,7 @@
         <loc>https://northpark.cn/soft/yummy-3.5-944.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/toontrack-ezdrummer-3-core-library-win-(soundbank)-680.html</loc>
+        <loc>https://northpark.cn/soft/toontrack-ezdrummer.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/garagesale-9.0.1-u2b-089.html</loc>
@@ -1618,10 +1618,10 @@
         <loc>https://northpark.cn/soft/cookie-6.7.0-261.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/enfocus-pitstop-pro-2022-v22.0.1378944-x-x64-multilingual-901.html</loc>
+        <loc>https://northpark.cn/soft/enfocus-pitstop-pro-2022.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/aiseesoft-iphone-password-manager-for-mac-1.0.6-043.html</loc>
+        <loc>https://northpark.cn/soft/aiseesoft-iphone-password-1.0.6-043.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/color-folder-3.1-901.html</loc>
@@ -1645,7 +1645,7 @@
         <loc>https://northpark.cn/soft/mytracks-4.2.0-477.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/toontrack-gospel-ezx-v1.0.1-win-(soundbank)-199.html</loc>
+        <loc>https://northpark.cn/soft/toontrack-gospel-ezx-199.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/icrypto-pro-1.4-mac-940.html</loc>
@@ -1657,13 +1657,13 @@
         <loc>https://northpark.cn/soft/sketch-87.1-724.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/winx-hd-video-converter-for-mac-6.7.0-multilangual-x-181.html</loc>
+        <loc>https://northpark.cn/soft/winx-hd-video-converter-for-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/winx-dvd-ripper-6.7.0-x-720.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/macx-video-converter-pro-6.7.0-multilingual-x-624.html</loc>
+        <loc>https://northpark.cn/soft/macx-video-converter-pro-624.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/macx-dvd-ripper-pro-6.7.0-282.html</loc>
@@ -1723,7 +1723,7 @@
         <loc>https://northpark.cn/soft/boom-3d-1.3.15-433.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/picture-instruments-smart-gps-sync-pro-2.0.10-314.html</loc>
+        <loc>https://northpark.cn/soft/picture-instruments-smart-gps-314.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/toontrack-ezdrummer-3.0.1-832.html</loc>
@@ -1744,7 +1744,7 @@
         <loc>https://northpark.cn/soft/bestzip-2-unarchive-7z-rar-zip-1.6.0-526.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/ample-sound-ample-guitar-stratocaster-v3.6.0-winmac-864.html</loc>
+        <loc>https://northpark.cn/soft/ample-sound-ample-guitar.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/widsmob-ai-retoucher-3.10-988.html</loc>
@@ -1753,7 +1753,7 @@
         <loc>https://northpark.cn/soft/1click-screen-recorder-4.3.0-639.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/mathworks-matlab-r2022a-v9.12.0.1956245-update-2-x64-x-536.html</loc>
+        <loc>https://northpark.cn/soft/mathworks-matlab-r2022a.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/techsmith-snagit-2021.4.9-207.html</loc>
@@ -1786,7 +1786,7 @@
         <loc>https://northpark.cn/soft/money-pro-2.8-multilangual-x-080.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/cradle-and-jaycen-joshua-the-god-particle-v1.0.0.0-103.html</loc>
+        <loc>https://northpark.cn/soft/cradle-and-jaycen-v1.0.0.0-103.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/macdroid-1.5-089.html</loc>
@@ -1810,13 +1810,13 @@
         <loc>https://northpark.cn/soft/videoduke-2.6-167.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/ample-sound-ample-metal-ray5-v3.6.0-winmac-931.html</loc>
+        <loc>https://northpark.cn/soft/ample-sound-ample-metal-931.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/pocket-yoga-12.0.6-915.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/mntra-instruments-bundle-v1.8.0-winosx-047.html</loc>
+        <loc>https://northpark.cn/soft/mntra-instruments-bundle-047.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/filmage-editor-1.3.1-714.html</loc>
@@ -1837,7 +1837,7 @@
         <loc>https://northpark.cn/soft/fonepaw-ios-system-recovery-7.1.0-112.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/fonepaw-whatsapp-transfer-for-ios-1.3.0-680.html</loc>
+        <loc>https://northpark.cn/soft/fonepaw-whatsapp-transfer-680.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/pdf-reader-x-pro-3.1.0-216.html</loc>
@@ -1846,7 +1846,7 @@
         <loc>https://northpark.cn/soft/easy-data-transform-1.30.0-519.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/movavi-video-converter-22-premium-22.5.0-554.html</loc>
+        <loc>https://northpark.cn/soft/movavi-video-converter-554.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/prism-9.4.0-329.html</loc>
@@ -1870,7 +1870,7 @@
         <loc>https://northpark.cn/soft/quit-all-1.2-265.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/aescripts-plexus-v3.2.6-for-adobe-after-effects-418.html</loc>
+        <loc>https://northpark.cn/soft/aescripts-plexus-v3.2.6.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/exactscan-pro-22.6-669.html</loc>
@@ -2359,7 +2359,7 @@
         <loc>https://northpark.cn/soft/compressor-718.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/final-cut-pro-x-810.html</loc>
+        <loc>https://northpark.cn/soft/final-cut-pro-x-10.5.3.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/bbedit-12-1-2-257.html</loc>
@@ -2434,9 +2434,7 @@
         <loc>https://northpark.cn/soft/nitro4d-nitrocap-779.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/lumion10-pro-win-%e4%b8%93%e4%b8%ba%e5%bb%ba%e7%ad%91%e5%b8%88%e5%92%8c%e8%ae%be%e8%ae%a1%e5%b8%88%e5%88%b6%e4%bd%9c%e7%9a%84%e7%8b%ac%e7%ab%8b3d%e6%b8%b2%e6%9f%93-006.html
-        </loc>
+        <loc>https://northpark.cn/soft/lumion10-pro-win.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/nitroboxtool-883.html</loc>
@@ -2499,7 +2497,7 @@
         <loc>https://northpark.cn/soft/boris-fx-genarts-sapphire-adobe-696.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/gsg-gorillacam-v1-0151-c4d-r16r21-win-mac-611.html</loc>
+        <loc>https://northpark.cn/soft/gsg-gorillacam-v1-0151-611.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/adobe-acrobat-pro-dc-562.html</loc>
@@ -2853,9 +2851,7 @@
         <loc>https://northpark.cn/soft/adobe-premiere-elements-451.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/fontself-for-illustrator-1-1-1-win-%e5%8d%b3%e6%8f%92%e5%8d%b3%e7%94%a8%e7%9a%84%e5%ad%97%e4%bd%93%e5%88%b6%e4%bd%9c%e6%8f%92%e4%bb%b6-505.html
-        </loc>
+        <loc>https://northpark.cn/soft/fontself-for-illustrator.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/diay-pro-993.html</loc>
@@ -2912,9 +2908,7 @@
         <loc>https://northpark.cn/soft/imazing-749.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/adobe-cc-2020-genp-v2-0-windows%e9%80%9a%e7%94%a8%e8%a1%a5%e4%b8%81%e5%ae%8c%e6%95%b4%e7%89%88-114.html
-        </loc>
+        <loc>https://northpark.cn/soft/adobe-cc-2020-genp-v2-0-windows.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/quarkxpress-862.html</loc>
@@ -3073,9 +3067,7 @@
         <loc>https://northpark.cn/soft/amplitube-complete-246.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/drama-v2-0-5-mac-paintcode%e5%9b%a2%e9%98%9f%e7%b2%be%e5%93%81%e6%8e%a8%e5%87%ba%e5%8e%9f%e5%9e%8b%e3%80%81%e5%8a%a8%e7%94%bb%e5%92%8c%e8%ae%be%e8%ae%a1%e4%b8%8e%e4%b8%80%e4%bd%93%e5%b7%a5-809.html
-        </loc>
+        <loc>https://northpark.cn/soft/drama-v2-0-5-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/fontlab-vi-561.html</loc>
@@ -3600,14 +3592,10 @@
         <loc>https://northpark.cn/soft/magicavoxel-213.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/irreader-for-mac%e4%b8%8b%e8%bd%bd_%e7%bd%91%e7%a9%ba%e9%98%85%e8%af%bb%e5%99%a8%e4%b8%8b%e8%bd%bd_mac%e7%89%88rss%e9%98%85%e8%af%bb%e5%99%a8%e4%b8%8b%e8%bd%bd-956.html
-        </loc>
+        <loc>https://northpark.cn/soft/irreader-for-mac.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/easynewfile-for-mac_easynewfile-mac%e7%89%88%e4%b8%8b%e8%bd%bd_mac%e5%8f%b3%e9%94%ae%e8%8f%9c%e5%8d%95%e6%89%a9%e5%b1%95%e4%b8%8b%e8%bd%bd-589.html
-        </loc>
+        <loc>https://northpark.cn/soft/easynewfile-for-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/iterm2-828.html</loc>
@@ -3748,9 +3736,7 @@
         <loc>https://northpark.cn/soft/dvdfab-716.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/aimersoft-dvd-ripper-mac-%e7%a0%b4%e8%a7%a3%e7%89%88-%e4%b8%87%e8%83%bddvd%e8%bd%ac%e6%8d%a2%e5%99%a8-689.html
-        </loc>
+        <loc>https://northpark.cn/soft/aimersoft-dvd-ripper-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/mirethmusic-764.html</loc>
@@ -4371,7 +4357,7 @@
         <loc>https://northpark.cn/soft/ishowu-instant-advanced-419.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/aiseesoft-mac-video-converter-ultimate-795.html</loc>
+        <loc>https://northpark.cn/soft/aiseesoft-mac-video-795.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/translate-tab-840.html</loc>
@@ -4416,7 +4402,7 @@
         <loc>https://northpark.cn/soft/stellaris-612.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/cisdem-pdf-to-word-converter-with-ocr-536.html</loc>
+        <loc>https://northpark.cn/soft/cisdem-pdf-to-word-536.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/adobe-zii-2019-566.html</loc>
@@ -4599,7 +4585,7 @@
         <loc>https://northpark.cn/soft/movavi-video-editor-plus-886.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/sonarworks-reference-4-studio-edition-923.html</loc>
+        <loc>https://northpark.cn/soft/sonarworks-reference-4-923.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/overloud-th-u-complete-389.html</loc>
@@ -4972,1125 +4958,6 @@
     </url>
     <url>
         <loc>https://northpark.cn/soft/agisoft-metashape-professional-123.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/default-folder-x-082.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ia-writer-059.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/disk-map-851.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/xscope-022.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/photosrevive-468.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ifinance-828.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/back-in-time-109.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/izotope-rx-7-595.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/dmg-canvas-125.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/notebooks-516.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/colibri-817.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/awesome-mails-pro-099.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/airbuddy-574.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-lightroom-cc-731.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-photoshop-cc-194.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-dimension-cc-451.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-illustrator-cc-556.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-audition-cc-319.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/check-off-249.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/4k-stogram-452.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-zii-2019-527.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-acrobat-pro-dc-276.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/edgeview-512.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/phoneclean-pro-807.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/phonerescue-945.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/photosweeper-823.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/anytrans-for-android-637.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/chronosync-506.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/bbedit-529.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/keyboard-maestro-317.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/flume-pro-226.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cadintosh-x-867.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/keycue-545.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/folx-pro-465.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/tuneskit-video-cutter-016.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mathtype-859.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/microsoft-office-2019-799.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/touch-forms-pro-597.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/sound-studio-597.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/canvas-draw-158.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/turntable-627.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/snagit-808.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/powerphotos-656.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/eazydraw-823.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/pulltube-060.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/smartalbums-909.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/movavi-video-editor-plus-831.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/file-cabinet-pro-850.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/colocalizer-pro-672.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mamp-pro-224.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/geekbench-518.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/iboostup-premium-500.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/scientific-toolworks-understand-847.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/duplicate-manager-pro-554.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/nucleomatica-inmr-015.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/master-of-typing-875.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/omnigraffle-pro-515.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/querious-654.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/weathersnoop-862.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/integrity-pro-341.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/videoduke-268.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/omniplan-pro-482.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/rocket-pro-091.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/duplicate-file-finder-pro-352.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/infinity-dashboard-073.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/super-photocut-360.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mail-pilot-3-393.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/wifi-signal-780.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/winzip-181.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/magnet-pro-326.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/autodesk-maya-2019-959.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/davinci-resolve-studio-336.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/pdf-checkpoint-793.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/exactscan-pro-879.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/maxon-cinema-4d-studio-875.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/icollections-549.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-zii-2019-176.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/loopback-510.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/jriver-media-center-320.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/anytrans-686.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ni-labview-2018-811.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/curio-professional-336.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/flowstate-459.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/solidangle-cinema-4d-to-arnold-609.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/set-a-light-3d-studio-440.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cisdem-pdf-converter-ocr-437.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/marked-496.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/syncmate-706.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ummy-video-downloader-404.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/typeface-102.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/sync-folders-pro-669.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/virtualhostx-131.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/youtube-downloader-898.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/clearview-995.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/dropshare-882.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/capto-133.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/backgrounds-233.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/hider-134.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/imageranger-pro-441.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/microsoft-office-2019-961.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mcafee-endpoint-security-121.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/filmlight-daylight-289.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ntfs-mounter-496.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/nisus-writer-pro-515.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ntfs-mounter-496.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/filmlight-daylight-289.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mcafee-endpoint-security-121.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/microsoft-office-2019-961.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/imageranger-pro-441.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/hider-134.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/backgrounds-233.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/capto-133.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/dropshare-882.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/clearview-995.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/youtube-downloader-898.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/virtualhostx-131.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/sync-folders-pro-669.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/typeface-102.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ummy-video-downloader-404.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/syncmate-706.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/marked-496.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cisdem-pdf-converter-ocr-437.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/set-a-light-3d-studio-440.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/solidangle-cinema-4d-to-arnold-609.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/flowstate-459.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/curio-professional-336.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ni-labview-2018-811.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/anytrans-686.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/jriver-media-center-320.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/loopback-510.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-zii-2019-176.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/icollections-549.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/maxon-cinema-4d-studio-875.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/exactscan-pro-879.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/pdf-checkpoint-793.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/davinci-resolve-studio-336.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/autodesk-maya-2019-959.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/magnet-pro-326.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/winzip-181.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/wifi-signal-780.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mail-pilot-3-393.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/super-photocut-360.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/infinity-dashboard-073.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/duplicate-file-finder-pro-352.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/rocket-pro-091.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/omniplan-pro-482.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/videoduke-268.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/integrity-pro-341.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/weathersnoop-862.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/querious-654.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/omnigraffle-pro-515.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/master-of-typing-875.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/nucleomatica-inmr-015.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/duplicate-manager-pro-554.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/scientific-toolworks-understand-847.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/iboostup-premium-500.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/geekbench-518.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mamp-pro-224.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/colocalizer-pro-672.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/file-cabinet-pro-850.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/movavi-video-editor-plus-831.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/smartalbums-909.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/pulltube-060.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/eazydraw-823.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/powerphotos-656.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/snagit-808.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/turntable-627.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/canvas-draw-158.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/sound-studio-597.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/touch-forms-pro-597.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/microsoft-office-2019-799.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mathtype-859.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/tuneskit-video-cutter-016.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/folx-pro-465.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/keycue-545.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cadintosh-x-867.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/flume-pro-226.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/keyboard-maestro-317.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/bbedit-529.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/chronosync-506.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/anytrans-for-android-637.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/photosweeper-823.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/phonerescue-945.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/phoneclean-pro-807.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/edgeview-512.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-acrobat-pro-dc-276.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-zii-2019-527.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/4k-stogram-452.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/check-off-249.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-audition-cc-319.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-illustrator-cc-556.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-dimension-cc-451.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-photoshop-cc-194.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-lightroom-cc-731.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/airbuddy-574.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/awesome-mails-pro-099.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/colibri-817.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/notebooks-516.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/dmg-canvas-125.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/izotope-rx-7-595.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/back-in-time-109.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ifinance-828.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/photosrevive-468.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/xscope-022.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/disk-map-851.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ia-writer-059.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/default-folder-x-082.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/agisoft-metashape-professional-123.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/abelssoft-doku-downloader-627.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/pdf-squeezer-625.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/posterino-930.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/newtek-lightwave-3d-981.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cloud-outliner-pro-836.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ultdata-241.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/red-giant-vfx-suite-712.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/photomill-x-310.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/optimage-206.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mp3-gain-4-736.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/iconstix-079.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ibm-spss-statistics-487.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/gorogoa-862.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/archiver-708.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/photoeraser-inpaint-301.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/pastebot-124.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/translatium-193.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/keyflow-pro-243.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/alfred-207.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/topaz-sharpen-ai-169.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/topaz-gigapixel-ai-473.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/topaz-jpeg-to-raw-ai-909.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/topaz-adjust-ai-266.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/wondershare-pdfelement-pro-124.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/tower-174.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/keeweb-236.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/breeze-533.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/pcdj-dex-3-786.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/airflow-156.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/iskysoft-video-converter-ultimate-884.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/disk-diet-508.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/scrivener-321.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ulysses-626.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/folder-tidy-479.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mediatrans-420.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/timer-utility-379.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/raw-converter-583.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/tri-backup-pro-247.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/power-save-210.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/paragon-apfs-to-hfs-converter-197.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/textmate-623.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/firewatch-745.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/elimisoft-app-uninstaller-399.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-acrobat-pro-dc-609.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/sqleditor-131.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/synalyze-it-512.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/garagesale-535.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/spotless-569.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mosaic-pro-023.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/kplayer-874.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/jump-desktop-841.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/powercadd-868.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/devonthink-pro-810.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/everweb-653.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/copyclip-513.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/jettison-198.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/diskcatalogmaker-230.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/atext-872.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cisdem-unarchiver-613.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/jixipix-chromatic-edges-671.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/guitar-pro-602.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/grids-for-instagram-865.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/itube-studio-152.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/anydrop-516.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/art-text-611.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/anytrans-for-ios-100.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/forklift-708.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/aiseesoft-mac-fonelab-463.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/qlab-pro-728.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/pdf-expert-959.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/squeezer-934.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cisdem-appcrypt-704.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cisdem-window-manager-913.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ik-multimedia-t-racks-5-complete-175.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/simplemind-pro-022.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/presonus-studio-one-pro-464.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/timemator-545.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/airmagic-575.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/serial-299.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mininote-pro-959.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/fileloupe-813.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/drama-395.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/color-palette-from-image-080.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/tipard-mac-video-converter-ultimate-513.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/lungo-470.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/moonlighter-668.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/prison-architect-610.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/battery-health-3-586.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/geekbench-983.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/keka-104.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/botanicula-779.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/wolf-responsive-form-maker-586.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-zii-2019-415.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/pdf-protector-604.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/klokki-688.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/photoninja-021.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/moom-175.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/memory-clean-3-052.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/inpaint-142.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mail-pilot-3-263.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/menubar-stats-747.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/iflicks-499.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cdock-218.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/vanilla-pro-631.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/iscreen-recorder-028.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cuphead-491.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/twitterrific-5-066.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/microsoft-office-2019-636.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/atlas-ti-8-782.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/allegorithmic-substance-designer-347.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cleardisk-781.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ik-multimedia-amplitube-complete-208.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/bricsys-bricscad-platinum-515.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/disk-expert-277.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/duplicate-file-remover-pro-769.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cookie-999.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adobe-zii-2019-610.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/piezo-972.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/qr-factory-257.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ntfs-mounter-315.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/paragon-extfs-141.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/wifi-scanner-742.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/overloud-th-u-complete-389.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/sonarworks-reference-4-studio-edition-923.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/movavi-video-editor-plus-886.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/paragon-mac-toolbox-739.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/easy-new-file-943.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/the-clock-058.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/doo-825.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/apple-remote-desktop-678.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/audio-hijack-379.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/noise-machine-698.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/records-752.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/shortcut-bar-341.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/abbyy-finereader-ocr-pro-720.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/toothfairy-071.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/final-cut-pro-x-291.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/compressor-438.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/itrash-715.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/coda-2-010.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cycling-74-max-186.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/leaf-890.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/the-foundry-nuke-studio-628.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/direct-mail-740.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/xmind-zen-914.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/imperator-rome-659.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/atom-rpg-090.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/wanderlust-the-city-of-mists-058.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/macclean-pro-071.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/mathworks-matlab-385.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/popclip-602.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/factorio-033.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adam-monroe-music-rotary-organ-222.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/bookmacster-939.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/safe-software-fme-desktop-282.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/alien-skin-exposure-bundle-174.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/alien-skin-exposure-709.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/substance-alchemist-251.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/unite-166.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/sublime-merge-201.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/sublime-text-011.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/cisdem-duplicatefinder-532.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ink2go-021.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/textbar-466.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/neooffice-972.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/default-folder-x-082.html</loc>
@@ -7335,7 +6202,7 @@
         <loc>https://northpark.cn/soft/keep-it-625.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/noteburner-itunes-drm-audio-converter-606.html</loc>
+        <loc>https://northpark.cn/soft/noteburner-itunes-drm-606.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/uninstallpkg-368.html</loc>
@@ -7497,151 +6364,76 @@
         <loc>https://northpark.cn/soft/boxy-svg-291.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/boxy-svg-811.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/keep-it-288.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/keep-it-521.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/disk-diet-000.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/disk-diet-882.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/etrecheck-pro-662.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/etrecheck-pro-809.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/tower-882.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/tower-075.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/smooze-356.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/smooze-091.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/profind-065.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/profind-108.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/tinkertool-system-385.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/tinkertool-system-404.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/one-chat-pro-834.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/one-chat-pro-000.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/polarr-photo-editor-744.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/polarr-photo-editor-346.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/steermouse-122.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/steermouse-012.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/softraid-906.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/softraid-754.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/sqleditor-341.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/sqleditor-905.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/stata-950.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/stata-786.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/adobe-zii-2019-414.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/adobe-zii-2019-050.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/adware-zap-browser-cleaner-306.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/adware-zap-browser-cleaner-000.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/neofinder-pro-575.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/neofinder-pro-185.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/peakhour-666.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/peakhour-440.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/paperless-464.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/paperless-826.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/hobo-698.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/hobo-153.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/sqlpro-studio-323.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/sqlpro-studio-970.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/edgeview-648.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/edgeview-616.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/picture-instruments-color-cone-572.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/picture-instruments-color-cone-554.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/smartmemorycleaner-693.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/smartmemorycleaner-597.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/piezo-897.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/piezo-286.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/iconjar-065.html</loc>
@@ -7650,34 +6442,19 @@
         <loc>https://northpark.cn/soft/file-juicer-840.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/file-juicer-849.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/isubtitle-304.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/rapidweaver-769.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/rapidweaver-854.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/wolf-website-designer-853.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/wolf-website-designer-328.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/jriver-media-center-236.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/jriver-media-center-992.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/portraiture-3-for-lightroom-050.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/portraiture-3-for-lightroom-927.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/querious-604.html</loc>
@@ -8253,9 +7030,6 @@
         <loc>https://northpark.cn/soft/movavi-pdf-editor-272.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/graphpad-prism-035.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/hostbuddy-938.html</loc>
     </url>
     <url>
@@ -8325,9 +7099,6 @@
         <loc>https://northpark.cn/soft/rezrog.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/game-of-thrones.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/botanicula.html</loc>
     </url>
     <url>
@@ -8361,9 +7132,7 @@
         <loc>https://northpark.cn/soft/valhalla-hills.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/denise-audio-noize-retro-1-0-0-mac-%e7%a0%b4%e8%a7%a3%e7%89%88-%e9%9f%b3%e9%a2%91%e6%8f%92%e4%bb%b6.html
-        </loc>
+        <loc>https://northpark.cn/soft/denise-audio-noize-retro-1-0-0-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/apeaksoft-video-converter-ultimate.html</loc>
@@ -8411,7 +7180,7 @@
         <loc>https://northpark.cn/soft/battletech.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/man-o-war-corsair-warhammer-naval-battles.html</loc>
+        <loc>https://northpark.cn/soft/man-o-war-battles.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/viper-ftp.html</loc>
@@ -8720,7 +7489,7 @@
         <loc>https://northpark.cn/soft/feeder.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/rizom-lab-rizomuv-virtual-spaces-and-real-space.html</loc>
+        <loc>https://northpark.cn/soft/rizom-lab-rizomuv-virtual-space.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/ghostnote.html</loc>
@@ -10052,7 +8821,7 @@
         <loc>https://northpark.cn/soft/tipard-blu-ray-converter-9-2-12.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/theme-lab-templates-for-keynote-mac-5-4-2.html</loc>
+        <loc>https://northpark.cn/soft/theme-lab-templates-for-2.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/smart-shooter-3-38.html</loc>
@@ -10226,9 +8995,7 @@
         <loc>https://northpark.cn/soft/visual-studio-code-1-29-1.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/micro-snitch-1-3-1-mac-%e7%a0%b4%e8%a7%a3%e7%89%88-%e7%9b%91%e6%8e%a7%e9%ba%a6%e5%85%8b%e9%a3%8e%e5%92%8c%e6%91%84%e5%83%8f%e5%a4%b4%e7%9a%84%e5%8f%8d%e9%97%b4%e8%b0%8d%e5%b7%a5%e5%85%b7.html
-        </loc>
+        <loc>https://northpark.cn/soft/micro-snitch-1-3-1-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/detectx-swift-1-081.html</loc>
@@ -10522,7 +9289,7 @@
         <loc>https://northpark.cn/soft/navicat-premium-12-1-13.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/mac-video-converter-ultimate-9-2-20-81348.html</loc>
+        <loc>https://northpark.cn/soft/mac-video-converter-ultimate-81348.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/mac-video-enhancer-9-2-8-81348.html</loc>
@@ -10657,7 +9424,7 @@
         <loc>https://northpark.cn/soft/privatus-6-1-2.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/noteburner-itunes-drm-audio-converter-2-4-1.html</loc>
+        <loc>https://northpark.cn/soft/noteburner-itunes-drm-audio-1.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/wifi-explorer-pro-2-1-3.html</loc>
@@ -10840,7 +9607,7 @@
         <loc>https://northpark.cn/soft/script-debugger-7-0-4.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/liquivid-video-exposure-and-effects-1-0-12.html</loc>
+        <loc>https://northpark.cn/soft/liquivid-video-exposure-12.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/totalfinder-1-11-4.html</loc>
@@ -10870,7 +9637,7 @@
         <loc>https://northpark.cn/soft/capto-1-2-4.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/native-instruments-komplete-kontrol-2-0-5-r143.html</loc>
+        <loc>https://northpark.cn/soft/native-instruments-komplete-kontrol-r143.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/mw3d-solutions-cheetah3d-7-3-1.html</loc>
@@ -11113,7 +9880,7 @@
         <loc>https://northpark.cn/soft/gn-bundle-for-iwork-templates-6-0-6.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/ra-beauty-retouch-panel-pixel-juggler-3-2.html</loc>
+        <loc>https://northpark.cn/soft/ra-beauty-retouch-panel-2.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/silkypix-developer-studio-pro-9-0-2.html</loc>
@@ -11254,9 +10021,7 @@
         <loc>https://northpark.cn/soft/ultracompare-18-00-0-36.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/mocha-pro-2019-6-0-01882-mac-%e7%a0%b4%e8%a7%a3%e7%89%88-%e8%a7%86%e9%a2%91%e5%90%8e%e6%9c%9f%e5%88%b6%e4%bd%9c%e5%b9%b3%e9%9d%a2%e8%b7%9f%e8%b8%aa%e8%bd%af%e4%bb%b6.html
-        </loc>
+        <loc>https://northpark.cn/soft/mocha-pro-2019-6-0-01882-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/boxy-svg-3-22-0.html</loc>
@@ -11392,9 +10157,6 @@
     </url>
     <url>
         <loc>https://northpark.cn/soft/mail-pilot-3-07810b.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/ifinance-4-4-9.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/tuneskit-audio-capture-1-0-9.html</loc>
@@ -12621,7 +11383,7 @@
         <loc>https://northpark.cn/soft/boxshot-4-15-1.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/psd-expert-templates-for-adobe-photoshop-3-0.html</loc>
+        <loc>https://northpark.cn/soft/psd-expert-templates-for-0.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/barcode-1-8.html</loc>
@@ -12666,7 +11428,7 @@
         <loc>https://northpark.cn/soft/ssh-config-editor-1-10.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/noteburner-itunes-drm-audio-converter-2-3-9.html</loc>
+        <loc>https://northpark.cn/soft/noteburner-itunes-drm-audio-9.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/videosolo-bd-dvd-ripper-1-0-6.html</loc>
@@ -13131,7 +11893,7 @@
         <loc>https://northpark.cn/soft/blu-ray-player-pro-3-3-1.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/alien-skin-exposure-x3-bundle-for-mac-3-5-5-127.html</loc>
+        <loc>https://northpark.cn/soft/alien-skin-exposure-x3-bundle-127.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/editrocket-4-5-0.html</loc>
@@ -13989,9 +12751,7 @@
         <loc>https://northpark.cn/soft/inotepad-pro-4-0.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/ishowu-instant-advanced-for-mac-1-2-7-%e7%a0%b4%e8%a7%a3%e7%89%88-%e5%ae%9e%e6%97%b6%e5%b1%8f%e5%b9%95%e5%bd%95%e5%88%b6%e8%bd%af%e4%bb%b6.html
-        </loc>
+        <loc>https://northpark.cn/soft/ishowu-instant-advanced-for-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/dxo-photolab-elite-edition-1-2-0-75.html</loc>
@@ -14717,7 +13477,7 @@
         <loc>https://northpark.cn/soft/pixel-film-studios-protube-outro-1-0.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/marvelous-designer-7-personal-for-3-2-123.html</loc>
+        <loc>https://northpark.cn/soft/marvelous-designer-7-personal-123.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/navicat-for-sql-server-12-0-25.html</loc>
@@ -14987,16 +13747,13 @@
         <loc>https://northpark.cn/soft/applemacsoft-drm-converter-5-5-15.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/art-files-3-0.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/curio-professional-12.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/ibm-spss-statistics-25-hf002-if010.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/bechstein-digital-c-bechstein-digital-grand-1-1-0.html</loc>
+        <loc>https://northpark.cn/soft/bechstein-digital-c-bechstein-0.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/civilization-vi-rise-and-fall.html</loc>
@@ -15167,7 +13924,7 @@
         <loc>https://northpark.cn/soft/fontexplorer-x-pro-6-0-5.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/the-sims-4-my-first-pet-stuff-1-42-30-1020.html</loc>
+        <loc>https://northpark.cn/soft/the-sims-4-my-first-1020.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/fsnotes-1-5-6.html</loc>
@@ -15341,37 +14098,19 @@
         <loc>https://northpark.cn/soft/downie-3-2-9-979.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/wifi-explorer-pro-1-5-2-350.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/ithoughtsx-5-7-932.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/tuneskit-for-mac-3-5-3-1808-118.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/alarm-clock-pro-10-3-1-080.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/lingon-x-6-0-381.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/audiolava-2-0-2-945.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/downie-3-2-9-315.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/airradar-4-0-2-209.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/ithoughtsx-5-7-208.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/bootstrap-studio-4-1-2-712.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/alarm-clock-pro-10-3-1-569.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/busycal-3-3-3-728.html</loc>
@@ -15380,43 +14119,16 @@
         <loc>https://northpark.cn/soft/versionsmanager-1-1-6-573.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/audiolava-2-0-2-299.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/xscope-4-3-1-897.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/airradar-4-0-2-417.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/tidy-up-for-5-0-4-505.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/bootstrap-studio-4-1-2-705.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/things-3-5-844.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/busycal-3-3-3-743.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/snapndrag-pro-4-2-8-203.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/versionsmanager-1-1-6-404.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/xscope-4-3-1-609.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/tidy-up-for-5-0-4-231.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/things-3-5-070.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/snapndrag-pro-4-2-8-010.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/handbrake-1-1-0.html</loc>
@@ -15614,7 +14326,7 @@
         <loc>https://northpark.cn/soft/omnigraffle-pro-7-5.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/bigasoft-video-downloader-pro-3-15-1-6480.html</loc>
+        <loc>https://northpark.cn/soft/bigasoft-video-downloader-pro-6480.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/paintcode-3-3-3.html</loc>
@@ -15716,7 +14428,7 @@
         <loc>https://northpark.cn/soft/autodesk-maya-lt-2018.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/marvelous-designer-7-personal-3-2-96-27585.html</loc>
+        <loc>https://northpark.cn/soft/marvelous-designer-7-personal-27585.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/parallels-desktop-13-1-1-43120.html</loc>
@@ -15833,9 +14545,7 @@
         <loc>https://northpark.cn/soft/copyem-paste-2-4-1.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/checkbook-pro-for-mac-2-6-0-%e5%ba%8f%e5%8f%b7%e7%89%88-%e4%b8%aa%e4%ba%ba%e7%90%86%e8%b4%a2%e7%ae%a1%e7%90%86%e5%b7%a5%e5%85%b7.html
-        </loc>
+        <loc>https://northpark.cn/soft/checkbook-pro-for-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/dropdmg-3-5-1.html</loc>
@@ -15967,7 +14677,7 @@
         <loc>https://northpark.cn/soft/trashme-2-1-17.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/remote-desktop-manager-enterprise-4-5-3-0.html</loc>
+        <loc>https://northpark.cn/soft/remote-desktop-manager-enterprise-0.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/boxy-2-0-1.html</loc>
@@ -16165,7 +14875,7 @@
         <loc>https://northpark.cn/soft/deliveries-3-0-6.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/coolorus-for-fl-and-photoshop-2-0-1-2-5-7.html</loc>
+        <loc>https://northpark.cn/soft/coolorus-for-fl-and-photoshop-7.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/block-advertising-on-internet-1-6.html</loc>
@@ -16477,7 +15187,7 @@
         <loc>https://northpark.cn/soft/screens-vnc-4-3-2.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/remote-desktop-manager-enterprise-4-6-0-0.html</loc>
+        <loc>https://northpark.cn/soft/remote-desktop-manager-enterprise-0.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/tecplot-360-ex-2017-r3.html</loc>
@@ -16795,9 +15505,7 @@
         <loc>https://northpark.cn/soft/pixelmator-pro-1-0.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/doubletake-for-mac-2-4-9-%e5%ba%8f%e5%8f%b7%e7%89%88-%e4%bc%98%e7%a7%80%e7%9a%84%e5%85%a8%e6%99%af%e7%85%a7%e7%89%87%e6%8b%bc%e6%8e%a5%e8%bd%af%e4%bb%b6.html
-        </loc>
+        <loc>https://northpark.cn/soft/doubletake-for-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/a-better-finder-attributes-6-07.html</loc>
@@ -17436,7 +16144,7 @@
         <loc>https://northpark.cn/soft/musiclab-realguitar-5-0-1-7367.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/eset-cyber%e2%80%8b%e2%80%8b-security-pro-6-5-600-1.html</loc>
+        <loc>https://northpark.cn/soft/eset-cybere2808be2808b-security-pro-1.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/fusion-studio-9-0-2.html</loc>
@@ -17967,9 +16675,7 @@
         <loc>https://northpark.cn/soft/sigpro-2-1-2.html</loc>
     </url>
     <url>
-        <loc>
-            https://northpark.cn/soft/steermouse-5-for-mac-5-2-1-%e6%bf%80%e6%b4%bb%e7%89%88-%e5%bc%ba%e5%a4%a7%e7%9a%84%e9%bc%a0%e6%a0%87%e9%a9%b1%e5%8a%a8%e5%a2%9e%e5%bc%ba%e5%b7%a5%e5%85%b7.html
-        </loc>
+        <loc>https://northpark.cn/soft/steermouse-5-for-mac.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/screens-vnc-4-4.html</loc>
@@ -18110,7 +16816,7 @@
         <loc>https://northpark.cn/soft/iwatermark-pro-2-0-14.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/eset-cyber%e2%80%8b%e2%80%8b-security-pro-6-5-600-3.html</loc>
+        <loc>https://northpark.cn/soft/eset-cybere2808be2808b-security-pro-3.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/lyn-1-9-6.html</loc>
@@ -18329,7 +17035,7 @@
         <loc>https://northpark.cn/soft/tomates-time-management-7-2-3.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/symantec-endpoint-protection-14-0-3876-1100.html</loc>
+        <loc>https://northpark.cn/soft/symantec-endpoint-protection-1100.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/tripmode-2-1-1.html</loc>
@@ -18393,9 +17099,6 @@
     </url>
     <url>
         <loc>https://northpark.cn/soft/contacts-journal-crm-1-4-4.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/1password-6-8-6-2.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/tuxera-ntfs-2018.html</loc>
@@ -18995,7 +17698,7 @@
         <loc>https://northpark.cn/soft/videoboxpro-1-3-0.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/liquivid-video-exposure-and-effects-1-0-6.html</loc>
+        <loc>https://northpark.cn/soft/liquivid-video-exposure-6.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/tuneskit-3-5-3.html</loc>
@@ -19149,9 +17852,6 @@
     </url>
     <url>
         <loc>https://northpark.cn/soft/pdf-to-word-ocr-6-0.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/eyetv-3-6-9-2.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/internet-speed-test-2-7.html</loc>
@@ -22778,9 +21478,6 @@
         <loc>https://northpark.cn/soft/post-16899.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/post-13742.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/post-13747.html</loc>
     </url>
     <url>
@@ -24887,9 +23584,6 @@
         <loc>https://northpark.cn/soft/post-10812.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/post-10778.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/post-12177.html</loc>
     </url>
     <url>
@@ -25338,9 +24032,6 @@
     </url>
     <url>
         <loc>https://northpark.cn/soft/post-10185.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/post-8654.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/post-8659.html</loc>
@@ -26304,9 +24995,6 @@
     </url>
     <url>
         <loc>https://northpark.cn/soft/post-3292.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/post-3298.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/post-3306.html</loc>
@@ -29057,9 +27745,6 @@
         <loc>https://northpark.cn/soft/post-8116.html</loc>
     </url>
     <url>
-        <loc>https://northpark.cn/soft/post-8707.html</loc>
-    </url>
-    <url>
         <loc>https://northpark.cn/soft/post-8700.html</loc>
     </url>
     <url>
@@ -29139,9 +27824,6 @@
     </url>
     <url>
         <loc>https://northpark.cn/soft/post-8276.html</loc>
-    </url>
-    <url>
-        <loc>https://northpark.cn/soft/post-8280.html</loc>
     </url>
     <url>
         <loc>https://northpark.cn/soft/post-8284.html</loc>

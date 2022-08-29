@@ -15,7 +15,7 @@ import java.io.IOException;
 public class pushData {
     public static void main(String[] args) {
 
-        for (int i = 1; i <3 ; i++) {
+        for (int i = 1; i <2 ; i++) {
             String path = "C:\\Users\\Bruce\\Documents\\page"+i+".txt";
             try {
                 String jsonData = FileUtils.readFileToString(new File(path));
