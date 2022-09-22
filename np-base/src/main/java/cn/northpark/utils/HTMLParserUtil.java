@@ -867,6 +867,12 @@ public class HTMLParserUtil {
                         if (date.contains("天前")) {
                             String N = date.replace("天前", "");
                             date = TimeUtils.getDayAfterOrBeforeN(TimeUtils.nowTime(), -Integer.parseInt(N));
+                        }else if(date.contains("周前")){
+                            String dateCut = date.substring(date.indexOf("(")+1,date.indexOf(")"));
+                            date= TimeUtils.getYear("2022")+"-"+dateCut;
+                        }else if(date.contains("月前")){
+                            String dateCut = date.substring(date.indexOf("(")+1,date.indexOf(")"));
+                            date= TimeUtils.getYear("2022")+"-"+dateCut;
                         }
 
                     } catch (Exception e2) {
