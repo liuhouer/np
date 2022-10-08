@@ -13,7 +13,7 @@ import java.util.Map;
  * @date 2022年08月25日 13:26:51
  */
 public class HandleRetCode {
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
 
         List<Map<String, Object>> list = NPQueryRunner.query("select * from bc_soft where LENGTH(ret_code) >40 order by id desc",new MapListHandler());
 
@@ -42,6 +42,29 @@ public class HandleRetCode {
             System.err.println("=========================");
 
             //NPQueryRunner.update("update bc_soft set ret_code =? where id = ?",sb.toString(),id);
+        }
+
+    }
+
+
+    public static void main(String[] args) {
+
+        List<Map<String, Object>> list = NPQueryRunner.query("select id,ret_code from bc_soft where ret_code not like 'post-%' order by id desc",new MapListHandler());
+
+
+        for (Map<String, Object> map : list) {
+            String id = map.get("id").toString();
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.append("post-");
+
+            sb.append(id);
+
+            System.err.println(sb);
+            System.err.println("=========================");
+
+            NPQueryRunner.update("update bc_soft set ret_code =? where id = ?",sb.toString(),id);
         }
 
     }

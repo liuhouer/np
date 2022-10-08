@@ -885,12 +885,12 @@ public class HTMLParserUtil {
                     date = date.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "");
                     log.info("date====================" + date);
 
-                    try {
-                        date = TimeUtils.pointToSimle(date);
-                    } catch (ParseException ex) {
-                        date = TimeUtils.nowdate();
-
-                    }
+//                    try {
+//                        date = TimeUtils.pointToSimle(date);
+//                    } catch (ParseException ex) {
+//                        date = TimeUtils.nowdate();
+//
+//                    }
                     //月
                     String month = date.substring(0, date.lastIndexOf("-"));
                     log.info("month====================" + month);

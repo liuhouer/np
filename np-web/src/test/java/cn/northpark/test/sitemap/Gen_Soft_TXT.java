@@ -1,8 +1,8 @@
 
 package cn.northpark.test.sitemap;
 
-import cn.northpark.test.BaseTest;
 import cn.northpark.utils.NPQueryRunner;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.io.FileUtils;
 
@@ -17,7 +17,8 @@ import java.util.Map;
  * <p>
  * 定时爬取今日情圣文章
  */
-public class Gen_Soft_Sitemap extends BaseTest {
+@Slf4j
+public class Gen_Soft_TXT {
 
 
 
@@ -29,16 +30,15 @@ public class Gen_Soft_Sitemap extends BaseTest {
         StringBuilder sb = new StringBuilder();
         List<Map<String, Object>> list = NPQueryRunner.query(" select ret_code from bc_soft where id > " + lastNum + " order by id desc ",new MapListHandler());
         for (Map<String, Object> map : list) {
+            log.info("map,==={}",map);
             String ret_code = (String) map.get("ret_code");
-            sb.append("<url>");
-            sb.append("<loc>https://northpark.cn/soft/");
-            sb.append(ret_code + ".html</loc>");
-            sb.append("</url>");
+            sb.append("https://northpark.cn/soft/");
+            sb.append(ret_code + ".html");
             sb.append("\r");
         }
 
         try {
-            FileUtils.writeStringToFile(new File("C:\\Users\\Bruce\\Downloads\\soft.xml"), sb.toString());
+            FileUtils.writeStringToFile(new File("C:\\Users\\Bruce\\Downloads\\soft.txt"), sb.toString());
         } catch (Exception e) {
 
             e.printStackTrace();
