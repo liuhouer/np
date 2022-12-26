@@ -27,24 +27,23 @@ public class Gen_Soft_Sitemap extends BaseTest {
 
         //添加新url的sitemap
         StringBuilder sb = new StringBuilder();
-        List<Map<String, Object>> list = NPQueryRunner.query(" select ret_code from bc_soft where id > " + lastNum + " order by id desc ",new MapListHandler());
+        List<Map<String, Object>> list = NPQueryRunner.query(" select id from bc_soft where id > " + lastNum + " order by id desc ",new MapListHandler());
         for (Map<String, Object> map : list) {
-            String ret_code = (String) map.get("ret_code");
+            String id = (String) map.get("id").toString();
             sb.append("<url>");
-            sb.append("<loc>https://northpark.cn/soft/");
-            sb.append(ret_code + ".html</loc>");
+            sb.append("<loc>https://northpark.cn/soft/post-");
+            sb.append(id + ".html</loc>");
             sb.append("</url>");
-            sb.append("\r");
         }
 
         try {
-            FileUtils.writeStringToFile(new File("C:\\Users\\Bruce\\Downloads\\soft.xml"), sb.toString());
+            FileUtils.writeStringToFile(new File("C:\\Users\\Bruce\\Documents\\soft.xml"), sb.toString());
         } catch (Exception e) {
 
             e.printStackTrace();
         }finally {
             try {
-                Desktop.getDesktop().open(new File("C:\\Users\\Bruce\\Downloads"));
+                Desktop.getDesktop().open(new File("C:\\Users\\Bruce\\Documents"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
