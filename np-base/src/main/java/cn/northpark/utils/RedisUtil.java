@@ -490,6 +490,51 @@ public class RedisUtil implements RedisInterface{
         return null;
     }
 
+
+    /**
+     * hash get
+     * @param key
+     * @param field
+     * @return
+     */
+    @Override
+    public String hGet(String key, String  field) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+
+            return jedis.hget(key,field);
+        } catch (Exception e) {
+            log.error("hGet 出错", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
+
+    /**
+     * hash set
+     * @param key
+     * @param field
+     * @param value
+     * @return
+     */
+    @Override
+    public Long hSet(String key, String  field ,String value) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+
+            return jedis.hset(key,field,value);
+        } catch (Exception e) {
+            log.error("hSet 出错", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
     /**
      * 删除当前选中的DB
      */

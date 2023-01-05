@@ -81,4 +81,9 @@ public interface RedisInterface {
 
     Long zCard(String key);//获取条数
     //===sorted set[TopN]类型===
+
+    //=== hash ===
+    String hGet(String key, String  field) ;
+    Long hSet(String key, String  field ,String value);
+    //=== hash ===
 }

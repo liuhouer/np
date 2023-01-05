@@ -242,6 +242,7 @@ public class AddressUtils {
     /**
      * 获取IP + 地址字符串
      *
+     * @date 2023年1月5日 解决ip地区获取超过数量限制的问题
      * @param beat
      * @return
      */
@@ -249,16 +250,29 @@ public class AddressUtils {
         StringBuilder sb = new StringBuilder();
         instance = AddressUtils.getInstance();
         String ip = instance.getIpAddr(beat);
-        sb.append("【ip:").append(ip).append("】").append("【");
-        try {
-            String addresses = instance.getAddresses("ip=" + ip + "&key=" + ACCESS_KEY + "&type=4", "utf-8");
-            sb.append("address:").append(addresses);
-            sb.append("】");
-        } catch (UnsupportedEncodingException e) {
 
-            e.printStackTrace();
+        //从redis获取
+        String ipRegion = RedisUtil.getInstance().hGet("ipRegion", ip);
+
+        if(StringUtils.isNotBlank(ipRegion)){
+            return ipRegion;
+        }else{
+            sb.append("【ip:").append(ip).append("】").append("【");
+            try {
+                String addresses = instance.getAddresses("ip=" + ip + "&key=" + ACCESS_KEY + "&type=4", "utf-8");
+                sb.append("address:").append(addresses);
+                sb.append("】");
+            } catch (UnsupportedEncodingException e) {
+
+                e.printStackTrace();
+            }
+
+            //保存到redis
+            RedisUtil.getInstance().hSet("ipRegion",ip,sb.toString());
+            return sb.toString();
         }
-        return sb.toString();
+
+
     }
 
     //    // 测试
