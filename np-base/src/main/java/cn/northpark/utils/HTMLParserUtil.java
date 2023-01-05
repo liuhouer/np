@@ -2082,7 +2082,13 @@ public class HTMLParserUtil {
 
             String url = rettype + index + ".html";
 
-            final String dataResult = HttpGetUtils.getDataResult(url);
+            System.err.println("爬取地址+++++"+url);
+
+            String dataResult = HttpGetUtils.getDataByHtmlUnit(url);
+
+            while (StringUtils.isBlank(dataResult)) {
+                dataResult = HttpGetUtils.getDataByHtmlUnit(url);
+            }
 
             System.out.println(dataResult);
             Document doc = Jsoup.parse(dataResult, url);

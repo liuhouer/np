@@ -23,7 +23,7 @@ public class ret_Soft_Multi {
 
         /*构造页码*/
         List<Integer> todo_list = new ArrayList<>();
-        for (int i = 4; i < 200; i++) {
+        for (int i = 31; i < 40; i++) {
             todo_list.add(i);
         }
 

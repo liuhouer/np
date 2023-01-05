@@ -20,7 +20,7 @@ public class retRestSoft {
 
     public static void main(String[] args) {
         List<Map<String, String>> collect = new ArrayList<>();
-        for (int k = 1; k <= 20; k++) {
+        for (int k = 33; k <= 40; k++) {
 
             try {
 
