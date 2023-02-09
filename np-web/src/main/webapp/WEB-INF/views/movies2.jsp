@@ -28,6 +28,12 @@
     <meta name="description"
           content="NorthPark影视窝包含最新的影视剧资源,每天自动更新哦">
 
+    <style>
+        hr{
+            border: 1px solid #dedede
+        }
+    </style>
+
 </head>
 
 <body>
@@ -58,12 +64,16 @@
                         <div class="row   padding20">
                             <input class="btn tag-node " oid="hot" type="button" value="热门排序">
                             <input class="btn tag-node " oid="latest" type="button" value="上新排序">
+                            <input class="btn tag-node " type="button" value="影视网盘"><span class="badge green-badge">new</span>
                         </div>
 
 
                     </div>
 
-                    <c:forEach items="${list }" var="s" varStatus="ss">
+                    <c:if test="${not empty list}">
+
+                        <!-- 如果list不为空，显示以下内容 -->
+                        <c:forEach items="${list }" var="s" varStatus="ss">
 
                         <div class="col-sm-12">
                             <div class="clearfix bg-white margin-b10 padding20 ">
@@ -127,9 +137,52 @@
                             </div>
                         </div>
                     </c:forEach>
-                    <c:if test="${pagein!='no' }">
-                        <%@ include file="/WEB-INF/views/page/common/fenye.jsp" %>
+
+
+                        <c:if test="${pagein!='no' }">
+                            <%@ include file="/WEB-INF/views/page/common/fenye.jsp" %>
+                        </c:if>
+
+
+                        <!-- 如果list不为空，显示更多内容 -->
+                        <div class="col-sm-12">
+                            <hr>
+                            NorthPark影视网盘可以搜索到更多4K在线+阿里网盘高速下载影片，快去试试吧
+                            <p>
+                            <a class="btn btn-warning margin-t10"
+                               target="_blank"
+                               id="J_wp_btn2">
+                                NorthPark影视网盘
+                            </a>
+                            </p>
+
+                        </div>
+
                     </c:if>
+                    <c:if test="${empty list}">
+
+                        <!-- 如果list为空，显示以下内容 -->
+                        <div class="col-sm-12">
+                            <hr>
+                            找不到相关影片，以下内容来自NorthPark影视网盘搜索，可以搜索到更多4K在线+阿里网盘高速下载影片，快去试试吧
+                            <p>
+
+                                <a class="btn btn-warning margin-t10"
+                                   target="_blank"
+                                   id="J_wp_btn">
+                                    NorthPark影视网盘
+                                </a>
+                            </p>
+
+
+
+                        </div>
+
+                    </c:if>
+
+
+
+
                 </div>
                 <div class="col-md-4 ">
 
@@ -223,7 +276,15 @@
 
             $(this).click(function () {
                 var oid = $(this).attr("oid");
-                window.location.href = "/movies/page/1?orderBy=" + oid;
+                var val = $(this).val();
+                if(oid){
+
+                    window.location.href = "/movies/page/1?orderBy=" + oid;
+                }
+
+                if(val =='影视网盘'){
+                    window.location.href = "http://alist.northpark.cn/" ;
+                }
             })
         });
 
@@ -250,6 +311,24 @@
                 $("#J_ser_btn").click();
             }
         });
+
+
+        var JWpBtnObj = $("#J_wp_btn").text();
+        if(JWpBtnObj){
+            var keyword = $("#keyword").val();
+            if (keyword) {
+                $("#J_wp_btn").attr("href","http://alist.northpark.cn/search?box=" + keyword+"&url=");
+                window.open("http://alist.northpark.cn/search?box=" + keyword+"&url=","_blank");
+            }
+        }
+
+        var JWpBtnObj2 = $("#J_wp_btn2").text();
+        if(JWpBtnObj2){
+            var keyword = $("#keyword").val();
+            if (keyword) {
+                $("#J_wp_btn2").attr("href","http://alist.northpark.cn/search?box=" + keyword+"&url=");
+            }
+        }
     })
 
     /*  ##set query param */
