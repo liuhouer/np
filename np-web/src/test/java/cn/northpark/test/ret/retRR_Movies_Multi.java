@@ -6,8 +6,11 @@ import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.HttpGetUtils;
 import cn.northpark.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.client.ClientProtocolException;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +27,7 @@ public class retRR_Movies_Multi {
 
         /*构造页码*/
         List<Integer> todo_list = new ArrayList<>();
-        for (int i = 1; i < 45; i++) {
+        for (int i = 1; i < 50; i++) {
             todo_list.add(i);
         }
 
@@ -75,16 +78,24 @@ public class retRR_Movies_Multi {
 
 
         log.info("爬取的数据----》,{}", jsonData);
-        String url = "https://northpark.cn/ret/movies/data";
+
+
         try {
-            HttpGetUtils.sendPostJsonData(url, jsonData);
-        } catch (ClientProtocolException e) {
-
-            e.printStackTrace();
-        } catch (IOException e) {
-
+            writeDatas(taskNum, jsonData);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
+//        String url = "https://northpark.cn/ret/movies/data";
+//        try {
+//            HttpGetUtils.sendPostJsonData(url, jsonData);
+//        } catch (ClientProtocolException e) {
+//
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//
+//            e.printStackTrace();
+//        }
 
         try {
             Thread.sleep(2000);
@@ -96,6 +107,13 @@ public class retRR_Movies_Multi {
         //====================执行逻辑====================================
 
         System.out.println("task " + taskNum + "执行完毕");
+    }
+
+    private static void writeDatas(int taskNum, String jsonData) throws Exception {
+        FileOutputStream outputStream = new FileOutputStream(new File("C:\\Users\\Bruce\\Documents\\MVpage"+ taskNum +".txt"));
+        IOUtils.write(jsonData,outputStream);
+
+        outputStream.close();
     }
 
 }

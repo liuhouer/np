@@ -10,6 +10,7 @@ import cn.northpark.threadpool.MultiThread;
 import cn.northpark.utils.HTMLParserUtil;
 import cn.northpark.utils.IDUtils;
 import cn.northpark.utils.PinyinUtil;
+import cn.northpark.utils.SpringContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,8 +77,7 @@ public class RetRestAction {
 
         MultiThread<Map<String, String>,Integer > multiThread = new MultiThread<Map<String, String>,Integer>(list) {
 
-            @Autowired
-            private MoviesManager moviesManager;
+            private transient MoviesManager moviesManager =  (MoviesManager)SpringContextUtils.getBean("MoviesManager");
 
             @Override
             public Integer outExecute(int currentThread, Map<String, String> map) {
@@ -115,6 +115,7 @@ public class RetRestAction {
                         this.moviesManager.addMovies(model);
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 //逻辑处理end==========================================================
 
@@ -138,8 +139,7 @@ public class RetRestAction {
 
         MultiThread<Map<String, String>,Integer > multiThread = new MultiThread<Map<String, String>,Integer>(list) {
 
-            @Autowired
-            SoftManager softManager;
+            private transient SoftManager softManager =  (SoftManager)SpringContextUtils.getBean("SoftManager");
 
             @Override
             public Integer outExecute(int currentThread, Map<String, String> map) {

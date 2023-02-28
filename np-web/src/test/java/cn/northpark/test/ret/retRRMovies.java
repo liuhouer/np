@@ -22,7 +22,7 @@ public class retRRMovies {
     public static void main(String[] args) {
         List<Map<String, String>> collect = new ArrayList<>();
         //1680
-        for (int k = 1; k <= 10; k++) {
+        for (int k = 1; k <= 45; k++) {
 
             try {
 
