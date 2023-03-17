@@ -61,13 +61,13 @@
 
     <!-- ================================================================================== -->
 
-    <div class="container">
-        <div class="clearfix center logbox gray-text">
-            <h1>
-                northpark center
-            </h1>
-        </div>
-    </div>
+<%--    <div class="container">--%>
+<%--        <div class="clearfix center logbox gray-text">--%>
+<%--            <h1>--%>
+<%--                northpark center--%>
+<%--            </h1>--%>
+<%--        </div>--%>
+<%--    </div>--%>
     <div class="container">
         <div class="clearfix center logbox gray-text">
             <h2>
