@@ -452,7 +452,7 @@ public class KnowledgeAction {
 
 
 		} catch (Exception e) {
-			log.error("movie action------>", e);
+			log.error("learning action------>", e);
 			rs = "ex";
 		}
 		return ResultGenerator.genSuccessResult(rs);
@@ -480,7 +480,7 @@ public class KnowledgeAction {
 			}
 
 		} catch (Exception e) {
-			log.error("movies action------>", e);
+			log.error("learnings action------>", e);
 			rs = "ex";
 		}
 		return ResultGenerator.genSuccessResult(rs);
