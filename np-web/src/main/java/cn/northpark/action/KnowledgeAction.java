@@ -143,7 +143,7 @@ public class KnowledgeAction {
 		map.addAttribute("pageView", pageView);
 		map.addAttribute("list", result_list);
 		map.put("condition", condition);
-		map.addAttribute("actionUrl","/learning/list");
+		map.addAttribute("actionUrl","/learning");
 
 		//获取标签模块
 		getTags(map, request);
@@ -232,7 +232,7 @@ public class KnowledgeAction {
 		map.addAttribute("pageView", pageView);
 		map.addAttribute("list", result_list);
 		map.put("condition", condition);
-		map.addAttribute("actionUrl","/learning/list");
+		map.addAttribute("actionUrl","/learning");
 
 		//获取标签模块
 		getTags(map, request);
