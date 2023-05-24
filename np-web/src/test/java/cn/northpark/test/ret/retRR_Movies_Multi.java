@@ -27,7 +27,7 @@ public class retRR_Movies_Multi {
 
         /*构造页码*/
         List<Integer> todo_list = new ArrayList<>();
-        for (int i = 1; i < 50; i++) {
+        for (int i = 1; i < 8; i++) {
             todo_list.add(i);
         }
 

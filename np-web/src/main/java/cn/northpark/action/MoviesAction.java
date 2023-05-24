@@ -704,7 +704,7 @@ public class MoviesAction {
             //sql注入处理
             id = WAQ.forSQL().escapeSql(id);
             Movies  model = moviesManager.findMovies(Integer.valueOf(id));
-            if(model!=null) {
+            if(model!=null && !StringUtils.equals("N",model.getDisplayed())) {
                 //页面描述
             	if(StringUtils.isNotEmpty(model.getMovie_desc())) map.put("movie_desc", Jsoup.parse(model.getMovie_desc()).text());
             	map.addAttribute("model", model);
