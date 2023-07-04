@@ -54,7 +54,7 @@ public class MusicShuffler {
 
     private static boolean isMusicFile(File file) {
         String name = file.getName().toLowerCase();
-        return name.endsWith(".mp3") || name.endsWith(".wav") || name.endsWith(".flac")||  name.endsWith(".wma");
+        return name.endsWith(".mp3") || name.endsWith(".wav") || name.endsWith(".flac")||  name.endsWith(".wma")|| name.endsWith(".m4a");
     }
 
     public static void main(String[] args) {
