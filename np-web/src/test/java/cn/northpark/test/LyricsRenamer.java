@@ -39,9 +39,8 @@ public class LyricsRenamer {
         for (File file : files) {
             if (isLyricsFile(file)) {
                 String lyricsFileName = file.getName();
-                String musicFileName = findMatchingMusicFileName(lyricsFileName, musicFileNames);
-                if (musicFileName != null) {
-                    String newLyricsFileName = musicFileName.substring(0, 3) + "_" + musicFileName.substring(4);
+                String newLyricsFileName = findMatchingMusicFileName(lyricsFileName, musicFileNames);
+                if (newLyricsFileName != null) {
                     File newLyricsFile = new File(directoryPath, newLyricsFileName);
                     if (file.renameTo(newLyricsFile)) {
                         System.out.println("Renamed " + lyricsFileName + " to " + newLyricsFileName);
@@ -66,16 +65,16 @@ public class LyricsRenamer {
     }
 
     private static String findMatchingMusicFileName(String lyricsFileName, List<String> musicFileNames) {
-        String lyricsPrefix = lyricsFileName.substring(0, 3);
-        String lyricsName = lyricsFileName.substring(4,lyricsFileName.length()-4);
+//        String lyricsPrefix = lyricsFileName.substring(0, 3);
+        String lyricsName = lyricsFileName.substring(6,lyricsFileName.length()-4);
         for (String musicFileName : musicFileNames) {
-            String musicPrefix = musicFileName.substring(0, 3);
-            String musicName = musicFileName.substring(4,musicFileName.length()-4);
-            if (lyricsName.equals(musicName)) {
+            String musicPrefix = musicFileName.substring(0, 4);
+            String musicName = musicFileName.substring(5,musicFileName.length()-4);
+            if (musicName.contains(lyricsName)) {
                 // Extract the original number from the music file name
-                int musicNumber = Integer.parseInt(musicFileName.substring(0, 3));
+                int musicNumber = Integer.parseInt(musicPrefix);
                 // Use the original number to construct the new lyrics file name
-                String newLyricsFileName = String.format("%03d_", musicNumber) + lyricsFileName.substring(4);
+                String newLyricsFileName = String.format("%04d_", musicNumber) + musicName+".lrc";
                 return newLyricsFileName;
             }
         }
@@ -83,6 +82,6 @@ public class LyricsRenamer {
     }
 
     public static void main(String[] args) {
-        renameLyrics("C:\\Users\\Bruce\\Music\\音乐");
+        renameLyrics("C:\\Users\\Bruce\\Music\\1000");
     }
 }

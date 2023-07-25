@@ -41,7 +41,7 @@ public class MusicShuffler {
         Collections.shuffle(musicFiles, new Random());
 
         // Rename the music files with random numbers as prefixes
-        int counter = 1;
+        int counter = 486;
         for (File file : musicFiles) {
             String newName = String.format("%03d_", counter) + file.getName();
             File newFile = new File(directoryPath, newName);
@@ -58,6 +58,6 @@ public class MusicShuffler {
     }
 
     public static void main(String[] args) {
-        shuffleMusicFiles("C:\\Users\\Bruce\\Music\\音乐");
+        shuffleMusicFiles("C:\\Users\\Bruce\\Music\\英语榜单");
     }
 }
