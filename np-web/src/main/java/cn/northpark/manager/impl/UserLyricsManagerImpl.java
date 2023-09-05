@@ -99,7 +99,7 @@ public class UserLyricsManagerImpl implements UserLyricsManager {
 
                 + "from bc_lyrics a join bc_user_lyrics b on a.id = b.lyricsid join bc_user c on c.id = b.userid ";
 
-        sql += " order by rand() ";
+        sql += " order by a.zan desc ";
         return sql;
     }
 

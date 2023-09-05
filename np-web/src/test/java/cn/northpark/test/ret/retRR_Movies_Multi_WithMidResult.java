@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
-public class retRR_Movies_Multi {
+public class retRR_Movies_Multi_WithMidResult {
 
 
     //线程池执行
@@ -24,7 +24,7 @@ public class retRR_Movies_Multi {
 
         /*构造页码*/
         List<Integer> todo_list = new ArrayList<>();
-        for (int i = 1; i < 30; i++) {
+        for (int i = 1; i < 17; i++) {
             todo_list.add(i);
         }
 
