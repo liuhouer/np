@@ -2,7 +2,9 @@ package cn.northpark.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -13,27 +15,21 @@ import java.util.Random;
 
 @Slf4j
 public class IDUtils {
-	
-	private IDUtils() {
-		
-	}
 
-	
-	private volatile static IDUtils instance = null;
-	
-	/**
-	 *  双重同步锁模式【volatile出坑】
-	 	在对象声明时使用volatile关键字修饰，阻止CPU的指令重排。
-	 */
+    private IDUtils() {
+
+    }
+
+    private static class InstanceHolder {
+        private static final IDUtils INSTANCE = new IDUtils();
+    }
+
+    /**
+     * 尽管在 Java 5+ 中使用 volatile 关键字可以防止指令重排，但这种模式存在一些问题。更好的方法是使用静态内部类实现单例模式。
+     * @return
+     */
 	public static IDUtils getInstance() {
-		if(instance == null) {
-			synchronized (IDUtils.class) {
-				if(instance == null) {
-					instance = new IDUtils();
-				}
-			}
-		}
-		return instance;
+		return InstanceHolder.INSTANCE;
 	}
 	
 	private static final String ALL_CHAR = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
@@ -173,12 +169,35 @@ public class IDUtils {
         return sb.toString(); 
     }
 
+    /**
+     * 生成一个随机不重复的情景id 字符串
+     *
+     * @return
+     */
+    public String getUniqueSceneStr() {
+        return String.valueOf(IDUtils.getInstance().getUniqueSceneid());
+    }
+
+
+    /**
+     * 生成一个结合年月日时分秒的单号
+     * @return
+     */
+    public String generateOrderNumber() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String timestamp = dateFormat.format(new Date());
+
+        Random random = new Random();
+        String randomString = String.format("%04d", random.nextInt(10000));
+
+        return timestamp + randomString;
+    }
     
     
     public static void main(String[] args) {
     	for (int i = 0; i < 10; i++) {
 			
-    		log.info("{}",IDUtils.getInstance().generateNumberString(3));
+    		log.info("{}",IDUtils.getInstance().generateOrderNumber());
 		}
 	}
 }
