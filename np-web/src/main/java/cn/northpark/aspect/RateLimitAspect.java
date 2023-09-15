@@ -1,9 +1,7 @@
 package cn.northpark.aspect;
 
-import cn.northpark.annotation.RateLimit;
 import cn.northpark.exception.ResultGenerator;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.google.common.util.concurrent.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
