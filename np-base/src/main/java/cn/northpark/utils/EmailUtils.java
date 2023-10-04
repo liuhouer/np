@@ -42,8 +42,6 @@ public class EmailUtils {
      * 多谢注册northpark
      *
      * @param toEmail
-     * @param usrId
-     * @param authCode
      */
     public  void ThanksReg(String toEmail) {
         try {
@@ -103,9 +101,7 @@ public class EmailUtils {
     /**
      * 资源失效反馈>>邮件提醒
      *
-     * @param toEmail
-     * @param usrId
-     * @param authCode
+     * @param msg
      */
     public void resFeedBack(String msg) {
         try {
@@ -230,6 +226,52 @@ public class EmailUtils {
 
     }
 
+    /**
+     * 发送自定义邮件>>
+     * @param emailHost
+     * @param title
+     * @param msg
+     */
+    public String sendEMAIL(String emailHost,String title, String msg) {
+        try {
+
+            //smtp.qq.com || smtp.163.com
+            String host = "smtp.163.com";
+            String myEmail = "qhdsoftware@163.com";
+            String myPassword = EnDecryptUtils.diyDecrypt("emhhbmd5YW5nMjI2MDAwMDAw");
+            // 接收者邮箱
+            String to = emailHost;
+            String subject = title;
+
+
+            HtmlEmail email = new HtmlEmail();
+            email.setHostName(host);
+            email.setAuthenticator(new DefaultAuthenticator(myEmail, myPassword));
+            email.setSSLOnConnect(true);
+            email.setSmtpPort(465);
+            email.setFrom(myEmail, "northpark官方");// 我方 邮件+我方显示名字
+            email.setSubject(subject);// 标题
+            email.addTo(to, "NorthPark站长");           //对方 邮件+对方名字
+            // 注意，发送内容时，后面这段会让中文正常显示，否则乱码
+            email.setCharset("utf-8");
+            // 注意，发送内容时，后面这段会让中文正常显示，否则乱码
+            email.setCharset("utf-8");
+            email.setHtmlMsg(msg); /* 邮件内容 */
+            // 添加附件对象
+            // email.attach(attachment);
+            // 发送
+            log.info("邮件发送成功");
+            return email.send();
+
+        } catch (Exception e) {
+
+            log.error("邮件发送失败");
+            log.error("EmailUtils------->", e);
+            ;
+            return "send error";
+        }
+
+    }
 
     /**
      * 正则验证邮箱格式

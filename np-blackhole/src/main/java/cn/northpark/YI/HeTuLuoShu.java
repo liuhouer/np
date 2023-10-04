@@ -1,6 +1,7 @@
 package cn.northpark.YI;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HeTuLuoShu {
@@ -43,6 +44,25 @@ public class HeTuLuoShu {
         }
 
         System.out.println("河图洛书数字：" + result.toString());
+    }
+
+
+    // 获取河图洛书对应的编号
+    public static String getHeLuoNo(List<String> list) {
+
+        // 根据地支查找对应的河图洛书数字
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            String zhi = list.get(i);
+            if (mapping.containsKey(zhi)) {
+                int number = mapping.get(zhi);
+                result.append(number);
+            }
+        }
+
+        System.out.println("河图洛书数字：" + result.toString());
+
+        return result.toString();
     }
 
     // 去除字符串中的重复字符
