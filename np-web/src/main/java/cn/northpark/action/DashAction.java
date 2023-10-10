@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -78,7 +79,21 @@ public class DashAction {
                 //获取IP+地址
                 String ipAndDetail = "";
                 try {
-                    ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+
+                    // 获取当前日期
+                    LocalDate currentDate = LocalDate.now();
+
+                    // 构建计数器键
+                    String counterKey =  EnvCfgUtil.getValByCfgName("COUNTER_KEY_PREFIX") + currentDate.toString();
+
+                    Long counter = RedisUtil.getInstance().incrAndGet(counterKey);
+                    String gd_ip_max = EnvCfgUtil.getValByCfgName("GD_IP_MAX");
+                    if(counter > Integer.parseInt(gd_ip_max)){
+                        log.error("当天统计ip信息数目已超过"+gd_ip_max+"，不再请求");
+                    }else{
+                        ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+                    }
+
 
                 }catch (Exception ignore){
                     log.error(ignore.getMessage());

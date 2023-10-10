@@ -29,7 +29,7 @@ public class ObjectUtil{
 	/**
 	 * 字节数组转对象
 	 *
-	 * @param content
+	 * @param bytes
 	 * @return
 	 * @throws Exception
 	 */

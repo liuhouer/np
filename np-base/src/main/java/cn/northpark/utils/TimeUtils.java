@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * 时间工具类
  *
- * @author zhangyang
+ * @author bruce
  * @since 2014-05-23
  */
 @Slf4j

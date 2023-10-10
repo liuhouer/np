@@ -86,4 +86,9 @@ public interface RedisInterface {
     String hGet(String key, String  field) ;
     Long hSet(String key, String  field ,String value);
     //=== hash ===
+
+    //=== counter ===
+    Long incrAndGet(String key);
+    //=== counter ===
+
 }

@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * NorthPark 使用JDBC+hikariCp-pool 来便捷的操作数据
- * @author w_zhangyang
+ * @author bruce
  *
  */
 @Slf4j

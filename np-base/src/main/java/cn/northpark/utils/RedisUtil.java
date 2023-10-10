@@ -535,6 +535,24 @@ public class RedisUtil implements RedisInterface{
         return null;
     }
 
+    @Override
+    public Long incrAndGet(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            // 获取当前计数器的值
+            Long counter = jedis.incr(key);
+
+            return counter;
+        } catch (Exception e) {
+            System.err.println(e);
+            log.error("incrAndGet 出错", e);
+        } finally {
+            returnResource(jedis);
+        }
+        return null;
+    }
+
     /**
      * 删除当前选中的DB
      */

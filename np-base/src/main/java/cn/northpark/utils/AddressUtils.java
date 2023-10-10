@@ -3,7 +3,6 @@
  */
 package cn.northpark.utils;
 
-import cn.northpark.utils.encrypt.DESUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
 
@@ -24,8 +24,6 @@ import java.util.Objects;
  */
 @Slf4j
 public class AddressUtils {
-
-    private static final String ACCESS_KEY = DESUtils.decrypt("Fr22Vr5R/lpidOAunpLJRM7xoWyZczM2F6OY2KU/BAcZLJTCcl2pvA==", DESUtils.KEY);
 
     /**
      * 获取一个处理IP 和 区域的实例
@@ -215,27 +213,21 @@ public class AddressUtils {
     /**
      * 获取IP
      *
-     * @param beat
+     * @param request
      * @return
      */
-    public String getIpAddr(HttpServletRequest beat) {
-        String ip = beat.getHeader("X-Forwarded-For");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = beat.getHeader("Proxy-Client-IP");
+    public String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = beat.getHeader("WL-Proxy-Client-IP");
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = beat.getHeader("HTTP_CLIENT_IP");
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = beat.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = beat.getRemoteAddr();
-        }
-        return ip;
+        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
     }
 
 
@@ -252,26 +244,29 @@ public class AddressUtils {
         String ip = instance.getIpAddr(beat);
 
         //从redis获取
-        String ipRegion = RedisUtil.getInstance().hGet("ipRegion", ip);
+        if(StringUtils.isNotBlank(ip)){
+            String ipRegion = RedisUtil.getInstance().hGet("ipRegion", ip);
 
-        if(StringUtils.isNotBlank(ipRegion)){
-            return ipRegion;
-        }else{
-            sb.append("【ip:").append(ip).append("】").append("【");
-            try {
-                String addresses = instance.getAddresses("ip=" + ip + "&key=" + ACCESS_KEY + "&type=4", "utf-8");
-                sb.append("address:").append(addresses);
-                sb.append("】");
-            } catch (UnsupportedEncodingException e) {
+            if(StringUtils.isNotBlank(ipRegion)){
+                return ipRegion;
+            }else{
+                sb.append("【ip:").append(ip).append("】").append("【");
+                try {
+                    String addresses = instance.getAddresses("ip=" + ip + "&key=" + EnvCfgUtil.getValByCfgName("GD_API_KEY") + "&type=4", "utf-8");
+                    sb.append("address:").append(addresses);
+                    sb.append("】");
+                } catch (UnsupportedEncodingException e) {
 
-                e.printStackTrace();
+                    e.printStackTrace();
+                }
+
+                //保存到redis
+                RedisUtil.getInstance().hSet("ipRegion",ip,sb.toString());
+                return sb.toString();
             }
-
-            //保存到redis
-            RedisUtil.getInstance().hSet("ipRegion",ip,sb.toString());
-            return sb.toString();
         }
 
+       return  "";
 
     }
 
@@ -282,13 +277,26 @@ public class AddressUtils {
         String ip = "183.198.122.85";
         String address = "";
         try {
-            address = addressUtils.getAddresses("ip=" + ip + "&key=" + ACCESS_KEY + "&type=4", "utf-8");
+            address = addressUtils.getAddresses("ip=" + ip + "&key=" + EnvCfgUtil.getValByCfgName("GD_API_KEY") + "&type=4", "utf-8");
+            System.out.println(address);
+            System.out.println(EnvCfgUtil.getValByCfgName("GD_API_KEY"));
         } catch (UnsupportedEncodingException e) {
-
+            System.err.println(e);
             log.error("AddressUtils------->", e);
             ;
         }
         log.info(address);
         // 输出结果为：广东省,广州市,越秀区
+
+
+        // 获取当前日期
+        LocalDate currentDate = LocalDate.now();
+
+        // 构建计数器键
+        String counterKey = EnvCfgUtil.getValByCfgName("COUNTER_KEY_PREFIX") + currentDate.toString();
+
+        Long aLong = RedisUtil.getInstance().incrAndGet(counterKey);
+
+        log.info("xxxx---->{}",aLong);
     }
 }  

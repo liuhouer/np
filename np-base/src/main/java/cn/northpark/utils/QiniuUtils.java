@@ -1,6 +1,5 @@
 package cn.northpark.utils;
 
-import cn.northpark.utils.encrypt.DESUtils;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
@@ -18,12 +17,7 @@ import java.util.Set;
 @Slf4j
 public class QiniuUtils {
 
-    private static final String ACCESS_KEY = DESUtils.decrypt("Gls+9d9OEzEIYwCRNeKJjnO34gWOyaEYtVBUxIuwlPPyFJiha/sHEBkslMJyXam8",DESUtils.KEY);
-    private static final String SECRET_KEY = DESUtils.decrypt("IVDbnm4SLmRO1sbNGEB6fX172QIwyhe+H/MHNhTXEGWnesFPRxXnDhkslMJyXam8",DESUtils.KEY);
     private static final String BUCKET_NAME = "soft"; // 你的空間名稱
-
-    private static final String BUCKET_HOST_NAME = "http://qiniupic.python-project.com/";
-
 
     /**
      * 私有构造函数
@@ -33,7 +27,7 @@ public class QiniuUtils {
     }
 
     /**
-     * @author w_zhangyang
+     * @author bruce
      * 枚举模式的单例模式，归并高并发的风险
      */
     public enum Singleton {
@@ -84,7 +78,7 @@ public class QiniuUtils {
     String FilePath = "/.../...";
 
     //密钥配置
-    Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+    Auth auth = Auth.create(EnvCfgUtil.getValByCfgName("QINIU_ACCESS"), EnvCfgUtil.getValByCfgName("QINIU_SECRET"));
 
     ///////////////////////指定上传的Zone的信息//////////////////
     //第一种方式: 指定具体的要上传的zone
@@ -126,7 +120,7 @@ public class QiniuUtils {
             Response res = uploadManager.put(FilePath, key, token);
             //打印返回的信息
             log.info(res.bodyString());
-            rs = BUCKET_HOST_NAME + (String) res.jsonToMap().get("key");
+            rs = EnvCfgUtil.getValByCfgName("BUCKET_HOST_NAME") + (String) res.jsonToMap().get("key");
             log.info("rs===" + rs);
         } catch (QiniuException e) {
             Response r = e.response;
@@ -158,7 +152,7 @@ public class QiniuUtils {
 
         Configuration cfg = new Configuration(Zone.zone0());
 
-        Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+        Auth auth = Auth.create(EnvCfgUtil.getValByCfgName("QINIU_ACCESS"), EnvCfgUtil.getValByCfgName("QINIU_SECRET"));
 
         BucketManager bucketManager = new BucketManager(auth, cfg);
 

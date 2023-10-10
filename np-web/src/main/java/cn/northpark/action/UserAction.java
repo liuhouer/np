@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -797,7 +798,21 @@ public class UserAction {
     	//获取ip信息
         String ipAndDetail = "";
         try {
-            ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+
+            // 获取当前日期
+            LocalDate currentDate = LocalDate.now();
+
+            // 构建计数器键
+            String counterKey =  EnvCfgUtil.getValByCfgName("COUNTER_KEY_PREFIX") + currentDate.toString();
+
+            Long counter = RedisUtil.getInstance().incrAndGet(counterKey);
+            String gd_ip_max = EnvCfgUtil.getValByCfgName("GD_IP_MAX");
+            if(counter > Integer.parseInt(gd_ip_max)){
+                log.error("当天统计ip信息数目已超过"+gd_ip_max+"，不再请求");
+            }else{
+                ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+            }
+
         }catch (Exception ignore){
             log.error(ignore.getMessage());
         }
@@ -1001,11 +1016,25 @@ public class UserAction {
                              //获取IP+地址
                              String ipAndDetail = "";
                              try {
-                                 ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
 
-                                 //更新登录时间 +地址信息
-                                 user.setLast_login(JsonUtil.object2json(TimeUtils.nowTime()+ipAndDetail));
-                                 userManager.updateUser(user);
+                                 // 获取当前日期
+                                 LocalDate currentDate = LocalDate.now();
+
+                                 // 构建计数器键
+                                 String counterKey =  EnvCfgUtil.getValByCfgName("COUNTER_KEY_PREFIX") + currentDate.toString();
+
+                                 Long counter = RedisUtil.getInstance().incrAndGet(counterKey);
+                                 String gd_ip_max = EnvCfgUtil.getValByCfgName("GD_IP_MAX");
+                                 if(counter > Integer.parseInt(gd_ip_max)){
+                                     log.error("当天统计ip信息数目已超过"+gd_ip_max+"，不再请求");
+                                 }else{
+                                     ipAndDetail = AddressUtils.getInstance().getIpAndDetail(request);
+
+                                     //更新登录时间 +地址信息
+                                     user.setLast_login(JsonUtil.object2json(TimeUtils.nowTime()+ipAndDetail));
+                                     userManager.updateUser(user);
+                                 }
+
                              }catch (Exception ignore){
                                  log.error(ignore.getMessage());
                              }

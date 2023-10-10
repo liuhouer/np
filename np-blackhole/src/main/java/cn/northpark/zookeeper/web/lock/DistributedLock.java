@@ -12,7 +12,7 @@ import java.util.concurrent.CountDownLatch;
 
 
 /**
- * @author w_zhangyang
+ * @author bruce
  * 分布式锁的初始化、公共方法
  */
 @Slf4j

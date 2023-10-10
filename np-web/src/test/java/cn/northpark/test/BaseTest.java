@@ -5,7 +5,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * @author w_zhangyang
+ * @author bruce
  * 单元测试基类
  */
 @RunWith(SpringJUnit4ClassRunner.class)

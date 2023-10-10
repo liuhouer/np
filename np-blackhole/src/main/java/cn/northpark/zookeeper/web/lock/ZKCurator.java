@@ -3,7 +3,7 @@ package cn.northpark.zookeeper.web.lock;
 import org.apache.curator.framework.CuratorFramework;
 
 /**
- * @author w_zhangyang
+ * @author bruce
  *	zk客户端配置
  */
 public class ZKCurator {

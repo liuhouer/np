@@ -12,7 +12,7 @@ import java.util.Properties;
 
 
 /**
- * @author w_zhangyang
+ * @author bruce
  *	Hikaricp数据库连接池工具类的设计
  */
 public class JdbcUtils {
