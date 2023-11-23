@@ -6,9 +6,12 @@ import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.Bucket;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -92,7 +95,7 @@ public class MinioUtils {
     /**
      * 创建bucket
      */
-    public void createBucket(String bucketName) throws Exception {
+    public static void createBucket(String bucketName) throws Exception {
         // 客户端
         MinioClient client = buildClient();
         if (!client.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
@@ -103,7 +106,7 @@ public class MinioUtils {
     /**
      * 上传文件
      */
-    public FileUploadResponse uploadFile(MultipartFile file, String bucketName) throws Exception {
+    public static FileUploadResponse uploadFile(MultipartFile file, String bucketName) throws Exception {
         // 客户端
         MinioClient client = buildClient();
         //判断文件是否为空
@@ -148,7 +151,7 @@ public class MinioUtils {
      *
      * @param bucketName bucket名称
      */
-    public Optional<Bucket> getBucket(String bucketName) throws IOException, InvalidKeyException, NoSuchAlgorithmException, InsufficientDataException, InvalidResponseException, InternalException, ErrorResponseException, ServerException, XmlParserException {
+    public  Optional<Bucket> getBucket(String bucketName) throws IOException, InvalidKeyException, NoSuchAlgorithmException, InsufficientDataException, InvalidResponseException, InternalException, ErrorResponseException, ServerException, XmlParserException {
         // 客户端
         MinioClient client = buildClient();
         return client.listBuckets().stream().filter(b -> b.name().equals(bucketName)).findFirst();
@@ -159,48 +162,48 @@ public class MinioUtils {
      *
      * @param bucketName bucket名称
      */
-    public void removeBucket(String bucketName) throws Exception {
+    public  void removeBucket(String bucketName) throws Exception {
         // 客户端
         MinioClient client = buildClient();
         client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
     }
 
     /**
-     * 获取⽂件外链
+     * 获取文件外链
      *
      * @param bucketName bucket名称
-     * @param objectName ⽂件名称
+     * @param objectName 文件名称
      * @param expires    过期时间 <=7
      * @return url
      */
-    public String getObjectURL(String bucketName, String objectName, Integer expires) throws Exception {
+    public static String getObjectURL(String bucketName, String objectName, Integer expires) throws Exception {
         // 客户端
         MinioClient client = buildClient();
         return client.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder().bucket(bucketName).object(objectName).expiry(expires).build());
     }
 
     /**
-     * 获取⽂件
+     * 获取文件
      *
      * @param bucketName bucket名称
-     * @param objectName ⽂件名称
+     * @param objectName 文件名称
      * @return ⼆进制流
      */
-    public InputStream getObject(String bucketName, String objectName) throws Exception {
+    public static InputStream getObject(String bucketName, String objectName) throws Exception {
         // 客户端
         MinioClient client = buildClient();
         return client.getObject(GetObjectArgs.builder().bucket(bucketName).object(objectName).build());
     }
 
     /**
-     * 上传⽂件
+     * 上传文件
      *
      * @param bucketName bucket名称
-     * @param objectName ⽂件名称
-     * @param stream     ⽂件流
+     * @param objectName 文件名称
+     * @param stream     文件流
      * @throws Exception https://docs.minio.io/cn/java-client-api-reference.html#putObject
      */
-    public void putObject(String bucketName, String objectName, InputStream stream) throws
+    public static void putObject(String bucketName, String objectName, InputStream stream) throws
             Exception {
         // 客户端
         MinioClient client = buildClient();
@@ -208,16 +211,16 @@ public class MinioUtils {
     }
 
     /**
-     * 上传⽂件
+     * 上传文件
      *
      * @param bucketName  bucket名称
-     * @param objectName  ⽂件名称
-     * @param stream      ⽂件流
+     * @param objectName  文件名称
+     * @param stream      文件流
      * @param size        ⼤⼩
      * @param contextType 类型
      * @throws Exception https://docs.minio.io/cn/java-client-api-reference.html#putObject
      */
-    public void putObject(String bucketName, String objectName, InputStream stream, long
+    public static void putObject(String bucketName, String objectName, InputStream stream, long
             size, String contextType) throws Exception {
         // 客户端
         MinioClient client = buildClient();
@@ -225,23 +228,23 @@ public class MinioUtils {
     }
 
     /**
-     * 获取⽂件信息
+     * 获取文件信息
      *
      * @param bucketName bucket名称
-     * @param objectName ⽂件名称
+     * @param objectName 文件名称
      * @throws Exception https://docs.minio.io/cn/java-client-api-reference.html#statObject
      */
-    public StatObjectResponse getObjectInfo(String bucketName, String objectName) throws Exception {
+    public static StatObjectResponse getObjectInfo(String bucketName, String objectName) throws Exception {
         // 客户端
         MinioClient client = buildClient();
         return client.statObject(StatObjectArgs.builder().bucket(bucketName).object(objectName).build());
     }
 
     /**
-     * 删除⽂件
+     * 删除文件
      *
      * @param bucketName bucket名称
-     * @param objectName ⽂件名称
+     * @param objectName 文件名称
      * @throws Exception https://docs.minio.io/cn/java-client-apireference.html#removeObject
      */
     public void removeObject(String bucketName, String objectName) throws Exception {
@@ -266,10 +269,69 @@ public class MinioUtils {
     }
 
 
+    /**
+     * 上传本地图片 并把映射关系写入mysql
+     * @param bucketName
+     * @param sourceDir
+     * @throws Exception
+     */
+    public static void uploadFiles(String bucketName, String sourceDir) throws Exception {
+        File directory = new File(sourceDir);
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    String newSourceDir = sourceDir + File.separator + file.getName();
+                    uploadFiles(bucketName,newSourceDir);
+                } else {
+                    String filePath = file.getAbsolutePath();
+
+                    try  {
+                        InputStream inputStream = new FileInputStream(filePath);
+                        MultipartFile multipartFile = new MockMultipartFile(file.getName(), file.getName(), MediaType.IMAGE_JPEG_VALUE,inputStream);
+
+                        FileUploadResponse fileUploadResponse = uploadFile(multipartFile, bucketName);
+
+                        String minioUrl = fileUploadResponse.getUrlPath();
+
+                        //写入mysql
+                        String upsertSQL = "INSERT INTO tmp_path_mapping(fromPath, toPath) VALUES(?, ?)";
+                        NPQueryRunner.insert(upsertSQL,filePath,minioUrl);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
-        String oid = uploadText("测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi");
-        System.out.println("已上传:" + oid);
-        System.out.println("读取:" + readText(oid));
+        //读取本地文件 上传到minio
+
+//        String oid = uploadText("测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi测试hi");
+//        System.out.println("已上传:" + oid);
+//        System.out.println("读取:" + readText(oid));
+
+        //上传目录本地图片 并把映射关系写入mysql
+        try {
+            uploadFiles("pic","C:\\Users\\Bruce\\Pictures\\A");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //上传一个单一文件到minio
+//        try {
+//            File file = new File("C:\\Users\\Bruce\\Pictures\\A\\1111.jpg");
+//            InputStream inputStream = new FileInputStream(file);
+//            MultipartFile multipartFile = new MockMultipartFile(file.getName(), file.getName(), MediaType.IMAGE_JPEG_VALUE,inputStream);
+//
+//            uploadFile(multipartFile,"pic");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
 
     }
 }

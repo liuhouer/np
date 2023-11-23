@@ -6,6 +6,8 @@ import cn.northpark.annotation.RateLimit;
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.constant.DonatesEnum;
 import cn.northpark.constant.DonatesRedisKeyEnum;
+import cn.northpark.exception.Result;
+import cn.northpark.exception.ResultGenerator;
 import cn.northpark.manager.EqManager;
 import cn.northpark.manager.MoviesManager;
 import cn.northpark.manager.NoteManager;
@@ -29,6 +31,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -420,6 +423,18 @@ public class DashAction {
         }
 
         return home_lovelist;
+    }
+
+
+    @RequestMapping("/transPic")
+    @Desc(value = "传送图片到minio")
+    @ResponseBody
+    public Result transPic(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {
+
+        String bucketName = request.getParameter("bucketName");
+        String sourceDir = request.getParameter("sourceDir");
+        MinioUtils.uploadFiles(bucketName,sourceDir);
+        return ResultGenerator.genSuccessResult();
     }
 
 }
