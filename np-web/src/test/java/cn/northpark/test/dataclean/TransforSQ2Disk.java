@@ -40,6 +40,7 @@ public class TransforSQ2Disk {
 
         //=========================================================新url的sitemap===========================================================================================
 
+        //todo FIX 迁移的MV 富文本 -- 2023年11月24日
 
         Set<String> rm_img_set = new HashSet<>();
         // 1 筛选
@@ -65,6 +66,7 @@ public class TransforSQ2Disk {
 
                 }
                 movie.setMovie_desc(parse.html());
+
 
                 moviesManager.updateMovies(movie);
 

@@ -35,7 +35,7 @@ public class MinioUtils {
      */
     public static String uploadText(String text){
         // 文件唯一ID
-        String oid = IDUtils.getInstance().getUniqueSceneStr()+".txt";
+        String oid = IDUtils.getInstance().generateOrderNumber()+".txt";
 
         // 文本转文件
         File tempFile = FileUtil.newFile(oid);
@@ -247,7 +247,7 @@ public class MinioUtils {
      * @param objectName 文件名称
      * @throws Exception https://docs.minio.io/cn/java-client-apireference.html#removeObject
      */
-    public void removeObject(String bucketName, String objectName) throws Exception {
+    public static void removeObject(String bucketName, String objectName) throws Exception {
         // 客户端
         MinioClient client = buildClient();
         client.removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(objectName).build());

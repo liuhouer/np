@@ -7,10 +7,7 @@ import cn.northpark.manager.SoftManager;
 import cn.northpark.model.Movies;
 import cn.northpark.model.Soft;
 import cn.northpark.threadpool.MultiThread;
-import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.IDUtils;
-import cn.northpark.utils.PinyinUtil;
-import cn.northpark.utils.SpringContextUtils;
+import cn.northpark.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -100,7 +97,12 @@ public class RetRestAction {
                     int flag = this.moviesManager.countHql(
                             new StringBuilder().append(" where o.ret_code= '").append(ret_code).append("' ").toString());
 
+
                     if (flag <= 0) {
+
+                        //BRUCETIPS! 富文本处理
+                        article = MinioUtils.uploadText(article);
+
                         Movies model = new Movies();
                         model.setMovie_name(title);
                         model.setAdd_time(date);
@@ -163,10 +165,15 @@ public class RetRestAction {
                 String path = (String) map.get("path");
                 String color = (String) map.get("color");
 
+
+
                 int flag = softManager.countHql(new StringBuilder().append(" where o.title= '").append(title)
                         .append("' or o.ret_code = '").append(code).append("' ").toString());
-
                 if (flag <= 0) {
+
+                    //BRUCETIPS! 富文本处理
+                    article = MinioUtils.uploadText(article);
+
                     Soft model = Soft.builder().brief(brief).content(article).os(os).post_date(date).ret_code(code)
                             .ret_url(a_url).tags(tag).title(title).month(month).year(year).tags_code(tag_code).color(color)
                             .path(path).build();

@@ -198,6 +198,7 @@ public class IDUtils {
     	for (int i = 0; i < 10; i++) {
 			
     		log.info("{}",IDUtils.getInstance().generateOrderNumber());
+    		log.info("{}",IDUtils.getInstance().getUniqueSceneStr());
 		}
 	}
 }

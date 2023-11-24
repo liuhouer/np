@@ -264,6 +264,8 @@ public class MoviesAction {
             id = WAQ.forSQL().escapeSql(id);
             Movies  model = moviesManager.findMovies(Integer.valueOf(id));
             if(model!=null) {
+                //BRUCETIPS! 富文本处理
+                model.setMovie_desc(MinioUtils.readText(model.getMovie_desc()));
             	map.addAttribute("model", model);
             }
         }
@@ -297,7 +299,15 @@ public class MoviesAction {
         		old.setMovie_name(model.getMovie_name());
         		old.setPath(model.getPath());
         		old.setColor(model.getColor());
-        		old.setMovie_desc(model.getMovie_desc());
+                //BRUCETIPS! 富文本处理
+                //更新删除旧副本
+                try {
+                    MinioUtils.removeObject(EnvCfgUtil.getValByCfgName("TEXT_BUCKET"),old.getMovie_desc());
+                }catch (Exception e){
+                    log.error("移除旧副本失败=======>,{},{}",e.getMessage(),e);
+                }
+
+                old.setMovie_desc(MinioUtils.uploadText(model.getMovie_desc()));
         		moviesManager.updateMovies(old);
 
                 //从redis set里面删除更新的失效资源
@@ -354,6 +364,8 @@ public class MoviesAction {
         			
         	}else {//新增
 
+                //BRUCETIPS! 富文本处理
+                 model.setMovie_desc(MinioUtils.uploadText(model.getMovie_desc()));
                  model.setRet_code(MD5Utils.encrypt(model.getMovie_name(),MD5Utils.MD5_KEY));
         		 model.setAdd_time(TimeUtils.nowdate());
                  moviesManager.addMovies(model);
@@ -411,6 +423,10 @@ public class MoviesAction {
         PageView<Movies> pageView = new PageView<Movies>(Integer.parseInt(currentPage), MoviesCount);
         QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
         List<Movies> result_list = qr.getResultList();
+        for (Movies movie : result_list) {
+            //BRUCETIPS! 富文本处理
+            movie.setMovie_desc(MinioUtils.readText(movie.getMovie_desc()));
+        }
 
         //生成分页信息
         pageView.setQueryResult(qr);
@@ -473,6 +489,11 @@ public class MoviesAction {
         PageView<Movies> pageView = new PageView<Movies>(Integer.parseInt(currentPage), MoviesCount);
         QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
         List<Movies> result_list = qr.getResultList();
+
+        for (Movies movie : result_list) {
+            //BRUCETIPS! 富文本处理
+            movie.setMovie_desc(MinioUtils.readText(movie.getMovie_desc()));
+        }
 
         //生成分页信息
         pageView.setQueryResult(qr);
@@ -555,6 +576,11 @@ public class MoviesAction {
         QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
         List<Movies> result_list = qr.getResultList();
 
+        for (Movies movie : result_list) {
+            //BRUCETIPS! 富文本处理
+            movie.setMovie_desc(MinioUtils.readText(movie.getMovie_desc()));
+        }
+
         //生成分页信息
         pageView.setQueryResult(qr);
         //处理标签列表
@@ -635,6 +661,12 @@ public class MoviesAction {
         QueryResult<Movies> qr = this.moviesManager.findByCondition(pageView, whereSql, order);
         List<Movies> result_list = qr.getResultList();
 
+        for (Movies movie : result_list) {
+            //BRUCETIPS! 富文本处理
+            movie.setMovie_desc(MinioUtils.readText(movie.getMovie_desc()));
+        }
+
+
         //生成分页信息
         pageView.setQueryResult(qr);
         //处理标签列表
@@ -705,6 +737,10 @@ public class MoviesAction {
             id = WAQ.forSQL().escapeSql(id);
             Movies  model = moviesManager.findMovies(Integer.valueOf(id));
             if(model!=null && !StringUtils.equals("N",model.getDisplayed())) {
+
+                //BRUCETIPS! 富文本处理
+                model.setMovie_desc(MinioUtils.readText(model.getMovie_desc()));
+
                 //页面描述
             	if(StringUtils.isNotEmpty(model.getMovie_desc())) map.put("movie_desc", Jsoup.parse(model.getMovie_desc()).text());
             	map.addAttribute("model", model);
