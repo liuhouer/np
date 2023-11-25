@@ -161,8 +161,6 @@ public class SoftAction {
             id = WAQ.forSQL().escapeSql(id);
             Soft  model = softManager.findSoft(Integer.valueOf(id));
 
-            //BRUCETIPS! 富文本处理
-            model.setContent(MinioUtils.uploadText(model.getContent()));
             if(model!=null) {
             	map.addAttribute("model", model);
             }
@@ -189,15 +187,7 @@ public class SoftAction {
         		Soft old = softManager.findSoft(model.getId());
         		old.setTitle(model.getTitle());
         		old.setPath(model.getPath());
-                //BRUCETIPS! 富文本处理
-                //更新删除旧副本
-                try {
-                    MinioUtils.removeObject(EnvCfgUtil.getValByCfgName("TEXT_BUCKET"),old.getContent());
-                }catch (Exception e){
-                    log.error("移除旧副本失败=======>,{},{}",e.getMessage(),e);
-                }
-                old.setContent(MinioUtils.uploadText(model.getContent()));
-
+                old.setContent(model.getContent());
         		old.setBrief(model.getBrief());
         		old.setRet_code(model.getRet_code());
         		//added--2021年10月28日
@@ -263,8 +253,6 @@ public class SoftAction {
         		 model.setPost_date(TimeUtils.nowdate());
         		 model.setYear(TimeUtils.getYear(TimeUtils.nowdate()));
                  model.setMonth(TimeUtils.getMonth(TimeUtils.nowdate()));
-                 //BRUCETIPS! 富文本处理
-                 model.setContent(MinioUtils.uploadText(model.getContent()));
         		 softManager.addSoft(model);
         	}
            
@@ -323,10 +311,6 @@ public class SoftAction {
         PageView<Soft> p = new PageView<Soft>(1, SoftCount);
         QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
         List<Soft> result_list = qr.getResultList();
-        for (Soft soft : result_list) {
-            //BRUCETIPS! 富文本处理
-            soft.setContent(MinioUtils.readText(soft.getContent()));
-        }
 
         //触发分页
         p.setQueryResult(qr);
@@ -384,11 +368,6 @@ public class SoftAction {
         QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
         List<Soft> result_list = qr.getResultList();
 
-        for (Soft soft : result_list) {
-            //BRUCETIPS! 富文本处理
-            soft.setContent(MinioUtils.readText(soft.getContent()));
-        }
-
         //触发分页
         p.setQueryResult(qr);
 
@@ -420,10 +399,6 @@ public class SoftAction {
             //根据ret_code获取文章内容
             List<Soft> list = softManager.querySql("select * from bc_soft where ret_code=?", ret_code);
             if (!CollectionUtils.isEmpty(list)) {
-                for (Soft soft : list) {
-                    //BRUCETIPS! 富文本处理
-                    soft.setContent(MinioUtils.readText(soft.getContent()));
-                }
                 map.addAttribute("article", list.get(0));
                 //SEO 优化
                 if(StringUtils.isNotEmpty(list.get(0).getBrief())) map.put("soft_desc", Jsoup.parse(list.get(0).getBrief()).text());
@@ -451,10 +426,6 @@ public class SoftAction {
             //根据ret_code获取文章内容
             List<Soft> list = softManager.querySql("select * from bc_soft where post_date=?", post_date);
             if (!CollectionUtils.isEmpty(list)) {
-                for (Soft soft : list) {
-                    //BRUCETIPS! 富文本处理
-                    soft.setContent(MinioUtils.readText(soft.getContent()));
-                }
                 map.addAttribute("list", list);
                 map.addAttribute("pagein", "no");
             }
@@ -511,11 +482,6 @@ public class SoftAction {
             PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentPage), SoftCount);
             QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
             List<Soft> result_list = qr.getResultList();
-
-            for (Soft soft : result_list) {
-                //BRUCETIPS! 富文本处理
-                soft.setContent(MinioUtils.readText(soft.getContent()));
-            }
 
             //触发分页
             p.setQueryResult(qr);
@@ -580,11 +546,6 @@ public class SoftAction {
         PageView<Soft> p = new PageView<Soft>(Integer.parseInt(currentPage), SoftCount);
         QueryResult<Soft> qr = this.softManager.findByCondition(p, whereSql, order);
         List<Soft> result_list = qr.getResultList();
-
-        for (Soft soft : result_list) {
-            //BRUCETIPS! 富文本处理
-            soft.setContent(MinioUtils.readText(soft.getContent()));
-        }
 
         //触发分页
         p.setQueryResult(qr);

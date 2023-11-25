@@ -100,9 +100,6 @@ public class RetRestAction {
 
                     if (flag <= 0) {
 
-                        //BRUCETIPS! 富文本处理
-                        article = MinioUtils.uploadText(article);
-
                         Movies model = new Movies();
                         model.setMovie_name(title);
                         model.setAdd_time(date);
@@ -170,9 +167,6 @@ public class RetRestAction {
                 int flag = softManager.countHql(new StringBuilder().append(" where o.title= '").append(title)
                         .append("' or o.ret_code = '").append(code).append("' ").toString());
                 if (flag <= 0) {
-
-                    //BRUCETIPS! 富文本处理
-                    article = MinioUtils.uploadText(article);
 
                     Soft model = Soft.builder().brief(brief).content(article).os(os).post_date(date).ret_code(code)
                             .ret_url(a_url).tags(tag).title(title).month(month).year(year).tags_code(tag_code).color(color)
