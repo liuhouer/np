@@ -25,7 +25,7 @@ public class transMovieMinio {
         int batchSize = 100;
         int totalBatches = (int) Math.ceil((double) totalCount / batchSize);
 
-        ExecutorService executorService = Executors.newFixedThreadPool(100);
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
 
         for (int batchNumber = 0; batchNumber < totalBatches; batchNumber++) {
             int offset = batchNumber * batchSize;
