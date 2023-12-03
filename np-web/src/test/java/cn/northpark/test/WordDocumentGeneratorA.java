@@ -1,6 +1,7 @@
 package cn.northpark.test;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -24,9 +25,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Slf4j
 public class WordDocumentGeneratorA {
     public static void main(String[] args) {
-        String excelFilePath = "C:\\Users\\Bruce\\Desktop\\data_prod.xlsx";
+        String excelFilePath = "C:\\Users\\Bruce\\Desktop\\data_prod_2019.xlsx";
         String templateFilePath = "C:\\Users\\Bruce\\Desktop\\templateA.docx";
-        String outputFolderPath = "C:\\Users\\Bruce\\Desktop\\output\\";
+        String outputFolderPath = "C:\\Users\\Bruce\\Desktop\\output\\2019\\";
+        String outputFolderPathGB = "C:\\Users\\Bruce\\Desktop\\output\\2019\\GB\\";
 
         try {
             // 加载Excel数据
@@ -48,17 +50,29 @@ public class WordDocumentGeneratorA {
             // 读取个人信息表数据
 
             // 基本信息标题：
+            String[] fieldTitles1 = {
+                    "一级部门","二级部门","三级部门","部门","人员编号","人员类别","用工类型","姓名","三级部门",
+                    "性别","出生日期","年龄","入职日期","政治面貌","参加党派日期","民族","婚姻状况","籍贯",
+                    "开户行","银行卡号","国籍","手机号码","个人邮箱","证件类型","证件号码","户口所在地",
+                    "现住址","户口性质","户籍住址","上班地点","工作类别","一级工作类别","上班地点描述",
+                    "集团首次入职时间","职级","职位职级","司龄","转正日期","社会工龄","合同开始日期",
+                    "合同结束日期","企业邮箱","首次参加工作时间","退休日期","职务","最高学历","最高毕业院校",
+                    "毕业时间","所学专业","第一学历","第一学历所学专业","第一学历毕业院校","第一学历毕业时间",
+                    "紧急联系人","紧急联系人电话","与本人关系","合同期限（年）","档案编号","合同归属","核算主体归属",
+                    "出勤卡号","社保类别","计税日期","离职日期","离职类型","离职原因","面试官","数据安全员","任职形式"
+            };
+
             String[] fieldTitles = {
-                    "一级部门","二级部门","部门","人员编号","人员类别","用工类型","姓名","性别",
-                    "出生日期","年龄","入职日期","政治面貌","参加党派日期","民族","婚姻状况",
-                    "籍贯","开户行","银行卡号","国籍","手机号码","证件类型","证件号码","户口所在地",
-                    "现住址","户口性质","户籍住址","上班地点","工作类别","一级工作类别","财务类别",
-                    "上班地点描述","直属上级","个人邮箱","兼职岗位","集团首次入职时间","职级","职位职级",
-                    "司龄","转正日期","试用期期限","社会工龄","合同开始日期","合同结束日期","企业邮箱",
-                    "首次参加工作时间","退休日期","职务","数据安全员","最高学历","最高学位","学位获得时间",
-                    "最高毕业院校","毕业时间","所学专业","第一学历","第一学历所学专业","第一学历毕业院校",
-                    "第一学历毕业时间","紧急联系人","紧急联系人电话","与本人关系","合同期限（年）","合同类型",
-                    "档案编号","合同归属","计税日期","离职日期","离职类型","离职原因","任职形式"
+                    "一级部门","二级部门","三级部门","人员编号","人员类别","用工类型","姓名","登录名","性别",
+                    "出生日期","年龄","入职日期","政治面貌","参加党派日期","民族","婚姻状况","籍贯","开户行",
+                    "银行卡号","国籍","手机号码","证件类型","证件号码","户口所在地","现住址","户口性质","户籍住址",
+                    "上班地点","工作类别","一级工作类别","财务类别","上班地点描述","直属上级","个人邮箱","兼职岗位",
+                    "集团首次入职时间","职级","职位职级","司龄","转正日期","试用期期限","社会工龄","合同开始日期",
+                    "合同结束日期","企业邮箱","首次参加工作时间","退休日期","职务","数据安全员","最高学历","最高学位",
+                    "学位获得时间","最高毕业院校","毕业时间","所学专业","第一学历","第一学历所学专业","第一学历毕业院校",
+                    "第一学历毕业时间","紧急联系人","紧急联系人电话","与本人关系","合同期限（年）","合同类型","档案编号",
+                    "合同归属","核算主体归属","出勤卡号","发薪单位","社保类别","计税日期","离职日期","离职类型","离职原因",
+                    "面试官","实际离职原因","部门","岗位","任职形式","部门全称"
             };
 
             // 读取个人信息表数据
@@ -101,9 +115,16 @@ public class WordDocumentGeneratorA {
 
 
             // 工作经历信息标题：
-            String[] jobTitles = {
-                    "一级部门","人员编号","姓名","籍贯","职务","开始时间","终止时间",
+            String[] jobTitles1 = {
+
+                    "一级部门","人员编号","姓名","人员类别","籍贯","辅助","职务","集团首次入职时间","开始时间","终止时间",
                     "所在单位","所从事的工作/担任的职位","证明人","工作内容","工作业绩","任职形式","审批标记"
+            };
+
+            String[] jobTitles = {
+
+                    "一级部门","人员编号","姓名","籍贯","职务","集团首次入职时间","开始时间","终止时间","所在单位","所从事的工作/担任的职位",
+                    "证明人","工作内容","工作业绩","任职形式","审批标记"
             };
             // 读取工作经历表数据
             for (int i = 1; i <= jobSheet.getLastRowNum(); i++) {
@@ -148,9 +169,20 @@ public class WordDocumentGeneratorA {
 //            }
 
             // 家庭成员信息标题：
+            String[] memberTitles1 = {
+
+                    "一级部门","二级部门","用工类型","人员类别","姓名","性别","出生日期","年龄","民族","婚姻状况",
+                    "政治面貌","入职日期","人员编号","成员姓名","与本人关系","成员年龄","登录名","籍贯","国籍",
+                    "户口所在地","户口性质","户籍住址","上班地点","工作类别","一级工作类别","集团首次入职时间","职级",
+                    "职位职级","司龄","社会工龄","合同开始日期","合同结束日期","企业邮箱","首次参加工作时间","退休日期",
+                    "职务","数据安全员","最高学历","最高学位","学位获得时间","最高毕业院校","毕业时间","所学专业","紧急联系人",
+                    "紧急联系人电话","与本人关系","合同期限（年）","合同类型","合同归属","离职日期","离职类型","离职原因","实际离职原因","任职形式","审批标记"
+            };
+
             String[] memberTitles = {
-                    "一级部门","二级部门","用工类型","人员类别","人员编号","姓名","性别","年龄","婚姻状况","入职日期",
-                    "成员姓名","与本人关系","成员年龄","工作单位","职务/岗位","联系电话","成员出生日期","任职形式","审批标记"
+
+                    "一级部门","二级部门","用工类型","人员类别","人员编号","姓名","性别","年龄","集团首次入职时间",
+                    "婚姻状况","入职日期","成员姓名","与本人关系","成员年龄","工作单位","职务/岗位","联系电话","成员出生日期","任职形式","审批标记"
             };
 
             // 读取家庭成员信息数据
@@ -174,7 +206,13 @@ public class WordDocumentGeneratorA {
             for (String userId : personalData.keySet()) {
                 Map<String, String> personalInfo = personalData.get(userId);
                 String name = personalInfo.get("姓名");
-                String outputFilePath = outputFolderPath + name+"_"+userId + ".docx";
+                String thirdPart = personalInfo.get("三级部门");
+                String outputFilePath = "";
+                if(thirdPart.contains("党管干部")){
+                    outputFilePath = outputFolderPathGB + name+"_"+userId + ".docx";
+                }else{
+                    outputFilePath = outputFolderPath + name+"_"+userId + ".docx";
+                }
 
                 // 加载Word文档模板
                 FileInputStream templateInputStream = new FileInputStream(templateFilePath);
@@ -437,7 +475,9 @@ public class WordDocumentGeneratorA {
                                 if (combinedText.contains("{" + key + "}")) {
                                     String replacement = data.get(key);
                                     // 如果替换文本中包含换行符，则进行处理
-                                     combinedText = combinedText.replace("{" + key + "}", replacement);
+                                    log.info("key,,,,{}",key);
+                                    log.info("replacement,,,,{}",replacement);
+                                     combinedText = combinedText.replace("{" + key + "}", StringUtils.isEmpty(replacement)?"":replacement);
                                 }
                             }
                             // 清除原始运行
