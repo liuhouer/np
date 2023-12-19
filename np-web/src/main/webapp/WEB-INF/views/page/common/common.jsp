@@ -6,4 +6,5 @@
 <link media="all" type="text/css" rel="stylesheet" href="https://northpark.cn/statics/css/qinco.css">
 <link media="all" type="text/css" rel="stylesheet" href="https://northpark.cn/statics/css/main2.css">
 <input type="hidden" id="J_tab_name" value="${ tabs}"/>
-<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+<%--<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">--%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
