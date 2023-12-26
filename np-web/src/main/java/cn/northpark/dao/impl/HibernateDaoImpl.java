@@ -163,7 +163,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
     public T find(PK pkID) {
         T findObj = null;
         findObj = (T) sessionFactory.getCurrentSession().get(t, pkID);
-        sessionFactory.getCurrentSession().flush();
         return findObj;
     }
 
@@ -172,7 +171,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
         String entityName = t.getName();
         String hql = "from " + entityName;
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        sessionFactory.getCurrentSession().flush();
         return query.list();
     }
 
@@ -211,8 +209,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
         QueryResult<T> queryResult = new QueryResult<T>();
         queryResult.setResultList(query.list());
 
-        sessionFactory.getCurrentSession().flush();
-
         //查询count
 
         setTotalRecordByHql(where, entityName, queryResult);
@@ -232,7 +228,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
     public List<Map<String, Object>> querySQLForMapList(String sql, PageView<List<Map<String, Object>>> pageView) {
         String resultQueryString = (new StringBuilder(" select t.* from (")).append(sql).append(") as t LIMIT " + pageView.getFirstResult() + "," + pageView.getMaxResult()).toString();
         List<Map<String, Object>> result_list = querySql(resultQueryString);
-        sessionFactory.getCurrentSession().flush();
         return result_list;
     }
 
@@ -262,7 +257,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         for (int i = 0; i < obj.length; i++)
             query.setParameter(i, obj[i]);
-        sessionFactory.getCurrentSession().flush();
         return query.list();
     }
 
@@ -277,7 +271,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
         SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(sql);
         for (int i = 0; i < obj.length; i++)
             query.setParameter(i, obj[i]);
-        sessionFactory.getCurrentSession().flush();
         return query.addEntity(clazz).list();
     }
 
@@ -306,8 +299,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 
         queryResult.setResultList(query.list());
 
-        sessionFactory.getCurrentSession().flush();
-
         return queryResult;
 
     }
@@ -332,8 +323,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
         Query query2 = sessionFactory.getCurrentSession().createQuery(hql2.toString());
 
         Long count = (Long) query2.uniqueResult();
-
-        sessionFactory.getCurrentSession().flush();
 
         queryResult.setTotalRecord(count);
     }
@@ -383,7 +372,6 @@ public abstract class HibernateDaoImpl<T, PK extends Serializable> implements
 
         Long count = (Long) query.uniqueResult();
 
-        sessionFactory.getCurrentSession().flush();
         int nums = count.intValue();
 
         return nums;
