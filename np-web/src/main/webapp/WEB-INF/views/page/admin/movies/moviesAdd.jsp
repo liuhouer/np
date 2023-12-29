@@ -77,6 +77,12 @@
 								${model.movie_desc }
 						    </textarea>
                     </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="use_minio" value="1"  ${model.use_minio == 1 ? 'checked' : ''} > 使用Minio
+                        </label>
+                    </div>
 					
                     <div class="form-group">
                         <input id="formSubmit" data-activetext="添加 ››"

@@ -298,6 +298,11 @@ public class MoviesAction {
         		old.setPath(model.getPath());
         		old.setColor(model.getColor());
                 old.setMovie_desc(model.getMovie_desc());
+                //BRUCETIPS! 富文本处理
+                if(StringUtils.equals("1",model.getUse_minio())){
+                    old.setMovie_desc_minio(MinioUtils.uploadText(model.getMovie_desc()));
+                    old.setUse_minio(model.getUse_minio());
+                }
         		moviesManager.updateMovies(old);
 
                 //从redis set里面删除更新的失效资源
@@ -356,6 +361,10 @@ public class MoviesAction {
 
                  model.setRet_code(MD5Utils.encrypt(model.getMovie_name(),MD5Utils.MD5_KEY));
         		 model.setAdd_time(TimeUtils.nowdate());
+                //BRUCETIPS! 富文本处理
+                if(StringUtils.equals("1",model.getUse_minio())){
+                    model.setMovie_desc_minio(MinioUtils.uploadText(model.getMovie_desc()));
+                }
                  moviesManager.addMovies(model);
         	}
            
@@ -708,6 +717,12 @@ public class MoviesAction {
 
                 //页面描述
             	if(StringUtils.isNotEmpty(model.getMovie_desc())) map.put("movie_desc", Jsoup.parse(model.getMovie_desc()).text());
+
+
+                //BRUCETIPS! 富文本处理 -- 从minio读取
+                if(StringUtils.equals("1",model.getUse_minio())){
+                    model.setMovie_desc(MinioUtils.readText(model.getMovie_desc_minio()));
+                }
             	map.addAttribute("model", model);
             }
         }

@@ -33,6 +33,9 @@ public class Movies implements Serializable {
     @Column()
     private String movie_desc;
 
+    @Column()
+    private String movie_desc_minio;//minio文本
+
     @Column(length = 11)
     private Integer price;
 
@@ -64,6 +67,8 @@ public class Movies implements Serializable {
     @Column(length = 255)
     private String displayed;
 
+    @Column(length = 1)
+    private String use_minio;
 
     @Transient
     private List<Map<String, String>> tag_list;
