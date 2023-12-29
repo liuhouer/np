@@ -73,12 +73,19 @@
 								${model.brief }
 						    </textarea>
                     </div>
+
                     <div class="form-group">
                     		<span class="glyphicon glyphicon-star padding-b20"></span>软件详情
 							<textarea id="J_md_text" style="height: 200px; max-height: 400px;"
                                       name="content" rows="5">
 								${model.content }
 						    </textarea>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="use_minio" value="1"  ${model.use_minio == 1 ? 'checked' : ''} > 使用Minio
+                        </label>
                     </div>
 
 

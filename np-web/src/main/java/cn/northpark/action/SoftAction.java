@@ -195,6 +195,11 @@ public class SoftAction {
         		old.setColor(model.getColor());
         		old.setDisplayed(model.getDisplayed());
         		old.setHot_index(model.getHot_index());
+                //BRUCETIPS! 富文本处理
+                if(StringUtils.equals("1",model.getUse_minio())){
+                    old.setContent_minio(MinioUtils.uploadText(model.getContent()));
+                    old.setUse_minio(model.getUse_minio());
+                }
         		softManager.updateSoft(old);
 
 
@@ -253,6 +258,11 @@ public class SoftAction {
         		 model.setPost_date(TimeUtils.nowdate());
         		 model.setYear(TimeUtils.getYear(TimeUtils.nowdate()));
                  model.setMonth(TimeUtils.getMonth(TimeUtils.nowdate()));
+
+                 //BRUCETIPS! 富文本处理
+                 if(StringUtils.equals("1",model.getUse_minio())){
+                     model.setContent_minio(MinioUtils.uploadText(model.getContent()));
+                 }
         		 softManager.addSoft(model);
         	}
            
@@ -402,6 +412,11 @@ public class SoftAction {
                 map.addAttribute("article", list.get(0));
                 //SEO 优化
                 if(StringUtils.isNotEmpty(list.get(0).getBrief())) map.put("soft_desc", Jsoup.parse(list.get(0).getBrief()).text());
+
+                //BRUCETIPS! 富文本处理 -- 从minio读取
+                if(StringUtils.equals("1",list.get(0).getUse_minio())){
+                    list.get(0).setContent(MinioUtils.readText(list.get(0).getContent_minio()));
+                }
             }
 
         } catch (Exception e) {

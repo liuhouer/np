@@ -55,10 +55,11 @@ public class Soft implements Serializable {
     @Column()
     private String content;
 
+    @Column()
+    private String content_minio;//minio文本
 
     @Column(length = 255)
     private String year;
-
 
     @Column(length = 255)
     private String month;
@@ -90,5 +91,9 @@ public class Soft implements Serializable {
 
     @Column(length = 10)
     private String displayed;
+
+    @Column(length = 1)
+    private String use_minio;
+
 
 }
