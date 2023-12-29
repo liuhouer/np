@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.SoftMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.Soft" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ret_code" property="retCode" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content_minio" property="contentMinio" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="month" property="month" jdbcType="VARCHAR" />
+    <result column="post_date" property="postDate" jdbcType="VARCHAR" />
+    <result column="os" property="os" jdbcType="VARCHAR" />
+    <result column="tags" property="tags" jdbcType="VARCHAR" />
+    <result column="tags_code" property="tagsCode" jdbcType="VARCHAR" />
+    <result column="ret_url" property="retUrl" jdbcType="VARCHAR" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="hot_index" property="hotIndex" jdbcType="INTEGER" />
+    <result column="displayed" property="displayed" jdbcType="VARCHAR" />
+    <result column="use_minio" property="useMinio" jdbcType="VARCHAR" />
+    <result column="brief" property="brief" jdbcType="LONGVARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="path" property="path" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_soft
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.Soft" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_soft (ret_code, title, content_minio, 
+      year, month, post_date, 
+      os, tags, tags_code, 
+      ret_url, color, hot_index, 
+      displayed, use_minio, brief, 
+      content, path)
+    values (#{retCode,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{contentMinio,jdbcType=VARCHAR}, 
+      #{year,jdbcType=VARCHAR}, #{month,jdbcType=VARCHAR}, #{postDate,jdbcType=VARCHAR}, 
+      #{os,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{tagsCode,jdbcType=VARCHAR}, 
+      #{retUrl,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, #{hotIndex,jdbcType=INTEGER}, 
+      #{displayed,jdbcType=VARCHAR}, #{useMinio,jdbcType=VARCHAR}, #{brief,jdbcType=LONGVARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR}, #{path,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.Soft" >
+    update bc_soft
+    set ret_code = #{retCode,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      content_minio = #{contentMinio,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      month = #{month,jdbcType=VARCHAR},
+      post_date = #{postDate,jdbcType=VARCHAR},
+      os = #{os,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      tags_code = #{tagsCode,jdbcType=VARCHAR},
+      ret_url = #{retUrl,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      hot_index = #{hotIndex,jdbcType=INTEGER},
+      displayed = #{displayed,jdbcType=VARCHAR},
+      use_minio = #{useMinio,jdbcType=VARCHAR},
+      brief = #{brief,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      path = #{path,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, ret_code, title, content_minio, year, month, post_date, os, tags, tags_code, 
+    ret_url, color, hot_index, displayed, use_minio, brief, content, path
+    from bc_soft
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, ret_code, title, content_minio, year, month, post_date, os, tags, tags_code, 
+    ret_url, color, hot_index, displayed, use_minio, brief, content, path
+    from bc_soft
+  </select>
+</mapper>

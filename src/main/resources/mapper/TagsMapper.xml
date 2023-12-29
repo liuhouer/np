@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.TagsMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.Tags" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="tag_code" property="tagCode" jdbcType="VARCHAR" />
+    <result column="tag_type" property="tagType" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_tags
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.Tags" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_tags (tag, tag_code, tag_type
+      )
+    values (#{tag,jdbcType=VARCHAR}, #{tagCode,jdbcType=VARCHAR}, #{tagType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.Tags" >
+    update bc_tags
+    set tag = #{tag,jdbcType=VARCHAR},
+      tag_code = #{tagCode,jdbcType=VARCHAR},
+      tag_type = #{tagType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, tag, tag_code, tag_type
+    from bc_tags
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, tag, tag_code, tag_type
+    from bc_tags
+  </select>
+</mapper>

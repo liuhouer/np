@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.KnowledgeMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.Knowledge" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ret_code" property="retCode" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="brief_img" property="briefImg" jdbcType="VARCHAR" />
+    <result column="brief" property="brief" jdbcType="VARCHAR" />
+    <result column="post_date" property="postDate" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="tags" property="tags" jdbcType="VARCHAR" />
+    <result column="tags_code" property="tagsCode" jdbcType="VARCHAR" />
+    <result column="ret_url" property="retUrl" jdbcType="VARCHAR" />
+    <result column="link_url" property="linkUrl" jdbcType="VARCHAR" />
+    <result column="view_times" property="viewTimes" jdbcType="BIGINT" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="hot_index" property="hotIndex" jdbcType="INTEGER" />
+    <result column="displayed" property="displayed" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="path" property="path" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_knowledge
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.Knowledge" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_knowledge (ret_code, title, brief_img, 
+      brief, post_date, price, 
+      tags, tags_code, ret_url, 
+      link_url, view_times, color, 
+      hot_index, displayed, content, 
+      path)
+    values (#{retCode,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{briefImg,jdbcType=VARCHAR}, 
+      #{brief,jdbcType=VARCHAR}, #{postDate,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, 
+      #{tags,jdbcType=VARCHAR}, #{tagsCode,jdbcType=VARCHAR}, #{retUrl,jdbcType=VARCHAR}, 
+      #{linkUrl,jdbcType=VARCHAR}, #{viewTimes,jdbcType=BIGINT}, #{color,jdbcType=VARCHAR}, 
+      #{hotIndex,jdbcType=INTEGER}, #{displayed,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, 
+      #{path,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.Knowledge" >
+    update bc_knowledge
+    set ret_code = #{retCode,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      brief_img = #{briefImg,jdbcType=VARCHAR},
+      brief = #{brief,jdbcType=VARCHAR},
+      post_date = #{postDate,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      tags = #{tags,jdbcType=VARCHAR},
+      tags_code = #{tagsCode,jdbcType=VARCHAR},
+      ret_url = #{retUrl,jdbcType=VARCHAR},
+      link_url = #{linkUrl,jdbcType=VARCHAR},
+      view_times = #{viewTimes,jdbcType=BIGINT},
+      color = #{color,jdbcType=VARCHAR},
+      hot_index = #{hotIndex,jdbcType=INTEGER},
+      displayed = #{displayed,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      path = #{path,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, ret_code, title, brief_img, brief, post_date, price, tags, tags_code, 
+    ret_url, link_url, view_times, color, hot_index, displayed, content, path
+    from bc_knowledge
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, ret_code, title, brief_img, brief, post_date, price, tags, tags_code, 
+    ret_url, link_url, view_times, color, hot_index, displayed, content, path
+    from bc_knowledge
+  </select>
+</mapper>

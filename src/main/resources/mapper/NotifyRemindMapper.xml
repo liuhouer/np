@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.NotifyRemindMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.NotifyRemind" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="remindID" property="remindid" jdbcType="INTEGER" />
+    <result column="senderID" property="senderid" jdbcType="VARCHAR" />
+    <result column="senderName" property="sendername" jdbcType="VARCHAR" />
+    <result column="senderAction" property="senderaction" jdbcType="VARCHAR" />
+    <result column="objectID" property="objectid" jdbcType="VARCHAR" />
+    <result column="object" property="object" jdbcType="VARCHAR" />
+    <result column="objectType" property="objecttype" jdbcType="VARCHAR" />
+    <result column="objectLinks" property="objectlinks" jdbcType="VARCHAR" />
+    <result column="recipientID" property="recipientid" jdbcType="VARCHAR" />
+    <result column="createdAt" property="createdat" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="readAt" property="readat" jdbcType="TIMESTAMP" />
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_notify_remind
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.NotifyRemind" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_notify_remind (remindID, senderID, senderName, 
+      senderAction, objectID, object, 
+      objectType, objectLinks, recipientID, 
+      createdAt, status, readAt, 
+      message)
+    values (#{remindid,jdbcType=INTEGER}, #{senderid,jdbcType=VARCHAR}, #{sendername,jdbcType=VARCHAR}, 
+      #{senderaction,jdbcType=VARCHAR}, #{objectid,jdbcType=VARCHAR}, #{object,jdbcType=VARCHAR}, 
+      #{objecttype,jdbcType=VARCHAR}, #{objectlinks,jdbcType=VARCHAR}, #{recipientid,jdbcType=VARCHAR}, 
+      #{createdat,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{readat,jdbcType=TIMESTAMP}, 
+      #{message,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.NotifyRemind" >
+    update bc_notify_remind
+    set remindID = #{remindid,jdbcType=INTEGER},
+      senderID = #{senderid,jdbcType=VARCHAR},
+      senderName = #{sendername,jdbcType=VARCHAR},
+      senderAction = #{senderaction,jdbcType=VARCHAR},
+      objectID = #{objectid,jdbcType=VARCHAR},
+      object = #{object,jdbcType=VARCHAR},
+      objectType = #{objecttype,jdbcType=VARCHAR},
+      objectLinks = #{objectlinks,jdbcType=VARCHAR},
+      recipientID = #{recipientid,jdbcType=VARCHAR},
+      createdAt = #{createdat,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=CHAR},
+      readAt = #{readat,jdbcType=TIMESTAMP},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, remindID, senderID, senderName, senderAction, objectID, object, objectType, 
+    objectLinks, recipientID, createdAt, status, readAt, message
+    from bc_notify_remind
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, remindID, senderID, senderName, senderAction, objectID, object, objectType, 
+    objectLinks, recipientID, createdAt, status, readAt, message
+    from bc_notify_remind
+  </select>
+</mapper>

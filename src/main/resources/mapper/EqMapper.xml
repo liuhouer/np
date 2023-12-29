@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.EqMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.Eq" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="ret_code" property="retCode" jdbcType="VARCHAR" />
+    <result column="brief" property="brief" jdbcType="LONGVARCHAR" />
+    <result column="article" property="article" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_eq
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.Eq" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_eq (title, img, date, 
+      ret_code, brief, article
+      )
+    values (#{title,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{retCode,jdbcType=VARCHAR}, #{brief,jdbcType=LONGVARCHAR}, #{article,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.Eq" >
+    update bc_eq
+    set title = #{title,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      ret_code = #{retCode,jdbcType=VARCHAR},
+      brief = #{brief,jdbcType=LONGVARCHAR},
+      article = #{article,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, title, img, date, ret_code, brief, article
+    from bc_eq
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, title, img, date, ret_code, brief, article
+    from bc_eq
+  </select>
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.PoemEnjoyMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.PoemEnjoy" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="poem_id" property="poemId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="translation" property="translation" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="tagcode" property="tagcode" jdbcType="VARCHAR" />
+    <result column="tag_code" property="tagCode" jdbcType="VARCHAR" />
+    <result column="enjoying" property="enjoying" jdbcType="LONGVARCHAR" />
+    <result column="author_info" property="authorInfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_poem_enjoy
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.PoemEnjoy" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_poem_enjoy (poem_id, title, comment, 
+      translation, tag, tagcode, 
+      tag_code, enjoying, author_info
+      )
+    values (#{poemId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, 
+      #{translation,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{tagcode,jdbcType=VARCHAR}, 
+      #{tagCode,jdbcType=VARCHAR}, #{enjoying,jdbcType=LONGVARCHAR}, #{authorInfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.PoemEnjoy" >
+    update bc_poem_enjoy
+    set poem_id = #{poemId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      translation = #{translation,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      tagcode = #{tagcode,jdbcType=VARCHAR},
+      tag_code = #{tagCode,jdbcType=VARCHAR},
+      enjoying = #{enjoying,jdbcType=LONGVARCHAR},
+      author_info = #{authorInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, poem_id, title, comment, translation, tag, tagcode, tag_code, enjoying, 
+    author_info
+    from bc_poem_enjoy
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, poem_id, title, comment, translation, tag, tagcode, tag_code, enjoying, 
+    author_info
+    from bc_poem_enjoy
+  </select>
+</mapper>
