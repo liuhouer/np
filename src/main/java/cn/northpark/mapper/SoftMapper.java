@@ -1,7 +1,12 @@
 package cn.northpark.mapper;
 
 import cn.northpark.model.Soft;
+import cn.northpark.utils.page.QueryResult;
+import org.apache.ibatis.annotations.Param;
+
+import javax.naming.Name;
 import java.util.List;
+import java.util.Map;
 
 public interface SoftMapper {
     int deleteByPrimaryKey(Integer id);
@@ -13,4 +18,8 @@ public interface SoftMapper {
     List<Soft> selectAll();
 
     int updateByPrimaryKey(Soft record);
+
+    List<Map<String, Object>> querySqlMap(String sql);
+
+    List<Soft> findByCondition(@Param(value = "whereSql") String whereSql, @Param(value = "orderBy")String orderBy);
 }

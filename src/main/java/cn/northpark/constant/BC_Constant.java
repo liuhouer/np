@@ -362,7 +362,7 @@ public class BC_Constant {
         ResourceBundle bundle = ResourceBundle.getBundle("env-config");
 
         if (bundle == null) {
-            throw new IllegalArgumentException("env-config.properties!");
+            throw new IllegalArgumentException("env-redis.properties!");
         }
         Properties prop = System.getProperties();
         String os = prop.getProperty("os.name");
@@ -388,7 +388,7 @@ public class BC_Constant {
         ResourceBundle bundle = ResourceBundle.getBundle("env-config");
 
         if (bundle == null) {
-            throw new IllegalArgumentException("env-config.properties!");
+            throw new IllegalArgumentException("env-redis.properties!");
         }
         Properties prop = System.getProperties();
         String os = prop.getProperty("os.name");

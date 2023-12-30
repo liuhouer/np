@@ -55,11 +55,11 @@
 								</div>
 								<p>
 									发表于： <strong><a class="common-a-right"
-										title="${article.post_date}"
-										href="/soft/date/${article.post_date }">
-											${article.post_date} </a></strong> <strong><a
+										title="${article.postDate}"
+										href="/soft/date/${article.postDate }">
+											${article.postDate} </a></strong> <strong><a
 										class="common-a-right" title="${article.tags}"
-										href="/soft/tag/${article.tags_code }"> ${article.tags} </a></strong> <strong><a
+										href="/soft/tag/${article.tagsCode }"> ${article.tags} </a></strong> <strong><a
 										class="common-a-right" title="${article.os}"
 										href="/soft/${article.os }"> ${article.os} </a></strong>
 

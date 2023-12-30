@@ -60,7 +60,7 @@ public class RedisUtil implements RedisInterface{
     private static synchronized Jedis getJedis() {
         if (jedisPool == null) {
             // 加载redis配置文件
-            ResourceBundle bundle = ResourceBundle.getBundle("hikaricp");
+            ResourceBundle bundle = ResourceBundle.getBundle("redis");
             if (bundle == null) {
                 throw new IllegalArgumentException("[redis.properties] is not found!");
             }

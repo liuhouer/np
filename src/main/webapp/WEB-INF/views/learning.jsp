@@ -73,7 +73,7 @@
                                             <a href="/learning/post-${s.id }.html" oid="${s.id }">
                                                 <small class="green-text">
                                                     <font size="5"><strong>
-                                                        <c:if test="${s.hot_index>0}">
+                                                        <c:if test="${s.hotIndex>0}">
                                                             <i class="fa fa-thumb-tack" title="已置顶"></i>
                                                         </c:if>
                                                             ${s.title}</strong></font>
@@ -90,8 +90,8 @@
                                     <p>
 
                                         	发表于：<span class=" glyphicon glyphicon-time margin10"></span><span
-                                            class="common-a-right" title="${s.post_date}"
-                                            href="/learning/date/${s.post_date}">${s.post_date}</span>
+                                            class="common-a-right" title="${s.postDate}"
+                                            href="/learning/date/${s.postDate}">${s.postDate}</span>
 
                                         <span class=" glyphicon glyphicon-tags margin10"></span>
 

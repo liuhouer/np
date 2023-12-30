@@ -45,7 +45,7 @@
                                 </p>
 
                                 <p>
-                                    <a class="common-a" title="${article.post_date}">
+                                    <a class="common-a" title="${article.postDate}">
                                         ${model.date }
                                     </a>
                                 </p>

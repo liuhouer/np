@@ -68,7 +68,7 @@
                                                 <span class="glyphicon glyphicon-star"></span>学习标签-英文
                                                 <input id="J_tag_code" placeholder="学习标签-英文" required
                                                        class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-                                                       name="tags_code" type="text" value="${model.tags_code },classhare">
+                                                       name="tagsCode" type="text" value="${model.tagsCode },classhare">
                                         </div>
 
                                         <div class="form-group ">

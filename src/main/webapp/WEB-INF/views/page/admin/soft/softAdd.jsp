@@ -48,7 +48,7 @@
 						<span class="glyphicon glyphicon-star padding-b20"></span>采集地址【链接请求地址】
                         <input placeholder="采集地址【链接请求地址】" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-                               name="ret_code" type="text" value="${model.ret_code }">
+                               name="retCode" type="text" value="${model.retCode }">
                     </div>
                     <div class="form-group ">
                                
@@ -105,9 +105,9 @@
 
                     <div class="form-group ">
                         <span class="glyphicon glyphicon-star"></span>置顶编号
-                        <input id="J_hot_index" placeholder="置顶编号" required
+                        <input id="J_hotIndex" placeholder="置顶编号" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-                               name="hot_index" type="number" value="${model.hot_index }">
+                               name="hotIndex" type="number" value="${model.hotIndex }">
                     </div>
 
                     <div class="form-group ">
@@ -130,7 +130,7 @@
 						<span class="glyphicon glyphicon-star  padding-b20"></span>英文标签
                         <input  placeholder="英文标签" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-                               name="tags_code" type="text" value="${model.tags_code }">
+                               name="tagsCode" type="text" value="${model.tagsCode }">
                     </div>
                     
 

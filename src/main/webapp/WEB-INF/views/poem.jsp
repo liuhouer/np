@@ -150,8 +150,8 @@
                                                 aria-hidden="true" style="float: left; display: block; width: 750px;">
 
                                                 <div class="testimonails-content avatar ">
-                                                    <p class="text-color-${ fn:toLowerCase(fn:substring( s.ret_code ,0,1))}">${s.title }</p>
-                                                    <p class="text-color-${ fn:toLowerCase(fn:substring( s.ret_code ,0,1))}">${s.content1 }</p>
+                                                    <p class="text-color-${ fn:toLowerCase(fn:substring( s.retCode ,0,1))}">${s.title }</p>
+                                                    <p class="text-color-${ fn:toLowerCase(fn:substring( s.retCode ,0,1))}">${s.content1 }</p>
                                                     <p>
                                                         <a
 
@@ -160,8 +160,8 @@
                                                                 title="${s.title}">
 
 
-                                                            <span class=" imgbreath text-${ fn:toLowerCase(fn:substring( s.ret_code ,0,1))}"
-                                                                  alt="${s.title}">${ fn:toUpperCase(fn:substring( s.ret_code ,0,1))}</span>
+                                                            <span class=" imgbreath text-${ fn:toLowerCase(fn:substring( s.retCode ,0,1))}"
+                                                                  alt="${s.title}">${ fn:toUpperCase(fn:substring( s.retCode ,0,1))}</span>
                                                         </a>
                                                     </p>
                                                     <h6 class="gray-text">

@@ -18,6 +18,10 @@ import cn.northpark.vo.UserVO;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.dbutils.BasicRowProcessor;
+import org.apache.commons.dbutils.BeanProcessor;
+import org.apache.commons.dbutils.GenerousBeanProcessor;
+import org.apache.commons.dbutils.RowProcessor;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.lang.StringUtils;
@@ -326,8 +330,11 @@ public class DashController {
 
 		//从数据库取 :1天刷新
 		if (CollectionUtils.isEmpty(home_eq_list)) {
+			//开启驼峰映射
+			BeanProcessor bean = new GenerousBeanProcessor();
+			RowProcessor processor = new BasicRowProcessor(bean);
 			String eq_sql = "select * from bc_eq  where date ='2016-07-21' or date ='2016-07-19' or date ='2016-07-15' order by date desc";
-			home_eq_list = NPQueryRunner.query(eq_sql,new BeanListHandler<Eq>(Eq.class));
+			home_eq_list = NPQueryRunner.query(eq_sql,new BeanListHandler<Eq>(Eq.class,processor));
 			RedisUtil.getInstance().set("home_eq_list", JsonUtil.object2json(home_eq_list));
 
 

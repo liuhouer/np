@@ -27,7 +27,7 @@ public class ManualJdbcPoolUtil {
 
         try {
 
-            prop.load(ManualJdbcPoolUtil.class.getClassLoader().getResourceAsStream("config.properties"));
+            prop.load(ManualJdbcPoolUtil.class.getClassLoader().getResourceAsStream("redis.properties"));
 
             //获取配置文件信息传入config连接池配置对象
 

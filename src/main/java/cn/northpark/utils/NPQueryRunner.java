@@ -2,8 +2,7 @@
 package cn.northpark.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.*;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
@@ -40,7 +39,7 @@ public class NPQueryRunner {
 	}
 
 
-	public static <T> T query(String sql , ResultSetHandler<T> resultSetHandler,Object... params){
+	public static <T> T query(String sql ,ResultSetHandler<T> resultSetHandler,Object... params){
 		T result = null;
 		try {
 			result = queryRunner.query(sql,resultSetHandler,params);
@@ -49,6 +48,7 @@ public class NPQueryRunner {
 		}
 		return result;
 	}
+
 
 	public static int update(String sql,Object... params){
 		int result = 0;

@@ -74,4 +74,20 @@
     ret_url, color, hot_index, displayed, use_minio, brief, content, path
     from bc_soft
   </select>
+    <select id="querySqlMap" resultType="java.util.Map">
+
+        ${sqlStr}
+    </select>
+  <select id="findByCondition" resultMap="BaseResultMap">
+     select  *  from bc_soft
+
+      <if test="whereSql != null and whereSql != ''">
+        ${whereSql}
+      </if>
+
+      <if test="orderBy != null and orderBy != ''">
+        order by  ${orderBy}
+      </if>
+
+  </select>
 </mapper>

@@ -83,7 +83,7 @@
                                             <a href="/movies/post-${s.id }.html" oid="${s.id }">
                                                 <small class="green-text">
                                                     <font size="5"><strong>
-                                                        <c:if test="${s.hot_index>0}">
+                                                        <c:if test="${s.hotIndex>0}">
                                                             <i class="fa fa-thumb-tack" title="已置顶"></i>
                                                         </c:if>
                                                             ${s.movie_name}</strong></font>

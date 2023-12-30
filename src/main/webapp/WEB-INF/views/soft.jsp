@@ -15,7 +15,7 @@
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
     <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
-    <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
+    <%@ include file="page/common/common.jsp" %>
     <c:if test="${page==null || page==''}">
         <title>Mac软件 | NorthPark</title>
     </c:if>
@@ -30,7 +30,7 @@
 
 <body>
 
-<%@ include file="/WEB-INF/views/page/common/navigation.jsp" %>
+<%@ include file="page/common/navigation.jsp" %>
 
 <!-- 页面标题 -->
 <h1 class="font-elegant center">Mac软件</h1>
@@ -60,10 +60,10 @@
                                 <div class="row margin5">
                                     <div class="border-0 center">
                                         <p>
-                                            <a href="/soft/${s.ret_code }.html">
+                                            <a href="/soft/${s.retCode }.html">
                                                 <small class="green-text">
                                                     <font size="5"><strong>
-                                                            <c:if test="${s.hot_index>0}">
+                                                            <c:if test="${s.hotIndex>0}">
                                                                 <i class="fa fa-thumb-tack" title="已置顶"></i>
                                                             </c:if>
                                                             ${s.title}</strong></font>
@@ -79,16 +79,16 @@
 
                                     <p>
 
-                                        发表于：<strong><a class="common-a-right" title="${s.post_date}"
-                                                       href="/soft/date/${s.post_date }">${s.post_date}</a></strong>
+                                        发表于：<strong><a class="common-a-right" title="${s.postDate}"
+                                                       href="/soft/date/${s.postDate }">${s.postDate}</a></strong>
 
                                         <strong><a class="common-a-right" title="${s.tags}"
-                                                   href="/soft/tag/${s.tags_code }">${s.tags}</a></strong>
+                                                   href="/soft/tag/${s.tagsCode }">${s.tags}</a></strong>
 
                                         <strong><a class="common-a-right" title="${s.os}"
                                                    href="/soft/${s.os }">${s.os}</a></strong>
 
-                                            <%--  <a href="/soft/${s.ret_code }.html#comment" class=" reply-count count-text common-a" data-thread-key="${s.ret_code }" data-count-type="comments"></a> --%>
+                                            <%--  <a href="/soft/${s.retCode }.html#comment" class=" reply-count count-text common-a" data-thread-key="${s.retCode }" data-count-type="comments"></a> --%>
                                     </p>
                                     <p id="brief_${ss.index}">
 
@@ -96,7 +96,7 @@
                                     </p>
 
                                     <p>
-                                        <a class="btn btn-warning margin-t10" href="/soft/${s.ret_code }.html">
+                                        <a class="btn btn-warning margin-t10" href="/soft/${s.retCode }.html">
                                             Read More
                                             <span class="glyphicon  glyphicon-circle-arrow-right padding5"></span>
                                         </a>
@@ -107,7 +107,7 @@
                         </div>
                     </c:forEach>
                     <c:if test="${pagein!='no' }">
-                        <%@ include file="/WEB-INF/views/page/common/fenye.jsp" %>
+                        <%@ include file="page/common/fenye.jsp" %>
                     </c:if>
                 </div>
                 <div class="col-md-4 ">
@@ -119,7 +119,7 @@
                             <h4><span class=" glyphicon  glyphicon-usd margin5"></span> Donate</h4>
                         </div>
                         <!-- load donate list  -->
-                        <%@ include file="/WEB-INF/views/page/common/donate.jsp" %>
+                        <%@ include file="page/common/donate.jsp" %>
 
 
                     </div>
@@ -213,7 +213,7 @@
     </div>
 </div>
 
-<%@ include file="/WEB-INF/views/page/common/container.jsp" %>
+<%@ include file="page/common/container.jsp" %>
 
 <script type="text/javascript" data-cfasync="false">
     //禁止图片拉伸
