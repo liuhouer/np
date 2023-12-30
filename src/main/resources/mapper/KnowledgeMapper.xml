@@ -72,4 +72,19 @@
     ret_url, link_url, view_times, color, hot_index, displayed, content, path
     from bc_knowledge
   </select>
+    <select id="findByCondition" resultMap="BaseResultMap">
+
+      select  *  from bc_knowledge
+
+      <if test="whereSql != null and whereSql != ''">
+        ${whereSql}
+      </if>
+
+      <if test="orderBy != null and orderBy != ''">
+        order by  ${orderBy}
+      </if>
+    </select>
+    <select id="querySqlMap" resultType="java.util.Map">
+      ${sqlExpr}
+    </select>
 </mapper>

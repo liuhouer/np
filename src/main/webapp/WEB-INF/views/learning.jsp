@@ -95,7 +95,7 @@
 
                                         <span class=" glyphicon glyphicon-tags margin10"></span>
 
-                                        <c:forEach items="${s.tag_list }" var="y" varStatus="yy">
+                                        <c:forEach items="${s.tag_list }" var="y" varStatus="yy"><%--map--%>
                                             <strong><a class="common-a-right" title="${y.tag}"
                                                        href="/learning/tag/${y.tag_code }">${y.tag}</a></strong>
                                         </c:forEach>
@@ -112,8 +112,8 @@
 
                                     </p>
                                     <p id="brief_${ss.index}">
-                                        <c:if test="${s.brief_img!='' && s.brief_img!=null}">
-                                            <img src="${s.brief_img }"></img>
+                                        <c:if test="${s.briefImg!='' && s.briefImg!=null}">
+                                            <img src="${s.briefImg }"></img>
                                         </c:if>
 
 
@@ -188,17 +188,17 @@
                         <div class="clearfix border-bottom">
                             <h4><span class=" glyphicon glyphicon-tags margin5"></span> 标签</h4>
                         </div>
-                        <c:forEach var="z" items="${learn_tags }">
+                        <c:forEach var="z" items="${learnTags }"> <%--bean--%>
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tag_code == sel_tag }">
+                                <c:if test="${z.tagCode == sel_tag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
-                                    <a style="color: #45d0c6;" href="/learning/tag/${z.tag_code }"
+                                    <a style="color: #45d0c6;" href="/learning/tag/${z.tagCode }"
                                        title="${z.tag }">${z.tag } </a>
                                 </c:if>
-                                <c:if test="${z.tag_code != sel_tag }">
+                                <c:if test="${z.tagCode != sel_tag }">
                                     <span class="glyphicon glyphicon-tag margin5"></span>
-                                    <a href="/learning/tag/${z.tag_code }" title="${z.tag }">${z.tag } </a>
+                                    <a href="/learning/tag/${z.tagCode }" title="${z.tag }">${z.tag } </a>
                                 </c:if>
 
 
