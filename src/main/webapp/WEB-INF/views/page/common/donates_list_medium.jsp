@@ -1,4 +1,5 @@
 <%@ page import="cn.northpark.utils.page.PageView" %>
+<%@ page import="com.github.pagehelper.PageInfo" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -7,7 +8,7 @@
 
 
     <%
-        PageView pageView = (PageView) request.getAttribute("pageView");
+        PageInfo pageInfo = (PageInfo) request.getAttribute("pageInfo");
 
         String type_id = (String) request.getAttribute("type_id");
 
@@ -26,7 +27,7 @@
                  
             <p>
                 <span class="glyphicon glyphicon-time margin5"></span>
-                    ${y.add_time}
+                    ${y.addTime}
             </p>
             <p>
             </p>
@@ -50,29 +51,33 @@
     </c:forEach>
 
 	<div class=" clearfix center pageinfo ">
-    <ul class="qinco-pagination pagination-sm ">
-        <li><a onclick="loadDonates(<%=type_id%>,1)">‹‹</a></li>
-        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getCurrentPage() - 1%>)">‹</a></li>
-        <%
-            //<显示分页码
-            for (int i = pageView.getPageIndex().getStartIndex(); i <= pageView.getPageIndex().getEndIndex(); i++) {
-                if (i != pageView.getCurrentPage()) {//如果i不等于当前页
-        %>
-        <li><a onclick="loadDonates(<%=type_id%>,<%=i%>)"><%=i%>
-        </a></li>
-        <%
-        } else {
-        %>
-        <li class="active"><a><%=i%>
-        </a></li>
-        <%
-                }
-            }//显示分页码>
-        %>
-        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getCurrentPage() + 1%>)">›</a></li>
-        <li><a onclick="loadDonates(<%=type_id%>,<%=pageView.getTotalPage()%>)">››</a></li>
-    </ul>
-	
+        <ul class="qinco-pagination pagination-sm ">
+            <li><a onclick="loadDonates(<%=type_id%>,1)">‹‹</a></li>
+            <li><a onclick="loadDonates(<%=type_id%>,<%=pageInfo.getPrePage()%>)"
+                    <% if (!pageInfo.isHasPreviousPage()) { %>
+                   onclick="return false;"
+                    <% } %>
+
+            >‹</a></li>
+            <%
+                //<显示分页码
+                for (int i = pageInfo.getNavigateFirstPage(); i <= pageInfo.getNavigateLastPage(); i++) {
+                    if (i != pageInfo.getPageNum()) {//如果i不等于当前页
+            %>
+            <li><a onclick="loadDonates(<%=type_id%>,<%=i%>)"><%=i%>
+            </a></li>
+            <%
+            } else {
+            %>
+            <li class="active"><a><%=i%>
+            </a></li>
+            <%
+                    }
+                }//显示分页码>
+            %>
+            <li><a onclick="loadDonates(<%=type_id%>,<%=pageInfo.getNextPage()%>)">›</a></li>
+            <li><a onclick="loadDonates(<%=type_id%>,<%=pageInfo.getPages()%>)">››</a></li>
+        </ul>
 	</div> 
 
     <div class=" clearfix ">

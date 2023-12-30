@@ -21,62 +21,14 @@ public interface MoviesService {
 
      boolean updateMovies(Movies movies);
 
-     QueryResult<Movies> findByCondition(PageView<Movies> p,
-                                               String wheresql, LinkedHashMap<String, String> order);
-
-     QueryResult<Movies> findByCondition(
-            String wheresql);
-
     /**
-     * 根据关键词搜索
+     * 执行传入的sql，并返回 list map集合
      *
      * @return
      */
-     List<Movies> querySql(String sql, Object... obj);
+    List<Map<String, Object>> querySqlMap(String sql);
 
-
-    /**
-     * sql
-     *
-     * @return
-     */
-     List<Map<String, Object>> querySql(String sql);
-    
-    /**
-     * sql
-     *
-     * @return
-     */
-     List<Movies> querySqlEntity(String sql);
-
-
-    /**
-     * 根据sql语句查询条数
-     *
-     * @param sql SQL语句
-     * @return int
-     */
-     int countSql(String sql);
-
-
-    /**
-     * 根据实体查询条数
-     *
-     * @param sql SQL语句
-     * @return int
-     */
-     int countHql(String wheresql);
-
-
-    /**
-     * 根据sql语句查询map集合
-     *
-     * @return
-     */
-     List<Map<String, Object>> querySqlMap(String sql);
-
-
-    int exeSql(String up_sql);
+    List<Movies> findByCondition(String whereSql, String orderBy);
 }
 
 

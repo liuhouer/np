@@ -36,4 +36,16 @@
     select id, tag, tag_code, tag_type
     from bc_tags
   </select>
+
+    <select id="findByCondition" resultMap="BaseResultMap">
+     select *
+     from bc_tags
+      <if test="whereSql != null and whereSql != ''">
+        ${whereSql}
+      </if>
+
+      <if test="orderBy != null and orderBy != ''">
+        order by  ${orderBy}
+      </if>
+    </select>
 </mapper>

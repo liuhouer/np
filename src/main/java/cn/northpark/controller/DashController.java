@@ -3,20 +3,25 @@ package cn.northpark.controller;
 import cn.northpark.annotation.Desc;
 import cn.northpark.annotation.RateLimit;
 import cn.northpark.constant.BC_Constant;
+import cn.northpark.constant.DonatesEnum;
+import cn.northpark.constant.DonatesRedisKeyEnum;
 import cn.northpark.model.Eq;
 import cn.northpark.model.NotifyRemind;
 import cn.northpark.notify.NotifyEnum;
 import cn.northpark.result.Result;
 import cn.northpark.result.ResultGenerator;
 import cn.northpark.service.EqService;
+import cn.northpark.service.MoviesService;
 import cn.northpark.service.NoteService;
 import cn.northpark.service.UserLyricsService;
 import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.threadpool.AsyncThreadPool;
 import cn.northpark.utils.*;
+import cn.northpark.utils.page.MyConstant;
 import cn.northpark.vo.UserVO;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.BeanProcessor;
@@ -39,7 +44,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -50,13 +57,16 @@ public class DashController {
 
 
 	@Autowired
-	UserLyricsService userlyricsManager;
+	UserLyricsService userlyricsService;
 
 	@Autowired
-	NoteService noteManager;
+	NoteService noteService;
 
 	@Autowired
-	EqService eqManager;
+	MoviesService moviesService;
+
+	@Autowired
+	EqService eqService;
 
 
 
@@ -212,78 +222,60 @@ public class DashController {
 	}
 
 
-//	@RequestMapping(value = "/dash/getDonates")
-//	@Desc(value = "异步获取捐赠数据")
-//	@RateLimit
-//	public String getDonates(HttpServletRequest request, ModelMap map) {
-//
-//		String type_id = request.getParameter("type_id");
-//
-//		String page = request.getParameter("page");
-//
-//		if (StringUtils.isEmpty(page)) {
-//			page = "1";
-//		}
-//
-//		assert StringUtils.isNotBlank(type_id);
-//
-//		String result = DonatesRedisKeyEnum.match(type_id).getRedis_key();
-//
-//		pushDonates2Map(map, type_id, result, page);
-//
-//
-//		return "/page/common/" + result.replace("_z", "");
-//	}
+	@RequestMapping(value = "/dash/getDonates")
+	@Desc(value = "异步获取捐赠数据")
+	@RateLimit
+	public String getDonates(HttpServletRequest request, ModelMap map) {
 
-//	/**
-//	 * @param map
-//	 * @param page
-//	 */
-//	public void pushDonates2Map(ModelMap map, String type_id, String result, String page) {
-//		//取出捐赠数据
-//
-//
-//		List<Map<String, Object>> list = null;
-//
-//		//组装+计算分页信息=================
-//		PageView<List<Map<String, Object>>> pageView = new PageView<List<Map<String, Object>>>(Integer.parseInt(page), MyConstant.MAX_RESULT, 3);
-//		pageView = noteManager.getMixMapPage(pageView, DonatesEnum.match(type_id).getSql_fetch());
-//		//组装+计算分页信息=================
-//
-//		//从redis取
-//
-//		//获取数据条数
-//		Long zCard = RedisUtil.getInstance().zCard(result + page);
-//
-//		//从redis查询
-//		if (Objects.nonNull(zCard) && zCard.intValue() > 0) {
-//
-//			//从redis获取数据
-//			Set<String> zRangeByScore = RedisUtil.getInstance().zRangeByScore(result + page, "0",MyConstant.MAX_RESULT + "", 0, MyConstant.MAX_RESULT);
-//			list = zRangeByScore.stream().map(i -> JsonUtil.json2map(i)).collect(Collectors.toList());
-//
-//		} else {
-//
-//			//没有结果-从数据库取
-//
-//			//根据计算的分页仅仅获取数据
-//			list = this.noteManager.findmixByCondition(pageView, DonatesEnum.match(type_id).getSql_fetch());
-//
-//			//写入redis
-//			for (int i = 0; i < list.size(); i++) {
-//				RedisUtil.getInstance().zAdd(result + page, i, JsonUtil.object2json(list.get(i)));
-//			}
-//		}
-//
-//		//组装默认分页信息=================
-//		map.addAttribute("pageView", pageView);
-//		map.addAttribute("type_id", type_id);
-//		map.addAttribute("page", page);
-//		map.addAttribute("list", list);
-//		//组装默认分页信息=================
-//
-//
-//	}
+		String type_id = request.getParameter("type_id");
+
+		String page = request.getParameter("page");
+
+		if (StringUtils.isEmpty(page)) {
+			page = "1";
+		}
+
+		assert StringUtils.isNotBlank(type_id);
+
+		String result = DonatesRedisKeyEnum.match(type_id).getRedis_key();
+
+		pushDonates2Map(map, type_id, result, page);
+
+
+		return "/page/common/" + result.replace("_z", "");
+	}
+
+	/**
+	 * @param map
+	 * @param page
+	 */
+	public void pushDonates2Map(ModelMap map, String type_id, String result, String page) {
+		//取出捐赠数据
+
+		List<Map<String, Object>> list = null;
+
+		PageInfo pageInfo = null;
+
+		String sql_fetch = DonatesEnum.match(type_id).getSql_fetch();
+
+		//根据计算的分页仅仅获取数据
+		PageHelper.startPage(Integer.parseInt(page),MyConstant.MAX_RESULT);
+		list = moviesService.querySqlMap( sql_fetch);
+		pageInfo = new PageInfo(list);
+		//写入redis
+		for (int i = 0; i < list.size(); i++) {
+			RedisUtil.getInstance().zAdd(result + page, i, JsonUtil.object2json(list.get(i)));
+		}
+
+		//组装默认分页信息=================
+		map.addAttribute("pageInfo", pageInfo);
+		map.addAttribute("type_id", type_id);
+		map.addAttribute("page", page);
+		map.addAttribute("list", list);
+		//组装默认分页信息=================
+
+
+	}
 
 
 	/**
@@ -362,7 +354,7 @@ public class DashController {
 		//从数据库取 :1天刷新
 		if (CollectionUtils.isEmpty(home_note_list)) {
 			PageHelper.startPage(1,16);
-			List<Map<String, Object>> note_list = this.noteManager.getHotNoteList();
+			List<Map<String, Object>> note_list = this.noteService.getHotNoteList();
 
 			//时间处理
 			note_list.forEach(item -> {
@@ -395,8 +387,8 @@ public class DashController {
 		if (CollectionUtils.isEmpty(home_lovelist)) {
 			//取出一部分love数据
 			PageHelper.startPage(1,12);
-			String randSql = userlyricsManager.getRandSql();
-			home_lovelist = this.userlyricsManager.execSql(randSql);
+			String randSql = userlyricsService.getRandSql();
+			home_lovelist = this.userlyricsService.execSql(randSql);
 
 			if (!CollectionUtils.isEmpty(home_lovelist)) {
 

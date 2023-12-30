@@ -42,7 +42,7 @@
                         <span class="glyphicon glyphicon-star"></span> 电影名
                         <input id="J_name" placeholder="电影名" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-                               name="movie_name" type="text" value="${model.movie_name }">
+                               name="movieName" type="text" value="${model.movieName }">
                     </div>
                     <div class="form-group ">
                                
@@ -73,8 +73,8 @@
                     <div class="form-group">
                         <span class="glyphicon glyphicon-star"></span>电影内容
 							<textarea id="J_md_text" style="height: 200px; max-height: 400px;"
-                                      name="movie_desc" rows="5">
-								${model.movie_desc }
+                                      name="movieDesc" rows="5">
+								${model.movieDesc }
 						    </textarea>
                     </div>
 

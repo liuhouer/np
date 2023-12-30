@@ -17,10 +17,10 @@
 <meta name="robots" content="index,follow,archive">
 <link rel="shortcut icon"
 	href="https://northpark.cn/statics/img/favicon.ico">
-<title>${model.movie_name}:影视窝|NorthPark</title>
+<title>${model.movieName}:影视窝|NorthPark</title>
 <meta name="keywords"
-	content="NorthPark,${model.movie_name},${model.tag}">
-<meta name="description" content="${movie_desc}">
+	content="NorthPark,${model.movieName},${model.tag}">
+<meta name="description" content="${movieDesc}">
 
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
 </head>
@@ -42,7 +42,7 @@
 								<div class="border-0 center">
 									<p oid="${model.id }">
 									<h1>
-										<small class="green-text"><font size="5"><strong>${model.movie_name}</strong></font>
+										<small class="green-text"><font size="5"><strong>${model.movieName}</strong></font>
 										</small>
 									</h1>
 									</p>
@@ -72,7 +72,7 @@
 
 								<div class="margin20">
 
-									<p id="brief_${model.id }">${model.movie_desc }</p>
+									<p id="brief_${model.id }">${model.movieDesc }</p>
 
 									<c:if test="${model.path!=null && model.path!=''}">
 										<p class="col-md-12">
@@ -225,7 +225,7 @@
 				var u = '${user.id}';
 				if (u) {
 					var spanID = '${model.id}';
-					var title = '${model.movie_name}';
+					var title = '${model.movieName}';
 					var href = window.location.href;
 					var data = {
 						"spanID" : spanID,

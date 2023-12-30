@@ -19,7 +19,7 @@
                     ${y.content }
             </p>
             <p>
-                <small class="label label-gray">${y.add_time }</small>
+                <small class="label label-gray">${y.addTime }</small>
                 <c:if test="${user!=null }">
                     <div class="form-group clearfix note-comment hidden" id="comment_${y.topic_id}_${ss.index}_${ss.index}">
                         <textarea id="input_cm_${y.topic_id}_${ss.index}_${ss.index}"

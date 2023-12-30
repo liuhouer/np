@@ -6,8 +6,6 @@
     <%
         PageInfo pageInfo = (PageInfo) request.getAttribute("pageInfo");
 
-        System.out.println(pageInfo.isHasPreviousPage());
-
         String actionUrl = (String) request.getAttribute("actionUrl");
 
     %>

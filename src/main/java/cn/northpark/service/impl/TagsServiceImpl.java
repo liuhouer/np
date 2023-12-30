@@ -52,94 +52,9 @@ public class TagsServiceImpl implements TagsService {
         return true;
     }
 
-//    @SuppressWarnings({"rawtypes", "unchecked"})
-//    @Override
-//    public QueryResult<Tags> findByCondition(PageView<Tags> p,
-//                                             String wheresql, LinkedHashMap<String, String> order) {
-//        QueryResult qrs = tagsMapper.findByCondition(p.getFirstResult(),
-//                p.getMaxResult(), wheresql, order);
-//        return qrs;
-//    }
-//
-//    @SuppressWarnings({"rawtypes", "unchecked"})
-//    @Override
-//    public QueryResult<Tags> findByCondition(String wheresql) {
-//        // TODO Auto-generated method stub
-//        QueryResult qrs = tagsMapper.findByCondition(
-//                wheresql);
-//        return qrs;
-//    }
-//
-//    @Override
-//    public List<Tags> querySql(String sql, Object... obj) {
-//        // TODO Auto-generated method stub
-//        return tagsMapper.querySql(sql, Tags.class, obj);
-//    }
-//
-//    @Override
-//    public List<Tags> querySql(String sql) {
-//        // TODO Auto-generated method stub
-//        return tagsMapper.querySql(sql, Tags.class);
-//    }
-//
-//    @Override
-//    public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView) {
-//        // TODO Auto-generated method stub
-//        return tagsMapper.querySQLForMapList(sql, pageView);
-//    }
-//
-//    /* (non-Javadoc)
-//     * 根据sql查询条数
-//     */
-//    @Override
-//    public int countSql(String sql) {
-//        // TODO Auto-generated method stub
-//        return tagsMapper.countSql(sql);
-//    }
-//
-//    /* (non-Javadoc)
-//     * 根据hql查询条数
-//     */
-//    @Override
-//    public int countHql(String wheresql) {
-//        // TODO Auto-generated method stub
-//        return tagsMapper.countHql(Tags.class, wheresql);
-//    }
-
-
     @Override
-    public QueryResult<Tags> findByCondition(PageView<Tags> p, String wheresql, LinkedHashMap<String, String> order) {
-        return null;
-    }
-
-    @Override
-    public QueryResult<Tags> findByCondition(String wheresql) {
-        return null;
-    }
-
-    @Override
-    public List<Tags> querySql(String sql, Object... obj) {
-        return null;
-    }
-
-    @Override
-    public List<Tags> querySql(String sql) {
-        return null;
-    }
-
-    @Override
-    public List<Map<String, Object>> querySqlMap(String sql, PageView<List<Map<String, Object>>> pageView) {
-        return null;
-    }
-
-    @Override
-    public int countSql(String sql) {
-        return 0;
-    }
-
-    @Override
-    public int countHql(String wheresql) {
-        return 0;
+    public List<Tags> findByCondition(String whereSql, String orderBy) {
+        return tagsMapper.findByCondition( whereSql,  orderBy);
     }
 }
 

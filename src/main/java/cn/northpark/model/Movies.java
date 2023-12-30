@@ -1,5 +1,8 @@
 package cn.northpark.model;
 
+import java.util.List;
+import java.util.Map;
+
 public class Movies {
     private Integer id;
 
@@ -32,6 +35,10 @@ public class Movies {
     private String movieDesc;
 
     private String path;
+
+
+    private List<Map<String, String>> tag_list;
+
 
     public Integer getId() {
         return id;
@@ -159,5 +166,13 @@ public class Movies {
 
     public void setPath(String path) {
         this.path = path == null ? null : path.trim();
+    }
+
+    public List<Map<String, String>> getTag_list() {
+        return tag_list;
+    }
+
+    public void setTag_list(List<Map<String, String>> tag_list) {
+        this.tag_list = tag_list;
     }
 }

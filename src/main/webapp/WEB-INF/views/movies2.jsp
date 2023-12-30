@@ -15,7 +15,7 @@
     <meta name="author" content="www.qinco.net">
     <meta name="robots" content="index,follow,archive">
     <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
-    <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
+    <%@ include file="page/common/common.jsp" %>
 
     <c:if test="${page==null || page==''}">
         <title>影视窝 | NorthPark</title>
@@ -38,7 +38,7 @@
 
 <body>
 
-<%@ include file="/WEB-INF/views/page/common/navigation.jsp" %>
+<%@ include file="page/common/navigation.jsp" %>
 
 <!-- 页面标题 -->
 <h1 class="font-elegant">影视窝</h1>
@@ -86,7 +86,7 @@
                                                         <c:if test="${s.hotIndex>0}">
                                                             <i class="fa fa-thumb-tack" title="已置顶"></i>
                                                         </c:if>
-                                                            ${s.movie_name}</strong></font>
+                                                            ${s.movieName}</strong></font>
                                                 </small>
                                             </a>
                                         </p>
@@ -100,8 +100,8 @@
                                     <p>
 
                                         	发表于：<span class=" glyphicon glyphicon-time margin10"></span><span
-                                            class="common-a-right" title="${s.add_time}"
-                                            href="/movies/date/${s.add_time}">${s.add_time}</span>
+                                            class="common-a-right" title="${s.addTime}"
+                                            href="/movies/date/${s.addTime}">${s.addTime}</span>
 
                                         <span class=" glyphicon glyphicon-tags margin10"></span>
 
@@ -123,7 +123,7 @@
                                     </p>
                                     <p id="brief_${ss.index}">
 
-                                            ${s.movie_desc }
+                                            ${s.movieDesc }
                                     </p>
                                     
                                     <p>
@@ -140,7 +140,7 @@
 
 
                         <c:if test="${pagein!='no' }">
-                            <%@ include file="/WEB-INF/views/page/common/fenye.jsp" %>
+                            <%@ include file="page/common/fenye.jsp" %>
                         </c:if>
 
 
@@ -192,7 +192,7 @@
                             <h4><span class=" glyphicon  glyphicon-usd margin5"></span> Donate</h4>
                         </div>
                         <!-- load donate list  -->
-                        <%@ include file="/WEB-INF/views/page/common/donate.jsp" %>
+                        <%@ include file="page/common/donate.jsp" %>
 
 
                     </div>
@@ -204,7 +204,7 @@
                         <div class="clearfix border-bottom">
                             <h4><span class=" glyphicon glyphicon-leaf margin5"></span> 随便看看</h4>
                         </div>
-                        <c:forEach var="z" items="${movies_hot_list }">
+                        <c:forEach var="z" items="${movies_hot_list }"><%--map格式--%>
 
                             <div class="col-md-12 margin-t10">
                                 <div class="col-xs-2 avatar">
@@ -232,17 +232,17 @@
                         <div class="clearfix border-bottom">
                             <h4><span class=" glyphicon glyphicon-tags margin5"></span> 标签</h4>
                         </div>
-                        <c:forEach var="z" items="${movies_tags }">
+                        <c:forEach var="z" items="${moviesTags }"><%--T格式--%>
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tag_code == sel_tag }">
+                                <c:if test="${z.tagCode == sel_tag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
-                                    <a style="color: #45d0c6;" href="/movies/tag/${z.tag_code }"
+                                    <a style="color: #45d0c6;" href="/movies/tag/${z.tagCode }"
                                        title="${z.tag }">${z.tag } </a>
                                 </c:if>
-                                <c:if test="${z.tag_code != sel_tag }">
+                                <c:if test="${z.tagCode != sel_tag }">
                                     <span class="glyphicon glyphicon-tag margin5"></span>
-                                    <a href="/movies/tag/${z.tag_code }" title="${z.tag }">${z.tag } </a>
+                                    <a href="/movies/tag/${z.tagCode }" title="${z.tag }">${z.tag } </a>
                                 </c:if>
 
 
@@ -262,7 +262,7 @@
 </div>
 
 
-<%@ include file="/WEB-INF/views/page/common/container.jsp" %>
+<%@ include file="page/common/container.jsp" %>
 
 <script data-cfasync="false" type="text/javascript">
     //禁止图片拉伸
