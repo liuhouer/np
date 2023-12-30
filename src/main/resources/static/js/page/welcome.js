@@ -26,6 +26,9 @@ function zan(lrcid, userid) {
 //load data...
 $(function () {
     var pagenow = parseInt($("#pagenow").val());
+    if (isNaN(pagenow)) {
+        pagenow = 1;
+    }
     $.ajax({
         url: "/lovequery",
         type: "post",

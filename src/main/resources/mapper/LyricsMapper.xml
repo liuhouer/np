@@ -46,4 +46,8 @@
     select id, title, title_code, love_date, update_date, album_img, zan, pl
     from bc_lyrics
   </select>
+    <select id="querySqlMap" resultType="java.util.Map">
+
+       ${sqlExpr}
+    </select>
 </mapper>

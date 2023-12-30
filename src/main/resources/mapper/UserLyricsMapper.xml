@@ -32,8 +32,7 @@
     select id, userid, lyricsid
     from bc_user_lyrics
   </select>
-    <select id="execSql" resultType="java.util.Map">
-
-      ${sqlStr}
-    </select>
+  <select id="querySqlMap" resultType="java.util.Map">
+     ${sqlExpr}
+  </select>
 </mapper>

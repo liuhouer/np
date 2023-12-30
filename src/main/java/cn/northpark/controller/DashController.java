@@ -44,9 +44,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.concurrent.ThreadPoolExecutor;
-import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -354,7 +352,7 @@ public class DashController {
 		//从数据库取 :1天刷新
 		if (CollectionUtils.isEmpty(home_note_list)) {
 			PageHelper.startPage(1,16);
-			List<Map<String, Object>> note_list = this.noteService.getHotNoteList();
+			List<Map<String, Object>> note_list = noteService.getHotNoteList();
 
 			//时间处理
 			note_list.forEach(item -> {
@@ -388,7 +386,7 @@ public class DashController {
 			//取出一部分love数据
 			PageHelper.startPage(1,12);
 			String randSql = userlyricsService.getRandSql();
-			home_lovelist = this.userlyricsService.execSql(randSql);
+			home_lovelist = userlyricsService.querySqlMap(randSql);
 
 			if (!CollectionUtils.isEmpty(home_lovelist)) {
 

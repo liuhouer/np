@@ -12,7 +12,7 @@
     <meta http-equiv="Content-Language" content="zh-CN">
     <meta name="author" content="www.qinco.net">
     <link rel="shortcut icon" href="https://northpark.cn/statics/img/favicon.ico">
-    <%@ include file="/WEB-INF/views/page/common/common.jsp" %>
+    <%@ include file="page/common/common.jsp" %>
     <c:if test="${page==null || page==''}">
         <title>最爱主题图册-记住美好,保留回忆,分享最爱。 | NorthPark</title>
     </c:if>
@@ -27,7 +27,7 @@
 </head>
 
 <body>
-<%@ include file="/WEB-INF/views/page/common/navigation.jsp" %>
+<%@ include file="page/common/navigation.jsp" %>
 
 <!-- 页面标题 -->
 <h1 class="font-elegant">最爱-主题图册</h1>
@@ -44,11 +44,11 @@
 
 
 </div>
-<%@ include file="/WEB-INF/views/page/common/fenye.jsp" %>
-<%@ include file="/WEB-INF/views/page/common/container.jsp" %>
+<%@ include file="page/common/fenye.jsp" %>
+<%@ include file="page/common/container.jsp" %>
 
 
-<script data-cfasync="false" src="https://northpark.cn/statics/js/page/welcome.js"></script>
+<script src="/static/js/page/welcome.js"></script>
 </body>
 
 </html>    

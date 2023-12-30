@@ -1,6 +1,7 @@
 package cn.northpark.mapper;
 
 import cn.northpark.model.Note;
+
 import java.util.List;
 import java.util.Map;
 

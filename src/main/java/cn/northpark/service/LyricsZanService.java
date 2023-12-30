@@ -21,27 +21,6 @@ public interface LyricsZanService {
 
      boolean updateLyricsZan(LyricsZan lyricszan);
 
-     QueryResult<LyricsZan> findByCondition(PageView<LyricsZan> p,
-                                                  String wheresql, LinkedHashMap<String, String> order);
-
-     QueryResult<LyricsZan> findByCondition(
-            String wheresql);
-
-
-     int getCommentNumByLRC(String lyricsid);
-
-     int getZanNumByLRC(String lyricsid);
-
-     List<Map<String, Object>> mixSqlQuery(String sql,Object... objects );
-
-
-    /**
-     * 根据实体查询条数
-     *
-     * @param sql SQL语句
-     * @return int
-     */
-     int countHql(String wheresql);
 }
 
 

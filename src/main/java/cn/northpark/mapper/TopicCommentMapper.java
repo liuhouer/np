@@ -1,6 +1,7 @@
 package cn.northpark.mapper;
 
 import cn.northpark.model.TopicComment;
+
 import java.util.List;
 
 public interface TopicCommentMapper {

@@ -4,12 +4,9 @@ package cn.northpark.service.impl;
 import cn.northpark.mapper.UserProfileMapper;
 import cn.northpark.model.UserProfile;
 import cn.northpark.service.UserProfileService;
-import cn.northpark.utils.page.PageView;
-import cn.northpark.utils.page.QueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 
 @Service

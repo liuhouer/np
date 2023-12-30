@@ -2,7 +2,8 @@
 package cn.northpark.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.dbutils.*;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;

@@ -1,6 +1,7 @@
 package cn.northpark.mapper;
 
 import cn.northpark.model.NotifyRemindB;
+
 import java.util.List;
 
 public interface NotifyRemindBMapper {

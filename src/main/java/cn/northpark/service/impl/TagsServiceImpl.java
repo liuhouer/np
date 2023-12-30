@@ -4,14 +4,10 @@ package cn.northpark.service.impl;
 import cn.northpark.mapper.TagsMapper;
 import cn.northpark.model.Tags;
 import cn.northpark.service.TagsService;
-import cn.northpark.utils.page.PageView;
-import cn.northpark.utils.page.QueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author bruce

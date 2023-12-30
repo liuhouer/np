@@ -1,6 +1,7 @@
 package cn.northpark.mapper;
 
 import cn.northpark.model.LyricsComment;
+
 import java.util.List;
 
 public interface LyricsCommentMapper {

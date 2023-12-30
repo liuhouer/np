@@ -73,7 +73,7 @@
 
   <select id="querySqlMap" resultType="java.util.Map">
 
-     ${sqlStr}
+     ${sqlExpr}
   </select>
 
   <select id="findByCondition" resultMap="BaseResultMap">

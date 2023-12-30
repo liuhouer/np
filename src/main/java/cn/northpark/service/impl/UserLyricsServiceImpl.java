@@ -17,7 +17,7 @@ import java.util.Map;
 public class UserLyricsServiceImpl implements UserLyricsService {
 
     @Autowired
-    private UserLyricsMapper userlyricsMapper;
+    UserLyricsMapper userlyricsMapper;
 
     @Override
     public UserLyrics findUserLyrics(Integer id) {
@@ -47,6 +47,23 @@ public class UserLyricsServiceImpl implements UserLyricsService {
     }
 
     @Override
+    public String getMixSql(String userid) {
+        String sql = " select a.id,a.title,a.title_code,a.update_date,a.album_img,a.zan,a.pl,c.id as userid,c.username,c.email,  "
+
+                + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '" + userid + "' )> 0 "
+                + " then 'yizan' "
+                + " else '' "
+                + " end "
+                + " as yizan "
+
+                + "from bc_lyrics a join bc_user_lyrics b on a.id = b.lyricsid join bc_user c on c.id = b.userid ";
+
+        sql += " order by a.update_date desc";
+
+        return sql;
+    }
+
+    @Override
     public String getRandSql() {
         String sql = " select a.id,a.title,a.title_code,a.update_date,a.album_img,a.zan,a.pl,c.id as userid,c.username,c.email,  "
 
@@ -62,117 +79,10 @@ public class UserLyricsServiceImpl implements UserLyricsService {
         return sql;
     }
 
-//    @SuppressWarnings({"rawtypes", "unchecked"})
-//    @Override
-//    public QueryResult<UserLyrics> findByCondition(PageView<UserLyrics> p,
-//                                                   String wheresql, LinkedHashMap<String, String> order) {
-//        QueryResult qrs = userlyricsMapper.findByCondition(p.getFirstResult(),
-//                MyConstant.MAX_RESULT, wheresql, order);
-//        return qrs;
-//    }
-//
-//    @SuppressWarnings({"rawtypes", "unchecked"})
-//    @Override
-//    public QueryResult<UserLyrics> findByCondition(String wheresql) {
-//        // TODO Auto-generated method stub
-//        QueryResult qrs = userlyricsMapper.findByCondition(
-//                wheresql);
-//        return qrs;
-//    }
-//
-//    @Override
-//    public List<Map<String, Object>> getMixMapData(PageView<List<Map<String, Object>>> pageView, String userid) {
-//        String sql = " select a.id,a.title,a.title_code,a.update_date,a.album_img,a.zan,a.pl,c.id as userid,c.username,c.email,  "
-//
-//                + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '" + userid + "' )> 0 "
-//                + " then 'yizan' "
-//                + " else '' "
-//                + " end "
-//                + " as yizan "
-//
-//                + "from bc_lyrics a join bc_user_lyrics b on a.id = b.lyricsid join bc_user c on c.id = b.userid ";
-//
-//        sql += " order by a.update_date desc";
-//
-//        List<Map<String, Object>> list = userlyricsMapper.querySQLForMapList(sql, pageView);
-//        return list;
-//
-//
-//    }
-//
-//
-//
-//
-//    @Override
-//    public List<Map<String, Object>> findMixByCondition(PageView<List<Map<String, Object>>> pageView, String randSql) {
-//
-//        return userlyricsMapper.querySQLForMapList(randSql, pageView);
-//    }
-//
-//    @Override
-//    public List<Map<String, Object>> execSql(String sql) {
-//        return userlyricsMapper.execSql(sql);
-//
-//    }
-//
-//    @Override
-//    public PageView<List<Map<String, Object>>> getMixMapPage(
-//            PageView<List<Map<String, Object>>> pageView, String userid) {
-//        String sql = " select a.id,a.title,a.title_code,a.update_date,a.album_img,a.zan,a.pl,c.id as userid,c.username,c.email,  "
-//
-//                + " case when  (select count(id) from bc_lyrics_zan d where d.lyricsid = a.id and d.userid = '" + userid + "' )> 0 "
-//                + " then 'yizan' "
-//                + " else '' "
-//                + " end "
-//                + " as yizan "
-//
-//                + "from bc_lyrics a join bc_user_lyrics b on a.id = b.lyricsid join bc_user c on c.id = b.userid ";
-//
-//        sql += " order by a.update_date desc";
-//
-//        pageView = userlyricsMapper.querySQLCountForMapList(sql, pageView);
-//        return pageView;
-//    }
-//
-//    @Override
-//    public List<Map<String, Object>> querySql(String sql, Object... obj) {
-//        return userlyricsMapper.querySql(sql, obj);
-//    }
-
-
     @Override
-    public QueryResult<UserLyrics> findByCondition(PageView<UserLyrics> p, String whereSql, LinkedHashMap<String, String> order) {
-        return null;
+    public List<Map<String, Object>> querySqlMap(String mixSQL) {
+        return userlyricsMapper.querySqlMap(mixSQL);
     }
 
-    @Override
-    public QueryResult<UserLyrics> findByCondition(String whereSql) {
-        return null;
-    }
-
-    @Override
-    public List<Map<String, Object>> getMixMapData(PageView<List<Map<String, Object>>> pageView, String userid) {
-        return null;
-    }
-
-    @Override
-    public PageView<List<Map<String, Object>>> getMixMapPage(PageView<List<Map<String, Object>>> pageView, String userid) {
-        return null;
-    }
-
-    @Override
-    public List<Map<String, Object>> querySql(String sql, Object... obj) {
-        return null;
-    }
-
-    @Override
-    public List<Map<String, Object>> findMixByCondition(PageView<List<Map<String, Object>>> pageView, String randSql) {
-        return null;
-    }
-
-    @Override
-    public List<Map<String, Object>> execSql(String sql) {
-        return null;
-    }
 }
 

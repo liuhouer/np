@@ -1,6 +1,7 @@
 package cn.northpark.mapper;
 
 import cn.northpark.model.UserProfile;
+
 import java.util.List;
 
 public interface UserProfileMapper {

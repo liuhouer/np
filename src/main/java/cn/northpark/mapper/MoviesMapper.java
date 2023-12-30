@@ -17,7 +17,7 @@ public interface MoviesMapper {
 
     int updateByPrimaryKey(Movies record);
 
-    List<Map<String, Object>> querySqlMap(@Param(value = "sqlStr") String sql);
+    List<Map<String, Object>> querySqlMap(@Param(value = "sqlExpr") String sql);
 
     List<Movies>  findByCondition(@Param(value = "whereSql") String whereSql, @Param(value = "orderBy")String orderBy);
 }
