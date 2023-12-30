@@ -7,7 +7,7 @@ import cn.northpark.annotation.RateLimit;
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.exception.NorthParkException;
 import cn.northpark.model.Movies;
-import cn.northpark.model.NotifyRemind;
+import cn.northpark.model.NotifyRemindB;
 import cn.northpark.model.Tags;
 import cn.northpark.notify.NotifyEnum;
 import cn.northpark.result.Result;
@@ -121,17 +121,17 @@ public class MoviesController {
                             NotifyEnum match = NotifyEnum.FEED;
 
                             //提醒系统赋值
-                            NotifyRemind nr = new NotifyRemind();
+                            NotifyRemindB nr = new NotifyRemindB();
 
                             //common
                             //{"spanID":"746358","uID":"519795","href":"https://northpark.cn/movies/post-746358.html",
                             // "title":"《卡比利亚之夜》百度云网盘下载[MP4//mkv]蓝光"}
                             Map<String, Object> feed_map = JsonUtil.json2map(String.valueOf(map));
 
-                            nr.setRecipientID("507723");
+                            nr.setRecipientId("507723");
                             nr.setSenderName(NotifyUtil.getUserNameByID(feed_map.get("uID").toString()));
                             nr.setObject(feed_map.get("title").toString());
-                            nr.setObjectID(feed_map.get("spanID").toString());
+                            nr.setObjectId(feed_map.get("spanID").toString());
                             nr.setObjectLinks(feed_map.get("href").toString());
                             nr.setMessage("---"+TimeUtils.nowTime()+"---提醒资源失效---");
                             nr.setStatus("0");
@@ -329,12 +329,12 @@ public class MoviesController {
                                         NotifyEnum match = NotifyEnum.FEED;
 
                                         //提醒系统赋值
-                                        NotifyRemind nr = new NotifyRemind();
+                                        NotifyRemindB nr = new NotifyRemindB();
 
                                         //common
-                                        nr.setRecipientID(feed_map.get("uID").toString());
+                                        nr.setRecipientId(feed_map.get("uID").toString());
                                         nr.setObject(feed_map.get("title").toString());
-                                        nr.setObjectID(feed_map.get("spanID").toString());
+                                        nr.setObjectId(feed_map.get("spanID").toString());
                                         nr.setObjectLinks(feed_map.get("href").toString());
                                         nr.setMessage("---"+TimeUtils.nowTime()+"---资源已更新，请知悉---");
                                         nr.setStatus("0");

@@ -264,17 +264,17 @@ public class UserController {
                                 NotifyEnum match = NotifyEnum.FOLLOW;
 
                                 //提醒系统赋值
-                                NotifyRemind nr = new NotifyRemind();
+                                NotifyRemindB nr = new NotifyRemindB();
 
                                 //common
-                                nr.setSenderID(follow_id);
+                                nr.setSenderId(follow_id);
                                 nr.setSenderName(follower.getUsername());
-                                nr.setObjectID(null);
+                                nr.setObjectId(null);
                                 nr.setObject(null);
                                 nr.setObjectLinks("/cm/channel/" + follow_id);
                                 nr.setMessage("关注了你");
                                 nr.setStatus("0");
-                                nr.setRecipientID(author_id);
+                                nr.setRecipientId(author_id);
 
 
                                 match.notifyInstance.execute(nr);
@@ -866,7 +866,7 @@ public class UserController {
                         NotifyEnum match = NotifyEnum.WEBMASTER;
 
                         //提醒系统赋值
-                        NotifyRemind nr = new NotifyRemind();
+                        NotifyRemindB nr = new NotifyRemindB();
 
                         //common
                         nr.setMessage(user.toString() + "---" + TimeUtils.nowTime() + "---注册了---");
@@ -924,7 +924,7 @@ public class UserController {
                             NotifyEnum match = NotifyEnum.WEBMASTER;
 
                             //提醒系统赋值
-                            NotifyRemind nr = new NotifyRemind();
+                            NotifyRemindB nr = new NotifyRemindB();
 
                             //common
                             nr.setMessage(userInfo.toString() + "---" + TimeUtils.nowTime() + "---自动登录了---");
@@ -1038,7 +1038,7 @@ public class UserController {
                                 NotifyEnum match = NotifyEnum.WEBMASTER;
 
                                 //提醒系统赋值
-                                NotifyRemind nr = new NotifyRemind();
+                                NotifyRemindB nr = new NotifyRemindB();
 
                                 //common
                                 nr.setMessage(user.toString() + "---" + TimeUtils.nowTime() + "---登录了---");

@@ -1,6 +1,6 @@
 package cn.northpark.notify.handler;
 
-import cn.northpark.model.NotifyRemind;
+import cn.northpark.model.NotifyRemindB;
 import cn.northpark.notify.GeneralNotify;
 
 import java.util.Date;
@@ -13,8 +13,8 @@ import java.util.Date;
 public class ArtReplyHandler extends GeneralNotify {
 
     @Override
-    public void build(NotifyRemind param) {
-        param.setRemindID(1);
+    public void build(NotifyRemindB param) {
+        param.setRemindId(1);
         param.setSenderAction("1");
         param.setObjectType("2");
         param.setCreatedAt(new Date());

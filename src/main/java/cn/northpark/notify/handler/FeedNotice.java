@@ -1,6 +1,6 @@
 package cn.northpark.notify.handler;
 
-import cn.northpark.model.NotifyRemind;
+import cn.northpark.model.NotifyRemindB;
 import cn.northpark.notify.GeneralNotify;
 
 import java.util.Date;
@@ -15,9 +15,9 @@ import java.util.Date;
 public class FeedNotice extends GeneralNotify {
 
     @Override
-    public void build(NotifyRemind param) {
-        param.setRemindID(6);
-        param.setSenderID("000");//系统发送
+    public void build(NotifyRemindB param) {
+        param.setRemindId(6);
+        param.setSenderId("000");//系统发送
         param.setSenderName("站内通知");
         param.setSenderAction("5");//站内通知
         param.setObjectType("2");//文章

@@ -6,7 +6,7 @@ import cn.northpark.constant.BC_Constant;
 import cn.northpark.constant.DonatesEnum;
 import cn.northpark.constant.DonatesRedisKeyEnum;
 import cn.northpark.model.Eq;
-import cn.northpark.model.NotifyRemind;
+import cn.northpark.model.NotifyRemindB;
 import cn.northpark.notify.NotifyEnum;
 import cn.northpark.result.Result;
 import cn.northpark.result.ResultGenerator;
@@ -117,7 +117,7 @@ public class DashController {
 					NotifyEnum match = NotifyEnum.WEBMASTER;
 
 					//提醒系统赋值
-					NotifyRemind nr = new NotifyRemind();
+					NotifyRemindB nr = new NotifyRemindB();
 
 					//common
 					if(Objects.nonNull(userInfo)){

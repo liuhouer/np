@@ -1,6 +1,6 @@
 package cn.northpark.notify;
 
-import cn.northpark.model.NotifyRemind;
+import cn.northpark.model.NotifyRemindB;
 
 /**
  * @author bruce
@@ -9,11 +9,11 @@ import cn.northpark.model.NotifyRemind;
 public interface NotifyInterface {
 
     @Deprecated
-    void addNotify(NotifyRemind param);
+    void addNotify(NotifyRemindB param);
 
     /**
      * 异步通知
      * @param param
      */
-    void startSync(final NotifyRemind param) ;
+    void startSync(final NotifyRemindB param) ;
 }

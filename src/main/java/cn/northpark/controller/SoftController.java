@@ -4,7 +4,7 @@ package cn.northpark.controller;
 import cn.northpark.annotation.BruceOperation;
 import cn.northpark.annotation.RateLimit;
 import cn.northpark.constant.BC_Constant;
-import cn.northpark.model.NotifyRemind;
+import cn.northpark.model.NotifyRemindB;
 import cn.northpark.model.Soft;
 import cn.northpark.notify.NotifyEnum;
 import cn.northpark.result.Result;
@@ -226,12 +226,12 @@ public class SoftController {
                                         NotifyEnum match = NotifyEnum.FEED;
 
                                         //提醒系统赋值
-                                        NotifyRemind nr = new NotifyRemind();
+                                        NotifyRemindB nr = new NotifyRemindB();
 
                                         //common
-                                        nr.setRecipientID(feed_map.get("uID").toString());
+                                        nr.setRecipientId(feed_map.get("uID").toString());
                                         nr.setObject(feed_map.get("title").toString());
-                                        nr.setObjectID(feed_map.get("spanID").toString());
+                                        nr.setObjectId(feed_map.get("spanID").toString());
                                         nr.setObjectLinks(feed_map.get("href").toString());
                                         nr.setMessage("---"+TimeUtils.nowTime()+"---资源已更新，请知悉---");
                                         nr.setStatus("0");

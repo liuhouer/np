@@ -1,6 +1,6 @@
 package cn.northpark.notify;
 
-import cn.northpark.model.NotifyRemind;
+import cn.northpark.model.NotifyRemindB;
 import cn.northpark.service.NotifyRemindService;
 import cn.northpark.threadpool.AsyncThreadPool;
 import cn.northpark.utils.SpringContextUtils;
@@ -17,16 +17,16 @@ import java.util.concurrent.ThreadPoolExecutor;
 public abstract class GeneralNotify implements NotifyInterface{
 
 
-    private transient NotifyRemindService notifyRemindManager;
+    private transient NotifyRemindService notifyRemindService;
 
     public GeneralNotify() {
         //
         log.error("执行了通知场景抽象处理类 --构造函数");
-        log.error("从上下文获取到notifyRemindManager");
+        log.error("从上下文获取到notifyRemindService");
         synchronized (GeneralNotify.class){
-            if(notifyRemindManager ==null){
+            if(notifyRemindService ==null){
                 synchronized (this){
-                    notifyRemindManager = (NotifyRemindService) SpringContextUtils.getBean("NotifyRemindManager");
+                    notifyRemindService = (NotifyRemindService) SpringContextUtils.getBean("notifyRemindService");
                 }
             }
         }
@@ -34,7 +34,7 @@ public abstract class GeneralNotify implements NotifyInterface{
 
 
     //定义构建参数方法
-    public abstract void build(NotifyRemind param);
+    public abstract void build(NotifyRemindB param);
 
     /**
      * 因为这个保存通知的方法是通用的，子类没必要再写一遍。直接实现在这里
@@ -42,12 +42,12 @@ public abstract class GeneralNotify implements NotifyInterface{
      */
     @Override
     @Deprecated
-    public void addNotify(NotifyRemind param) {
-        notifyRemindManager.addNotifyRemind(param);
+    public void addNotify(NotifyRemindB param) {
+        notifyRemindService.addNotifyRemind(param);
     }
 
     //定义模板--模板模式【规定方法的执行顺序】
-    public final void execute(NotifyRemind param){
+    public final void execute(NotifyRemindB param){
         build(param);
         addNotify(param);
     }
@@ -58,14 +58,14 @@ public abstract class GeneralNotify implements NotifyInterface{
      * @param param
      */
     @Override
-    public void startSync(final NotifyRemind param) {
+    public void startSync(final NotifyRemindB param) {
         ThreadPoolExecutor threadPoolExecutor = AsyncThreadPool.getInstance().getThreadPoolExecutor();
         threadPoolExecutor.execute(new Runnable() {
             @Override
             public void run() {
 
                 try {
-                    notifyRemindManager.addNotifyRemind(param);
+                    notifyRemindService.addNotifyRemind(param);
                 }catch (Exception ig){
                     log.error("northpark异步通知异常---->",ig);
                 }

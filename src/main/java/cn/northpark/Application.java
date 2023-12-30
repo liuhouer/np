@@ -1,5 +1,8 @@
 package cn.northpark;
 
+import cn.northpark.interceptor.AdminInterceptor;
+import cn.northpark.interceptor.LoginInterceptor;
+import cn.northpark.interceptor.UseCKInterceptor;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
@@ -14,10 +17,12 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @MapperScan("cn.northpark.mapper")
-public class Application extends SpringBootServletInitializer {
+public class Application extends SpringBootServletInitializer implements WebMvcConfigurer {
 
 	/**
      * 使用 fastJson
@@ -56,6 +61,13 @@ public class Application extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Application.class);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new UseCKInterceptor()).addPathPatterns("/**");
     }
 
     public static void main(String[] args) {
