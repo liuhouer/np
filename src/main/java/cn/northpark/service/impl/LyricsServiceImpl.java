@@ -4,12 +4,9 @@ package cn.northpark.service.impl;
 import cn.northpark.mapper.LyricsMapper;
 import cn.northpark.model.Lyrics;
 import cn.northpark.service.LyricsService;
-import cn.northpark.utils.page.PageView;
-import cn.northpark.utils.page.QueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 

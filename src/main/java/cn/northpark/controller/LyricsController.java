@@ -12,7 +12,6 @@ import cn.northpark.model.Lyrics;
 import cn.northpark.model.UserLyrics;
 import cn.northpark.result.ResultEnum;
 import cn.northpark.service.LyricsService;
-import cn.northpark.service.LyricsZanService;
 import cn.northpark.service.UserLyricsService;
 import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.*;
