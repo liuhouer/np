@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-xs-3 col-sm-2 avatar">
 
-            <a href="/cm/detail/${y.from_uid}" title="${y.from_uname }">
+            <a href="/cm/channel/${y.from_uid}" title="${y.from_uname }">
                 <span class="imgbreath text-${y.from_span.toLowerCase()}">${y.from_uname.substring(0,1) }</span>
             </a>
 

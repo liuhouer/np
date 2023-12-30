@@ -39,7 +39,7 @@
 
             <div class="clearfix margin-b20">
                 <ul class="nav nav-tabs">
-                    <li><a href="/cm/pcentral">最爱</a></li>
+                    <li><a href="/cm/channel">最爱</a></li>
                     <li class="active"><a href="note/findAll">留言</a></li>
                     <li><a href="/cm/myfans">Fans</a></li>
 
@@ -52,7 +52,7 @@
             </form>
             <div class="row bg-white margin-t10 margin-b10  ">
                 <div class="col-sm-1">
-                    <a href="/cm/pcentral" title="${user.username}的最爱"><img src="https://northpark.cn/statics/img/davatar.jpg"
+                    <a href="/cm/channel" title="${user.username}的最爱"><img src="https://northpark.cn/statics/img/davatar.jpg"
                                                                             class="img-responsive  img-circle max-width-50"
                                                                             alt="${user.username}的最爱"></a></div>
                 <div class="col-sm-11">

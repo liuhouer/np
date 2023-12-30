@@ -20,13 +20,7 @@ public interface UserProfileService {
 
     boolean updateUserProfile(UserProfile UserProfile);
 
-    QueryResult<UserProfile> findByCondition(PageView<UserProfile> p,
-                                             String wheresql, LinkedHashMap<String, String> order);
-
-    QueryResult<UserProfile> findByCondition(
-            String wheresql);
-
-    UserProfile getModelByUserid(String userid);
+    UserProfile getModelByUserid(Integer userid);
 }
 
 

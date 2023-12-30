@@ -82,4 +82,9 @@
     country, city, is_del, user_slug, courseware
     from bc_userprofile
   </select>
+    <select id="getModelByUserid" resultMap="BaseResultMap" >
+   select *
+    from bc_userprofile
+    where user_id = #{userId,jdbcType=INTEGER}
+    </select>
 </mapper>

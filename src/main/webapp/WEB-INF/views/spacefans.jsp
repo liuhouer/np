@@ -42,11 +42,11 @@
                     <li><a
 
 
-                            <c:if test="${MyInfo.tail_slug==null || MyInfo.tail_slug==''}">
-                                href="/cm/detail/${MyInfo.id}"
+                            <c:if test="${MyInfo.tailSlug==null || MyInfo.tailSlug==''}">
+                                href="/cm/channel/${MyInfo.id}"
                             </c:if>
-                            <c:if test="${MyInfo.tail_slug!=null }">
-                                href="/people/${MyInfo.tail_slug}"
+                            <c:if test="${MyInfo.tailSlug!=null }">
+                                href="/people/${MyInfo.tailSlug}"
                             </c:if>
 
                     >最爱</a></li>
@@ -55,7 +55,7 @@
 
                 </ul>
             </div>
-            <c:forEach items="${fanlist }" var="s" varStatus="ss">
+            <c:forEach items="${fansList }" var="s" varStatus="ss">
                 <div class="row">
                     <div class="col-md-2">
                         <h3 class="label label-gray">${s.follow.create_time }：</h3>
@@ -65,26 +65,26 @@
                         <div class="row">
                             <div class="col-xs-4 col-sm-2 center avatar">
                                 <a
-                                        <c:if test="${s.user.tail_slug==null || s.user.tail_slug==''}">
-                                            href="/cm/detail/${s.user.id}"
+                                        <c:if test="${s.user.tailSlug==null || s.user.tailSlug==''}">
+                                            href="/cm/channel/${s.user.id}"
                                         </c:if>
-                                        <c:if test="${s.user.tail_slug!=null }">
-                                            href="/people/${s.user.tail_slug }"
+                                        <c:if test="${s.user.tailSlug!=null }">
+                                            href="/people/${s.user.tailSlug }"
                                         </c:if>
 
                                         title="${s.user.username }" class="thumbnail border-0 ">
 
 
-                                    <c:if test="${s.user.head_path==null }">
+                                    <c:if test="${s.user.headPath==null }">
                                         <span class=" ${s.user.head_span_class }"
                                               alt="${s.user.username}">${s.user.head_span }</span>
 
                                     </c:if>
-                                    <c:if test="${s.user.head_path!=null }">
+                                    <c:if test="${s.user.headPath!=null }">
                                         <img alt="${s.user.username }的最爱"
                                         <c:choose>
-                                             <c:when test="${fn:contains(s.user.head_path ,'http://') }">src="${s.user.head_path}"</c:when>
-                                             <c:otherwise>src="/bruce/${s.user.head_path }"</c:otherwise>
+                                             <c:when test="${fn:contains(s.user.headPath ,'http://') }">src="${s.user.headPath}"</c:when>
+                                             <c:otherwise>src="/bruce/${s.user.headPath }"</c:otherwise>
                                         </c:choose>
 
                                         >

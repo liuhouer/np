@@ -10,7 +10,7 @@ function removes(obj) {
     var id = $(obj).attr('rel');
     art.dialog.confirm('你确定要移除这个粉丝吗？', function () {
         $.ajax({
-            url: "/cm/rmfollow",
+            url: "/cm/unFollow",
             type: "post",
             data: {"id": id},
             dataType: "json",

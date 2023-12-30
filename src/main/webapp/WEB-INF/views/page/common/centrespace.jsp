@@ -12,16 +12,16 @@
                     <div class="col-xs-4 center">
                         <div class="thumbnail bg-no margin-t5 border-0">
                             <div class="avatar centre">
-                                <c:if test="${MyInfo.head_path==null }">
+                                <c:if test="${MyInfo.headPath==null }">
                                     <span class=" ${MyInfo.head_span_class }"
                                           alt="${s.get('username')}">${MyInfo.head_span }</span>
 
                                 </c:if>
-                                <c:if test="${MyInfo.head_path!=null }">
+                                <c:if test="${MyInfo.headPath!=null }">
                                     <img alt="${MyInfo.username }" class="img-circle img-responsive "
                                     <c:choose>
-                                         <c:when test="${fn:contains(MyInfo.head_path ,'http://') }">src="${MyInfo.head_path}"</c:when>
-                                         <c:otherwise>src="/bruce/${MyInfo.head_path }"</c:otherwise>
+                                         <c:when test="${fn:contains(MyInfo.headPath ,'http://') }">src="${MyInfo.headPath}"</c:when>
+                                         <c:otherwise>src="/bruce/${MyInfo.headPath }"</c:otherwise>
                                     </c:choose>
 
                                     >
@@ -34,7 +34,7 @@
                     <div class="col-xs-8">
                         <h1 class="margin0">${MyInfo.username } </h1>
                         <h4 class="margin0">
-                            <small>http://NorthPark.cn/people/${MyInfo.tail_slug }</small>
+                            <small>http://NorthPark.cn/people/${MyInfo.tailSlug }</small>
                         </h4>
                         <p class="white-line"></p>
 
@@ -44,13 +44,13 @@
                                 <small>${MyInfo.meta }</small>
                             </h3>
                         </c:if>
-                        <c:if test="${MyInfo.blog_site!=null }">
+                        <c:if test="${MyInfo.blogSite!=null }">
                             <h3 class="margin0">
-                                <small>${MyInfo.blog_site }</small>
+                                <small>${MyInfo.blogSite }</small>
                             </h3>
                         </c:if>
                         <h3 class="margin0">
-                            <small>加入时间：${MyInfo.date_joined }</small>
+                            <small>加入时间：${MyInfo.dateJoined }</small>
                         </h3>
 
                         <h2><a class="btn btn-warning btn-xlg" id="J_gz_btn"><span

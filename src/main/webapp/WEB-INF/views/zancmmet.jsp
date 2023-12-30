@@ -47,7 +47,7 @@
                         <small><span class="glyphicon glyphicon-user"></span> 由<a
 
                                 <c:if test="${dataMap.by_tail_slug==null || dataMap.by_tail_slug==''}">
-                                    href="/cm/detail/${dataMap.by_id}"
+                                    href="/cm/channel/${dataMap.by_id}"
                                 </c:if>
                                 <c:if test="${dataMap.by_tail_slug!=null }">
                                     href="/people/${dataMap.by_tail_slug }"
@@ -86,11 +86,11 @@
                                 <div id="J_zan_div" class="pline">
                                     <c:forEach var="x" varStatus="xx" items="${zanList }">
 							    	<span><a
-                                            <c:if test="${x.tail_slug==null || x.tail_slug==''}">
-                                                href="/cm/detail/${x.id}"
+                                            <c:if test="${x.tailSlug==null || x.tailSlug==''}">
+                                                href="/cm/channel/${x.id}"
                                             </c:if>
-									    <c:if test="${x.tail_slug!=null }">
-                                            href="/people/${x.tail_slug }"
+									    <c:if test="${x.tailSlug!=null }">
+                                            href="/people/${x.tailSlug }"
                                         </c:if>
 
                                             title="${x.username }">${x.username }</a> &nbsp;</span>
@@ -153,19 +153,19 @@
                             <div class="row">
                                 <div class="col-xs-3 col-sm-2">
                                     <a
-                                            <c:if test="${user.tail_slug==null || user.tail_slug==''}">
-                                                href="/cm/detail/${user.id}"
+                                            <c:if test="${user.tailSlug==null || user.tailSlug==''}">
+                                                href="/cm/channel/${user.id}"
                                             </c:if>
-                                            <c:if test="${user.tail_slug!=null }">
-                                                href="/people/${user.tail_slug }"
+                                            <c:if test="${user.tailSlug!=null }">
+                                                href="/people/${user.tailSlug }"
                                             </c:if>
 
                                             title="${user.username }的最爱"><img
-                                            <c:if test="${user.head_path == null}">src="https://northpark.cn/statics/img/davatar.jpg"</c:if>
-                                        <c:if test="${user.head_path != null}">
+                                            <c:if test="${user.headPath == null}">src="https://northpark.cn/statics/img/davatar.jpg"</c:if>
+                                        <c:if test="${user.headPath != null}">
                                     <c:choose>
-                                            <c:when test="${fn:contains(user.head_path  ,'http://') }">src="${user.head_path  }"</c:when>
-                                            <c:otherwise>src="/bruce/${user.head_path  }"</c:otherwise>
+                                            <c:when test="${fn:contains(user.headPath  ,'http://') }">src="${user.headPath  }"</c:when>
+                                            <c:otherwise>src="/bruce/${user.headPath  }"</c:otherwise>
                                     </c:choose>
 
                                     </c:if> class="img-responsive  img-circle max-width-60" alt="${user.username }的最爱"></a>
@@ -221,14 +221,14 @@
                         <c:forEach var="z" items="${loveList }">
                             <div class="row padding10">
                                 <div class="col-xs-2 avatar">
-                                    <c:if test="${z.head_path == null}">
+                                    <c:if test="${z.headPath == null}">
                                         <span class="${z.head_span_class }">${z.head_span }</span>
                                     </c:if>
-                                    <c:if test="${z.head_path != null}">
+                                    <c:if test="${z.headPath != null}">
                                         <img alt=""
                                         <c:choose>
-                                             <c:when test="${fn:contains(z.head_path ,'http://') }">src="${z.head_path }"</c:when>
-                                             <c:otherwise>src="/bruce/${z.head_path }"</c:otherwise>
+                                             <c:when test="${fn:contains(z.headPath ,'http://') }">src="${z.headPath }"</c:when>
+                                             <c:otherwise>src="/bruce/${z.headPath }"</c:otherwise>
                                         </c:choose>
                                         >
                                     </c:if>
@@ -238,11 +238,11 @@
                                     <a
 
 
-                                            <c:if test="${z.tail_slug==null || z.tail_slug==''}">
-                                                href="/cm/detail/${z.userid}"
+                                            <c:if test="${z.tailSlug==null || z.tailSlug==''}">
+                                                href="/cm/channel/${z.userid}"
                                             </c:if>
-                                            <c:if test="${z.tail_slug!=null }">
-                                                href="/people/${z.tail_slug }"
+                                            <c:if test="${z.tailSlug!=null }">
+                                                href="/people/${z.tailSlug }"
                                             </c:if>
 
 

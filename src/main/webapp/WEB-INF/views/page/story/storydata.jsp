@@ -13,23 +13,23 @@
                             <div class="avatar">
                                 <a
 
-                                        <c:if test="${s.tail_slug==null ||s.tail_slug==''}">
-                                            href="/cm/detail/${s.userid}"
+                                        <c:if test="${s.tailSlug==null ||s.tailSlug==''}">
+                                            href="/cm/channel/${s.userid}"
                                         </c:if>
-                                        <c:if test="${s.tail_slug!=null }">
-                                            href="/people/${s.tail_slug}"
+                                        <c:if test="${s.tailSlug!=null }">
+                                            href="/people/${s.tailSlug}"
                                         </c:if>
 
                                         title="${s.get('username')}:我的故事">
-                                    <c:if test="${s.get('head_path') ==null||s.get('head_path') ==''||s.get('head_path').length()==0}">
+                                    <c:if test="${s.get('headPath') ==null||s.get('headPath') ==''||s.get('headPath').length()==0}">
                                         <span class=" imgbreath ${s.head_span_class }"
                                               alt="${s.get('username')}">${s.head_span }</span>
                                     </c:if>
-                                    <c:if test="${s.get('head_path') !=null && s.get('head_path').length()>0}">
+                                    <c:if test="${s.get('headPath') !=null && s.get('headPath').length()>0}">
                                         <img class="imgbreath"
                                         <c:choose>
-                                             <c:when test="${fn:contains(s.head_path ,'http://') }">src="${s.head_path }"</c:when>
-                                             <c:otherwise>src="/bruce/${s.head_path }"</c:otherwise>
+                                             <c:when test="${fn:contains(s.headPath ,'http://') }">src="${s.headPath }"</c:when>
+                                             <c:otherwise>src="/bruce/${s.headPath }"</c:otherwise>
                                         </c:choose>
 
                                              alt="${s.username}的故事">
@@ -49,11 +49,11 @@
                         <p>
                             <small class="label label-gray">${s.create_time }</small> &nbsp; <a
 
-                                <c:if test="${s.tail_slug==null ||s.tail_slug==''}">
-                                    href="/cm/detail/${s.userid}"
+                                <c:if test="${s.tailSlug==null ||s.tailSlug==''}">
+                                    href="/cm/channel/${s.userid}"
                                 </c:if>
-                                <c:if test="${s.tail_slug!=null }">
-                                    href="/people/${s.tail_slug}"
+                                <c:if test="${s.tailSlug!=null }">
+                                    href="/people/${s.tailSlug}"
                                 </c:if>
 
 

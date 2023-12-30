@@ -22,7 +22,7 @@
 
                 <a target="_blank" href="/romeo" title="情圣时刻">情商提升</a>
 
-                <a target="_blank" href="/cm/xbjt" title="2011年学生时代-原创音乐播放器">小布静听</a>
+                <a target="_blank" href="/cm/x_b_j_t" title="2011年学生时代-原创音乐播放器">小布静听</a>
 
                 <a target="_blank" href="/donate" title="赞助本站">赞助我们</a>
 

@@ -84,7 +84,7 @@
 
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="use_minio" value="1"  ${model.use_minio == 1 ? 'checked' : ''} > 使用Minio
+                            <input type="checkbox" name="useMinio" value="1"  ${model.useMinio == 1 ? 'checked' : ''} > 使用Minio
                         </label>
                     </div>
 

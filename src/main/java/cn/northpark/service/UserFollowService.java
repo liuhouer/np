@@ -21,28 +21,9 @@ public interface UserFollowService {
 
     boolean updateUserFollow(UserFollow userfollow);
 
-    QueryResult<UserFollow> findByCondition(PageView<UserFollow> p,
-                                            String wheresql, LinkedHashMap<String, String> order);
-
-    QueryResult<UserFollow> findByCondition(
-            String wheresql);
-
     List<Map<String, Object>> getFansList(String sql);
 
-    /**
-     * sql+
-     *
-     * @return
-     */
-    List<Map<String, Object>> querySql(String sql, Object... obj);
-
-    /**
-     * 根据wheresql计算条数
-     *
-     * @param string
-     * @return
-     */
-    int getCountByCondition(String wheresql);
+    List<UserFollow> findByCondition(String whereSql, String orderBy);
 }
 
 

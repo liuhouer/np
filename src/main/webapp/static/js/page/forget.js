@@ -54,7 +54,7 @@ $(function () {
     var msg = $("#J_msg").val();
     if (msg == 'success') {
         art.dialog.tips('修改成功，正在跳转。。', 5);
-        window.location.href = "/cm/pcentral";
+        window.location.href = "/cm/channel";
     } else if (msg == 'is_old') {
         $("#J_tip").text("验证码已过期或失效，请重新获取");
         art.dialog.tips('验证码已过期或失效，请重新获取', 3);

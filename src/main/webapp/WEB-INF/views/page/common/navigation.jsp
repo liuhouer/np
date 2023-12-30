@@ -26,13 +26,13 @@
 <%--                </c:if>--%>
 <%--                <c:if test="${user!=null }">--%>
 
-<%--                    <a href="/cm/pcentral" title="个人中心" class="mainhead-avatar avatar centre" height="40" width="40">--%>
-<%--                        <c:if test="${user.head_path==null }">--%>
+<%--                    <a href="/cm/channel" title="个人中心" class="mainhead-avatar avatar centre" height="40" width="40">--%>
+<%--                        <c:if test="${user.headPath==null }">--%>
 <%--                            <span class="max-width-50  ${user.head_span_class }" alt="${user.username}" height="40"--%>
 <%--                                  width="40">${user.head_span }</span>--%>
 <%--                        </c:if>--%>
-<%--                        <c:if test="${user.head_path!=null }">--%>
-<%--                            <img src="/bruce${user.head_path}" alt="davatar" class="img-circle max-width-50" height="40"--%>
+<%--                        <c:if test="${user.headPath!=null }">--%>
+<%--                            <img src="/bruce${user.headPath}" alt="davatar" class="img-circle max-width-50" height="40"--%>
 <%--                                 width="40" />--%>
 <%--                        </c:if>--%>
 <%--                    </a>--%>
@@ -71,12 +71,12 @@
 <%--                                    <span>${user.username}</span>--%>
 <%--                                    <i class="fa fa-caret-down padding5"></i>--%>
 
-                                        <c:if test="${user.head_path==null }">
+                                        <c:if test="${user.headPath==null }">
                                                                 <span class="max-width-50  ${user.head_span_class }" alt="${user.username}" height="40"
                                                                       width="40">${user.head_span }</span>
                                         </c:if>
-                                        <c:if test="${user.head_path!=null }">
-                                            <img src="/bruce${user.head_path}" alt="davatar" class="img-circle max-width-50" height="40"
+                                        <c:if test="${user.headPath!=null }">
+                                            <img src="/bruce${user.headPath}" alt="davatar" class="img-circle max-width-50" height="40"
                                                  width="40" />
                                         </c:if>
                                 </a>
@@ -96,7 +96,7 @@
                                     </li>
 
                                     <li role="presentation" >
-                                        <a role="menuitem" tabindex="-1" href="/cm/pcentral" title="${user.username}的个人空间">
+                                        <a role="menuitem" tabindex="-1" href="/cm/channel" title="${user.username}的个人空间">
                                              <i class="fa fa-bullseye fa-lg padding10"></i>空间
                                         </a>
                                     </li>

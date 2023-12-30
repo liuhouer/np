@@ -64,5 +64,20 @@ public class RequestHolder {
 
 		return null;
 	}
+
+	/**
+	 * 通用方法-从cookie获取登录信息
+	 * @param request
+	 * @return
+	 */
+	public static void updateUserInfoInRedis(HttpServletRequest request,UserVO newVO) {
+
+		Cookie cookie = CookieUtil.get(request, CookieConstant.TOKEN);
+
+		if (cookie != null) {
+			RedisUtil.getInstance().set(String.format(RedisConstant.TOKEN_TEMPLATE, cookie.getValue()),JsonUtil.object2json(newVO));
+		}
+
+	}
 }
 

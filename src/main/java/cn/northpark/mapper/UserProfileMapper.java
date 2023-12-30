@@ -13,4 +13,6 @@ public interface UserProfileMapper {
     List<UserProfile> selectAll();
 
     int updateByPrimaryKey(UserProfile record);
+
+    UserProfile getModelByUserid(Integer userid);
 }

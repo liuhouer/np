@@ -36,11 +36,11 @@
                     <li><a
 
 
-                            <c:if test="${MyInfo.tail_slug==null || MyInfo.tail_slug==''}">
-                                href="/cm/detail/${MyInfo.id}"
+                            <c:if test="${MyInfo.tailSlug==null || MyInfo.tailSlug==''}">
+                                href="/cm/channel/${MyInfo.id}"
                             </c:if>
-                            <c:if test="${MyInfo.tail_slug!=null }">
-                                href="/people/${MyInfo.tail_slug}"
+                            <c:if test="${MyInfo.tailSlug!=null }">
+                                href="/people/${MyInfo.tailSlug}"
                             </c:if>
 
                     >最爱</a></li>
@@ -55,24 +55,24 @@
                 <div class="col-sm-1 avatar">
                     <a
 
-                            <c:if test="${MyInfo.tail_slug==null || MyInfo.tail_slug==''}">
-                                href="/cm/detail/${MyInfo.id}"
+                            <c:if test="${MyInfo.tailSlug==null || MyInfo.tailSlug==''}">
+                                href="/cm/channel/${MyInfo.id}"
                             </c:if>
-                            <c:if test="${MyInfo.tail_slug!=null }">
-                                href="/people/${MyInfo.tail_slug}"
+                            <c:if test="${MyInfo.tailSlug!=null }">
+                                href="/people/${MyInfo.tailSlug}"
                             </c:if>
 
                             title="${MyInfo.username}的最爱">
-                        <c:if test="${MyInfo.head_path==null }">
+                        <c:if test="${MyInfo.headPath==null }">
                             <span class=" ${MyInfo.head_span_class }"
                                   alt="${s.get('username')}">${MyInfo.head_span }</span>
 
                         </c:if>
-                        <c:if test="${MyInfo.head_path!=null }">
+                        <c:if test="${MyInfo.headPath!=null }">
                             <img alt="${MyInfo.username }的最爱"
                             <c:choose>
-                                 <c:when test="${fn:contains(MyInfo.head_path ,'http://') }">src="${MyInfo.head_path}"</c:when>
-                                 <c:otherwise>src="/bruce/${MyInfo.head_path }"</c:otherwise>
+                                 <c:when test="${fn:contains(MyInfo.headPath ,'http://') }">src="${MyInfo.headPath}"</c:when>
+                                 <c:otherwise>src="/bruce/${MyInfo.headPath }"</c:otherwise>
                             </c:choose>
 
                             >

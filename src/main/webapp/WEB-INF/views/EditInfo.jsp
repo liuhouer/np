@@ -31,7 +31,7 @@
     <div class="container">
         <div class="mainbody padding-t20" id="J_maincontent" style="margin-top:70px;">
 
-            <input type="hidden" id="J_tail_slug" value="${MyInfo.tail_slug }"/>
+            <input type="hidden" id="J_tail_slug" value="${MyInfo.tailSlug }"/>
             <div class="col-lg-6 col-lg-offset-3 bg-white radius-5  min-width-300">
                 <form method="POST" action="/cm/saveEditInfo" enctype="multipart/form-data"
                       accept-charset="UTF-8" role="form" style="color:#444;" id="f1" class="form-horizontal margin-t20">
@@ -82,16 +82,16 @@
                             <div class="row">
                                 <div class="col-xs-3" id="preview">
                                     <img id="imghead" alt="avatar"
-                                    <c:if test="${MyInfo.head_path==null }">
+                                    <c:if test="${MyInfo.headPath==null }">
                                          src="https://northpark.cn/statics/img/davatar.jpg"
                                     </c:if>
-                                    <c:if test="${MyInfo.head_path!=null }">
+                                    <c:if test="${MyInfo.headPath!=null }">
                                     <c:choose>
-                                    <c:when test="${fn:contains(MyInfo.head_path ,'http://') }">
-                                         src="${MyInfo.head_path }"
+                                    <c:when test="${fn:contains(MyInfo.headPath ,'http://') }">
+                                         src="${MyInfo.headPath }"
                                     </c:when>
                                     <c:otherwise>
-                                         src="/bruce/${MyInfo.head_path }"
+                                         src="/bruce/${MyInfo.headPath }"
                                     </c:otherwise>
                                     </c:choose>
                                     </c:if>
@@ -127,16 +127,16 @@
                     </div>
                     <hr>
                     <div class="form-group ">
-                        <label for="tail_slug" class="col-md-3 control-label input-lg ">
+                        <label for="tailSlug" class="col-md-3 control-label input-lg ">
                             域名代号：
                         </label>
                         <div class="col-md-9 text-left ">
                             <div class="clearfix">
                                 <p class="">
                                     <b style="font-size:1.6em">
-                                        <input id="tail_slug" placeholder="vivian1987" required
+                                        <input id="tailSlug" placeholder="vivian1987" required
                                                class="input-lg grid33 border-light-1 bg-lyellow radius-0"
-                                               name="tail_slug" type="text" value="${MyInfo.tail_slug }">
+                                               name="tail_slug" type="text" value="${MyInfo.tailSlug }">
                                     </b>
                                 </p>
                             </div>
@@ -156,7 +156,7 @@
                             <div class="row">
                                 <input id="user_birth" placeholder="1991-12-31"
                                        class="form_datetime form-control border-light-1 input-lg bg-lyellow padding10 grid70 radius-0"
-                                       name="year_of_birth" type="text" value="${DT.year_of_birth }">
+                                       name="year_of_birth" type="text" value="${DT.yearOfBirth }">
                             </div>
                         </div>
                     </div>

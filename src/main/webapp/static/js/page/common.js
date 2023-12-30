@@ -423,7 +423,7 @@ function fetchNotifyCount(){
       			            				$("#J_log_info_l").text("退出");
       			            				$("#J_log_info_l").attr("href","/cm/logout");
       			            				$("#J_log_info_r").text("我自己");
-      			            				$("#J_log_info_r").attr("href","/cm/pcentral");
+      			            				$("#J_log_info_r").attr("href","/cm/channel");
       			            			}
       			            		}
       			            	});
@@ -433,7 +433,7 @@ function fetchNotifyCount(){
       				$("#J_log_info_l").text("退出");
       				$("#J_log_info_l").attr("href","/cm/logout");
       				$("#J_log_info_r").text("我自己");
-      				$("#J_log_info_r").attr("href","/cm/pcentral");
+      				$("#J_log_info_r").attr("href","/cm/channel");
       			}
       		}
       	});

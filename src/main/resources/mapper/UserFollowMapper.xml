@@ -38,4 +38,17 @@
     select id, create_time, status, author_id, follow_id
     from bc_user_follow
   </select>
+    <select id="findByCondition" resultMap="BaseResultMap">
+
+      select  *  from bc_user_follow
+
+      <if test="whereSql != null and whereSql != ''">
+        ${whereSql}
+      </if>
+
+      <if test="orderBy != null and orderBy != ''">
+        order by  ${orderBy}
+      </if>
+
+    </select>
 </mapper>

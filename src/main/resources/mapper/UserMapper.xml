@@ -70,4 +70,21 @@
     head_path, meta, blog_site, date_joined, last_login, qq_openid, qq_info, is_del
     from bc_user
   </select>
+    <select id="login" resultMap="BaseResultMap">
+      select *
+      from bc_user
+
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+
+        <if test="password != null and password != ''">
+          and password = #{password}
+        </if>
+
+        <if test="email != null and email != ''">
+          and email =  #{email}
+        </if>
+
+      </trim>
+
+    </select>
 </mapper>

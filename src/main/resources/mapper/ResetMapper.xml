@@ -40,4 +40,17 @@
     select id, user_id, auth_code, invalid_time, is_email_authed, created_time
     from bc_reset
   </select>
+    <select id="findByCondition" resultMap="BaseResultMap">
+      select  *  from bc_reset
+
+      <if test="whereSql != null and whereSql != ''">
+        ${whereSql}
+      </if>
+
+      <if test="orderBy != null and orderBy != ''">
+        order by  ${orderBy}
+      </if>
+
+
+    </select>
 </mapper>

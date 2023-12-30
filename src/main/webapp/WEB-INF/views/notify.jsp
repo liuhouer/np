@@ -62,7 +62,7 @@
                                         <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
                                                 ${y.senderName.substring(0,1) }
                                         </span>
-                                            <a href="/cm/detail/${y.senderID}" title="${y.senderName }">
+                                            <a href="/cm/channel/${y.senderID}" title="${y.senderName }">
                                                     ${y.senderName }
                                             </a>
                                             <label class="padding5">在回复</label>
@@ -87,7 +87,7 @@
                                         <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
                                                 ${y.senderName.substring(0,1) }
                                         </span>
-                                        <a href="/cm/detail/${y.senderID}" title="${y.senderName }">
+                                        <a href="/cm/channel/${y.senderID}" title="${y.senderName }">
                                                 ${y.senderName }
                                         </a>
                                         <label class="padding5">在回复</label>
@@ -112,7 +112,7 @@
                                         <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
                                                 ${y.senderName.substring(0,1) }
                                         </span>
-                                        <a href="/cm/detail/${y.senderID}" title="${y.senderName }">
+                                        <a href="/cm/channel/${y.senderID}" title="${y.senderName }">
                                                 ${y.senderName }
                                         </a>
                                         <label class="padding5">${y.message }:</label>
@@ -130,7 +130,7 @@
                                         <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
                                                 ${y.senderName.substring(0,1) }
                                         </span>
-                                        <a href="/cm/detail/${y.senderID}" title="${y.senderName }">
+                                        <a href="/cm/channel/${y.senderID}" title="${y.senderName }">
                                                 ${y.senderName }
                                         </a>
                                         <label class="padding5">${y.message }</label>
@@ -196,12 +196,12 @@
                 <div class="col-sm-offset-1 col-sm-4 ">
 
                     <div class="row bg-lblue padding20 radius-5">
-                        <c:if test="${user.head_path!=null and user.head_path!=''}">
+                        <c:if test="${user.headPath!=null and user.headPath!=''}">
                             <div class="col-xs-2 avatar padding10">
-                             <img src="/bruce/${user.head_path}"></img>
+                             <img src="/bruce/${user.headPath}"></img>
                             </div>
                         </c:if>
-                        <c:if test="${user.head_path==null or user.head_path==''}">
+                        <c:if test="${user.headPath==null or user.headPath==''}">
                             <div class="col-xs-2 avatar padding10">
                                 <span class="text-1" >
                                         ${user.username.substring(0,1) }
@@ -214,11 +214,11 @@
                             <hr>
                             <p class="gray-text"><i class="fa fa-envelope padding5"></i>${user.email}</p>
                             <p class="gray-text"><i class="fa fa-link padding5"></i>
-                                <c:if test="${user.blog_site==null or user.blog_site==''}">
+                                <c:if test="${user.blogSite==null or user.blogSite==''}">
                                     -
                                 </c:if>
-                                <c:if test="${user.blog_site!=null and user.blog_site!=''}">
-                                    ${user.blog_site}
+                                <c:if test="${user.blogSite!=null and user.blogSite!=''}">
+                                    ${user.blogSite}
                                 </c:if>
                             </p>
                             <p class="gray-text"><i class="fa fa-globe padding5"></i>
@@ -230,7 +230,7 @@
                                 </c:if>
 
                             </p>
-                            <p class="gray-text"><i class="fa fa-calendar-times-o padding5"></i>${user.date_joined}</p>
+                            <p class="gray-text"><i class="fa fa-calendar-times-o padding5"></i>${user.dateJoined}</p>
                         </div>
 
                     </div>
