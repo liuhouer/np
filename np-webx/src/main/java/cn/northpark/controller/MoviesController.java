@@ -667,7 +667,7 @@ public class MoviesController {
         }
 
 
-        PageHelper.startPage(1,MoviesCount);
+        PageHelper.startPage(page,MoviesCount);
         List<Movies> result_list = moviesService.findByCondition(whereSql,_orderBy);
         PageInfo pageInfo = new PageInfo(result_list);
 
