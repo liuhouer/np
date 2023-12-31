@@ -27,7 +27,7 @@
                   >     
                     <p>
                         <span class="glyphicon glyphicon-time margin5"></span>
-                            ${y.addTime}
+                            ${y.add_time}
                     </p>
                     <p>
                     </p>
