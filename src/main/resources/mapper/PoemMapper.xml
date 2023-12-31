@@ -64,4 +64,20 @@
     pic_poem, create_time, content, content1, enjoys
     from bc_poem
   </select>
+    <select id="querySql" resultMap="BaseResultMap">
+      ${sqlExpr}
+    </select>
+  <select id="findByCondition" resultMap="BaseResultMap">
+  select id, ret_code, ret_url, title, years, years_code, types, types_code, author,
+    pic_poem, create_time, content, content1, enjoys
+    from bc_poem
+    <if test="whereSql != null and whereSql != ''">
+      ${whereSql}
+    </if>
+
+    <if test="orderBy != null and orderBy != ''">
+      order by  ${orderBy}
+    </if>
+
+  </select>
 </mapper>

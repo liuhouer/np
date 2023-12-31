@@ -83,8 +83,8 @@
                                     <p>
 
 
-                                        <c:if test="${s.pic_poem!='' }"><img
-                                                title="${s.title}" alt="${s.title}" src="${s.pic_poem }"></c:if>
+                                        <c:if test="${s.picPoem!='' }"><img
+                                                title="${s.title}" alt="${s.title}" src="${s.picPoem }"></c:if>
 
 
                                     </p>
@@ -93,10 +93,10 @@
                                         收录于：<a class="common-a-right" title="${s.author}">${s.author}</a>
 
                                         <a class="common-a-right" title="${s.years}"
-                                           href="/poem/dynasty/${s.years_code }">${s.years}</a>
+                                           href="/poem/dynasty/${s.yearsCode }">${s.years}</a>
 
                                         <a class="common-a" title="${s.types}"
-                                           href="/poem/types/${s.types_code }">${s.types}</a>
+                                           href="/poem/types/${s.typesCode }">${s.types}</a>
 
 
                                     </p>
@@ -193,14 +193,14 @@
                         <c:forEach var="z" items="${years_tag }">
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tag_code == sel_tag }">
+                                <c:if test="${z.tagCode == sel_tag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
-                                    <a style="color: #45d0c6;" href="/poem/dynasty/${z.tag_code}"
+                                    <a style="color: #45d0c6;" href="/poem/dynasty/${z.tagCode}"
                                        title="${z.tag }">${z.tag } </a>
                                 </c:if>
-                                <c:if test="${z.tag_code != sel_tag }">
+                                <c:if test="${z.tagCode != sel_tag }">
                                     <span class="glyphicon glyphicon-tree-conifer margin5"></span>
-                                    <a href="/poem/dynasty/${z.tag_code}" title="${z.tag }">${z.tag } </a>
+                                    <a href="/poem/dynasty/${z.tagCode}" title="${z.tag }">${z.tag } </a>
                                 </c:if>
 
 
@@ -218,14 +218,14 @@
                         <c:forEach var="z" items="${types_tag }">
 
                             <div class="col-md-10 margin5">
-                                <c:if test="${z.tag_code == sel_tag }">
+                                <c:if test="${z.tagCode == sel_tag }">
                                     <span class="glyphicon glyphicon-arrow-right margin5"></span>
-                                    <a style="color: #45d0c6;" href="/poem/types/${z.tag_code}"
+                                    <a style="color: #45d0c6;" href="/poem/types/${z.tagCode}"
                                        title="${z.tag }">${z.tag } </a>
                                 </c:if>
-                                <c:if test="${z.tag_code != sel_tag }">
+                                <c:if test="${z.tagCode != sel_tag }">
                                     <span class="glyphicon glyphicon-tag  margin5"></span>
-                                    <a href="/poem/types/${z.tag_code}" title="${z.tag }">${z.tag } </a>
+                                    <a href="/poem/types/${z.tagCode}" title="${z.tag }">${z.tag } </a>
                                 </c:if>
 
 
