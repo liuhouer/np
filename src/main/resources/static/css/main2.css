@@ -559,17 +559,13 @@ a.btn {
     border-bottom-width: 5px;
 }
 
-/*字符截断 */
+/* 字符截断 */
 .cut {
     width: 200px;
     height: 14px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    -ms-text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    -moz-binding: url("ellipsis.xml#ellipsis");
 }
 
 /*多行的截断  */
@@ -582,7 +578,7 @@ a.btn {
 
 /* 加粗的标签 */
 .boldlabel {
-    font: bold;
+    font-weight: bold;
     font-style: normal;
 }
 
@@ -640,7 +636,7 @@ a.btn {
     /* box-shadow: 0px 0px 18px rgba(0,0,0,.4); */
     -webkit-transition: all ease 1s;
     -moz-transition: all ease 1s;
-    -o-transition-delay: all ease 1s;
+    -o-transition: all ease 1s;
     transition: all ease 1s
 }
 
@@ -650,7 +646,7 @@ a.btn {
     -transform: scale(1.2, 1.2);
     -webkit-transition: all ease 1s;
     -moz-transition: all ease 1s;
-    -o-transition-delay: all ease 1s;
+    -o-transition: all ease 1s;
     transition: all ease 1s
 }
 
@@ -738,18 +734,12 @@ a.project-card-link {
     color: #fff;
     background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0,
     rgba(0, 0, 0, 0.7) 80px);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(0, 0,
-    0, 0)), color-stop(80px, rgba(0, 0, 0, 0.7)));
-    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0,
-    rgba(0, 0, 0, 0.7) 80px);
-    background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0,
-    rgba(0, 0, 0, 0.7) 80px);
-    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0,
-    rgba(0, 0, 0, 0.7) 80px);
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0,
-    rgba(0, 0, 0, 0.7) 80px);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',
-    endColorstr='#a0000000', GradientType=0)
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.7) 80px);
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.7) 80px);
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.7) 80px);
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.7) 80px);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.7) 80px);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#a0000000', GradientType=0)
 }
 
 .project-card-small-stage {
@@ -1469,7 +1459,7 @@ a.project-card-link {
     position: relative;
     margin-top: 10px;
     margin-bottom: 10px;
-    max-width: 30x;
+    max-width: 30px;
     max-height: 30px;
 }
 
@@ -1537,7 +1527,7 @@ a.project-card-link {
     width: 30px;
     height: 50px;
     background: url(/static/img/index/PreAndNext.png) no-repeat;
-    background: url(../images/icon_ie6.png) no-repeat \9;
+    /*background: url(../images/icon_ie6.png) no-repeat \9;*/
     position: absolute;
     top: 33px;
     z-index: 99;
@@ -1648,7 +1638,7 @@ a.project-card-link {
 }
 
 .timeline-date ul li dl.right {
-    background: url() no-repeat 0 0;
+    background: no-repeat 0 0;
     float: left;
     margin-left: 35px;
     margin-top: -5px;
