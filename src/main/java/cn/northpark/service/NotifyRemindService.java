@@ -23,6 +23,7 @@ public interface NotifyRemindService {
 
     boolean updateNotifyRemind(NotifyRemindB notifyremind);
 
+    List<NotifyRemindB> findByCondition(String where_sql, String orderBy);
 }
 
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service(value = "MoviesService")
 public class MoviesServiceImpl implements MoviesService {
 
     @Autowired

@@ -1,6 +1,7 @@
 package cn.northpark.mapper;
 
 import cn.northpark.model.NotifyRemindB;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface NotifyRemindBMapper {
     List<NotifyRemindB> selectAll();
 
     int updateByPrimaryKey(NotifyRemindB record);
+
+    List<NotifyRemindB> findByCondition(@Param(value = "whereSql") String whereSql, @Param(value = "orderBy")String orderBy);
 }

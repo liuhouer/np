@@ -23,6 +23,8 @@ public interface UserLyricsService {
     String getRandSql();
 
     List<Map<String, Object>> querySqlMap(String mixSQL);
+
+    List<UserLyrics> findByCondition(String whereSql, String orderBy);
 }
 
 

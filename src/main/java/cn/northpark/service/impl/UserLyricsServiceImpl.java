@@ -81,5 +81,10 @@ public class UserLyricsServiceImpl implements UserLyricsService {
         return userlyricsMapper.querySqlMap(mixSQL);
     }
 
+    @Override
+    public List<UserLyrics> findByCondition(String whereSql, String orderBy) {
+        return userlyricsMapper.findByCondition(whereSql,orderBy);
+    }
+
 }
 

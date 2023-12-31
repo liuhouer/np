@@ -50,6 +50,11 @@ public class NotifyRemindServiceImpl implements NotifyRemindService {
 		notifyMapper.updateByPrimaryKey(notifyremind);
 		return true;
 	}
-	
+
+	@Override
+	public List<NotifyRemindB> findByCondition(String where_sql, String orderBy) {
+		return notifyMapper.findByCondition(where_sql,orderBy);
+	}
+
 }
 

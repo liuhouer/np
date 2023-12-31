@@ -35,4 +35,15 @@
   <select id="querySqlMap" resultType="java.util.Map">
      ${sqlExpr}
   </select>
+    <select id="findByCondition" resultType="cn.northpark.model.UserLyrics">
+       select id, userid, lyricsid
+       from bc_user_lyrics
+      <if test="whereSql != null and whereSql != ''">
+        ${whereSql}
+      </if>
+
+      <if test="orderBy != null and orderBy != ''">
+        order by  ${orderBy}
+      </if>
+    </select>
 </mapper>

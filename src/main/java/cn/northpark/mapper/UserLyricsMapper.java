@@ -19,4 +19,5 @@ public interface UserLyricsMapper {
 
     List<Map<String, Object>> querySqlMap(@Param(value = "sqlExpr") String sql);
 
+    List<UserLyrics> findByCondition(@Param(value = "whereSql") String whereSql, @Param(value = "orderBy")String orderBy);
 }

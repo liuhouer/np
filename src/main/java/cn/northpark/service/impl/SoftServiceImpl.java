@@ -17,7 +17,7 @@ import java.util.Map;
  * @email zhangyang226@gmail.com
  * @site http://blog.northpark.cn | http://northpark.cn | orginazation https://github.com/jellyband
  */
-@Service
+@Service(value = "SoftService")
 public class SoftServiceImpl implements SoftService {
 
     @Autowired

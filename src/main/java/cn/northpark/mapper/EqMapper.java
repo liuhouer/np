@@ -1,6 +1,7 @@
 package cn.northpark.mapper;
 
 import cn.northpark.model.Eq;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,6 +16,5 @@ public interface EqMapper {
 
     int updateByPrimaryKey(Eq record);
 
-    void execSQL(String sql);
-
+    List<Eq>  findByCondition(@Param(value = "whereSql") String whereSql, @Param(value = "orderBy")String orderBy);
 }

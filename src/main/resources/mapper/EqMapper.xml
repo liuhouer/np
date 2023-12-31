@@ -43,5 +43,18 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, title, img, date, ret_code, brief, article
     from bc_eq
+    order by date desc
+  </select>
+  <select id="findByCondition" resultMap="BaseResultMap">
+     select id, title, img, date, ret_code, brief, article
+    from bc_eq
+    <if test="whereSql != null and whereSql != ''">
+      ${whereSql}
+    </if>
+
+    <if test="orderBy != null and orderBy != ''">
+      order by  ${orderBy}
+    </if>
+
   </select>
 </mapper>

@@ -64,4 +64,17 @@
     object_links, recipient_id, created_at, status, read_at, message
     from bc_notify_remind_b
   </select>
+    <select id="findByCondition" resultMap="BaseResultMap" >
+       select id, remind_id, sender_id, sender_name, sender_action, object_id, object, object_type,
+    object_links, recipient_id, created_at, status, read_at, message
+    from bc_notify_remind_b
+
+      <if test="whereSql != null and whereSql != ''">
+        ${whereSql}
+      </if>
+
+      <if test="orderBy != null and orderBy != ''">
+        order by  ${orderBy}
+      </if>
+    </select>
 </mapper>
