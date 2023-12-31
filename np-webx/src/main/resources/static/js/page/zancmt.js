@@ -160,7 +160,7 @@ function complete(XMLHttpRequest, textStatus) {
 }
 
 function beforeSendZAN(XMLHttpRequest) {
-    $("#showResult").append("<div><img src='https://northpark.cn/statics/img/loading.gif' style='width:32px;height:32px;' /></div>");
+    $("#showResult").append("<div><img src='/static/img/loading.gif' style='width:32px;height:32px;' /></div>");
 }
 
 function completeZAN(XMLHttpRequest, textStatus) {
