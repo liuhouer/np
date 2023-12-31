@@ -12,7 +12,7 @@ public class ResultGenerator {
 
     /**
      * 生成通用结果 --成功/失败
-     * @param success
+     * @param flag
      * @param data
      * @param message
      * @param <T>
@@ -31,9 +31,9 @@ public class ResultGenerator {
     
     /**
      * 生成通用结果 --成功/失败
-     * @param success
+     * @param flag
      * @param data
-     * @param integer
+     * @param code
      * @param message
      * @param <T>
      * @return
@@ -52,10 +52,9 @@ public class ResultGenerator {
     
     /**
      * 生成通用结果 --成功/失败
-     * @param success
+     * @param flag
      * @param data
-     * @param code
-     * @param message
+     * @param enums
      * @param <T>
      * @return
      */
@@ -94,8 +93,8 @@ public class ResultGenerator {
 
     /**
      * 生成错误消息
-     * @param 错误消息内容Str
-     * @param <T>
+     * @param integer
+     * @param message 错误消息内容Str
      * @return
      */
     public static <T> Result<T> genErrorResult(Integer integer,String message) {
@@ -105,7 +104,7 @@ public class ResultGenerator {
 
     /**
      * 生成错误消息
-     * @param 错误消息枚举码
+     * @param error 错误消息枚举码
      * @param <T>
      * @return
      */
