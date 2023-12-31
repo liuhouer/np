@@ -36,3 +36,7 @@ redis.properties
 /np-webx/src/main/resources/redis.properties
 /np-webx/src/main/resources/mybatis-config.xml
 /np-webx/src/main/resources/mbg_config_desc.xml
+/np-webx/target/
+/np-base/target/
+/np-blackhole/target/
+*.log
