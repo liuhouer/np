@@ -41,8 +41,8 @@
 								<div class="border-0 center">
 									<p>
 										<small class="green-text">
-											<h1>
-												<strong>${article.title}</strong>
+											<h1><font size="5">
+												<strong>${article.title}</strong></font>
 											</h1>
 										</small>
 									</p>
