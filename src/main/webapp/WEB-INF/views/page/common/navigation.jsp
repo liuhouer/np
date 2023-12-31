@@ -65,7 +65,7 @@
                     </c:if>
                     <c:if test="${user!=null }">
 
-                            <div class="dropdown" style="background-color: transparent;">
+                            <div class="dropdown" style="background-color: transparent;position: relative; width: 160px;">
                                 <a class="dropdown-toggle " id="dropdownMenu1" data-toggle="dropdown" style="padding:8px 15px;background-color: transparent;cursor:pointer;min-width: 160px;padding-right:1.2em;padding-left:1.2em;font-size:1.2em;line-height:38px;font-weight:400;text-decoration:none;text-shadow:none;border-bottom: transparent;position:relative;display:block;">
 <%--                                    <i class="fa fa-user "></i>--%>
 <%--                                    <span>${user.username}</span>--%>
