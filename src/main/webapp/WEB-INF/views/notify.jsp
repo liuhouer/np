@@ -57,12 +57,12 @@
                             <div class="col-sm-10 avatar">
 
                                 <%-- 1类：在某文章界面评论被回复【通知-被回复人】【通知-站长】--%>
-                                <c:if test="${y.remindID==1}">
+                                <c:if test="${y.remindId==1}">
                                         <p>
-                                        <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
+                                        <span class="text-${y.senderId.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
                                                 ${y.senderName.substring(0,1) }
                                         </span>
-                                            <a href="/cm/channel/${y.senderID}" title="${y.senderName }">
+                                            <a href="/cm/channel/${y.senderId}" title="${y.senderName }">
                                                     ${y.senderName }
                                             </a>
                                             <label class="padding5">在回复</label>
@@ -82,12 +82,12 @@
                                 </c:if>
 
                                 <%--留言--%>
-                                <c:if test="${y.remindID==3}">
+                                <c:if test="${y.remindId==3}">
                                     <p>
-                                        <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
+                                        <span class="text-${y.senderId.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
                                                 ${y.senderName.substring(0,1) }
                                         </span>
-                                        <a href="/cm/channel/${y.senderID}" title="${y.senderName }">
+                                        <a href="/cm/channel/${y.senderId}" title="${y.senderName }">
                                                 ${y.senderName }
                                         </a>
                                         <label class="padding5">在回复</label>
@@ -107,12 +107,12 @@
                                 </c:if>
 
                                 <%--最爱--%>
-                                <c:if test="${y.remindID==2}">
+                                <c:if test="${y.remindId==2}">
                                     <p>
-                                        <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
+                                        <span class="text-${y.senderId.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
                                                 ${y.senderName.substring(0,1) }
                                         </span>
-                                        <a href="/cm/channel/${y.senderID}" title="${y.senderName }">
+                                        <a href="/cm/channel/${y.senderId}" title="${y.senderName }">
                                                 ${y.senderName }
                                         </a>
                                         <label class="padding5">${y.message }:</label>
@@ -125,12 +125,12 @@
                                 </c:if>
 
                                 <%--关注--%>
-                                <c:if test="${y.remindID==4}">
+                                <c:if test="${y.remindId==4}">
                                     <p>
-                                        <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
+                                        <span class="text-${y.senderId.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
                                                 ${y.senderName.substring(0,1) }
                                         </span>
-                                        <a href="/cm/channel/${y.senderID}" title="${y.senderName }">
+                                        <a href="/cm/channel/${y.senderId}" title="${y.senderName }">
                                                 ${y.senderName }
                                         </a>
                                         <label class="padding5">${y.message }</label>
@@ -142,9 +142,9 @@
                                 </c:if>
 
                                 <%--5类-站内消息--%>
-                                <c:if test="${y.remindID==5}">
+                                <c:if test="${y.remindId==5}">
                                     <p>
-                                        <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
+                                        <span class="text-${y.senderId.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
                                                 ${y.senderName.substring(0,1) }
                                         </span>
                                             ${y.senderName }
@@ -158,9 +158,9 @@
                                     </p>
                                 </c:if>
                                 <%--6类-资源提醒消息--%>
-                                <c:if test="${y.remindID==6}">
+                                <c:if test="${y.remindId==6}">
                                         <p>
-                                        <span class="text-${y.senderID.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
+                                        <span class="text-${y.senderId.substring(0,1) }" style="width: 28px;height: 28px;line-height: 28px;">
                                                 ${y.senderName.substring(0,1) }
                                         </span>
                                                 ${y.senderName }

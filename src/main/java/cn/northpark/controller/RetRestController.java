@@ -170,9 +170,20 @@ public class RetRestController {
                 List<Map<String, Object>> list = NPQueryRunner.findByCondition("bc_soft", " ret_code= '" + code+ "' or title = '"+title+"' ");
 
                 if (CollectionUtils.isEmpty(list)) {
-                    Soft model = Soft.builder().brief(brief).content(article).os(os).postDate(date).retCode(code)
-                            .retUrl(a_url).tags(tag).title(title).month(month).year(year).tagsCode(tag_code).color(color)
-                            .path(path).build();
+                    Soft model = new Soft();
+                    model.setBrief(brief);
+                    model.setContent(article);
+                    model.setOs(os);
+                    model.setPostDate(date);
+                    model.setRetCode(code);
+                    model.setRetUrl(a_url);
+                    model.setTags(tag);
+                    model.setTitle(title);
+                    model.setMonth(month);
+                    model.setYear(year);
+                    model.setTagsCode(tag_code);
+                    model.setColor(color);
+                    model.setPath(path);
                     softService.addSoft(model);
                 }
 

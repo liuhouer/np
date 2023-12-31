@@ -295,17 +295,12 @@ public class MoviesController {
         try {
         	//更新
         	if(model.getId()!=null && model.getId()!=0) {
-        		Movies old = moviesService.findMovies(model.getId());
-        		old.setMovieName(model.getMovieName());
-        		old.setPath(model.getPath());
-        		old.setColor(model.getColor());
-                old.setMovieDesc(model.getMovieDesc());
                 //BRUCETIPS! 富文本处理
                 if(StringUtils.equals("1",model.getUseMinio())){
-                    old.setMovieDescMinio(MinioUtils.uploadText(model.getMovieDesc()));
-                    old.setUseMinio(model.getUseMinio());
+                    model.setMovieDescMinio(MinioUtils.uploadText(model.getMovieDesc()));
+                    model.setUseMinio(model.getUseMinio());
                 }
-        		moviesService.updateMovies(old);
+        		moviesService.updateMovies(model);
 
                 //从redis set里面删除更新的失效资源
                 if(RedisUtil.getInstance().sMembers(BC_Constant.REDIS_FEEDBACK).toString().contains(model.getId().toString())){

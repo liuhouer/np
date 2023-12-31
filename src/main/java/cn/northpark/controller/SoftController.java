@@ -184,23 +184,12 @@ public class SoftController {
         try {
         	//更新
         	if(model.getId()!=null && model.getId()!=0) {
-        		Soft old = softService.findSoft(model.getId());
-        		old.setTitle(model.getTitle());
-        		old.setPath(model.getPath());
-                old.setContent(model.getContent());
-        		old.setBrief(model.getBrief());
-        		old.setRetCode(model.getRetCode());
-        		//added--2021年10月28日
-                old.setOs(model.getOs());
-        		old.setColor(model.getColor());
-        		old.setDisplayed(model.getDisplayed());
-        		old.setHotIndex(model.getHotIndex());
                 //BRUCETIPS! 富文本处理
                 if(StringUtils.equals("1",model.getUseMinio())){
-                    old.setContentMinio(MinioUtils.uploadText(model.getContent()));
-                    old.setUseMinio(model.getUseMinio());
+                    model.setContentMinio(MinioUtils.uploadText(model.getContent()));
+                    model.setUseMinio(model.getUseMinio());
                 }
-        		softService.updateSoft(old);
+        		softService.updateSoft(model);
 
 
                 //从redis set里面删除更新的失效资源
@@ -392,7 +381,7 @@ public class SoftController {
             //开启驼峰映射
             BeanProcessor bean = new GenerousBeanProcessor();
             RowProcessor processor = new BasicRowProcessor(bean);
-            List<Soft> list = NPQueryRunner.query("select * from bc_soft where ret_code=?",new BeanListHandler<Soft>(Soft.class,processor), ret_code);
+            List<Soft> list = NPQueryRunner.query("select * from bc_soft where ret_code = ?",new BeanListHandler<Soft>(Soft.class,processor), ret_code);
             if (!CollectionUtils.isEmpty(list)) {
                 map.addAttribute("article", list.get(0));
                 //SEO 优化

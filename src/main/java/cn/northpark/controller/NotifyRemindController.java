@@ -57,7 +57,7 @@ public class NotifyRemindController {
 		try {
 			UserVO userInfo = RequestHolder.getUserInfo(request);
 
-			String notifyNumSql = " select * from bc_notify_remind   where recipientID = ? and status = '0' ";
+			String notifyNumSql = " select * from bc_notify_remind_b   where recipient_id = ? and status = '0' ";
 
 			int i = NPQueryRunner.query(notifyNumSql,new MapListHandler(),userInfo.getId()).size();
 
@@ -90,7 +90,7 @@ public class NotifyRemindController {
 
 				UserVO userInfo = RequestHolder.getUserInfo(request);
 
-				String readNotifySql = "update bc_notify_remind   set status = ? where  recipientID = ? and id in ("+ids+")";
+				String readNotifySql = "update bc_notify_remind_b   set status = ? where  recipient_id = ? and id in ("+ids+")";
 
 				NPQueryRunner.update(readNotifySql,"1",userInfo.getId());
 			}
@@ -121,9 +121,9 @@ public class NotifyRemindController {
 	@RequestMapping(value="/notifications")
 	@CheckLogin
 	public String list1(ModelMap map,HttpServletRequest request) throws IOException {
-
+		request.getSession().removeAttribute("tabs");
 		UserVO userInfo = RequestHolder.getUserInfo(request);
-		String where_sql = " where recipientID = '" + userInfo.getId() + "' ";
+		String where_sql = " where recipient_id = '" + userInfo.getId() + "' ";
 
 		//标签分类
 		String remindID = request.getParameter("remindID");
@@ -134,7 +134,7 @@ public class NotifyRemindController {
 				throw new IllegalArgumentException("u r shit");
 			}
 
-			where_sql+=" and remindID= '"+remindID+"' ";
+			where_sql+=" and remind_id= '"+remindID+"' ";
 
 			map.put("remindID",remindID);
 		}
@@ -142,7 +142,7 @@ public class NotifyRemindController {
 		log.info("where_sql ---" + where_sql);
 
 		//排序条件
-		String _orderBy = "status asc,createdAt desc";
+		String _orderBy = "status asc,created_at desc";
 
 		PageHelper.startPage(1,MyConstant.MAX_RESULT);
 		List<NotifyRemindB> result_list = notifyRemindService.findByCondition(where_sql,_orderBy);
@@ -176,7 +176,7 @@ public class NotifyRemindController {
 	public String listPage(ModelMap map, @PathVariable Integer page, HttpServletRequest request) throws IOException {
 
 		UserVO userInfo = RequestHolder.getUserInfo(request);
-		String where_sql = " where recipientID = '" + userInfo.getId() + "' ";
+		String where_sql = " where recipient_id = '" + userInfo.getId() + "' ";
 
 		//标签分类
 		String remindID = request.getParameter("remindID");
@@ -187,7 +187,7 @@ public class NotifyRemindController {
 				throw new IllegalArgumentException("u r shit");
 			}
 
-			where_sql+=" and remindID= '"+remindID+"' ";
+			where_sql+=" and remind_id= '"+remindID+"' ";
 
 			map.put("remindID",remindID);
 		}
@@ -195,7 +195,7 @@ public class NotifyRemindController {
 		log.info("where_sql ---" + where_sql);
 
 		//排序条件
-		String _orderBy = "status asc,createdAt desc";
+		String _orderBy = "status asc,created_at desc";
 
 		PageHelper.startPage(page,MyConstant.MAX_RESULT);
 		List<NotifyRemindB> result_list = notifyRemindService.findByCondition(where_sql,_orderBy);

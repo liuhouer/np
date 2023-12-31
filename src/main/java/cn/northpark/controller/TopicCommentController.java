@@ -163,16 +163,16 @@ public class TopicCommentController {
     @RateLimit
     public String list1(ModelMap map, HttpServletRequest request) throws IOException {
 
-        String TopicId = request.getParameter("TopicId");
-        String TopicType = request.getParameter("TopicType");
+        String topic_id = request.getParameter("topic_id");
+        String topic_type = request.getParameter("topic_type");
 
 
-        String sql = "select * from bc_topic_comment where TopicId = ? and TopicType = ? order by add_time desc ";
+        String sql = "select * from bc_topic_comment where topic_id = ? and topic_type = ? order by add_time desc ";
 
         //开启驼峰映射
         BeanProcessor bean = new GenerousBeanProcessor();
         RowProcessor processor = new BasicRowProcessor(bean);
-        List<TopicComment> list = NPQueryRunner.query(sql, new BeanListHandler<TopicComment>(TopicComment.class,processor), TopicId, TopicType);
+        List<TopicComment> list = NPQueryRunner.query(sql, new BeanListHandler<TopicComment>(TopicComment.class,processor), topic_id, topic_type);
 
         //处理时间戳
         if (!CollectionUtils.isEmpty(list)) {

@@ -38,21 +38,19 @@
 
 </footer>
 
-<script src="https://northpark.cn/statics/js/jquery-1.7.2.js"></script>
+<script src="/static/js/jquery-1.7.2.js"></script>
 
-<script src="https://northpark.cn/statics/js/bootstrap.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
 
-<script src="https://northpark.cn/statics/js/artDialog/artDialog.js?skin=default"></script>
+<script src="/static/js/artDialog/artDialog.js?skin=default"></script>
 
-<script src="https://northpark.cn/statics/js/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/static/js/artDialog/jquery.artDialog.js?skin=default"></script>
 
-<script src="https://northpark.cn/statics/js/artDialog/plugins/iframeTools.js"></script>
+<script src="/static/js/artDialog/plugins/iframeTools.js"></script>
 
-<script data-cfasync="false" src="https://northpark.cn/statics/js/page/seltab.js"></script>
+<script data-cfasync="false" src="/static/js/page/seltab.js"></script>
 
-<script data-cfasync="false" src="https://northpark.cn/statics/js/page/common.js"></script>
-
-<%--<script data-cfasync="false" src="/static/js/page/common.js"></script>--%>
+<script data-cfasync="false" src="/static/js/page/common.js"></script>
 
 <%--google ads--%>
 <%--<script data-ad-client="ca-pub-6480430202155588" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>--%>

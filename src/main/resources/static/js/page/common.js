@@ -191,13 +191,13 @@ $("body").on('click', '.click2save', function () {
                     url: "/topicComment/addTopicComment",
                     type: "post",
                     data: {
-                        "topic_id": topic_id,
-                        "topic_type": topic_type,
-                        "from_uid": from_uid,
-                        "from_uname": from_uname,
+                        "topicId": topic_id,
+                        "topicType": topic_type,
+                        "fromUid": from_uid,
+                        "fromUname": from_uname,
                         "content": comment_content,
-                        "to_uid": to_uid,
-                        "to_uname": to_uname
+                        "toUid": to_uid,
+                        "toUname": to_uname
                     },
                     dataType: "json",
                     beforeSend: beforeSend, //发送请求

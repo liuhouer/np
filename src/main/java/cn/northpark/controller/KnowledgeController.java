@@ -530,12 +530,7 @@ public class KnowledgeController {
 		try {
 			//更新
 			if(model.getId()!=null && model.getId()!=0) {
-				Knowledge old = knowledgeService.findKnowledge(model.getId());
-				old.setTitle(model.getTitle());
-				old.setPath(model.getPath());
-				old.setColor(model.getColor());
-				old.setContent(model.getContent());
-				knowledgeService.updateKnowledge(old);
+				knowledgeService.updateKnowledge(model);
 
 				//从redis set里面删除更新的失效资源
 				if(RedisUtil.getInstance().sMembers(BC_Constant.REDIS_FEEDBACK).toString().contains(model.getId().toString())){

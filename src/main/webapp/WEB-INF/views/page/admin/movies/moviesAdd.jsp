@@ -68,7 +68,7 @@
                         <span class="glyphicon glyphicon-star"></span>电影标签-英文
                         <input id="J_tag_code" placeholder="电影标签-英文" required
                                class="form-control  input-lg  border-light-1 bg-lyellow grid98 radius-0"
-                               name="tag_code" type="text" value="${model.tag_code }">
+                               name="tagCode" type="text" value="${model.tagCode }">
                     </div>
                     <div class="form-group">
                         <span class="glyphicon glyphicon-star"></span>电影内容
