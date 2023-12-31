@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.DonatesMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.Donates" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="merc_order_id" property="mercOrderId" jdbcType="VARCHAR" />
+    <result column="alipay_trans_id" property="alipayTransId" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="order_amount" property="orderAmount" jdbcType="VARCHAR" />
+    <result column="refund_amount" property="refundAmount" jdbcType="VARCHAR" />
+    <result column="service_charge" property="serviceCharge" jdbcType="VARCHAR" />
+    <result column="trading_status" property="tradingStatus" jdbcType="VARCHAR" />
+    <result column="service_refund" property="serviceRefund" jdbcType="VARCHAR" />
+    <result column="merchant_receive" property="merchantReceive" jdbcType="VARCHAR" />
+    <result column="merchant_offers" property="merchantOffers" jdbcType="VARCHAR" />
+    <result column="branch_office" property="branchOffice" jdbcType="VARCHAR" />
+    <result column="band_order_id" property="bandOrderId" jdbcType="VARCHAR" />
+    <result column="transaction_type" property="transactionType" jdbcType="VARCHAR" />
+    <result column="transaction_means" property="transactionMeans" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="reward_msg" property="rewardMsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_donates
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.Donates" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_donates (add_time, product_name, merc_order_id, 
+      alipay_trans_id, account_id, account_name, 
+      order_amount, refund_amount, service_charge, 
+      trading_status, service_refund, merchant_receive, 
+      merchant_offers, branch_office, band_order_id, 
+      transaction_type, transaction_means, store_name, 
+      reward_msg)
+    values (#{addTime,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{mercOrderId,jdbcType=VARCHAR}, 
+      #{alipayTransId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, 
+      #{orderAmount,jdbcType=VARCHAR}, #{refundAmount,jdbcType=VARCHAR}, #{serviceCharge,jdbcType=VARCHAR}, 
+      #{tradingStatus,jdbcType=VARCHAR}, #{serviceRefund,jdbcType=VARCHAR}, #{merchantReceive,jdbcType=VARCHAR}, 
+      #{merchantOffers,jdbcType=VARCHAR}, #{branchOffice,jdbcType=VARCHAR}, #{bandOrderId,jdbcType=VARCHAR}, 
+      #{transactionType,jdbcType=VARCHAR}, #{transactionMeans,jdbcType=VARCHAR}, #{storeName,jdbcType=VARCHAR}, 
+      #{rewardMsg,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.Donates" >
+    update bc_donates
+    set add_time = #{addTime,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      merc_order_id = #{mercOrderId,jdbcType=VARCHAR},
+      alipay_trans_id = #{alipayTransId,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      order_amount = #{orderAmount,jdbcType=VARCHAR},
+      refund_amount = #{refundAmount,jdbcType=VARCHAR},
+      service_charge = #{serviceCharge,jdbcType=VARCHAR},
+      trading_status = #{tradingStatus,jdbcType=VARCHAR},
+      service_refund = #{serviceRefund,jdbcType=VARCHAR},
+      merchant_receive = #{merchantReceive,jdbcType=VARCHAR},
+      merchant_offers = #{merchantOffers,jdbcType=VARCHAR},
+      branch_office = #{branchOffice,jdbcType=VARCHAR},
+      band_order_id = #{bandOrderId,jdbcType=VARCHAR},
+      transaction_type = #{transactionType,jdbcType=VARCHAR},
+      transaction_means = #{transactionMeans,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      reward_msg = #{rewardMsg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, add_time, product_name, merc_order_id, alipay_trans_id, account_id, account_name, 
+    order_amount, refund_amount, service_charge, trading_status, service_refund, merchant_receive, 
+    merchant_offers, branch_office, band_order_id, transaction_type, transaction_means, 
+    store_name, reward_msg
+    from bc_donates
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, add_time, product_name, merc_order_id, alipay_trans_id, account_id, account_name, 
+    order_amount, refund_amount, service_charge, trading_status, service_refund, merchant_receive, 
+    merchant_offers, branch_office, band_order_id, transaction_type, transaction_means, 
+    store_name, reward_msg
+    from bc_donates
+  </select>
+</mapper>

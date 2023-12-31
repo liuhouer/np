@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="email_flag" property="emailFlag" jdbcType="VARCHAR" />
+    <result column="tail_slug" property="tailSlug" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="head_span_class" property="headSpanClass" jdbcType="VARCHAR" />
+    <result column="head_span" property="headSpan" jdbcType="VARCHAR" />
+    <result column="head_path" property="headPath" jdbcType="VARCHAR" />
+    <result column="meta" property="meta" jdbcType="VARCHAR" />
+    <result column="blog_site" property="blogSite" jdbcType="VARCHAR" />
+    <result column="date_joined" property="dateJoined" jdbcType="VARCHAR" />
+    <result column="last_login" property="lastLogin" jdbcType="VARCHAR" />
+    <result column="qq_openid" property="qqOpenid" jdbcType="VARCHAR" />
+    <result column="qq_info" property="qqInfo" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.User" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_user (username, email, email_flag, 
+      tail_slug, password, head_span_class, 
+      head_span, head_path, meta, 
+      blog_site, date_joined, last_login, 
+      qq_openid, qq_info, is_del
+      )
+    values (#{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{emailFlag,jdbcType=VARCHAR}, 
+      #{tailSlug,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{headSpanClass,jdbcType=VARCHAR}, 
+      #{headSpan,jdbcType=VARCHAR}, #{headPath,jdbcType=VARCHAR}, #{meta,jdbcType=VARCHAR}, 
+      #{blogSite,jdbcType=VARCHAR}, #{dateJoined,jdbcType=VARCHAR}, #{lastLogin,jdbcType=VARCHAR}, 
+      #{qqOpenid,jdbcType=VARCHAR}, #{qqInfo,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.User" >
+    update bc_user
+    set username = #{username,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      email_flag = #{emailFlag,jdbcType=VARCHAR},
+      tail_slug = #{tailSlug,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      head_span_class = #{headSpanClass,jdbcType=VARCHAR},
+      head_span = #{headSpan,jdbcType=VARCHAR},
+      head_path = #{headPath,jdbcType=VARCHAR},
+      meta = #{meta,jdbcType=VARCHAR},
+      blog_site = #{blogSite,jdbcType=VARCHAR},
+      date_joined = #{dateJoined,jdbcType=VARCHAR},
+      last_login = #{lastLogin,jdbcType=VARCHAR},
+      qq_openid = #{qqOpenid,jdbcType=VARCHAR},
+      qq_info = #{qqInfo,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, username, email, email_flag, tail_slug, password, head_span_class, head_span, 
+    head_path, meta, blog_site, date_joined, last_login, qq_openid, qq_info, is_del
+    from bc_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, username, email, email_flag, tail_slug, password, head_span_class, head_span, 
+    head_path, meta, blog_site, date_joined, last_login, qq_openid, qq_info, is_del
+    from bc_user
+  </select>
+    <select id="login" resultMap="BaseResultMap">
+      select *
+      from bc_user
+
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+
+        <if test="password != null and password != ''">
+          and password = #{password}
+        </if>
+
+        <if test="email != null and email != ''">
+          and email =  #{email}
+        </if>
+
+      </trim>
+
+    </select>
+</mapper>

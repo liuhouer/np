@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.TopicCommentMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.TopicComment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <result column="topic_type" property="topicType" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="from_uid" property="fromUid" jdbcType="INTEGER" />
+    <result column="from_span" property="fromSpan" jdbcType="VARCHAR" />
+    <result column="to_uid" property="toUid" jdbcType="INTEGER" />
+    <result column="from_uname" property="fromUname" jdbcType="VARCHAR" />
+    <result column="to_uname" property="toUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_topic_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.TopicComment" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_topic_comment (topic_id, topic_type, content, 
+      from_uid, from_span, to_uid, 
+      from_uname, to_uname, add_time
+      )
+    values (#{topicId,jdbcType=INTEGER}, #{topicType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{fromUid,jdbcType=INTEGER}, #{fromSpan,jdbcType=VARCHAR}, #{toUid,jdbcType=INTEGER}, 
+      #{fromUname,jdbcType=VARCHAR}, #{toUname,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.TopicComment" >
+    update bc_topic_comment
+    set topic_id = #{topicId,jdbcType=INTEGER},
+      topic_type = #{topicType,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      from_uid = #{fromUid,jdbcType=INTEGER},
+      from_span = #{fromSpan,jdbcType=VARCHAR},
+      to_uid = #{toUid,jdbcType=INTEGER},
+      from_uname = #{fromUname,jdbcType=VARCHAR},
+      to_uname = #{toUname,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, topic_id, topic_type, content, from_uid, from_span, to_uid, from_uname, 
+    to_uname, add_time
+    from bc_topic_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, topic_id, topic_type, content, from_uid, from_span, to_uid, from_uname, 
+    to_uname, add_time
+    from bc_topic_comment
+  </select>
+</mapper>

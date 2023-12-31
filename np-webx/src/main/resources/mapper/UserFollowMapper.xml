@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.UserFollowMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.UserFollow" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="author_id" property="authorId" jdbcType="INTEGER" />
+    <result column="follow_id" property="followId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_user_follow
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.UserFollow" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_user_follow (create_time, status, author_id, 
+      follow_id)
+    values (#{createTime,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER}, 
+      #{followId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.UserFollow" >
+    update bc_user_follow
+    set create_time = #{createTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      author_id = #{authorId,jdbcType=INTEGER},
+      follow_id = #{followId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, create_time, status, author_id, follow_id
+    from bc_user_follow
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, create_time, status, author_id, follow_id
+    from bc_user_follow
+  </select>
+    <select id="findByCondition" resultMap="BaseResultMap">
+
+      select  *  from bc_user_follow
+
+      <if test="whereSql != null and whereSql != ''">
+        ${whereSql}
+      </if>
+
+      <if test="orderBy != null and orderBy != ''">
+        order by  ${orderBy}
+      </if>
+
+    </select>
+</mapper>

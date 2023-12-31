@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.NotifyRemindBMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.NotifyRemindB" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="remind_id" property="remindId" jdbcType="INTEGER" />
+    <result column="sender_id" property="senderId" jdbcType="VARCHAR" />
+    <result column="sender_name" property="senderName" jdbcType="VARCHAR" />
+    <result column="sender_action" property="senderAction" jdbcType="VARCHAR" />
+    <result column="object_id" property="objectId" jdbcType="VARCHAR" />
+    <result column="object" property="object" jdbcType="VARCHAR" />
+    <result column="object_type" property="objectType" jdbcType="VARCHAR" />
+    <result column="object_links" property="objectLinks" jdbcType="VARCHAR" />
+    <result column="recipient_id" property="recipientId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="read_at" property="readAt" jdbcType="TIMESTAMP" />
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_notify_remind_b
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.NotifyRemindB" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_notify_remind_b (remind_id, sender_id, sender_name, 
+      sender_action, object_id, object, 
+      object_type, object_links, recipient_id, 
+      created_at, status, read_at, 
+      message)
+    values (#{remindId,jdbcType=INTEGER}, #{senderId,jdbcType=VARCHAR}, #{senderName,jdbcType=VARCHAR}, 
+      #{senderAction,jdbcType=VARCHAR}, #{objectId,jdbcType=VARCHAR}, #{object,jdbcType=VARCHAR}, 
+      #{objectType,jdbcType=VARCHAR}, #{objectLinks,jdbcType=VARCHAR}, #{recipientId,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{readAt,jdbcType=TIMESTAMP}, 
+      #{message,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.NotifyRemindB" >
+    update bc_notify_remind_b
+    set remind_id = #{remindId,jdbcType=INTEGER},
+      sender_id = #{senderId,jdbcType=VARCHAR},
+      sender_name = #{senderName,jdbcType=VARCHAR},
+      sender_action = #{senderAction,jdbcType=VARCHAR},
+      object_id = #{objectId,jdbcType=VARCHAR},
+      object = #{object,jdbcType=VARCHAR},
+      object_type = #{objectType,jdbcType=VARCHAR},
+      object_links = #{objectLinks,jdbcType=VARCHAR},
+      recipient_id = #{recipientId,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=CHAR},
+      read_at = #{readAt,jdbcType=TIMESTAMP},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, remind_id, sender_id, sender_name, sender_action, object_id, object, object_type, 
+    object_links, recipient_id, created_at, status, read_at, message
+    from bc_notify_remind_b
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, remind_id, sender_id, sender_name, sender_action, object_id, object, object_type, 
+    object_links, recipient_id, created_at, status, read_at, message
+    from bc_notify_remind_b
+  </select>
+    <select id="findByCondition" resultMap="BaseResultMap" >
+       select id, remind_id, sender_id, sender_name, sender_action, object_id, object, object_type,
+    object_links, recipient_id, created_at, status, read_at, message
+    from bc_notify_remind_b
+
+      <if test="whereSql != null and whereSql != ''">
+        ${whereSql}
+      </if>
+
+      <if test="orderBy != null and orderBy != ''">
+        order by  ${orderBy}
+      </if>
+    </select>
+</mapper>

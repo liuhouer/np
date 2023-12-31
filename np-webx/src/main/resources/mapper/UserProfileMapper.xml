@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.northpark.mapper.UserProfileMapper" >
+  <resultMap id="BaseResultMap" type="cn.northpark.model.UserProfile" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="meta" property="meta" jdbcType="VARCHAR" />
+    <result column="course_ware" property="courseWare" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="mailing_address" property="mailingAddress" jdbcType="VARCHAR" />
+    <result column="year_of_birth" property="yearOfBirth" jdbcType="VARCHAR" />
+    <result column="level_of_education" property="levelOfEducation" jdbcType="VARCHAR" />
+    <result column="goals" property="goals" jdbcType="VARCHAR" />
+    <result column="allow_certificate" property="allowCertificate" jdbcType="BIT" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+    <result column="user_slug" property="userSlug" jdbcType="VARCHAR" />
+    <result column="courseware" property="courseware" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bc_userprofile
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.northpark.model.UserProfile" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_userprofile (user_id, name, nickname, 
+      language, location, meta, 
+      course_ware, gender, tel, 
+      mailing_address, year_of_birth, level_of_education, 
+      goals, allow_certificate, country, 
+      city, is_del, user_slug, 
+      courseware)
+    values (#{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{language,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{meta,jdbcType=VARCHAR}, 
+      #{courseWare,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{mailingAddress,jdbcType=VARCHAR}, #{yearOfBirth,jdbcType=VARCHAR}, #{levelOfEducation,jdbcType=VARCHAR}, 
+      #{goals,jdbcType=VARCHAR}, #{allowCertificate,jdbcType=BIT}, #{country,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{isDel,jdbcType=BIT}, #{userSlug,jdbcType=VARCHAR}, 
+      #{courseware,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.northpark.model.UserProfile" >
+    update bc_userprofile
+    set user_id = #{userId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      meta = #{meta,jdbcType=VARCHAR},
+      course_ware = #{courseWare,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      mailing_address = #{mailingAddress,jdbcType=VARCHAR},
+      year_of_birth = #{yearOfBirth,jdbcType=VARCHAR},
+      level_of_education = #{levelOfEducation,jdbcType=VARCHAR},
+      goals = #{goals,jdbcType=VARCHAR},
+      allow_certificate = #{allowCertificate,jdbcType=BIT},
+      country = #{country,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=BIT},
+      user_slug = #{userSlug,jdbcType=VARCHAR},
+      courseware = #{courseware,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, user_id, name, nickname, language, location, meta, course_ware, gender, 
+    tel, mailing_address, year_of_birth, level_of_education, goals, allow_certificate, 
+    country, city, is_del, user_slug, courseware
+    from bc_userprofile
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, user_id, name, nickname, language, location, meta, course_ware, gender, 
+    tel, mailing_address, year_of_birth, level_of_education, goals, allow_certificate, 
+    country, city, is_del, user_slug, courseware
+    from bc_userprofile
+  </select>
+    <select id="getModelByUserid" resultMap="BaseResultMap" >
+   select *
+    from bc_userprofile
+    where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+</mapper>
