@@ -14,15 +14,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.ErrorPageRegistrar;
+import org.springframework.boot.web.server.ErrorPageRegistry;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @MapperScan("cn.northpark.mapper")
-public class Application extends SpringBootServletInitializer implements WebMvcConfigurer {
+public class Application extends SpringBootServletInitializer implements WebMvcConfigurer, ErrorPageRegistrar {
 
 	/**
      * 使用 fastJson
@@ -50,7 +54,6 @@ public class Application extends SpringBootServletInitializer implements WebMvcC
     @Bean
     public TomcatServletWebServerFactory tomcatFactory(){
         return new TomcatServletWebServerFactory(){
-
             @Override
             protected void postProcessContext(Context context) {
                 ((StandardJarScanner) context.getJarScanner()).setScanManifest(false);
@@ -63,11 +66,28 @@ public class Application extends SpringBootServletInitializer implements WebMvcC
         return application.sources(Application.class);
     }
 
+    /**
+     * 拦截器注册
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(new UseCKInterceptor()).addPathPatterns("/**");
+    }
+
+
+    /**
+     * 指定500|404错误跳转
+     * @param registry
+     */
+    @Override
+    public void registerErrorPages(ErrorPageRegistry registry) {
+        ErrorPage errorPage500 = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error");
+        ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/building");
+
+        registry.addErrorPages(errorPage500, errorPage404);
     }
 
     public static void main(String[] args) {

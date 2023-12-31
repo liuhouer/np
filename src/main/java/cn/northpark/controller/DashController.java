@@ -71,7 +71,7 @@ public class DashController {
 	//利用nginx配置静态谷歌ads映射
 
 	@RequestMapping("/donate")
-	@Desc(value = "跳转微信1 test..")
+	@Desc(value = "跳转捐赠页面")
 	public String donateDetail(ModelMap map,HttpServletRequest request) {
 
 		//数据埋点-站长统计
