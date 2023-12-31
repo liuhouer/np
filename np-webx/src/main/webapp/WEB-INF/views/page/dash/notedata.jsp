@@ -11,7 +11,7 @@
                 <ul class="slides"
                     style="width: 1000%; transition-duration: 0.6s; transform: translate3d(-1500px, 0px, 0px);">
 
-                    <c:forEach items="${note_list }" var="s" varStatus="ss">
+                    <c:forEach items="${note_list }" var="s" varStatus="ss"> <%--Map--%>
 
 
                         <li class="center"
@@ -29,29 +29,29 @@
                             aria-hidden="true" style="float: left; display: block; width: 750px;">
 
                             <div class="testimonails-content avatar">
-                                <p class="text-color-${s.headSpan }">${s.brief }</p>
+                                <p class="text-color-${s.head_span }">${s.brief }</p>
                                 <p>
                                     <a
 
-                                            <c:if test="${s.tailSlug==null ||s.tailSlug==''}">
+                                            <c:if test="${s.tail_slug==null ||s.tail_slug==''}">
                                                 href="/cm/channel/${s.userid}"
                                             </c:if>
-                                            <c:if test="${s.tailSlug!=null }">
-                                                href="/people/${s.tailSlug}"
+                                            <c:if test="${s.tail_slug!=null }">
+                                                href="/people/${s.tail_slug}"
                                             </c:if>
 
                                             title="${s.get('username')}">
 
 
-                                        <c:if test="${s.get('headPath') ==null||s.get('headPath') ==''||s.get('headPath').length()==0}">
-                                            <span class=" imgbreath ${s.headSpanClass }"
-                                                  alt="${s.get('username')}">${s.headSpan }</span>
+                                        <c:if test="${s.get('head_path') ==null||s.get('head_path') ==''||s.get('head_path').length()==0}">
+                                            <span class=" imgbreath ${s.head_span_class }"
+                                                  alt="${s.get('username')}">${s.head_span }</span>
                                         </c:if>
-                                        <c:if test="${s.get('headPath') !=null && s.get('headPath').length()>0}">
+                                        <c:if test="${s.get('head_path') !=null && s.get('head_path').length()>0}">
                                             <img class="imgbreath" style="text-align: center;display: inline-block;"
                                             <c:choose>
-                                                 <c:when test="${fn:contains(s.headPath ,'http://') }">src="${s.headPath }"</c:when>
-                                                 <c:otherwise>src="/bruce/${s.headPath }"</c:otherwise>
+                                                 <c:when test="${fn:contains(s.head_path ,'http://') }">src="${s.head_path }"</c:when>
+                                                 <c:otherwise>src="/bruce/${s.head_path }"</c:otherwise>
                                             </c:choose>
 
                                                  alt="${s.username}">
