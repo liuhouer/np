@@ -58,7 +58,7 @@ public class RedisAspect {
 			}
 			
 			
-			    //返回listmap
+			//返回listmap
 			if(type.equals(RedisReturnType.listmap.getType())) {
 				result = JsonUtil.json2ListMap(redisRS);
 			}else if(type.equals(RedisReturnType.map.getType())){
@@ -83,11 +83,15 @@ public class RedisAspect {
 			}
 			//去数据库查询
 			result = jp.proceed(jp.getArgs());
+
 			//把序列化结果放入缓存
-			RedisUtil.getInstance().set(key, JsonUtil.object2json(result),cache.expire());
-			
+			if(type.equals(RedisReturnType.string.getType())){
+				RedisUtil.getInstance().set(key, String.valueOf(result),cache.expire());
+			}else {
+				RedisUtil.getInstance().set(key, JsonUtil.object2json(result),cache.expire());
+			}
+
 		}
-		
 		
 		return result;
 	}

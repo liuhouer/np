@@ -83,7 +83,7 @@
 
                 <div class='row bg-white margin-t10 margin-b10' id='notebox_${s.id }'>
                     <div class='col-sm-1'>
-                        <small class='label label-gray'>${s.create_time }</small>
+                        <small class='label label-gray'>${s.createTime }</small>
                     </div>
                     <div class='col-sm-11'>
                         <label class='btn btn-gray btn-xs pull-right delNoteBtn1' rel='${s.id }'
@@ -114,7 +114,7 @@
 <script src="https://northpark.cn/statics/wangEditor/js/wangEditor-1.3.12.js" type="text/javascript"></script>
 
 
-<script data-cfasync="false" src="https://northpark.cn/statics/js/page/note.js"></script>
+<script src="/static/js/page/note.js"></script>
 
 </body>
 </html>

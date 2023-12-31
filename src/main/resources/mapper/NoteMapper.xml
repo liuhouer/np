@@ -53,4 +53,20 @@
 
 				order by rand()
     </select>
+  <select id="findByCondition" resultMap="BaseResultMap">
+    select id, opened, create_time, userid, brief, note
+    from bc_note
+
+    <if test="whereSql != null and whereSql != ''">
+      ${whereSql}
+    </if>
+
+    <if test="orderBy != null and orderBy != ''">
+      order by  ${orderBy}
+    </if>
+
+  </select>
+  <select id="querySqlMap" resultType="java.util.Map">
+    ${sqlExpr}
+  </select>
 </mapper>

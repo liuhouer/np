@@ -218,17 +218,17 @@
                         <div class="clearfix border-bottom">
                             <h4><span class=" glyphicon glyphicon-th-large margin-b20"></span> 随便看看</h4>
                         </div>
-                        <c:forEach var="z" items="${loveList }">
+                        <c:forEach var="z" items="${loveList }"> <%-- map --%>
                             <div class="row padding10">
                                 <div class="col-xs-2 avatar">
-                                    <c:if test="${z.headPath == null}">
+                                    <c:if test="${z.head_path == null}">
                                         <span class="${z.head_span_class }">${z.head_span }</span>
                                     </c:if>
-                                    <c:if test="${z.headPath != null}">
+                                    <c:if test="${z.head_path != null}">
                                         <img alt=""
                                         <c:choose>
-                                             <c:when test="${fn:contains(z.headPath ,'http://') }">src="${z.headPath }"</c:when>
-                                             <c:otherwise>src="/bruce/${z.headPath }"</c:otherwise>
+                                             <c:when test="${fn:contains(z.head_path ,'http://') }">src="${z.head_path }"</c:when>
+                                             <c:otherwise>src="/bruce/${z.head_path }"</c:otherwise>
                                         </c:choose>
                                         >
                                     </c:if>
@@ -238,11 +238,11 @@
                                     <a
 
 
-                                            <c:if test="${z.tailSlug==null || z.tailSlug==''}">
+                                            <c:if test="${z.tail_slug==null || z.tail_slug==''}">
                                                 href="/cm/channel/${z.userid}"
                                             </c:if>
-                                            <c:if test="${z.tailSlug!=null }">
-                                                href="/people/${z.tailSlug }"
+                                            <c:if test="${z.tail_slug!=null }">
+                                                href="/people/${z.tail_slug }"
                                             </c:if>
 
 

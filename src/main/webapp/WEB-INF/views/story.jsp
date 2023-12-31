@@ -50,7 +50,6 @@
 
 <%@ include file="/WEB-INF/views/page/common/container.jsp" %>
 
-
-<script data-cfasync="false" src="https://northpark.cn/statics/js/page/story.js"></script>
+<script src="/static/js/page/story.js"></script>
 </body>
 </html>

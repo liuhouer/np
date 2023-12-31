@@ -81,8 +81,8 @@
                                         title="${s.user.username }"
                                         class="thumbnail border-0 avatar">
                                     <c:if test="${s.user.headPath==null }">
-                                        <span class=" ${s.user.head_span_class }"
-                                              alt="${s.user.username}">${s.user.head_span }</span>
+                                        <span class=" ${s.user.headSpanClass }"
+                                              alt="${s.user.username}">${s.user.headSpan }</span>
 
                                     </c:if>
                                     <c:if test="${s.user.headPath!=null }">

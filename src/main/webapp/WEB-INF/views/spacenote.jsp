@@ -64,8 +64,8 @@
 
                             title="${MyInfo.username}的最爱">
                         <c:if test="${MyInfo.headPath==null }">
-                            <span class=" ${MyInfo.head_span_class }"
-                                  alt="${s.get('username')}">${MyInfo.head_span }</span>
+                            <span class=" ${MyInfo.headSpanClass }"
+                                  alt="${s.get('username')}">${MyInfo.headSpan }</span>
 
                         </c:if>
                         <c:if test="${MyInfo.headPath!=null }">
@@ -82,11 +82,11 @@
                 </div>
             </div>
 
-            <c:forEach items="${list }" var="s" varStatus="ss">
+            <c:forEach items="${list }" var="s" varStatus="ss"> <%--bean--%>
 
                 <div class='row bg-white margin-t10 margin-b10' id='notebox_${s.id }'>
                     <div class='col-sm-1'>
-                        <small class='label label-gray'>${s.create_time }</small>
+                        <small class='label label-gray'>${s.createTime }</small>
                     </div>
                     <div class='col-sm-11'>
                             <%-- <label class='btn btn-gray btn-xs pull-right delNoteBtn1' rel='${s.id }' onclick="removes(this)"><span class='glyphicon glyphicon-remove'></span></label> --%>

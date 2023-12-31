@@ -28,8 +28,8 @@
 
 <%--                    <a href="/cm/channel" title="个人中心" class="mainhead-avatar avatar centre" height="40" width="40">--%>
 <%--                        <c:if test="${user.headPath==null }">--%>
-<%--                            <span class="max-width-50  ${user.head_span_class }" alt="${user.username}" height="40"--%>
-<%--                                  width="40">${user.head_span }</span>--%>
+<%--                            <span class="max-width-50  ${user.headSpanClass }" alt="${user.username}" height="40"--%>
+<%--                                  width="40">${user.headSpan }</span>--%>
 <%--                        </c:if>--%>
 <%--                        <c:if test="${user.headPath!=null }">--%>
 <%--                            <img src="/bruce${user.headPath}" alt="davatar" class="img-circle max-width-50" height="40"--%>
@@ -72,8 +72,8 @@
 <%--                                    <i class="fa fa-caret-down padding5"></i>--%>
 
                                         <c:if test="${user.headPath==null }">
-                                                                <span class="max-width-50  ${user.head_span_class }" alt="${user.username}" height="40"
-                                                                      width="40">${user.head_span }</span>
+                                                                <span class="max-width-50  ${user.headSpanClass }" alt="${user.username}" height="40"
+                                                                      width="40">${user.headSpan }</span>
                                         </c:if>
                                         <c:if test="${user.headPath!=null }">
                                             <img src="/bruce${user.headPath}" alt="davatar" class="img-circle max-width-50" height="40"

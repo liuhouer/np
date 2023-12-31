@@ -186,7 +186,6 @@ public class LyricsController {
     @Redis(returnType=RedisReturnType.string,field=" #lyricsid " ,expire= 7*24*60*60)
     @Desc("某个主题赞的人数：redis缓存7天刷新")
     public String getMoreZan(HttpServletRequest request, HttpServletResponse response, String lyricsid, ModelMap map) {
-        response.setContentType("text/html; charset=UTF-8");
         //取得zan的人的列表
         String sql = "select b.id,b.tail_slug,b.username from bc_lyrics_zan a join bc_user b on a.userid = b.id where a.lyricsid = ? ";
         List<Map<String, Object>> zanList = NPQueryRunner.query(sql , new MapListHandler(), lyricsid);

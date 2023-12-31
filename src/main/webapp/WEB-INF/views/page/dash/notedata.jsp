@@ -29,7 +29,7 @@
                             aria-hidden="true" style="float: left; display: block; width: 750px;">
 
                             <div class="testimonails-content avatar">
-                                <p class="text-color-${s.head_span }">${s.brief }</p>
+                                <p class="text-color-${s.headSpan }">${s.brief }</p>
                                 <p>
                                     <a
 
@@ -44,8 +44,8 @@
 
 
                                         <c:if test="${s.get('headPath') ==null||s.get('headPath') ==''||s.get('headPath').length()==0}">
-                                            <span class=" imgbreath ${s.head_span_class }"
-                                                  alt="${s.get('username')}">${s.head_span }</span>
+                                            <span class=" imgbreath ${s.headSpanClass }"
+                                                  alt="${s.get('username')}">${s.headSpan }</span>
                                         </c:if>
                                         <c:if test="${s.get('headPath') !=null && s.get('headPath').length()>0}">
                                             <img class="imgbreath" style="text-align: center;display: inline-block;"

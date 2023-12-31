@@ -1,6 +1,6 @@
 //load data...
 $(function () {
-    var pagenow = parseInt($("#pagenow").val()) - 1;
+    var pagenow = parseInt($("#pagenow").val()) ;
     $.ajax({
         url: "/note/storyquery",
         type: "post",

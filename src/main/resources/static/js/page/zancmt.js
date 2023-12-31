@@ -7,6 +7,9 @@ $(document).ready(function () {
     //获取所有点赞人填充
     $("#J_lovers_box").click(function () {
 
+        // 隐藏按钮
+        $(this).hide();
+
         $.ajax({
 
             url: "/lyrics/getMoreZan",

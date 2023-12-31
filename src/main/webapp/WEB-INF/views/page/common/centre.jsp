@@ -13,8 +13,8 @@
                         <div class="thumbnail bg-no margin-t5 border-0">
                             <div class="avatar centre">
                                 <c:if test="${MyInfo.headPath==null }">
-                                    <span class=" ${MyInfo.head_span_class }"
-                                          alt="${s.get('username')}">${MyInfo.head_span }</span>
+                                    <span class=" ${MyInfo.headSpanClass }"
+                                          alt="${s.get('username')}">${MyInfo.headSpan }</span>
 
                                 </c:if>
                                 <c:if test="${MyInfo.headPath!=null }">
