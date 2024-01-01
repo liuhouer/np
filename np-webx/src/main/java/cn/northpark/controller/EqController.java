@@ -1,9 +1,9 @@
 
 package cn.northpark.controller;
 
+import cn.northpark.constant.MyConstant;
 import cn.northpark.model.Eq;
 import cn.northpark.service.EqService;
-import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.safe.WAQ;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

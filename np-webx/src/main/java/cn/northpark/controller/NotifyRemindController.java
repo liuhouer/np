@@ -3,6 +3,7 @@ package cn.northpark.controller;
 
 import cn.northpark.annotation.CheckLogin;
 import cn.northpark.annotation.RateLimit;
+import cn.northpark.constant.MyConstant;
 import cn.northpark.model.NotifyRemindB;
 import cn.northpark.result.Result;
 import cn.northpark.result.ResultGenerator;
@@ -10,7 +11,6 @@ import cn.northpark.service.NotifyRemindService;
 import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.NPQueryRunner;
 import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.page.MyConstant;
 import cn.northpark.vo.UserVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

@@ -1,11 +1,11 @@
 
 package cn.northpark.controller;
 
+import cn.northpark.constant.MyConstant;
 import cn.northpark.model.Poem;
 import cn.northpark.model.Tags;
 import cn.northpark.service.PoemService;
 import cn.northpark.service.TagsService;
-import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.safe.WAQ;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

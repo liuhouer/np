@@ -5,6 +5,7 @@ import cn.northpark.annotation.RateLimit;
 import cn.northpark.constant.BC_Constant;
 import cn.northpark.constant.DonatesEnum;
 import cn.northpark.constant.DonatesRedisKeyEnum;
+import cn.northpark.constant.MyConstant;
 import cn.northpark.model.Eq;
 import cn.northpark.model.NotifyRemindB;
 import cn.northpark.notify.NotifyEnum;
@@ -17,7 +18,6 @@ import cn.northpark.service.UserLyricsService;
 import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.threadPool.AsyncThreadPool;
 import cn.northpark.utils.*;
-import cn.northpark.utils.page.MyConstant;
 import cn.northpark.vo.UserVO;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
@@ -119,7 +119,7 @@ public class DashController {
 
 					//common
 					if(Objects.nonNull(userInfo)){
-						nr.setMessage(userInfo.toString()+"---"+ipAndDetail+"---"+TimeUtils.nowTime()+"---请求了donate界面---");
+						nr.setMessage(userInfo.toString()+"---"+ipAndDetail+"---"+ TimeUtils.nowTime()+"---请求了donate界面---");
 					}else {
 						nr.setMessage(JSON.toJSONString(CookieUtil.readCookieUA(request))+"---"+ipAndDetail+"---"+TimeUtils.nowTime()+"---请求了donate界面---");
 					}

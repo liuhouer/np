@@ -1,6 +1,5 @@
 package cn.northpark.test;
 
-import cn.northpark.utils.EmailUtils;
 import cn.northpark.utils.TimeUtils;
 
 /**

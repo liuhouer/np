@@ -1,15 +1,12 @@
 package cn.northpark.test.ret;
 
 import cn.northpark.utils.HTMLParserUtil;
-import cn.northpark.utils.HttpGetUtils;
 import cn.northpark.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.client.ClientProtocolException;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

@@ -7,6 +7,7 @@ package cn.northpark.controller;
 
 import cn.northpark.annotation.CheckLogin;
 import cn.northpark.annotation.RateLimit;
+import cn.northpark.constant.MyConstant;
 import cn.northpark.model.Note;
 import cn.northpark.model.User;
 import cn.northpark.result.Result;
@@ -16,7 +17,6 @@ import cn.northpark.service.UserService;
 import cn.northpark.threadLocal.RequestHolder;
 import cn.northpark.utils.NPQueryRunner;
 import cn.northpark.utils.TimeUtils;
-import cn.northpark.utils.page.MyConstant;
 import cn.northpark.utils.safe.WAQ;
 import cn.northpark.vo.UserVO;
 import com.github.pagehelper.PageHelper;

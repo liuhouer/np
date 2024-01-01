@@ -1,7 +1,6 @@
 package cn.northpark.test.ret;
 
 import cn.northpark.utils.NPQueryRunner;
-import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 

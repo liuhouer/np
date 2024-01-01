@@ -1,7 +1,6 @@
 package cn.northpark.test;
 
 import cn.northpark.utils.RedisGPTUtil;
-import cn.northpark.utils.RedisUtil;
 
 import java.util.UUID;
 

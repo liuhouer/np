@@ -2,7 +2,6 @@ package cn.northpark.test.dataclean;
 
 import cn.northpark.utils.MinioUtils;
 import cn.northpark.utils.NPQueryRunner;
-import cn.northpark.utils.PinyinUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;

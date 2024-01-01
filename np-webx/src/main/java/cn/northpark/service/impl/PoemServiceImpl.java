@@ -2,7 +2,6 @@
 package cn.northpark.service.impl;
 
 import cn.northpark.mapper.PoemMapper;
-import cn.northpark.model.Note;
 import cn.northpark.model.Poem;
 import cn.northpark.service.PoemService;
 import org.springframework.beans.factory.annotation.Autowired;

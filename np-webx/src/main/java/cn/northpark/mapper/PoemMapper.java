@@ -1,6 +1,5 @@
 package cn.northpark.mapper;
 
-import cn.northpark.model.Note;
 import cn.northpark.model.Poem;
 import org.apache.ibatis.annotations.Param;
 

@@ -1,6 +1,5 @@
-<%@ page language="java" import="java.util.*"
+<%@ page language="java" import="com.github.pagehelper.PageInfo"
          pageEncoding="UTF-8" %>
-<%@ page import="com.github.pagehelper.PageInfo" %>
 
 <div class="row center grayback">
     <%
