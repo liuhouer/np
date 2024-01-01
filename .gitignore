@@ -40,3 +40,4 @@ redis.properties
 /np-base/target/
 /np-blackhole/target/
 *.log
+/log/
