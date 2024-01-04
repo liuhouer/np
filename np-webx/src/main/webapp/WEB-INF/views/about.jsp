@@ -46,7 +46,7 @@
                     <hr>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NorthPark诞生于一个夏夜。</p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2014年的一个酷热难耐的夏夜，
-                        <a target="_blank"  class="text-color-X"  href="/people/jeyy">小布</a>
+                        <a target="_blank"  class="text-color-X"  href="/people/jeey">小布</a>
                         忙碌了一天，朋友正好做好了香喷喷的饭菜，吃完饭又去买了个冰西瓜，感到浑身透凉。
                     </p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;突然外面下起了一阵暴雨。小布躺在床上，看着窗外倾泻的暴雨、闻着清透的泥土气息，闭上眼，突然感到一种特殊的惬意。
