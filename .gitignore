@@ -41,3 +41,4 @@ redis.properties
 /np-blackhole/target/
 *.log
 /log/
+mybatis-config.xml

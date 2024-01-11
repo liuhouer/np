@@ -88,6 +88,16 @@
                     <include>**/**</include>
                 </includes>
             </resource>
+
+            <!--默认资源目录-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+
         </resources>
     </build>
 
