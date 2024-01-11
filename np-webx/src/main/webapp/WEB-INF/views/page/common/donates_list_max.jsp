@@ -1,4 +1,3 @@
-<%@ page import="cn.northpark.utils.page.PageView" %>
 <%@ page import="com.github.pagehelper.PageInfo" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
