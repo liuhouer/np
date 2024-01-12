@@ -12,6 +12,14 @@
     <artifactId>np-blackhole</artifactId>
     <version>2023.2-SNAPSHOT</version>
 
+    <!--文本相似性分析-->
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!--np-base-->
         <dependency>
@@ -20,6 +28,19 @@
             <version>2023.2-SNAPSHOT</version>
         </dependency>
 
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--文本相似性分析-->
+        <dependency>
+            <groupId>com.github.shibing624</groupId>
+            <artifactId>similarity</artifactId>
+            <version>1.1.6</version>
+        </dependency>
 
         <!--ZK-->
 
@@ -74,6 +95,19 @@
             </plugin>
 
         </plugins>
+
+        <resources>
+            <!--默认资源目录-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
+
+
 
 </project>
