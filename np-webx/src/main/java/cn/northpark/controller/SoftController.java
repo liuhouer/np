@@ -21,6 +21,7 @@ import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.dbutils.GenerousBeanProcessor;
 import org.apache.commons.dbutils.RowProcessor;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class SoftController {
     /**
      * 每页展示多少条mac数
      */
-    private static int SoftCount = 10;
+    private static int SoftCount = 20;
     
 
 
@@ -390,6 +391,13 @@ public class SoftController {
                 //BRUCETIPS! 富文本处理 -- 从minio读取
                 if(StringUtils.equals("1",list.get(0).getUseMinio())){
                     list.get(0).setContent(MinioUtils.readText(list.get(0).getContentMinio()));
+                }
+                //查历史下载
+                if(StringUtils.isNotBlank(list.get(0).getTitle())) {
+                    String mergeSQL = "select title,path from bc_soft_merge where title like ? and path is not null and path !='' order by id desc ";
+                    String searchTerm = "%" + SoftUtils.buildMergeSearchTile(list.get(0).getRetCode()) + "%";
+                    List<Map<String, Object>> soft_merge_list = NPQueryRunner.query(mergeSQL, new MapListHandler(), searchTerm);
+                    map.addAttribute("soft_merge_list",soft_merge_list);
                 }
             }
 

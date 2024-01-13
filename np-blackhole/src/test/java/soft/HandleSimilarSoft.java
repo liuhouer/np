@@ -63,7 +63,7 @@ public class HandleSimilarSoft {
 //            }
 
             if(CollectionUtils.isNotEmpty(otherIds)) {
-                String insSQL = "insert into bc_soft_merge_drop select * from bc_soft where id in (" + Joiner.on(",").join(otherIds) + ")";
+                String insSQL = "insert into bc_soft_merge select * from bc_soft where id in (" + Joiner.on(",").join(otherIds) + ")";
                 NPQueryRunner.insert(insSQL);
             }
         }

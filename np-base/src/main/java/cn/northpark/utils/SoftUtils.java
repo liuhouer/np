@@ -69,6 +69,15 @@ public class SoftUtils {
         return buildCode;
     }
 
+    /**
+     * 根据软件码构建历史搜索码
+     * @param retCode
+     * @return
+     */
+    public static String buildMergeSearchTile(String retCode) {
+        return retCode.replace("-"," ");
+    }
+
     public static void main(String[] args) {
         buildPostCode("Final Cut Pro X 10.0.9更新");
         buildPostCode("百度音乐 Mac版");

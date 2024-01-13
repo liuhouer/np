@@ -65,7 +65,7 @@ public class MoviesController {
     /**
      * 每页展示多少条电影数
      */
-    private static int MoviesCount = 12;
+    private static int MoviesCount = 20;
     
     /**
      * @param request

@@ -22,6 +22,13 @@
 	content="${article.title},${article.tags},NorthPark">
 <meta name="description" content="${soft_desc}">
 <%@ include file="/WEB-INF/views/page/common/common.jsp"%>
+<style>
+	.bold-line {
+		border-top: 2px solid;
+		color: #ebeff0;
+	}
+</style>
+
 
 </head>
 
@@ -81,14 +88,6 @@
 								</p>
 								<p id="content_${article.id}">${article.content }</p>
 
-<%--								<p style="color: #e071a4;">--%>
-<%--									蓝奏云下载地址如果打不开解决办法：<br/>--%>
-
-<%--									lanzous.com <br/>--%>
-
-<%--									URL改为 lanzoux.com 或者 lanzoui.com就可以了<br/>--%>
-<%--								</p>--%>
-
 								<p class="col-md-12">
 								<div class="dashed center col-md-10 padding-b20">
 
@@ -102,6 +101,32 @@
 									<c:if test="${user!=null }">
 										<p id="J_show_path">${article.path }</p>
 									</c:if>
+
+									<hr class="bold-line"> <!-- 添加横线 -->
+
+									<!-- 历史下载表格标题 -->
+									<h4 class="red-text">历史下载</h4>
+
+								    <%--历史数据--%>
+									<c:if test="${user != null}">
+										<table class="table table-bordered">
+											<thead>
+											<tr>
+												<th>Title</th>
+												<th>Path</th>
+											</tr>
+											</thead>
+											<tbody>
+											<c:forEach var="merge" items="${soft_merge_list}">
+												<tr>
+													<td>${merge.title}</td>
+													<td>${merge.path}</td>
+												</tr>
+											</c:forEach>
+											</tbody>
+										</table>
+									</c:if>
+								    <%--历史数据--%>
 
 									<small class="text-color-K padding-l10">资源失效、缺失、错误 不要慌 </small>
 									<span class="fa fa-hand-o-right padding-l10"></span>
