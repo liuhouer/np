@@ -52,9 +52,6 @@
 
 <script data-cfasync="false" src="/static/js/page/common.js"></script>
 
-<%--google ads--%>
-<%--<script data-ad-client="ca-pub-6480430202155588" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>--%>
-
 <script>
 
     (function (i, s, o, g, r, a, m) {
