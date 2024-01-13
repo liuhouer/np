@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
  *  @date 2021年1月29日
  */
 @Slf4j
-
 public class AsyncThreadPool {
 
     private static int corePoolSize = 5;

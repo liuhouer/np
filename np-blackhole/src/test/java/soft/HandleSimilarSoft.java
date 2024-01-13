@@ -1,3 +1,5 @@
+package soft;
+
 import cn.northpark.utils.NPQueryRunner;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
